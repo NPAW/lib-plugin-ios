@@ -7,8 +7,6 @@ before_install:
 install:
   - pod install
 
-script
-
 after_success:
   - echo "success"
 
