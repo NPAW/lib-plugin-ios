@@ -1,15 +1,23 @@
+branches:
+  only:
+  - master
+
 language: objective-c
 osx_image: xcode8.3
 
 before_install:
   - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
 
+script:
+  - xcodebuild -workspace YouboraLib.xcworkspace clean build test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.2' GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+
 install:
   - pod install
 
 after_success:
+  - bash <(curl -s https://codecov.io/bash)
   - echo "success"
-
+  
 after_failure:
   - cat -n ~/Library/Logs/scan/*
   - cat -n $TMPDIR/com.apple.dt.XCTest-status/Session*.log
