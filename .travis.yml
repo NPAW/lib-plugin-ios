@@ -13,7 +13,7 @@ install:
 
 script:
   - xcodebuild -workspace YouboraLib.xcworkspace clean build -scheme YouboraLib\ iOS
-  - xcodebuild -workspace YouboraLib.xcworkspace test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.2' GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+  - xcodebuild -workspace YouboraLib.xcworkspace test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone SE,OS=10.3' GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
