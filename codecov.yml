@@ -1,0 +1,2 @@
+ignore:
+  - "YouboraLibTests/.*"  # ignore test folders
