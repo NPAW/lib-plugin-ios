@@ -1,0 +1,18 @@
+language: objective-c
+osx_image: xcode8.3
+
+before_install:
+  - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
+
+install:
+  - pod install
+
+script
+
+after_success:
+  - echo "success"
+
+after_failure:
+  - cat -n ~/Library/Logs/scan/*
+  - cat -n $TMPDIR/com.apple.dt.XCTest-status/Session*.log
+  - cat -n ~/Library/Logs/DiagnosticReports/xctest*.crash
