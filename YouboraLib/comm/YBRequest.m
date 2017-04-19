@@ -112,7 +112,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         NSMutableURLRequest * request = [self createRequestWithUrl:[self getUrl]];
         
         if ([YBLog isAtLeastLevel:YBLogLevelVerbose]) {
-            [YBLog requestLog:[NSString stringWithFormat:@"XHR Req: %@", request.URL.absoluteString]];
+            [YBLog requestLog:@"XHR Req: %@", request.URL.absoluteString];
         }
         
         // Set request headers if any

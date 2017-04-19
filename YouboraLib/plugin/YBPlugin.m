@@ -684,11 +684,19 @@
 }
 
 - (NSString *) getPluginInfo {
-    NSDictionary * info =
-    @{@"lib":@"6.0.0", // TODO: get programatically
-      @"adapter":[self getAdapterVersion],
-      @"adAdapter:":[self getAdAdapterVersion]
-      };
+    // TODO: get programatically
+    NSMutableDictionary * info = [NSMutableDictionary dictionaryWithObject:@"6.0.0" forKey:@"lib"];
+    
+    NSString * adapterVersion = [self getAdapterVersion];
+    if (adapterVersion) {
+        info[@"adapter"] = adapterVersion;
+    }
+    
+    NSString * adAdapterVersion = [self getAdAdapterVersion];
+    if (adAdapterVersion) {
+        info[@"adAdapter"] = adAdapterVersion;
+    }
+    
     return [YBYouboraUtils stringifyDictionary:info];
 }
 

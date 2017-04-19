@@ -110,7 +110,6 @@
 		4E7CBCBF1E82D78800FF7D7A /* YBFastDataConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E7CBCBD1E82D78800FF7D7A /* YBFastDataConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E7CBCC01E82D78800FF7D7A /* YBFastDataConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CBCBE1E82D78800FF7D7A /* YBFastDataConfig.m */; };
 		4E7D07FE1E9E0EFE0079F187 /* YouboraLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7D07F51E9E0EFE0079F187 /* YouboraLib.framework */; };
-		4E7D08031E9E0EFE0079F187 /* YouboraLib_tvOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D08021E9E0EFE0079F187 /* YouboraLib_tvOSTests.m */; };
 		4E9C7BA01E8D514200E10631 /* YBRequestBuilderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C7B9F1E8D514200E10631 /* YBRequestBuilderTest.m */; };
 		4E9C7BB61E8E6D3B00E10631 /* YBCdnConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9C7BB21E8E6D3B00E10631 /* YBCdnConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E9C7BB71E8E6D3B00E10631 /* YBCdnConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C7BB31E8E6D3B00E10631 /* YBCdnConfig.m */; };
@@ -120,6 +119,35 @@
 		4E9C7BC11E8E6D8B00E10631 /* YBCdnParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C7BBF1E8E6D8B00E10631 /* YBCdnParser.m */; };
 		4E9C7BC41E8E6D9D00E10631 /* YBHlsParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E9C7BC21E8E6D9D00E10631 /* YBHlsParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E9C7BC51E8E6D9D00E10631 /* YBHlsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C7BC31E8E6D9D00E10631 /* YBHlsParser.m */; };
+		4EA274E31EA758E700D5329C /* YBPlaybackChronosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E538D1E802E8000966C7B /* YBPlaybackChronosTest.m */; };
+		4EA274E41EA758E700D5329C /* YBPlaybackFlagsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53941E80323800966C7B /* YBPlaybackFlagsTest.m */; };
+		4EA274E51EA758E700D5329C /* YBPlayerAdapterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53A61E8181E800966C7B /* YBPlayerAdapterTest.m */; };
+		4EA274E61EA758E700D5329C /* YBTestablePlayerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53A91E8182F000966C7B /* YBTestablePlayerAdapter.m */; };
+		4EA274E71EA758E700D5329C /* YBPlayheadMonitorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CBCB41E82921A00FF7D7A /* YBPlayheadMonitorTest.m */; };
+		4EA274E81EA758E700D5329C /* YBTestablePlayheadMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CBCB71E8292C000FF7D7A /* YBTestablePlayheadMonitor.m */; };
+		4EA274E91EA758E700D5329C /* YBCdnParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC561E95446800E07785 /* YBCdnParserTest.m */; };
+		4EA274EA1EA758E700D5329C /* YBParseHlsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC571E95446800E07785 /* YBParseHlsTest.m */; };
+		4EA274EB1EA758E700D5329C /* YBTestableCdnParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC591E95446800E07785 /* YBTestableCdnParser.m */; };
+		4EA274EC1EA758E700D5329C /* YBTestableHlsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC5B1E95446800E07785 /* YBTestableHlsParser.m */; };
+		4EA274ED1EA758E700D5329C /* YBFlowTransformTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53841E8015FB00966C7B /* YBFlowTransformTest.m */; };
+		4EA274EE1EA758E700D5329C /* YBTransformTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53851E8015FB00966C7B /* YBTransformTest.m */; };
+		4EA274EF1EA758E700D5329C /* YBViewTransformTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2817141E85205500F450C1 /* YBViewTransformTest.m */; };
+		4EA274F01EA758E700D5329C /* YBTestableViewTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2817171E85218800F450C1 /* YBTestableViewTransform.m */; };
+		4EA274F11EA758E700D5329C /* YBResourceTransformTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC601E95449600E07785 /* YBResourceTransformTest.m */; };
+		4EA274F21EA758E700D5329C /* YBTestableResourceTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC631E95478600E07785 /* YBTestableResourceTransform.m */; };
+		4EA274F31EA758E700D5329C /* YBCommunicationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53821E8015D100966C7B /* YBCommunicationTest.m */; };
+		4EA274F41EA758E700D5329C /* YBRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53571E7AFE9A00966C7B /* YBRequestTest.m */; };
+		4EA274F51EA758E700D5329C /* YBTestableRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E535B1E7BEEF600966C7B /* YBTestableRequest.m */; };
+		4EA274F61EA758E700D5329C /* YBOptionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53621E7C4CA800966C7B /* YBOptionsTest.m */; };
+		4EA274F71EA758E700D5329C /* YBTestablePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D1D1E8A729100946EC5 /* YBTestablePlugin.m */; };
+		4EA274F81EA758E700D5329C /* YBPluginTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D161E8A70F000946EC5 /* YBPluginTest.m */; };
+		4EA274F91EA758E700D5329C /* YBRequestBuilderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C7B9F1E8D514200E10631 /* YBRequestBuilderTest.m */; };
+		4EA274FA1EA758E700D5329C /* YBChronoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F3A11E797DF6004E8CE5 /* YBChronoTest.m */; };
+		4EA274FB1EA758E700D5329C /* YBTimerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF293801E7A88F4008B0A99 /* YBTimerTest.m */; };
+		4EA274FC1EA758E700D5329C /* YBLogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF293821E7A90C0008B0A99 /* YBLogTests.m */; };
+		4EA274FD1EA758E700D5329C /* YBYouboraUtilsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53A21E816FAD00966C7B /* YBYouboraUtilsTest.m */; };
+		4EA274FF1EA7649D00D5329C /* YBNqs6TransformTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA274FE1EA7649D00D5329C /* YBNqs6TransformTest.m */; };
+		4EA275001EA7649D00D5329C /* YBNqs6TransformTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA274FE1EA7649D00D5329C /* YBNqs6TransformTest.m */; };
 		4EAC2D171E8A70F000946EC5 /* YBPluginTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D161E8A70F000946EC5 /* YBPluginTest.m */; };
 		4EAC2D1E1E8A729100946EC5 /* YBTestablePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D1D1E8A729100946EC5 /* YBTestablePlugin.m */; };
 		4EC7F39E1E795FC5004E8CE5 /* YBChrono.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EC7F39C1E795FC5004E8CE5 /* YBChrono.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -222,7 +250,6 @@
 		4E7D07F71E9E0EFE0079F187 /* YouboraLib tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YouboraLib tvOS.h"; sourceTree = "<group>"; };
 		4E7D07F81E9E0EFE0079F187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E7D07FD1E9E0EFE0079F187 /* YouboraLibTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "YouboraLibTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E7D08021E9E0EFE0079F187 /* YouboraLib_tvOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YouboraLib_tvOSTests.m; sourceTree = "<group>"; };
 		4E7D08041E9E0EFE0079F187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E9C7B9F1E8D514200E10631 /* YBRequestBuilderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBRequestBuilderTest.m; path = plugin/YBRequestBuilderTest.m; sourceTree = "<group>"; };
 		4E9C7BB21E8E6D3B00E10631 /* YBCdnConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBCdnConfig.h; path = transform/resourceparse/cdn/YBCdnConfig.h; sourceTree = "<group>"; };
@@ -233,6 +260,7 @@
 		4E9C7BBF1E8E6D8B00E10631 /* YBCdnParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBCdnParser.m; path = transform/resourceparse/YBCdnParser.m; sourceTree = "<group>"; };
 		4E9C7BC21E8E6D9D00E10631 /* YBHlsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBHlsParser.h; path = transform/resourceparse/YBHlsParser.h; sourceTree = "<group>"; };
 		4E9C7BC31E8E6D9D00E10631 /* YBHlsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBHlsParser.m; path = transform/resourceparse/YBHlsParser.m; sourceTree = "<group>"; };
+		4EA274FE1EA7649D00D5329C /* YBNqs6TransformTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBNqs6TransformTest.m; path = comm/transform/YBNqs6TransformTest.m; sourceTree = "<group>"; };
 		4EAC2D161E8A70F000946EC5 /* YBPluginTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = YBPluginTest.m; path = plugin/YBPluginTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4EAC2D1C1E8A729100946EC5 /* YBTestablePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBTestablePlugin.h; path = plugin/YBTestablePlugin.h; sourceTree = "<group>"; };
 		4EAC2D1D1E8A729100946EC5 /* YBTestablePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTestablePlugin.m; path = plugin/YBTestablePlugin.m; sourceTree = "<group>"; };
@@ -432,6 +460,7 @@
 			children = (
 				4E9C7BCE1E924D7800E10631 /* resourceparse */,
 				4E5E53841E8015FB00966C7B /* YBFlowTransformTest.m */,
+				4EA274FE1EA7649D00D5329C /* YBNqs6TransformTest.m */,
 				4E5E53851E8015FB00966C7B /* YBTransformTest.m */,
 				4E2817141E85205500F450C1 /* YBViewTransformTest.m */,
 				4E2817161E85218800F450C1 /* YBTestableViewTransform.h */,
@@ -485,7 +514,6 @@
 		4E7D08011E9E0EFE0079F187 /* YouboraLib tvOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				4E7D08021E9E0EFE0079F187 /* YouboraLib_tvOSTests.m */,
 				4E7D08041E9E0EFE0079F187 /* Info.plist */,
 			);
 			path = "YouboraLib tvOSTests";
@@ -1002,6 +1030,7 @@
 				4E5E53861E8015FB00966C7B /* YBFlowTransformTest.m in Sources */,
 				4EC7F3A21E797DF6004E8CE5 /* YBChronoTest.m in Sources */,
 				4E7CBCB81E8292C000FF7D7A /* YBTestablePlayheadMonitor.m in Sources */,
+				4EA274FF1EA7649D00D5329C /* YBNqs6TransformTest.m in Sources */,
 				4ECFCC5C1E95446800E07785 /* YBCdnParserTest.m in Sources */,
 				4E5E53831E8015D100966C7B /* YBCommunicationTest.m in Sources */,
 				4E5E53871E8015FB00966C7B /* YBTransformTest.m in Sources */,
@@ -1056,7 +1085,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E7D08031E9E0EFE0079F187 /* YouboraLib_tvOSTests.m in Sources */,
+				4EA274E31EA758E700D5329C /* YBPlaybackChronosTest.m in Sources */,
+				4EA274E41EA758E700D5329C /* YBPlaybackFlagsTest.m in Sources */,
+				4EA274E51EA758E700D5329C /* YBPlayerAdapterTest.m in Sources */,
+				4EA274E61EA758E700D5329C /* YBTestablePlayerAdapter.m in Sources */,
+				4EA274E71EA758E700D5329C /* YBPlayheadMonitorTest.m in Sources */,
+				4EA274E81EA758E700D5329C /* YBTestablePlayheadMonitor.m in Sources */,
+				4EA274E91EA758E700D5329C /* YBCdnParserTest.m in Sources */,
+				4EA274EA1EA758E700D5329C /* YBParseHlsTest.m in Sources */,
+				4EA274EB1EA758E700D5329C /* YBTestableCdnParser.m in Sources */,
+				4EA274EC1EA758E700D5329C /* YBTestableHlsParser.m in Sources */,
+				4EA274ED1EA758E700D5329C /* YBFlowTransformTest.m in Sources */,
+				4EA275001EA7649D00D5329C /* YBNqs6TransformTest.m in Sources */,
+				4EA274EE1EA758E700D5329C /* YBTransformTest.m in Sources */,
+				4EA274EF1EA758E700D5329C /* YBViewTransformTest.m in Sources */,
+				4EA274F01EA758E700D5329C /* YBTestableViewTransform.m in Sources */,
+				4EA274F11EA758E700D5329C /* YBResourceTransformTest.m in Sources */,
+				4EA274F21EA758E700D5329C /* YBTestableResourceTransform.m in Sources */,
+				4EA274F31EA758E700D5329C /* YBCommunicationTest.m in Sources */,
+				4EA274F41EA758E700D5329C /* YBRequestTest.m in Sources */,
+				4EA274F51EA758E700D5329C /* YBTestableRequest.m in Sources */,
+				4EA274F61EA758E700D5329C /* YBOptionsTest.m in Sources */,
+				4EA274F71EA758E700D5329C /* YBTestablePlugin.m in Sources */,
+				4EA274F81EA758E700D5329C /* YBPluginTest.m in Sources */,
+				4EA274F91EA758E700D5329C /* YBRequestBuilderTest.m in Sources */,
+				4EA274FA1EA758E700D5329C /* YBChronoTest.m in Sources */,
+				4EA274FB1EA758E700D5329C /* YBTimerTest.m in Sources */,
+				4EA274FC1EA758E700D5329C /* YBLogTests.m in Sources */,
+				4EA274FD1EA758E700D5329C /* YBYouboraUtilsTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

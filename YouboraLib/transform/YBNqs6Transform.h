@@ -10,6 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN;
 
+/**
+ * This class ensures NQS6 backwards compatibility mainly by cloning a few params.
+ */
 @interface YBNqs6Transform : YBTransform
 
 @end

@@ -61,25 +61,25 @@ NS_ASSUME_NONNULL_BEGIN;
  * Get CDN name
  * @return the CDN name or nil if unknown
  */
-- (NSString *) getCdnName;
+- (nullable NSString *) getCdnName;
 
 /**
  * Get CDN node
  * @return the CDN node or nil if unknown
  */
-- (NSString *) getNodeHost;
+- (nullable NSString *) getNodeHost;
 
 /**
  * Get CDN type, parsed from the type string
  * @return the CDN type
  */
-- (NSString *) getNodeType;
+- (nullable NSString *) getNodeType;
 
 /**
  * Get CDN type string, as returned in the cdn header response
  * @return the CDN type string
  */
-- (NSString *) getNodeTypeString;
+- (nullable NSString *) getNodeTypeString;
 
 @end
 
