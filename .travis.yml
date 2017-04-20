@@ -5,13 +5,12 @@ branches:
 language: objective-c
 osx_image: xcode8.3
 
+# Avoid pod install
 install: true
 
 script:
   # Build lib
   - xcodebuild clean build -scheme YouboraLib\ iOS
-  # Build test target fist
-  - xcodebuild build -target YouboraLibTests\ iOS
   # Run tests
   - xcodebuild test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone SE,OS=10.3' GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 
