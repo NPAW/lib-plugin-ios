@@ -7,7 +7,7 @@ doc-private/
 doc-public/
 
 ## Build generated
-build/
+/build/
 DerivedData/
 
 ## Various settings
