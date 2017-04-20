@@ -43,10 +43,7 @@ Pods/
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 Carthage/Checkouts
-Carthage/Build/*
-# Keep iOS and tvOS Carthage frameworks
-!Carthage/Build/iOS
-!Carthage/Build/tvOS
+Carthage/Build
 
 # fastlane
 #

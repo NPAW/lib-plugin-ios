@@ -5,8 +5,12 @@ branches:
 language: objective-c
 osx_image: xcode8.3
 
-# Avoid pod install
-install: true
+before_install:
+  - brew update
+  - brew install carthage
+
+install:
+  - carthage update
 
 script:
   # Build lib
