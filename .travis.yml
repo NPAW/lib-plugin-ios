@@ -5,6 +5,8 @@ branches:
 language: objective-c
 osx_image: xcode8.3
 
+install: true
+
 script:
   # Build lib
   - xcodebuild clean build -scheme YouboraLib\ iOS
