@@ -91,7 +91,7 @@
         }
         
         __weak typeof(self) weakSelf = self;
-        self.pingTimer = [self createTimerWithCallback:^(YBTimer *timer, long diffTime) {
+        self.pingTimer = [self createTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             [weakSelf sendPing:diffTime];
         } andInterval:5000];
         self.requestBuilder = [self createRequestBuilder];
@@ -737,15 +737,15 @@
 }
 
 // ------ CHRONOS ------
-- (long) getPreloadDuration {
+- (long long) getPreloadDuration {
     return [self.preloadChrono getDeltaTime:false];
 }
 
-- (long) getInitDuration {
+- (long long) getInitDuration {
     return [self.iinitChrono getDeltaTime:false];
 }
 
-- (long) getJoinDuration {
+- (long long) getJoinDuration {
     if (self.isInitiated) {
         return [self getInitDuration];
     } else if (self.adapter != nil) {
@@ -755,7 +755,7 @@
     }
 }
 
-- (long) getBufferDuration {
+- (long long) getBufferDuration {
     if (self.adapter != nil) {
         return [self.adapter.chronos.buffer getDeltaTime:false];
     } else {
@@ -763,7 +763,7 @@
     }
 }
 
-- (long) getSeekDuration {
+- (long long) getSeekDuration {
     if (self.adapter != nil) {
         return [self.adapter.chronos.seek getDeltaTime:false];
     } else {
@@ -771,7 +771,7 @@
     }
 }
 
-- (long) getPauseDuration {
+- (long long) getPauseDuration {
     if (self.adapter != nil) {
         return [self.adapter.chronos.pause getDeltaTime:false];
     } else {
@@ -779,7 +779,7 @@
     }
 }
 
-- (long) getAdJoinDuration {
+- (long long) getAdJoinDuration {
     if (self.adsAdapter != nil) {
         return [self.adsAdapter.chronos.join getDeltaTime:false];
     } else {
@@ -787,7 +787,7 @@
     }
 }
 
-- (long) getAdBufferDuration {
+- (long long) getAdBufferDuration {
     if (self.adsAdapter != nil) {
         return [self.adsAdapter.chronos.buffer getDeltaTime:false];
     } else {
@@ -795,7 +795,7 @@
     }
 }
 
-- (long) getAdPauseDuration {
+- (long long) getAdPauseDuration {
     if (self.adsAdapter != nil) {
         return [self.adsAdapter.chronos.pause getDeltaTime:false];
     } else {
@@ -803,7 +803,7 @@
     }
 }
 
-- (long) getAdTotalDuration {
+- (long long) getAdTotalDuration {
     if (self.adsAdapter != nil) {
         return [self.adsAdapter.chronos.total getDeltaTime:false];
     } else {
@@ -1316,13 +1316,13 @@
 - (void) adStopListener:(NSDictionary<NSString *, NSString *> *) params {
     // Remove time from joinDuration, "delaying" the start time
     if (self.adapter != nil && self.adsAdapter != nil && !self.adapter.flags.joined) {
-        long now = [YBChrono getNow];
+        long long now = [YBChrono getNow];
         
-        long startTime = self.adapter.chronos.join.startTime;
+        long long startTime = self.adapter.chronos.join.startTime;
         if (startTime == 0) {
             startTime = now;
         }
-        long adStartTime = self.adapter.chronos.total.startTime;
+        long long adStartTime = self.adapter.chronos.total.startTime;
         if (adStartTime == 0) {
             adStartTime = now;
         }
@@ -1368,13 +1368,13 @@
 
 - (void) sendResume:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceResume];
-    [self sendWithCallbacks:self.willSendResumeListeners service:YouboraServicePause andParams:mutParams];
+    [self sendWithCallbacks:self.willSendResumeListeners service:YouboraServiceResume andParams:mutParams];
     [YBLog notice:@"%@ %@ ms", YouboraServiceResume, mutParams[@"pauseDuration"]];
 }
 
 - (void) sendSeekEnd:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSeek];
-    [self sendWithCallbacks:self.willSendSeekListeners service:YouboraServicePause andParams:mutParams];
+    [self sendWithCallbacks:self.willSendSeekListeners service:YouboraServiceSeek andParams:mutParams];
     [YBLog notice:@"%@ to %@ in %@ ms", YouboraServiceSeek, mutParams[@"playhead"], mutParams[@"seekDuration"]];
 }
 

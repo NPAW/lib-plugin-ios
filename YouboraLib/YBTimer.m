@@ -107,7 +107,7 @@
  */
 - (void) performCallback {
     if (self.callbacks != nil) {
-        long elapsedTime = [self.chrono stop];
+        long long elapsedTime = [self.chrono stop];
         for (TimerCallback callback in self.callbacks) {
             @try {
                 callback(self, elapsedTime);

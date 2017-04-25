@@ -30,7 +30,7 @@
     self.stopTime = 0;
 }
 
-- (long) getDeltaTime:(bool) stop {
+- (long long) getDeltaTime:(bool) stop {
     if (self.startTime <= 0) {
         return -1;
     }
@@ -42,11 +42,11 @@
     }
 }
 
-- (long) getDeltaTime {
+- (long long) getDeltaTime {
     return [self getDeltaTime:true];
 }
 
-- (long) stop {
+- (long long) stop {
     self.stopTime = [YBChrono getNow];
     return [self getDeltaTime:false];
 }
@@ -59,7 +59,7 @@
     return c;
 }
 
-+ (long) getNow {
++ (long long) getNow {
     return round([[NSDate date] timeIntervalSince1970]*1000);
 }
 

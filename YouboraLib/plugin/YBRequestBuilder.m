@@ -263,31 +263,32 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:@"username"]){
         value = [self.plugin getUsername];
     } else if ([param isEqualToString:@"preloadDuration"]){
-        long duration = [self.plugin getPreloadDuration];
+        long long duration = [self.plugin getPreloadDuration];
         if (duration >= 0) value = @(duration).stringValue;
     } else if ([param isEqualToString:@"joinDuration"]){
-        long duration = [self.plugin getJoinDuration];
+        long long duration = [self.plugin getJoinDuration];
         if (duration >= 0) value = @(duration).stringValue;
     } else if ([param isEqualToString:@"bufferDuration"]){
-        long duration = [self.plugin getBufferDuration];
+        long long duration = [self.plugin getBufferDuration];
         if (duration >= 0) value = @(duration).stringValue;
     } else if ([param isEqualToString:@"seekDuration"]){
-        long duration = [self.plugin getSeekDuration];
+        long long duration = [self.plugin getSeekDuration];
         if (duration >= 0) value = @(duration).stringValue;
     } else if ([param isEqualToString:@"pauseDuration"]){
-        long duration = [self.plugin getPauseDuration];
-        if (duration >= 0) value = @(duration).stringValue;
+        long long duration = [self.plugin getPauseDuration];
+        if (duration < 0) duration = 0;
+        value = @(duration).stringValue;
     } else if ([param isEqualToString:@"adJoinDuration"]){
-        long duration = [self.plugin getAdJoinDuration];
+        long long duration = [self.plugin getAdJoinDuration];
         if (duration >= 0) value = @(duration).stringValue;
     } else if ([param isEqualToString:@"adBufferDuration"]){
-        long duration = [self.plugin getAdBufferDuration];
+        long long duration = [self.plugin getAdBufferDuration];
         if (duration >= 0) value = @(duration).stringValue;
     } else if ([param isEqualToString:@"adPauseDuration"]){
-        long duration = [self.plugin getAdPauseDuration];
+        long long duration = [self.plugin getAdPauseDuration];
         if (duration >= 0) value = @(duration).stringValue;
     } else if ([param isEqualToString:@"adTotalDuration"]){
-        long duration = [self.plugin getAdTotalDuration];
+        long long duration = [self.plugin getAdTotalDuration];
         if (duration >= 0) value = @(duration).stringValue;
     } else if ([param isEqualToString:@"nodeHost"]){
         value = [self.plugin getNodeHost];

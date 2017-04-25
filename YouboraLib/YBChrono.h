@@ -20,11 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// ---------------------------------
 
 /// Start time
-@property (nonatomic, assign) long startTime;
+@property (nonatomic, assign) long long startTime;
 /// Stop time
-@property (nonatomic, assign) long stopTime;
+@property (nonatomic, assign) long long stopTime;
 /// Offset to be added to deltaTime and stop. in ms.
-@property (nonatomic, assign) long offset;
+@property (nonatomic, assign) long long offset;
 
 /// ---------------------------------
 /// @name Public methods
@@ -34,12 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
  * @param stop If true, it will force a stop if it wasn't sent before.
  * @return Time lapse in ms or -1 if start was not called.
  */
-- (long) getDeltaTime:(bool) stop;
+- (long long) getDeltaTime:(bool) stop;
 /**
  * Same as calling <getDeltaTime:> with stop = false
  * @returns the elapsed time in ms since the start call.
  */
-- (long) getDeltaTime;
+- (long long) getDeltaTime;
 /**
  * Starts timing
  */
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Stop the timer and returns the difference since it <start>ed
  * @returns the difference since it <start>ed
  */
-- (long) stop;
+- (long long) stop;
 
 /**
  * Creates and returns a copy of the current Chrono.
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Returns the current time in milliseconds
  * @returns the current time in milliseconds
  */
-+ (long) getNow;
++ (long long) getNow;
 
 @end
 

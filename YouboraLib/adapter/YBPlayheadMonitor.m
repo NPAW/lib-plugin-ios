@@ -51,7 +51,7 @@ double const YB_SEEK_THRESHOLD_RATIO = 2.0;
         
         if (interval > 0) {
             __weak typeof(self) weakSelf = self;
-            self.timer = [self createTimerWithCallback:^(YBTimer *timer, long diffTime) {
+            self.timer = [self createTimerWithCallback:^(YBTimer *timer, long long diffTime) {
                 __strong typeof(weakSelf) strongSelf = weakSelf;
                 if (strongSelf) {
                     [strongSelf progress];
@@ -85,7 +85,7 @@ double const YB_SEEK_THRESHOLD_RATIO = 2.0;
 
 - (void)progress {
     // Reset timer
-    long deltaTime = [self.chrono stop];
+    long long deltaTime = [self.chrono stop];
     [self.chrono start];
     
     // Define thresholds

@@ -35,7 +35,7 @@
     
     XCTestExpectation * expectation = [self expectationWithDescription:@"callback called"];
     
-    YBTimer * t = [[YBTimer alloc] initWithCallback:^(YBTimer *timer, long diffTime) {
+    YBTimer * t = [[YBTimer alloc] initWithCallback:^(YBTimer *timer, long long diffTime) {
         ticks--;
         XCTAssertNotEqual(0, diffTime);
         if (ticks == 0) {

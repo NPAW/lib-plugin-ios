@@ -16,7 +16,7 @@
  *  - timer: (YBTimer *) The <YBTimer> from where the callback is being invoked.
  *  - diffTime: (long) the time difference between the previous call.
  */
-typedef void (^TimerCallback) (YBTimer * timer, long diffTime);
+typedef void (^TimerCallback) (YBTimer * timer, long long diffTime);
 
 /**
  * An Utility class that provides timed events in a defined time interval.

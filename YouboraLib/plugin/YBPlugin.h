@@ -474,61 +474,61 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns preload chrono delta time
  * @return the preload duration
  */
-- (long) getPreloadDuration;
+- (long long) getPreloadDuration;
 
 /**
  * Returns init chrono delta time
  * @return the init duration
  */
-- (long) getInitDuration;
+- (long long) getInitDuration;
 
 /**
  * Returns JoinDuration chrono delta time
  * @return the join duration
  */
-- (long) getJoinDuration;
+- (long long) getJoinDuration;
 
 /**
  * Returns BufferDuration chrono delta time
  * @return the buffer duration
  */
-- (long) getBufferDuration;
+- (long long) getBufferDuration;
 
 /**
  *  Returns SeekDuration chrono delta time
  * @return the seek duration
  */
-- (long) getSeekDuration;
+- (long long) getSeekDuration;
 
 /**
  * Returns pauseDuration chrono delta time
  * @return the pause duration
  */
-- (long) getPauseDuration;
+- (long long) getPauseDuration;
 
 /**
  * Returns AdJoinDuration chrono delta time
  * @return the ad join duration
  */
-- (long) getAdJoinDuration;
+- (long long) getAdJoinDuration;
 
 /**
  * Returns AdBufferDuration chrono delta time
  * @return the ad buffer duration
  */
-- (long) getAdBufferDuration;
+- (long long) getAdBufferDuration;
 
 /**
  * Returns AdPauseDuration chrono delta time
  * @return the ad pause duration
  */
-- (long) getAdPauseDuration;
+- (long long) getAdPauseDuration;
 
 /**
  * Returns total totalAdDuration chrono delta time
  * @return the total ad duration
  */
-- (long) getAdTotalDuration;
+- (long long) getAdTotalDuration;
 
 /**
  * Adds an Init listener
