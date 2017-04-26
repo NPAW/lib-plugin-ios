@@ -23,13 +23,11 @@ NS_ASSUME_NONNULL_BEGIN;
 /// @name Public properties
 /// ---------------------------------
 
-/*
-@property(nonatomic, strong, readonly, nullable) NSString * nodeHost;
-@property(nonatomic, strong, readonly, nullable) NSString * nodeType;
-@property(nonatomic, strong, readonly, nullable) NSString * nodeTypeString;
-@property(nonatomic, strong, readonly, nullable) NSString * resource;
-@property(nonatomic, strong, readonly, nullable) NSString * cdnName;
-*/
+/**
+ * Whether the resource parsing has finished or not
+ */
+@property(nonatomic, assign, readonly) bool isFinished;
+
 /// ---------------------------------
 /// @name Init
 /// ---------------------------------

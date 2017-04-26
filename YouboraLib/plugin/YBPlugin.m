@@ -404,8 +404,8 @@
         }
     }
     
-    if (val == nil || val.length == 0) {
-        val = @"unknown";
+    if (val.length == 0) {
+        val = nil;
     }
     
     return val;
@@ -1185,13 +1185,21 @@
 }
 
 - (void) initComm {
-    [self.resourceTransform begin:[self getResource]];
-    
     self.comm = [self createCommunication];
     [self.comm addTransform:[self createFlowTransform]];
     [self.comm addTransform:self.viewTransform];
     [self.comm addTransform:self.resourceTransform];
     [self.comm addTransform:[self createNqs6Transform]];
+}
+
+- (void) startResourceParsing {
+    if (!self.resourceTransform.isBusy && !self.resourceTransform.isFinished) {
+        NSString * res = [self getResource];
+        
+        if (res) {
+            [self.resourceTransform begin:res];
+        }
+    }
 }
 
 // Listener methods
@@ -1201,6 +1209,8 @@
         [self initComm];
         [self startPings];
     }
+    
+    [self startResourceParsing];
     
     [self sendStart:params];
 }
@@ -1263,6 +1273,8 @@
     if (self.comm == nil) {
         [self initComm];
     }
+    
+    [self startResourceParsing];
     
     [self sendError:params];
     

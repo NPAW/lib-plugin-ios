@@ -383,7 +383,7 @@
 
     [given([self.mockAdapter getResource]) willReturn:nil];
     
-    XCTAssertEqualObjects(@"unknown", [self.p getResource]);
+    XCTAssertNil([self.p getResource]);
 }
 
 - (void)testTransactionCode {

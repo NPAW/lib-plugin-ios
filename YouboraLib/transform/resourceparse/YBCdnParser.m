@@ -118,7 +118,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
 - (void) parseResponse:(NSDictionary<NSString *, NSString *> *) response {
     for (YBParsableResponseHeader * parser in self.cdnConfig.parsers) {
         for (NSString * responseHeaderKey in response) {
-            if ([parser.headerName isEqualToString:responseHeaderKey]) {
+            if ([parser.headerName caseInsensitiveCompare:responseHeaderKey] == NSOrderedSame) {
                 [self executeParser:parser withResponseHeaderValue:response[responseHeaderKey]];
             }
         }
@@ -240,13 +240,13 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         cdnConfig.requestHeaders[@"X-WR-DIAG"] = @"host";
         cdnConfig.typeParser = ^YBCdnType(NSString * type) {
             
-            if ([@"TCP_HIT" isEqualToString:type] ||
-                [@"TCP_MEM_HIT" isEqualToString:type] ||
-                [@"TCP_IMS_HIT" isEqualToString:type]) {
+            if ([type hasPrefix:@"TCP_HIT"] ||
+                [type hasPrefix:@"TCP_MEM_HIT"] ||
+                [type hasPrefix:@"TCP_IMS_HIT"]) {
                 return YBCdnTypeHit;
             }
             
-            if ([@"TCP_MISS" isEqualToString:type]) {
+            if ([type hasPrefix:@"TCP_MISS"]) {
                 return YBCdnTypeMiss;
             }
             
@@ -322,7 +322,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementName headerName:nil andRegexPattern:@"(.+)"]];
         
         cdnDefinitions[YouboraCDNNameBalancer] = cdnConfig;
-
+        
     });
 }
 

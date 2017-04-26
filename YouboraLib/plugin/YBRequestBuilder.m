@@ -196,6 +196,9 @@ static NSArray<NSString *> * youboraPingEntities;
         }
     } else if ([param isEqualToString:@"mediaResource"]){
         value = [self.plugin getResource];
+        if (!value) {
+            value = @"unknown";
+        }
     } else if ([param isEqualToString:@"transactionCode"]){
         value = [self.plugin getTransactionCode];
     } else if ([param isEqualToString:@"properties"]){

@@ -66,7 +66,9 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     //NSURLComponents * components = [NSURLComponents new];
     NSURLComponents * components = [NSURLComponents componentsWithString:self.host];
     //components.host = self.host;
-    components.path = self.service;
+    if (self.service) {
+        components.path = self.service;
+    }
     
     // Build query params
     if (self.params != nil && self.params.count > 0) {
@@ -89,10 +91,13 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
 }
 
 - (void)setParam:(NSString *)value forKey:(NSString *)key {
-    if (self.params == nil) {
-        self.params = [NSMutableDictionary dictionaryWithObject:value forKey:key];
-    } else {
-        [self.params setObject:value forKey:key];
+    if (value) {
+        if (self.params == nil) {
+            self.params = [NSMutableDictionary dictionaryWithObject:value forKey:key];
+        } else {
+            
+            [self.params setObject:value forKey:key];
+        }
     }
 }
 

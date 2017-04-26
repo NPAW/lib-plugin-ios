@@ -29,12 +29,17 @@
 @property(nonatomic, strong) NSString * cdnNodeTypeString;
 @property(nonatomic, strong) NSString * cdnNameHeader;
 
+@property(nonatomic, strong) YBHlsParser * hlsParser;
+@property(nonatomic, strong) YBCdnParser * cdnParser;
+
 @property(nonatomic, strong) NSMutableArray<NSString *> * cdnList;
 
 @property(nonatomic, assign) bool hlsEnabled;
 @property(nonatomic, assign) bool cdnEnabled;
 
 @property(nonatomic, strong) NSTimer * timerTimeout;
+
+@property(nonatomic, assign, readwrite) bool isFinished;
 
 @end
 
@@ -47,6 +52,7 @@
     self = [super init];
     if (self) {
         self.plugin = nil;
+        self.isFinished = false;
     }
     return self;
 }
@@ -108,6 +114,7 @@
 - (void)begin:(NSString *)originalResource {
     if (!self.isBusy) {
         self.isBusy = true;
+        self.isFinished = false;
         
         self.hlsEnabled = [self.plugin isParseHls];
         self.cdnEnabled = [self.plugin isParseCdnNode];
@@ -165,11 +172,11 @@
 
 #pragma mark - Private methods
 - (void) parseHls {
-    YBHlsParser * hlsParser = [self createHlsParser];
+    self.hlsParser = [self createHlsParser];
     
-    [hlsParser addHlsTransformDoneDelegate:self];
+    [self.hlsParser addHlsTransformDoneDelegate:self];
     
-    [hlsParser parse:self.beginResource parentResource:nil];
+    [self.hlsParser parse:self.beginResource parentResource:nil];
 }
 
 - (void) parseCdn {
@@ -182,15 +189,15 @@
             return;
         }
         
-        YBCdnParser * cdnParser = [self createCdnParser:cdn];
+        self.cdnParser = [self createCdnParser:cdn];
         
-        if (cdnParser == nil) {
+        if (self.cdnParser == nil) {
             [self parseCdn];
         } else {
-            [cdnParser addCdnTransformDelegate:self];
+            [self.cdnParser addCdnTransformDelegate:self];
             
             // TODO: previous responses
-            [cdnParser parseWithUrl:[self getResource] andPreviousResponses:nil];
+            [self.cdnParser parseWithUrl:[self getResource] andPreviousResponses:nil];
         }
     } else {
         [self done];
@@ -217,8 +224,13 @@
     }
 }
 
+- (void)done {
+    self.isFinished = true;
+    [super done];
+}
+
 - (NSTimer *) createNonRepeatingScheduledTimerWithInterval:(NSTimeInterval) interval {
-    return [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(parseTimeout:) userInfo:nil repeats:false];
+    return [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(parseTimeout:) userInfo:nil repeats:false];
 }
 
 - (YBHlsParser *) createHlsParser {
@@ -237,6 +249,7 @@
     } else {
         [self done];
     }
+    self.hlsParser = nil;
 }
 
 #pragma mark - CdnTransformDoneDelegate
@@ -245,6 +258,8 @@
     self.cdnNodeHost = cdnParser.cdnNodeHost;
     self.cdnNodeType = cdnParser.cdnNodeType;
     self.cdnNodeTypeString = cdnParser.cdnNodeTypeString;
+    
+    self.cdnParser = nil;
     
     if ([self getNodeHost] != nil) {
         [self done];
