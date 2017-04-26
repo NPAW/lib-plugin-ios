@@ -7,7 +7,7 @@ osx_image: xcode8.3
 
 before_install:
   - brew update
-  - brew install carthage
+  - brew ls --versions carthage || brew install carthage
 
 install:
   - carthage update
