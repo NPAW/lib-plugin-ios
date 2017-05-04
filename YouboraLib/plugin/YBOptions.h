@@ -15,7 +15,7 @@
  *
  * The only <b>required</b> option is the <accountCode>.
  */
-@interface YBOptions : NSObject
+@interface YBOptions : NSObject<NSCoding>
 
 /// ---------------------------------
 /// @name Public properties
