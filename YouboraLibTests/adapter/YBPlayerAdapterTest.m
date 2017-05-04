@@ -12,6 +12,7 @@
 #import "YBPlayheadMonitor.h"
 #import "YBPlugin.h"
 #import "YBPlaybackFlags.h"
+#import "YBConstants.h"
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
@@ -92,8 +93,8 @@
     XCTAssertNil([adapter getPlayerVersion]);
     XCTAssertNil([adapter getPlayerName]);
     XCTAssertEqual(YBAdPositionUnknown, [adapter getPosition]);
-    // TODO: get version programatically
-    XCTAssertEqualObjects(@"6.0.0-generic-ios", [adapter getVersion]);
+
+    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-generic-ios"], [adapter getVersion]);
 }
 
 - (void)testFireMethodsFlags {

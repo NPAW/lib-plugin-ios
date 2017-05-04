@@ -436,17 +436,15 @@
 - (void)testPluginVersion {
     [given([self.mockAdapter getVersion]) willReturn:nil];
     
-    // TODO: version programatically
-    XCTAssertEqualObjects(@"6.0.0-adapterless", [self.p getPluginVersion]);
+    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
     
-    [given([self.mockAdapter getVersion]) willReturn:@"6.0.0-CustomPlugin"];
+    [given([self.mockAdapter getVersion]) willReturn:[YouboraLibVersion stringByAppendingString:@"-CustomPlugin"]];
     
-    XCTAssertEqualObjects(@"6.0.0-CustomPlugin", [self.p getPluginVersion]);
+    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-CustomPlugin"], [self.p getPluginVersion]);
     
     [self.p removeAdapter];
     
-    // TODO: version programatically
-    XCTAssertEqualObjects(@"6.0.0-adapterless", [self.p getPluginVersion]);
+    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
 }
 
 - (void)testExtraparams {
@@ -612,9 +610,9 @@
     
     XCTAssertNil([self.p getAdAdapterVersion]);
     
-    [given([self.mockAdAdapter getVersion]) willReturn:@"6.0.0-CustomAdapter"];
+    [given([self.mockAdAdapter getVersion]) willReturn:[YouboraLibVersion stringByAppendingString:@"-CustomAdapter"]];
     
-    XCTAssertEqualObjects(@"6.0.0-CustomAdapter", [self.p getAdAdapterVersion]);
+    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-CustomAdapter"], [self.p getAdAdapterVersion]);
     
     [self.p removeAdsAdapter];
     

@@ -26,3 +26,9 @@ NSString * const YouboraServiceAdResume = @"/adResume";
 NSString * const YouboraServiceAdBuffer = @"/adBufferUnderrun";
 NSString * const YouboraServiceAdStop = @"/adStop";
 
+#define MACRO_NAME(f) #f
+#define MACRO_VALUE(f)  MACRO_NAME(f)
+
+#ifdef YOUBORALIB_VERSION
+NSString * const YouboraLibVersion = @MACRO_VALUE(YOUBORALIB_VERSION);
+#endif

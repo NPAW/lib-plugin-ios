@@ -473,7 +473,7 @@
 - (NSString *) getPluginVersion {
     NSString * ver = [self getAdapterVersion];
     if (ver == nil) {
-        ver = @"6.0.0-adapterless"; // TODO: get lib version programatically
+        ver = [YouboraLibVersion stringByAppendingString:@"-adapterless"];
     }
     
     return ver;
@@ -684,8 +684,8 @@
 }
 
 - (NSString *) getPluginInfo {
-    // TODO: get programatically
-    NSMutableDictionary * info = [NSMutableDictionary dictionaryWithObject:@"6.0.0" forKey:@"lib"];
+
+    NSMutableDictionary * info = [NSMutableDictionary dictionaryWithObject:YouboraLibVersion forKey:@"lib"];
     
     NSString * adapterVersion = [self getAdapterVersion];
     if (adapterVersion) {

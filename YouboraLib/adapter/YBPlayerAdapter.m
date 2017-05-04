@@ -7,6 +7,7 @@
 //
 
 #import "YBPlayerAdapter.h"
+#import "YBConstants.h"
 
 #import "YBPlaybackFlags.h"
 #import "YBPlaybackChronos.h"
@@ -35,7 +36,7 @@
         self.chronos = [YBPlaybackChronos new];
         
         if ([YBLog isAtLeastLevel:YBLogLevelNotice]) {
-            [YBLog notice:@"Adapter %@ with lib %@ is ready.", [self getVersion], @"6.0.0"]; // TODO: get the version from build config
+            [YBLog notice:@"Adapter %@ with lib %@ is ready.", [self getVersion], YouboraLibVersion];
         }
     }
     return self;
@@ -148,7 +149,7 @@
 }
 
 - (NSString *)getVersion {
-    return [@"6.0.0" stringByAppendingString:@"-generic-ios"];
+    return [YouboraLibVersion stringByAppendingString:@"-generic-ios"];
 }
 
 - (YBAdPosition)getPosition {
