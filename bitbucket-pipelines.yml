@@ -10,9 +10,10 @@ pipelines:
     - step:
         script:
           # Keep github repo sync'd
-          - apt-get update
-          - apt-get install -y git
-          - mkdir -p ~/.ssh
-          - (umask 077; echo $QA_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)          
-          - git push --prune git@github.com:NPAW/lib-plugin-ios.git +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
-          
+          - ./scripts/install_git_and_mirror.sh
+  tags:
+    '*':
+      - step:
+          script:
+            - ./scripts/install_git_and_mirror.sh
+
