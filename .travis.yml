@@ -22,12 +22,14 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - ./scripts/build.sh
   - ruby scripts/createManifest.rb YouboraLib YouboraLib
   - ruby scripts/make_deployable.rb
-  - ruby scipts/deploy_to_qa.rb
+  - ruby scripts/deploy_to_qa.rb
 
 after_failure:
   - cat -n ~/Library/Logs/scan/*
   - cat -n $TMPDIR/com.apple.dt.XCTest-status/Session*.log
   - cat -n ~/Library/Logs/DiagnosticReports/xctest*.crash
+
+env:
+  - QA_KNOWN_HOSTS="qa-smartplugin.youbora.com,81.171.21.12 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM6lBT/mNpS5Sl2GtOiZiWsMr1XB+tluRmakhEyjPtOjQRjbP4Z/D9+yK0Iy5v99pecazEDuigHh5BZ2v3zWYUw="

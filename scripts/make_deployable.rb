@@ -15,8 +15,9 @@ The script should be invoked from the project root directory.
 """
 
 # Build
-`carthage build --no-skip-current`
-`carthage archive`
+puts `carthage build --no-skip-current --platform ios`
+puts `carthage build --no-skip-current --platform tvos`
+puts `carthage archive`
 
 # Create deployment folder structure
 manifest_file_path = 'manifest.json'
