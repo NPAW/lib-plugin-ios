@@ -20,6 +20,10 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - ./scripts/build.sh
+  - ruby scripts/createManifest.rb YouboraLib YouboraLib
+  - ruby scripts/make_deployable.rb
+  - ruby scipts/deploy_to_qa.rb
 
 after_failure:
   - cat -n ~/Library/Logs/scan/*
