@@ -25,25 +25,27 @@ if File.directory?('deploy')
     `rm -r deploy`
 end
 
+lib_framework = "YouboraLib"
+
 # Load manifest to extract data from it
 json = JSON.parse(File.read(manifest_file_path))
 
 version = json["version"]
 
-deployable_name = ARGV[0]
-if deployable_name == nil
-    deployable_name = json["name"]
-end
+package_type = ""
+deployable_name = "lib"
 
 if (json["type"] == "adapter")
     package_type = "adapters"
-else 
-    package_type = ""
+
+    deployable_name = ARGV[0]
+    if deployable_name == nil
+        deployable_name = json["name"]
+    end 
 end
 
 last_build_path = "deploy/last-build/" + package_type + "/" + deployable_name + "/last-build"
 version_path = "deploy/version/" + package_type + "/" + deployable_name + "/" + version
-sample_dest_path = last_build_path + "/sample"
 
 # Create folder structure
 cmd = "mkdir -p " + last_build_path
@@ -54,12 +56,12 @@ puts "Copying manifest..."
 cmd = "cp " + manifest_file_path + " " + last_build_path
 puts `#{cmd}`
 puts "Copying binary..."
-cmd = "cp " + deployable_name + ".framework.zip " + last_build_path
+cmd = "cp " + lib_framework + ".framework.zip " + last_build_path
 puts `#{cmd}`
 # Copy to "version" path
 cmd = "mkdir -p " + version_path
 puts `#{cmd}`
-cmd = "cp -r " + last_build_path + " " + version_path
+cmd = "cp -r " + last_build_path + "/* " + version_path
 puts `#{cmd}`
 
 puts "Done!"
