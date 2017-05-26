@@ -9,6 +9,10 @@
 #import "YBRequest.h"
 #import "YBLog.h"
 
+// Required for User-Agent building
+#include <sys/sysctl.h>
+#import <UIKit/UIKit.h>
+
 NSString * const YouboraHTTPMethodGet = @"GET";
 NSString * const YouboraHTTPMethodPost = @"POST";
 NSString * const YouboraHTTPMethodHead = @"HEAD";
@@ -126,7 +130,10 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         }
         
         request.HTTPMethod = self.method;
-                
+        
+        // User-agent
+        [request setValue:[self getUserAgent] forHTTPHeaderField:@"User-Agent"];
+        
         // Send request
         __weak typeof(self) weakSelf = self;
         NSURLSession * session = [NSURLSession sharedSession];
@@ -198,6 +205,60 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     } else {
         [YBLog error:[NSString stringWithFormat:@"Aborting failed request \"%@\". Max retries reached(%d)", self.service, self.maxRetries]];
     }
+}
+
+/**
+ * Builds a string with the User-Agent header content.
+ *
+ * This method will also normalize the user agent string. With "normalize"
+ * we mean to convert the user-agent string to latin chars with no diacritic
+ * signs Normalization could be necessary when the app bundle has non-latin
+ * chars. It's been observed that, with Japanese characters, the User-Agent
+ * header was arriving empty to the backend
+ * @returns The User-Agent built string.
+ */
+- (NSString *) getUserAgent {
+    
+    static NSString * builtUserAgentNormalized;
+    
+    // Build User-Agent only once
+    static dispatch_once_t onceTokenUA;
+    dispatch_once(&onceTokenUA, ^{
+        size_t size;
+        
+        // Set 'oldp' parameter to NULL to get the size of the data
+        // returned so we can allocate appropriate amount of space
+        sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+        
+        char* name = (char*)malloc(size);
+        
+        // Get the platform name
+        sysctlbyname("hw.machine", name, &size, NULL, 0);
+        
+        // Place name into a string
+        NSString *machine = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
+        
+        free(name);
+        
+        UIDevice * device = [UIDevice currentDevice];
+        
+        NSMutableString * builtUserAgent = [NSMutableString stringWithFormat:@"%@/%@/%@/%@/%@",
+                                            [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"],
+                                            [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],
+                                            [device model],
+                                            machine,
+                                            [device systemVersion]
+                                            ];
+        
+        // Transform non-latin to latin and remove diacritical signs
+        CFMutableStringRef inputRef = (__bridge CFMutableStringRef) builtUserAgent;
+        CFStringTransform(inputRef, NULL, kCFStringTransformToLatin, false); // transform to latin chars
+        CFStringTransform(inputRef, NULL, kCFStringTransformStripCombiningMarks, false); // get rid of diacritical signs
+        
+        builtUserAgentNormalized = builtUserAgent;
+    });
+    
+    return builtUserAgentNormalized;
 }
 
 #pragma mark - Static methods
