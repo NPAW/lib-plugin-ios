@@ -44,7 +44,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"title2", @"live", @"mediaDuration", @"mediaResource", @"transactionCode", @"properties",
                                       @"cdn", @"playerVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
                                       @"param7", @"param8", @"param9", @"param10", @"pluginVersion", @"pluginInfo", @"isp",
-                                      @"connectionType", @"ip", @"deviceCode", @"preloadDuration"];
+                                      @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player"];
             
             youboraRequestParams = @{
                        YouboraServiceData:  @[@"system", @"pluginVersion"],
