@@ -746,9 +746,9 @@
 }
 
 - (long long) getJoinDuration {
-    if (self.isInitiated) {
+    /*if (self.isInitiated) {
         return [self getInitDuration];
-    } else if (self.adapter != nil) {
+    }*/ if (self.adapter != nil) {
         return [self.adapter.chronos.join getDeltaTime:false];
     } else {
         return -1;
