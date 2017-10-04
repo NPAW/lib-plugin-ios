@@ -50,6 +50,7 @@
         self.contentFps = [decoder decodeObjectForKey:@"contentFps"];
         self.contentMetadata = [decoder decodeObjectForKey:@"contentMetadata"];
         self.adMetadata = [decoder decodeObjectForKey:@"adMetadata"];
+        self.autoDetectBackground = [decoder decodeObjectForKey:@"autoDetectBackground"];
         self.extraparam1 = [decoder decodeObjectForKey:@"extraparam1"];
         self.extraparam2 = [decoder decodeObjectForKey:@"extraparam2"];
         self.extraparam3 = [decoder decodeObjectForKey:@"extraparam3"];
@@ -91,6 +92,7 @@
     [coder encodeObject:self.contentFps forKey:@"contentFps"];
     [coder encodeObject:self.contentMetadata forKey:@"contentMetadata"];
     [coder encodeObject:self.adMetadata forKey:@"adMetadata"];
+    [coder encodeObject:@(self.autoDetectBackground) forKey:@"autoDetectBackground"];
     [coder encodeObject:self.extraparam1 forKey:@"extraparam1"];
     [coder encodeObject:self.extraparam2 forKey:@"extraparam2"];
     [coder encodeObject:self.extraparam3 forKey:@"extraparam3"];
@@ -136,6 +138,8 @@
     self.contentMetadata = [NSMutableDictionary dictionary];
     
     self.adMetadata = [NSMutableDictionary dictionary];
+    
+    self.autoDetectBackground = NO;
     
     self.extraparam1 = nil;
     self.extraparam2 = nil;

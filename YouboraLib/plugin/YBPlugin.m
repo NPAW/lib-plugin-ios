@@ -116,6 +116,13 @@
         
         [adapter addYouboraAdapterDelegate:self];
     }
+    
+    if(self.options.autoDetectBackground){
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(eventListenerDidReceivetoBack:)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
+    }
 }
 
 - (void) removeAdapter {
@@ -127,6 +134,11 @@
         [self.adapter removeYouboraAdapterDelegate:self];
         
         _adapter = nil;
+        
+        if(self.options.autoDetectBackground){
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+        }
     }
 }
 
@@ -746,9 +758,9 @@
 }
 
 - (long long) getJoinDuration {
-    /*if (self.isInitiated) {
+    if (self.isInitiated) {
         return [self getInitDuration];
-    }*/ if (self.adapter != nil) {
+    } else if (self.adapter != nil) {
         return [self.adapter.chronos.join getDeltaTime:false];
     } else {
         return -1;
@@ -1199,6 +1211,12 @@
         if (res) {
             [self.resourceTransform begin:res];
         }
+    }
+}
+
+- (void) eventListenerDidReceivetoBack:(NSNotification*)uselessNotification {
+    if(self.adapter != nil){
+        [self.adapter fireStop];
     }
 }
 

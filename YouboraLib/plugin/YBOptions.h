@@ -167,6 +167,12 @@
 @property(nonatomic, strong) NSDictionary * adMetadata;
 
 /**
+ * If true the plugin will fireStop when going to background
+ * Default: false
+ */
+@property(nonatomic, assign) bool autoDetectBackground;
+
+/**
  * Custom parameter 1.
  */
 @property(nonatomic, strong) NSString * extraparam1;

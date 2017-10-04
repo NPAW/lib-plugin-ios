@@ -55,7 +55,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceResume: @[@"pauseDuration", @"playhead"],
                        YouboraServiceSeek: @[@"seekDuration", @"playhead"],
                        YouboraServiceBuffer: @[@"bufferDuration", @"playhead"],
-                       YouboraServiceStop: @[@"bitrate", @"playhead"],
+                       YouboraServiceStop: @[@"pauseDuration", @"bitrate", @"playhead"],
                        YouboraServiceAdStart: @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource",
                                                 @"adPlayerVersion", @"adProperties", @"adAdapterVersion"],
                        YouboraServiceAdJoin: @[@"adPosition", @"adJoinDuration", @"adPlayhead"],
@@ -63,7 +63,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration"],
                        YouboraServiceAdBuffer: @[@"adPosition", @"adPlayhead", @"adBufferDuration"],
                        YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration"],
-                       YouboraServicePing: @[@"droppedFrames", @"playrate"],
+                       YouboraServicePing: @[@"pauseDuration", @"droppedFrames", @"playrate"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"]
             };
             
