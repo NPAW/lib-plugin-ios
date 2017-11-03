@@ -1253,7 +1253,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.0.0;
+				YOUBORALIB_VERSION_SETTING = 6.0.1;
 			};
 			name = Debug;
 		};
@@ -1302,7 +1302,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.0.0;
+				YOUBORALIB_VERSION_SETTING = 6.0.1;
 			};
 			name = Release;
 		};
@@ -1405,7 +1405,6 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
-				YOUBORALIB_VERSION_SETTING = "";
 			};
 			name = Debug;
 		};
@@ -1430,7 +1429,6 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
-				YOUBORALIB_VERSION_SETTING = "";
 			};
 			name = Release;
 		};
