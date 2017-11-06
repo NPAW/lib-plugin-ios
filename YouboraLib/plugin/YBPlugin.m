@@ -1430,7 +1430,7 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdStart];
     mutParams[@"adNumber"] = [self.requestBuilder getNewAdNumber];
     [self sendWithCallbacks:self.willSendAdStartListeners service:YouboraServiceAdStart andParams:mutParams];
-    [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdStart, mutParams[@"position"], mutParams[@"adNumber"], mutParams[@"playhead"]];
+    [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdStart, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
 
 - (void) sendAdJoin:(NSDictionary<NSString *, NSString *> *) params {
