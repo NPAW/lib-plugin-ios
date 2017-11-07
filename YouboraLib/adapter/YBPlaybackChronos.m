@@ -26,6 +26,8 @@
     self.pause = [YBChrono new];
     self.buffer = [YBChrono new];
     self.total = [YBChrono new];
+    
+    self.adInit = [YBChrono new];
 }
 
 @end

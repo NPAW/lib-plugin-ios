@@ -56,6 +56,7 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendStopListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendPingListeners;
 
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdInitListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdStartListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdJoinListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdPauseListeners;
@@ -919,6 +920,16 @@
         self.willSendPingListeners = [NSMutableArray arrayWithCapacity:1];
     [self.willSendPingListeners addObject:listener];
 }
+    
+/**
+ * Adds an ad Start listener
+ * @param listener to add
+ */
+- (void) addWillSendAdInitListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendAdInitListeners == nil)
+    self.willSendAdInitListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendAdInitListeners addObject:listener];
+}
 
 /**
  * Adds an ad Start listener
@@ -1069,6 +1080,15 @@
 - (void) removeWillSendPingListener:(YBWillSendRequestBlock) listener {
     if (self.willSendPingListeners != nil)
         [self.willSendPingListeners removeObject:listener];
+}
+    
+/**
+ * Removes an ad Start listener
+ * @param listener to remove
+ */
+- (void) removeWillSendAdInitListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendAdInitListeners != nil)
+    [self.willSendAdInitListeners removeObject:listener];
 }
 
 /**
@@ -1307,6 +1327,17 @@
 }
 
 // Ads
+- (void) adInitListener:(NSDictionary<NSString *, NSString *> *) params{
+    if(self.adsAdapter != nil){
+        [self.adapter fireSeekEnd];
+        [self.adapter fireBufferEnd];
+
+        if(self.adapter.flags.paused){
+            [self.adapter.chronos.pause reset];
+        }
+    }
+    [self sendAdInit:params];
+}
 - (void) adStartListener:(NSDictionary<NSString *, NSString *> *) params {
     if (self.adapter != nil) {
         [self.adapter fireSeekEnd];
@@ -1425,10 +1456,17 @@
     [self sendWithCallbacks:self.willSendStopListeners service:YouboraServiceStop andParams:mutParams];
     [YBLog notice:@"%@ at %@", YouboraServiceStop, mutParams[@"playhead"]];
 }
+    
+- (void) sendAdInit:(NSDictionary<NSString *, NSString *> *) params {
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdInit];
+    mutParams[@"adNumber"] = [self.requestBuilder getNewAdNumber];
+    [self sendWithCallbacks:self.willSendAdInitListeners service:YouboraServiceAdInit andParams:mutParams];
+    [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
+}
 
 - (void) sendAdStart:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdStart];
-    mutParams[@"adNumber"] = [self.requestBuilder getNewAdNumber];
+    mutParams[@"adNumber"] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
     [self sendWithCallbacks:self.willSendAdStartListeners service:YouboraServiceAdStart andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdStart, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
@@ -1539,6 +1577,13 @@
 }
 
 #pragma mark - YBPlayerAdapterEventDelegate
+
+- (void) youboraAdapterEventAdInit:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter{
+    if (adapter == self.adsAdapter) {
+        [self adInitListener:params];
+    }
+}
+
 - (void) youboraAdapterEventStart:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter {
     if (adapter == self.adapter) {
         [self startListener:params];

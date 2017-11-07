@@ -157,6 +157,26 @@
 }
 
 // Fire methods
+    
+- (void)fireAdInit {
+    [self fireAdInit:nil];
+}
+
+- (void)fireAdInit: (nullable NSDictionary<NSString *,NSString *> *)params {
+    
+    if(!self.flags.adInitiated){
+        self.flags.adInitiated = true;
+        
+        [self.chronos.adInit start];
+        [self.chronos.join start];
+        [self.chronos.total start];
+    }
+    
+    for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+        [delegate youboraAdapterEventAdInit:params fromAdapter:self];
+    }
+}
+    
 - (void)fireStart {
     [self fireStart:nil];
 }
@@ -164,8 +184,12 @@
 - (void)fireStart:(nullable NSDictionary<NSString *,NSString *> *)params {
     if (!self.flags.started) {
         self.flags.started = true;
+        if(!self.flags.adInitiated){
+            [self.chronos.join start];
+        }else{
+            [self.chronos.adInit stop];
+        }
         
-        [self.chronos.join start];
         [self.chronos.total start];
         
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {

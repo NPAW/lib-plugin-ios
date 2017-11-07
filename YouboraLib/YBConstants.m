@@ -19,6 +19,7 @@ NSString * const YouboraServiceBuffer = @"/bufferUnderrun";
 NSString * const YouboraServiceError = @"/error";
 NSString * const YouboraServiceStop = @"/stop";
 NSString * const YouboraServicePing = @"/ping";
+NSString * const YouboraServiceAdInit = @"/adInit";
 NSString * const YouboraServiceAdStart = @"/adStart";
 NSString * const YouboraServiceAdJoin = @"/adJoin";
 NSString * const YouboraServiceAdPause = @"/adPause";

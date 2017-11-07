@@ -229,6 +229,17 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 - (void) fireStart:(nullable NSDictionary<NSString *, NSString *> *) params;
 
 /**
+ * Shortcut for <fireAdInit:> with params = nil.
+ */
+- (void)fireAdInit;
+
+/**
+ * Emits related event and set flags if current status is valid.
+ * @param params Map of key:value pairs to add to the request
+ */
+- (void)fireAdInit:(nullable NSDictionary<NSString *,NSString *> *)params;
+
+/**
  * Shortcut for <fireJoin:> with params = nil.
  */
 - (void) fireJoin;
@@ -361,6 +372,8 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  */
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata;
 
+
+
 /**
  * Adds an adapter delegate that will be called whenever the Adapter 
  * fires an event
@@ -383,6 +396,14 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 @protocol YBPlayerAdapterEventDelegate
 
 @optional
+    
+/**
+ * Adapter detected an adInit event
+ * @param params params to add to the request
+ * @param adapter the adapter taht is firing the event
+ */
+- (void) youboraAdapterEventAdInit:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
+    
 /**
  * Adapter detected a start event.
  * @param params params to add to the request

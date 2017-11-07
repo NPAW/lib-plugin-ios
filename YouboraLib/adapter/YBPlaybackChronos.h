@@ -37,6 +37,9 @@
 
 /** Chrono for the totality of the view. */
 @property (nonatomic, strong) YBChrono * total;
+    
+/** Chrono for the Ad Init duration */
+@property (nonatomic, strong) YBChrono * adInit;
 
 /// ---------------------------------
 /// @name Public methods

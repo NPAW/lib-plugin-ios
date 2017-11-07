@@ -35,6 +35,9 @@
 
 /// Buffering
 @property(nonatomic, assign) bool buffering;
+    
+/// Only used for ads
+@property(nonatomic, assign) bool adInitiated;
 
 /// ---------------------------------
 /// @name Public methods

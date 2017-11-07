@@ -33,6 +33,8 @@ FOUNDATION_EXPORT NSString * const YouboraServiceError;
 FOUNDATION_EXPORT NSString * const YouboraServiceStop;
 /** /ping service */
 FOUNDATION_EXPORT NSString * const YouboraServicePing;
+/** /adInit service */
+FOUNDATION_EXPORT NSString * const YouboraServiceAdInit;
 /** /adStart service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdStart;
 /** /adJoin service */
