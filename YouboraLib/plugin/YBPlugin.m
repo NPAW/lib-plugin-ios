@@ -1328,7 +1328,7 @@
 
 // Ads
 - (void) adInitListener:(NSDictionary<NSString *, NSString *> *) params{
-    if(self.adsAdapter != nil){
+    if(self.adsAdapter != nil && self.adsAdapter != nil){
         [self.adapter fireSeekEnd];
         [self.adapter fireBufferEnd];
 
@@ -1458,15 +1458,18 @@
 }
     
 - (void) sendAdInit:(NSDictionary<NSString *, NSString *> *) params {
+    NSString* realNumber = [self.requestBuilder getNewAdNumber];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdInit];
-    mutParams[@"adNumber"] = [self.requestBuilder getNewAdNumber];
+    mutParams[@"adNumber"] = realNumber;
     [self sendWithCallbacks:self.willSendAdInitListeners service:YouboraServiceAdInit andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
 
 - (void) sendAdStart:(NSDictionary<NSString *, NSString *> *) params {
+    NSString* realNumber = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdStart];
-    mutParams[@"adNumber"] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
+    //mutParams[@"adNumber"] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
+    mutParams[@"adNumber"] = realNumber;
     [self sendWithCallbacks:self.willSendAdStartListeners service:YouboraServiceAdStart andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdStart, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
