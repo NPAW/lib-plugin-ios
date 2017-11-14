@@ -363,6 +363,18 @@
         
         [self.flags reset];
         
+        if(self.plugin != nil){
+            //We inform of the pauseDuration here to save it before the reset
+            if([self.chronos.pause getDeltaTime] != -1){
+                if(params == nil){
+                    params = [[NSDictionary alloc] init];
+                }
+                NSMutableDictionary *mutableParams = [[NSMutableDictionary alloc] initWithDictionary:params];
+                mutableParams[@"pauseDuration"] = [NSString stringWithFormat:@"%lld",[self.chronos.pause getDeltaTime]];
+                params = [[NSDictionary alloc] initWithDictionary:mutableParams];
+            }
+        }
+        
         [self.chronos.total stop];
         [self.chronos.join reset];
         [self.chronos.pause reset];

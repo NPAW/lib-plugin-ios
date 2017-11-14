@@ -55,7 +55,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceResume: @[@"pauseDuration", @"playhead"],
                        YouboraServiceSeek: @[@"seekDuration", @"playhead"],
                        YouboraServiceBuffer: @[@"bufferDuration", @"playhead"],
-                       YouboraServiceStop: @[@"pauseDuration", @"bitrate", @"playhead"],
+                       YouboraServiceStop: @[@"bitrate", @"playhead"],
                        YouboraServiceAdInit: @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource",
                                                @"adPlayerVersion", @"adProperties", @"adAdapterVersion"],
                        YouboraServiceAdStart: @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource",
