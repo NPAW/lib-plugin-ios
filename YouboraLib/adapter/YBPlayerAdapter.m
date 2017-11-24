@@ -416,6 +416,7 @@
     }
     mutParams[@"errorLevel"] = @"fatal";
     [self fireError:mutParams];
+    self.adsAfterStop = @0;
     [self fireStop];
 }
 

@@ -1593,7 +1593,7 @@
             }
         }
         
-        if (self.adapter.flags.joined || self.adsAdapter != nil) {
+        if (self.adapter.flags.joined) {
             [paramList addObject:@"playhead"];
         }
         
@@ -1613,6 +1613,7 @@
             if (self.adsAdapter.flags.buffering) {
                 [paramList addObject:@"adBufferDuration"];
             }
+            [paramList addObject:@"playhead"];
         }
         
         params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
