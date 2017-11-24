@@ -132,6 +132,8 @@
         [self.adapter dispose];
         
         self.adapter.plugin = nil;
+        self.adapter.adsAfterStop = @0;
+        self.options.adsAfterStop = @0;
         
         [self.adapter removeYouboraAdapterDelegate:self];
         
