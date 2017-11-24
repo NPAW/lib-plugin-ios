@@ -236,7 +236,7 @@
 		4E5E53A81E8182F000966C7B /* YBTestablePlayerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBTestablePlayerAdapter.h; path = adapter/YBTestablePlayerAdapter.h; sourceTree = "<group>"; };
 		4E5E53A91E8182F000966C7B /* YBTestablePlayerAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTestablePlayerAdapter.m; path = adapter/YBTestablePlayerAdapter.m; sourceTree = "<group>"; };
 		4E7CBCB01E826C6F00FF7D7A /* YBPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = YBPlugin.h; path = plugin/YBPlugin.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4E7CBCB11E826C6F00FF7D7A /* YBPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = YBPlugin.m; path = plugin/YBPlugin.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		4E7CBCB11E826C6F00FF7D7A /* YBPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = YBPlugin.m; path = plugin/YBPlugin.m; sourceTree = "<group>"; };
 		4E7CBCB41E82921A00FF7D7A /* YBPlayheadMonitorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBPlayheadMonitorTest.m; path = adapter/YBPlayheadMonitorTest.m; sourceTree = "<group>"; };
 		4E7CBCB61E8292C000FF7D7A /* YBTestablePlayheadMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBTestablePlayheadMonitor.h; path = adapter/YBTestablePlayheadMonitor.h; sourceTree = "<group>"; };
 		4E7CBCB71E8292C000FF7D7A /* YBTestablePlayheadMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTestablePlayheadMonitor.m; path = adapter/YBTestablePlayheadMonitor.m; sourceTree = "<group>"; };
@@ -1031,7 +1031,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.0.4;
+				YOUBORALIB_VERSION_SETTING = "6.0.5-beta";
 			};
 			name = Debug;
 		};
@@ -1080,7 +1080,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.0.4;
+				YOUBORALIB_VERSION_SETTING = "6.0.5-beta";
 			};
 			name = Release;
 		};

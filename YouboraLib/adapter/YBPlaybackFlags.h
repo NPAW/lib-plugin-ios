@@ -35,6 +35,12 @@
 
 /// Buffering
 @property(nonatomic, assign) bool buffering;
+
+/// Ended
+@property(nonatomic, assign) bool ended;
+
+/// Stopped
+@property(nonatomic, assign) bool stopped;
     
 /// Only used for ads
 @property(nonatomic, assign) bool adInitiated;

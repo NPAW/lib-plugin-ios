@@ -63,6 +63,7 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdResumeListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdBufferListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdStopListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendClickListeners;
 
 @end
 
@@ -114,7 +115,7 @@
     if (adapter != nil) {
         _adapter = adapter;
         adapter.plugin = self;
-        
+        _adapter.adsAfterStop = self.options.adsAfterStop;
         [adapter addYouboraAdapterDelegate:self];
     }
     
@@ -759,13 +760,18 @@
 }
 
 - (long long) getJoinDuration {
-    if (self.isInitiated) {
+    if (self.adapter != nil) {
+        return [self.adapter.chronos.join getDeltaTime:false];
+    } else {
+        return -1;
+    }
+    /*if (self.isInitiated) {
         return [self getInitDuration];
     } else if (self.adapter != nil) {
         return [self.adapter.chronos.join getDeltaTime:false];
     } else {
         return -1;
-    }
+    }*/
 }
 
 - (long long) getBufferDuration {
@@ -991,6 +997,16 @@
     [self.willSendAdStopListeners addObject:listener];
 }
 
+/**
+ * Adds a click listener, mostly for ads
+ * @param listener to add
+ */
+- (void) addWillSendClickListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendClickListeners == nil)
+        self.willSendClickListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendClickListeners addObject:listener];
+}
+
 // Remove listeners
 /**
  * Removes an Init listener
@@ -1143,6 +1159,15 @@
 - (void) removeWillSendAdStopListener:(YBWillSendRequestBlock) listener {
     if (self.willSendAdStopListeners != nil)
         [self.willSendAdStopListeners removeObject:listener];
+}
+
+/**
+ * Removes an ad Click listener
+ * @param listener to remove
+ */
+- (void) removeWillSendClickListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendClickListeners != nil)
+        [self.willSendClickListeners removeObject:listener];
 }
 #pragma mark - Private methods
 - (YBChrono *) createChrono {
@@ -1322,6 +1347,19 @@
 }
 
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
+    
+    if(self.adapter != nil){
+        self.adapter.flags.ended = true;
+    }
+    if(self.adsAdapter != nil){
+        self.adapter.adsAfterStop = [NSNumber numberWithInt:0];
+    }
+    if([self.adapter.adsAfterStop intValue] == 0){
+        if(self.adapter != nil){
+            self.adapter.flags.stopped = true;
+        }
+    }
+    
     [self sendStop:params];
     [self reset];
 }
@@ -1394,6 +1432,10 @@
     [self sendAdStop:params];
 }
 
+- (void) clickListener:(NSDictionary<NSString *, NSString *> *) params {
+    [self sendClick:params];
+}
+
 // Send methods
 - (void) sendInit:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceInit];
@@ -1448,7 +1490,7 @@
 - (void) sendError:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceError];
     [self sendWithCallbacks:self.willSendErrorListeners service:YouboraServiceError andParams:mutParams];
-    [YBLog notice:@"%@ %@ %@", YouboraServiceError, mutParams[@"errorLevel"], mutParams[@"errorCode"]];
+    [YBLog notice:@"%@ %@", YouboraServiceError, mutParams[@"errorCode"]];
 }
 
 - (void) sendStop:(NSDictionary<NSString *, NSString *> *) params {
@@ -1509,6 +1551,13 @@
     [YBLog notice:@"%@ %@ms", YouboraServiceAdStop, mutParams[@"adTotalDuration"]];
 }
 
+- (void) sendClick:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceClick];
+    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    [self sendWithCallbacks:self.willSendClickListeners service:YouboraServiceClick andParams:mutParams];
+    [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
+}
+
 // ------ PINGS ------
 - (void) startPings {
     if (!self.pingTimer.isRunning) {
@@ -1544,7 +1593,7 @@
             }
         }
         
-        if (self.adapter.flags.joined) {
+        if (self.adapter.flags.joined || self.adsAdapter != nil) {
             [paramList addObject:@"playhead"];
         }
         
@@ -1624,6 +1673,12 @@
         [self stopListener:params];
     } else if (adapter == self.adsAdapter) {
         [self adStopListener:params];
+    }
+}
+
+- (void) youboraAdapterEventClick:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter {
+    if (adapter == self.adsAdapter) {
+        [self clickListener:params];
     }
 }
 

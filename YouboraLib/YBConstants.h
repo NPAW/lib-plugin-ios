@@ -47,6 +47,8 @@ FOUNDATION_EXPORT NSString * const YouboraServiceAdResume;
 FOUNDATION_EXPORT NSString * const YouboraServiceAdBuffer;
 /** /adStop service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdStop;
+/** /adClick service */
+FOUNDATION_EXPORT NSString * const YouboraServiceClick;
 
 // Lib version
 FOUNDATION_EXPORT NSString * const YouboraLibVersion;

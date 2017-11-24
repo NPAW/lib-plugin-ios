@@ -26,6 +26,7 @@ NSString * const YouboraServiceAdPause = @"/adPause";
 NSString * const YouboraServiceAdResume = @"/adResume";
 NSString * const YouboraServiceAdBuffer = @"/adBufferUnderrun";
 NSString * const YouboraServiceAdStop = @"/adStop";
+NSString * const YouboraServiceClick = @"/adClick";
 
 #define MACRO_NAME(f) #f
 #define MACRO_VALUE(f)  MACRO_NAME(f)

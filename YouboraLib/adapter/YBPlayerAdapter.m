@@ -357,6 +357,15 @@
 
 - (void)fireStop:(NSDictionary<NSString *,NSString *> *)params {
     if (self.flags.started) {
+        
+        if(self.flags.ended && !self.flags.stopped){
+            int nAds = [self.adsAfterStop intValue];
+            if(nAds > 0){
+                self.adsAfterStop = [NSNumber numberWithInt:--nAds];
+                return;
+            }
+        }
+        
         if (self.monitor != nil) {
             [self.monitor stop];
         }
@@ -365,7 +374,7 @@
         
         if(self.plugin != nil){
             //We inform of the pauseDuration here to save it before the reset
-            if([self.chronos.pause getDeltaTime] != -1){
+            if([self.chronos.pause getDeltaTime] > 0){
                 if(params == nil){
                     params = [[NSDictionary alloc] init];
                 }
@@ -395,7 +404,7 @@
 }
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
-    [self fireError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
+    [self fireError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
 }
 
 - (void)fireFatalError:(NSDictionary<NSString *,NSString *> *)params {
@@ -413,6 +422,24 @@
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
     [self fireFatalError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"fatal"]];
     [self fireStop];
+}
+
+/**
+ * Shortcut for {@link #fireClick(Map)} with {@code params = null}.
+ */
+
+- (void) fireClick{
+    [self fireClick:nil];
+}
+
+/**
+ * Emits related event and set flags if current status is valid. Only for ads
+ */
+
+- (void) fireClick:(NSDictionary<NSString *,NSString *> *)params{
+    for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+        [delegate youboraAdapterEventClick:params fromAdapter:self];
+    }
 }
 
 - (void)addYouboraAdapterDelegate:(id<YBPlayerAdapterEventDelegate>)delegate {

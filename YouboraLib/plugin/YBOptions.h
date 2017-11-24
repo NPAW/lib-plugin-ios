@@ -167,6 +167,11 @@
 @property(nonatomic, strong) NSDictionary * adMetadata;
 
 /**
+ * Variable containing number of ads after stop
+ */
+@property(nonatomic, strong) NSNumber* adsAfterStop;
+
+/**
  * If true the plugin will fireStop when going to background
  * Default: false
  */

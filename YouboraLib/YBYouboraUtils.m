@@ -73,7 +73,7 @@
     NSMutableDictionary<NSString *, NSString *> * mutParams;
     
     NSString * key = @"errorLevel";
-    NSString * value = @"error";
+    NSString * value = @"";
     
     if (params == nil) {
         mutParams = [NSMutableDictionary dictionaryWithObject:value forKey:key];
@@ -111,9 +111,9 @@
         params[@"errorMetadata"] = errorMetadata;
     }
     
-    if (level == nil || level.length == 0) {
+    /*if (level == nil || level.length == 0) {
         level = @"error";
-    }
+    }*/
     
     params[@"errorLevel"] = level;
     

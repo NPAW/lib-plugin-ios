@@ -61,6 +61,8 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 /// Plugin this Adapter is linked to
 @property(nonatomic, strong, nullable) YBPlugin * plugin;
 
+@property(nonatomic, strong) NSNumber* adsAfterStop;
+
 /// ---------------------------------
 /// @name Init
 /// ---------------------------------
@@ -340,7 +342,17 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * @param params Map of key:value pairs to add to the request
  */
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params;
-                                                
+
+/**
+ * Shortcut for <fireClick:> with {@code params = null}.
+ */
+- (void) fireClick;
+
+/**
+ * Emits related event and set flags if current status is valid. Only for ads
+ */
+- (void) fireClick:(nullable NSDictionary<NSString *, NSString *> *) params;
+
 /**
  * Basic error handler. msg, code, errorMetadata and level params can be included in the params
  * argument.
@@ -476,6 +488,12 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  */
 - (void) youboraAdapterEventError:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
 
+/**
+ * Adapter detected ad click
+ * @param params params to add to the request
+ * @param adapter the adapter that is firing the event
+ */
+- (void) youboraAdapterEventClick:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
 @end
 
 NS_ASSUME_NONNULL_END
