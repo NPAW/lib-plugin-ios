@@ -221,7 +221,7 @@
 }
 
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params{
-    [self sendStop:params];
+    [self stopListener:params];
 }
 
 // ------ INFO GETTERS ------
@@ -1360,8 +1360,9 @@
     if(self.adsAdapter != nil){
         self.adapter.adsAfterStop = [NSNumber numberWithInt:0];
     }
-    if([self.adapter.adsAfterStop intValue] == 0){
-        if(self.adapter != nil){
+    if(self.adapter != nil){
+        if([self.adapter.adsAfterStop intValue] == 0){
+        
             self.adapter.flags.stopped = true;
         }
     }
