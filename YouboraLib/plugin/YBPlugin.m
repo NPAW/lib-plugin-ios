@@ -1585,8 +1585,9 @@
         params[@"entities"] = [YBYouboraUtils stringifyDictionary:changedEntities];
     }
     
+    NSMutableArray<NSString *> * paramList = [NSMutableArray array];
+    
     if (self.adapter != nil) {
-        NSMutableArray<NSString *> * paramList = [NSMutableArray array];
         
         if (self.adapter.flags.paused) {
             [paramList addObject:@"pauseDuration"];
@@ -1612,20 +1613,20 @@
             [paramList addObject:@"seekDuration"];
         }
         
-        if (self.adsAdapter != nil) {
-            if (self.adsAdapter.flags.started) {
-                [paramList addObject:@"adPlayhead"];
-            }
-            
-            if (self.adsAdapter.flags.buffering) {
-                [paramList addObject:@"adBufferDuration"];
-            }
-            [paramList addObject:@"playhead"];
+    }
+    
+    if (self.adsAdapter != nil) {
+        if (self.adsAdapter.flags.started) {
+            [paramList addObject:@"adPlayhead"];
         }
         
-        params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
-        
+        if (self.adsAdapter.flags.buffering) {
+            [paramList addObject:@"adBufferDuration"];
+        }
+        [paramList addObject:@"playhead"];
     }
+    
+    params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
     
     [self sendWithCallbacks:self.willSendPingListeners service:YouboraServicePing andParams:params];
     [YBLog debug:YouboraServicePing];
