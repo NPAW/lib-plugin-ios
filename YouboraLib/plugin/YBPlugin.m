@@ -220,6 +220,10 @@
     [self sendError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
 }
 
+- (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params{
+    [self sendStop:params];
+}
+
 // ------ INFO GETTERS ------
 - (NSString *) getHost {
     return [YBYouboraUtils addProtocol:[YBYouboraUtils stripProtocol:self.options.host] https:self.options.httpSecure];

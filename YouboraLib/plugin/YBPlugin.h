@@ -142,6 +142,8 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param errorMetadata Extra error info, if available.
  */
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andErrorMetadata:(nullable NSString *) errorMetadata;
+
+- (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params;
 // ------ INFO GETTERS ------
 
 /**
