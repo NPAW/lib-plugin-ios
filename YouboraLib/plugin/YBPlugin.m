@@ -766,18 +766,13 @@
 }
 
 - (long long) getJoinDuration {
-    if (self.adapter != nil) {
-        return [self.adapter.chronos.join getDeltaTime:false];
-    } else {
-        return -1;
-    }
-    /*if (self.isInitiated) {
+    if (self.isInitiated) {
         return [self getInitDuration];
     } else if (self.adapter != nil) {
         return [self.adapter.chronos.join getDeltaTime:false];
     } else {
         return -1;
-    }*/
+    }
 }
 
 - (long long) getBufferDuration {
@@ -1421,21 +1416,23 @@
 
 - (void) adStopListener:(NSDictionary<NSString *, NSString *> *) params {
     // Remove time from joinDuration, "delaying" the start time
-    if (self.adapter != nil && self.adsAdapter != nil && !self.adapter.flags.joined) {
+    
+    YBChrono* realJoinChrono = self.isInitiated ? self.iinitChrono : self.adapter.chronos.join;
+    
+    if (!(self.adapter != nil && self.adapter.flags.joined) && self.adsAdapter != nil) {
         long long now = [YBChrono getNow];
         
-        long long startTime = self.adapter.chronos.join.startTime;
+        long long startTime = realJoinChrono.startTime;
         if (startTime == 0) {
             startTime = now;
         }
-        long long adStartTime = self.adapter.chronos.total.startTime;
-        if (adStartTime == 0) {
-            adStartTime = now;
+        long long adDeltaTime = self.adsAdapter.chronos.total.getDeltaTime;
+        if (adDeltaTime == -1) {
+            adDeltaTime = now;
         }
-        startTime = MIN(startTime + adStartTime, now);
-        self.adapter.chronos.join.startTime = startTime;
+        startTime = MIN(startTime + adDeltaTime, now);
+        realJoinChrono.startTime = startTime;
     }
-    
     [self sendAdStop:params];
 }
 
