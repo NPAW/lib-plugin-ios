@@ -15,6 +15,8 @@
 #import "YBPlayheadMonitor.h"
 #import "YBLog.h"
 #import "YBYouboraUtils.h"
+#import "YBPlugin.h"
+#import "YBOptions.h"
 
 @interface YBPlayerAdapter()
 
@@ -357,15 +359,6 @@
 
 - (void)fireStop:(NSDictionary<NSString *,NSString *> *)params {
     if (self.flags.started) {
-        
-        if(self.flags.ended && !self.flags.stopped){
-            int nAds = [self.adsAfterStop intValue];
-            if(nAds > 0){
-                self.adsAfterStop = [NSNumber numberWithInt:--nAds];
-                return;
-            }
-        }
-        
         if (self.monitor != nil) {
             [self.monitor stop];
         }
@@ -416,7 +409,6 @@
     }
     mutParams[@"errorLevel"] = @"fatal";
     [self fireError:mutParams];
-    self.adsAfterStop = @0;
     [self fireStop];
 }
 
@@ -440,6 +432,22 @@
 - (void) fireClick:(NSDictionary<NSString *,NSString *> *)params{
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
         [delegate youboraAdapterEventClick:params fromAdapter:self];
+    }
+}
+
+/**
+* Shortcut for {@link #fireEnd(Map)} with {@code params = null}.
+*/
+- (void) fireEnd{
+    [self fireEnd:nil];
+}
+    
+/**
+* Emits related event and set flags if current status is valid. Only use in case of possiblity of having postrolls, if not, use {@link #fireStop()}
+*/
+- (void) fireEnd:(NSDictionary<NSString *,NSString *> *)params{
+    if([self.plugin.options.adsAfterStop intValue] == 0){
+        [self fireStop];
     }
 }
 

@@ -140,7 +140,7 @@
     self.contentMetadata = [NSMutableDictionary dictionary];
     
     self.adMetadata = [NSMutableDictionary dictionary];
-    self.adsAfterStop = nil;
+    self.adsAfterStop = @0;
     
     self.autoDetectBackground = NO;
     

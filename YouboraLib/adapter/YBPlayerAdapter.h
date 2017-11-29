@@ -61,8 +61,6 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 /// Plugin this Adapter is linked to
 @property(nonatomic, strong, nullable) YBPlugin * plugin;
 
-@property(nonatomic, strong) NSNumber* adsAfterStop;
-
 /// ---------------------------------
 /// @name Init
 /// ---------------------------------
@@ -352,6 +350,16 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * Emits related event and set flags if current status is valid. Only for ads
  */
 - (void) fireClick:(nullable NSDictionary<NSString *, NSString *> *) params;
+
+/**
+ * Shortcut for <fireEnd:> with {@code params = null}.
+ */
+- (void) fireEnd;
+
+/**
+ * Emits related event and set flags if current status is valid. Only for ads
+ */
+- (void) fireEnd:(nullable NSDictionary<NSString *, NSString *> *) params;
 
 /**
  * Basic error handler. msg, code, errorMetadata and level params can be included in the params

@@ -115,7 +115,6 @@
     if (adapter != nil) {
         _adapter = adapter;
         adapter.plugin = self;
-        _adapter.adsAfterStop = self.options.adsAfterStop;
         [adapter addYouboraAdapterDelegate:self];
     }
     
@@ -132,7 +131,6 @@
         [self.adapter dispose];
         
         self.adapter.plugin = nil;
-        self.adapter.adsAfterStop = @0;
         self.options.adsAfterStop = @0;
         
         [self.adapter removeYouboraAdapterDelegate:self];
@@ -1348,19 +1346,6 @@
 }
 
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
-    
-    if(self.adapter != nil){
-        self.adapter.flags.ended = true;
-    }
-    if(self.adsAdapter != nil){
-        self.adapter.adsAfterStop = [NSNumber numberWithInt:0];
-    }
-    if(self.adapter != nil){
-        if([self.adapter.adsAfterStop intValue] == 0){
-        
-            self.adapter.flags.stopped = true;
-        }
-    }
     
     [self sendStop:params];
     [self reset];
