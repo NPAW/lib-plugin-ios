@@ -1346,7 +1346,6 @@
 }
 
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
-    
     [self sendStop:params];
     [self reset];
 }
@@ -1402,10 +1401,16 @@
 - (void) adStopListener:(NSDictionary<NSString *, NSString *> *) params {
     // Remove time from joinDuration, "delaying" the start time
     
-    YBChrono* realJoinChrono = self.isInitiated ? self.iinitChrono : self.adapter.chronos.join;
+    
     
     if (!(self.adapter != nil && self.adapter.flags.joined) && self.adsAdapter != nil) {
         long long now = [YBChrono getNow];
+        //YBChrono* realJoinChrono = self.isInitiated ? self.iinitChrono : self.adapter.chronos.join;
+        YBChrono* realJoinChrono = self.iinitChrono;
+        
+        if(self.adapter != nil && self.adapter.chronos != nil && !self.isInitiated){
+            realJoinChrono = self.adapter.chronos.join;
+        }
         
         long long startTime = realJoinChrono.startTime;
         if (startTime == 0) {
@@ -1423,6 +1428,10 @@
 
 - (void) clickListener:(NSDictionary<NSString *, NSString *> *) params {
     [self sendClick:params];
+}
+
+- (void) allAdsCompletedListener:(NSDictionary<NSString *,NSString *>*) params{
+    if(self.adapter != nil && self.adapter.flags != nil && !self.adapter.flags.started) [self stopPings];
 }
 
 // Send methods
@@ -1497,6 +1506,7 @@
 }
 
 - (void) sendAdStart:(NSDictionary<NSString *, NSString *> *) params {
+    [self startPings];
     NSString* realNumber = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdStart];
     //mutParams[@"adNumber"] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
@@ -1670,6 +1680,12 @@
 - (void) youboraAdapterEventClick:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter {
     if (adapter == self.adsAdapter) {
         [self clickListener:params];
+    }
+}
+
+- (void) youboraAdapterEventAllAdsCompleted:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter {
+    if (adapter == self.adsAdapter) {
+        [self allAdsCompletedListener:params];
     }
 }
 

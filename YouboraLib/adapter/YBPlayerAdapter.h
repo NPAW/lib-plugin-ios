@@ -352,16 +352,6 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 - (void) fireClick:(nullable NSDictionary<NSString *, NSString *> *) params;
 
 /**
- * Shortcut for <fireEnd:> with {@code params = null}.
- */
-- (void) fireEnd;
-
-/**
- * Emits related event and set flags if current status is valid. Only for ads
- */
-- (void) fireEnd:(nullable NSDictionary<NSString *, NSString *> *) params;
-
-/**
  * Basic error handler. msg, code, errorMetadata and level params can be included in the params
  * argument.
  * @param params params to add to the request. If it is null default values will be added.
@@ -392,6 +382,16 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  */
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata;
 
+/**
+ * Shortcut for <fireAllAdsCompleted:> with {@code params = null}.
+ */
+- (void)fireAllAdsCompleted;
+
+/**
+ * Let the plugin know that all ads have been played
+ * @param params params to add to the request. If it is null default values will be added.
+ */
+- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params;
 
 
 /**
@@ -502,6 +502,13 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * @param adapter the adapter that is firing the event
  */
 - (void) youboraAdapterEventClick:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
+
+/**
+ * Adapter detected when all ads finished playing
+ * @param params params to add to the request
+ * @param adapter the adapter that is firing the event
+ */
+- (void) youboraAdapterEventAllAdsCompleted:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
 @end
 
 NS_ASSUME_NONNULL_END

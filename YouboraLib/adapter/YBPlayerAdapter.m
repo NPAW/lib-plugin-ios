@@ -435,19 +435,13 @@
     }
 }
 
-/**
-* Shortcut for {@link #fireEnd(Map)} with {@code params = null}.
-*/
-- (void) fireEnd{
-    [self fireEnd:nil];
+- (void) fireAllAdsCompleted{
+    [self fireAllAdsCompleted:nil];
 }
-    
-/**
-* Emits related event and set flags if current status is valid. Only use in case of possiblity of having postrolls, if not, use {@link #fireStop()}
-*/
-- (void) fireEnd:(NSDictionary<NSString *,NSString *> *)params{
-    if([self.plugin.options.adsAfterStop intValue] == 0){
-        [self fireStop];
+
+- (void) fireAllAdsCompleted:(NSDictionary<NSString *,NSString *> *)params{
+    for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+        [delegate youboraAdapterEventAllAdsCompleted:params fromAdapter:self];
     }
 }
 
