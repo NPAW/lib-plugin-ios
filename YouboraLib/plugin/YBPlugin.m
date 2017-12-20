@@ -110,23 +110,31 @@
 
 #pragma mark - Public methods
 - (void)setAdapter:(YBPlayerAdapter *)adapter {
-    [self removeAdapter];
+    [self removeAdapter: false];
     
     if (adapter != nil) {
         _adapter = adapter;
         adapter.plugin = self;
         [adapter addYouboraAdapterDelegate:self];
+        
+        if(self.options.autoDetectBackground){
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(eventListenerDidReceivetoBack:)
+                                                         name:UIApplicationDidEnterBackgroundNotification
+                                                       object:nil];
+        }
+    }else{
+        [YBLog error:@"Adapter is null in setAdapter"];
     }
     
-    if(self.options.autoDetectBackground){
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(eventListenerDidReceivetoBack:)
-                                                     name:UIApplicationDidEnterBackgroundNotification
-                                                   object:nil];
-    }
+    
 }
 
 - (void) removeAdapter {
+    [self removeAdapter:YES];
+}
+
+- (void) removeAdapter: (BOOL)shouldStopPings {
     if (self.adapter != nil) {
         [self.adapter dispose];
         
@@ -142,6 +150,10 @@
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
         }
     }
+    
+    if(shouldStopPings && self.adsAdapter == nil){
+        [self fireStop];
+    }
 }
 
 - (void)setAdsAdapter:(YBPlayerAdapter *)adsAdapter {
@@ -150,7 +162,7 @@
     } else if (adsAdapter.plugin != nil) {
         [YBLog warn:@"Adapters can only be added to a single plugin"];
     } else {
-        [self removeAdsAdapter];
+        [self removeAdsAdapter: false];
         
         _adsAdapter = adsAdapter;
         adsAdapter.plugin = self;
@@ -160,6 +172,10 @@
 }
 
 - (void) removeAdsAdapter {
+    [self removeAdsAdapter:YES];
+}
+
+- (void) removeAdsAdapter: (BOOL)shouldStopPings {
     if (self.adsAdapter != nil) {
         [self.adsAdapter dispose];
         
@@ -168,6 +184,10 @@
         [self.adsAdapter removeYouboraAdapterDelegate:self];
         
         _adsAdapter = nil;
+    }
+    
+    if(shouldStopPings && self.adapter == nil){
+        [self fireStop];
     }
 }
 
@@ -208,6 +228,8 @@
         
         [self sendInit:params];
     }
+    //TODO: check why this no added
+    //[self startResourceParsing];
 }
 
 - (void) fireErrorWithParams:(NSDictionary<NSString *, NSString *> *) params {
@@ -217,9 +239,19 @@
 - (void) fireErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata {
     [self sendError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
 }
+- (void) fireFatalErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata andException:(nullable NSException*) exception{
+    [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"fatal"]];
+    [self fireStop];
+}
+
+- (void) fireStop{
+    [self fireStop:nil];
+}
 
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params{
-    [self stopListener:params];
+    if(self.isInitiated){
+        [self stopListener:params];
+    }
 }
 
 // ------ INFO GETTERS ------
@@ -1401,8 +1433,6 @@
 - (void) adStopListener:(NSDictionary<NSString *, NSString *> *) params {
     // Remove time from joinDuration, "delaying" the start time
     
-    
-    
     if (!(self.adapter != nil && self.adapter.flags.joined) && self.adsAdapter != nil) {
         long long now = [YBChrono getNow];
         //YBChrono* realJoinChrono = self.isInitiated ? self.iinitChrono : self.adapter.chronos.join;
@@ -1501,6 +1531,9 @@
     NSString* realNumber = [self.requestBuilder getNewAdNumber];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdInit];
     mutParams[@"adNumber"] = realNumber;
+    //Required params
+    mutParams[@"adDuration"] = @"0";
+    mutParams[@"adPlayhead"] = @"0";
     [self sendWithCallbacks:self.willSendAdInitListeners service:YouboraServiceAdInit andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
@@ -1608,8 +1641,12 @@
     }
     
     if (self.adsAdapter != nil) {
+        if(self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started){
+            [paramList removeObject:@"pauseDuration"];
+        }
         if (self.adsAdapter.flags.started) {
             [paramList addObject:@"adPlayhead"];
+            [paramList addObject:@"playhead"];
         }
         
         if (self.adsAdapter.flags.buffering) {

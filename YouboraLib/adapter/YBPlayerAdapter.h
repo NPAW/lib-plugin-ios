@@ -348,9 +348,20 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 
 /**
  * Emits related event and set flags if current status is valid. Only for ads
+ * @param params Map of key:value pairs to add to the request
  */
 - (void) fireClick:(nullable NSDictionary<NSString *, NSString *> *) params;
 
+/**
+ * Shortcut for <fireAllAdsCompleted:> with {@code params = null}.
+ */
+- (void)fireAllAdsCompleted;
+
+/**
+ * Let the plugin know that all ads have been played
+ * @param params params to add to the request. If it is null default values will be added.
+ */
+- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params;
 /**
  * Basic error handler. msg, code, errorMetadata and level params can be included in the params
  * argument.
@@ -365,7 +376,17 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * @param errorMetadata Extra error info, if available.
  */
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata;
-                                                                   
+
+/**
+ * Sends a non-fatal error (with level = "error"). It's empty by default, every adapter
+ * can override it
+ * @param msg Error message (should be unique for the code)
+ * @param code Error code reported
+ * @param errorMetadata Extra error info, if available.
+ * @param exception Exception type crom player
+ */
+- (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception;
+
 /**
  * Shortcut for <fireError:> setting an entry in the map as errorLevel = "fatal".
  * This method will also send a stop after the error.
@@ -383,19 +404,20 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata;
 
 /**
- * Shortcut for <fireAllAdsCompleted:> with {@code params = null}.
+ * Sends a fatal error (with level = "fatal"). It's empty by default, every adapter
+ * can override it.
+ * This method will also send a stop after the error.
+ * @param msg Error message (should be unique for the code)
+ * @param code Error code reported
+ * @param errorMetadata Extra error info, if available.
+ * @param exception Exception type crom player
  */
-- (void)fireAllAdsCompleted;
+- (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception;
+
+
 
 /**
- * Let the plugin know that all ads have been played
- * @param params params to add to the request. If it is null default values will be added.
- */
-- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params;
-
-
-/**
- * Adds an adapter delegate that will be called whenever the Adapter 
+ * Adds an adapter delegate that will be called whenever the Adapter
  * fires an event
  * @param delegate the delegate to add
  */

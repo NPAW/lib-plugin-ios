@@ -188,11 +188,13 @@
         self.flags.started = true;
         if(!self.flags.adInitiated){
             [self.chronos.join start];
+            [self.chronos.total start];
         }else{
+            if([self getPosition] != YBAdPositionUnknown && [self getPosition] != YBAdPositionPre){
+                [self.chronos.join start];
+            }
             [self.chronos.adInit stop];
         }
-        
-        [self.chronos.total start];
         
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventStart:params fromAdapter:self];
@@ -358,16 +360,16 @@
 }
 
 - (void)fireStop:(NSDictionary<NSString *,NSString *> *)params {
-    if (self.flags.started) {
+    if (self.flags.started || self.flags.adInitiated) {
         if (self.monitor != nil) {
             [self.monitor stop];
         }
-        
+        bool wasPaused = self.flags.paused;
         [self.flags reset];
         
         if(self.plugin != nil){
             //We inform of the pauseDuration here to save it before the reset
-            if([self.chronos.pause getDeltaTime] > 0){
+            if([self.plugin getPauseDuration] > 0 && wasPaused){
                 if(params == nil){
                     params = [[NSDictionary alloc] init];
                 }
@@ -382,6 +384,7 @@
         [self.chronos.pause reset];
         [self.chronos.buffer reset];
         [self.chronos.seek reset];
+        [self.chronos.adInit reset];
         
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventStop:params fromAdapter:self];
@@ -398,6 +401,10 @@
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
     [self fireError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
+}
+
+- (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception{
+    
 }
 
 - (void)fireFatalError:(NSDictionary<NSString *,NSString *> *)params {
@@ -417,17 +424,13 @@
     [self fireStop];
 }
 
-/**
- * Shortcut for {@link #fireClick(Map)} with {@code params = null}.
- */
+- (void) fireFatalErrorWithMessage:(NSString *)msg code:(NSString *)code andMetadata:(NSString *)errorMetadata andException:(NSException *)exception{
+    
+}
 
 - (void) fireClick{
     [self fireClick:nil];
 }
-
-/**
- * Emits related event and set flags if current status is valid. Only for ads
- */
 
 - (void) fireClick:(NSDictionary<NSString *,NSString *> *)params{
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {

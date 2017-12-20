@@ -75,12 +75,19 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  *
  * @param adapter The adapter to set
  */
-- (void) setAdapter:(nullable YBPlayerAdapter *)adapter;
+- (void) setAdapter:(YBPlayerAdapter *)adapter;
+
+/**
+ * Removes the current adapter. Stopping pings if no ads adapter.
+ */
+- (void) removeAdapter;
 
 /**
  * Removes the current adapter. Fires stop if needed. Calls <dispose>
+ *
+ * @param shouldStopPings if pings should stop
  */
-- (void) removeAdapter;
+- (void) removeAdapter: (BOOL)shouldStopPings;
 
 /**
  * Sets an adapter for ads.
@@ -90,9 +97,16 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (void) setAdsAdapter:(nullable YBPlayerAdapter *)adsAdapter;
 
 /**
- * Removes the current adapter. Fires stop if needed. Calls <dispose>
+ * Removes the current ads adapter. Stopping pings if no adapter.
  */
 - (void) removeAdsAdapter;
+
+/**
+ * Removes the current ads adapter. Fires stop if needed. Calls <dispose>
+ *
+ * @param shouldStopPings if pings should stop
+ */
+- (void) removeAdsAdapter: (BOOL)shouldStopPings;
 
 /**
  * Disable request sending.
@@ -143,6 +157,24 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  */
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andErrorMetadata:(nullable NSString *) errorMetadata;
 
+/**
+ * Sends a non-fatal error (with level = "error").
+ * @param msg Error message (should be unique for the code)
+ * @param code Error code reported
+ * @param errorMetadata Extra error info, if available.
+ * @param exception Exception raised by the error
+ */
+- (void) fireFatalErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata andException:(nullable NSException*) exception;
+
+/**
+ * Shortcut for <fireStop:> with {@code params = null}.
+ */
+- (void) fireStop;
+
+/**
+ * Sends stop in case of no adapter
+ * @param params Map of key:value pairs to add to the request
+ */
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params;
 // ------ INFO GETTERS ------
 

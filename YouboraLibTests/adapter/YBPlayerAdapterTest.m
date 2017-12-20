@@ -269,7 +269,7 @@
     // (so never for OCMockito since the count is reset when verify is called)
     [verifyCount(mockDelegate, never()) youboraAdapterEventStop:anything() fromAdapter:adapter];
     NSDictionary * errorParams = captor.value;
-    XCTAssertEqualObjects(@"error", errorParams[@"errorLevel"]);
+    //XCTAssertEqualObjects(@"error", errorParams[@"errorLevel"]); //Not mandatory anymore, since it's hard to differentiate between error at plugin level only the fatal one is send
 
     // Fatal error
     captor = [HCArgumentCaptor new];

@@ -66,7 +66,8 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdBuffer: @[@"adPosition", @"adPlayhead", @"adBufferDuration", @"playhead"],
                        YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
-                       YouboraServicePing: @[@"pauseDuration", @"droppedFrames", @"playrate"],
+                       YouboraServiceAdError: @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adTotalDuration", @"adResource", @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"adPlayhead"],
+                       YouboraServicePing: @[@"droppedFrames", @"playrate"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"]
             };
             
@@ -94,6 +95,8 @@ static NSArray<NSString *> * youboraPingEntities;
 - (NSMutableDictionary<NSString *, NSString *> *) buildParams:(NSDictionary<NSString *, NSString *> *) params forService:(NSString *) service {
     NSMutableDictionary * mutParams = [self fetchParams:params paramList:youboraRequestParams[service] onlyDifferent:false];
     mutParams = [self fetchParams:mutParams paramList:youboraRequestParamsDifferent[service] onlyDifferent:true];
+    NSString * timestamp = [NSString stringWithFormat:@"%.0f", round(CFAbsoluteTimeGetCurrent()*1000)];
+    mutParams[@"timemark"] = timestamp;
     return mutParams;
 }
 

@@ -26,8 +26,7 @@
     self.paused = false;
     self.seeking = false;
     self.buffering = false;
-    self.ended = false;
-    self.stopped = false;
+    
     self.adInitiated = false;
 }
 

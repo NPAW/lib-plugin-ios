@@ -86,6 +86,11 @@
     YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.mockOptions];
     
     XCTAssertEqualObjects(@"a", p.options.accountCode);
+    
+    p = [[YBPlugin alloc] initWithOptions:nil];
+    
+    XCTAssertNotNil(p.options);
+    XCTAssertEqualObjects(@"nicetest", p.options.accountCode);
 }
 
 - (void)testAddAndRemoveAdapters {
