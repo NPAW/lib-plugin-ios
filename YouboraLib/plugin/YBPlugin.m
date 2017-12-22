@@ -240,7 +240,15 @@
     [self sendError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
 }
 - (void) fireFatalErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata andException:(nullable NSException*) exception{
-    [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"fatal"]];
+    if(self.adapter != nil){
+        if(exception != nil){
+            [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata andException:exception];
+        }else{
+            [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata];
+        }
+    }else{
+        [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"fatal"]];
+    }
     [self fireStop];
 }
 
