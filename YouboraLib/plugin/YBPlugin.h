@@ -661,6 +661,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (void) addWillSendAdStopListener:(YBWillSendRequestBlock) listener;
 
 /**
+ * Adds an ad Error listener
+ * @param listener to add
+ */
+- (void) addWillSendAdErrorListener:(YBWillSendRequestBlock) listener;
+
+/**
  * Removes an Init listener
  * @param listener to remove
  */
@@ -755,6 +761,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param listener to remove
  */
 - (void) removeWillSendAdStopListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Removes an ad Error listener
+ * @param listener to remove
+ */
+-(void) removeWillSendAdErrorListener:(YBWillSendRequestBlock) listener;
 
 @end
 

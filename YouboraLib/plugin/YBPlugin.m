@@ -64,6 +64,7 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdBufferListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdStopListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendClickListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdErrorListeners;
 
 @end
 
@@ -1046,6 +1047,16 @@
     [self.willSendClickListeners addObject:listener];
 }
 
+/**
+ * Adds a ad error listener
+ * @param listener to add
+ */
+-(void) addWillSendAdErrorListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendAdErrorListeners == nil)
+        self.willSendAdErrorListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendAdErrorListeners addObject:listener];
+}
+
 // Remove listeners
 /**
  * Removes an Init listener
@@ -1208,6 +1219,16 @@
     if (self.willSendClickListeners != nil)
         [self.willSendClickListeners removeObject:listener];
 }
+
+/**
+ * Removes an ad Error listener
+ * @param listener to remove
+ */
+- (void) removeWillSendAdErrorListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendAdErrorListeners != nil)
+    [self.willSendAdErrorListeners removeObject:listener];
+}
+
 #pragma mark - Private methods
 - (YBChrono *) createChrono {
     return [YBChrono new];
@@ -1472,6 +1493,10 @@
     if(self.adapter != nil && self.adapter.flags != nil && !self.adapter.flags.started) [self stopPings];
 }
 
+- (void) adErrorListener:(NSDictionary<NSString *,NSString *>*) params{
+    [self sendAdError:params];
+}
+
 // Send methods
 - (void) sendInit:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceInit];
@@ -1596,6 +1621,14 @@
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     [self sendWithCallbacks:self.willSendClickListeners service:YouboraServiceClick andParams:mutParams];
     [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
+}
+
+- (void) sendAdError:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdError];
+    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    [self sendWithCallbacks:self.willSendAdErrorListeners service:YouboraServiceAdError andParams:mutParams];
+    [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
+
 }
 
 // ------ PINGS ------
@@ -1765,6 +1798,8 @@
 - (void) youboraAdapterEventError:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter {
     if (adapter == self.adapter) {
         [self errorListener:params];
+    } else if(adapter == self.adsAdapter) {
+        [self adErrorListener:params];
     }
 }
 
