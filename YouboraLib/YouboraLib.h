@@ -40,3 +40,4 @@ FOUNDATION_EXPORT const unsigned char YouboraLibVersionString[];
 #import <YouboraLib/YBFastDataConfig.h>
 #import <YouboraLib/YBRequest.h>
 #import <YouboraLib/YBRequestBuilder.h>
+#import <YouboraLib/YBdeviceInfo.h>
