@@ -15,9 +15,7 @@
 @implementation YBEventDAO
 
 - (void) insertNewEvent: (YBEvent*) event{
-    [[RLMRealm defaultRealm] beginWriteTransaction];
-    [[RLMRealm defaultRealm] addObject:event];
-    [[RLMRealm defaultRealm]commitWriteTransaction];
+    [[[YBAppDatabaseSingleton sharedInstance] getInstance] addObject:event];
 }
 
 - (RLMResults<YBEvent*>*) allEvents{
@@ -41,15 +39,11 @@
 
 - (void) deleteEventsWithOfflineId: (NSNumber*) offlideId{
     RLMResults<YBEvent *> *events = [self eventWithOfflineId:offlideId];
-    [[RLMRealm defaultRealm] beginWriteTransaction];
-    [[RLMRealm defaultRealm] deleteObjects:events];
-    [[RLMRealm defaultRealm] commitWriteTransaction];
+    [[[YBAppDatabaseSingleton sharedInstance] getInstance] deleteObjects:events];
 }
 
 - (void) deleteEventWithEventArray: (NSArray<YBEvent*>*) events{
-    [[RLMRealm defaultRealm] beginWriteTransaction];
-    [[RLMRealm defaultRealm] deleteObjects:events];
-    [[RLMRealm defaultRealm] commitWriteTransaction];
+    [[[YBAppDatabaseSingleton sharedInstance] getInstance] deleteObjects:events];
 }
 
 @end

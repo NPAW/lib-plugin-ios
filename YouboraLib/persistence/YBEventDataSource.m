@@ -10,7 +10,6 @@
 #import "YBAppDatabaseSingleton.h"
 #import "YBEvent.h"
 #import "YBEventDAO.h"
-#import "YBYouboraUtils.h"
 
 @import Realm;
 
@@ -31,56 +30,83 @@
     return self;
 }
 
-- (void) putNewEvent:(YBEvent*) event completion: (void (^)(NSString*))querySuccessBlock{
-    event.id = [[NSUUID UUID] UUIDString];
-    [self.eventDAO insertNewEvent:event];
-    if(querySuccessBlock != nil){
-        querySuccessBlock(event.id);
-    }
+- (void) putNewEvent:(YBEvent*) event completion: (void (^)(NSInteger))querySuccessBlock{
+    dispatch_async(dispatch_queue_create("background", 0), ^{
+        @autoreleasepool {
+            [self.eventDAO insertNewEvent:event];
+            if(querySuccessBlock != nil){
+                querySuccessBlock(event.id);
+            }
+        }
+    });
 }
 
 - (void) allEventsWithCompletion: (void (^)(NSArray*))querySuccessBlock{
-    RLMResults* results = [self.eventDAO allEvents];
-    if(querySuccessBlock != nil){
-        querySuccessBlock([self convertToArray:results]);
-    }
+    dispatch_async(dispatch_queue_create("background", 0), ^{
+        @autoreleasepool {
+            RLMResults* results = [self.eventDAO allEvents];
+            if(querySuccessBlock != nil){
+                querySuccessBlock([self convertToArray:results]);
+            }
+        }
+    });
 }
 
 - (void) lastIdWithCompletion: (void (^)(NSNumber*))querySuccessBlock{
-    RLMResults* results = [self.eventDAO lastOfflineId];
-    YBEvent *event = [results firstObject];
-    if(querySuccessBlock != nil){
-        querySuccessBlock(event.offlineId);
-    }
+    dispatch_async(dispatch_queue_create("background", 0), ^{
+        @autoreleasepool {
+            RLMResults* results = [self.eventDAO lastOfflineId];
+            YBEvent *event = [results firstObject];
+            if(querySuccessBlock != nil){
+                querySuccessBlock(event.offlineId);
+            }
+        }
+    });
 }
 
 - (void) eventsWithOfflineId: (NSNumber*) offlineId completion: (void (^)(NSArray*))querySuccessBlock{
-    RLMResults* results = [self.eventDAO eventWithOfflineId:offlineId];
-    if(querySuccessBlock != nil){
-        querySuccessBlock([self convertToArray:results]);
-    }
+    dispatch_async(dispatch_queue_create("background", 0), ^{
+        @autoreleasepool {
+            RLMResults* results = [self.eventDAO eventWithOfflineId:offlineId];
+            if(querySuccessBlock != nil){
+                querySuccessBlock([self convertToArray:results]);
+            }
+        }
+    });
 }
 
 - (void) firstIdWithCompletion: (void (^)(NSNumber*))querySuccessBlock{
-    RLMResults* results = [self.eventDAO firstOfflineId];
-    YBEvent *event = [results firstObject];
-    if(querySuccessBlock != nil){
-        querySuccessBlock(event.offlineId);
-    }
+    dispatch_async(dispatch_queue_create("background", 0), ^{
+        @autoreleasepool {
+            RLMResults* results = [self.eventDAO firstOfflineId];
+            YBEvent *event = [results firstObject];
+            if(querySuccessBlock != nil){
+                querySuccessBlock(event.offlineId);
+            }
+        }
+    });
 }
 
 - (void) deleteEventsWithOfflineId: (NSNumber*) offlindeId completion: (void (^)(void))querySuccessBlock{
-    [self.eventDAO deleteEventsWithOfflineId:offlindeId];
-    if(querySuccessBlock != nil){
-        querySuccessBlock();
-    }
+    dispatch_async(dispatch_queue_create("background", 0), ^{
+        @autoreleasepool {
+            [self.eventDAO deleteEventsWithOfflineId:offlindeId];
+            if(querySuccessBlock != nil){
+                querySuccessBlock();
+            }
+        }
+    });
 }
 
 - (void) deleteEventWithEventArray: (NSArray*) events completion: (void (^)(void))querySuccessBlock{
-    [self.eventDAO deleteEventWithEventArray:events];
-    if(querySuccessBlock != nil){
-        querySuccessBlock();
-    }
+    dispatch_async(dispatch_queue_create("background", 0), ^{
+        @autoreleasepool {
+            [self.eventDAO deleteEventWithEventArray:events];
+            if(querySuccessBlock != nil){
+                querySuccessBlock();
+            }
+        }
+    });
 }
 
 #pragma mark Utility methods

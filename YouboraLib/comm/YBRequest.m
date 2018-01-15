@@ -8,7 +8,6 @@
 
 #import "YBRequest.h"
 #import "YBLog.h"
-#import "YBConstants.h"
 
 // Required for User-Agent building
 #include <sys/sysctl.h>
@@ -82,7 +81,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         
         for (NSString * key in self.params) {
             NSString * value = self.params[key];
-            if (value != nil && ![key isEqualToString:@"events"]) {
+            if (value != nil) {
                 // Avoid sending null values
                 NSURLQueryItem * queryItem = [NSURLQueryItem queryItemWithName:key value:value];
                 [queryItems addObject:queryItem];
@@ -110,10 +109,6 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     return [self.params objectForKey:key];
 }
 
-/*- (void) setOfflineId: (NSNumber*) offlineId{
-    self.offlineId = offlineId;
-}*/
-
 #pragma mark - Private methods
 - (NSMutableURLRequest *) createRequestWithUrl:(NSURL *) url {
     return [NSMutableURLRequest requestWithURL:url];
@@ -135,10 +130,6 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         }
         
         request.HTTPMethod = self.method;
-        
-        if(self.service == YouboraServiceOffline){
-            [request setHTTPBody:[self.params[@"events"] dataUsingEncoding:NSUTF8StringEncoding]];
-        }
         
         // User-agent
         [request setValue:[self getUserAgent] forHTTPHeaderField:@"User-Agent"];
@@ -169,7 +160,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
 - (void) didSucceedWithData:(NSData *) data andResponse:(NSURLResponse *) response {
     for (YBRequestSuccessBlock block in everySuccessListenerList) {
         @try {
-            block(data, response, nil);
+            block(data, response);
         } @catch (NSException *exception) {
             [YBLog logException:exception];
         }
@@ -177,7 +168,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     
     for (YBRequestSuccessBlock block in self.successListenerList) {
         @try {
-            block(data, response, nil);
+            block(data, response);
         } @catch (NSException *exception) {
             [YBLog logException:exception];
         }

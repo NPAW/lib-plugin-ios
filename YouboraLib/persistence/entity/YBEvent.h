@@ -11,7 +11,7 @@
 @import Realm;
 
 @interface YBEvent : RLMObject
-    @property NSString* id;
+    @property NSInteger id;
     @property NSString* jsonEvents;
     @property NSDate* dateUpdate;
     @property NSNumber<RLMInt>* offlineId;

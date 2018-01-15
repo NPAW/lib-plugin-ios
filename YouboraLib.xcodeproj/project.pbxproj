@@ -171,21 +171,14 @@
 		4EF2938B1E7AA524008B0A99 /* YBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF293891E7AA524008B0A99 /* YBConstants.m */; };
 		4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF2938C1E7AB559008B0A99 /* YBRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EF2938F1E7AB559008B0A99 /* YBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2938D1E7AB559008B0A99 /* YBRequest.m */; };
-		CD9354A620075175003A0797 /* YBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A420075175003A0797 /* YBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD9354A620075175003A0797 /* YBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A420075175003A0797 /* YBEvent.h */; };
 		CD9354A720075175003A0797 /* YBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354A520075175003A0797 /* YBEvent.m */; };
-		CD9354AA200758BB003A0797 /* YBEventDAO.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A8200758BB003A0797 /* YBEventDAO.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD9354AA200758BB003A0797 /* YBEventDAO.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A8200758BB003A0797 /* YBEventDAO.h */; };
 		CD9354AB200758BB003A0797 /* YBEventDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354A9200758BB003A0797 /* YBEventDAO.m */; };
-		CD9354AE20075DCA003A0797 /* YBAppDatabaseSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354AC20075DCA003A0797 /* YBAppDatabaseSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD9354AE20075DCA003A0797 /* YBAppDatabaseSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354AC20075DCA003A0797 /* YBAppDatabaseSingleton.h */; };
 		CD9354AF20075DCA003A0797 /* YBAppDatabaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354AD20075DCA003A0797 /* YBAppDatabaseSingleton.m */; };
-		CD9354B220076F19003A0797 /* YBEventDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354B020076F19003A0797 /* YBEventDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD9354B220076F19003A0797 /* YBEventDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354B020076F19003A0797 /* YBEventDataSource.h */; };
 		CD9354B320076F19003A0797 /* YBEventDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354B120076F19003A0797 /* YBEventDataSource.m */; };
-		CD9354B7200789B1003A0797 /* YBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A420075175003A0797 /* YBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD9354B8200789B1003A0797 /* YBEventDAO.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A8200758BB003A0797 /* YBEventDAO.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD9354B9200789B1003A0797 /* YBAppDatabaseSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354AC20075DCA003A0797 /* YBAppDatabaseSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD9354BA200789B1003A0797 /* YBEventDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354B020076F19003A0797 /* YBEventDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD9354BE2007BE34003A0797 /* YBOfflineTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354BC2007BE34003A0797 /* YBOfflineTransform.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD9354BF2007BE34003A0797 /* YBOfflineTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354BD2007BE34003A0797 /* YBOfflineTransform.m */; };
-		CD9354C12007D7A8003A0797 /* YBOfflineTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354BC2007BE34003A0797 /* YBOfflineTransform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFC0832A5294ABD7115AB23F /* Pods_YouboraLib_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71CD404EC76668FBE5A92114 /* Pods_YouboraLib_iOS.framework */; };
 		F19A0E9C265B44D437C8B376 /* Pods_YouboraLibTests_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7332DA926510B955F7E406F7 /* Pods_YouboraLibTests_iOS.framework */; };
 /* End PBXBuildFile section */
@@ -235,8 +228,8 @@
 		4E5E53761E7FE6AA00966C7B /* YBTransformSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = YBTransformSubclass.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4E5E53781E7FECEC00966C7B /* YBFlowTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBFlowTransform.h; path = transform/YBFlowTransform.h; sourceTree = "<group>"; };
 		4E5E53791E7FECEC00966C7B /* YBFlowTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBFlowTransform.m; path = transform/YBFlowTransform.m; sourceTree = "<group>"; };
-		4E5E537E1E7FF33E00966C7B /* YBCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = YBCommunication.h; path = comm/YBCommunication.h; sourceTree = "<group>"; };
-		4E5E537F1E7FF33E00966C7B /* YBCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = YBCommunication.m; path = comm/YBCommunication.m; sourceTree = "<group>"; };
+		4E5E537E1E7FF33E00966C7B /* YBCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = YBCommunication.h; path = comm/YBCommunication.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4E5E537F1E7FF33E00966C7B /* YBCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = YBCommunication.m; path = comm/YBCommunication.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4E5E53821E8015D100966C7B /* YBCommunicationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBCommunicationTest.m; path = comm/YBCommunicationTest.m; sourceTree = "<group>"; };
 		4E5E53841E8015FB00966C7B /* YBFlowTransformTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBFlowTransformTest.m; path = comm/transform/YBFlowTransformTest.m; sourceTree = "<group>"; };
 		4E5E53851E8015FB00966C7B /* YBTransformTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTransformTest.m; path = comm/transform/YBTransformTest.m; sourceTree = "<group>"; };
@@ -325,8 +318,6 @@
 		CD9354AD20075DCA003A0797 /* YBAppDatabaseSingleton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBAppDatabaseSingleton.m; sourceTree = "<group>"; };
 		CD9354B020076F19003A0797 /* YBEventDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBEventDataSource.h; sourceTree = "<group>"; };
 		CD9354B120076F19003A0797 /* YBEventDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBEventDataSource.m; sourceTree = "<group>"; };
-		CD9354BC2007BE34003A0797 /* YBOfflineTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBOfflineTransform.h; sourceTree = "<group>"; };
-		CD9354BD2007BE34003A0797 /* YBOfflineTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBOfflineTransform.m; sourceTree = "<group>"; };
 		CF3D7FD98DF18CD32AAC680D /* Pods-YouboraLib tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLib tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YouboraLib tvOS/Pods-YouboraLib tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E300F6CE6E79664AD1ED40E2 /* Pods-YouboraLibTests tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLibTests tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouboraLibTests tvOS/Pods-YouboraLibTests tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		F3CA3A3C7C10C662FDE619FB /* Pods-YouboraLibTests iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLibTests iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YouboraLibTests iOS/Pods-YouboraLibTests iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -491,8 +482,6 @@
 				4E7CBCBA1E82D64400FF7D7A /* YBViewTransform.m */,
 				4E7CBCBD1E82D78800FF7D7A /* YBFastDataConfig.h */,
 				4E7CBCBE1E82D78800FF7D7A /* YBFastDataConfig.m */,
-				CD9354BC2007BE34003A0797 /* YBOfflineTransform.h */,
-				CD9354BD2007BE34003A0797 /* YBOfflineTransform.m */,
 			);
 			name = transform;
 			sourceTree = "<group>";
@@ -698,17 +687,16 @@
 				4E5E11C11E7841C00097FA21 /* YouboraLib.h in Headers */,
 				4EF293861E7A92E7008B0A99 /* YBLog.h in Headers */,
 				4E9C7BC41E8E6D9D00E10631 /* YBHlsParser.h in Headers */,
+				CD9354AA200758BB003A0797 /* YBEventDAO.h in Headers */,
 				4E5E53981E8039DB00966C7B /* YBPlayerAdapter.h in Headers */,
 				4EF2937E1E79A33B008B0A99 /* YBTimer.h in Headers */,
 				4E5E53921E80303700966C7B /* YBPlaybackFlags.h in Headers */,
 				4E9C7BC01E8E6D8B00E10631 /* YBCdnParser.h in Headers */,
 				CD9354A620075175003A0797 /* YBEvent.h in Headers */,
-				4E7CBCBF1E82D78800FF7D7A /* YBFastDataConfig.h in Headers */,
 				CD9354B220076F19003A0797 /* YBEventDataSource.h in Headers */,
+				4E7CBCBF1E82D78800FF7D7A /* YBFastDataConfig.h in Headers */,
 				4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */,
-				CD9354AA200758BB003A0797 /* YBEventDAO.h in Headers */,
 				CD9354AE20075DCA003A0797 /* YBAppDatabaseSingleton.h in Headers */,
-				CD9354BE2007BE34003A0797 /* YBOfflineTransform.h in Headers */,
 				4E2817121E85121A00F450C1 /* YBRequestBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -743,11 +731,6 @@
 				4E4956181E9F4F2600FF6280 /* YBTimer.h in Headers */,
 				4E4956191E9F4F2600FF6280 /* YBLog.h in Headers */,
 				4E49561A1E9F4F2600FF6280 /* YBYouboraUtils.h in Headers */,
-				CD9354B7200789B1003A0797 /* YBEvent.h in Headers */,
-				CD9354B8200789B1003A0797 /* YBEventDAO.h in Headers */,
-				CD9354B9200789B1003A0797 /* YBAppDatabaseSingleton.h in Headers */,
-				CD9354BA200789B1003A0797 /* YBEventDataSource.h in Headers */,
-				CD9354C12007D7A8003A0797 /* YBOfflineTransform.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1140,7 +1123,6 @@
 				4E2817131E85121A00F450C1 /* YBRequestBuilder.m in Sources */,
 				4E5E538B1E8029B300966C7B /* YBPlaybackChronos.m in Sources */,
 				4EF293871E7A92E7008B0A99 /* YBLog.m in Sources */,
-				CD9354BF2007BE34003A0797 /* YBOfflineTransform.m in Sources */,
 				4EF2938F1E7AB559008B0A99 /* YBRequest.m in Sources */,
 				4E5E539D1E81316400966C7B /* YBPlayheadMonitor.m in Sources */,
 				CD9354AF20075DCA003A0797 /* YBAppDatabaseSingleton.m in Sources */,

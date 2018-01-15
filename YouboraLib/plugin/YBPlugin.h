@@ -176,11 +176,6 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param params Map of key:value pairs to add to the request
  */
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params;
-
-/**
- * Sends all stored offline events, doesn't require an adapter
- */
-- (void) fireOfflineEvents;
 // ------ INFO GETTERS ------
 
 /**

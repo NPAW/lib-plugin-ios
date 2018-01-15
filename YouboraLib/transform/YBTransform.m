@@ -32,7 +32,6 @@
     if (self) {
         self.listeners = [NSMutableArray arrayWithCapacity:1];
         self.isBusy = true;
-        self.sendRequest = true;
     }
     return self;
 }
@@ -52,17 +51,6 @@
 
 - (bool)isBlocking:(nullable YBRequest *) request {
     return self.isBusy;
-}
-
-- (bool)hasToSend:(YBRequest *)request{
-    return self.sendRequest;
-}
-
-- (YBTransformState) getState{
-    if(!self.sendRequest){
-        return YBStateOffline;
-    }
-    return self.isBusy ? YBStateBlocked : YBStateNoBlocked;
 }
 
 #pragma mark - "Protected" methods

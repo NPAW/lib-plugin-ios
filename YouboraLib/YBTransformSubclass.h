@@ -25,11 +25,6 @@
 @property (nonatomic, assign) bool isBusy;
 
 /**
- * Wheter the Transform has to send Request or not
- */
-@property (nonatomic, assign) bool sendRequest;
-
-/**
  * Sets the isBusy flag to true and notifies all the registered <TransformDoneListener>s
  * with the <addTransformDoneListener:> method.
  */

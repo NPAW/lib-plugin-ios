@@ -17,18 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol YBTransformDoneListener;
 
 /**
- * Enum defining the transform states. This refers if a request should be send, blocked or stored
- */
-typedef NS_ENUM(NSUInteger, YBTransformState) {
-    /** Blocked state */
-    YBStateBlocked,
-    /** No Blocked state */
-    YBStateNoBlocked,
-    /** Offline state */
-    YBStateOffline,
-};
-
-/**
  * Transform classes in YOUBORA help the library parse and work with data.
  *
  * A Transform does some kind of task that may block requests until it's done, or applies changes
@@ -54,16 +42,6 @@ typedef NS_ENUM(NSUInteger, YBTransformState) {
  * @return true if this particular request is allowed to be sent by this transform.
  */
 - (bool) isBlocking: (nullable YBRequest *) request;
-
-/**
- * By default this will return true. This can be overriden to don't send the request
- * (mostly for offline use)
- * @param request request that's about to be sent
- * @return true if this particular request is allowed to be sent by this transform.
- */
-- (bool) hasToSend: (nullable YBRequest *) request;
-
-- (YBTransformState) getState;
 
 /**
  * Add a <YBTransformDoneListener>
