@@ -64,6 +64,17 @@
 
 #pragma mark - Public methods
 - (void) begin {
+    
+    if(self.plugin != nil && self.plugin.options != nil && self.plugin.options.offline){
+        self.fastDataConfig.code = @"OFFLINE_MODE";
+        self.fastDataConfig.host = @"OFFLINE_MODE";
+        self.fastDataConfig.pingTime = @60;
+        [self buildCode];
+        [self done];
+        [YBLog debug:@"Offline mode, skipping fastdata request..."];
+        return;
+    }
+    
     [self requestData];
 }
 
@@ -74,6 +85,9 @@
     }
     
     if (params[@"code"] == nil) {
+        if(request.service == YouboraServiceOffline){
+            [self nextView];
+        }
         params[@"code"] = self.viewCode;
     }
     
@@ -86,6 +100,16 @@
             params[@"pingTime"] = self.fastDataConfig.pingTime.stringValue;
         }
     }
+    if(service == YouboraServiceOffline){
+        params[@"events"] = [self addCodeToEvents:params];
+    }
+}
+
+- (NSString*) addCodeToEvents:(NSMutableDictionary*) params{
+    if(params != nil && params[@"events"] != nil){
+        return [params[@"events"] stringByReplacingOccurrencesOfString:@"[VIEW_CODE]" withString:self.fastDataConfig.code];
+    }
+    return nil;
 }
 
 - (NSString *)nextView {
@@ -98,7 +122,7 @@
 - (void) requestData {
     
     __weak typeof(self) weakSelf = self;
-    [self.request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
+    [self.request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber* _Nullable offlineId) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
         if (strongSelf == nil) {

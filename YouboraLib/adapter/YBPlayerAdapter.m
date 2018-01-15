@@ -186,6 +186,9 @@
 - (void)fireStart:(nullable NSDictionary<NSString *,NSString *> *)params {
     if (!self.flags.started) {
         self.flags.started = true;
+        
+        
+        
         if(!self.flags.adInitiated){
             [self.chronos.join start];
             [self.chronos.total start];

@@ -26,6 +26,9 @@
 #import "YBFlowTransform.h"
 #import "YBNqs6Transform.h"
 #import "YBPlayheadMonitor.h"
+#import "YBOfflineTransform.h"
+#import "YBEventDataSource.h"
+#import "YBEvent.h"
 
 @interface YBPlugin()
 
@@ -261,6 +264,67 @@
     if(self.isInitiated){
         [self stopListener:params];
     }
+}
+
+- (void) fireOfflineEvents{
+    [self fireOfflineEvents:nil];
+}
+
+- (void) fireOfflineEvents: (nullable NSDictionary<NSString *, NSString *> *) params{
+    if(params == nil)
+        params = [[NSDictionary alloc] init];
+    
+    if(self.options.offline){
+        [YBLog error:@"To send offline events, offline option must be disabled"];
+        return;
+    }
+    
+    if(self.adapter != nil && self.adapter.flags != nil && self.adapter.flags.started &&
+       self.adsAdapter != nil && self.adsAdapter.flags != nil && self.adsAdapter.flags.started){
+        [YBLog error:@"Adapters have to be stopped"];
+        return;
+    }
+    
+    self.comm = [self createCommunication];
+    [self.comm addTransform:self.viewTransform];
+    
+    YBEventDataSource *dataSource = [[YBEventDataSource alloc] init];
+    [dataSource allEventsWithCompletion:^(NSArray* events){
+        if(events != nil && events.count == 0){
+            [YBLog debug:@"No offline events, skipping..."];
+            return;
+        }
+        [dataSource lastIdWithCompletion:^(NSNumber * offlineId){
+            int lastId = [offlineId intValue];
+            for(int k = lastId ; k >= 0  ; k--){
+                [YBLog debug:@"current k %d",k];
+                [dataSource eventsWithOfflineId:[NSNumber numberWithInt:k] completion:^(NSArray * events){
+                    if(events != nil && events.count == 0){
+                        return;
+                    }
+                    YBEvent *event = events[0];
+                    [self sendOfflineEventsWithEventsString:[self generateOfflineJsonStringWithEvents:events] andOfflineId:event.offlineId];
+                }];
+            }
+        }];
+    }];
+}
+
+- (NSString*) generateOfflineJsonStringWithEvents:(NSArray*)events{
+    NSString *jsonString = @"[";
+    NSString *stringFormat = @"%@,%@";
+    for(YBEvent *event in events){
+        stringFormat = [jsonString isEqualToString:@"["] ? @"%@%@" : @"%@,%@";
+        jsonString = [NSString stringWithFormat:stringFormat, jsonString, event.jsonEvents];
+    }
+    return [NSString stringWithFormat:@"%@]",jsonString];
+}
+
+- (void) sendOfflineEventsWithEventsString:(NSString *)events andOfflineId:(NSNumber *)offlineId{
+    NSMutableDictionary<NSString*, NSString*> *params = [[NSMutableDictionary alloc] init];
+    params[@"events"] = events;
+    params[@"offlineId"] = [offlineId stringValue];
+    [self sendWithCallbacks:nil service:YouboraServiceOffline andParams:params];
 }
 
 // ------ INFO GETTERS ------
@@ -1250,6 +1314,10 @@
     return [[YBViewTransform alloc] initWithPlugin:self];
 }
 
+- (YBOfflineTransform *) createOfflineTransform{
+    return [[YBOfflineTransform alloc] init];
+}
+
 - (YBRequest *) createRequestWithHost:(NSString *)host andService:(NSString *)service {
     return [[YBRequest alloc] initWithHost:host andService:service];
 }
@@ -1297,16 +1365,52 @@
         
         self.lastServiceSent = r.service;
         
-        [self.comm sendRequest:r withCallback:nil];
+        if([service isEqualToString:YouboraServiceOffline]){
+            __block YBEventDataSource* dataSource = [[YBEventDataSource alloc] init];
+            r.method = YouboraHTTPMethodPost;
+            
+            __weak typeof(self) weakSelf = self;
+            YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response, NSNumber * offlineId) {
+                [dataSource deleteEventsWithOfflineId:offlineId completion:^{
+                    [YBLog debug:@"Offline events deleted"];
+                }];
+            };
+            NSNumber* blockOfflineId = params[@"offlineId"] == nil ? @-1 : @([params[@"offlineId"] intValue]);
+            [r.params removeObjectForKey:@"offlineId"];
+            r.offlineId = blockOfflineId;
+            [self.comm sendRequest:r withCallback:successListener];
+        }else{
+            [self.comm sendRequest:r withCallback:nil];
+        }
+    }
+}
+
+- (NSString *) jsonFromDictionary: (NSDictionary*) dictionary{
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary
+                                                       options:(NSJSONWritingPrettyPrinted)
+                                                         error:&error];
+    
+    if (! jsonData) {
+        NSLog(@"bv_jsonStringWithPrettyPrint: error: %@", error.localizedDescription);
+        return @"{}";
+    } else {
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
 }
 
 - (void) initComm {
     self.comm = [self createCommunication];
     [self.comm addTransform:[self createFlowTransform]];
-    [self.comm addTransform:self.viewTransform];
+    
     [self.comm addTransform:self.resourceTransform];
     [self.comm addTransform:[self createNqs6Transform]];
+    
+    if(self.options.offline){
+        [self.comm addTransform:[self createOfflineTransform]];
+    }else{
+        [self.comm addTransform:self.viewTransform];
+    }
 }
 
 - (void) startResourceParsing {

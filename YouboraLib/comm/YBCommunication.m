@@ -66,15 +66,35 @@
 - (void) processRequests {
     for (int i = (int) self.requests.count - 1; i >= 0; i--) {
         YBRequest * request = self.requests[i];
-        if ([self transform:request]) {
+        YBTransformState transformState = [self transform:request];
+        if(transformState == YBStateOffline){
+            [self.requests removeObjectAtIndex:i];
+        }else{
+            if(transformState == YBStateNoBlocked){
+                [self.requests removeObjectAtIndex:i];
+                [request send];
+            }
+        }
+        /*if ([self transform:request]) {
             [self.requests removeObjectAtIndex:i];
             [request send];
-        }
+        }*/
     }
 }
 
-- (bool) transform: (YBRequest *) request {
-    for (YBTransform * transform in self.transforms) {
+- (YBTransformState) transform: (YBRequest *) request {
+    for(YBTransform * transform in self.transforms){
+        if([transform isBlocking:request]){
+            return YBStateBlocked;
+        } else {
+            [transform parse:request];
+        }
+        if([transform getState] == YBStateOffline){
+            return YBStateOffline;
+        }
+    }
+    return YBStateNoBlocked;
+    /*for (YBTransform * transform in self.transforms) {
         if ([transform isBlocking:request]) {
             return false;
         } else {
@@ -82,7 +102,7 @@
         }
     }
     
-    return true;
+    return true;*/
 }
 
 #pragma mark - YBTransformDoneListener delegate

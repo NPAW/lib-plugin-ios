@@ -99,7 +99,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
     
     __weak typeof(self) weakSelf = self;
 
-    [r addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
+    [r addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber* _Nullable offlineId) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *) response;
         NSDictionary * responseHeaders = httpResponse.allHeaderFields;

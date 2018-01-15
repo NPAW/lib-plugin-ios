@@ -12,7 +12,7 @@
 
 @interface YBEventDataSource : NSObject
 
-- (void) putNewEvent:(YBEvent*) event completion: (void (^)(NSInteger))querySuccessBlock;
+- (void) putNewEvent:(YBEvent*) event completion: (void (^)(NSString*))querySuccessBlock;
 
 - (void) allEventsWithCompletion: (void (^)(NSArray*))querySuccessBlock;
 
