@@ -11,6 +11,7 @@
 #import "YBLog.h"
 #import "YBConstants.h"
 #import "YBYouboraUtils.h"
+#import "YBDeviceInfo.h"
 
 @interface YBRequestBuilder()
 
@@ -45,7 +46,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"title2", @"live", @"mediaDuration", @"mediaResource", @"transactionCode", @"properties",
                                       @"cdn", @"playerVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
                                       @"param7", @"param8", @"param9", @"param10", @"pluginVersion", @"pluginInfo", @"isp",
-                                      @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player"];
+                                      @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",@"deviceInfo"];
             
             youboraRequestParams = @{
                        YouboraServiceData:  @[@"system", @"pluginVersion"],
@@ -305,6 +306,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getNodeType];
     } else if ([param isEqualToString:@"nodeTypeString"]){
         value = [self.plugin getNodeTypeString];
+    } else if([param isEqualToString:@"deviceInfo"]){
+        value = [YBDeviceInfo mapToJSONString];
     }
     
     return value;
