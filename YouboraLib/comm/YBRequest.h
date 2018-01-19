@@ -32,7 +32,7 @@ FOUNDATION_EXPORT NSString * const YouboraHTTPMethodTrace;
  *  - data: (NSData *) the data as returned by the completionHandler.
  *  - response: (NSURLResponse *) the response as returned by the completionHandler.
  */
-typedef void (^YBRequestSuccessBlock) (NSData * _Nullable data, NSURLResponse * _Nullable response);
+typedef void (^YBRequestSuccessBlock) (NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId);
 
 /**
  * Type of the error block
@@ -71,6 +71,9 @@ typedef void (^YBRequestErrorBlock) (NSError * _Nullable error);
 
 /// Method of the HTTP request. Default is <YouboraHTTPMethodGet>
 @property(nonatomic, strong) NSString * method;
+
+/// OfflineId. Default is nil
+@property(nonatomic, strong, nullable) NSNumber* offlineId;
 
 
 /// ---------------------------------
@@ -119,6 +122,12 @@ typedef void (^YBRequestErrorBlock) (NSError * _Nullable error);
  * @param successBlock the listener to add.
  */
 - (void) addRequestSuccessListener:(YBRequestSuccessBlock) successBlock;
+
+/**
+ * In case of sending offline events it sets the offline id to remove them when properly send
+ * @param offlineId events id
+ */
+//- (void) setOfflineId: (nullable NSNumber*) offlineId;
 
 /**
  * Removes a success listener

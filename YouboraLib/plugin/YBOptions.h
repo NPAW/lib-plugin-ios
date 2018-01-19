@@ -178,6 +178,11 @@
 @property(nonatomic, assign) bool autoDetectBackground;
 
 /**
+ * If true no request will we send and saved for later instead
+ */
+@property(nonatomic, assign) bool offline;
+
+/**
  * Custom parameter 1.
  */
 @property(nonatomic, strong) NSString * extraparam1;

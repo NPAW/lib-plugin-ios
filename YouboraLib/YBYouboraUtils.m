@@ -152,4 +152,11 @@
     return value;
 }
 
++ (double) unixTimeNow{
+    NSDate *now = [NSDate date];
+    NSTimeInterval nowEpochSeconds = [now timeIntervalSince1970];
+    
+    return round(nowEpochSeconds * 1000);
+}
+
 @end

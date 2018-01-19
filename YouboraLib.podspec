@@ -32,5 +32,4 @@ Pod::Spec.new do |s|
   # Project settings
   s.requires_arc = true
   s.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) YOUBORALIB_VERSION=' + s.version.to_s }
-
 end

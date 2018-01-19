@@ -80,4 +80,10 @@
  * @return number if it's a 'real' value, def otherwise
  */
 + (NSNumber *) parseNumber:(NSNumber *) number orDefault:(NSNumber *) def;
+
+/**
+ * Returns current timestamp in milliseconds
+ * @return long timestamp
+ */
++ (double) unixTimeNow;
 @end
