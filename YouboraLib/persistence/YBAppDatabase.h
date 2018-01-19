@@ -8,6 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
+@class YBEvent;
+
 @interface YBAppDatabase : NSObject
 
++ (instancetype)sharedInstance;
+
+
+- (instancetype)initWithDatabaseFilename:(NSString *)dbFilename;
+
+- (NSNumber*) insertEvent:(YBEvent*) event;
+
+- (NSArray*)allEvents;
+
+- (NSNumber*) lastId;
+
+- (NSArray*) eventsWithOfflineId:(NSNumber*) offlineId;
+
+- (NSNumber*) firstId;
+
+- (void) removeEventsWithId:(NSNumber*) offlineId;
 @end

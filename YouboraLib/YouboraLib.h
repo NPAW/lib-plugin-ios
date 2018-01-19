@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <sqlite3.h>
 
 //! Project version number for YouboraLib.
 FOUNDATION_EXPORT double YouboraLibVersionNumber;

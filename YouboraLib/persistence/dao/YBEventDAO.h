@@ -8,22 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
-@class YBEvent, RLMResults;
+@class YBEvent;
 
 @interface YBEventDAO : NSObject
 
 - (void) insertNewEvent: (YBEvent*) event;
 
-- (RLMResults*) allEvents;
+- (NSArray*) allEvents;
 
-- (RLMResults*) lastOfflineId;
+- (NSNumber*) lastOfflineId;
 
-- (RLMResults*) eventWithOfflineId: (NSNumber*) offlineId;
+- (NSArray*) eventWithOfflineId: (NSNumber*) offlineId;
 
-- (RLMResults*) firstOfflineId;
+- (NSNumber*) firstOfflineId;
 
 - (void) deleteEventsWithOfflineId: (NSNumber*) offlideId;
 
-- (void) deleteEventWithEventArray: (NSArray<YBEvent*>*) events;
+//- (void) deleteEventWithEventArray: (NSArray<YBEvent*>*) events;
 
 @end

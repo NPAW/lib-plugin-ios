@@ -8,11 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@import Realm;
-
-@interface YBEvent : RLMObject
+@interface YBEvent : NSObject
     @property NSInteger id;
     @property NSString* jsonEvents;
-    @property NSDate* dateUpdate;
-    @property NSNumber<RLMInt>* offlineId;
+    @property NSNumber* dateUpdate;
+    @property NSNumber* offlineId;
 @end

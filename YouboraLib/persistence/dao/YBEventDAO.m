@@ -7,43 +7,45 @@
 //
 
 #import "YBEventDAO.h"
-#import "YBAppDatabaseSingleton.h"
+#import "YBAppDatabase.h"
 #import "YBEvent.h"
-
-@import Realm;
 
 @implementation YBEventDAO
 
+-(instancetype) init{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (void) insertNewEvent: (YBEvent*) event{
-    [[[YBAppDatabaseSingleton sharedInstance] getInstance] addObject:event];
+    [[YBAppDatabase sharedInstance] insertEvent:event];
+    //[[[YBAppDatabaseSingleton sharedInstance] getInstance] addObject:event];
 }
 
-- (RLMResults<YBEvent*>*) allEvents{
-    return [YBEvent allObjects];
+- (NSArray<YBEvent*>*) allEvents{
+    return [[YBAppDatabase sharedInstance] allEvents];
+    //return [YBEvent allObjects];
 }
 
-- (RLMResults<YBEvent*>*) lastOfflineId{
-    return [[YBEvent allObjects] sortedResultsUsingKeyPath:@"offlineId" ascending:NO];
+- (NSNumber*) lastOfflineId{
+    return [[YBAppDatabase sharedInstance] lastId];
+    //return [[YBEvent allObjects] sortedResultsUsingKeyPath:@"offlineId" ascending:NO];
 }
 
-- (RLMResults<YBEvent*>*) eventWithOfflineId: (NSNumber*) offlineId{
-    
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"offlineId = %@", offlineId];
-    
-    return [[YBEvent objectsWithPredicate:pred] sortedResultsUsingKeyPath:@"offlineId" ascending:YES];
+- (NSArray<YBEvent*>*) eventWithOfflineId: (NSNumber*) offlineId{
+    return [[YBAppDatabase sharedInstance] eventsWithOfflineId:offlineId];
 }
 
-- (RLMResults<YBEvent*>*) firstOfflineId{
-    return [[YBEvent allObjects] sortedResultsUsingKeyPath:@"offlineId" ascending:YES];
+- (NSNumber*) firstOfflineId{
+    return [[YBAppDatabase sharedInstance] firstId];
+    //return [[YBEvent allObjects] sortedResultsUsingKeyPath:@"offlineId" ascending:YES];
 }
 
 - (void) deleteEventsWithOfflineId: (NSNumber*) offlideId{
-    RLMResults<YBEvent *> *events = [self eventWithOfflineId:offlideId];
-    [[[YBAppDatabaseSingleton sharedInstance] getInstance] deleteObjects:events];
-}
-
-- (void) deleteEventWithEventArray: (NSArray<YBEvent*>*) events{
-    [[[YBAppDatabaseSingleton sharedInstance] getInstance] deleteObjects:events];
+    [[YBAppDatabase sharedInstance] removeEventsWithId:offlideId];
 }
 
 @end

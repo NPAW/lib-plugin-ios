@@ -12,7 +12,7 @@
 
 @interface YBEventDataSource : NSObject
 
-- (void) putNewEvent:(YBEvent*) event completion: (void (^)(NSInteger))querySuccessBlock;
+- (void) putNewEvent:(YBEvent*) event completion: (void (^)(void))querySuccessBlock;
 
 - (void) allEventsWithCompletion: (void (^)(NSArray*))querySuccessBlock;
 
@@ -24,6 +24,6 @@
 
 - (void) deleteEventsWithOfflineId: (NSNumber*) offlindeId completion: (void (^)(void))querySuccessBlock;
 
-- (void) deleteEventWithEventArray: (NSArray*) events completion: (void (^)(void))querySuccessBlock;
+//- (void) deleteEventWithEventArray: (NSArray*) events completion: (void (^)(void))querySuccessBlock;
 
 @end

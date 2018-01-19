@@ -7,11 +7,9 @@
 //
 
 #import "YBEventDataSource.h"
-#import "YBAppDatabaseSingleton.h"
+#import "YBAppDatabase.h"
 #import "YBEvent.h"
 #import "YBEventDAO.h"
-
-@import Realm;
 
 @interface YBEventDataSource()
 
@@ -30,12 +28,12 @@
     return self;
 }
 
-- (void) putNewEvent:(YBEvent*) event completion: (void (^)(NSInteger))querySuccessBlock{
+- (void) putNewEvent:(YBEvent*) event completion: (void (^)(void))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
             [self.eventDAO insertNewEvent:event];
             if(querySuccessBlock != nil){
-                querySuccessBlock(event.id);
+                querySuccessBlock();
             }
         }
     });
@@ -44,9 +42,9 @@
 - (void) allEventsWithCompletion: (void (^)(NSArray*))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
-            RLMResults* results = [self.eventDAO allEvents];
+            NSArray* events = [self.eventDAO allEvents];
             if(querySuccessBlock != nil){
-                querySuccessBlock([self convertToArray:results]);
+                querySuccessBlock(events);
             }
         }
     });
@@ -55,10 +53,9 @@
 - (void) lastIdWithCompletion: (void (^)(NSNumber*))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
-            RLMResults* results = [self.eventDAO lastOfflineId];
-            YBEvent *event = [results firstObject];
+            NSNumber* offlineId  = [self.eventDAO lastOfflineId];
             if(querySuccessBlock != nil){
-                querySuccessBlock(event.offlineId);
+                querySuccessBlock(offlineId);
             }
         }
     });
@@ -67,9 +64,9 @@
 - (void) eventsWithOfflineId: (NSNumber*) offlineId completion: (void (^)(NSArray*))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
-            RLMResults* results = [self.eventDAO eventWithOfflineId:offlineId];
+            NSArray* events = [self.eventDAO eventWithOfflineId:offlineId];
             if(querySuccessBlock != nil){
-                querySuccessBlock([self convertToArray:results]);
+                querySuccessBlock(events);
             }
         }
     });
@@ -78,10 +75,9 @@
 - (void) firstIdWithCompletion: (void (^)(NSNumber*))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
-            RLMResults* results = [self.eventDAO firstOfflineId];
-            YBEvent *event = [results firstObject];
+            NSNumber* offlineId = [self.eventDAO firstOfflineId];
             if(querySuccessBlock != nil){
-                querySuccessBlock(event.offlineId);
+                querySuccessBlock(offlineId);
             }
         }
     });
@@ -98,7 +94,7 @@
     });
 }
 
-- (void) deleteEventWithEventArray: (NSArray*) events completion: (void (^)(void))querySuccessBlock{
+/*- (void) deleteEventWithEventArray: (NSArray*) events completion: (void (^)(void))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
             [self.eventDAO deleteEventWithEventArray:events];
@@ -107,16 +103,6 @@
             }
         }
     });
-}
-
-#pragma mark Utility methods
-
-- (NSArray*) convertToArray:(RLMResults*) results{
-    NSMutableArray *resultsArray = [NSMutableArray array];
-    for (YBEvent *event in results) {
-        [resultsArray addObject:event];
-    }
-    return resultsArray;
-}
+}*/
 
 @end

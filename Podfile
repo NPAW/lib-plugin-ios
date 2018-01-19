@@ -8,8 +8,6 @@ target 'YouboraLib iOS' do
   # Pods for YouboraLib
   platform :ios, '8.0'
 
-  pod 'Realm', '~> 3.0'
-
   target 'YouboraLibTests iOS' do
     inherit! :search_paths
     # Pods for testing
@@ -23,8 +21,6 @@ target 'YouboraLib tvOS' do
   use_frameworks!
   
   platform :tvos, '9.0'
-
-  pod 'Realm', '~> 3.0'
 
   target 'YouboraLibTests tvOS' do
     inherit! :search_paths

@@ -10,12 +10,4 @@
 
 @implementation YBEvent
 
-+ (NSString *)primaryKey {
-    return @"id";
-}
-
-+ (NSDictionary *)defaultPropertyValues {
-    return @{@"dateUpdate" : [NSDate date]};
-}
-
 @end

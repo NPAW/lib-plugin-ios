@@ -10,6 +10,7 @@
 #import "YBPlugin.h"
 #import "YBLog.h"
 #import "YBConstants.h"
+#import "YBYouboraUtils.h"
 
 @interface YBRequestBuilder()
 
@@ -95,8 +96,7 @@ static NSArray<NSString *> * youboraPingEntities;
 - (NSMutableDictionary<NSString *, NSString *> *) buildParams:(NSDictionary<NSString *, NSString *> *) params forService:(NSString *) service {
     NSMutableDictionary * mutParams = [self fetchParams:params paramList:youboraRequestParams[service] onlyDifferent:false];
     mutParams = [self fetchParams:mutParams paramList:youboraRequestParamsDifferent[service] onlyDifferent:true];
-    NSString * timestamp = [NSString stringWithFormat:@"%.0f", round(CFAbsoluteTimeGetCurrent()*1000)];
-    mutParams[@"timemark"] = timestamp;
+    mutParams[@"timemark"] = [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils unixTimeNow]];
     return mutParams;
 }
 
