@@ -46,7 +46,13 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"title2", @"live", @"mediaDuration", @"mediaResource", @"transactionCode", @"properties",
                                       @"cdn", @"playerVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
                                       @"param7", @"param8", @"param9", @"param10", @"pluginVersion", @"pluginInfo", @"isp",
-                                      @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",@"deviceInfo"];
+                                      @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",@"deviceInfo",
+                                      @"userType", @"streamingProtocol"];
+            
+            NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
+                                        @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
+                                        @"extraparam2", @"extraparam3", @"extraparam4", @"extraparam5", @"extraparam6",
+                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10"];
             
             youboraRequestParams = @{
                        YouboraServiceData:  @[@"system", @"pluginVersion"],
@@ -58,17 +64,15 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceSeek: @[@"seekDuration", @"playhead"],
                        YouboraServiceBuffer: @[@"bufferDuration", @"playhead"],
                        YouboraServiceStop: @[@"bitrate", @"playhead"],
-                       YouboraServiceAdInit: @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource",
-                                               @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"playhead"],
-                       YouboraServiceAdStart: @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource",
-                                                @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"playhead"],
+                       YouboraServiceAdInit: adStartParams,
+                       YouboraServiceAdStart: adStartParams,
                        YouboraServiceAdJoin: @[@"adPosition", @"adJoinDuration", @"adPlayhead", @"playhead"],
                        YouboraServiceAdPause: @[@"adPosition", @"adPlayhead", @"playhead"],
                        YouboraServiceAdResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration", @"playhead"],
                        YouboraServiceAdBuffer: @[@"adPosition", @"adPlayhead", @"adBufferDuration", @"playhead"],
                        YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
-                       YouboraServiceAdError: @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adTotalDuration", @"adResource", @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"adPlayhead"],
+                       YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
                        YouboraServicePing: @[@"droppedFrames", @"playrate"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"]
             };
@@ -196,6 +200,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getTitle];
     } else if ([param isEqualToString:@"title2"]){
         value = [self.plugin getTitle2];
+    } else if ([param isEqualToString:@"streamingProtocol"]){
+        value = [self.plugin getStreamingProtocol];
     } else if ([param isEqualToString:@"live"]){
         NSValue * live = [self.plugin getIsLive];
         if (live != nil) {
@@ -237,7 +243,27 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:@"param9"]){
         value = [self.plugin getExtraparam9];
     } else if ([param isEqualToString:@"param10"]){
-        value = [self.plugin getExtraparam10];
+        value = [self.plugin getExtraparam1];
+    } else if ([param isEqualToString:@"extraparam1"]){
+        value = [self.plugin getAdExtraparam1];
+    } else if ([param isEqualToString:@"extraparam2"]){
+        value = [self.plugin getAdExtraparam2];
+    } else if ([param isEqualToString:@"extraparam3"]){
+        value = [self.plugin getAdExtraparam3];
+    } else if ([param isEqualToString:@"extraparam4"]){
+        value = [self.plugin getAdExtraparam4];
+    } else if ([param isEqualToString:@"extraparam5"]){
+        value = [self.plugin getAdExtraparam5];
+    } else if ([param isEqualToString:@"extraparam6"]){
+        value = [self.plugin getAdExtraparam6];
+    } else if ([param isEqualToString:@"extraparam7"]){
+        value = [self.plugin getAdExtraparam7];
+    } else if ([param isEqualToString:@"extraparam8"]){
+        value = [self.plugin getAdExtraparam8];
+    } else if ([param isEqualToString:@"extraparam9"]){
+        value = [self.plugin getAdExtraparam9];
+    } else if ([param isEqualToString:@"extraparam10"]){
+        value = [self.plugin getAdExtraparam10];
     } else if ([param isEqualToString:@"adPosition"]){
         value = [self.plugin getAdPosition];
     } else if ([param isEqualToString:@"adPlayhead"]){
@@ -248,6 +274,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAdBitrate].stringValue;
     } else if ([param isEqualToString:@"adTitle"]){
         value = [self.plugin getAdTitle];
+    } else if ([param isEqualToString:@"adCampaign"]){
+        value = [self.plugin getAdCampaign];
     } else if ([param isEqualToString:@"adResource"]){
         value = [self.plugin getAdResource];
     } else if ([param isEqualToString:@"adPlayerVersion"]){
@@ -272,6 +300,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAccountCode];
     } else if ([param isEqualToString:@"username"]){
         value = [self.plugin getUsername];
+    }else if ([param isEqualToString:@"userType"]){
+        value = [self.plugin getUserType];
     } else if ([param isEqualToString:@"preloadDuration"]){
         long long duration = [self.plugin getPreloadDuration];
         if (duration >= 0) value = @(duration).stringValue;

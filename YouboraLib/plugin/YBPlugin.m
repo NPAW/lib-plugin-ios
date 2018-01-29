@@ -538,6 +538,10 @@
     return val;
 }
 
+- (NSString *) getStreamingProtocol {
+    return self.options.contentStreamingProtocol;
+}
+
 
 - (NSString *)getTransactionCode {
     return self.options.contentTransactionCode;
@@ -662,6 +666,46 @@
     return self.options.extraparam10;
 }
 
+- (NSString *) getAdExtraparam1 {
+    return self.options.adExtraparam1;
+}
+
+- (NSString *) getAdExtraparam2 {
+    return self.options.adExtraparam2;
+}
+
+- (NSString *) getAdExtraparam3 {
+    return self.options.adExtraparam3;
+}
+
+- (NSString *) getAdExtraparam4 {
+    return self.options.adExtraparam4;
+}
+
+- (NSString *) getAdExtraparam5 {
+    return self.options.adExtraparam5;
+}
+
+- (NSString *) getAdExtraparam6 {
+    return self.options.adExtraparam6;
+}
+
+- (NSString *) getAdExtraparam7 {
+    return self.options.adExtraparam7;
+}
+
+- (NSString *) getAdExtraparam8 {
+    return self.options.adExtraparam8;
+}
+
+- (NSString *) getAdExtraparam9 {
+    return self.options.adExtraparam9;
+}
+
+- (NSString *) getAdExtraparam10 {
+    return self.options.adExtraparam10;
+}
+
 - (NSString *) getAdPlayerVersion {
     NSString * val = nil;
     if (self.adsAdapter != nil) {
@@ -764,9 +808,13 @@
     return [YBYouboraUtils parseNumber:br orDefault:@(-1)];
 }
 
+- (NSString *) getAdCampaign {
+    return self.options.adCampaign;
+}
+
 - (NSString *) getAdTitle {
-    NSString * val = nil;
-    if (self.adsAdapter != nil) {
+    NSString * val = self.options.adTitle;
+    if ((val == nil || val.length == 0) && self.adsAdapter != nil) {
         @try {
             val = [self.adsAdapter getTitle];
         } @catch (NSException *exception) {
@@ -779,8 +827,8 @@
 }
 
 - (NSString *) getAdResource {
-    NSString * val = nil;
-    if (self.adsAdapter != nil) {
+    NSString * val = self.options.adResource;
+    if ((val == nil || val.length == 0) && self.adsAdapter != nil) {
         @try {
             val = [self.adsAdapter getResource];
         } @catch (NSException *exception) {
@@ -849,6 +897,10 @@
 
 - (NSString *) getUsername {
     return self.options.username;
+}
+
+- (NSString *) getUserType {
+    return self.options.userType;
 }
 
 - (NSString *) getNodeHost {
@@ -1373,7 +1425,6 @@
             __block YBEventDataSource* dataSource = [[YBEventDataSource alloc] init];
             r.method = YouboraHTTPMethodPost;
             
-            __weak typeof(self) weakSelf = self;
             YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response, NSNumber * offlineId) {
                 [dataSource deleteEventsWithOfflineId:offlineId completion:^{
                     [YBLog debug:@"Offline events deleted"];

@@ -51,6 +51,11 @@
 @property(nonatomic, strong) NSString * username;
 
 /**
+ * User type value inside your system.
+ */
+@property(nonatomic, strong) NSString * userType;
+
+/**
  * If true the plugin will parse HLS files to use the first .ts file found as resource.
  * It might slow performance down.
  * Default: false
@@ -134,6 +139,11 @@
 @property(nonatomic, strong) NSNumber * contentBitrate; // long
 
 /**
+ * Streaming protocol of the content, accepted types are HDS, HLS, MSS, DASH, RTMP, RTP, RTSP
+ */
+@property(nonatomic, strong) NSString * contentStreamingProtocol; // long
+
+/**
  * Throughput of the client bandwidth in bits per second.
  */
 @property(nonatomic, strong) NSNumber * contentThroughput; // long
@@ -170,6 +180,21 @@
  * Variable containing number of ads after stop
  */
 @property(nonatomic, strong) NSNumber* adsAfterStop;
+
+/**
+ * Variable containing ad campaign
+ */
+@property(nonatomic, strong) NSString* adCampaign;
+
+/**
+ * Variable containing ad title
+ */
+@property(nonatomic, strong) NSString* adTitle;
+
+/**
+ * Variable containing ad resource
+ */
+@property(nonatomic, strong) NSString* adResource;
 
 /**
  * If true the plugin will fireStop when going to background
@@ -231,5 +256,55 @@
  * Custom parameter 10.
  */
 @property(nonatomic, strong) NSString * extraparam10;
+
+/**
+ * Custom ad parameter 1.
+ */
+@property(nonatomic, strong) NSString * adExtraparam1;
+
+/**
+ * Custom ad parameter 2.
+ */
+@property(nonatomic, strong) NSString * adExtraparam2;
+
+/**
+ * Custom ad parameter 3.
+ */
+@property(nonatomic, strong) NSString * adExtraparam3;
+
+/**
+ * Custom ad parameter 4.
+ */
+@property(nonatomic, strong) NSString * adExtraparam4;
+
+/**
+ * Custom ad parameter 5.
+ */
+@property(nonatomic, strong) NSString * adExtraparam5;
+
+/**
+ * Custom ad parameter 6.
+ */
+@property(nonatomic, strong) NSString * adExtraparam6;
+
+/**
+ * Custom ad parameter 7.
+ */
+@property(nonatomic, strong) NSString * adExtraparam7;
+
+/**
+ * Custom ad parameter 8.
+ */
+@property(nonatomic, strong) NSString * adExtraparam8;
+
+/**
+ * Custom ad parameter 9.
+ */
+@property(nonatomic, strong) NSString * adExtraparam9;
+
+/**
+ * Custom ad parameter 10.
+ */
+@property(nonatomic, strong) NSString * adExtraparam10;
 
 @end
