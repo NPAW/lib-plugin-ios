@@ -86,7 +86,7 @@
     NSHTTPURLResponse * mockResponse = mock([NSHTTPURLResponse class]);
     stubProperty(mockResponse, allHeaderFields, @{@"X-Header":@"TCP_HAT from a(a/HOST_VALUE)"});
     
-    ((YBRequestSuccessBlock) captor.value)(mock([NSData class]), mockResponse);
+    ((YBRequestSuccessBlock) captor.value)(mock([NSData class]), mockResponse, @(-1));
     
     XCTAssertTrue(callbackInvoked);
     XCTAssertEqual(YBCdnTypeHit, parser.cdnNodeType);
@@ -192,7 +192,7 @@
     NSHTTPURLResponse * mockResponse = mock([NSHTTPURLResponse class]);
     stubProperty(mockResponse, allHeaderFields, (@{@"Header-type":@"MISS", @"Header-host":@"cdn_host_value"}));
     
-    ((YBRequestSuccessBlock) captor.value)(mock([NSData class]), mockResponse);
+    ((YBRequestSuccessBlock) captor.value)(mock([NSData class]), mockResponse, @(-1));
     
     XCTAssertEqual(YBCdnTypeMiss, parser.cdnNodeType);
     XCTAssertEqualObjects(@"MISS", parser.cdnNodeTypeString);

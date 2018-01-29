@@ -177,6 +177,10 @@
 		CD41447C200E2AE400783B65 /* YBEventQueries.h in Headers */ = {isa = PBXBuildFile; fileRef = CD414479200E2AE400783B65 /* YBEventQueries.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD41447D200E2AE400783B65 /* YBEventQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = CD41447A200E2AE400783B65 /* YBEventQueries.m */; };
 		CD41447E200E2AE400783B65 /* YBEventQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = CD41447A200E2AE400783B65 /* YBEventQueries.m */; };
+		CD935497200678D8003A0797 /* YBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CD935495200678D8003A0797 /* YBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD935498200678D8003A0797 /* YBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD935496200678D8003A0797 /* YBDeviceInfo.m */; };
+		CD935499200678DC003A0797 /* YBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD935496200678D8003A0797 /* YBDeviceInfo.m */; };
+		CD93549A2006791C003A0797 /* YBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CD935495200678D8003A0797 /* YBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD9354A620075175003A0797 /* YBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A420075175003A0797 /* YBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD9354A720075175003A0797 /* YBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354A520075175003A0797 /* YBEvent.m */; };
 		CD9354AA200758BB003A0797 /* YBEventDAO.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A8200758BB003A0797 /* YBEventDAO.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -193,10 +197,6 @@
 		CDEB0D562011EE2F00B297B7 /* YBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354A520075175003A0797 /* YBEvent.m */; };
 		CDEB0D572011EE2F00B297B7 /* YBEventDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354A9200758BB003A0797 /* YBEventDAO.m */; };
 		CDEB0D582011EE2F00B297B7 /* YBEventDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354B120076F19003A0797 /* YBEventDataSource.m */; };
-		CD935497200678D8003A0797 /* YBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CD935495200678D8003A0797 /* YBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD935498200678D8003A0797 /* YBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD935496200678D8003A0797 /* YBDeviceInfo.m */; };
-		CD935499200678DC003A0797 /* YBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD935496200678D8003A0797 /* YBDeviceInfo.m */; };
-		CD93549A2006791C003A0797 /* YBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CD935495200678D8003A0797 /* YBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -320,6 +320,8 @@
 		CD41446D200DF56E00783B65 /* YBAppDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBAppDatabase.m; sourceTree = "<group>"; };
 		CD414479200E2AE400783B65 /* YBEventQueries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBEventQueries.h; sourceTree = "<group>"; };
 		CD41447A200E2AE400783B65 /* YBEventQueries.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBEventQueries.m; sourceTree = "<group>"; };
+		CD935495200678D8003A0797 /* YBDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBDeviceInfo.h; sourceTree = "<group>"; };
+		CD935496200678D8003A0797 /* YBDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBDeviceInfo.m; sourceTree = "<group>"; };
 		CD9354A0200684BC003A0797 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CD9354A2200684C4003A0797 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS11.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		CD9354A420075175003A0797 /* YBEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBEvent.h; sourceTree = "<group>"; };
@@ -330,8 +332,6 @@
 		CD9354B120076F19003A0797 /* YBEventDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBEventDataSource.m; sourceTree = "<group>"; };
 		CDBE2A4E200F5E310034A660 /* YBOfflineTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YBOfflineTransform.h; path = transform/YBOfflineTransform.h; sourceTree = "<group>"; };
 		CDBE2A4F200F5E310034A660 /* YBOfflineTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YBOfflineTransform.m; path = transform/YBOfflineTransform.m; sourceTree = "<group>"; };
-		CD935495200678D8003A0797 /* YBDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBDeviceInfo.h; sourceTree = "<group>"; };
-		CD935496200678D8003A0797 /* YBDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBDeviceInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1151,7 +1151,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.0.7;
+				YOUBORALIB_VERSION_SETTING = "6.1.0-beta";
 			};
 			name = Debug;
 		};
@@ -1200,7 +1200,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.0.7;
+				YOUBORALIB_VERSION_SETTING = "6.1.0-beta";
 			};
 			name = Release;
 		};

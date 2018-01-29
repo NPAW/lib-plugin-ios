@@ -9,6 +9,7 @@
 #import "YBEventDAO.h"
 #import "YBAppDatabase.h"
 #import "YBEvent.h"
+#import "YBLog.h"
 
 @implementation YBEventDAO
 
@@ -21,31 +22,55 @@
 }
 
 - (void) insertNewEvent: (YBEvent*) event{
-    [[YBAppDatabase sharedInstance] insertEvent:event];
-    //[[[YBAppDatabaseSingleton sharedInstance] getInstance] addObject:event];
+    @try {
+        [[YBAppDatabase sharedInstance] insertEvent:event];
+    } @catch(NSException *exception){
+         [YBLog logException:exception];
+    }
 }
 
 - (NSArray<YBEvent*>*) allEvents{
-    return [[YBAppDatabase sharedInstance] allEvents];
-    //return [YBEvent allObjects];
+    @try {
+        return [[YBAppDatabase sharedInstance] allEvents];
+    } @catch(NSException *exception){
+        [YBLog logException:exception];
+    }
+    return [[NSArray alloc] init];
 }
 
 - (NSNumber*) lastOfflineId{
-    return [[YBAppDatabase sharedInstance] lastId];
-    //return [[YBEvent allObjects] sortedResultsUsingKeyPath:@"offlineId" ascending:NO];
+    @try {
+        return [[YBAppDatabase sharedInstance] lastId];
+    } @catch(NSException *exception){
+        [YBLog logException:exception];
+    }
+    return @(0);
 }
 
 - (NSArray<YBEvent*>*) eventWithOfflineId: (NSNumber*) offlineId{
-    return [[YBAppDatabase sharedInstance] eventsWithOfflineId:offlineId];
+    @try {
+        return [[YBAppDatabase sharedInstance] eventsWithOfflineId:offlineId];
+    } @catch(NSException *exception){
+        [YBLog logException:exception];
+    }
+    return [[NSArray alloc] init];
 }
 
 - (NSNumber*) firstOfflineId{
-    return [[YBAppDatabase sharedInstance] firstId];
-    //return [[YBEvent allObjects] sortedResultsUsingKeyPath:@"offlineId" ascending:YES];
+    @try {
+        return [[YBAppDatabase sharedInstance] firstId];
+    } @catch(NSException *exception){
+        [YBLog logException:exception];
+    }
+    return @(0);
 }
 
 - (void) deleteEventsWithOfflineId: (NSNumber*) offlideId{
-    [[YBAppDatabase sharedInstance] removeEventsWithId:offlideId];
+    @try {
+        [[YBAppDatabase sharedInstance] removeEventsWithId:offlideId];
+    } @catch(NSException *exception){
+        [YBLog logException:exception];
+    }
 }
 
 @end
