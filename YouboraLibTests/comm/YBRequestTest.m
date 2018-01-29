@@ -66,7 +66,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     __block int callbacks = 0;
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
+    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId) {
         XCTAssertEqualObjects(mockData, data);
         XCTAssertEqualObjects(response, mockResponse);
         callbacks++;
@@ -123,7 +123,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     __block int callbacks = 0;
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
+    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId) {
         XCTFail(@"YBRequestSuccessBlock called when it shouldn't have.");
     };
     
@@ -217,11 +217,11 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock1 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
+    YBRequestSuccessBlock successBlock1 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId) {
         successCallbacks++;
     };
     
-    YBRequestSuccessBlock successBlock2 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
+    YBRequestSuccessBlock successBlock2 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId) {
         XCTFail(@"Unregistered YBRequestSuccessBlock block called");
     };
     
@@ -270,7 +270,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     // Success
     callback(nil, nil, nil);
     
-    XCTAssertEqual(2, successCallbacks);
+    XCTAssertEqual(3, successCallbacks);
     
     // Error
     callback(nil, nil, mock([NSError class]));

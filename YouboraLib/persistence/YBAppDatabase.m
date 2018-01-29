@@ -46,7 +46,7 @@
 - (BOOL) createDatabaseWithFileName: (NSString*) filename{
     BOOL success;
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
+    //NSError *error;
     NSString *writableDBPath = [self writableDBPathWithName:filename];
     success = [fileManager fileExistsAtPath:writableDBPath];
     if (success) return success;
@@ -123,6 +123,10 @@
             }
             sqlite3_reset(compiledStatement);
         }
+        else
+        {
+            [YBLog error:@"Prepare-error #%li: %s", (long)result, sqlite3_errmsg(database)];
+        }
         sqlite3_finalize(compiledStatement);
     }
     
@@ -147,6 +151,10 @@
                 return eventId;
             }
             sqlite3_reset(compiledStatement);
+        }
+        else
+        {
+            [YBLog error:@"Prepare-error #%li: %s", (long)result, sqlite3_errmsg(database)];
         }
     }
     return @(0);
@@ -181,7 +189,7 @@
         }
         else
         {
-            
+            [YBLog error:@"Prepare-error #%li: %s", (long)result, sqlite3_errmsg(database)];
         }
     }
     
@@ -215,8 +223,6 @@
 - (void) removeEventsWithId:(NSNumber*) offlineId{
     if([self openDB]){
         sqlite3_stmt    *statement;
-        
-        NSString * timestamp = [NSString stringWithFormat:@"%.0f", round(CFAbsoluteTimeGetCurrent()*1000)];
         
         // preparing a query compiles the query so it can be re-used.
         sqlite3_prepare_v2(database, [[NSString stringWithFormat:YouboraEventDeleteEventsByOfflineId, [offlineId stringValue]] UTF8String], -1, &statement, NULL);

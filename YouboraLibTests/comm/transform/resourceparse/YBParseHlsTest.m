@@ -53,7 +53,7 @@
                                 http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/0150_vod.m3u8\n";
     
     // Invoke callback
-    successBlock([responseString dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]));
+    successBlock([responseString dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]),@(-1));
     
     // Recursive call has been performed, capture again
     [verifyCount(mockRequest, times(1)) addRequestSuccessListener:(id)captor];
@@ -69,7 +69,7 @@
                 0640/06401.ts\n";
     
     // Invoke callback
-    successBlock([responseString dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]));
+    successBlock([responseString dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]),@(-1));
     
     XCTAssertEqualObjects(EXPECTED_FINAL_RESOURCE, [parser getResource]);
 

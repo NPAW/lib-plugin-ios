@@ -69,7 +69,7 @@
     [verifyCount(self.viewTransform.mockRequest, times(1)) addRequestSuccessListener:(id) argumentCaptor];
     YBRequestSuccessBlock successBlock = argumentCaptor.value;
     
-    successBlock([@"" dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]));
+    successBlock([@"" dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]),@(-1));
     
     [verifyCount(self.mockLogger, times(1)) logYouboraMessage:anything() withLogLevel:YBLogLevelError];
 }
@@ -83,7 +83,7 @@
     [verifyCount(self.viewTransform.mockRequest, times(1)) addRequestSuccessListener:(id) argumentCaptor];
     YBRequestSuccessBlock successBlock = argumentCaptor.value;
     
-    successBlock(nil, mock([NSURLResponse class]));
+    successBlock(nil, mock([NSURLResponse class]),@(-1));
     
     [verifyCount(self.mockLogger, times(1)) logYouboraMessage:anything() withLogLevel:YBLogLevelError];
 }
@@ -113,7 +113,7 @@
     
     NSString * response = @"fjsonp({\"q\":{\"h\":\"debug-nqs-lw2.nice264.com\",\"t\":\"\",\"pt\":\"5\",\"c\":\"U_19487_4uv9wa43215qq55y\",\"tc\":\"\",\"b\":\"0\"}})";
     
-    successBlock([response dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]));
+    successBlock([response dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]),@(-1));
     
     // Shouldn't block anymore
     XCTAssertFalse([self.viewTransform isBlocking:nil]);
