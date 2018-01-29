@@ -305,6 +305,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getContentMetadata;
 
 /**
+ * Returns the content streaming protocol
+ * @return the content streaming protocol
+ */
+- (nullable NSString *) getStreamingProtocol;
+
+/**
  * Returns the version of the player that is used to play the content
  * @return the player version
  */
@@ -393,6 +399,66 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @return extraparam 10 value
  */
 - (nullable NSString *) getExtraparam10;
+
+/**
+ * Returns ad's Extraparam1
+ * @return extraparam 1 value
+ */
+- (nullable NSString *) getAdExtraparam1;
+
+/**
+ * Returns ad's Extraparam2
+ * @return extraparam 2 value
+ */
+- (nullable NSString *) getAdExtraparam2;
+
+/**
+ * Returns ad's Extraparam3
+ * @return extraparam 3 value
+ */
+- (nullable NSString *) getAdExtraparam3;
+
+/**
+ * Returns ad's Extraparam4
+ * @return extraparam 5 value
+ */
+- (nullable NSString *) getAdExtraparam4;
+
+/**
+ * Returns ad's Extraparam5
+ * @return extraparam 5 value
+ */
+- (nullable NSString *) getAdExtraparam5;
+
+/**
+ * Returns ad's Extraparam6
+ * @return extraparam 6 value
+ */
+- (nullable NSString *) getAdExtraparam6;
+
+/**
+ * Returns ad's Extraparam7
+ * @return extraparam 7 value
+ */
+- (nullable NSString *) getAdExtraparam7;
+
+/**
+ * Returns ad's Extraparam8
+ * @return extraparam 8 value
+ */
+- (nullable NSString *) getAdExtraparam8;
+
+/**
+ * Returns ad's Extraparam9
+ * @return extraparam 9 value
+ */
+- (nullable NSString *) getAdExtraparam9;
+
+/**
+ * Returns ad's Extraparam10
+ * @return extraparam 10 value
+ */
+- (nullable NSString *) getAdExtraparam10;
 
 /**
  * Returns the version of the player that is used to play the ad(s)
@@ -491,6 +557,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getUsername;
 
 /**
+ * Returns the userType
+ * @return the userType
+ */
+- (nullable NSString *) getUserType;
+
+/**
  * Get CDN node
  * @return the CDN node or nil if unknown
  */
@@ -568,6 +640,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @return the total ad duration
  */
 - (long long) getAdTotalDuration;
+
+/**
+ * Returns ad campaign
+ * @return Ad campaign
+ */
+- (NSString *) getAdCampaign;
 
 /**
  * Adds an Init listener

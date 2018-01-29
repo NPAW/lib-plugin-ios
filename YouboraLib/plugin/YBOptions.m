@@ -29,6 +29,7 @@
         self.host = [decoder decodeObjectForKey:@"host"];
         self.accountCode = [decoder decodeObjectForKey:@"accountCode"];
         self.username = [decoder decodeObjectForKey:@"username"];
+        self.userType = [decoder decodeObjectForKey:@"userType"];
         self.parseHls = [[decoder decodeObjectForKey:@"parseHls"] isEqualToValue:@YES];
         self.parseCdnNameHeader = [decoder decodeObjectForKey:@"parseCdnNameHeader"];
         self.parseCdnNode = [[decoder decodeObjectForKey:@"parseCdnNode"] isEqualToValue:@YES];
@@ -43,6 +44,7 @@
         self.contentTitle2 = [decoder decodeObjectForKey:@"contentTitle2"];
         self.contentDuration = [decoder decodeObjectForKey:@"contentDuration"];
         self.contentTransactionCode = [decoder decodeObjectForKey:@"contentTransactionCode"];
+        self.contentStreamingProtocol = [decoder decodeObjectForKey:@"contentStreamingProtocol"];
         self.contentBitrate = [decoder decodeObjectForKey:@"contentBitrate"];
         self.contentThroughput = [decoder decodeObjectForKey:@"contentThroughput"];
         self.contentRendition = [decoder decodeObjectForKey:@"contentRendition"];
@@ -51,6 +53,9 @@
         self.contentMetadata = [decoder decodeObjectForKey:@"contentMetadata"];
         self.adMetadata = [decoder decodeObjectForKey:@"adMetadata"];
         self.adsAfterStop = [decoder decodeObjectForKey:@"adsAfterStop"];
+        self.adCampaign = [decoder decodeObjectForKey:@"adCampaign"];
+        self.adTitle = [decoder decodeObjectForKey:@"adTitle"];
+        self.adResource = [decoder decodeObjectForKey:@"adResource"];
         self.autoDetectBackground = [decoder decodeObjectForKey:@"autoDetectBackground"];
         self.offline = [decoder decodeObjectForKey:@"offline"];
         self.extraparam1 = [decoder decodeObjectForKey:@"extraparam1"];
@@ -63,6 +68,16 @@
         self.extraparam8 = [decoder decodeObjectForKey:@"extraparam8"];
         self.extraparam9 = [decoder decodeObjectForKey:@"extraparam9"];
         self.extraparam10 = [decoder decodeObjectForKey:@"extraparam10"];
+        self.adExtraparam1 = [decoder decodeObjectForKey:@"adExtraparam1"];
+        self.adExtraparam2 = [decoder decodeObjectForKey:@"adExtraparam2"];
+        self.adExtraparam3 = [decoder decodeObjectForKey:@"adExtraparam3"];
+        self.adExtraparam4 = [decoder decodeObjectForKey:@"adExtraparam4"];
+        self.adExtraparam5 = [decoder decodeObjectForKey:@"adExtraparam5"];
+        self.adExtraparam6 = [decoder decodeObjectForKey:@"adExtraparam6"];
+        self.adExtraparam7 = [decoder decodeObjectForKey:@"adExtraparam7"];
+        self.adExtraparam8 = [decoder decodeObjectForKey:@"adExtraparam8"];
+        self.adExtraparam9 = [decoder decodeObjectForKey:@"adExtraparam9"];
+        self.adExtraparam10 = [decoder decodeObjectForKey:@"adExtraparam10"];
     }
     return self;
 }
@@ -73,6 +88,7 @@
     [coder encodeObject:self.host forKey:@"host"];
     [coder encodeObject:self.accountCode forKey:@"accountCode"];
     [coder encodeObject:self.username forKey:@"username"];
+    [coder encodeObject:self.userType forKey:@"userType"];
     [coder encodeObject:@(self.parseHls) forKey:@"parseHls"];
     [coder encodeObject:self.parseCdnNameHeader forKey:@"parseCdnNameHeader"];
     [coder encodeObject:@(self.parseCdnNode) forKey:@"parseCdnNode"];
@@ -81,6 +97,7 @@
     [coder encodeObject:self.networkIsp forKey:@"networkIsp"];
     [coder encodeObject:self.networkConnectionType forKey:@"networkConnectionType"];
     [coder encodeObject:self.deviceCode forKey:@"deviceCode"];
+    [coder encodeObject:self.contentStreamingProtocol forKey:@"contentStreamingProtocol"];
     [coder encodeObject:self.contentResource forKey:@"contentResource"];
     [coder encodeObject:self.contentIsLive forKey:@"contentIsLive"];
     [coder encodeObject:self.contentTitle forKey:@"contentTitle"];
@@ -95,6 +112,9 @@
     [coder encodeObject:self.contentMetadata forKey:@"contentMetadata"];
     [coder encodeObject:self.adMetadata forKey:@"adMetadata"];
     [coder encodeObject:self.adsAfterStop forKey:@"adsAfterStop"];
+    [coder encodeObject:self.adCampaign forKey:@"adCampaign"];
+    [coder encodeObject:self.adTitle forKey:@"adTitle"];
+    [coder encodeObject:self.adResource forKey:@"adResource"];
     [coder encodeObject:@(self.autoDetectBackground) forKey:@"autoDetectBackground"];
     [coder encodeObject:@(self.offline) forKey:@"offline"];
     [coder encodeObject:self.extraparam1 forKey:@"extraparam1"];
@@ -115,6 +135,7 @@
     self.host = @"nqs.nice264.com";
     self.accountCode = @"nicetest";
     self.username = nil;
+    self.userType = nil;
     
     self.parseHls = false;
     self.parseCdnNameHeader = @"x-cdn-forward";
@@ -128,6 +149,7 @@
     
     self.deviceCode = nil;
     
+    self.contentStreamingProtocol = nil;
     self.contentResource = nil;
     self.contentIsLive = nil;
     self.contentTitle = nil;
@@ -143,6 +165,9 @@
     
     self.adMetadata = [NSMutableDictionary dictionary];
     self.adsAfterStop = @0;
+    self.adCampaign = nil;
+    self.adTitle = nil;
+    self.adResource = nil;
     
     self.autoDetectBackground = NO;
     self.offline = NO;
@@ -157,6 +182,17 @@
     self.extraparam8 = nil;
     self.extraparam9 = nil;
     self.extraparam10 = nil;
+    
+    self.adExtraparam1 = nil;
+    self.adExtraparam2 = nil;
+    self.adExtraparam3 = nil;
+    self.adExtraparam4 = nil;
+    self.adExtraparam5 = nil;
+    self.adExtraparam6 = nil;
+    self.adExtraparam7 = nil;
+    self.adExtraparam8 = nil;
+    self.adExtraparam9 = nil;
+    self.adExtraparam10 = nil;
 }
 
 @end
