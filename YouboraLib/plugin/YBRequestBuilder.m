@@ -243,7 +243,7 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:@"param9"]){
         value = [self.plugin getExtraparam9];
     } else if ([param isEqualToString:@"param10"]){
-        value = [self.plugin getExtraparam1];
+        value = [self.plugin getExtraparam10];
     } else if ([param isEqualToString:@"extraparam1"]){
         value = [self.plugin getAdExtraparam1];
     } else if ([param isEqualToString:@"extraparam2"]){

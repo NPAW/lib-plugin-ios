@@ -270,7 +270,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     // Success
     callback(nil, nil, nil);
     
-    XCTAssertEqual(3, successCallbacks);
+    XCTAssertEqual(2, successCallbacks);
     
     // Error
     callback(nil, nil, mock([NSError class]));
