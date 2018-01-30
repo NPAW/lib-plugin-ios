@@ -86,7 +86,7 @@
             [YBLog error:@"SQLite database error: %s",sqlite3_errmsg(database)];
         }
         
-        long lastId = sqlite3_last_insert_rowid(database);
+        long lastId = (long)sqlite3_last_insert_rowid(database);
         
         sqlite3_finalize(statement);
         [self closeDB];
@@ -115,7 +115,7 @@
             {
                 event = [[YBEvent alloc] init];
                 event.id = sqlite3_column_int(compiledStatement, 0);
-                event.jsonEvents = [NSString stringWithUTF8String:sqlite3_column_text(compiledStatement, 1)];
+                event.jsonEvents = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(compiledStatement, 1)];
                 event.dateUpdate = [NSNumber numberWithDouble:sqlite3_column_double(compiledStatement, 2)];
                 event.offlineId = [NSNumber numberWithDouble:sqlite3_column_int(compiledStatement, 3)];
                 
@@ -178,7 +178,7 @@
             {
                 event = [[YBEvent alloc] init];
                 event.id = sqlite3_column_int(compiledStatement, 0);
-                event.jsonEvents = [NSString stringWithUTF8String:sqlite3_column_text(compiledStatement, 1)];
+                event.jsonEvents = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(compiledStatement, 1)];
                 event.dateUpdate = [NSNumber numberWithDouble:sqlite3_column_double(compiledStatement, 2)];
                 event.offlineId = [NSNumber numberWithDouble:sqlite3_column_int(compiledStatement, 3)];
                 
