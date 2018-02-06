@@ -417,13 +417,13 @@
     } else {
         mutParams = [NSMutableDictionary dictionary];
     }
-    mutParams[@"errorLevel"] = @"fatal";
+    //mutParams[@"errorLevel"] = @"fatal";
     [self fireError:mutParams];
     [self fireStop];
 }
 
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
-    [self fireFatalError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"fatal"]];
+    [self fireFatalError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     [self fireStop];
 }
 

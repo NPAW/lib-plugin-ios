@@ -110,12 +110,15 @@
     if (errorMetadata != nil && errorMetadata.length > 0) {
         params[@"errorMetadata"] = errorMetadata;
     }
+    if(level != nil && level.length > 0){
+        params[@"errorLevel"] = level;
+    }
     
     /*if (level == nil || level.length == 0) {
         level = @"error";
     }*/
     
-    params[@"errorLevel"] = level;
+    //params[@"errorLevel"] = level;
     
     return params;
 }

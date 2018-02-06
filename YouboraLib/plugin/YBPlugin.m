@@ -251,7 +251,7 @@
             [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata];
         }
     }else{
-        [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"fatal"]];
+        [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     }
     [self fireStop];
 }
@@ -733,6 +733,8 @@
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling getPosition"];
             [YBLog logException:exception];
+        } @finally{
+            if(pos == nil) pos = YBAdPositionUnknown;
         }
     }
     
@@ -1552,6 +1554,9 @@
 }
 
 - (void) errorListener:(NSDictionary<NSString *, NSString *> *) params {
+    
+    BOOL isFatal = [@"fatal" isEqualToString:params[@"errorLevel"]];
+    
     if (self.comm == nil) {
         [self initComm];
     }
@@ -1560,7 +1565,7 @@
     
     [self sendError:params];
     
-    if ([@"fatal" isEqualToString:params[@"errorLevel"]]) {
+    if (isFatal) {
         [self reset];
     }
 }
