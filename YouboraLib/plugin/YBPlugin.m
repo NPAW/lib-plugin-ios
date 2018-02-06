@@ -251,7 +251,7 @@
             [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata];
         }
     }else{
-        [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"fatal"]];
+        [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     }
     [self fireStop];
 }
@@ -1552,6 +1552,9 @@
 }
 
 - (void) errorListener:(NSDictionary<NSString *, NSString *> *) params {
+    
+    BOOL isFatal = [@"fatal" isEqualToString:params[@"errorLevel"]];
+    
     if (self.comm == nil) {
         [self initComm];
     }
@@ -1560,7 +1563,7 @@
     
     [self sendError:params];
     
-    if ([@"fatal" isEqualToString:params[@"errorLevel"]]) {
+    if (isFatal) {
         [self reset];
     }
 }

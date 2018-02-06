@@ -388,14 +388,14 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception;
 
 /**
- * Shortcut for <fireError:> setting an entry in the map as errorLevel = "fatal".
+ * Shortcut for <fireError:>.
  * This method will also send a stop after the error.
  * @param params params to add to the request. If it is null default values will be added.
  */
 - (void) fireFatalError:(nullable NSDictionary<NSString *, NSString *> *) params;
                                                                    
 /**
- * Sends a fatal error (with level = "fatal").
+ * Sends a fatal error.
  * This method will also send a stop after the error.
  * @param msg Error message (should be unique for the code)
  * @param code Error code reported
@@ -404,7 +404,7 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata;
 
 /**
- * Sends a fatal error (with level = "fatal"). It's empty by default, every adapter
+ * Sends a fatal error. It's empty by default, every adapter
  * can override it.
  * This method will also send a stop after the error.
  * @param msg Error message (should be unique for the code)

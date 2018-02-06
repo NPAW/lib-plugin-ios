@@ -278,7 +278,7 @@
     
     [verifyCount(mockDelegate, times(1)) youboraAdapterEventStop:anything() fromAdapter:adapter];
     errorParams = captor.value;
-    XCTAssertEqualObjects(@"fatal", errorParams[@"errorLevel"]);
+    //XCTAssertEqualObjects(@"fatal", errorParams[@"errorLevel"]); //Not mandatory anymore, since it's hard to differentiate between error at plugin level only the fatal one is send
 }
 
 - (void)testBufferToSeek {
