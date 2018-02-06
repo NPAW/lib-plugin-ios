@@ -733,8 +733,6 @@
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling getPosition"];
             [YBLog logException:exception];
-        } @finally{
-            if(pos == nil) pos = YBAdPositionUnknown;
         }
     }
     
