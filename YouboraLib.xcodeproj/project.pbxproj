@@ -320,6 +320,7 @@
 		CD41446D200DF56E00783B65 /* YBAppDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBAppDatabase.m; sourceTree = "<group>"; };
 		CD414479200E2AE400783B65 /* YBEventQueries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBEventQueries.h; sourceTree = "<group>"; };
 		CD41447A200E2AE400783B65 /* YBEventQueries.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBEventQueries.m; sourceTree = "<group>"; };
+		CD6CB6D9202C4D7400B2B290 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		CD935495200678D8003A0797 /* YBDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBDeviceInfo.h; sourceTree = "<group>"; };
 		CD935496200678D8003A0797 /* YBDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBDeviceInfo.m; sourceTree = "<group>"; };
 		CD9354A0200684BC003A0797 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -375,6 +376,7 @@
 		4E5E11A61E7841BF0097FA21 = {
 			isa = PBXGroup;
 			children = (
+				CD6CB6D9202C4D7400B2B290 /* CHANGELOG.md */,
 				4E5E11B21E7841C00097FA21 /* YouboraLib */,
 				4E5E11BD1E7841C00097FA21 /* YouboraLibTests */,
 				4E7D07F61E9E0EFE0079F187 /* YouboraLib tvOS */,
