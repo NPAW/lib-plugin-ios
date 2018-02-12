@@ -66,7 +66,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     __block int callbacks = 0;
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId) {
+    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
         XCTAssertEqualObjects(mockData, data);
         XCTAssertEqualObjects(response, mockResponse);
         callbacks++;
@@ -123,7 +123,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     __block int callbacks = 0;
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId) {
+    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
         XCTFail(@"YBRequestSuccessBlock called when it shouldn't have.");
     };
     
@@ -217,11 +217,11 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock1 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId) {
+    YBRequestSuccessBlock successBlock1 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
         successCallbacks++;
     };
     
-    YBRequestSuccessBlock successBlock2 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId) {
+    YBRequestSuccessBlock successBlock2 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
         XCTFail(@"Unregistered YBRequestSuccessBlock block called");
     };
     

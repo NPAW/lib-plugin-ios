@@ -89,7 +89,7 @@ static NSRegularExpression * regexPattern;
                 NSString * nextParentResource = res;
                 
                 __weak typeof(self) weakSelf = self;
-                [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber* _Nullable offlineId) {
+                [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id>* listenerParams) {
                     __strong typeof(weakSelf) strongSelf = weakSelf;
                     [strongSelf parse:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] parentResource:nextParentResource];
                 }];

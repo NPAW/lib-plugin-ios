@@ -54,6 +54,9 @@ FOUNDATION_EXPORT NSString * const YouboraServiceClick;
 /** /adError service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdError;
 
+/** Key for request success param */
+FOUNDATION_EXPORT NSString * const YouboraSuccsessListenerOfflineId;
+
 // Lib version
 FOUNDATION_EXPORT NSString * const YouboraLibVersion;
 

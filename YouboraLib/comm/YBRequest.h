@@ -32,7 +32,7 @@ FOUNDATION_EXPORT NSString * const YouboraHTTPMethodTrace;
  *  - data: (NSData *) the data as returned by the completionHandler.
  *  - response: (NSURLResponse *) the response as returned by the completionHandler.
  */
-typedef void (^YBRequestSuccessBlock) (NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber * _Nullable offlineId);
+typedef void (^YBRequestSuccessBlock) (NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams);
 
 /**
  * Type of the error block
@@ -72,8 +72,11 @@ typedef void (^YBRequestErrorBlock) (NSError * _Nullable error);
 /// Method of the HTTP request. Default is <YouboraHTTPMethodGet>
 @property(nonatomic, strong) NSString * method;
 
-/// OfflineId. Default is nil
-@property(nonatomic, strong, nullable) NSNumber* offlineId;
+/// In case of wanting some params back. Default empty
+@property(nonatomic, strong, nullable) NSDictionary<NSString *, id>* listenerParams;
+
+/// Request body in case of being method POST
+@property(nonatomic, strong) NSString * body;
 
 
 /// ---------------------------------

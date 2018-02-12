@@ -303,11 +303,14 @@
             int lastId = [offlineId intValue];
             for(int k = lastId ; k >= 0  ; k--){
                 [dataSource eventsWithOfflineId:[NSNumber numberWithInt:k] completion:^(NSArray * events){
-                    if(events != nil && events.count == 0){
+                    if(events == nil){
                         return;
                     }
-                    YBEvent *event = events[0];
-                    [self sendOfflineEventsWithEventsString:[self generateOfflineJsonStringWithEvents:events] andOfflineId:event.offlineId];
+                    if(events.count == 0){
+                        return;
+                    }
+                    //YBEvent *event = events[0];
+                    [self sendOfflineEventsWithEventsString:[self generateOfflineJsonStringWithEvents:events] andOfflineId:((YBEvent *)events[0]).offlineId];
                 }];
             }
         }];
@@ -325,10 +328,19 @@
 }
 
 - (void) sendOfflineEventsWithEventsString:(NSString *)events andOfflineId:(NSNumber *)offlineId{
-    NSMutableDictionary<NSString*, NSString*> *params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary<NSString*, id> *listenerParams = [[NSMutableDictionary alloc] init];
+    [listenerParams setValue:offlineId forKey:YouboraSuccsessListenerOfflineId];
+    YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response,  NSDictionary<NSString *, id>* listenerParams) {
+        __block YBEventDataSource* dataSource = [[YBEventDataSource alloc] init];
+        [dataSource deleteEventsWithOfflineId:offlineId completion:^{
+            [YBLog debug:@"Offline events deleted"];
+        }];
+    };
+    [self sendWithCallbacks:nil service:YouboraServiceOffline andParams:nil andMethod:YouboraHTTPMethodPost andBody:events withSuccessListener:successListener andSuccessListenerParams:listenerParams];
+    /*NSMutableDictionary<NSString*, NSString*> *params = [[NSMutableDictionary alloc] init];
     params[@"events"] = events;
     params[@"offlineId"] = [offlineId stringValue];
-    [self sendWithCallbacks:nil service:YouboraServiceOffline andParams:params];
+    [self sendWithCallbacks:nil service:YouboraServiceOffline andParams:params];*/
 }
 
 // ------ INFO GETTERS ------
@@ -1401,6 +1413,11 @@
 }
 
 - (void) sendWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params {
+    [self sendWithCallbacks:callbacks service:service andParams:params andMethod:YouboraHTTPMethodGet andBody:nil withSuccessListener:nil andSuccessListenerParams:nil];
+    
+}
+
+- (void) sendWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params andMethod:(NSString*) method andBody:(NSString*) body withSuccessListener:(YBRequestSuccessBlock) successListener andSuccessListenerParams:(NSMutableDictionary<NSString *, id> *) successListenerParams{
     
     params = [self.requestBuilder buildParams:params forService:service];
     
@@ -1418,26 +1435,30 @@
     if (self.comm != nil && params != nil && self.options.enabled) {
         YBRequest * r = [self createRequestWithHost:nil andService:service];
         r.params = params;
+        r.method = method;
+        r.body = body;
         
         self.lastServiceSent = r.service;
         
-        if([service isEqualToString:YouboraServiceOffline]){
+        [self.comm sendRequest:r withCallback:successListener andListenerParams:successListenerParams];
+        
+        /*if([service isEqualToString:YouboraServiceOffline]){
             __block YBEventDataSource* dataSource = [[YBEventDataSource alloc] init];
             r.method = YouboraHTTPMethodPost;
             
-            YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response, NSNumber * offlineId) {
+            YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response,  NSDictionary<NSString *, id>* listenerParams) {
                 [dataSource deleteEventsWithOfflineId:offlineId completion:^{
                     [YBLog debug:@"Offline events deleted"];
                 }];
             };
             NSNumber* blockOfflineId = params[@"offlineId"] == nil ? @-1 : @([params[@"offlineId"] intValue]);
             [r.params removeObjectForKey:@"offlineId"];
-            r.offlineId = blockOfflineId;
             [self.comm sendRequest:r withCallback:successListener];
         }else{
             [self.comm sendRequest:r withCallback:nil];
-        }
+        }*/
     }
+    
 }
 
 - (NSString *) jsonFromDictionary: (NSDictionary*) dictionary{
