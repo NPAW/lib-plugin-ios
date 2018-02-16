@@ -30,6 +30,9 @@ NSString * const YouboraServiceAdStop = @"/adStop";
 NSString * const YouboraServiceClick = @"/adClick";
 NSString * const YouboraServiceAdError = @"/adError";
 
+//Request success constants
+NSString * const YouboraSuccsessListenerOfflineId = @"offline_id";
+
 #define MACRO_NAME(f) #f
 #define MACRO_VALUE(f)  MACRO_NAME(f)
 

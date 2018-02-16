@@ -46,10 +46,12 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     if (self) {
         self.successListenerList = [NSMutableArray arrayWithCapacity:1];
         self.errorListenerList = [NSMutableArray arrayWithCapacity:1];
+        self.listenerParams = [[NSDictionary alloc] init];
         
         self.maxRetries = 3;
         self.retryInterval = 5000;
         self.method = YouboraHTTPMethodGet;
+        self.body = @"";
     }
     return self;
 }
@@ -110,10 +112,6 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     return [self.params objectForKey:key];
 }
 
-/*- (void) setOfflineId: (NSNumber*) offlineId{
-    self.offlineId = offlineId;
-}*/
-
 #pragma mark - Private methods
 - (NSMutableURLRequest *) createRequestWithUrl:(NSURL *) url {
     return [NSMutableURLRequest requestWithURL:url];
@@ -127,6 +125,11 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         
         if ([YBLog isAtLeastLevel:YBLogLevelVerbose]) {
             [YBLog requestLog:@"XHR Req: %@", request.URL.absoluteString];
+            if(self.body != nil && ![self.body isEqualToString:@""]){
+                if([self.method isEqualToString:YouboraHTTPMethodPost]){
+                    [YBLog debug:[NSString stringWithFormat:@"Req body: %@", self.body]];
+                }
+            }
         }
         
         // Set request headers if any
@@ -136,8 +139,8 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         
         request.HTTPMethod = self.method;
         
-        if(self.service == YouboraServiceOffline){
-            [request setHTTPBody:[self.params[@"events"] dataUsingEncoding:NSUTF8StringEncoding]];
+        if(self.body != nil && ![self.body isEqualToString:@""] && [self.method isEqualToString:YouboraHTTPMethodPost]){
+            [request setHTTPBody:[self.body dataUsingEncoding:NSUTF8StringEncoding]];
         }
         
         // User-agent
@@ -169,7 +172,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
 - (void) didSucceedWithData:(NSData *) data andResponse:(NSURLResponse *) response {
     for (YBRequestSuccessBlock block in everySuccessListenerList) {
         @try {
-            block(data, response, self.offlineId);
+            block(data, response, self.listenerParams);
         } @catch (NSException *exception) {
             [YBLog logException:exception];
         }
@@ -177,7 +180,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     
     for (YBRequestSuccessBlock block in self.successListenerList) {
         @try {
-            block(data, response, self.offlineId);
+            block(data, response, self.listenerParams);
         } @catch (NSException *exception) {
             [YBLog logException:exception];
         }

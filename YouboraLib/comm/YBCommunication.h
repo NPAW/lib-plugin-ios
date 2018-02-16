@@ -31,6 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) sendRequest:(YBRequest *) request withCallback:(nullable YBRequestSuccessBlock) callback;
 
 /**
+ * Adds the <YBRequest> to the queue. Doing this will process the pending requests.
+ * @param request the request to add to the queue
+ * @param callback if not null, added as a success listener to the Request
+ * @param listenerParams params to return in case of request success
+ */
+- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccessBlock)callback andListenerParams:(nullable NSDictionary*) listenerParams;
+
+/**
  * Add a <Transform> to the transforms list
  * @param transform transform to add
  */

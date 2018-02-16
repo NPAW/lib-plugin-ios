@@ -33,9 +33,16 @@
 }
 
 #pragma mark - Public methods
-- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccessBlock)callback {
+- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccessBlock)callback{
+    [self sendRequest:request withCallback:callback andListenerParams:nil];
+}
+
+- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccessBlock)callback andListenerParams:(nullable NSDictionary*) listenerParams{
     if (request != nil) {
         if (callback != nil) {
+            if(listenerParams != nil){
+                request.listenerParams = listenerParams;
+            }
             [request addRequestSuccessListener:callback];
         }
         [self registerRequest:request];

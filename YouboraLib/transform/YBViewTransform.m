@@ -101,13 +101,13 @@
         }
     }
     if(service == YouboraServiceOffline){
-        params[@"events"] = [self addCodeToEvents:params];
+        request.body = [self addCodeToEvents:request.body];
     }
 }
 
-- (NSString*) addCodeToEvents:(NSMutableDictionary*) params{
-    if(params != nil && params[@"events"] != nil){
-        return [params[@"events"] stringByReplacingOccurrencesOfString:@"[VIEW_CODE]" withString:self.fastDataConfig.code];
+- (NSString*) addCodeToEvents:(NSString*) body{
+    if(body != nil){
+        return [body stringByReplacingOccurrencesOfString:@"[VIEW_CODE]" withString:self.fastDataConfig.code];
     }
     return nil;
 }
@@ -122,7 +122,7 @@
 - (void) requestData {
     
     __weak typeof(self) weakSelf = self;
-    [self.request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSNumber* _Nullable offlineId) {
+    [self.request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString*, id>* _Nullable listenerParams) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
         if (strongSelf == nil) {
