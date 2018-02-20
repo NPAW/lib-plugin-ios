@@ -158,6 +158,10 @@
     return YBAdPositionUnknown;
 }
 
+- (NSString *) getHouseholdId {
+    return nil;
+}
+
 // Fire methods
     
 - (void)fireAdInit {

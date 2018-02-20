@@ -648,6 +648,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (NSString *) getAdCampaign;
 
 /**
+ * Returns household id
+ * @return Household Id
+ */
+- (NSString *) getHouseholdId;
+
+/**
  * Adds an Init listener
  * @param listener to add
  */

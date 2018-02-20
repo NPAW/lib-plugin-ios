@@ -47,7 +47,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"cdn", @"playerVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
                                       @"param7", @"param8", @"param9", @"param10", @"pluginVersion", @"pluginInfo", @"isp",
                                       @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",@"deviceInfo",
-                                      @"userType", @"streamingProtocol"];
+                                      @"userType", @"streamingProtocol", @"householdId"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -338,6 +338,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getNodeTypeString];
     } else if([param isEqualToString:@"deviceInfo"]){
         value = [YBDeviceInfo mapToJSONString];
+    } else if([param isEqualToString:@"householdId"]){
+        value = [self.plugin getHouseholdId];
     }
     
     return value;
