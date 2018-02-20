@@ -1,3 +1,11 @@
+##  [6.1.3] - 2018-02-20
+
+##  [6.1.2] - 2018-02-20
+
+##  [6.1.1] - 2018-02-20
+###Improved
+- Possible to send post request easly now too
+
 ##  [6.1.0] - 2018-01-30
 ###Added
 - Device info to be more on device info displayed in youbora
