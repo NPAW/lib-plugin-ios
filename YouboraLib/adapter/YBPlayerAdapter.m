@@ -68,7 +68,6 @@
     }
     
     [self fireStop];
-    [self unregisterListeners];
     self.player = nil;
 }
 
