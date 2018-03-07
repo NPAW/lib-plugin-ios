@@ -1579,8 +1579,8 @@
     if (self.comm == nil) {
         [self initComm];
     }
-    
-    [self startResourceParsing];
+    //Moved to sendError
+    //[self startResourceParsing];
     
     [self sendError:params];
     
@@ -1732,6 +1732,13 @@
 }
 
 - (void) sendError:(NSDictionary<NSString *, NSString *> *) params {
+    if(!self.isInitiated && (self.adapter == nil || (self.adapter != nil && !self.adapter.flags.started))){
+        [self.viewTransform nextView];
+    }
+    if(self.comm == nil){
+        [self initComm];
+    }
+    [self startResourceParsing];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceError];
     [self sendWithCallbacks:self.willSendErrorListeners service:YouboraServiceError andParams:mutParams];
     [YBLog notice:@"%@ %@", YouboraServiceError, mutParams[@"errorCode"]];

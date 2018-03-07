@@ -127,6 +127,16 @@
     [coder encodeObject:self.extraparam8 forKey:@"extraparam8"];
     [coder encodeObject:self.extraparam9 forKey:@"extraparam9"];
     [coder encodeObject:self.extraparam10 forKey:@"extraparam10"];
+    [coder encodeObject:self.adExtraparam1 forKey:@"adExtraparam1"];
+    [coder encodeObject:self.adExtraparam2 forKey:@"adExtraparam2"];
+    [coder encodeObject:self.adExtraparam3 forKey:@"adExtraparam3"];
+    [coder encodeObject:self.adExtraparam4 forKey:@"adExtraparam4"];
+    [coder encodeObject:self.adExtraparam5 forKey:@"adExtraparam5"];
+    [coder encodeObject:self.adExtraparam6 forKey:@"adExtraparam6"];
+    [coder encodeObject:self.adExtraparam7 forKey:@"adExtraparam7"];
+    [coder encodeObject:self.adExtraparam8 forKey:@"adExtraparam8"];
+    [coder encodeObject:self.adExtraparam9 forKey:@"adExtraparam9"];
+    [coder encodeObject:self.adExtraparam10 forKey:@"adExtraparam10"];
 }
 
 - (void) defaultValues {
