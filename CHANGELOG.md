@@ -1,6 +1,14 @@
+##  [6.1.4] - 2018-02-20
+###Added
+- Now is possible to fireError without init or start
+
 ##  [6.1.3] - 2018-02-20
+###Fixed
+- Wrong version number
 
 ##  [6.1.2] - 2018-02-20
+###Fixed
+- Wrong import name
 
 ##  [6.1.1] - 2018-02-20
 ###Improved
