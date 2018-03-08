@@ -68,6 +68,16 @@
         self.extraparam8 = [decoder decodeObjectForKey:@"extraparam8"];
         self.extraparam9 = [decoder decodeObjectForKey:@"extraparam9"];
         self.extraparam10 = [decoder decodeObjectForKey:@"extraparam10"];
+        self.extraparam11 = [decoder decodeObjectForKey:@"extraparam11"];
+        self.extraparam12 = [decoder decodeObjectForKey:@"extraparam12"];
+        self.extraparam13 = [decoder decodeObjectForKey:@"extraparam13"];
+        self.extraparam14 = [decoder decodeObjectForKey:@"extraparam14"];
+        self.extraparam15 = [decoder decodeObjectForKey:@"extraparam15"];
+        self.extraparam16 = [decoder decodeObjectForKey:@"extraparam16"];
+        self.extraparam17 = [decoder decodeObjectForKey:@"extraparam17"];
+        self.extraparam18 = [decoder decodeObjectForKey:@"extraparam18"];
+        self.extraparam19 = [decoder decodeObjectForKey:@"extraparam19"];
+        self.extraparam20 = [decoder decodeObjectForKey:@"extraparam20"];
         self.adExtraparam1 = [decoder decodeObjectForKey:@"adExtraparam1"];
         self.adExtraparam2 = [decoder decodeObjectForKey:@"adExtraparam2"];
         self.adExtraparam3 = [decoder decodeObjectForKey:@"adExtraparam3"];
@@ -127,6 +137,16 @@
     [coder encodeObject:self.extraparam8 forKey:@"extraparam8"];
     [coder encodeObject:self.extraparam9 forKey:@"extraparam9"];
     [coder encodeObject:self.extraparam10 forKey:@"extraparam10"];
+    [coder encodeObject:self.extraparam11 forKey:@"extraparam11"];
+    [coder encodeObject:self.extraparam12 forKey:@"extraparam12"];
+    [coder encodeObject:self.extraparam13 forKey:@"extraparam13"];
+    [coder encodeObject:self.extraparam14 forKey:@"extraparam14"];
+    [coder encodeObject:self.extraparam15 forKey:@"extraparam15"];
+    [coder encodeObject:self.extraparam16 forKey:@"extraparam16"];
+    [coder encodeObject:self.extraparam17 forKey:@"extraparam17"];
+    [coder encodeObject:self.extraparam18 forKey:@"extraparam18"];
+    [coder encodeObject:self.extraparam19 forKey:@"extraparam19"];
+    [coder encodeObject:self.extraparam20 forKey:@"extraparam20"];
     [coder encodeObject:self.adExtraparam1 forKey:@"adExtraparam1"];
     [coder encodeObject:self.adExtraparam2 forKey:@"adExtraparam2"];
     [coder encodeObject:self.adExtraparam3 forKey:@"adExtraparam3"];
@@ -192,6 +212,17 @@
     self.extraparam8 = nil;
     self.extraparam9 = nil;
     self.extraparam10 = nil;
+    
+    self.extraparam11 = nil;
+    self.extraparam12 = nil;
+    self.extraparam13 = nil;
+    self.extraparam14 = nil;
+    self.extraparam15 = nil;
+    self.extraparam16 = nil;
+    self.extraparam17 = nil;
+    self.extraparam18 = nil;
+    self.extraparam19 = nil;
+    self.extraparam20 = nil;
     
     self.adExtraparam1 = nil;
     self.adExtraparam2 = nil;

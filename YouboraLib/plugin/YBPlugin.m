@@ -678,6 +678,46 @@
     return self.options.extraparam10;
 }
 
+- (NSString *) getExtraparam11 {
+    return self.options.extraparam11;
+}
+
+- (NSString *) getExtraparam12 {
+    return self.options.extraparam12;
+}
+
+- (NSString *) getExtraparam13 {
+    return self.options.extraparam13;
+}
+
+- (NSString *) getExtraparam14 {
+    return self.options.extraparam14;
+}
+
+- (NSString *) getExtraparam15 {
+    return self.options.extraparam15;
+}
+
+- (NSString *) getExtraparam16 {
+    return self.options.extraparam16;
+}
+
+- (NSString *) getExtraparam17 {
+    return self.options.extraparam17;
+}
+
+- (NSString *) getExtraparam18 {
+    return self.options.extraparam18;
+}
+
+- (NSString *) getExtraparam19 {
+    return self.options.extraparam19;
+}
+
+- (NSString *) getExtraparam20 {
+    return self.options.extraparam20;
+}
+
 - (NSString *) getAdExtraparam1 {
     return self.options.adExtraparam1;
 }
