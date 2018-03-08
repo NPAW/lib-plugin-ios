@@ -258,6 +258,56 @@
 @property(nonatomic, strong) NSString * extraparam10;
 
 /**
+ * Custom parameter 11.
+ */
+@property(nonatomic, strong) NSString * extraparam11;
+
+/**
+ * Custom parameter 12.
+ */
+@property(nonatomic, strong) NSString * extraparam12;
+
+/**
+ * Custom parameter 13.
+ */
+@property(nonatomic, strong) NSString * extraparam13;
+
+/**
+ * Custom parameter 14.
+ */
+@property(nonatomic, strong) NSString * extraparam14;
+
+/**
+ * Custom parameter 15.
+ */
+@property(nonatomic, strong) NSString * extraparam15;
+
+/**
+ * Custom parameter 16.
+ */
+@property(nonatomic, strong) NSString * extraparam16;
+
+/**
+ * Custom parameter 17.
+ */
+@property(nonatomic, strong) NSString * extraparam17;
+
+/**
+ * Custom parameter 18.
+ */
+@property(nonatomic, strong) NSString * extraparam18;
+
+/**
+ * Custom parameter 19.
+ */
+@property(nonatomic, strong) NSString * extraparam19;
+
+/**
+ * Custom parameter 20.
+ */
+@property(nonatomic, strong) NSString * extraparam20;
+
+/**
  * Custom ad parameter 1.
  */
 @property(nonatomic, strong) NSString * adExtraparam1;

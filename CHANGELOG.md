@@ -1,3 +1,7 @@
+##  [6.1.5] - 2018-03-08
+###Added
+- Now there are ten extraparams (total twenty)
+
 ##  [6.1.4] - 2018-02-20
 ###Added
 - Now is possible to fireError without init or start

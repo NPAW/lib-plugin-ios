@@ -401,6 +401,66 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getExtraparam10;
 
 /**
+ * Returns content's Extraparam11
+ * @return extraparam 11 value
+ */
+- (nullable NSString *) getExtraparam11;
+
+/**
+ * Returns content's Extraparam12
+ * @return extraparam 12 value
+ */
+- (nullable NSString *) getExtraparam12;
+
+/**
+ * Returns content's Extraparam13
+ * @return extraparam 13 value
+ */
+- (nullable NSString *) getExtraparam13;
+
+/**
+ * Returns content's Extraparam14
+ * @return extraparam 14 value
+ */
+- (nullable NSString *) getExtraparam14;
+
+/**
+ * Returns content's Extraparam15
+ * @return extraparam 15 value
+ */
+- (nullable NSString *) getExtraparam15;
+
+/**
+ * Returns content's Extraparam16
+ * @return extraparam 16 value
+ */
+- (nullable NSString *) getExtraparam16;
+
+/**
+ * Returns content's Extraparam17
+ * @return extraparam 17 value
+ */
+- (nullable NSString *) getExtraparam17;
+
+/**
+ * Returns content's Extraparam18
+ * @return extraparam 18 value
+ */
+- (nullable NSString *) getExtraparam18;
+
+/**
+ * Returns content's Extraparam19
+ * @return extraparam 19 value
+ */
+- (nullable NSString *) getExtraparam19;
+
+/**
+ * Returns content's Extraparam20
+ * @return extraparam 20 value
+ */
+- (nullable NSString *) getExtraparam20;
+
+/**
  * Returns ad's Extraparam1
  * @return extraparam 1 value
  */
