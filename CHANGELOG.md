@@ -1,3 +1,7 @@
+##  [6.1.6] -
+###Fixed
+- Log typo
+
 ##  [6.1.5] - 2018-03-08
 ###Added
 - Now there are ten extraparams (total twenty)
