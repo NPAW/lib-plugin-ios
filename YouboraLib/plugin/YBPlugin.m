@@ -1593,7 +1593,7 @@
     if (self.adapter != nil && self.adapter.flags.paused) {
         [self.adapter.chronos.pause reset];
     }
-    [YBLog notice:@"Seek being"];
+    [YBLog notice:@"Seek begin"];
 }
 
 - (void) seekEndListener:(NSDictionary<NSString *, NSString *> *) params {
