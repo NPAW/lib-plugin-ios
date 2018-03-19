@@ -34,6 +34,7 @@
         self.parseCdnNameHeader = [decoder decodeObjectForKey:@"parseCdnNameHeader"];
         self.parseCdnNode = [[decoder decodeObjectForKey:@"parseCdnNode"] isEqualToValue:@YES];
         self.parseCdnNodeList = [decoder decodeObjectForKey:@"parseCdnNodeList"];
+        self.experimentIds = [decoder decodeObjectForKey:@"experiments"];
         self.networkIP = [decoder decodeObjectForKey:@"networkIP"];
         self.networkIsp = [decoder decodeObjectForKey:@"networkIsp"];
         self.networkConnectionType = [decoder decodeObjectForKey:@"networkConnectionType"];
@@ -103,6 +104,7 @@
     [coder encodeObject:self.parseCdnNameHeader forKey:@"parseCdnNameHeader"];
     [coder encodeObject:@(self.parseCdnNode) forKey:@"parseCdnNode"];
     [coder encodeObject:self.parseCdnNodeList forKey:@"parseCdnNodeList"];
+    [coder encodeObject:self.experimentIds forKey:@"experiments"];
     [coder encodeObject:self.networkIP forKey:@"networkIP"];
     [coder encodeObject:self.networkIsp forKey:@"networkIsp"];
     [coder encodeObject:self.networkConnectionType forKey:@"networkConnectionType"];
@@ -172,6 +174,8 @@
     self.parseCdnNode = false;
     // TODO: Node list constants
     self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, nil];
+    
+    self.experimentIds = [[NSMutableArray alloc] init];
     
     self.networkIP = nil;
     self.networkIsp = nil;

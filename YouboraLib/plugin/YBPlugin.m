@@ -360,6 +360,10 @@
     return self.options.parseCdnNodeList;
 }
 
+- (NSArray<NSString *> *) getExperimentIds{
+    return self.options.experimentIds;
+}
+
 - (NSString *) getParseCdnNameHeader {
     return self.options.parseCdnNameHeader;
 }
