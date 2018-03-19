@@ -83,6 +83,11 @@
 @property(nonatomic, strong) NSMutableArray<NSString *> * parseCdnNodeList;
 
 /**
+ * List of experiment ids to use with SmartUsers
+ */
+@property(nonatomic, strong) NSMutableArray<NSString *> * experimentIds;
+
+/**
  * IP of the viewer/user, e.g. "48.15.16.23".
  */
 @property(nonatomic, strong) NSString * networkIP;

@@ -1,4 +1,6 @@
 ##  [6.1.6] -
+###Added
+- Experiments Ids on options
 ###Fixed
 - Log typo
 
