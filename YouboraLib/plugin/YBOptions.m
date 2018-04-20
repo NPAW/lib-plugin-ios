@@ -38,6 +38,7 @@
         self.networkIP = [decoder decodeObjectForKey:@"networkIP"];
         self.networkIsp = [decoder decodeObjectForKey:@"networkIsp"];
         self.networkConnectionType = [decoder decodeObjectForKey:@"networkConnectionType"];
+        self.networkObfuscateIp = [decoder decodeObjectForKey:@"networkObfuscateIp"];
         self.deviceCode = [decoder decodeObjectForKey:@"deviceCode"];
         self.contentResource = [decoder decodeObjectForKey:@"contentResource"];
         self.contentIsLive = [decoder decodeObjectForKey:@"contentIsLive"];
@@ -108,6 +109,7 @@
     [coder encodeObject:self.networkIP forKey:@"networkIP"];
     [coder encodeObject:self.networkIsp forKey:@"networkIsp"];
     [coder encodeObject:self.networkConnectionType forKey:@"networkConnectionType"];
+    [coder encodeObject:self.networkObfuscateIp forKey:@"networkObfuscateIp"];
     [coder encodeObject:self.deviceCode forKey:@"deviceCode"];
     [coder encodeObject:self.contentStreamingProtocol forKey:@"contentStreamingProtocol"];
     [coder encodeObject:self.contentResource forKey:@"contentResource"];
@@ -180,6 +182,7 @@
     self.networkIP = nil;
     self.networkIsp = nil;
     self.networkConnectionType = nil;
+    self.networkObfuscateIp = nil;
     
     self.deviceCode = nil;
     

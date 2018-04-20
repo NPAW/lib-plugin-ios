@@ -367,6 +367,11 @@ static NSArray<NSString *> * youboraPingEntities;
             NSString *experimentsString = [experimentsArray componentsJoinedByString:@"\",\""];
             value = [NSString stringWithFormat:@"[\"%@\"]",experimentsString];
         }
+    } else if([param isEqualToString:@""]){
+        NSValue * obfuscate = [self.plugin getNetworkObfuscateIp];
+        if (obfuscate != nil) {
+            value = [obfuscate isEqual:@YES] ? @"true" : @"false";
+        }
     }
     
     return value;
