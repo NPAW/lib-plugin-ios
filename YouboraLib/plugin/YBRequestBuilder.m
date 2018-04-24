@@ -48,7 +48,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
                                       @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
-                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments"];
+                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -367,7 +367,7 @@ static NSArray<NSString *> * youboraPingEntities;
             NSString *experimentsString = [experimentsArray componentsJoinedByString:@"\",\""];
             value = [NSString stringWithFormat:@"[\"%@\"]",experimentsString];
         }
-    } else if([param isEqualToString:@""]){
+    } else if([param isEqualToString:@"obfuscateIp"]){
         NSValue * obfuscate = [self.plugin getNetworkObfuscateIp];
         if (obfuscate != nil) {
             value = [obfuscate isEqual:@YES] ? @"true" : @"false";
