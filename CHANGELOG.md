@@ -1,6 +1,7 @@
 ##  [6.1.6] -
 ###Added
 - Experiments Ids on options
+- Option to obfuscateIp
 ###Fixed
 - Log typo
 
