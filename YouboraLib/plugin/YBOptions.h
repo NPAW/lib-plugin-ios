@@ -103,6 +103,11 @@
 @property(nonatomic, strong) NSString * networkConnectionType;
 
 /**
+ * If the ip address should be abfuscated
+ */
+@property(nonatomic, strong) NSValue * networkObfuscateIp;
+
+/**
  * Youbora's device code. If specified it will rewrite info gotten from user agent.
  * See a list of codes in <a href="http://mapi.youbora.com:8081/devices">http://mapi.youbora.com:8081/devices</a>.
  */
