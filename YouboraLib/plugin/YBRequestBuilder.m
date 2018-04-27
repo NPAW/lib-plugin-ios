@@ -74,7 +74,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
-                       YouboraServicePing: @[@"droppedFrames", @"playrate", "latency", "packetLoss", "packetSent"],
+                       YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"]
             };
             
