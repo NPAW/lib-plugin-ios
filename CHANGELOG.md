@@ -2,6 +2,7 @@
 ###Added
 - Experiments Ids on options
 - New parameters: latency, packetLoss, packetSend
+- Option to obfuscateIp
 ###Fixed
 - Log typo
 

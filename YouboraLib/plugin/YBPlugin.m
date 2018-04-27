@@ -982,6 +982,10 @@
     return self.options.networkConnectionType;
 }
 
+- (NSValue *) getNetworkObfuscateIp {
+    return self.options.networkObfuscateIp;
+}
+
 - (NSString *) getDeviceCode {
     return self.options.deviceCode;
 }

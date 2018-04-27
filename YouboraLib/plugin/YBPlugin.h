@@ -622,6 +622,11 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  */
 - (nullable NSString *) getConnectionType;
 
+/** Returns if ip should be ofuscated
+ *  @return ip obfuscation
+ */
+-(nullable NSValue *) getNetworkObfuscateIp;
+
 /**
  * Returns the device code
  * @return the device code
