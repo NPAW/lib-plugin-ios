@@ -181,6 +181,11 @@
 @property(nonatomic, strong) NSDictionary * contentMetadata;
 
 /**
+ * NSValue containing if seeks should be disabled for life content, only applies if content is live, if it's VOD it gets ignored
+ */
+@property(nonatomic, strong) NSDictionary * contentIsLiveNoSeek;
+
+/**
  * NSDictionary containing mixed extra information about the ads like: director, parental rating,
  * device info or the audio channels.
  */
