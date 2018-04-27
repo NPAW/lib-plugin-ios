@@ -1,8 +1,9 @@
-##  [6.1.6] -
+##  [6.1.6] - 2018-04-27
 ###Added
 - Experiments Ids on options
 - New parameters: latency, packetLoss, packetSend
 - Option to obfuscateIp
+- Option to disable seeks on live content
 ###Fixed
 - Log typo
 
