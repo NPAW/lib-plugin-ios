@@ -1,6 +1,7 @@
 ##  [6.1.6] -
 ###Added
 - Experiments Ids on options
+- New parameters: latency, packetLoss, packetSend
 ###Fixed
 - Log typo
 

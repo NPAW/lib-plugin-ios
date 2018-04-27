@@ -334,6 +334,24 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  */
 - (nullable NSString *) getCdn;
 
+/*
+ * Returns player latency.
+ * @return the current latency
+ */
+- (nullable NSNumber *)getLatency;
+
+/*
+ * Returns lost packets.
+ * @return the current packets being lost
+ */
+- (nullable NSNumber *)getPacketLost;
+
+/*
+ * Returns sent packets.
+ * @return the current packets being sent
+ */
+- (nullable NSNumber *)getPacketSent;
+
 /**
  * Returns the PluginVersion
  * @return the PluginVersion

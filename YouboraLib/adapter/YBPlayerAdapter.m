@@ -142,6 +142,18 @@
     return nil;
 }
 
+- (NSNumber *)getLatency {
+    return nil;
+}
+
+- (NSNumber *)getPacketSent {
+    return nil;
+}
+
+- (NSNumber *)getPacketLost {
+    return nil;
+}
+
 - (NSString *)getPlayerVersion {
     return nil;
 }

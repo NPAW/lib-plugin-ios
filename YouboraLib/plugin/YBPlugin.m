@@ -617,6 +617,45 @@
     return cdn;
 }
 
+- (NSNumber *)getLatency{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getLatency];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getLatency"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *)getPacketLost{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getPacketLost];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getPacketLost"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *)getPacketSent{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getPacketSent];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getPacketSent"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
 - (NSString *) getPluginVersion {
     NSString * ver = [self getAdapterVersion];
     if (ver == nil) {

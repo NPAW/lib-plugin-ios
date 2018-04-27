@@ -74,7 +74,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
-                       YouboraServicePing: @[@"droppedFrames", @"playrate"],
+                       YouboraServicePing: @[@"droppedFrames", @"playrate", "latency", "packetLoss", "packetSent"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"]
             };
             
@@ -367,6 +367,12 @@ static NSArray<NSString *> * youboraPingEntities;
             NSString *experimentsString = [experimentsArray componentsJoinedByString:@"\",\""];
             value = [NSString stringWithFormat:@"[\"%@\"]",experimentsString];
         }
+    } else if([param isEqualToString:@"latency"]){
+        value = [[self.plugin getLatency] stringValue];
+    } else if([param isEqualToString:@"packetLoss"]){
+        value = [[self.plugin getPacketLost] stringValue];
+    } else if([param isEqualToString:@"packetSent"]){
+        value = [[self.plugin getPacketSent] stringValue];
     }
     
     return value;
