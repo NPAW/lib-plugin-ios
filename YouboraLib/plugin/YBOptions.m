@@ -53,6 +53,7 @@
         self.contentCdn = [decoder decodeObjectForKey:@"contentCdn"];
         self.contentFps = [decoder decodeObjectForKey:@"contentFps"];
         self.contentMetadata = [decoder decodeObjectForKey:@"contentMetadata"];
+        self.contentIsLiveNoSeek = [decoder decodeObjectForKey:@"contentIsLiveNoSeek"];
         self.adMetadata = [decoder decodeObjectForKey:@"adMetadata"];
         self.adsAfterStop = [decoder decodeObjectForKey:@"adsAfterStop"];
         self.adCampaign = [decoder decodeObjectForKey:@"adCampaign"];
@@ -124,6 +125,7 @@
     [coder encodeObject:self.contentCdn forKey:@"contentCdn"];
     [coder encodeObject:self.contentFps forKey:@"contentFps"];
     [coder encodeObject:self.contentMetadata forKey:@"contentMetadata"];
+    [coder encodeObject:self.contentIsLiveNoSeek forKey:@"contentIsLiveNoSeek"];
     [coder encodeObject:self.adMetadata forKey:@"adMetadata"];
     [coder encodeObject:self.adsAfterStop forKey:@"adsAfterStop"];
     [coder encodeObject:self.adCampaign forKey:@"adCampaign"];
@@ -199,6 +201,7 @@
     self.contentCdn = nil;
     self.contentFps = nil;
     self.contentMetadata = [NSMutableDictionary dictionary];
+    self.contentIsLiveNoSeek = nil;
     
     self.adMetadata = [NSMutableDictionary dictionary];
     self.adsAfterStop = @0;
