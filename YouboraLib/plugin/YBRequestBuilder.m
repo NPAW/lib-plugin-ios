@@ -45,9 +45,10 @@ static NSArray<NSString *> * youboraPingEntities;
             NSArray * startParams = @[@"accountCode", @"username", @"rendition", @"title",
                                       @"title2", @"live", @"mediaDuration", @"mediaResource", @"transactionCode", @"properties",
                                       @"cdn", @"playerVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
-                                      @"param7", @"param8", @"param9", @"param10", @"pluginVersion", @"pluginInfo", @"isp",
-                                      @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",@"deviceInfo",
-                                      @"userType", @"streamingProtocol", @"householdId"];
+                                      @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
+                                      @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
+                                      @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
+                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -73,7 +74,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
-                       YouboraServicePing: @[@"droppedFrames", @"playrate"],
+                       YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"]
             };
             
@@ -244,6 +245,26 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getExtraparam9];
     } else if ([param isEqualToString:@"param10"]){
         value = [self.plugin getExtraparam10];
+    } else if ([param isEqualToString:@"param11"]){
+        value = [self.plugin getExtraparam11];
+    } else if ([param isEqualToString:@"param12"]){
+        value = [self.plugin getExtraparam12];
+    } else if ([param isEqualToString:@"param13"]){
+        value = [self.plugin getExtraparam13];
+    } else if ([param isEqualToString:@"param14"]){
+        value = [self.plugin getExtraparam14];
+    } else if ([param isEqualToString:@"param15"]){
+        value = [self.plugin getExtraparam15];
+    } else if ([param isEqualToString:@"param16"]){
+        value = [self.plugin getExtraparam16];
+    } else if ([param isEqualToString:@"param17"]){
+        value = [self.plugin getExtraparam17];
+    } else if ([param isEqualToString:@"param18"]){
+        value = [self.plugin getExtraparam18];
+    } else if ([param isEqualToString:@"param19"]){
+        value = [self.plugin getExtraparam19];
+    } else if ([param isEqualToString:@"param20"]){
+        value = [self.plugin getExtraparam20];
     } else if ([param isEqualToString:@"extraparam1"]){
         value = [self.plugin getAdExtraparam1];
     } else if ([param isEqualToString:@"extraparam2"]){
@@ -340,6 +361,25 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [YBDeviceInfo mapToJSONString];
     } else if([param isEqualToString:@"householdId"]){
         value = [self.plugin getHouseholdId];
+    } else if([param isEqualToString:@"experiments"]){
+        NSArray *experimentsArray = [self.plugin getExperimentIds];
+        if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){
+            value = nil;
+        }else{
+            NSString *experimentsString = [experimentsArray componentsJoinedByString:@"\",\""];
+            value = [NSString stringWithFormat:@"[\"%@\"]",experimentsString];
+        }
+    } else if([param isEqualToString:@"latency"]){
+        value = [[self.plugin getLatency] stringValue];
+    } else if([param isEqualToString:@"packetLoss"]){
+        value = [[self.plugin getPacketLost] stringValue];
+    } else if([param isEqualToString:@"packetSent"]){
+        value = [[self.plugin getPacketSent] stringValue];
+    } else if([param isEqualToString:@"obfuscateIp"]){
+        NSValue * obfuscate = [self.plugin getNetworkObfuscateIp];
+        if (obfuscate != nil) {
+            value = [obfuscate isEqual:@YES] ? @"true" : @"false";
+        }
     }
     
     return value;

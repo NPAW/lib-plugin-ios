@@ -83,6 +83,11 @@
 @property(nonatomic, strong) NSMutableArray<NSString *> * parseCdnNodeList;
 
 /**
+ * List of experiment ids to use with SmartUsers
+ */
+@property(nonatomic, strong) NSMutableArray<NSString *> * experimentIds;
+
+/**
  * IP of the viewer/user, e.g. "48.15.16.23".
  */
 @property(nonatomic, strong) NSString * networkIP;
@@ -96,6 +101,11 @@
  * See a list of codes in <a href="http://mapi.youbora.com:8081/connectionTypes">http://mapi.youbora.com:8081/connectionTypes</a>.
  */
 @property(nonatomic, strong) NSString * networkConnectionType;
+
+/**
+ * If the ip address should be abfuscated
+ */
+@property(nonatomic, strong) NSValue * networkObfuscateIp;
 
 /**
  * Youbora's device code. If specified it will rewrite info gotten from user agent.
@@ -169,6 +179,11 @@
  * device info or the audio channels.
  */
 @property(nonatomic, strong) NSDictionary * contentMetadata;
+
+/**
+ * NSValue containing if seeks should be disabled for life content, only applies if content is live, if it's VOD it gets ignored
+ */
+@property(nonatomic, strong) NSValue * contentIsLiveNoSeek;
 
 /**
  * NSDictionary containing mixed extra information about the ads like: director, parental rating,
@@ -256,6 +271,56 @@
  * Custom parameter 10.
  */
 @property(nonatomic, strong) NSString * extraparam10;
+
+/**
+ * Custom parameter 11.
+ */
+@property(nonatomic, strong) NSString * extraparam11;
+
+/**
+ * Custom parameter 12.
+ */
+@property(nonatomic, strong) NSString * extraparam12;
+
+/**
+ * Custom parameter 13.
+ */
+@property(nonatomic, strong) NSString * extraparam13;
+
+/**
+ * Custom parameter 14.
+ */
+@property(nonatomic, strong) NSString * extraparam14;
+
+/**
+ * Custom parameter 15.
+ */
+@property(nonatomic, strong) NSString * extraparam15;
+
+/**
+ * Custom parameter 16.
+ */
+@property(nonatomic, strong) NSString * extraparam16;
+
+/**
+ * Custom parameter 17.
+ */
+@property(nonatomic, strong) NSString * extraparam17;
+
+/**
+ * Custom parameter 18.
+ */
+@property(nonatomic, strong) NSString * extraparam18;
+
+/**
+ * Custom parameter 19.
+ */
+@property(nonatomic, strong) NSString * extraparam19;
+
+/**
+ * Custom parameter 20.
+ */
+@property(nonatomic, strong) NSString * extraparam20;
 
 /**
  * Custom ad parameter 1.

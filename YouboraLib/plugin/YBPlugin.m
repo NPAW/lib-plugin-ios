@@ -360,6 +360,10 @@
     return self.options.parseCdnNodeList;
 }
 
+- (NSArray<NSString *> *) getExperimentIds{
+    return self.options.experimentIds;
+}
+
 - (NSString *) getParseCdnNameHeader {
     return self.options.parseCdnNameHeader;
 }
@@ -613,6 +617,45 @@
     return cdn;
 }
 
+- (NSNumber *)getLatency{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getLatency];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getLatency"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *)getPacketLost{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getPacketLost];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getPacketLost"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *)getPacketSent{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getPacketSent];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getPacketSent"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
 - (NSString *) getPluginVersion {
     NSString * ver = [self getAdapterVersion];
     if (ver == nil) {
@@ -676,6 +719,46 @@
 
 - (NSString *) getExtraparam10 {
     return self.options.extraparam10;
+}
+
+- (NSString *) getExtraparam11 {
+    return self.options.extraparam11;
+}
+
+- (NSString *) getExtraparam12 {
+    return self.options.extraparam12;
+}
+
+- (NSString *) getExtraparam13 {
+    return self.options.extraparam13;
+}
+
+- (NSString *) getExtraparam14 {
+    return self.options.extraparam14;
+}
+
+- (NSString *) getExtraparam15 {
+    return self.options.extraparam15;
+}
+
+- (NSString *) getExtraparam16 {
+    return self.options.extraparam16;
+}
+
+- (NSString *) getExtraparam17 {
+    return self.options.extraparam17;
+}
+
+- (NSString *) getExtraparam18 {
+    return self.options.extraparam18;
+}
+
+- (NSString *) getExtraparam19 {
+    return self.options.extraparam19;
+}
+
+- (NSString *) getExtraparam20 {
+    return self.options.extraparam20;
 }
 
 - (NSString *) getAdExtraparam1 {
@@ -897,6 +980,10 @@
 
 - (NSString *) getConnectionType {
     return self.options.networkConnectionType;
+}
+
+- (NSValue *) getNetworkObfuscateIp {
+    return self.options.networkObfuscateIp;
 }
 
 - (NSString *) getDeviceCode {
@@ -1572,7 +1659,7 @@
     if (self.adapter != nil && self.adapter.flags.paused) {
         [self.adapter.chronos.pause reset];
     }
-    [YBLog notice:@"Seek being"];
+    [YBLog notice:@"Seek begin"];
 }
 
 - (void) seekEndListener:(NSDictionary<NSString *, NSString *> *) params {
@@ -1598,8 +1685,8 @@
     if (self.comm == nil) {
         [self initComm];
     }
-    
-    [self startResourceParsing];
+    //Moved to sendError
+    //[self startResourceParsing];
     
     [self sendError:params];
     
@@ -1751,6 +1838,13 @@
 }
 
 - (void) sendError:(NSDictionary<NSString *, NSString *> *) params {
+    if(!self.isInitiated && (self.adapter == nil || (self.adapter != nil && !self.adapter.flags.started))){
+        [self.viewTransform nextView];
+    }
+    if(self.comm == nil){
+        [self initComm];
+    }
+    [self startResourceParsing];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceError];
     [self sendWithCallbacks:self.willSendErrorListeners service:YouboraServiceError andParams:mutParams];
     [YBLog notice:@"%@ %@", YouboraServiceError, mutParams[@"errorCode"]];

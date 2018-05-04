@@ -188,6 +188,24 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  */
 - (nullable NSString *) getResource;
 
+/** Override to return player latency.
+ *
+ * @return the current latency
+ */
+- (nullable NSNumber *)getLatency;
+
+/** Override to return lost packets.
+ *
+ * @return the current packets being lost
+ */
+- (nullable NSNumber *)getPacketLost;
+
+/** Override to return sent packets.
+ *
+ * @return the current packets being sent
+ */
+- (nullable NSNumber *)getPacketSent;
+
 /** Override to return player version
  *
  * @return the player version

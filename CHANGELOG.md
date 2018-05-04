@@ -1,6 +1,27 @@
+##  [6.1.6] - 2018-04-27
+###Added
+- Experiments Ids on options
+- New parameters: latency, packetLoss, packetSend
+- Option to obfuscateIp
+- Option to disable seeks on live content
+###Fixed
+- Log typo
+
+##  [6.1.5] - 2018-03-08
+###Added
+- Now there are ten extraparams (total twenty)
+
+##  [6.1.4] - 2018-02-20
+###Added
+- Now is possible to fireError without init or start
+
 ##  [6.1.3] - 2018-02-20
+###Fixed
+- Wrong version number
 
 ##  [6.1.2] - 2018-02-20
+###Fixed
+- Wrong import name
 
 ##  [6.1.1] - 2018-02-20
 ###Improved

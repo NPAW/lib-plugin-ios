@@ -84,7 +84,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         
         for (NSString * key in self.params) {
             NSString * value = self.params[key];
-            if (value != nil && ![key isEqualToString:@"events"]) {
+            if (value != nil) {
                 // Avoid sending null values
                 NSURLQueryItem * queryItem = [NSURLQueryItem queryItemWithName:key value:value];
                 [queryItems addObject:queryItem];

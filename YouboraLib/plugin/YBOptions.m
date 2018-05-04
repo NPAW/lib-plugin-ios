@@ -34,9 +34,11 @@
         self.parseCdnNameHeader = [decoder decodeObjectForKey:@"parseCdnNameHeader"];
         self.parseCdnNode = [[decoder decodeObjectForKey:@"parseCdnNode"] isEqualToValue:@YES];
         self.parseCdnNodeList = [decoder decodeObjectForKey:@"parseCdnNodeList"];
+        self.experimentIds = [decoder decodeObjectForKey:@"experiments"];
         self.networkIP = [decoder decodeObjectForKey:@"networkIP"];
         self.networkIsp = [decoder decodeObjectForKey:@"networkIsp"];
         self.networkConnectionType = [decoder decodeObjectForKey:@"networkConnectionType"];
+        self.networkObfuscateIp = [decoder decodeObjectForKey:@"networkObfuscateIp"];
         self.deviceCode = [decoder decodeObjectForKey:@"deviceCode"];
         self.contentResource = [decoder decodeObjectForKey:@"contentResource"];
         self.contentIsLive = [decoder decodeObjectForKey:@"contentIsLive"];
@@ -51,6 +53,7 @@
         self.contentCdn = [decoder decodeObjectForKey:@"contentCdn"];
         self.contentFps = [decoder decodeObjectForKey:@"contentFps"];
         self.contentMetadata = [decoder decodeObjectForKey:@"contentMetadata"];
+        self.contentIsLiveNoSeek = [decoder decodeObjectForKey:@"contentIsLiveNoSeek"];
         self.adMetadata = [decoder decodeObjectForKey:@"adMetadata"];
         self.adsAfterStop = [decoder decodeObjectForKey:@"adsAfterStop"];
         self.adCampaign = [decoder decodeObjectForKey:@"adCampaign"];
@@ -68,6 +71,16 @@
         self.extraparam8 = [decoder decodeObjectForKey:@"extraparam8"];
         self.extraparam9 = [decoder decodeObjectForKey:@"extraparam9"];
         self.extraparam10 = [decoder decodeObjectForKey:@"extraparam10"];
+        self.extraparam11 = [decoder decodeObjectForKey:@"extraparam11"];
+        self.extraparam12 = [decoder decodeObjectForKey:@"extraparam12"];
+        self.extraparam13 = [decoder decodeObjectForKey:@"extraparam13"];
+        self.extraparam14 = [decoder decodeObjectForKey:@"extraparam14"];
+        self.extraparam15 = [decoder decodeObjectForKey:@"extraparam15"];
+        self.extraparam16 = [decoder decodeObjectForKey:@"extraparam16"];
+        self.extraparam17 = [decoder decodeObjectForKey:@"extraparam17"];
+        self.extraparam18 = [decoder decodeObjectForKey:@"extraparam18"];
+        self.extraparam19 = [decoder decodeObjectForKey:@"extraparam19"];
+        self.extraparam20 = [decoder decodeObjectForKey:@"extraparam20"];
         self.adExtraparam1 = [decoder decodeObjectForKey:@"adExtraparam1"];
         self.adExtraparam2 = [decoder decodeObjectForKey:@"adExtraparam2"];
         self.adExtraparam3 = [decoder decodeObjectForKey:@"adExtraparam3"];
@@ -93,9 +106,11 @@
     [coder encodeObject:self.parseCdnNameHeader forKey:@"parseCdnNameHeader"];
     [coder encodeObject:@(self.parseCdnNode) forKey:@"parseCdnNode"];
     [coder encodeObject:self.parseCdnNodeList forKey:@"parseCdnNodeList"];
+    [coder encodeObject:self.experimentIds forKey:@"experiments"];
     [coder encodeObject:self.networkIP forKey:@"networkIP"];
     [coder encodeObject:self.networkIsp forKey:@"networkIsp"];
     [coder encodeObject:self.networkConnectionType forKey:@"networkConnectionType"];
+    [coder encodeObject:self.networkObfuscateIp forKey:@"networkObfuscateIp"];
     [coder encodeObject:self.deviceCode forKey:@"deviceCode"];
     [coder encodeObject:self.contentStreamingProtocol forKey:@"contentStreamingProtocol"];
     [coder encodeObject:self.contentResource forKey:@"contentResource"];
@@ -110,6 +125,7 @@
     [coder encodeObject:self.contentCdn forKey:@"contentCdn"];
     [coder encodeObject:self.contentFps forKey:@"contentFps"];
     [coder encodeObject:self.contentMetadata forKey:@"contentMetadata"];
+    [coder encodeObject:self.contentIsLiveNoSeek forKey:@"contentIsLiveNoSeek"];
     [coder encodeObject:self.adMetadata forKey:@"adMetadata"];
     [coder encodeObject:self.adsAfterStop forKey:@"adsAfterStop"];
     [coder encodeObject:self.adCampaign forKey:@"adCampaign"];
@@ -127,6 +143,26 @@
     [coder encodeObject:self.extraparam8 forKey:@"extraparam8"];
     [coder encodeObject:self.extraparam9 forKey:@"extraparam9"];
     [coder encodeObject:self.extraparam10 forKey:@"extraparam10"];
+    [coder encodeObject:self.extraparam11 forKey:@"extraparam11"];
+    [coder encodeObject:self.extraparam12 forKey:@"extraparam12"];
+    [coder encodeObject:self.extraparam13 forKey:@"extraparam13"];
+    [coder encodeObject:self.extraparam14 forKey:@"extraparam14"];
+    [coder encodeObject:self.extraparam15 forKey:@"extraparam15"];
+    [coder encodeObject:self.extraparam16 forKey:@"extraparam16"];
+    [coder encodeObject:self.extraparam17 forKey:@"extraparam17"];
+    [coder encodeObject:self.extraparam18 forKey:@"extraparam18"];
+    [coder encodeObject:self.extraparam19 forKey:@"extraparam19"];
+    [coder encodeObject:self.extraparam20 forKey:@"extraparam20"];
+    [coder encodeObject:self.adExtraparam1 forKey:@"adExtraparam1"];
+    [coder encodeObject:self.adExtraparam2 forKey:@"adExtraparam2"];
+    [coder encodeObject:self.adExtraparam3 forKey:@"adExtraparam3"];
+    [coder encodeObject:self.adExtraparam4 forKey:@"adExtraparam4"];
+    [coder encodeObject:self.adExtraparam5 forKey:@"adExtraparam5"];
+    [coder encodeObject:self.adExtraparam6 forKey:@"adExtraparam6"];
+    [coder encodeObject:self.adExtraparam7 forKey:@"adExtraparam7"];
+    [coder encodeObject:self.adExtraparam8 forKey:@"adExtraparam8"];
+    [coder encodeObject:self.adExtraparam9 forKey:@"adExtraparam9"];
+    [coder encodeObject:self.adExtraparam10 forKey:@"adExtraparam10"];
 }
 
 - (void) defaultValues {
@@ -143,9 +179,12 @@
     // TODO: Node list constants
     self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, nil];
     
+    self.experimentIds = [[NSMutableArray alloc] init];
+    
     self.networkIP = nil;
     self.networkIsp = nil;
     self.networkConnectionType = nil;
+    self.networkObfuscateIp = nil;
     
     self.deviceCode = nil;
     
@@ -162,6 +201,7 @@
     self.contentCdn = nil;
     self.contentFps = nil;
     self.contentMetadata = [NSMutableDictionary dictionary];
+    self.contentIsLiveNoSeek = nil;
     
     self.adMetadata = [NSMutableDictionary dictionary];
     self.adsAfterStop = @0;
@@ -182,6 +222,17 @@
     self.extraparam8 = nil;
     self.extraparam9 = nil;
     self.extraparam10 = nil;
+    
+    self.extraparam11 = nil;
+    self.extraparam12 = nil;
+    self.extraparam13 = nil;
+    self.extraparam14 = nil;
+    self.extraparam15 = nil;
+    self.extraparam16 = nil;
+    self.extraparam17 = nil;
+    self.extraparam18 = nil;
+    self.extraparam19 = nil;
+    self.extraparam20 = nil;
     
     self.adExtraparam1 = nil;
     self.adExtraparam2 = nil;
