@@ -1,3 +1,7 @@
+##  [6.1.7] - 2018-05-04
+###Added
+- HouseholdId parameter
+
 ##  [6.1.6] - 2018-04-27
 ###Added
 - Experiments Ids on options
