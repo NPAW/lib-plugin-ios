@@ -326,7 +326,7 @@
 }
 
 - (void)fireSeekBegin:(NSDictionary<NSString *,NSString *> *)params convertFromBuffer:(bool)convertFromBuffer {
-    if (self.plugin != nil && self.plugin.options.contentIsLiveNoSeek != nil && [self.plugin.options.contentIsLiveNoSeek isEqual:@YES]){
+    if (self.plugin != nil && self.plugin.options.contentIsLiveNoSeek != nil && [self.plugin.options.contentIsLiveNoSeek isEqualToValue:@YES] && [[self.plugin getIsLive] isEqualToValue:@YES]){
         return;
     }
     if (self.flags.joined && !self.flags.seeking) {
@@ -358,7 +358,7 @@
 }
 
 - (void)fireSeekEnd:(NSDictionary<NSString *,NSString *> *)params {
-    if (self.plugin != nil && self.plugin.options.contentIsLiveNoSeek != nil && [self.plugin.options.contentIsLiveNoSeek isEqual:@YES]){
+    if (self.plugin != nil && self.plugin.options.contentIsLiveNoSeek != nil && [self.plugin.options.contentIsLiveNoSeek isEqualToValue:@YES] && [[self.plugin getIsLive] isEqualToValue:@YES]){
         return;
     }
     if (self.flags.joined && self.flags.seeking) {
