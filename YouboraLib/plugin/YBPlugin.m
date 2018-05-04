@@ -1014,6 +1014,25 @@
     return [self.resourceTransform getNodeTypeString];
 }
 
+- (NSString *) getHouseholdId {
+    NSString * val = nil;
+    
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getHouseholdId];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getHouseholdId"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    if (val == nil) {
+        val = @"";
+    }
+    
+    return val;
+}
+
 // ------ CHRONOS ------
 - (long long) getPreloadDuration {
     return [self.preloadChrono getDeltaTime:false];

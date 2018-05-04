@@ -48,7 +48,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
                                       @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
-                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp"];
+                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -359,6 +359,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getNodeTypeString];
     } else if([param isEqualToString:@"deviceInfo"]){
         value = [YBDeviceInfo mapToJSONString];
+    } else if([param isEqualToString:@"householdId"]){
+        value = [self.plugin getHouseholdId];
     } else if([param isEqualToString:@"experiments"]){
         NSArray *experimentsArray = [self.plugin getExperimentIds];
         if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){

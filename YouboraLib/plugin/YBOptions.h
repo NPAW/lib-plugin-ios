@@ -151,7 +151,7 @@
 /**
  * Streaming protocol of the content, accepted types are HDS, HLS, MSS, DASH, RTMP, RTP, RTSP
  */
-@property(nonatomic, strong) NSString * contentStreamingProtocol; // long
+@property(nonatomic, strong) NSString * contentStreamingProtocol;
 
 /**
  * Throughput of the client bandwidth in bits per second.

@@ -231,6 +231,13 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  */
 - (YBAdPosition) getPosition;
 
+/**
+ * Override to return household id
+ *
+ * @return housohold player id
+ */
+- (NSString *) getHouseholdId;
+
 /// ---------------------------------
 /// @name Flow methods
 /// ---------------------------------
