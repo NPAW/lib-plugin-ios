@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = "9.0"
 
   # Source Location
-  s.source       = { :git => 'https://github.com/NPAW/lib-plugin-ios.git', :tag => s.version}
+  s.source       = { :git => 'https://bitbucket.org/npaw/lib-plugin-ios.git', :tag => s.version}
 
   # Source files
   s.source_files  = 'YouboraLib/**/*.{h,m}'
