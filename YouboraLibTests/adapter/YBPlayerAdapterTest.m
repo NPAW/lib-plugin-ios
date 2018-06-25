@@ -353,4 +353,67 @@
     XCTAssertEqualObjects(@1, [adapter getPlayrate]);
 }
 
+- (void) testAdClickWithValidUrl {
+    YBPlayerAdapter * adapter = [YBPlayerAdapter new];
+    
+    id<YBPlayerAdapterEventDelegate> mockDelegate = mockProtocol(@protocol(YBPlayerAdapterEventDelegate));
+    [adapter addYouboraAdapterDelegate:mockDelegate];
+    
+    [adapter fireStart];
+    [adapter fireClickWithAdUrl:@"fake"];
+    
+    HCArgumentCaptor * captor = [HCArgumentCaptor new];
+    [verifyCount(mockDelegate, times(1)) youboraAdapterEventClick:(id) captor fromAdapter:adapter];
+    XCTAssertTrue(captor.value[@"adUrl"] != nil);
+    NSString *adUrl = [captor.value objectForKey:@"adUrl"];
+    XCTAssertTrue([adUrl isEqualToString:@"fake"]);
+    
+}
+
+- (void) testAdClickWithInvalidUrl {
+    YBPlayerAdapter * adapter = [YBPlayerAdapter new];
+    
+    id<YBPlayerAdapterEventDelegate> mockDelegate = mockProtocol(@protocol(YBPlayerAdapterEventDelegate));
+    [adapter addYouboraAdapterDelegate:mockDelegate];
+    
+    [adapter fireStart];
+    [adapter fireClickWithAdUrl:nil];
+    
+    HCArgumentCaptor * captor = [HCArgumentCaptor new];
+    [verifyCount(mockDelegate, times(1)) youboraAdapterEventClick:(id) captor fromAdapter:adapter];
+    XCTAssertTrue(captor.value[@"adUrl"] == nil);
+}
+
+- (void) testFireSkip {
+    YBPlayerAdapter * adapter = [YBPlayerAdapter new];
+    
+    id<YBPlayerAdapterEventDelegate> mockDelegate = mockProtocol(@protocol(YBPlayerAdapterEventDelegate));
+    [adapter addYouboraAdapterDelegate:mockDelegate];
+    
+    [adapter fireStart];
+    [adapter fireSkip];
+    
+    HCArgumentCaptor * captor = [HCArgumentCaptor new];
+    [verifyCount(mockDelegate, times(1)) youboraAdapterEventStop:(id) captor fromAdapter:adapter];
+    XCTAssertTrue(captor.value[@"skipped"] != nil);
+    NSString* skipped = captor.value[@"skipped"];
+    XCTAssertTrue([skipped isEqualToString:@"true"]);
+}
+
+- (void) testFireCast {
+    YBPlayerAdapter * adapter = [YBPlayerAdapter new];
+    
+    id<YBPlayerAdapterEventDelegate> mockDelegate = mockProtocol(@protocol(YBPlayerAdapterEventDelegate));
+    [adapter addYouboraAdapterDelegate:mockDelegate];
+    
+    [adapter fireStart];
+    [adapter fireCast];
+    
+    HCArgumentCaptor * captor = [HCArgumentCaptor new];
+    [verifyCount(mockDelegate, times(1)) youboraAdapterEventStop:(id) captor fromAdapter:adapter];
+    XCTAssertTrue(captor.value[@"casted"] != nil);
+    NSString* skipped = captor.value[@"casted"];
+    XCTAssertTrue([skipped isEqualToString:@"true"]);
+}
+
 @end
