@@ -466,9 +466,10 @@
 }
 
 - (void) fireClickWithAdUrl:(NSString*)adUrl{
-    NSDictionary<NSString *,NSString *>* params = @{
-                                                    @"adUrl" : adUrl
-                                                    };
+    NSMutableDictionary<NSString *,NSString *>* params = [[NSMutableDictionary alloc] init];
+    if(adUrl != nil){
+        params[@"adUrl"] = adUrl;
+    }
     [self fireClick:params];
 }
 

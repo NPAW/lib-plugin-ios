@@ -385,7 +385,7 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * Shortcut for <fireClick:> accepting an url
  * @param adUrl NSString with clicktrough url
  */
-- (void) fireClickWithAdUrl:(nullable NSString*)adUrl;
+- (void) fireClickWithAdUrl:(nullable NSString*) adUrl;
 
 /**
  * Emits related event and set flags if current status is valid. Only for ads
