@@ -1995,7 +1995,7 @@
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
     
     [self sendWithCallbacks:self.willSendPingListeners service:YouboraServicePing andParams:params];
-    [YBLog debug:YouboraServicePing];
+    [YBLog debug: @"%@ params: %@", YouboraServicePing, params.description];
 }
 
 #pragma mark - YBTransformDoneListener protocol
