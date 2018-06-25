@@ -417,19 +417,13 @@
     }
 }
 
-
 - (void) fireSkip{
-    [self fireStop: @{@"skipped" : @"true"}]
+    [self fireStop: @{@"skipped" : @"true"}];
 }
 
 - (void) fireCast{
-    [self fireStop: @{@"casted" : @"true"}]
+    [self fireStop: @{@"casted" : @"true"}];
 }
-
-/**
- * Shortcut for <fireStop:> with a param casted = true
- */
-- (void) fireCast;
 
 - (void)fireError:(NSDictionary<NSString *,NSString *> *)params {
     params = [YBYouboraUtils buildErrorParams:[params mutableCopy]];
