@@ -359,7 +359,7 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * Shortcut for <fireStop:> with params = nil.
  */
 - (void) fireStop;
-                                                
+
 /**
  * Emits related event and set flags if current status is valid.
  * @param params Map of key:value pairs to add to the request
@@ -367,9 +367,25 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params;
 
 /**
+ * Shortcut for <fireStop:> with a param skipped = true
+ */
+- (void) fireSkip;
+
+/**
+ * Shortcut for <fireStop:> with a param casted = true
+ */
+- (void) fireCast;
+
+/**
  * Shortcut for <fireClick:> with {@code params = null}.
  */
 - (void) fireClick;
+
+/**
+ * Shortcut for <fireClick:> accepting an url
+ * @param adUrl NSString with clicktrough url
+ */
+- (void) fireClickWithAdUrl:(nullable NSString*)adUrl;
 
 /**
  * Emits related event and set flags if current status is valid. Only for ads

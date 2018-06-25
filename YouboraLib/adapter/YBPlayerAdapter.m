@@ -417,6 +417,20 @@
     }
 }
 
+
+- (void) fireSkip{
+    [self fireStop: @{@"skipped" : @"true"}]
+}
+
+- (void) fireCast{
+    [self fireStop: @{@"casted" : @"true"}]
+}
+
+/**
+ * Shortcut for <fireStop:> with a param casted = true
+ */
+- (void) fireCast;
+
 - (void)fireError:(NSDictionary<NSString *,NSString *> *)params {
     params = [YBYouboraUtils buildErrorParams:[params mutableCopy]];
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
@@ -454,7 +468,14 @@
 }
 
 - (void) fireClick{
-    [self fireClick:nil];
+    [self fireClick:[[NSDictionary alloc] init]];
+}
+
+- (void) fireClickWithAdUrl:(NSString*)adUrl{
+    NSDictionary<NSString *,NSString *>* params = @{
+                                                    @"adUrl" : adUrl
+                                                    };
+    [self fireClick:params];
 }
 
 - (void) fireClick:(NSDictionary<NSString *,NSString *> *)params{
