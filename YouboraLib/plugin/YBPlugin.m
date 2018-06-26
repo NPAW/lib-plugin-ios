@@ -24,7 +24,7 @@
 #import "YBPlaybackChronos.h"
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
-#import "YBNqs6Transform.h"
+//#import "YBNqs6Transform.h"
 #import "YBPlayheadMonitor.h"
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
@@ -1508,9 +1508,9 @@
     return [YBFlowTransform new];
 }
 
-- (YBNqs6Transform *) createNqs6Transform {
+/*- (YBNqs6Transform *) createNqs6Transform {
     return [YBNqs6Transform new];
-}
+}*/
 
 - (void) reset {
     [self stopPings];
@@ -1590,7 +1590,7 @@
     [self.comm addTransform:[self createFlowTransform]];
     
     [self.comm addTransform:self.resourceTransform];
-    [self.comm addTransform:[self createNqs6Transform]];
+    //[self.comm addTransform:[self createNqs6Transform]];
     
     if(self.options.offline){
         [self.comm addTransform:[self createOfflineTransform]];
