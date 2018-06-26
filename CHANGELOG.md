@@ -1,3 +1,12 @@
+##  [6.1.8] - 
+###Added
+- fireClick, fireCasted and fireSkip helper methods
+- Now when fireStop() is called from the Plugin's class, it will check if the adapter is not null. If it isn't, it will call the adapter's fireStop().
+
+## [6.1.7] - 2018-05-04
+### Add
+
+
 ##  [6.1.7] - 2018-05-04
 ###Added
 - HouseholdId parameter

@@ -257,7 +257,11 @@
 }
 
 - (void) fireStop{
-    [self fireStop:nil];
+    if(self.adapter != nil){
+        [self.adapter fireStop];
+    }else{
+        [self fireStop:nil];
+    }
 }
 
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params{
