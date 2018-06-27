@@ -56,7 +56,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                         @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10"];
             
             youboraRequestParams = @{
-                       YouboraServiceData:  @[@"system", @"pluginVersion"],
+                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username"],
                        YouboraServiceInit:  startParams,
                        YouboraServiceStart: startParams,
                        YouboraServiceJoin:  @[@"joinDuration", @"playhead"],
