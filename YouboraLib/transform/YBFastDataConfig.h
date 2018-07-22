@@ -33,4 +33,10 @@
  */
 @property(nonatomic, strong) NSNumber * pingTime;
 
+/**
+ * Beat time: how often should beats be reported. This is a per-account configurable
+ * although 99% of the time this is 30 seconds.
+ */
+@property(nonatomic, strong) NSNumber * beatTime;
+
 @end

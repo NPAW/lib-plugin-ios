@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "YBTransform.h"
 #import "YBPlayerAdapter.h"
+#import "YBInfinity.h"
 
 @class YBRequestBuilder, YBOptions, YBResourceTransform, YBViewTransform, YBTimer, YBPlayerAdapter, YBCommunication;
 
@@ -31,7 +32,7 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * This is the main class of video analytics. You may want one instance for each video you want
  * to track. Will need <YBPlayerAdapter>s for both content and ads, manage options and general flow.
  */
-@interface YBPlugin : NSObject<YBTransformDoneListener, YBPlayerAdapterEventDelegate>
+@interface YBPlugin : NSObject<YBTransformDoneListener, YBPlayerAdapterEventDelegate, YBInfinityDelegate>
 
 /// ---------------------------------
 /// @name Public properties
@@ -40,6 +41,7 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 @property(nonatomic, strong, readonly) YBViewTransform * viewTransform;
 @property(nonatomic, strong, readonly) YBRequestBuilder * requestBuilder;
 @property(nonatomic, strong, readonly) YBTimer * pingTimer;
+@property(nonatomic, strong, readonly) YBTimer * beatTimer;
 @property(nonatomic, strong) YBOptions * options;
 @property(nonatomic, strong, nullable) YBPlayerAdapter * adapter;
 @property(nonatomic, strong, nullable) YBPlayerAdapter * adsAdapter;
@@ -107,6 +109,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param shouldStopPings if pings should stop
  */
 - (void) removeAdsAdapter: (BOOL)shouldStopPings;
+
+/**
+ * Returns the infinity instance object as singleton, since we need to use the same for all
+ * the application
+ */
+- (YBInfinity *) getInfinity;
 
 /**
  * Disable request sending.

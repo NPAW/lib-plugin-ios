@@ -162,4 +162,8 @@
     return round(nowEpochSeconds * 1000);
 }
 
++ (NSString *) getAppName{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+}
+
 @end

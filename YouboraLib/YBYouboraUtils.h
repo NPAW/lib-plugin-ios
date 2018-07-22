@@ -86,4 +86,10 @@
  * @return long timestamp
  */
 + (double) unixTimeNow;
+
+/**
+ * Returns display application name
+ * @return Application name
+ */
++ (NSString *) getAppName;
 @end

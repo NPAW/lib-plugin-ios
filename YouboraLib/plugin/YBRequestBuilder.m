@@ -12,6 +12,7 @@
 #import "YBConstants.h"
 #import "YBYouboraUtils.h"
 #import "YBDeviceInfo.h"
+#import "YBInfinity.h"
 
 @interface YBRequestBuilder()
 
@@ -48,7 +49,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
                                       @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
-                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId"];
+                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId", @"navContext"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -75,7 +76,14 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
                        YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent"],
-                       YouboraServiceError: [startParams arrayByAddingObject:@"player"]
+                       YouboraServiceError: [startParams arrayByAddingObject:@"player"],
+                       
+                       //Infinity
+                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext"],
+                       YouboraServiceSessionStop: @[@"accountCode"],
+                       YouboraServiceSessionNav: @[@"username", @"navContext"],
+                       YouboraServiceSessionBeat: @[],
+                       YouboraServiceSessionStop: @[]
             };
             
             youboraRequestParamsDifferent = @{YouboraServiceJoin:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],
@@ -380,6 +388,8 @@ static NSArray<NSString *> * youboraPingEntities;
         if (obfuscate != nil) {
             value = [obfuscate isEqual:@YES] ? @"true" : @"false";
         }
+    } else if ([param isEqualToString:@"navContext"]) {
+        value = ((YBInfinity *)[YBInfinity sharedManager]).navContext;
     }
     
     return value;

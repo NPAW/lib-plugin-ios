@@ -30,6 +30,8 @@
 #import "YBEventDataSource.h"
 #import "YBEvent.h"
 
+#import "YBInfinity.h"
+
 @interface YBPlugin()
 
 // Redefinition with readwrite access
@@ -37,6 +39,7 @@
 @property(nonatomic, strong, readwrite) YBViewTransform * viewTransform;
 @property(nonatomic, strong, readwrite) YBRequestBuilder * requestBuilder;
 @property(nonatomic, strong, readwrite) YBTimer * pingTimer;
+@property(nonatomic, strong, readwrite) YBTimer * beatTimer;
 @property(nonatomic, strong, readwrite) YBCommunication * comm;
 
 // Private properties
@@ -69,6 +72,12 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendClickListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdErrorListeners;
 
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionStartListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionStopListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionNavListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionEventListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionBeatListeners;
+
 @end
 
 @implementation YBPlugin
@@ -100,6 +109,11 @@
         self.pingTimer = [self createTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             [weakSelf sendPing:diffTime];
         } andInterval:5000];
+        
+        self.beatTimer = [self createBeatTimerWithCallback:^(YBTimer *timer, long long diffTime) {
+            [weakSelf sendPing:diffTime];
+        } andInterval:30000];
+        
         self.requestBuilder = [self createRequestBuilder];
         self.resourceTransform = [self createResourceTransform];
         self.viewTransform = [self createViewTransform];
@@ -193,6 +207,16 @@
     if(shouldStopPings && self.adapter == nil){
         [self fireStop];
     }
+}
+
+- (YBInfinity *) getInfinity {
+    YBInfinity *infinity = [YBInfinity sharedManager];
+    if (infinity.plugin == nil) {
+        infinity.plugin = self;
+        [infinity addYouboraInfinityDelegate:self];
+        infinity.viewTransform = self.viewTransform;
+    }
+    return [YBInfinity sharedManager];
 }
 
 - (void) disable {
@@ -1033,6 +1057,10 @@
     return val;
 }
 
+- (NSString *) getNavContext {
+    return [self getInfinity].navContext;
+}
+
 // ------ CHRONOS ------
 - (long long) getPreloadDuration {
     return [self.preloadChrono getDeltaTime:false];
@@ -1289,10 +1317,40 @@
  * Adds a ad error listener
  * @param listener to add
  */
--(void) addWillSendAdErrorListener:(YBWillSendRequestBlock) listener{
+- (void) addWillSendAdErrorListener:(YBWillSendRequestBlock) listener{
     if(self.willSendAdErrorListeners == nil)
         self.willSendAdErrorListeners = [NSMutableArray arrayWithCapacity:1];
     [self.willSendAdErrorListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionStartListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionStartListeners == nil)
+        self.willSendSessionStartListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionStartListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionStopListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionStopListeners == nil)
+        self.willSendSessionStopListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionStopListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionEventListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionEventListeners == nil)
+        self.willSendSessionEventListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionEventListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionNavListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionNavListeners == nil)
+        self.willSendSessionNavListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionNavListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionBeatListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionBeatListeners == nil)
+        self.willSendSessionBeatListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionBeatListeners addObject:listener];
 }
 
 // Remove listeners
@@ -1467,12 +1525,41 @@
     [self.willSendAdErrorListeners removeObject:listener];
 }
 
+- (void) removeOnWillSendSessionStart:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionStartListeners != nil)
+        [self.willSendSessionStartListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionStop:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionStopListeners != nil)
+        [self.willSendSessionStopListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionNav:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionNavListeners != nil)
+        [self.willSendSessionNavListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionEvent:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionEventListeners != nil)
+        [self.willSendSessionEventListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionBeat:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionBeatListeners != nil)
+        [self.willSendSessionBeatListeners removeObject:listener];
+}
+
 #pragma mark - Private methods
 - (YBChrono *) createChrono {
     return [YBChrono new];
 }
 
 - (YBTimer *) createTimerWithCallback:(TimerCallback)callback andInterval:(long) interval {
+    return [[YBTimer alloc] initWithCallback:callback andInterval:interval];
+}
+
+- (YBTimer *) createBeatTimerWithCallback:(TimerCallback)callback andInterval:(long) interval {
     return [[YBTimer alloc] initWithCallback:callback andInterval:interval];
 }
 
@@ -1563,6 +1650,32 @@
         }else{
             [self.comm sendRequest:r withCallback:nil];
         }*/
+    }
+    
+}
+
+- (void) sendInfinityWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params {
+    
+    params = [self.requestBuilder buildParams:params forService:service];
+    
+    if (callbacks != nil) {
+        for (YBWillSendRequestBlock block in callbacks) {
+            @try {
+                block(service, self, params);
+            } @catch (NSException *exception) {
+                [YBLog error:@"Exception while calling willSendRequest"];
+                [YBLog logException:exception];
+            }
+        }
+    }
+    
+    if ([self getInfinity].communication != nil && params != nil && self.options.enabled) {
+        YBRequest * r = [self createRequestWithHost:nil andService:service];
+        r.params = params;
+        
+        self.lastServiceSent = r.service;
+        
+        [self.comm sendRequest:r withCallback:nil andListenerParams:nil];
     }
     
 }
@@ -1927,6 +2040,59 @@
 
 }
 
+- (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStart];
+    [self sendInfinityWithCallbacks:self.willSendSessionStartListeners service:YouboraServiceSessionStart andParams:mutParams];
+    [self startBeats];
+    [YBLog notice:YouboraServiceSessionStart];
+}
+
+- (void) sendSessionStop:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStop];
+    [self sendInfinityWithCallbacks:self.willSendSessionStopListeners service:YouboraServiceSessionStop andParams:mutParams];
+    [self stopBeats];
+    [YBLog notice:YouboraServiceSessionStop];
+}
+
+- (void) sendSessionNav:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionNav];
+    [self sendInfinityWithCallbacks:self.willSendSessionNavListeners service:YouboraServiceSessionNav andParams:mutParams];
+    if (self.beatTimer != nil) {
+        long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+        [self sendBeat:time];
+        [self.beatTimer.chrono setStartTime:time];
+    }
+    [YBLog notice:YouboraServiceSessionNav];
+}
+
+- (void) sendSessionEvent:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionEvent];
+    [self sendInfinityWithCallbacks:self.willSendSessionEventListeners service:YouboraServiceSessionEvent andParams:mutParams];
+    [YBLog notice:YouboraServiceSessionEvent];
+}
+
+// ----------------------------------------- BEATS ---------------------------------------------
+- (void) startBeats {
+    if (!self.beatTimer.isRunning) {
+        [self.beatTimer start];
+    }
+}
+
+- (void) stopBeats {
+    [self.beatTimer stop];
+}
+
+- (void) sendBeat:(double) diffTime {
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    params[@"diffTime"] = @(diffTime).stringValue;
+    
+    NSMutableArray<NSString *> * paramList = [NSMutableArray array];
+    params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
+    
+    [self sendInfinityWithCallbacks:self.willSendSessionBeatListeners service:YouboraServiceSessionBeat andParams:params];
+    [YBLog debug: @"%@ params: %@", YouboraServiceSessionBeat, params.description];
+}
+
 // ------ PINGS ------
 - (void) startPings {
     if (!self.pingTimer.isRunning) {
@@ -2001,6 +2167,7 @@
 #pragma mark - YBTransformDoneListener protocol
 - (void) transformDone:(YBTransform *) transform {
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
+    [self.beatTimer setInterval:self.viewTransform.fastDataConfig.beatTime.longValue * 30000];
 }
 
 #pragma mark - YBPlayerAdapterEventDelegate
@@ -2097,6 +2264,34 @@
     } else if(adapter == self.adsAdapter) {
         [self adErrorListener:params];
     }
+}
+
+- (void) youboraInfinityEventSessionStartWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSString *> *)values andParentId:(NSString *)parentId {
+    [self.viewTransform nextView];
+    NSDictionary *params = @{
+                             @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions]
+                             };
+    [self sendSessionStart:params];
+}
+
+- (void) youboraInfinityEventSessionStop:(NSDictionary<NSString *,NSString *> *)params {
+    [self sendSessionStop:params];
+}
+
+- (void) youboraInfinityEventNavWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions andValues:(NSDictionary<NSString *,NSString *> *)values {
+    NSDictionary *params = @{
+                             @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions]
+                             };
+    [self sendSessionNav:params];
+}
+
+- (void) youboraInfinityEventEventWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSString *> *)values andEventName:(NSString *)eventName {
+    NSDictionary *params = @{
+                             @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions],
+                             @"values" : [YBYouboraUtils stringifyDictionary:values],
+                             @"eventName" : eventName
+                             };
+    [self sendSessionEvent:params];
 }
 
 
