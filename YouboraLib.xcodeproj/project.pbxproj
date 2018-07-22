@@ -187,8 +187,8 @@
 		CD9354AB200758BB003A0797 /* YBEventDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354A9200758BB003A0797 /* YBEventDAO.m */; };
 		CD9354B220076F19003A0797 /* YBEventDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354B020076F19003A0797 /* YBEventDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD9354B320076F19003A0797 /* YBEventDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354B120076F19003A0797 /* YBEventDataSource.m */; };
-		CD9373842104ECBC00C75E3A /* YBInfinityFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9373822104ECBC00C75E3A /* YBInfinityFlags.h */; };
-		CD9373852104ECBC00C75E3A /* YBInfinityFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9373822104ECBC00C75E3A /* YBInfinityFlags.h */; };
+		CD9373842104ECBC00C75E3A /* YBInfinityFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9373822104ECBC00C75E3A /* YBInfinityFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD9373852104ECBC00C75E3A /* YBInfinityFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9373822104ECBC00C75E3A /* YBInfinityFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD9373862104ECBC00C75E3A /* YBInfinityFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9373832104ECBC00C75E3A /* YBInfinityFlags.m */; };
 		CD9373872104ECBC00C75E3A /* YBInfinityFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9373832104ECBC00C75E3A /* YBInfinityFlags.m */; };
 		CDBE2A50200F5E310034A660 /* YBOfflineTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = CDBE2A4E200F5E310034A660 /* YBOfflineTransform.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -201,16 +201,16 @@
 		CDEB0D562011EE2F00B297B7 /* YBEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354A520075175003A0797 /* YBEvent.m */; };
 		CDEB0D572011EE2F00B297B7 /* YBEventDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354A9200758BB003A0797 /* YBEventDAO.m */; };
 		CDEB0D582011EE2F00B297B7 /* YBEventDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9354B120076F19003A0797 /* YBEventDataSource.m */; };
-		CDFEAF0C20FF5A2F00C59B67 /* YBTimestampLastSent.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF0A20FF5A2F00C59B67 /* YBTimestampLastSent.h */; };
-		CDFEAF0D20FF5A2F00C59B67 /* YBTimestampLastSent.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF0A20FF5A2F00C59B67 /* YBTimestampLastSent.h */; };
+		CDFEAF0C20FF5A2F00C59B67 /* YBTimestampLastSent.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF0A20FF5A2F00C59B67 /* YBTimestampLastSent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDFEAF0D20FF5A2F00C59B67 /* YBTimestampLastSent.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF0A20FF5A2F00C59B67 /* YBTimestampLastSent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFEAF0E20FF5A2F00C59B67 /* YBTimestampLastSent.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF0B20FF5A2F00C59B67 /* YBTimestampLastSent.m */; };
 		CDFEAF0F20FF5A2F00C59B67 /* YBTimestampLastSent.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF0B20FF5A2F00C59B67 /* YBTimestampLastSent.m */; };
-		CDFEAF1320FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1120FF6F7400C59B67 /* YBInfinityLocalManager.h */; };
-		CDFEAF1420FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1120FF6F7400C59B67 /* YBInfinityLocalManager.h */; };
+		CDFEAF1320FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1120FF6F7400C59B67 /* YBInfinityLocalManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDFEAF1420FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1120FF6F7400C59B67 /* YBInfinityLocalManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFEAF1520FF6F7400C59B67 /* YBInfinityLocalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF1220FF6F7400C59B67 /* YBInfinityLocalManager.m */; };
 		CDFEAF1620FF6F7400C59B67 /* YBInfinityLocalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF1220FF6F7400C59B67 /* YBInfinityLocalManager.m */; };
-		CDFEAF1C2100E0C600C59B67 /* YBInfinity.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1A2100E0C600C59B67 /* YBInfinity.h */; };
-		CDFEAF1D2100E0C600C59B67 /* YBInfinity.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1A2100E0C600C59B67 /* YBInfinity.h */; };
+		CDFEAF1C2100E0C600C59B67 /* YBInfinity.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1A2100E0C600C59B67 /* YBInfinity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDFEAF1D2100E0C600C59B67 /* YBInfinity.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1A2100E0C600C59B67 /* YBInfinity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFEAF1E2100E0C600C59B67 /* YBInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF1B2100E0C600C59B67 /* YBInfinity.m */; };
 		CDFEAF1F2100E0C600C59B67 /* YBInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF1B2100E0C600C59B67 /* YBInfinity.m */; };
 /* End PBXBuildFile section */
@@ -734,19 +734,15 @@
 				4E5E53A01E8162B600966C7B /* YBYouboraUtils.h in Headers */,
 				4E7CBCB21E826C6F00FF7D7A /* YBPlugin.h in Headers */,
 				4E5E535F1E7C4C3C00966C7B /* YBOptions.h in Headers */,
-				CDFEAF1C2100E0C600C59B67 /* YBInfinity.h in Headers */,
 				4E5E539C1E81316400966C7B /* YBPlayheadMonitor.h in Headers */,
 				4E5B8F8F1E89717800171D47 /* YBNqs6Transform.h in Headers */,
 				4EC7F39E1E795FC5004E8CE5 /* YBChrono.h in Headers */,
-				CDFEAF0C20FF5A2F00C59B67 /* YBTimestampLastSent.h in Headers */,
 				4E9C7BB61E8E6D3B00E10631 /* YBCdnConfig.h in Headers */,
 				4E28171B1E85373F00F450C1 /* YBResourceTransform.h in Headers */,
 				4E5E536D1E7FD5ED00966C7B /* YBTransform.h in Headers */,
-				CDFEAF1320FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */,
 				4E9C7BB81E8E6D3B00E10631 /* YBParsableResponseHeader.h in Headers */,
 				4E5E53771E7FE6AA00966C7B /* YBTransformSubclass.h in Headers */,
 				4E5E537A1E7FECEC00966C7B /* YBFlowTransform.h in Headers */,
-				CD9373842104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				4E5E11C11E7841C00097FA21 /* YouboraLib.h in Headers */,
 				4EF293861E7A92E7008B0A99 /* YBLog.h in Headers */,
 				4E9C7BC41E8E6D9D00E10631 /* YBHlsParser.h in Headers */,
@@ -760,6 +756,10 @@
 				CD9354A620075175003A0797 /* YBEvent.h in Headers */,
 				CD9354B220076F19003A0797 /* YBEventDataSource.h in Headers */,
 				4E9C7BC01E8E6D8B00E10631 /* YBCdnParser.h in Headers */,
+				CDFEAF1C2100E0C600C59B67 /* YBInfinity.h in Headers */,
+				CDFEAF0C20FF5A2F00C59B67 /* YBTimestampLastSent.h in Headers */,
+				CDFEAF1320FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */,
+				CD9373842104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				4E7CBCBF1E82D78800FF7D7A /* YBFastDataConfig.h in Headers */,
 				4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */,
 				CD935497200678D8003A0797 /* YBDeviceInfo.h in Headers */,
@@ -778,19 +778,15 @@
 				4E4956051E9F4F2600FF6280 /* YBPlayheadMonitor.h in Headers */,
 				4E4956061E9F4F2600FF6280 /* YBCdnConfig.h in Headers */,
 				4E4956071E9F4F2600FF6280 /* YBParsableResponseHeader.h in Headers */,
-				CDFEAF1D2100E0C600C59B67 /* YBInfinity.h in Headers */,
 				4E4956081E9F4F2600FF6280 /* YBCdnParser.h in Headers */,
 				4E4956091E9F4F2600FF6280 /* YBHlsParser.h in Headers */,
 				4E49560A1E9F4F2600FF6280 /* YBTransformSubclass.h in Headers */,
-				CDFEAF0D20FF5A2F00C59B67 /* YBTimestampLastSent.h in Headers */,
 				4E49560B1E9F4F2600FF6280 /* YBFlowTransform.h in Headers */,
 				4E49560C1E9F4F2600FF6280 /* YBNqs6Transform.h in Headers */,
 				4E49560D1E9F4F2600FF6280 /* YBResourceTransform.h in Headers */,
-				CDFEAF1420FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */,
 				4E49560E1E9F4F2600FF6280 /* YBTransform.h in Headers */,
 				4E49560F1E9F4F2600FF6280 /* YBViewTransform.h in Headers */,
 				4E4956101E9F4F2600FF6280 /* YBFastDataConfig.h in Headers */,
-				CD9373852104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				4E4956111E9F4F2600FF6280 /* YBCommunication.h in Headers */,
 				4E4956121E9F4F2600FF6280 /* YBRequest.h in Headers */,
 				4E4956131E9F4F2600FF6280 /* YBOptions.h in Headers */,
@@ -804,6 +800,10 @@
 				CD41447C200E2AE400783B65 /* YBEventQueries.h in Headers */,
 				4E4956191E9F4F2600FF6280 /* YBLog.h in Headers */,
 				4E49561A1E9F4F2600FF6280 /* YBYouboraUtils.h in Headers */,
+				CDFEAF1D2100E0C600C59B67 /* YBInfinity.h in Headers */,
+				CDFEAF0D20FF5A2F00C59B67 /* YBTimestampLastSent.h in Headers */,
+				CDFEAF1420FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */,
+				CD9373852104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				CDEB0D532011EE0600B297B7 /* YBEvent.h in Headers */,
 				CDEB0D542011EE0600B297B7 /* YBEventDAO.h in Headers */,
 				CDEB0D552011EE0600B297B7 /* YBEventDataSource.h in Headers */,
