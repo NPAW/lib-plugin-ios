@@ -45,7 +45,7 @@
     [self beginWithDimensions:nil values:nil andParentId:nil];
 }
 
-- (void) beginWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSString *> *) values andParentId:(nullable NSString *) parentId {
+- (void) beginWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andParentId:(nullable NSString *) parentId {
     if (self.plugin == nil) {
         [YBLog error:@"Plugin is null, have the plugin been set?"];
         return;
@@ -63,7 +63,7 @@
     }
 }
 
-- (void) fireSessionStartWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSString *> *) values andParentId:(nullable NSString *) parentId {
+- (void) fireSessionStartWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andParentId:(nullable NSString *) parentId {
     self.infinityStorage = [[YBInfinityLocalManager alloc] init];
     [self generateNewContext];
     
@@ -72,13 +72,13 @@
     }
 }
 
-- (void) fireNavWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andValues:(nullable NSDictionary<NSString *, NSString *> *) values {
+- (void) fireNavWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andValues:(nullable NSDictionary<NSString *, NSNumber *> *) values {
     for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
         [delegate youboraInfinityEventNavWithDimensions:dimensions andValues:values];
     }
 }
 
-- (void) fireEvent:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSString *> *) values andEventName:(nullable NSString *) eventName {
+- (void) fireEvent:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andEventName:(nullable NSString *) eventName {
     for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
         [delegate youboraInfinityEventEventWithDimensions:dimensions values:values andEventName:eventName];
     }
@@ -86,6 +86,7 @@
 
 - (void) fireSessionStop:(nullable NSDictionary<NSString *, NSString *> *) params {
     if (self.flags.started) {
+        [self.flags reset];
         for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
             [delegate youboraInfinityEventSessionStop:params];
         }
@@ -93,12 +94,12 @@
 }
 
 - (void) end {
-    [self end];
+    [self end:nil];
 }
 
 - (void) end:(nullable NSDictionary<NSString *, NSString *> *) params {
     if (self.flags.started) {
-        [self.flags reset];
+        [self fireSessionStop:params];
     }
 }
 

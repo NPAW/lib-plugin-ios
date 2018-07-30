@@ -23,12 +23,12 @@
     self = [super init];
     if (self) {
         self.infinityManager = [[YBInfinityLocalManager alloc] init];
+        [self done];
     }
     return self;
 }
 
 - (void) parse:(YBRequest *)request {
     [self.infinityManager saveLastActiveDate];
-    [self done];
 }
 @end

@@ -111,7 +111,7 @@
         } andInterval:5000];
         
         self.beatTimer = [self createBeatTimerWithCallback:^(YBTimer *timer, long long diffTime) {
-            [weakSelf sendPing:diffTime];
+            [weakSelf sendBeat:diffTime];
         } andInterval:30000];
         
         self.requestBuilder = [self createRequestBuilder];
@@ -1675,7 +1675,7 @@
         
         self.lastServiceSent = r.service;
         
-        [self.comm sendRequest:r withCallback:nil andListenerParams:nil];
+        [[self getInfinity].communication sendRequest:r withCallback:nil andListenerParams:nil];
     }
     
 }
@@ -2167,7 +2167,7 @@
 #pragma mark - YBTransformDoneListener protocol
 - (void) transformDone:(YBTransform *) transform {
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
-    [self.beatTimer setInterval:self.viewTransform.fastDataConfig.beatTime.longValue * 30000];
+    [self.beatTimer setInterval:self.viewTransform.fastDataConfig.beatTime.longValue * 1000];
 }
 
 #pragma mark - YBPlayerAdapterEventDelegate
@@ -2268,8 +2268,13 @@
 
 - (void) youboraInfinityEventSessionStartWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSString *> *)values andParentId:(NSString *)parentId {
     [self.viewTransform nextView];
+    NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
+    
+    if (stringyfiedDict == nil)
+        stringyfiedDict = @"";
+    
     NSDictionary *params = @{
-                             @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions]
+                             @"dimensions" : stringyfiedDict
                              };
     [self sendSessionStart:params];
 }
@@ -2279,13 +2284,23 @@
 }
 
 - (void) youboraInfinityEventNavWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions andValues:(NSDictionary<NSString *,NSString *> *)values {
+    NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
+    
+    if (stringyfiedDict == nil)
+        stringyfiedDict = @"";
+    
     NSDictionary *params = @{
-                             @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions]
+                             @"dimensions" : stringyfiedDict
                              };
     [self sendSessionNav:params];
 }
 
 - (void) youboraInfinityEventEventWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSString *> *)values andEventName:(NSString *)eventName {
+    NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
+    
+    if (stringyfiedDict == nil)
+        stringyfiedDict = @"";
+    
     NSDictionary *params = @{
                              @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions],
                              @"values" : [YBYouboraUtils stringifyDictionary:values],
