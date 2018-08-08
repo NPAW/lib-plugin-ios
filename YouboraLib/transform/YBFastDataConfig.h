@@ -39,4 +39,9 @@
  */
 @property(nonatomic, strong) NSNumber * beatTime;
 
+/**
+ * The maximum time (in seconds) is going to last without expiring and sending session start again
+ */
+@property(nonatomic, strong) NSNumber * expirationTime;
+
 @end
