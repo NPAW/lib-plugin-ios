@@ -8,6 +8,6 @@
 
 #import <YouboraLib/YouboraLib.h>
 
-@interface YBTimestampLastSent : YBTransform
+@interface YBTimestampLastSentTransform : YBTransform
 
 @end

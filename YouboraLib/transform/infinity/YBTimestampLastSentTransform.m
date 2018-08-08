@@ -6,17 +6,17 @@
 //  Copyright © 2018 NPAW. All rights reserved.
 //
 
-#import "YBTimestampLastSent.h"
+#import "YBTimestampLastSentTransform.h"
 
 #import "YBInfinityLocalManager.h"
 
-@interface YBTimestampLastSent()
+@interface YBTimestampLastSentTransform()
 
 @property(nonatomic, strong) YBInfinityLocalManager * infinityManager;
 
 @end
 
-@implementation YBTimestampLastSent
+@implementation YBTimestampLastSentTransform
 
 - (instancetype)init
 {

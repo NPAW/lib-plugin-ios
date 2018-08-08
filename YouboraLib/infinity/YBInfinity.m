@@ -12,7 +12,7 @@
 #import "YBInfinityFlags.h"
 #import "YBLog.h"
 #import "YBCommunication.h"
-#import "YBTimestampLastSent.h"
+#import "YBTimestampLastSentTransform.h"
 
 @interface YBInfinity()
 
@@ -57,7 +57,7 @@
         self.communication = [[YBCommunication alloc] init];
         if (self.viewTransform != nil) {
             [self.communication addTransform:self.viewTransform];
-            [self.communication addTransform:[[YBTimestampLastSent alloc] init]];
+            [self.communication addTransform:[[YBTimestampLastSentTransform alloc] init]];
             [self fireSessionStartWithDimensions:dimensions values:values andParentId:parentId];
         }
     }
