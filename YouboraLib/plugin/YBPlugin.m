@@ -2109,6 +2109,7 @@
     params[@"diffTime"] = @(diffTime).stringValue;
     
     NSMutableArray<NSString *> * paramList = [NSMutableArray array];
+    [paramList addObject:@"sessions"];
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
     
     [self sendInfinityWithCallbacks:self.willSendSessionBeatListeners service:YouboraServiceSessionBeat andParams:params];
