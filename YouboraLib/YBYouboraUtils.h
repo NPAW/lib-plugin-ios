@@ -65,6 +65,14 @@
 + (NSString *) addProtocol:(NSString *) url https:(bool) httpSecure;
 
 /**
+ * Returns a JSON-formatted String representation of the list.
+ * If the list is nil, nil will be returned.
+ * @param list NSArray to convert to JSON
+ * @return JSON-formatted NSString
+ */
++ (NSString *) stringifyList: (NSArray *) list;
+
+/**
  * Returns a JSON-formatted String representation of the dictionary.
  * If the dict is nil, nil will be returned.
  * @param dict NSDictionary to convert to JSON

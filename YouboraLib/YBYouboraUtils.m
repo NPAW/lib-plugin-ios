@@ -123,6 +123,22 @@
     return params;
 }
 
++ (NSString *) stringifyList: (NSArray *) list {
+    NSString * json = nil;
+    
+    if (list != nil) {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:list options:0 error:&error];
+        
+        if (jsonData == nil || error != nil) {
+            [YBLog error:@"Error converting to json: %@", error];
+        } else {
+            json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+    }
+    return json;
+}
+
 + (NSString *) stringifyDictionary:(NSDictionary *) dict {
     NSString * json = nil;
     
