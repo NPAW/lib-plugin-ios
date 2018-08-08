@@ -2063,7 +2063,6 @@
 
 - (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStart];
-    [[self getInfinity] addActiveSession:params[@"code"]];
     [self sendInfinityWithCallbacks:self.willSendSessionStartListeners service:YouboraServiceSessionStart andParams:mutParams];
     [self startBeats];
     [YBLog notice:YouboraServiceSessionStart];
@@ -2107,7 +2106,8 @@
 - (void) sendBeat:(double) diffTime {
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     params[@"diffTime"] = @(diffTime).stringValue;
-    
+    if ([self getInfinity].activeSessions.count == 0)
+        [[self getInfinity] addActiveSession:self.viewTransform.fastDataConfig.code];
     NSMutableArray<NSString *> * paramList = [NSMutableArray array];
     [paramList addObject:@"sessions"];
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
@@ -2331,7 +2331,7 @@
     NSDictionary *params = @{
                              @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions],
                              @"values" : [YBYouboraUtils stringifyDictionary:values],
-                             @"eventName" : eventName
+                             @"name" : eventName
                              };
     [self sendSessionEvent:params];
 }
