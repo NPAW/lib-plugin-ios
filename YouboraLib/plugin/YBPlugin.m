@@ -1601,7 +1601,7 @@
 }
 
 - (BOOL) isSessionExpired {
-    return [[self getInfinity] getLastSent] != nil && [[self getInfinity] getLastSent] + self.viewTransform.fastDataConfig.expirationTime * 1000 < [YBYouboraUtils unixTimeNow];
+    return [[self getInfinity] getLastSent] != nil && [[[self getInfinity] getLastSent] intValue] + [self.viewTransform.fastDataConfig.expirationTime intValue] * 1000 < [YBYouboraUtils unixTimeNow];
 }
 
 - (YBCommunication *) createCommunication {
