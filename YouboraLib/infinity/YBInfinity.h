@@ -31,7 +31,7 @@
 
 - (void) fireSessionStartWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andParentId:(nullable NSString *) parentId;
 
-- (void) fireNavWithScreenName: (NSString *) screenName;
+- (void) fireNavWithScreenName: (nullable NSString *) screenName;
 
 - (void) fireEvent:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andEventName:(nullable NSString *) eventName;
 
