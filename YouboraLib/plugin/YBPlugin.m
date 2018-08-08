@@ -2316,7 +2316,7 @@
 - (void) youboraInfinityEventNavWithScreenName: (NSString *) screenName {
     
     NSDictionary *params = @{
-                             @"page" : screenName
+                             @"page" : screenName,
                              @"route" : screenName
                              };
     [self sendSessionNav:params];
