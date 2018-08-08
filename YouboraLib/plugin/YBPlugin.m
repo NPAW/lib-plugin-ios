@@ -1595,6 +1595,10 @@
     return [[YBRequest alloc] initWithHost:host andService:service];
 }
 
+- (BOOL) isSessionExpired {
+    return [[self getInfinity] getLastSent] != nil && [[self getInfinity] getLastSent] + self.viewTransform.fastDataConfig.expirationTime * 1000 < [YBYouboraUtils unixTimeNow];
+}
+
 - (YBCommunication *) createCommunication {
     return [YBCommunication new];
 }
