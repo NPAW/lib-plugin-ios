@@ -1061,8 +1061,16 @@
     return [self getInfinity].navContext;
 }
 
-- (NSString *) getActiveSessions {
+- (NSMutableArray *) getActiveSessions {
     return [self getInfinity].activeSessions;
+}
+
+- (NSString *) getLanguage {
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSDictionary *languageDict = [NSLocale componentsFromLocaleIdentifier:language];
+    NSString *countryCode = [languageDict objectForKey:@"kCFLocaleCountryCodeKey"];
+    NSString *languageCode = [languageDict objectForKey:@"kCFLocaleLanguageCodeKey"];
+    return [NSString stringWithFormat:@"%@-%@",languageCode, countryCode];
 }
 
 // ------ CHRONOS ------

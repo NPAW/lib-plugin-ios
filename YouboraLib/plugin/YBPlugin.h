@@ -760,7 +760,13 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns current active sessions
  * @return Active sessions
  */
-- (NSString *) getActiveSessions;
+- (NSMutableArray *) getActiveSessions;
+
+/**
+ * Returns current device language in language-COUNTRYCODE format
+ * @return Current language
+ */
+- (nullable NSString *) getLanguage;
 
 /**
  * Adds an Init listener
