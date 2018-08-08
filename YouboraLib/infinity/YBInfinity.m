@@ -88,7 +88,7 @@
     }
 }
 
-- (void) fireSessionStop:(NSDictionary<NSString *, NSString *> *) params {
+- (void) fireSessionStop: (NSDictionary<NSString *, NSString *> *) params {
     if (self.flags.started) {
         [self.flags reset];
         for (id<YBInfinityDelegate> delegate in self.eventDelegates) {

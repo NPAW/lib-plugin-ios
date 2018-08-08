@@ -55,10 +55,10 @@
 
 - (void) youboraInfinityEventSessionStartWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andParentId:(nullable NSString *) parentId;
 
-- (void) youboraInfinityEventNavWithScreenName: (NSString *) screenName;
+- (void) youboraInfinityEventNavWithScreenName: (nullable NSString *) screenName;
 
--(void) youboraInfinityEventEventWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andEventName:(nullable NSString *) eventName;
+- (void) youboraInfinityEventEventWithDimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions values: (nullable NSDictionary<NSString *, NSNumber *> *) values andEventName: (nullable NSString *) eventName;
 
--(void) youboraInfinityEventSessionStop:(nullable NSDictionary<NSString *, NSString *> *) params;
+- (void) youboraInfinityEventSessionStop: (nullable NSDictionary<NSString *, NSString *> *) params;
 
 @end
