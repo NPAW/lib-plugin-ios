@@ -50,6 +50,11 @@
 
 @property(nonatomic, strong) NSString * lastServiceSent;
 
+// Infinity initial variables
+@property(nonatomic, strong) NSString * startScreenName;
+@property(nonatomic, strong) NSDictionary<NSString *, NSString *> * startDimensions;
+@property(nonatomic, strong) NSString * startParentId;
+
 // Will send listeners
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendInitListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendStartListeners;
@@ -2058,6 +2063,7 @@
 
 - (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStart];
+    [[self getInfinity] addActiveSession:params[@"code"]];
     [self sendInfinityWithCallbacks:self.willSendSessionStartListeners service:YouboraServiceSessionStart andParams:mutParams];
     [self startBeats];
     [YBLog notice:YouboraServiceSessionStart];
@@ -2282,24 +2288,31 @@
     }
 }
 
-- (void) youboraInfinityEventSessionStartWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSString *> *)values andParentId:(NSString *)parentId {
+- (void) youboraInfinityEventSessionStartWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions andParentId:(NSString *) parentId {
     [self.viewTransform nextView];
+    
+    self.startScreenName = screenName;
+    self.startDimensions = dimensions;
+    self.startParentId = parentId;
+    
     NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
     
     if (stringyfiedDict == nil)
         stringyfiedDict = @"";
     
     NSDictionary *params = @{
-                             @"dimensions" : stringyfiedDict
+                             @"dimensions" : stringyfiedDict,
+                             @"page" : screenName,
+                             @"route" : screenName
                              };
     [self sendSessionStart:params];
 }
 
-- (void) youboraInfinityEventSessionStop:(NSDictionary<NSString *,NSString *> *)params {
+- (void) youboraInfinityEventSessionStop: (NSDictionary<NSString *, NSString *> *) params {
     [self sendSessionStop:params];
 }
 
-- (void) youboraInfinityEventNavWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions andValues:(NSDictionary<NSString *,NSString *> *)values {
+- (void) youboraInfinityEventNavWithScreenName: (NSString *) screenName {
     NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
     
     if (stringyfiedDict == nil)
@@ -2311,7 +2324,7 @@
     [self sendSessionNav:params];
 }
 
-- (void) youboraInfinityEventEventWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSString *> *)values andEventName:(NSString *)eventName {
+- (void) youboraInfinityEventEventWithDimensions: (NSDictionary<NSString *, NSString *> *) dimensions values: (NSDictionary<NSString *, NSNumber *> *) values andEventName: (NSString *) eventName {
     NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
     
     if (stringyfiedDict == nil)
