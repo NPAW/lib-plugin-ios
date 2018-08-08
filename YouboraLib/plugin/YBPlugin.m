@@ -1061,6 +1061,10 @@
     return [self getInfinity].navContext;
 }
 
+- (NSString *) getActiveSessions {
+    return [self getInfinity].activeSessions;
+}
+
 // ------ CHRONOS ------
 - (long long) getPreloadDuration {
     return [self.preloadChrono getDeltaTime:false];

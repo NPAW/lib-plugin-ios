@@ -21,6 +21,8 @@
 
 @property(nonatomic, strong) NSString * navContext;
 
+@property(nonatomic, strong) NSMutableArray<NSString *> * activeSessions;
+
 + (id) sharedManager;
 
 - (void) beginWithScreenName: (nullable NSString *) screenName;
@@ -42,6 +44,10 @@
 - (void) end:(nullable NSDictionary<NSString *, NSString *> *) params;
 
 - (NSNumber *) getLastSent;
+
+- (void) addActiveSession: (nullable NSString *) sessionId;
+
+- (void) removeActiveSession: (nullable NSString *) sessionId;
 
 - (void)addYouboraInfinityDelegate:(id<YBInfinityDelegate>)delegate;
 

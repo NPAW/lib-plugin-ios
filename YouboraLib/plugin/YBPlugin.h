@@ -751,6 +751,18 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (NSString *) getHouseholdId;
 
 /**
+ * Returns current nav context
+ * @return nav context
+ */
+- (NSString *) getNavContext;
+
+/**
+ * Returns current active sessions
+ * @return Active sessions
+ */
+- (NSString *) getActiveSessions;
+
+/**
  * Adds an Init listener
  * @param listener to add
  */

@@ -116,6 +116,18 @@
     return [self.infinityStorage getLastActive];
 }
 
+- (void) addActiveSession: (nullable NSString *) sessionId {
+    if (self.activeSessions == nil)
+        self.activeSessions = [[NSMutableArray alloc] initWithCapacity:1];
+    [self.activeSessions addObject:sessionId];
+}
+
+- (void) removeActiveSession: (nullable NSString *) sessionId {
+    if (sessionId == nil)
+        return;
+    [self.activeSessions removeObject:sessionId];
+}
+
 - (void)addYouboraInfinityDelegate:(id<YBInfinityDelegate>)delegate {
     if (delegate != nil) {
         if (self.eventDelegates == nil) {
