@@ -76,9 +76,9 @@
     }
 }
 
-- (void) fireNavWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andValues:(nullable NSDictionary<NSString *, NSNumber *> *) values {
+- (void) fireNavWithScreenName: (NSString *) screenName {
     for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
-        [delegate youboraInfinityEventNavWithDimensions:dimensions andValues:values];
+        [delegate youboraInfinityEventNavWithScreenName:screenName];
     }
 }
 
