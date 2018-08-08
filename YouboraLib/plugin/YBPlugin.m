@@ -2313,13 +2313,10 @@
 }
 
 - (void) youboraInfinityEventNavWithScreenName: (NSString *) screenName {
-    NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
-    
-    if (stringyfiedDict == nil)
-        stringyfiedDict = @"";
     
     NSDictionary *params = @{
-                             @"dimensions" : stringyfiedDict
+                             @"page" : screenName
+                             @"route" : screenName
                              };
     [self sendSessionNav:params];
 }
