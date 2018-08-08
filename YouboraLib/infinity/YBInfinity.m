@@ -82,7 +82,7 @@
     }
 }
 
-- (void) fireEvent:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andEventName:(nullable NSString *) eventName {
+- (void) fireEvent: (NSDictionary<NSString *, NSString *> *) dimensions values: (NSDictionary<NSString *, NSNumber *> *) values andEventName: (NSString *) eventName {
     for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
         [delegate youboraInfinityEventEventWithDimensions:dimensions values:values andEventName:eventName];
     }
