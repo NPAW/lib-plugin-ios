@@ -41,11 +41,15 @@
     return self;
 }
 
-- (void) begin {
-    [self beginWithDimensions:nil values:nil andParentId:nil];
+- (void) beginWithScreenName: (NSString *) screenName {
+    [self beginWithScreenName:screenName andDimensions:nil];
 }
 
-- (void) beginWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andParentId:(nullable NSString *) parentId {
+- (void) beginWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions {
+    [self beginWithScreenName:screenName andDimensions:dimensions andParentId:nil];
+}
+
+- (void) beginWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions andParentId:(NSString *) parentId {
     if (self.plugin == nil) {
         [YBLog error:@"Plugin is null, have the plugin been set?"];
         return;
@@ -58,17 +62,17 @@
         if (self.viewTransform != nil) {
             [self.communication addTransform:self.viewTransform];
             [self.communication addTransform:[[YBTimestampLastSentTransform alloc] init]];
-            [self fireSessionStartWithDimensions:dimensions values:values andParentId:parentId];
+            [self fireSessionStartWithScreenName:screenName andDimensions:dimensions andParentId:parentId];
         }
     }
 }
 
-- (void) fireSessionStartWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andParentId:(nullable NSString *) parentId {
+- (void) fireSessionStartWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions andParentId:(NSString *) parentId {
     self.infinityStorage = [[YBInfinityLocalManager alloc] init];
     [self generateNewContext];
     
     for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
-        [delegate youboraInfinityEventSessionStartWithDimensions:dimensions values:values andParentId:parentId];
+        [delegate youboraInfinityEventSessionStartWithScreenName:screenName andDimensions:dimensions andParentId:parentId];
     }
 }
 

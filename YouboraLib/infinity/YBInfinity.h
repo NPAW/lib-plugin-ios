@@ -23,11 +23,13 @@
 
 + (id) sharedManager;
 
-- (void) begin;
+- (void) beginWithScreenName: (nullable NSString *) screenName;
 
-- (void) beginWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andParentId:(nullable NSString *) parentId;
+- (void) beginWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions;
 
-- (void) fireSessionStartWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andParentId:(nullable NSString *) parentId;
+- (void) beginWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andParentId:(nullable NSString *) parentId;
+
+- (void) fireSessionStartWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andParentId:(nullable NSString *) parentId;
 
 - (void) fireNavWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andValues:(nullable NSDictionary<NSString *, NSNumber *> *) values;
 
@@ -51,7 +53,7 @@
 
 @optional
 
-- (void) youboraInfinityEventSessionStartWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values andParentId:(nullable NSString *) parentId;
+- (void) youboraInfinityEventSessionStartWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andParentId:(nullable NSString *) parentId;
 
 - (void) youboraInfinityEventNavWithDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions andValues:(nullable NSDictionary<NSString *, NSNumber *> *) values;
 
