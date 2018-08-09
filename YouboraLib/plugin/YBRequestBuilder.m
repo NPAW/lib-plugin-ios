@@ -48,7 +48,8 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
                                       @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
-                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId"];
+                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId",
+                                      @"anonymousUser"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -357,11 +358,11 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getNodeType];
     } else if ([param isEqualToString:@"nodeTypeString"]){
         value = [self.plugin getNodeTypeString];
-    } else if([param isEqualToString:@"deviceInfo"]){
+    } else if ([param isEqualToString:@"deviceInfo"]){
         value = [YBDeviceInfo mapToJSONString];
-    } else if([param isEqualToString:@"householdId"]){
+    } else if ([param isEqualToString:@"householdId"]){
         value = [self.plugin getHouseholdId];
-    } else if([param isEqualToString:@"experiments"]){
+    } else if ([param isEqualToString:@"experiments"]){
         NSArray *experimentsArray = [self.plugin getExperimentIds];
         if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){
             value = nil;
@@ -369,17 +370,19 @@ static NSArray<NSString *> * youboraPingEntities;
             NSString *experimentsString = [experimentsArray componentsJoinedByString:@"\",\""];
             value = [NSString stringWithFormat:@"[\"%@\"]",experimentsString];
         }
-    } else if([param isEqualToString:@"latency"]){
+    } else if ([param isEqualToString:@"latency"]){
         value = [[self.plugin getLatency] stringValue];
-    } else if([param isEqualToString:@"packetLoss"]){
+    } else if ([param isEqualToString:@"packetLoss"]){
         value = [[self.plugin getPacketLost] stringValue];
-    } else if([param isEqualToString:@"packetSent"]){
+    } else if ([param isEqualToString:@"packetSent"]){
         value = [[self.plugin getPacketSent] stringValue];
-    } else if([param isEqualToString:@"obfuscateIp"]){
+    } else if ([param isEqualToString:@"obfuscateIp"]){
         NSValue * obfuscate = [self.plugin getNetworkObfuscateIp];
         if (obfuscate != nil) {
             value = [obfuscate isEqual:@YES] ? @"true" : @"false";
         }
+    } else if ([param isEqualToString:@"anonymousUser"]){
+        value = [self.plugin getAnonymousUser];
     }
     
     return value;
