@@ -31,6 +31,7 @@
 #import "YBEvent.h"
 
 #import "YBInfinity.h"
+#import "YBInfinityFlags.h"
 
 @interface YBPlugin()
 
@@ -140,12 +141,17 @@
         adapter.plugin = self;
         [adapter addYouboraAdapterDelegate:self];
         
-        if(self.options.autoDetectBackground){
+        /*if(self.options.autoDetectBackground){
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(eventListenerDidReceivetoBack:)
                                                          name:UIApplicationDidEnterBackgroundNotification
                                                        object:nil];
-        }
+        
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(eventListenerDidReceiveToFore:)
+                                                         name:UIApplicationDidBecomeActiveNotification
+                                                       object:nil];
+        }*/
     }else{
         [YBLog error:@"Adapter is null in setAdapter"];
     }
@@ -168,10 +174,10 @@
         
         _adapter = nil;
         
-        if(self.options.autoDetectBackground){
+        //if(self.options.autoDetectBackground){
             
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-        }
+        //}
     }
     
     if(shouldStopPings && self.adsAdapter == nil){
@@ -1739,12 +1745,27 @@
     }
 }
 
-- (void) eventListenerDidReceivetoBack:(NSNotification*)uselessNotification {
-    if(self.adapter != nil){
-        [self.adapter fireStop];
+- (void) eventListenerDidReceivetoBack: (NSNotification*)uselessNotification {
+    if(self.options.autoDetectBackground){
+        if(self.adapter != nil){
+            [self.adapter fireStop];
+        }
+    }
+    
+    if ([self getInfinity].flags.started) {
+        long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+        [self sendBeat:time];
+        [self stopBeats];
     }
 }
 
+- (void) eventListenerDidReceiveToFore: (NSNotification*)uselessNotification {
+    if ([self getInfinity].flags.started) {
+        long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+        [self sendBeat:time];
+        [self startBeats];
+    }
+}
 // Listener methods
 - (void) startListener:(NSDictionary<NSString *, NSString *> *) params {
     if (!self.isInitiated || [YouboraServiceError isEqualToString:self.lastServiceSent]) {
@@ -2306,6 +2327,17 @@
                              @"page" : screenName,
                              @"route" : screenName
                              };
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eventListenerDidReceivetoBack:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eventListenerDidReceiveToFore:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    
     [self sendSessionStart:params];
 }
 
