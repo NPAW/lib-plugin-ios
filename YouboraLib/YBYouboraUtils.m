@@ -179,7 +179,7 @@
 }
 
 + (NSString *) getAppName{
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleNameKey];
 }
 
 @end
