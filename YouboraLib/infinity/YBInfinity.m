@@ -64,6 +64,8 @@
             [self.communication addTransform:[[YBTimestampLastSentTransform alloc] init]];
             [self fireSessionStartWithScreenName:screenName andDimensions:dimensions andParentId:parentId];
         }
+    } else {
+        [self fireNavWithScreenName:screenName];
     }
 }
 
