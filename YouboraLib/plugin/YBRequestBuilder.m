@@ -83,7 +83,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceSessionStop: @[@"accountCode"],
                        YouboraServiceSessionNav: @[@"username", @"navContext"],
                        YouboraServiceSessionBeat: @[],
-                       YouboraServiceSessionStop: @[]
+                       YouboraServiceSessionEvent: @[@"navContext"]
             };
             
             youboraRequestParamsDifferent = @{YouboraServiceJoin:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],

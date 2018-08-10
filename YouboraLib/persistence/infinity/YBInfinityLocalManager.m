@@ -8,7 +8,7 @@
 
 #import "YBInfinityLocalManager.h"
 
-#import "YBYouboraUtils.h"
+#import "YBChrono.h"
 
 //Key names
 NSString *const PREFERENCES_SESSION_ID_KEY = @"session_id";
@@ -48,7 +48,7 @@ NSString *const PREFERENCES_LAST_ACTIVE_KEY = @"last_active_id";
 }
 
 - (void) saveLastActiveDate {
-    [self saveNumberWithKey:PREFERENCES_LAST_ACTIVE_KEY andValue:@([YBYouboraUtils unixTimeNow])];
+    [self saveNumberWithKey:PREFERENCES_LAST_ACTIVE_KEY andValue:@([YBChrono getNow])];
 }
 
 - (NSNumber *) getLastActive {

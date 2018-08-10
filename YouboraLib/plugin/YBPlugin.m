@@ -122,10 +122,7 @@
         
         self.requestBuilder = [self createRequestBuilder];
         self.resourceTransform = [self createResourceTransform];
-        self.viewTransform = [self createViewTransform];
-        [self.viewTransform addTransformDoneListener:self];
-        
-        [self.viewTransform begin];
+        [self initViewTransform];
         
         self.lastServiceSent = nil;
     }
@@ -376,6 +373,13 @@
     params[@"events"] = events;
     params[@"offlineId"] = [offlineId stringValue];
     [self sendWithCallbacks:nil service:YouboraServiceOffline andParams:params];*/
+}
+
+- (void) initViewTransform {
+    self.viewTransform = [self createViewTransform];
+    [self.viewTransform addTransformDoneListener:self];
+    
+    [self.viewTransform begin];
 }
 
 // ------ INFO GETTERS ------
@@ -1607,7 +1611,7 @@
 }
 
 - (BOOL) isSessionExpired {
-    return [[self getInfinity] getLastSent] != nil && [[[self getInfinity] getLastSent] intValue] + [self.viewTransform.fastDataConfig.expirationTime intValue] * 1000 < [YBYouboraUtils unixTimeNow];
+    return [[self getInfinity] getLastSent] != nil && [[[self getInfinity] getLastSent] longLongValue] + [self.viewTransform.fastDataConfig.expirationTime longLongValue] * 1000 < [YBChrono getNow];
 }
 
 - (YBCommunication *) createCommunication {
@@ -1760,10 +1764,14 @@
 }
 
 - (void) eventListenerDidReceiveToFore: (NSNotification*)uselessNotification {
-    if ([self getInfinity].flags.started) {
+    if ([self getInfinity].flags.started && ![self isSessionExpired]) {
         long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
         [self sendBeat:time];
         [self startBeats];
+    } else {
+        [[self getInfinity].flags reset];
+        [self initViewTransform];
+        [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions andParentId:self.startParentId];
     }
 }
 // Listener methods
