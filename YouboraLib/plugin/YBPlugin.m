@@ -1003,7 +1003,7 @@
 }
 
 - (NSString *) getAnonymousUser {
-    return self.options.anonymousUser
+    return self.options.anonymousUser;
 }
 
 - (NSString *) getNodeHost {
