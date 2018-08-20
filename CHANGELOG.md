@@ -1,3 +1,10 @@
+## [6.1.8] - 2018-07-30
+###Improved
+- Ping log now shows params
+###Fix
+- Household id getter now is set as nullable
+
+
 ##  [6.1.7] - 2018-05-04
 ###Added
 - HouseholdId parameter

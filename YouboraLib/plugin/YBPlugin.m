@@ -1041,6 +1041,10 @@
     return self.options.userType;
 }
 
+- (NSString *) getAnonymousUser {
+    return self.options.anonymousUser;
+}
+
 - (NSString *) getNodeHost {
     return [self.resourceTransform getNodeHost];
 }

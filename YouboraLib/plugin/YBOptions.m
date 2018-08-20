@@ -61,6 +61,7 @@
         self.adResource = [decoder decodeObjectForKey:@"adResource"];
         self.autoDetectBackground = [decoder decodeObjectForKey:@"autoDetectBackground"];
         self.offline = [decoder decodeObjectForKey:@"offline"];
+        self.anonymousUser = [decoder decodeObjectForKey:@"anonymousUser"];
         self.extraparam1 = [decoder decodeObjectForKey:@"extraparam1"];
         self.extraparam2 = [decoder decodeObjectForKey:@"extraparam2"];
         self.extraparam3 = [decoder decodeObjectForKey:@"extraparam3"];
@@ -133,6 +134,7 @@
     [coder encodeObject:self.adResource forKey:@"adResource"];
     [coder encodeObject:@(self.autoDetectBackground) forKey:@"autoDetectBackground"];
     [coder encodeObject:@(self.offline) forKey:@"offline"];
+    [coder encodeObject:self.anonymousUser forKey:@"anonymousUser"];
     [coder encodeObject:self.extraparam1 forKey:@"extraparam1"];
     [coder encodeObject:self.extraparam2 forKey:@"extraparam2"];
     [coder encodeObject:self.extraparam3 forKey:@"extraparam3"];
@@ -172,6 +174,7 @@
     self.accountCode = @"nicetest";
     self.username = nil;
     self.userType = nil;
+    self.anonymousUser = nil;
     
     self.parseHls = false;
     self.parseCdnNameHeader = @"x-cdn-forward";

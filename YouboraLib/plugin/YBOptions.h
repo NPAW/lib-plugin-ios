@@ -223,6 +223,11 @@
 @property(nonatomic, assign) bool offline;
 
 /**
+ * User ID value inside your system for anon users
+ */
+@property(nonatomic, assign) NSString * anonymousUser;
+
+/**
  * Custom parameter 1.
  */
 @property(nonatomic, strong) NSString * extraparam1;

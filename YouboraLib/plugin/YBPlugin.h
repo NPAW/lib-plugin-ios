@@ -660,6 +660,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getUserType;
 
 /**
+ * Returns the anonymousUser
+ * @return the anonymousUser
+ */
+- (nullable NSString *) getAnonymousUser;
+
+/**
  * Get CDN node
  * @return the CDN node or nil if unknown
  */
