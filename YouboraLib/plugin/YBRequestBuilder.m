@@ -388,15 +388,12 @@ static NSArray<NSString *> * youboraPingEntities;
         if (obfuscate != nil) {
             value = [obfuscate isEqual:@YES] ? @"true" : @"false";
         }
-<<<<<<< HEAD
     } else if ([param isEqualToString:@"navContext"]) {
         value = ((YBInfinity *)[YBInfinity sharedManager]).navContext;
     } else if ([param isEqualToString:@"sessions"]) {
         value = [YBYouboraUtils stringifyList:[self.plugin getActiveSessions]];
-=======
     } else if ([param isEqualToString:@"anonymousUser"]){
         value = [self.plugin getAnonymousUser];
->>>>>>> master
     }
     
     return value;
