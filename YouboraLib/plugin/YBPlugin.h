@@ -745,6 +745,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (long long) getAdTotalDuration;
 
 /**
+ * Returns if Infinity is enabled
+ * @return if Infinity is enabled
+ */
+- (NSValue *) getIsInfinity;
+
+/**
  * Returns ad campaign
  * @return Ad campaign
  */

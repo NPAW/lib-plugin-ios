@@ -1167,6 +1167,10 @@
     }
 }
 
+- (NSValue *) getIsInfinity {
+    return self.options.isInfinity;
+}
+
 // Add listeners
 - (void) addWillSendInitListener:(YBWillSendRequestBlock) listener {
     if (self.willSendInitListeners == nil)

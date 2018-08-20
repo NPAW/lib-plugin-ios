@@ -57,7 +57,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                         @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10"];
             
             youboraRequestParams = @{
-                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username"],
+                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
                        YouboraServiceInit:  startParams,
                        YouboraServiceStart: startParams,
                        YouboraServiceJoin:  @[@"joinDuration", @"playhead"],
@@ -394,6 +394,11 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [YBYouboraUtils stringifyList:[self.plugin getActiveSessions]];
     } else if ([param isEqualToString:@"anonymousUser"]){
         value = [self.plugin getAnonymousUser];
+    } else if ([param isEqualToString:@"isInfinity"]) {
+        NSValue * isInfinity = [self.plugin getIsInfinity];
+        if (isInfinity != nil) {
+            value = [isInfinity isEqual:@YES] ? @"true" : @"false";
+        }
     }
     
     return value;
