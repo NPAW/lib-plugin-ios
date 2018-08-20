@@ -91,6 +91,14 @@
         params[@"code"] = self.viewCode;
     }
     
+    if (params[@"sessionRoot"] == nil) {
+        params[@"sessionRoot"] = self.fastDataConfig.code;
+    }
+    
+    if (params[@"sessionId"] == nil) {
+        params[@"sessionId"] = self.fastDataConfig.code;
+    }
+    
     // Request-specific transforms
     NSString * service = request.service;
     if (service == YouboraServicePing ||
@@ -99,10 +107,34 @@
         if (params[@"pingTime"] == nil) {
             params[@"pingTime"] = self.fastDataConfig.pingTime.stringValue;
         }
+        
+        if (params[@"sessionParent"] == nil) {
+            params[@"sessionParent"] = self.fastDataConfig.code;
+        }
     }
-    if(service == YouboraServiceOffline){
+    if (service == YouboraServiceOffline) {
         request.body = [self addCodeToEvents:request.body];
     }
+    if (service == YouboraServiceSessionStart) {
+        if (params[@"beatTime"] == nil) {
+            params[@"beatTime"] = self.fastDataConfig.beatTime.stringValue;
+        }
+        
+        if ([params[@"code"] isEqualToString:self.viewCode]) {
+            params[@"code"] = self.fastDataConfig.code;
+        }
+    }
+    if (service == YouboraServiceSessionStart ||
+        service == YouboraServiceSessionBeat ||
+        service == YouboraServiceSessionNav ||
+        service == YouboraServiceSessionStop ||
+        service == YouboraServiceSessionEvent) {
+        
+        if ([params[@"code"] isEqualToString:self.viewCode]) {
+            params[@"code"] = self.fastDataConfig.code;
+        }
+    }
+    
 }
 
 - (NSString*) addCodeToEvents:(NSString*) body{
@@ -159,6 +191,13 @@
         NSString * host = q[@"h"];
         NSString * code = q[@"c"];
         NSString * pt = q[@"pt"];
+        NSString * bt = @"";
+        NSString * exp = @"";
+
+        if (q[@"i"] != nil) {
+            bt = q[@"i"][@"bt"];
+            exp = q[@"i"][@"exp"];
+        }
 
         if (host.length > 0 && code.length > 0 && pt.length > 0) {
             if (strongSelf.fastDataConfig == nil) {
@@ -167,6 +206,8 @@
             strongSelf.fastDataConfig.code = code;
             strongSelf.fastDataConfig.host = [YBYouboraUtils addProtocol:host https:(strongSelf.plugin.options.httpSecure)];
             strongSelf.fastDataConfig.pingTime = @(pt.intValue);
+            strongSelf.fastDataConfig.beatTime = bt.length > 0 ? @(bt.intValue) : @(30);
+            strongSelf.fastDataConfig.expirationTime = exp.length > 0 ? @(exp.intValue) : @(300);
             
             [strongSelf buildCode];
             
@@ -202,7 +243,8 @@
  */
 - (void) buildCode {
     if (self.fastDataConfig.code != nil && self.fastDataConfig.code.length > 0) {
-        self.viewCode = [NSString stringWithFormat:@"%@_%d", self.fastDataConfig.code, self.viewIndex];
+        self.viewCode = [NSString stringWithFormat:@"%@_%lf",self.fastDataConfig.code, [YBYouboraUtils unixTimeNow]];
+        //self.viewCode = [NSString stringWithFormat:@"%@_%d", self.fastDataConfig.code, self.viewIndex];
     } else {
         self.viewCode = nil;
     }

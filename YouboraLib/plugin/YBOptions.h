@@ -228,6 +228,11 @@
 @property(nonatomic, assign) NSString * anonymousUser;
 
 /**
+ * Flag if Infinity is going to be used
+ */
+@property(nonatomic, assign) NSValue * isInfinity;
+
+/**
  * Custom parameter 1.
  */
 @property(nonatomic, strong) NSString * extraparam1;
