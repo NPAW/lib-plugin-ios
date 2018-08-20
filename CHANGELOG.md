@@ -1,3 +1,7 @@
+## [6.2.0] - 2018-08-20
+###Added
+- Support for Infinity
+
 ## [6.1.8] - 2018-07-30
 ###Improved
 - Ping log now shows params
