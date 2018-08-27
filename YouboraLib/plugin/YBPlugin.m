@@ -152,8 +152,6 @@
     }else{
         [YBLog error:@"Adapter is null in setAdapter"];
     }
-    
-    
 }
 
 - (void) removeAdapter {
@@ -1778,7 +1776,9 @@
         [self startBeats];
     } else {
         [[self getInfinity].flags reset];
+        [self.viewTransform removeTransformDoneListener:self];
         [self initViewTransform];
+        [self getInfinity].viewTransform = self.viewTransform;
         [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions andParentId:self.startParentId];
     }
 }
@@ -2344,15 +2344,7 @@
                              @"route" : screenName
                              };
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(eventListenerDidReceivetoBack:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(eventListenerDidReceiveToFore:)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
+    [self registerLifeCycleEvents];
     
     [self sendSessionStart:params];
 }
@@ -2384,5 +2376,20 @@
     [self sendSessionEvent:params];
 }
 
+- (void) registerLifeCycleEvents {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eventListenerDidReceivetoBack:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eventListenerDidReceiveToFore:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+}
 
 @end
