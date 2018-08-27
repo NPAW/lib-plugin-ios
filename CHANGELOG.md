@@ -1,3 +1,7 @@
+## [6.2.1] - 2018-08-27
+###Fixed
+- Correct view expiration behaviour
+
 ## [6.2.0] - 2018-08-20
 ###Added
 - Support for Infinity
