@@ -125,6 +125,8 @@
         [self initViewTransform];
         
         self.lastServiceSent = nil;
+        
+        [self registerLifeCycleEvents];
     }
     return self;
 }
@@ -1761,25 +1763,28 @@
             [self.adapter fireStop];
         }
     }
-    
-    if ([self getInfinity].flags.started) {
-        long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
-        [self sendBeat:time];
-        [self stopBeats];
+    if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
+        if ([self getInfinity].flags.started) {
+            long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+            [self sendBeat:time];
+            [self stopBeats];
+        }
     }
 }
 
 - (void) eventListenerDidReceiveToFore: (NSNotification*)uselessNotification {
-    if ([self getInfinity].flags.started && ![self isSessionExpired]) {
-        long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
-        [self sendBeat:time];
-        [self startBeats];
-    } else {
-        [[self getInfinity].flags reset];
-        [self.viewTransform removeTransformDoneListener:self];
-        [self initViewTransform];
-        [self getInfinity].viewTransform = self.viewTransform;
-        [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions andParentId:self.startParentId];
+    if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
+        if ([self getInfinity].flags.started && ![self isSessionExpired]) {
+            long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+            [self sendBeat:time];
+            [self startBeats];
+        } else {
+            [[self getInfinity].flags reset];
+            [self.viewTransform removeTransformDoneListener:self];
+            [self initViewTransform];
+            [self getInfinity].viewTransform = self.viewTransform;
+            [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions andParentId:self.startParentId];
+        }
     }
 }
 // Listener methods
@@ -2343,8 +2348,6 @@
                              @"page" : screenName,
                              @"route" : screenName
                              };
-    
-    [self registerLifeCycleEvents];
     
     [self sendSessionStart:params];
 }
