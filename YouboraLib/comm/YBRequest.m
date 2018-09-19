@@ -156,6 +156,11 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
                 return;
             }
             
+            if(response != nil) {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                [YBLog debug:[NSString stringWithFormat:@"Response code for: %@ %ld",weakSelf.service, (long)httpResponse.statusCode]];
+            }
+            
             if (error == nil) {
                 [weakSelf didSucceedWithData:data andResponse:response];
             } else {

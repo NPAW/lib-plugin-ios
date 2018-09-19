@@ -1,3 +1,7 @@
+## [6.2.2] - 
+###Added
+- Add response code log
+
 ## [6.2.1] - 2018-08-27
 ###Fixed
 - Correct view expiration behaviour
