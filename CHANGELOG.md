@@ -1,4 +1,4 @@
-## [6.2.3] - 
+## [6.2.3] - 2018-10-09
 ###Fixed
 - Crash when passing nil screenName
 
