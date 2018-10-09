@@ -1,3 +1,7 @@
+## [6.2.3] - 
+###Fixed
+- Crash when passing nil screenName
+
 ## [6.2.2] - 2018-10-03
 ###Updated
  - Swift version to support 4.2
