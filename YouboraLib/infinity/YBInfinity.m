@@ -55,6 +55,10 @@
         return;
     }
     
+    if (screenName == nil) {
+        screenName = @"Unknown";
+    }
+    
     if (!self.flags.started) {
         self.flags.started = true;
         
