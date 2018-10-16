@@ -233,6 +233,21 @@
 @property(nonatomic, assign) NSValue * isInfinity;
 
 /**
+ * Config code for smartswitch
+ */
+@property(nonatomic, assign) NSString * smartswitchConfigCode;
+
+/**
+ * Group code for smartswitch
+ */
+@property(nonatomic, assign) NSString * smartswitchGroupCode;
+
+/**
+ * Contract code for smartswitch
+ */
+@property(nonatomic, assign) NSString * smartswitchContractCode;
+
+/**
  * Custom parameter 1.
  */
 @property(nonatomic, strong) NSString * extraparam1;

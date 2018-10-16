@@ -63,6 +63,9 @@
         self.offline = [decoder decodeObjectForKey:@"offline"];
         self.anonymousUser = [decoder decodeObjectForKey:@"anonymousUser"];
         self.isInfinity = [decoder decodeObjectForKey:@"isInfinity"];
+        self.smartswitchConfigCode = [decoder decodeObjectForKey:@"smartswitchConfigCode"];
+        self.smartswitchGroupCode = [decoder decodeObjectForKey:@"smartswitchGroupCode"];
+        self.smartswitchContractCode = [decoder decodeObjectForKey:@"smartswitchContractCode"];
         self.extraparam1 = [decoder decodeObjectForKey:@"extraparam1"];
         self.extraparam2 = [decoder decodeObjectForKey:@"extraparam2"];
         self.extraparam3 = [decoder decodeObjectForKey:@"extraparam3"];
@@ -137,6 +140,9 @@
     [coder encodeObject:@(self.offline) forKey:@"offline"];
     [coder encodeObject:self.anonymousUser forKey:@"anonymousUser"];
     [coder encodeObject:self.isInfinity forKey:@"isInfinity"];
+    [coder encodeObject:self.smartswitchConfigCode forKey:@"smartswitchConfigCode"];
+    [coder encodeObject:self.smartswitchGroupCode forKey:@"smartswitchGroupCode"];
+    [coder encodeObject:self.smartswitchContractCode forKey:@"smartswitchContractCode"];
     [coder encodeObject:self.extraparam1 forKey:@"extraparam1"];
     [coder encodeObject:self.extraparam2 forKey:@"extraparam2"];
     [coder encodeObject:self.extraparam3 forKey:@"extraparam3"];
@@ -218,6 +224,11 @@
     self.offline = NO;
     
     self.isInfinity = nil;
+    
+    //SmartSwitch
+    self.smartswitchConfigCode = nil;
+    self.smartswitchGroupCode = nil;
+    self.smartswitchContractCode = nil;
     
     self.extraparam1 = nil;
     self.extraparam2 = nil;
