@@ -403,9 +403,9 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:@"smartswitchConfigCode"]) {
         value = [self.plugin getSmartSwitchConfigCode];
     } else if ([param isEqualToString:@"smartswitchGroupCode"]) {
-        value = [self.plugin smartswitchGroupCode];
+        value = [self.plugin getSmartSwitchGroupCode];
     } else if ([param isEqualToString:@"smartswitchContractCode"]) {
-        value = [self.plugin smartswitchContractCode];
+        value = [self.plugin getSmartSwitchContractCode];
     }
     
     return value;
