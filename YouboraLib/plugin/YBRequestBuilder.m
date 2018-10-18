@@ -369,7 +369,13 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [YBDeviceInfo mapToJSONString];
     } else if ([param isEqualToString:@"householdId"]){
         value = [self.plugin getHouseholdId];
-    } else if ([param isEqualToString:@"experiments"]){
+    }  else if ([param isEqualToString:@"p2pDownloadedTraffic"]){
+        value = [self.plugin getP2PTraffic];
+    }  else if ([param isEqualToString:@"cdnDownloadedTraffic"]){
+        value = [self.plugin getCdnTraffic];
+    }  else if ([param isEqualToString:@"uploadTraffic"]){
+        value = [self.plugin getUploadTraffic];
+    }  else if ([param isEqualToString:@"experiments"]){
         NSArray *experimentsArray = [self.plugin getExperimentIds];
         if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){
             value = nil;
