@@ -238,6 +238,34 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  */
 - (NSString *) getHouseholdId;
 
+/**
+ * Override to return current CDN traffic
+ *
+ * @return current CDN traffic
+ */
+-(NSNumber *) getCdnTraffic;
+
+/**
+ * Override to return current P2P traffic
+ *
+ * @return current P2P traffic
+ */
+-(NSNumber *) getP2PTraffic;
+
+/**
+ * Override to return current upload traffic
+ *
+ * @return current upload traffic
+ */
+-(NSNumber *) getUploadTraffic;
+
+/**
+ * Override to return if p2p mode is enabled
+ *
+ * @return current p2p state
+ */
+-(NSValue *) getIsP2PEnabled;
+
 /// ---------------------------------
 /// @name Flow methods
 /// ---------------------------------
