@@ -49,7 +49,8 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
                                       @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
-                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId", @"navContext", @"anonymousUser"];
+                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId", @"navContext", @"anonymousUser",
+                                      @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -399,6 +400,12 @@ static NSArray<NSString *> * youboraPingEntities;
         if (isInfinity != nil) {
             value = [isInfinity isEqual:@YES] ? @"true" : @"false";
         }
+    } else if ([param isEqualToString:@"smartswitchConfigCode"]) {
+        value = [self.plugin getSmartSwitchConfigCode];
+    } else if ([param isEqualToString:@"smartswitchGroupCode"]) {
+        value = [self.plugin getSmartSwitchGroupCode];
+    } else if ([param isEqualToString:@"smartswitchContractCode"]) {
+        value = [self.plugin getSmartSwitchContractCode];
     }
     
     return value;
