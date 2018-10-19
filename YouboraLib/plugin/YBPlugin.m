@@ -2262,6 +2262,11 @@
             [paramList addObject:@"seekDuration"];
         }
         
+        if ([self.adapter getIsP2PEnabled] != nil && [[self.adapter getIsP2PEnabled] isEqualToValue:@YES]) {
+            [paramList addObject:@"p2pDownloadedTraffic"];
+            [paramList addObject:@"cdnDownloadedTraffic"];
+            [paramList addObject:@"uploadTraffic"];
+        }
     }
     
     if (self.adsAdapter != nil) {
