@@ -751,6 +751,26 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (NSValue *) getIsInfinity;
 
 /**
+ * Returns SmartSwitch config code
+ * @return martSwitch config code
+ */
+- (NSString *) getSmartSwitchConfigCode;
+
+/**
+ * Returns SmartSwitch group code
+ * @return martSwitch group code
+ */
+- (NSString *) getSmartSwitchGroupCode;
+
+
+/**
+ * Returns SmartSwitch contract code
+ * @return martSwitch contract code
+ */
+- (NSString *) getSmartSwitchContractCode;
+
+
+/**
  * Returns ad campaign
  * @return Ad campaign
  */

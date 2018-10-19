@@ -1227,6 +1227,18 @@
     return self.options.isInfinity;
 }
 
+- (NSString *) getSmartSwitchConfigCode {
+    return self.options.smartswitchConfigCode;
+}
+
+- (NSString *) getSmartSwitchGroupCode {
+    return self.options.smartswitchGroupCode;
+}
+
+- (NSString *) getSmartSwitchContractCode {
+    return self.options.smartswitchContractCode;
+}
+
 // Add listeners
 - (void) addWillSendInitListener:(YBWillSendRequestBlock) listener {
     if (self.willSendInitListeners == nil)
