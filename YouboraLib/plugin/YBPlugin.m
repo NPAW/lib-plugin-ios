@@ -1076,6 +1076,62 @@
     return val;
 }
 
+- (NSNumber *) getCdnTraffic {
+    NSNumber * val = nil
+    if (val == nil && self.adapter != nil) {
+        @try {
+            val = [self.adapter getCdnTraffic];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getCdnTraffic"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *) getP2PTraffic {
+    NSNumber * val = nil
+    if (val == nil && self.adapter != nil) {
+        @try {
+            val = [self.adapter getP2PTraffic];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getP2PTraffic"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *) getUploadTraffic {
+    NSNumber * val = nil
+    if (val == nil && self.adapter != nil) {
+        @try {
+            val = [self.adapter getUploadTraffic];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getUploadTraffic"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSValue *) getIsP2PEnabled {
+    NSValue * val = nil;
+    if ((val == nil) && self.adapter != nil) {
+        @try {
+            val = [self.adapter getIsP2PEnabled];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getIsP2PEnabled"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val;
+}
+
 - (NSString *) getNavContext {
     return [self getInfinity].navContext;
 }
@@ -2218,6 +2274,11 @@
             [paramList addObject:@"seekDuration"];
         }
         
+        if ([self.adapter getIsP2PEnabled] != nil && [[self.adapter getIsP2PEnabled] isEqualToValue:@YES]) {
+            [paramList addObject:@"p2pDownloadedTraffic"];
+            [paramList addObject:@"cdnDownloadedTraffic"];
+            [paramList addObject:@"uploadTraffic"];
+        }
     }
     
     if (self.adsAdapter != nil) {
