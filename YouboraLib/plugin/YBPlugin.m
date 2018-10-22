@@ -1077,7 +1077,7 @@
 }
 
 - (NSNumber *) getCdnTraffic {
-    NSNumber * val = nil
+    NSNumber * val = nil;
     if (val == nil && self.adapter != nil) {
         @try {
             val = [self.adapter getCdnTraffic];
@@ -1091,7 +1091,7 @@
 }
 
 - (NSNumber *) getP2PTraffic {
-    NSNumber * val = nil
+    NSNumber * val = nil;
     if (val == nil && self.adapter != nil) {
         @try {
             val = [self.adapter getP2PTraffic];
@@ -1105,7 +1105,7 @@
 }
 
 - (NSNumber *) getUploadTraffic {
-    NSNumber * val = nil
+    NSNumber * val = nil;
     if (val == nil && self.adapter != nil) {
         @try {
             val = [self.adapter getUploadTraffic];
