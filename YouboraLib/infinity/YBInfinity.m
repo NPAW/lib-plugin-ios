@@ -123,6 +123,8 @@
 }
 
 - (void) addActiveSession: (nullable NSString *) sessionId {
+    if (sessionId == nil)
+        return;
     if (self.activeSessions == nil)
         self.activeSessions = [[NSMutableArray alloc] initWithCapacity:1];
     [self.activeSessions addObject:sessionId];
