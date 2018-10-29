@@ -225,27 +225,27 @@
 /**
  * User ID value inside your system for anon users
  */
-@property(nonatomic, assign) NSString * anonymousUser;
+@property(nonatomic, strong) NSString * anonymousUser;
 
 /**
  * Flag if Infinity is going to be used
  */
-@property(nonatomic, assign) NSValue * isInfinity;
+@property(nonatomic, strong) NSValue * isInfinity;
 
 /**
  * Config code for smartswitch
  */
-@property(nonatomic, assign) NSString * smartswitchConfigCode;
+@property(nonatomic, strong) NSString * smartswitchConfigCode;
 
 /**
  * Group code for smartswitch
  */
-@property(nonatomic, assign) NSString * smartswitchGroupCode;
+@property(nonatomic, strong) NSString * smartswitchGroupCode;
 
 /**
  * Contract code for smartswitch
  */
-@property(nonatomic, assign) NSString * smartswitchContractCode;
+@property(nonatomic, strong) NSString * smartswitchContractCode;
 
 /**
  * Custom parameter 1.
