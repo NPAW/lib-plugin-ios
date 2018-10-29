@@ -1,3 +1,7 @@
+## [6.2.4] - 2018-10-29
+###Fixed
+- Posible crash when getting nil sessionId
+
 ## [6.2.3] - 2018-10-09
 ###Fixed
 - Crash when passing nil screenName
