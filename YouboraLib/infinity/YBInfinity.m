@@ -45,7 +45,7 @@
     [self beginWithScreenName:screenName andDimensions:nil];
 }
 
-- (void) beginWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions {
+- (void) beginWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions {
     [self beginWithScreenName:screenName andDimensions:dimensions andParentId:nil];
 }
 
@@ -57,6 +57,10 @@
     
     if (screenName == nil) {
         screenName = @"Unknown";
+    }
+    
+    if (dimensions == nil) {
+        dimensions = @{};
     }
     
     if (!self.flags.started) {
@@ -89,6 +93,19 @@
 }
 
 - (void) fireEvent: (NSDictionary<NSString *, NSString *> *) dimensions values: (NSDictionary<NSString *, NSNumber *> *) values andEventName: (NSString *) eventName {
+    
+    if (dimensions == nil) {
+        dimensions = @{};
+    }
+    
+    if (values == nil) {
+        values = @{};
+    }
+    
+    if (eventName == nil || [eventName isEqualToString:@""]) {
+        eventName = @"Unknown";
+    }
+    
     for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
         [delegate youboraInfinityEventEventWithDimensions:dimensions values:values andEventName:eventName];
     }

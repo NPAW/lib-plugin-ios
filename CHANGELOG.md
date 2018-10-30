@@ -1,3 +1,7 @@
+## [6.2.5] - 
+###Improved
+- Posible null pointer exceptions when passin nil to some Infinity public methods
+
 ## [6.2.4] - 2018-10-29
 ###Fixed
 - Posible crash when getting nil sessionId
