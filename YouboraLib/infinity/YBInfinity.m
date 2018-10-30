@@ -93,6 +93,19 @@
 }
 
 - (void) fireEvent: (NSDictionary<NSString *, NSString *> *) dimensions values: (NSDictionary<NSString *, NSNumber *> *) values andEventName: (NSString *) eventName {
+    
+    if (dimensions == nil) {
+        dimensions = @{};
+    }
+    
+    if (values == nil) {
+        values = @{};
+    }
+    
+    if (eventName == nil || [eventName isEqualToString:@""]) {
+        eventName = @"Unknown";
+    }
+    
     for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
         [delegate youboraInfinityEventEventWithDimensions:dimensions values:values andEventName:eventName];
     }
