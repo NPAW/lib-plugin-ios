@@ -63,10 +63,6 @@
         dimensions = @{};
     }
     
-    if (values == nil) {
-        values = @{}
-    }
-    
     if (!self.flags.started) {
         self.flags.started = true;
         
