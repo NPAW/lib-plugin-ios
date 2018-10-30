@@ -45,7 +45,7 @@
     [self beginWithScreenName:screenName andDimensions:nil];
 }
 
-- (void) beginWithScreenName: (nullable NSString *) screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions {
+- (void) beginWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions {
     [self beginWithScreenName:screenName andDimensions:dimensions andParentId:nil];
 }
 
