@@ -229,22 +229,34 @@
     [self.request send];
 }
 
+- (NSString *) getViewCodeTimeStamp {
+    return [NSString stringWithFormat:@"%lf", [YBYouboraUtils unixTimeNow]];
+}
+
 - (YBRequest *) createRequestWithHost:(NSString *) host andService:(NSString *) service {
     return [[YBRequest alloc] initWithHost:host andService:service];
 }
 
 /*
+ * Shortcut for <buildCode:> with isOffline = false.
+ */
+- (void) buildCode {
+    [self buildCode:NO];
+}
+
+/*
  * Builds the view code. It has the following scheme:
- * [fast data response code]_[view count]
+ * [fast data response code]_[timestamp]
  *
  * The only thing that matters is that view codes are unique. For this reason we only ask the
  * backend only once for a code, and then append a view counter that is incremented with each
  * view.
  */
-- (void) buildCode {
+- (void) buildCode: (BOOL) isOffline {
+    NSString * suffix = isOffline ? [NSString stringWithFormat:@"%d",self.viewIndex] : [self getViewCodeTimeStamp];
+    
     if (self.fastDataConfig.code != nil && self.fastDataConfig.code.length > 0) {
-        self.viewCode = [NSString stringWithFormat:@"%@_%lf",self.fastDataConfig.code, [YBYouboraUtils unixTimeNow]];
-        //self.viewCode = [NSString stringWithFormat:@"%@_%d", self.fastDataConfig.code, self.viewIndex];
+        self.viewCode = [NSString stringWithFormat:@"%@_%@",self.fastDataConfig.code, suffix];
     } else {
         self.viewCode = nil;
     }
