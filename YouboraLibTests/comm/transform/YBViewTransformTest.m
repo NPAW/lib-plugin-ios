@@ -146,8 +146,8 @@
     
     // Parse requests
     [self.viewTransform parse:mockStart];
-    
-    XCTAssertEqualObjects(@"viewCode_0", dict[@"code"]);
+    NSString *code = [NSString stringWithFormat:@"viewCode_%@", self.viewTransform.viewCodeTimestamp];
+    XCTAssertEqualObjects(code, dict[@"code"]);
     XCTAssertEqualObjects(@"5", dict[@"pingTime"]);
     [verifyCount(mockStart, times(1)) setHost:@"http://host.com"];
     
@@ -162,7 +162,8 @@
     
     [self.viewTransform parse:mockPing];
     
-    XCTAssertEqualObjects(@"viewCode_1", dict[@"code"]);
+    code = [NSString stringWithFormat:@"viewCode_%@", self.viewTransform.viewCodeTimestamp];
+    XCTAssertEqualObjects(code, dict[@"code"]);
     XCTAssertEqualObjects(@"5", dict[@"pingTime"]);
     [verifyCount(mockPing, times(1)) setHost:@"http://host.com"];
 }
