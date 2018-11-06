@@ -13,9 +13,8 @@
 
 @interface YBInfinity : NSObject
 
-@property(nonatomic, strong, nullable) YBPlugin * plugin;
-@property(nonatomic, strong, nullable) YBCommunication * communication;
-@property (nonatomic, strong) YBViewTransform *viewTransform;
+@property(nonatomic, weak, nullable) YBPlugin * plugin;
+@property (nonatomic, weak) YBViewTransform *viewTransform;
 
 @property(nonatomic, strong) YBInfinityFlags * flags;
 
