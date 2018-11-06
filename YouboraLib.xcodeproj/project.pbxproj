@@ -177,6 +177,8 @@
 		CD41447C200E2AE400783B65 /* YBEventQueries.h in Headers */ = {isa = PBXBuildFile; fileRef = CD414479200E2AE400783B65 /* YBEventQueries.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD41447D200E2AE400783B65 /* YBEventQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = CD41447A200E2AE400783B65 /* YBEventQueries.m */; };
 		CD41447E200E2AE400783B65 /* YBEventQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = CD41447A200E2AE400783B65 /* YBEventQueries.m */; };
+		CD7671002190546D004D3017 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8A63691EA8A31B008C6759 /* OCHamcrest.framework */; };
+		CD7671012190546D004D3017 /* OCMockito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8A636A1EA8A31B008C6759 /* OCMockito.framework */; };
 		CD935497200678D8003A0797 /* YBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CD935495200678D8003A0797 /* YBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD935498200678D8003A0797 /* YBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD935496200678D8003A0797 /* YBDeviceInfo.m */; };
 		CD935499200678DC003A0797 /* YBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD935496200678D8003A0797 /* YBDeviceInfo.m */; };
@@ -256,7 +258,7 @@
 		4E5E535E1E7C4C3C00966C7B /* YBOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBOptions.m; path = plugin/YBOptions.m; sourceTree = "<group>"; };
 		4E5E53621E7C4CA800966C7B /* YBOptionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBOptionsTest.m; path = plugin/YBOptionsTest.m; sourceTree = "<group>"; };
 		4E5E536B1E7FD5ED00966C7B /* YBTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = YBTransform.h; path = transform/YBTransform.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4E5E536C1E7FD5ED00966C7B /* YBTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = YBTransform.m; path = transform/YBTransform.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		4E5E536C1E7FD5ED00966C7B /* YBTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = YBTransform.m; path = transform/YBTransform.m; sourceTree = "<group>"; };
 		4E5E53761E7FE6AA00966C7B /* YBTransformSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = YBTransformSubclass.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4E5E53781E7FECEC00966C7B /* YBFlowTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBFlowTransform.h; path = transform/YBFlowTransform.h; sourceTree = "<group>"; };
 		4E5E53791E7FECEC00966C7B /* YBFlowTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBFlowTransform.m; path = transform/YBFlowTransform.m; sourceTree = "<group>"; };
@@ -367,6 +369,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD7671002190546D004D3017 /* OCHamcrest.framework in Frameworks */,
+				CD7671012190546D004D3017 /* OCMockito.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1302,7 +1306,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = YouboraLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1324,7 +1331,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = YouboraLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
