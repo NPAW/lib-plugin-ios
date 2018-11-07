@@ -1,3 +1,7 @@
+## [6.2.6] - 
+###Fix
+- Crash on iOS 12 due to thread management on sqlite database access
+
 ## [6.2.5] - 2018-10-30
 ###Improved
 - Posible null pointer exceptions when passin nil to some Infinity public methods
