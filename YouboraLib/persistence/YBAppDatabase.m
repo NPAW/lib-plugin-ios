@@ -53,10 +53,10 @@
     
     // construct database from external ud.sql
  
-    if(sqlite3_open([writableDBPath UTF8String], &database) == SQLITE_OK)
+    if(sqlite3_open_v2([writableDBPath UTF8String], &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, NULL) == SQLITE_OK)
     {
         sqlite3_exec(database, [YouboraEventCreateTable UTF8String], NULL, NULL, NULL);
-        sqlite3_close(database);
+        sqlite3_close_v2(database);
     }
     return success;
 }
@@ -239,11 +239,14 @@
 }
 
 - (bool) openDB{
-    return sqlite3_open([[self writableDBPathWithName:self.filename] UTF8String], &database) == SQLITE_OK;
+    sqlite3_config(SQLITE_CONFIG_MULTITHREAD);
+    sqlite3_initialize();
+    return sqlite3_open_v2([[self writableDBPathWithName:self.filename] UTF8String], &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, NULL) == SQLITE_OK;
 }
 
 - (void) closeDB{
     sqlite3_close(database);
+    sqlite3_shutdown();
 }
 
 @end
