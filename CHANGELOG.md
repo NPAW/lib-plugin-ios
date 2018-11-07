@@ -1,4 +1,4 @@
-## [6.2.6] - 
+## [6.2.6] - 2018-11-07
 ###Fix
 - Crash on iOS 12 due to thread management on sqlite database access
 
