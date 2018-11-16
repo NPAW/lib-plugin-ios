@@ -1,3 +1,7 @@
+## [6.2.6] - 
+###Fixed
+- Several retain cycles Infinity related and memory leaks have been fixed
+
 ## [6.2.5] - 2018-10-30
 ###Improved
 - Posible null pointer exceptions when passin nil to some Infinity public methods
