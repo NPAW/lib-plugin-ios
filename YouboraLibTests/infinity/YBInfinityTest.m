@@ -23,7 +23,7 @@
 
 @implementation YBInfinityTest
 
-- (void)setUp {
+/*- (void)setUp {
     [YBLog setDebugLevel:YBLogLevelSilent];
     self.plugin = [[YBPlugin alloc] initWithOptions:nil];
     [super setUp];
@@ -184,6 +184,6 @@
     XCTAssertEqual(dimensDict[@"key"], dimensionsCaptor.value[@"key"]);
     
     XCTAssertEqual(valuesDict[@"key"], valuesCaptor.value[@"key"]);
-}
+}*/
 
 @end
