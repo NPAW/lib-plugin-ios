@@ -1878,8 +1878,13 @@
 
 - (void) joinListener:(NSDictionary<NSString *, NSString *> *) params {
     if (self.adsAdapter == nil || !self.adsAdapter.flags.started) {
-        if(self.isInitiated && !self.isStarted)
-            [self sendStart:@{}];
+        if(self.isInitiated && !self.isStarted) {
+            if (self.adapter.flags.started = false)
+                [self.adapter fireStart];
+            else
+                [self sendStart:@{}];
+        }
+            
         [self sendJoin:params];
     } else {
         // Revert join state
