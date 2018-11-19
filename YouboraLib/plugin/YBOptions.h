@@ -114,6 +114,11 @@
 @property(nonatomic, strong) NSString * deviceCode;
 
 /**
+ * Force init enabled
+ */
+@property(nonatomic, assign) bool forceInit;
+
+/**
  * URL/path of the current media resource.
  */
 @property(nonatomic, strong) NSString * contentResource;
