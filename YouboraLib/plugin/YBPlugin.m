@@ -46,6 +46,7 @@
 // Private properties
 @property(nonatomic, assign) bool isInitiated;
 @property(nonatomic, assign) bool isPreloading;
+@property(nonatomic, assign) bool isStarted;
 @property(nonatomic, strong) YBChrono * preloadChrono;
 @property(nonatomic, strong) YBChrono * iinitChrono;
 
@@ -103,6 +104,7 @@
         
         self.isInitiated = false;
         self.isPreloading = false;
+        self.isStarted = false;
         self.preloadChrono = [self createChrono];
         self.iinitChrono = [self createChrono];
         self.options = options;
@@ -1865,11 +1867,19 @@
     
     [self startResourceParsing];
     
-    [self sendStart:params];
+    if (!self.isInitiated && !self.options.forceInit && [self getTitle] != nil
+        && [self getResource] != nil && [self getIsLive] != nil
+        && [self isLiveOrNotNullDuration]) {
+        [self sendStart:params];
+    } else if(!self.isInitiated) {
+        [self fireInitWithParams:params];
+    }
 }
 
 - (void) joinListener:(NSDictionary<NSString *, NSString *> *) params {
     if (self.adsAdapter == nil || !self.adsAdapter.flags.started) {
+        if(self.isInitiated && !self.isStarted)
+            [self sendStart:@{}];
         [self sendJoin:params];
     } else {
         // Revert join state
@@ -2049,6 +2059,7 @@
         titleOrResource = mutParams[@"mediaResource"];
     }
     [YBLog notice:@"%@ %@", YouboraServiceStart, titleOrResource];
+    self.isStarted = true;
 }
 
 - (void) sendJoin:(NSDictionary<NSString *, NSString *> *) params {
@@ -2200,6 +2211,10 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionEvent];
     [self sendInfinityWithCallbacks:self.willSendSessionEventListeners service:YouboraServiceSessionEvent andParams:mutParams];
     [YBLog notice:YouboraServiceSessionEvent];
+}
+
+- (bool) isLiveOrNotNullDuration {
+    return [self getIsLive] || ([self getDuration] != nil && [[self getDuration] isEqualToNumber:@(0)]);
 }
 
 // ----------------------------------------- BEATS ---------------------------------------------

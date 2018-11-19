@@ -118,7 +118,7 @@
     [coder encodeObject:self.networkConnectionType forKey:@"networkConnectionType"];
     [coder encodeObject:self.networkObfuscateIp forKey:@"networkObfuscateIp"];
     [coder encodeObject:self.deviceCode forKey:@"deviceCode"];
-    [coder encodeObject:self.forceInit forKey:@"forceInit"];
+    [coder encodeObject:@(self.forceInit) forKey:@"forceInit"];
     [coder encodeObject:self.contentStreamingProtocol forKey:@"contentStreamingProtocol"];
     [coder encodeObject:self.contentResource forKey:@"contentResource"];
     [coder encodeObject:self.contentIsLive forKey:@"contentIsLive"];
