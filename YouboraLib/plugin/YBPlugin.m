@@ -1763,7 +1763,7 @@
     
 }
 
-- (void) sendInfinityWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params {
+/*- (void) sendInfinityWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params {
     
     params = [self.requestBuilder buildParams:params forService:service];
     
@@ -1787,7 +1787,7 @@
         [[self getInfinity].communication sendRequest:r withCallback:nil andListenerParams:nil];
     }
     
-}
+}*/
 
 - (NSString *) jsonFromDictionary: (NSDictionary*) dictionary{
     NSError *error;
@@ -1804,16 +1804,18 @@
 }
 
 - (void) initComm {
-    self.comm = [self createCommunication];
-    [self.comm addTransform:[self createFlowTransform]];
-    
-    [self.comm addTransform:self.resourceTransform];
-    [self.comm addTransform:[self createNqs6Transform]];
-    
-    if(self.options.offline){
-        [self.comm addTransform:[self createOfflineTransform]];
-    }else{
-        [self.comm addTransform:self.viewTransform];
+    if (self.comm == nil) {
+        self.comm = [self createCommunication];
+        [self.comm addTransform:[self createFlowTransform]];
+        
+        [self.comm addTransform:self.resourceTransform];
+        [self.comm addTransform:[self createNqs6Transform]];
+        
+        if(self.options.offline){
+            [self.comm addTransform:[self createOfflineTransform]];
+        }else{
+            [self.comm addTransform:self.viewTransform];
+        }
     }
 }
 
@@ -2189,21 +2191,22 @@
 
 - (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStart];
-    [self sendInfinityWithCallbacks:self.willSendSessionStartListeners service:YouboraServiceSessionStart andParams:mutParams];
+    [self initComm];
+    [self sendWithCallbacks:self.willSendSessionStartListeners service:YouboraServiceSessionStart andParams:mutParams];
     [self startBeats];
     [YBLog notice:YouboraServiceSessionStart];
 }
 
 - (void) sendSessionStop:(NSDictionary<NSString *, NSString *> *) params{
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStop];
-    [self sendInfinityWithCallbacks:self.willSendSessionStopListeners service:YouboraServiceSessionStop andParams:mutParams];
+    [self sendWithCallbacks:self.willSendSessionStopListeners service:YouboraServiceSessionStop andParams:mutParams];
     [self stopBeats];
     [YBLog notice:YouboraServiceSessionStop];
 }
 
 - (void) sendSessionNav:(NSDictionary<NSString *, NSString *> *) params{
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionNav];
-    [self sendInfinityWithCallbacks:self.willSendSessionNavListeners service:YouboraServiceSessionNav andParams:mutParams];
+    [self sendWithCallbacks:self.willSendSessionNavListeners service:YouboraServiceSessionNav andParams:mutParams];
     if (self.beatTimer != nil) {
         long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
         [self sendBeat:time];
@@ -2214,7 +2217,7 @@
 
 - (void) sendSessionEvent:(NSDictionary<NSString *, NSString *> *) params{
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionEvent];
-    [self sendInfinityWithCallbacks:self.willSendSessionEventListeners service:YouboraServiceSessionEvent andParams:mutParams];
+    [self sendWithCallbacks:self.willSendSessionEventListeners service:YouboraServiceSessionEvent andParams:mutParams];
     [YBLog notice:YouboraServiceSessionEvent];
 }
 
@@ -2242,7 +2245,7 @@
     [paramList addObject:@"sessions"];
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
     
-    [self sendInfinityWithCallbacks:self.willSendSessionBeatListeners service:YouboraServiceSessionBeat andParams:params];
+    [self sendWithCallbacks:self.willSendSessionBeatListeners service:YouboraServiceSessionBeat andParams:params];
     [YBLog debug: @"%@ params: %@", YouboraServiceSessionBeat, params.description];
 }
 
