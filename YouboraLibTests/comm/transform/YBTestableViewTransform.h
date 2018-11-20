@@ -14,6 +14,8 @@
 
 @property(nonatomic, strong) YBRequest * mockRequest;
 
+@property(nonatomic, strong) NSString * viewCodeTimestamp;
+
 - (YBRequest *) createRequestWithHost:(NSString *) host andService:(NSString *) service;
 
 @end

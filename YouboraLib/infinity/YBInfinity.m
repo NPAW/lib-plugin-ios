@@ -66,10 +66,10 @@
     if (!self.flags.started) {
         self.flags.started = true;
         
-        self.communication = [[YBCommunication alloc] init];
+        //self.communication = [[YBCommunication alloc] init];
         if (self.viewTransform != nil) {
-            [self.communication addTransform:self.viewTransform];
-            [self.communication addTransform:[[YBTimestampLastSentTransform alloc] init]];
+            /*[self.communication addTransform:self.viewTransform];
+            [self.communication addTransform:[[YBTimestampLastSentTransform alloc] init]];*/
             [self fireSessionStartWithScreenName:screenName andDimensions:dimensions andParentId:parentId];
         }
     } else {

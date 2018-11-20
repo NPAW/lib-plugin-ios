@@ -9,6 +9,7 @@
 #import "YBTestableViewTransform.h"
 
 #import "YBRequest.h"
+#import "YBYouboraUtils.h"
 
 #import <OCMockito/OCMockito.h>
 
@@ -19,6 +20,11 @@
         self.mockRequest = mock([YBRequest class]);
     }
     return self.mockRequest;
+}
+
+- (NSString *) getViewCodeTimeStamp {
+    self.viewCodeTimestamp = [NSString stringWithFormat:@"%lf",[YBYouboraUtils unixTimeNow]];
+    return self.viewCodeTimestamp;
 }
 
 @end
