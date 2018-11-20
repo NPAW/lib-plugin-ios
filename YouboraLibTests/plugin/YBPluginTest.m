@@ -745,8 +745,7 @@
 }
 
 // Will send listeners
-- (void)testWillSendListeners {
-    
+- (void) testWillSendInitListener {
     static int callbackTimes;
     
     // Make build params return the first argument
@@ -768,14 +767,46 @@
     [self.p removeWillSendInitListener:listener];
     [self.p fireInitWithParams:params];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendStartListener {
+    static int callbackTimes;
     
-    // Start
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    // Init
     callbackTimes = 0;
-    [self.p addWillSendStartListener:listener];
-    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdapter];
-    [self.p removeWillSendStartListener:listener];
-    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdapter];
+    [self.p addWillSendInitListener:listener];
+    [self.p fireInitWithParams:params];
+    [self.p removeWillSendInitListener:listener];
+    [self.p fireInitWithParams:params];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendJoinListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
     
     // Join
     callbackTimes = 0;
@@ -784,6 +815,22 @@
     [self.p removeWillSendJoinListener:listener];
     [self.p youboraAdapterEventJoin:params fromAdapter:self.mockAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendPauseListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
     
     // Pause
     callbackTimes = 0;
@@ -792,6 +839,22 @@
     [self.p removeWillSendPauseListener:listener];
     [self.p youboraAdapterEventPause:params fromAdapter:self.mockAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendResumeListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
     
     // Resume
     callbackTimes = 0;
@@ -800,6 +863,22 @@
     [self.p removeWillSendResumeListener:listener];
     [self.p youboraAdapterEventResume:params fromAdapter:self.mockAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendBufferEndListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
     
     // BufferEnd
     callbackTimes = 0;
@@ -808,6 +887,22 @@
     [self.p removeWillSendBufferListener:listener];
     [self.p youboraAdapterEventBufferEnd:params fromAdapter:self.mockAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendSeekEndListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
     
     // SeekEnd
     callbackTimes = 0;
@@ -816,6 +911,22 @@
     [self.p removeWillSendSeekListener:listener];
     [self.p youboraAdapterEventSeekEnd:params fromAdapter:self.mockAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendErrorListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
     
     // Error
     callbackTimes = 0;
@@ -824,6 +935,22 @@
     [self.p removeWillSendErrorListener:listener];
     [self.p youboraAdapterEventError:params fromAdapter:self.mockAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendStopListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
     
     // Stop
     callbackTimes = 0;
@@ -832,6 +959,22 @@
     [self.p removeWillSendStopListener:listener];
     [self.p youboraAdapterEventStop:params fromAdapter:self.mockAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendAdStartListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
     
     self.p.adsAdapter = self.mockAdAdapter;
     
@@ -842,6 +985,24 @@
     [self.p removeWillSendAdStartListener:listener];
     [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendAdJoinListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
     
     // Ad Join
     callbackTimes = 0;
@@ -850,6 +1011,24 @@
     [self.p removeWillSendAdJoinListener:listener];
     [self.p youboraAdapterEventJoin:params fromAdapter:self.mockAdAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendAdPauseListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
     
     // Ad Pause
     callbackTimes = 0;
@@ -858,6 +1037,24 @@
     [self.p removeWillSendAdPauseListener:listener];
     [self.p youboraAdapterEventPause:params fromAdapter:self.mockAdAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendAdResumeListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
     
     // Ad Resume
     callbackTimes = 0;
@@ -866,6 +1063,24 @@
     [self.p removeWillSendAdResumeListener:listener];
     [self.p youboraAdapterEventResume:params fromAdapter:self.mockAdAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendAdBufferListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
     
     // Ad Buffer
     callbackTimes = 0;
@@ -874,6 +1089,24 @@
     [self.p removeWillSendAdBufferListener:listener];
     [self.p youboraAdapterEventBufferEnd:params fromAdapter:self.mockAdAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendAdStopListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
     
     // Ad Stop
     callbackTimes = 0;
@@ -883,6 +1116,8 @@
     [self.p youboraAdapterEventStop:params fromAdapter:self.mockAdAdapter];
     XCTAssertEqual(1, callbackTimes);
 }
+
+// Will send listeners
 
 - (void)testInit {
     stubProperty(self.mockOptions, enabled, @YES);
