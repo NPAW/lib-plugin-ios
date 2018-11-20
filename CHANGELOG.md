@@ -1,4 +1,4 @@
-## [6.2.7] - 
+## [6.2.7] - 2018-11-20
 ###Fixed
 - Several retain cycles Infinity related and memory leaks have been fixed
 
