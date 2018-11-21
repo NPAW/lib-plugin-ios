@@ -1,4 +1,4 @@
-## [6.2.8] - 
+## [6.2.8] - 2018-11-21
 ###Fixed
 - Since migration to SQLite v2 to support multithreading the local db was not being created
 

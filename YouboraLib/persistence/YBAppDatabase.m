@@ -240,7 +240,7 @@
 }
 
 - (bool) openDB{
-    sqlite3_config(SQLITE_CONFIG_MULTITHREAD);
+    //sqlite3_config(SQLITE_CONFIG_MULTITHREAD);
     sqlite3_initialize();
     if (self.isDbOpened == false) {
         if (sqlite3_open_v2([[self writableDBPathWithName:self.filename] UTF8String], &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, NULL) == SQLITE_OK) {
