@@ -1,3 +1,7 @@
+## [6.2.9] - 
+###Fixed
+- An specific event flow was not adding all transforms when sending collected offline events
+
 ## [6.2.8] - 2018-11-21
 ###Fixed
 - Since migration to SQLite v2 to support multithreading the local db was not being created
