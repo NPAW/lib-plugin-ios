@@ -1244,7 +1244,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.2.8;
+				YOUBORALIB_VERSION_SETTING = 6.2.9;
 			};
 			name = Debug;
 		};
@@ -1294,7 +1294,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.2.8;
+				YOUBORALIB_VERSION_SETTING = 6.2.9;
 			};
 			name = Release;
 		};

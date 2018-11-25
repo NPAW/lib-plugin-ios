@@ -1,4 +1,4 @@
-## [6.2.9] - 
+## [6.2.9] - 2018-11-25
 ###Fixed
 - An specific event flow was not adding all transforms when sending collected offline events
 
