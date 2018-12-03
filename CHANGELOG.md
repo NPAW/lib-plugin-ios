@@ -1,3 +1,7 @@
+## [6.2.10] - 2018-12-03
+###Changed
+- Now autoDetectBackground option is set to true by default
+
 ## [6.2.9] - 2018-11-25
 ###Fixed
 - An specific event flow was not adding all transforms when sending collected offline events

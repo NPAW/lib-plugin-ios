@@ -220,7 +220,7 @@
     self.adTitle = nil;
     self.adResource = nil;
     
-    self.autoDetectBackground = NO;
+    self.autoDetectBackground = YES;
     self.offline = NO;
     
     self.isInfinity = nil;
