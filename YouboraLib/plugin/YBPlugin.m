@@ -323,9 +323,9 @@
         [YBLog error:@"Adapters have to be stopped"];
         return;
     }
-    
-    self.comm = [self createCommunication];
-    [self.comm addTransform:self.viewTransform];
+    [self initComm];
+    /*self.comm = [self createCommunication];
+    [self.comm addTransform:self.viewTransform];*/
     
     YBEventDataSource *dataSource = [[YBEventDataSource alloc] init];
     [dataSource allEventsWithCompletion:^(NSArray* events){

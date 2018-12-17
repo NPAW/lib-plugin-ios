@@ -17,6 +17,7 @@
 
 @property (nonatomic,strong) NSString* filename;
 @property sqlite3* database;
+@property BOOL isDbOpened;
 @end
 
 @implementation YBAppDatabase
@@ -53,7 +54,7 @@
     
     // construct database from external ud.sql
  
-    if(sqlite3_open_v2([writableDBPath UTF8String], &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, NULL) == SQLITE_OK)
+    if(sqlite3_open_v2([writableDBPath UTF8String], &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX|SQLITE_OPEN_CREATE, NULL) == SQLITE_OK)
     {
         sqlite3_exec(database, [YouboraEventCreateTable UTF8String], NULL, NULL, NULL);
         sqlite3_close_v2(database);
@@ -239,14 +240,22 @@
 }
 
 - (bool) openDB{
-    sqlite3_config(SQLITE_CONFIG_MULTITHREAD);
+    //sqlite3_config(SQLITE_CONFIG_MULTITHREAD);
     sqlite3_initialize();
-    return sqlite3_open_v2([[self writableDBPathWithName:self.filename] UTF8String], &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, NULL) == SQLITE_OK;
+    if (self.isDbOpened == false) {
+        if (sqlite3_open_v2([[self writableDBPathWithName:self.filename] UTF8String], &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, NULL) == SQLITE_OK) {
+            self.isDbOpened = true;
+        } else {
+            [YBLog error:@"SQLite database error: %s",sqlite3_errmsg(database)];
+        }
+    }
+    return self.isDbOpened;
 }
 
 - (void) closeDB{
-    sqlite3_close(database);
-    sqlite3_shutdown();
+    //Removed for now since the db connection is never closed
+    /*sqlite3_close(database);
+    sqlite3_shutdown();*/
 }
 
 @end

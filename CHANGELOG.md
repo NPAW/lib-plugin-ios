@@ -1,6 +1,20 @@
 ## [6.3.0] - 
 ###Added
 - Automatic init
+###Fixed
+- Viewcode timestamp doesn't include "extra" zeros anymore
+
+## [6.2.10] - 2018-12-03
+###Changed
+- Now autoDetectBackground option is set to true by default
+
+## [6.2.9] - 2018-11-25
+###Fixed
+- An specific event flow was not adding all transforms when sending collected offline events
+
+## [6.2.8] - 2018-11-21
+###Fixed
+- Since migration to SQLite v2 to support multithreading the local db was not being created
 
 ## [6.2.7] - 2018-11-20
 ###Fixed
