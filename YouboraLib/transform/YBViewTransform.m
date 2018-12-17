@@ -230,7 +230,8 @@
 }
 
 - (NSString *) getViewCodeTimeStamp {
-    return [NSString stringWithFormat:@"%lf", [YBYouboraUtils unixTimeNow]];
+    return [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils unixTimeNow]];
+    //return [NSString stringWithFormat:@"%lf", [YBYouboraUtils unixTimeNow]];
 }
 
 - (YBRequest *) createRequestWithHost:(NSString *) host andService:(NSString *) service {
