@@ -1,3 +1,7 @@
+## [6.2.11] - 
+###Fixed
+- Viewcode timestamp doesn't include "extra" zeros anymore
+
 ## [6.2.10] - 2018-12-03
 ###Changed
 - Now autoDetectBackground option is set to true by default
