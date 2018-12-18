@@ -777,6 +777,11 @@
         return [invocation.mkt_arguments[0] mutableCopy];
     }];
     
+    [given([self.p getTitle]) willReturn:@"title"];
+    [given([self.p getResource]) willReturn:@"resource"];
+    [given([self.p getIsLive]) willReturn:@NO];
+    [given([self.p getDuration]) willReturn:@(288)];
+    
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
         callbackTimes++;
         XCTAssertEqualObjects(@"value", params[@"key"]);
@@ -786,12 +791,47 @@
     
     // Init
     callbackTimes = 0;
-    [self.p addWillSendInitListener:listener];
-    [self.p fireInitWithParams:params];
-    [self.p removeWillSendInitListener:listener];
-    [self.p fireInitWithParams:params];
+    [self.p addWillSendStartListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdapter];
+    [self.p removeWillSendStartListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdapter];
     XCTAssertEqual(1, callbackTimes);
 }
+
+- (void)testWillSendInitWhenStarted {
+    static int initCallbackTimes;
+    static int startCallbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        if ([serviceName isEqualToString:YouboraServiceInit]) {
+            initCallbackTimes++;
+        }
+        if ([serviceName isEqualToString:YouboraServiceStart]) {
+            startCallbackTimes++;
+        }
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    
+    // Init
+    [self.p addWillSendInitListener:listener];
+    [self.p addWillSendStartListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.p.adapter];
+    [self.p removeWillSendInitListener:listener];
+    [self.p removeWillSendStartListener:listener];
+    
+    [self.p youboraAdapterEventStart:params fromAdapter:self.p.adapter];
+    XCTAssertEqual(1, initCallbackTimes);
+    XCTAssertEqual(0, startCallbackTimes);
+}
+
 
 - (void) testWillSendJoinListener {
     static int callbackTimes;
@@ -1129,7 +1169,7 @@
     [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
 }
 
-- (void)testInitWhenStarted {
+- (void) testWillForceInit {
     static int initCallbackTimes;
     static int startCallbackTimes;
     
@@ -1150,16 +1190,61 @@
     
     NSDictionary * params = @{@"key":@"value"};
     
+    [given([self.p getTitle]) willReturn:@"title"];
+    [given([self.p getResource]) willReturn:@"resource"];
+    [given([self.p getIsLive]) willReturn:@NO];
+    [given([self.p getDuration]) willReturn:@(288)];
+    stubProperty(self.mockOptions, forceInit, @(true));
+    
     // Init
     [self.p addWillSendInitListener:listener];
-    [self.p fireInitWithParams:params];
+    [self.p addWillSendStartListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.p.adapter];
+    [self.p removeWillSendInitListener:listener];
     [self.p removeWillSendStartListener:listener];
     
-    [self.p addWillSendStartListener:listener];
-    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
-    [self.p removeWillSendStartListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.p.adapter];
     XCTAssertEqual(1, initCallbackTimes);
     XCTAssertEqual(0, startCallbackTimes);
+}
+
+- (void) testWillSendStartWhenJoined {
+    static int initCallbackTimes;
+    static int startCallbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        if ([serviceName isEqualToString:YouboraServiceInit]) {
+            initCallbackTimes++;
+        }
+        if ([serviceName isEqualToString:YouboraServiceStart]) {
+            startCallbackTimes++;
+        }
+        //Doesn't apply since we want to send this start "blank"
+        //XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    // Init
+    
+    [self.p fireInitWithParams:params];
+    
+    [self.p addWillSendInitListener:listener];
+    [self.p addWillSendStartListener:listener];
+    self.p.adapter.flags.started = true;
+    [self.p youboraAdapterEventJoin:params fromAdapter:self.p.adapter];
+    [self.p removeWillSendInitListener:listener];
+    [self.p removeWillSendStartListener:listener];
+    
+    [self.p fireInitWithParams:params];
+    [self.p youboraAdapterEventJoin:params fromAdapter:self.p.adapter];
+    XCTAssertEqual(0, initCallbackTimes);
+    XCTAssertEqual(1, startCallbackTimes);
 }
 
 // Pings tests
