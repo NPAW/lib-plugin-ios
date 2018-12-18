@@ -2222,7 +2222,8 @@
 }
 
 - (bool) isLiveOrNotNullDuration {
-    return [self getIsLive] || ([self getDuration] != nil && [[self getDuration] isEqualToNumber:@(0)]);
+    return [[self getIsLive] isEqualToValue:@YES]
+                || ([[self getIsLive] isEqualToValue:@NO] && ![[self getDuration] isEqualToNumber:@(0)]);
 }
 
 // ----------------------------------------- BEATS ---------------------------------------------
