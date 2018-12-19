@@ -201,7 +201,7 @@
     
     self.deviceCode = nil;
     
-    self.forceInit = nil;
+    self.forceInit = false;
     
     self.contentStreamingProtocol = nil;
     self.contentResource = nil;
