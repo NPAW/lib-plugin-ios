@@ -1,6 +1,7 @@
 ## [6.2.11] - 
 ###Fixed
 - Viewcode timestamp doesn't include "extra" zeros anymore
+- Better auto background management
 
 ## [6.2.10] - 2018-12-03
 ###Changed
