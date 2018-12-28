@@ -1,3 +1,7 @@
+## [6.2.12] - 
+###Added
+- Added pluginInfo paramter on session start too
+
 ## [6.2.11] - 2018 -12-20
 ###Fixed
 - Viewcode timestamp doesn't include "extra" zeros anymore
