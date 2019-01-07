@@ -29,6 +29,7 @@
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
 #import "YBEvent.h"
+#import "YBDeviceInfo.h"
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
@@ -1825,6 +1826,20 @@
             [self.resourceTransform begin:res];
         }
     }
+}
+
+- (NSString*) getDeviceInfoString {
+ 
+    YBDeviceInfo *deviceInfo = [[YBDeviceInfo alloc] init];
+    [deviceInfo setDeviceBrand:self.options.deviceBrand];
+    [deviceInfo setDeviceModel:self.options.deviceModel];
+    [deviceInfo setDeviceType:self.options.deviceType];
+    [deviceInfo setDeviceCode:self.options.deviceCode];
+    [deviceInfo setDeviceOsName:self.options.deviceOsName];
+    [deviceInfo setDeviceOsVersion:self.options.deviceOsVersion];
+    
+    return [deviceInfo mapToJSONString];
+    
 }
 
 - (void) eventListenerDidReceivetoBack: (NSNotification*)uselessNotification {

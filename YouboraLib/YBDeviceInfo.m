@@ -8,14 +8,29 @@
 
 #import "YBDeviceInfo.h"
 
+#import "YBLog.h"
+
 #import <sys/utsname.h>
 #import <UIKit/UIKit.h>
 
+@interface YBDeviceInfo()
+
+@end
+
 @implementation YBDeviceInfo
 
+- (instancetype) init {
+    self = [super init];
+    if (self) {
+        self.deviceModel = [self getAppleDeviceModel];
+        self.deviceBrand = @"Apple";
+        self.deviceOsVersion = [UIDevice currentDevice].systemVersion;
+    }
+    return self;
+}
+
 // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
-+ (NSString*) getModel{
-    
+- (NSString*) getAppleDeviceModel{
     struct utsname systemInfo;
     
     uname(&systemInfo);
@@ -104,32 +119,74 @@
     
     return deviceName;
 }
-+ (NSString*) getOSVersion{
-    return [UIDevice currentDevice].systemVersion;
-}
-+ (NSString*) getBrand{
-    return @"Apple"; //Hardcoded since it's always apple made
-}
 
-+ (NSString*) mapToJSONString{
-    NSError *error;
+- (NSString*) mapToJSONString{
     
-    NSDictionary *deviceInfo = @{
-                                 @"model": [YBDeviceInfo getModel],
-                                 @"osversion": [YBDeviceInfo getOSVersion],
-                                 @"brand": [YBDeviceInfo getBrand]
-                                 };
+     NSError *error;
     
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:deviceInfo
+    NSDictionary* jsonObject = [self getDeviceParameters];
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     
-    if (! jsonData) {
-        NSLog(@"Unable to generate device JSON");
+    if (!jsonData) {
+        [YBLog error:@"Unable to generate device JSON"];
         return nil;
-    } else {
-        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+- (NSDictionary*) getDeviceParameters {
+    NSMutableDictionary * deviceDict = [[NSMutableDictionary alloc] init];
+    
+    if (self.deviceModel != nil)
+        deviceDict[@"model"] = self.deviceModel;
+    else
+        deviceDict[@"model"] = [self getAppleDeviceModel];
+    
+    if (self.deviceOsVersion != nil)
+        deviceDict[@"osVersion"] = self.deviceOsVersion;
+    else
+        deviceDict[@"osVersion"] = [UIDevice currentDevice].systemVersion;
+    
+    if (self.deviceBrand != nil)
+        deviceDict[@"brand"] = self.deviceBrand;
+    else
+        deviceDict[@"brand"] = @"Apple";
+    
+    if (self.deviceType != nil)
+        deviceDict[@"deviceType"] = self.deviceType;
+    
+    if (self.deviceCode != nil)
+        deviceDict[@"deviceCode"] = self.deviceCode;
+    
+    if (self.deviceOsName != nil)
+        deviceDict[@"osName"] = self.deviceOsName;
+    
+    if (self.deviceBrowserName != nil)
+        deviceDict[@"browserName"] = self.deviceBrowserName;
+    else
+        deviceDict[@"browserName"] = @"";
+    
+    if (self.deviceBrowserVersion != nil)
+        deviceDict[@"browserVersion"] = self.deviceBrowserVersion;
+    else
+        deviceDict[@"browserVersion"] = @"";
+    
+    if (self.deviceBrowserType != nil)
+        deviceDict[@"browserType"] = self.deviceBrowserType;
+    else
+        deviceDict[@"browserType"] = @"";
+    
+    if (self.deviceBrowserEngine != nil)
+        deviceDict[@"browserEngine"] = self.deviceBrowserEngine;
+    else
+        deviceDict[@"browserEngine"] = @"";
+    
+    return deviceDict;
+        
 }
 
 

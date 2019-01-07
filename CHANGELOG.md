@@ -1,6 +1,7 @@
 ## [6.2.12] - 
 ###Added
 - Added pluginInfo paramter on session start too
+- New iPhone models for device info
 
 ## [6.2.11] - 2018 -12-20
 ###Fixed
