@@ -15,24 +15,22 @@
 
 @interface YBDeviceInfo()
 
-@property (nonatomic, strong) NSString * deviceModel;
-@property (nonatomic, strong) NSString * deviceBrand;
-@property (nonatomic, strong) NSString * deviceType;
-@property (nonatomic, strong) NSString * deviceName;
-@property (nonatomic, strong) NSString * deviceCode;
-@property (nonatomic, strong) NSString * deviceOsName;
-@property (nonatomic, strong) NSString * deviceOsVersion;
-@property (nonatomic, strong) NSString * deviceBrowserName;
-@property (nonatomic, strong) NSString * deviceBrowserVersion;
-@property (nonatomic, strong) NSString * deviceBrowserType;
-@property (nonatomic, strong) NSString * deviceBrowserEngine;
-
 @end
 
 @implementation YBDeviceInfo
 
+- (instancetype) init {
+    self = [super init];
+    if (self) {
+        self.deviceModel = [self getAppleDeviceModel];
+        self.deviceBrand = @"Apple";
+        self.deviceOsVersion = [UIDevice currentDevice].systemVersion;
+    }
+    return self;
+}
+
 // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
-- (NSString*) getDeviceModel{
+- (NSString*) getAppleDeviceModel{
     struct utsname systemInfo;
     
     uname(&systemInfo);
@@ -119,110 +117,14 @@
         }
     }
     
-    return self.deviceModel == nil ? deviceName : self.deviceModel;
-}
-
-- (void) setDeviceModel:(NSString *)deviceModel {
-    self.deviceModel = deviceModel;
-}
-
-- (NSString*) getDeviceBrand {
-    //return @"Apple"; //Hardcoded since it's always apple made
-    return self.deviceBrand == nil ? @"Apple" : self.deviceBrand;
-}
-
-- (void) setDeviceBrand:(NSString *)deviceBrand {
-    self.deviceBrand = deviceBrand;
-}
-
-- (NSString*) getDeviceType {
-    return self.deviceType;
-}
-
-- (void) setDeviceType:(NSString *)deviceType {
-    self.deviceType = deviceType;
-}
-
-- (NSString*) getDeviceName {
-    return self.deviceName;
-}
-
-- (void) setDeviceName:(NSString *)deviceName {
-    self.deviceName = deviceName;
-}
-
-- (NSString*) getDeviceCode {
-    return self.deviceCode;
-}
-
-- (void) setDeviceCode:(NSString *)deviceCode {
-    self.deviceCode = deviceCode;
-}
-
-- (NSString*) getDeviceOsName {
-    return self.deviceOsName;
-}
-
-- (void) setDeviceOsName:(NSString *)deviceOsName {
-    self.deviceOsName = deviceOsName;
-}
-
-- (NSString*) getDeviceOSVersion {
-    return self.deviceOsVersion == nil ? [UIDevice currentDevice].systemVersion: self.deviceOsVersion;
-}
-
-- (void) setDeviceOsVersion:(NSString *)deviceOsVersion {
-    self.deviceOsVersion = deviceOsVersion;
-}
-
-- (NSString*) getDeviceBrowserName {
-    return self.deviceBrowserName == nil ? @"" : self.deviceBrowserName;
-}
-
-- (void) setDeviceBrowserName:(NSString *)deviceBrowserName {
-    self.deviceBrowserName = deviceBrowserName;
-}
-
-- (NSString*) getDeviceBrowserVersion {
-    return self.deviceBrowserVersion == nil ? @"" : self.deviceBrowserVersion;
-}
-
-- (void) setDeviceBrowserVersion:(NSString *)deviceBrowserVersion {
-    self.deviceBrowserVersion = deviceBrowserVersion;
-}
-
-- (NSString*) getDeviceBrowserType {
-    return self.getDeviceBrowserType == nil ? @"" : self.getDeviceBrowserType;
-}
-
-- (void) setDeviceBrowserType:(NSString *)deviceBrowserType {
-    self.deviceBrowserType = _deviceBrowserType;
-}
-
-- (NSString*) getDeviceBrowserEngine {
-    return self.getDeviceBrowserEngine == nil ? @"" : self.getDeviceBrowserEngine;
-}
-
-- (void) setDeviceBrowserEngine:(NSString *)deviceBrowserEngine {
-    self.deviceBrowserEngine = deviceBrowserEngine;
+    return deviceName;
 }
 
 - (NSString*) mapToJSONString{
     
      NSError *error;
     
-    NSDictionary* jsonObject = @{
-                                 @"model" : [self getDeviceModel],
-                                 @"osVersion" : [self getDeviceOSVersion],
-                                 @"brand" : [self getDeviceBrand],
-                                 @"deviceType" : [self getDeviceType],
-                                 @"deviceCode" : [self getDeviceCode],
-                                 @"osName" : [self getDeviceOsName],
-                                 @"browserName" : [self getDeviceBrowserName],
-                                 @"browserVersion" : [self getDeviceBrowserVersion],
-                                 @"browserType" : [self getDeviceBrowserType],
-                                 @"brownserEngine" : [self getDeviceBrowserEngine]
-                                 };
+    NSDictionary* jsonObject = [self getDeviceParameters];
     
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject
                                                        options:NSJSONWritingPrettyPrinted
@@ -234,6 +136,57 @@
     }
     
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+- (NSDictionary*) getDeviceParameters {
+    NSMutableDictionary * deviceDict = [[NSMutableDictionary alloc] init];
+    
+    if (self.deviceModel != nil)
+        deviceDict[@"model"] = self.deviceModel;
+    else
+        deviceDict[@"model"] = [self getAppleDeviceModel];
+    
+    if (self.deviceOsVersion != nil)
+        deviceDict[@"osVersion"] = self.deviceOsVersion;
+    else
+        deviceDict[@"osVersion"] = [UIDevice currentDevice].systemVersion;
+    
+    if (self.deviceBrand != nil)
+        deviceDict[@"brand"] = self.deviceBrand;
+    else
+        deviceDict[@"brand"] = @"Apple";
+    
+    if (self.deviceType != nil)
+        deviceDict[@"deviceType"] = self.deviceType;
+    
+    if (self.deviceCode != nil)
+        deviceDict[@"deviceCode"] = self.deviceCode;
+    
+    if (self.deviceOsName != nil)
+        deviceDict[@"osName"] = self.deviceOsName;
+    
+    if (self.deviceBrowserName != nil)
+        deviceDict[@"browserName"] = self.deviceBrowserName;
+    else
+        deviceDict[@"browserName"] = @"";
+    
+    if (self.deviceBrowserVersion != nil)
+        deviceDict[@"browserVersion"] = self.deviceBrowserVersion;
+    else
+        deviceDict[@"browserVersion"] = @"";
+    
+    if (self.deviceBrowserType != nil)
+        deviceDict[@"browserType"] = self.deviceBrowserType;
+    else
+        deviceDict[@"browserType"] = @"";
+    
+    if (self.deviceBrowserEngine != nil)
+        deviceDict[@"browserEngine"] = self.deviceBrowserEngine;
+    else
+        deviceDict[@"browserEngine"] = @"";
+    
+    return deviceDict;
+        
 }
 
 

@@ -10,93 +10,17 @@
 
 @interface YBDeviceInfo : NSObject
 
-/**
- * Getter for device model
- * @return device model
- */
-- (NSString*) getDeviceModel;
-
-- (void) setDeviceModel:(NSString *)deviceModel;
-
-/**
- * Getter for device brand
- * @return device brand
- */
-- (NSString*) getDeviceBrand;
-
-- (void) setDeviceBrand:(NSString *)deviceBrand;
-
-/**
- * Getter for device type
- * @return device type
- */
-- (NSString*) getDeviceType;
-
-- (void) setDeviceType:(NSString *)deviceType;
-
-/**
- * Getter for device name
- * @return device name
- */
-- (NSString*) getDeviceName;
-
-- (void) setDeviceName:(NSString *)deviceName;
-
-/**
- * Getter for device code
- * @return device code
- */
-- (NSString*) getDeviceCode;
-
-- (void) setDeviceCode:(NSString *)deviceCode;
-
-/**
- * Getter for device OS name
- * @return device OS name
- */
-- (NSString*) getDeviceOsName;
-
-- (void) setDeviceOsName:(NSString *)deviceOsName;
-
-/**
- * Getter for device OS version
- * @return device OS version
- */
-- (NSString*) getDeviceOSVersion;
-
-- (void) setDeviceOsVersion:(NSString *)deviceOsVersion;
-
-/**
- * Getter for device browser name
- * @return device browser name
- */
-- (NSString*) getDeviceBrowserName;
-
-- (void) setDeviceBrowserName:(NSString *)deviceBrowserName;
-
-/**
- * Getter for device browser version
- * @return device browser version
- */
-- (NSString*) getDeviceBrowserVersion;
-
-- (void) setDeviceBrowserVersion:(NSString *)deviceBrowserVersion;
-
-/**
- * Getter for device browser type
- * @return device browser type
- */
-- (NSString*) getDeviceBrowserType;
-
-- (void) setDeviceBrowserType:(NSString *)deviceBrowserType;
-
-/**
- * Getter for device browser engine
- * @return device browser engine
- */
-- (NSString*) getDeviceBrowserEngine;
-
-- (void) setDeviceBrowserEngine:(NSString *)deviceBrowserEngine;
+@property (nonatomic, strong) NSString * deviceModel;
+@property (nonatomic, strong) NSString * deviceBrand;
+@property (nonatomic, strong) NSString * deviceType;
+@property (nonatomic, strong) NSString * deviceName;
+@property (nonatomic, strong) NSString * deviceCode;
+@property (nonatomic, strong) NSString * deviceOsName;
+@property (nonatomic, strong) NSString * deviceOsVersion;
+@property (nonatomic, strong) NSString * deviceBrowserName;
+@property (nonatomic, strong) NSString * deviceBrowserVersion;
+@property (nonatomic, strong) NSString * deviceBrowserType;
+@property (nonatomic, strong) NSString * deviceBrowserEngine;
 
 
 /**
