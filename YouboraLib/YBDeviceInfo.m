@@ -94,7 +94,10 @@
                               @"iPad6,7"   : @"iPad Pro (12.9\")", // iPad Pro 12.9 inches - (model A1584)
                               @"iPad6,8"   : @"iPad Pro (12.9\")", // iPad Pro 12.9 inches - (model A1652)
                               @"iPad6,3"   : @"iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (model A1673)
-                              @"iPad6,4"   : @"iPad Pro (9.7\")"   // iPad Pro 9.7 inches - (models A1674 and A1675)
+                              @"iPad6,4"   : @"iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (models A1674 and A1675)
+                              
+                              @"AppleTV5,3": @"Apple TV",           // AppleTV
+                              @"AppleTV6,2": @"Apple TV 4k"         // AppleTV 4k
                               };
     }
     
@@ -111,6 +114,8 @@
         }
         else if([code rangeOfString:@"iPhone"].location != NSNotFound){
             deviceName = @"iPhone";
+        } else if ([code rangeOfString:@"AppleTV"].location != NSNotFound) {
+            deviceName = @"Apple TV";
         }
         else {
             deviceName = @"Unknown";

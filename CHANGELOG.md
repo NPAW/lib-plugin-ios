@@ -2,6 +2,7 @@
 ###Added
 - Added pluginInfo paramter on session start too
 - New iPhone models for device info
+- Added AppleTV models
 
 ## [6.2.11] - 2018 -12-20
 ###Fixed
