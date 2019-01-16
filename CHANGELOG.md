@@ -1,3 +1,7 @@
+## [6.2.13] - 2018-01-16
+###Fixed
+- Apple TV now is named AppleTV 4G
+
 ## [6.2.12] - 2018-01-14
 ###Added
 - Added pluginInfo paramter on session start too
