@@ -96,8 +96,8 @@
                               @"iPad6,3"   : @"iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (model A1673)
                               @"iPad6,4"   : @"iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (models A1674 and A1675)
                               
-                              @"AppleTV5,3": @"Apple TV",           // AppleTV
-                              @"AppleTV6,2": @"Apple TV 4k"         // AppleTV 4k
+                              @"AppleTV5,3": @"Apple TV 4G",       // AppleTV 4G
+                              @"AppleTV6,2": @"Apple TV 4K"        // AppleTV 4K
                               };
     }
     
