@@ -11,7 +11,6 @@
 #import "YBLog.h"
 #import "YBConstants.h"
 #import "YBYouboraUtils.h"
-#import "YBDeviceInfo.h"
 #import "YBInfinity.h"
 
 @interface YBRequestBuilder()
@@ -80,7 +79,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"],
                        
                        //Infinity
-                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language"],
+                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo"],
                        YouboraServiceSessionStop: @[@"accountCode"],
                        YouboraServiceSessionNav: @[@"username", @"navContext"],
                        YouboraServiceSessionBeat: @[],
@@ -367,7 +366,7 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:@"nodeTypeString"]){
         value = [self.plugin getNodeTypeString];
     } else if ([param isEqualToString:@"deviceInfo"]){
-        value = [YBDeviceInfo mapToJSONString];
+        value = [self.plugin getDeviceInfoString];
     } else if ([param isEqualToString:@"householdId"]){
         value = [self.plugin getHouseholdId];
     }  else if ([param isEqualToString:@"p2pDownloadedTraffic"]){

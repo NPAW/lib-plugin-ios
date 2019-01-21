@@ -819,6 +819,11 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (NSMutableArray *) getActiveSessions;
 
 /**
+ * Get Device info String
+ */
+- (NSString*) getDeviceInfoString;
+
+/**
  * Returns current device language in language-COUNTRYCODE format
  * @return Current language
  */

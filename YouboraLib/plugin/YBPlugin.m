@@ -29,6 +29,7 @@
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
 #import "YBEvent.h"
+#import "YBDeviceInfo.h"
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
@@ -1829,11 +1830,34 @@
     }
 }
 
+- (NSString*) getDeviceInfoString {
+ 
+    YBDeviceInfo *deviceInfo = [[YBDeviceInfo alloc] init];
+    [deviceInfo setDeviceBrand:self.options.deviceBrand];
+    [deviceInfo setDeviceModel:self.options.deviceModel];
+    [deviceInfo setDeviceType:self.options.deviceType];
+    [deviceInfo setDeviceCode:self.options.deviceCode];
+    [deviceInfo setDeviceOsName:self.options.deviceOsName];
+    [deviceInfo setDeviceOsVersion:self.options.deviceOsVersion];
+    
+    return [deviceInfo mapToJSONString];
+    
+}
+
 - (void) eventListenerDidReceivetoBack: (NSNotification*)uselessNotification {
     if(self.options.autoDetectBackground){
-        if(self.adapter != nil){
+        if (self.adsAdapter != nil && (self.adsAdapter.flags.started || self.adsAdapter.flags.adInitiated)) {
+            [self.adsAdapter fireStop];
+        }
+        
+        if (self.isInitiated && (self.adapter == nil || !self.adapter.flags.started)) {
+            [self fireStop];
+        } else if (self.adapter != nil && self.adapter.flags.started) {
             [self.adapter fireStop];
         }
+        /*if(self.adapter != nil){
+            [self.adapter fireStop];
+        }*/
     }
     if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
         if ([self getInfinity].flags.started) {

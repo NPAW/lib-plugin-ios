@@ -119,6 +119,36 @@
 @property(nonatomic, assign) bool forceInit;
 
 /**
+* What will be displayed as the device model on Youbora (provided by default with android.os.Build.MODEL if not set)
+*/
+@property(nonatomic, strong) NSString * deviceModel;
+
+/**
+ * What will be displayed as the device brand on Youbora (provided by default with android.os.Build.BRAND if not set)
+ */
+@property(nonatomic, strong) NSString * deviceBrand;
+
+/**
+ * What will be displayed as the device type on Youbora (pc, smartphone, stb, tv, etc.)
+ */
+@property(nonatomic, strong) NSString * deviceType;
+
+/**
+ * What will be displayed as the device name on Youbora (pc, smartphone, stb, tv, etc.)
+ */
+@property(nonatomic, strong) NSString * deviceName;
+
+/**
+ * OS name that will be displayed on Youbora
+ */
+@property(nonatomic, strong) NSString * deviceOsName;
+
+/**
+ * OS version that will be displayed on Youbora (provided by default with android.os.Build.VERSION.RELEASE if not set)
+ */
+@property(nonatomic, strong) NSString * deviceOsVersion;
+
+/**
  * URL/path of the current media resource.
  */
 @property(nonatomic, strong) NSString * contentResource;

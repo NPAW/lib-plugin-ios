@@ -201,6 +201,8 @@
 		CDBE2A53200F5E310034A660 /* YBOfflineTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBE2A4F200F5E310034A660 /* YBOfflineTransform.m */; };
 		CDD3882E2109C63F00C027FF /* YBInfinityTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD3882D2109C63F00C027FF /* YBInfinityTest.m */; };
 		CDD3882F2109C63F00C027FF /* YBInfinityTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD3882D2109C63F00C027FF /* YBInfinityTest.m */; };
+		CDDF50C121DF75BA00BB4F3B /* YBDeviceInfoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDF50BF21DF755B00BB4F3B /* YBDeviceInfoTest.m */; };
+		CDDF50C221DF75BA00BB4F3B /* YBDeviceInfoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDF50BF21DF755B00BB4F3B /* YBDeviceInfoTest.m */; };
 		CDEB0D532011EE0600B297B7 /* YBEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A420075175003A0797 /* YBEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDEB0D542011EE0600B297B7 /* YBEventDAO.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354A8200758BB003A0797 /* YBEventDAO.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDEB0D552011EE0600B297B7 /* YBEventDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = CD9354B020076F19003A0797 /* YBEventDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -357,6 +359,7 @@
 		CDBE2A4E200F5E310034A660 /* YBOfflineTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YBOfflineTransform.h; path = transform/YBOfflineTransform.h; sourceTree = "<group>"; };
 		CDBE2A4F200F5E310034A660 /* YBOfflineTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YBOfflineTransform.m; path = transform/YBOfflineTransform.m; sourceTree = "<group>"; };
 		CDD3882D2109C63F00C027FF /* YBInfinityTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBInfinityTest.m; sourceTree = "<group>"; };
+		CDDF50BF21DF755B00BB4F3B /* YBDeviceInfoTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBDeviceInfoTest.m; sourceTree = "<group>"; };
 		CDFEAF0A20FF5A2F00C59B67 /* YBTimestampLastSentTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YBTimestampLastSentTransform.h; path = ../transform/infinity/YBTimestampLastSentTransform.h; sourceTree = "<group>"; };
 		CDFEAF1120FF6F7400C59B67 /* YBInfinityLocalManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBInfinityLocalManager.h; sourceTree = "<group>"; };
 		CDFEAF1220FF6F7400C59B67 /* YBInfinityLocalManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBInfinityLocalManager.m; sourceTree = "<group>"; };
@@ -466,6 +469,7 @@
 				4EF293801E7A88F4008B0A99 /* YBTimerTest.m */,
 				4EF293821E7A90C0008B0A99 /* YBLogTests.m */,
 				4E5E53A21E816FAD00966C7B /* YBYouboraUtilsTest.m */,
+				CDDF50BF21DF755B00BB4F3B /* YBDeviceInfoTest.m */,
 			);
 			path = YouboraLibTests;
 			sourceTree = "<group>";
@@ -1070,6 +1074,7 @@
 				4EF293831E7A90C0008B0A99 /* YBLogTests.m in Sources */,
 				4ECFCC5E1E95446800E07785 /* YBTestableCdnParser.m in Sources */,
 				4E5E53A71E8181E800966C7B /* YBPlayerAdapterTest.m in Sources */,
+				CDDF50C121DF75BA00BB4F3B /* YBDeviceInfoTest.m in Sources */,
 				4ECFCC641E95478600E07785 /* YBTestableResourceTransform.m in Sources */,
 				4E2817151E85205500F450C1 /* YBViewTransformTest.m in Sources */,
 				4ECFCC5D1E95446800E07785 /* YBParseHlsTest.m in Sources */,
@@ -1148,6 +1153,7 @@
 				4EA274E31EA758E700D5329C /* YBPlaybackChronosTest.m in Sources */,
 				4EA274E41EA758E700D5329C /* YBPlaybackFlagsTest.m in Sources */,
 				4EA274E51EA758E700D5329C /* YBPlayerAdapterTest.m in Sources */,
+				CDDF50C221DF75BA00BB4F3B /* YBDeviceInfoTest.m in Sources */,
 				4EA274E61EA758E700D5329C /* YBTestablePlayerAdapter.m in Sources */,
 				4EA274E71EA758E700D5329C /* YBPlayheadMonitorTest.m in Sources */,
 				4EA274E81EA758E700D5329C /* YBTestablePlayheadMonitor.m in Sources */,
@@ -1244,7 +1250,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.2.10;
+				YOUBORALIB_VERSION_SETTING = 6.2.13;
 			};
 			name = Debug;
 		};
@@ -1294,7 +1300,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.2.10;
+				YOUBORALIB_VERSION_SETTING = 6.2.13;
 			};
 			name = Release;
 		};

@@ -41,6 +41,11 @@
         self.networkObfuscateIp = [decoder decodeObjectForKey:@"networkObfuscateIp"];
         self.deviceCode = [decoder decodeObjectForKey:@"deviceCode"];
         self.forceInit = [decoder decodeObjectForKey:@"forceInit"];
+        self.deviceModel = [decoder decodeObjectForKey:@"deviceModel"];
+        self.deviceBrand = [decoder decodeObjectForKey:@"deviceBrand"];
+        self.deviceType = [decoder decodeObjectForKey:@"deviceType"];
+        self.deviceOsName = [decoder decodeObjectForKey:@"deviceOsName"];
+        self.deviceOsVersion = [decoder decodeObjectForKey:@"deviceOsVersion"];
         self.contentResource = [decoder decodeObjectForKey:@"contentResource"];
         self.contentIsLive = [decoder decodeObjectForKey:@"contentIsLive"];
         self.contentTitle = [decoder decodeObjectForKey:@"contentTitle"];
@@ -119,6 +124,12 @@
     [coder encodeObject:self.networkObfuscateIp forKey:@"networkObfuscateIp"];
     [coder encodeObject:self.deviceCode forKey:@"deviceCode"];
     [coder encodeObject:@(self.forceInit) forKey:@"forceInit"];
+    [coder encodeObject:self.deviceModel forKey:@"deviceModel"];
+    [coder encodeObject:self.deviceBrand forKey:@"deviceBrand"];
+    [coder encodeObject:self.deviceType forKey:@"deviceType"];
+    [coder encodeObject:self.deviceName forKey:@"deviceName"];
+    [coder encodeObject:self.deviceOsName forKey:@"deviceOsName"];
+    [coder encodeObject:self.deviceOsVersion forKey:@"deviceOsVersion"];
     [coder encodeObject:self.contentStreamingProtocol forKey:@"contentStreamingProtocol"];
     [coder encodeObject:self.contentResource forKey:@"contentResource"];
     [coder encodeObject:self.contentIsLive forKey:@"contentIsLive"];
@@ -200,6 +211,13 @@
     self.networkObfuscateIp = nil;
     
     self.deviceCode = nil;
+    self.deviceModel = nil;
+    self.deviceBrand = nil;
+    self.deviceType = nil;
+    self.deviceName = nil;
+    self.deviceOsName = nil;
+    self.deviceOsVersion = nil;
+    
     
     self.forceInit = false;
     
