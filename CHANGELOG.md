@@ -1,3 +1,7 @@
+## [6.3.0] - 
+###Added
+- Automatic init
+
 ## [6.2.13] - 2018-01-16
 ###Fixed
 - Apple TV now is named AppleTV 4G
@@ -9,6 +13,7 @@
 - Added AppleTV models
 
 ## [6.2.11] - 2018 -12-20
+>>>>>>> master
 ###Fixed
 - Viewcode timestamp doesn't include "extra" zeros anymore
 - Better auto background management

@@ -114,6 +114,11 @@
 @property(nonatomic, strong) NSString * deviceCode;
 
 /**
+ * Force init enabled
+ */
+@property(nonatomic, assign) bool forceInit;
+
+/**
 * What will be displayed as the device model on Youbora (provided by default with android.os.Build.MODEL if not set)
 */
 @property(nonatomic, strong) NSString * deviceModel;
