@@ -1,4 +1,8 @@
-## [6.3.0] - 2018-01-21
+## [6.3.1] - 2019-
+###Added
+- Deprecate all ads completed method
+
+## [6.3.0] - 2019-01-21
 ###Added
 - Automatic init
 
