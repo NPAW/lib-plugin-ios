@@ -248,7 +248,7 @@
 
 /**
  * If true the plugin will fireStop when going to background
- * Default: false
+ * Default: true
  */
 @property(nonatomic, assign) bool autoDetectBackground;
 
