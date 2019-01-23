@@ -424,13 +424,13 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 /**
  * Shortcut for <fireAllAdsCompleted:> with {@code params = null}.
  */
-- (void)fireAllAdsCompleted;
+- (void)fireAllAdsCompleted __deprecated_msg("This method is going to be removed on future releases");
 
 /**
  * Let the plugin know that all ads have been played
  * @param params params to add to the request. If it is null default values will be added.
  */
-- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params;
+- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params __deprecated_msg("This method is going to be removed on future releases");
 /**
  * Basic error handler. msg, code, errorMetadata and level params can be included in the params
  * argument.
