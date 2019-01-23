@@ -1,6 +1,8 @@
-## [6.3.1] - 2019-
+## [6.3.1] - 2019-01-23
 ###Added
 - Deprecate all ads completed method
+###Fixed
+- Playhead monitor with different playrate than 0 or 1
 
 ## [6.3.0] - 2019-01-21
 ###Added
