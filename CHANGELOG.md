@@ -1,3 +1,7 @@
+## [6.3.2] - 2019-01-24
+###Fixed
+- In certain cases comm was reinstantiated and no event where send afterwards
+
 ## [6.3.1] - 2019-01-23
 ###Added
 - Deprecate all ads completed method
