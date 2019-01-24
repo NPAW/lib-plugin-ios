@@ -257,7 +257,7 @@
 }
 
 - (void) fireInitWithParams:(NSDictionary<NSString *, NSString *> *) params {
-    if (!self.isInitiated) {
+    if (!self.isInitiated && !self.isStarted) {
         [self.viewTransform nextView];
         [self initComm];
         [self startPings];
