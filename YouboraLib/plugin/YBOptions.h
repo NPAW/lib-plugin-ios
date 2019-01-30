@@ -166,7 +166,12 @@
 /**
  * Secondary title of the media. This could be program name, season, episode, etc.
  */
-@property(nonatomic, strong) NSString * contentTitle2;
+@property(nonatomic, strong) NSString * contentTitle2 __deprecated_msg("Use program instead");
+
+/**
+ * Program title of the media. This could be program name, season, episode, etc.
+ */
+@property(nonatomic, strong) NSString * program;
 
 /**
  * Duration of the media <b>in seconds</b>.

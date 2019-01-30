@@ -49,7 +49,7 @@
         self.contentResource = [decoder decodeObjectForKey:@"contentResource"];
         self.contentIsLive = [decoder decodeObjectForKey:@"contentIsLive"];
         self.contentTitle = [decoder decodeObjectForKey:@"contentTitle"];
-        self.contentTitle2 = [decoder decodeObjectForKey:@"contentTitle2"];
+        self.program = [decoder decodeObjectForKey:@"program"];
         self.contentDuration = [decoder decodeObjectForKey:@"contentDuration"];
         self.contentTransactionCode = [decoder decodeObjectForKey:@"contentTransactionCode"];
         self.contentStreamingProtocol = [decoder decodeObjectForKey:@"contentStreamingProtocol"];
@@ -134,7 +134,7 @@
     [coder encodeObject:self.contentResource forKey:@"contentResource"];
     [coder encodeObject:self.contentIsLive forKey:@"contentIsLive"];
     [coder encodeObject:self.contentTitle forKey:@"contentTitle"];
-    [coder encodeObject:self.contentTitle2 forKey:@"contentTitle2"];
+    [coder encodeObject:self.program forKey:@"program"];
     [coder encodeObject:self.contentDuration forKey:@"contentDuration"];
     [coder encodeObject:self.contentTransactionCode forKey:@"contentTransactionCode"];
     [coder encodeObject:self.contentBitrate forKey:@"contentBitrate"];
@@ -225,7 +225,7 @@
     self.contentResource = nil;
     self.contentIsLive = nil;
     self.contentTitle = nil;
-    self.contentTitle2 = nil;
+    self.program = nil;
     self.contentDuration = nil;
     self.contentTransactionCode = nil;
     self.contentBitrate = nil;

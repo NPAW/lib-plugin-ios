@@ -329,24 +329,24 @@
     XCTAssertEqualObjects(@"batman", [self.p getTitle]);
 }
 
-- (void)testTitle2 {
-    [given([self.mockAdapter getTitle2]) willReturn:@"episode 1"];
-    XCTAssertEqualObjects(@"episode 1", [self.p getTitle2]);
+- (void)testProgram {
+    [given([self.mockAdapter getProgram]) willReturn:@"episode 1"];
+    XCTAssertEqualObjects(@"episode 1", [self.p getProgram]);
     
-    [given([self.mockAdapter getTitle2]) willReturn:@""];
-    XCTAssertEqualObjects(@"", [self.p getTitle2]);
+    [given([self.mockAdapter getProgram]) willReturn:@""];
+    XCTAssertEqualObjects(@"", [self.p getProgram]);
     
-    [given([self.mockAdapter getTitle2]) willReturn:nil];
-    XCTAssertEqualObjects(nil, [self.p getTitle2]);
+    [given([self.mockAdapter getProgram]) willReturn:nil];
+    XCTAssertEqualObjects(nil, [self.p getProgram]);
     
     // Options > adapter
-    stubProperty(self.mockOptions, contentTitle2, @"episode 2");
-    [given([self.mockAdapter getTitle2]) willReturn:@"episode 1"];
-    XCTAssertEqualObjects(@"episode 2", [self.p getTitle2]);
+    stubProperty(self.mockOptions, program, @"episode 2");
+    [given([self.mockAdapter getProgram]) willReturn:@"episode 1"];
+    XCTAssertEqualObjects(@"episode 2", [self.p getProgram]);
     
     // unless empty
-    stubProperty(self.mockOptions, contentTitle2, @"");
-    XCTAssertEqualObjects(@"episode 1", [self.p getTitle2]);
+    stubProperty(self.mockOptions, program, @"");
+    XCTAssertEqualObjects(@"episode 1", [self.p getProgram]);
 }
 
 - (void)testLive {

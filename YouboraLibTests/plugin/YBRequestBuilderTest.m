@@ -56,7 +56,7 @@ static NSArray * ALL_PARAMS;
     [given([self.mockPlugin getThroughput]) willReturn:@7];
     [given([self.mockPlugin getRendition]) willReturn:@"a"];
     [given([self.mockPlugin getTitle]) willReturn:@"b"];
-    [given([self.mockPlugin getTitle2]) willReturn:@"c"];
+    [given([self.mockPlugin getProgram]) willReturn:@"c"];
     [given([self.mockPlugin getIsLive]) willReturn:@(true)];
     [given([self.mockPlugin getResource]) willReturn:@"d"];
     [given([self.mockPlugin getTransactionCode]) willReturn:@"e"];

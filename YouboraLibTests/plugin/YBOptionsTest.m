@@ -45,7 +45,7 @@
     opt.contentResource = @"resource";
     opt.contentIsLive = @YES;
     opt.contentTitle = @"title";
-    opt.contentTitle2 = @"title2";
+    opt.program = @"program";
     opt.contentDuration = @42;
     opt.contentTransactionCode = @"transactioncode";
     opt.contentBitrate = @4;
@@ -98,7 +98,7 @@
     XCTAssertEqualObjects(opt.contentResource, opt2.contentResource);
     XCTAssertEqualObjects(opt.contentIsLive, opt2.contentIsLive);
     XCTAssertEqualObjects(opt.contentTitle, opt2.contentTitle);
-    XCTAssertEqualObjects(opt.contentTitle2, opt2.contentTitle2);
+    XCTAssertEqualObjects(opt.program, opt2.program);
     XCTAssertEqualObjects(opt.contentDuration, opt2.contentDuration);
     XCTAssertEqualObjects(opt.contentTransactionCode, opt2.contentTransactionCode);
     XCTAssertEqualObjects(opt.contentBitrate, opt2.contentBitrate);

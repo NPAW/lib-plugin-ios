@@ -537,12 +537,26 @@
 }
 
 - (NSString *) getTitle2 {
-    NSString * val = self.options.contentTitle2;
+    NSString * val = self.options.program;
     if ((val == nil || val.length == 0) && self.adapter != nil) {
         @try {
-            val = [self.adapter getTitle2];
+            val = [self.adapter getProgram];
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling getTitle2"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val;
+}
+
+- (NSString *) getProgram {
+    NSString * val = self.options.program;
+    if ((val == nil || val.length == 0) && self.adapter != nil) {
+        @try {
+            val = [self.adapter getProgram];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getProgram"];
             [YBLog logException:exception];
         }
     }

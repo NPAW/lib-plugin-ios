@@ -286,7 +286,13 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns the content's title2
  * @return the content's title2
  */
-- (nullable NSString *) getTitle2;
+- (nullable NSString *) getTitle2 __deprecated_msg("Use getProgram instead");
+
+/**
+ * Returns content's program
+ * @return program
+ */
+- (nullable NSString *) getProgram;
 
 /**
  * Returns whether the content is live or not

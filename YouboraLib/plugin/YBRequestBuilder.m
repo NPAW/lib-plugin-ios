@@ -208,7 +208,7 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:@"title"]){
         value = [self.plugin getTitle];
     } else if ([param isEqualToString:@"title2"]){
-        value = [self.plugin getTitle2];
+        value = [self.plugin getProgram];
     } else if ([param isEqualToString:@"streamingProtocol"]){
         value = [self.plugin getStreamingProtocol];
     } else if ([param isEqualToString:@"live"]){

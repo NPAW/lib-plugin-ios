@@ -174,7 +174,13 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  *
  * @return the secondary title. It may be program name, episode, etc.
  */
-- (nullable NSString *) getTitle2;
+- (nullable NSString *) getTitle2 __deprecated_msg("Use getProgram instead");
+
+/** Override to return program
+ *
+ * @return program. It may be program name, episode, etc.
+ */
+- (nullable NSString *) getProgram;
 
 /** Override to recurn true if live and false if VOD
  *
