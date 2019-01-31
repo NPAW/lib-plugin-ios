@@ -382,181 +382,361 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns content's Extraparam1
  * @return extraparam 1 value
  */
-- (nullable NSString *) getExtraparam1;
+- (nullable NSString *) getExtraparam1 __deprecated_msg("Use getCustomDimension1 instead");
 
 /**
  * Returns content's Extraparam2
  * @return extraparam 2 value
  */
-- (nullable NSString *) getExtraparam2;
+- (nullable NSString *) getExtraparam2 __deprecated_msg("Use getCustomDimension2 instead");
 
 /**
  * Returns content's Extraparam3
  * @return extraparam 3 value
  */
-- (nullable NSString *) getExtraparam3;
+- (nullable NSString *) getExtraparam3 __deprecated_msg("Use getCustomDimension3 instead");
 
 /**
  * Returns content's Extraparam4
  * @return extraparam 5 value
  */
-- (nullable NSString *) getExtraparam4;
+- (nullable NSString *) getExtraparam4 __deprecated_msg("Use getCustomDimension4 instead");
 
 /**
  * Returns content's Extraparam5
  * @return extraparam 5 value
  */
-- (nullable NSString *) getExtraparam5;
+- (nullable NSString *) getExtraparam5 __deprecated_msg("Use getCustomDimension5 instead");
 
 /**
  * Returns content's Extraparam6
  * @return extraparam 6 value
  */
-- (nullable NSString *) getExtraparam6;
+- (nullable NSString *) getExtraparam6 __deprecated_msg("Use getCustomDimension6 instead");
 
 /**
  * Returns content's Extraparam7
  * @return extraparam 7 value
  */
-- (nullable NSString *) getExtraparam7;
+- (nullable NSString *) getExtraparam7 __deprecated_msg("Use getCustomDimension7 instead");
 
 /**
  * Returns content's Extraparam8
  * @return extraparam 8 value
  */
-- (nullable NSString *) getExtraparam8;
+- (nullable NSString *) getExtraparam8 __deprecated_msg("Use getCustomDimension8 instead");
 
 /**
  * Returns content's Extraparam9
  * @return extraparam 9 value
  */
-- (nullable NSString *) getExtraparam9;
+- (nullable NSString *) getExtraparam9 __deprecated_msg("Use getCustomDimension9 instead");
 
 /**
  * Returns content's Extraparam10
  * @return extraparam 10 value
  */
-- (nullable NSString *) getExtraparam10;
+- (nullable NSString *) getExtraparam10 __deprecated_msg("Use getCustomDimension10 instead");
 
 /**
  * Returns content's Extraparam11
  * @return extraparam 11 value
  */
-- (nullable NSString *) getExtraparam11;
+- (nullable NSString *) getExtraparam11 __deprecated_msg("Use getCustomDimension11 instead");
 
 /**
  * Returns content's Extraparam12
  * @return extraparam 12 value
  */
-- (nullable NSString *) getExtraparam12;
+- (nullable NSString *) getExtraparam12 __deprecated_msg("Use getCustomDimension12 instead");
 
 /**
  * Returns content's Extraparam13
  * @return extraparam 13 value
  */
-- (nullable NSString *) getExtraparam13;
+- (nullable NSString *) getExtraparam13 __deprecated_msg("Use getCustomDimension13 instead");
 
 /**
  * Returns content's Extraparam14
  * @return extraparam 14 value
  */
-- (nullable NSString *) getExtraparam14;
+- (nullable NSString *) getExtraparam14 __deprecated_msg("Use getCustomDimension14 instead");
 
 /**
  * Returns content's Extraparam15
  * @return extraparam 15 value
  */
-- (nullable NSString *) getExtraparam15;
+- (nullable NSString *) getExtraparam15 __deprecated_msg("Use getCustomDimension15 instead");
 
 /**
  * Returns content's Extraparam16
  * @return extraparam 16 value
  */
-- (nullable NSString *) getExtraparam16;
+- (nullable NSString *) getExtraparam16 __deprecated_msg("Use getCustomDimension16 instead");
 
 /**
  * Returns content's Extraparam17
  * @return extraparam 17 value
  */
-- (nullable NSString *) getExtraparam17;
+- (nullable NSString *) getExtraparam17 __deprecated_msg("Use getCustomDimension17 instead");
 
 /**
  * Returns content's Extraparam18
  * @return extraparam 18 value
  */
-- (nullable NSString *) getExtraparam18;
+- (nullable NSString *) getExtraparam18 __deprecated_msg("Use getCustomDimension18 instead");
 
 /**
  * Returns content's Extraparam19
  * @return extraparam 19 value
  */
-- (nullable NSString *) getExtraparam19;
+- (nullable NSString *) getExtraparam19 __deprecated_msg("Use getCustomDimension19 instead");
 
 /**
  * Returns content's Extraparam20
  * @return extraparam 20 value
  */
-- (nullable NSString *) getExtraparam20;
+- (nullable NSString *) getExtraparam20 __deprecated_msg("Use getCustomDimension20 instead");
 
 /**
  * Returns ad's Extraparam1
  * @return extraparam 1 value
  */
-- (nullable NSString *) getAdExtraparam1;
+- (nullable NSString *) getAdExtraparam1 __deprecated_msg("Use getAdCustomDimension1 instead");
 
 /**
  * Returns ad's Extraparam2
  * @return extraparam 2 value
  */
-- (nullable NSString *) getAdExtraparam2;
+- (nullable NSString *) getAdExtraparam2 __deprecated_msg("Use getAdCustomDimension2 instead");
 
 /**
  * Returns ad's Extraparam3
  * @return extraparam 3 value
  */
-- (nullable NSString *) getAdExtraparam3;
+- (nullable NSString *) getAdExtraparam3 __deprecated_msg("Use getAdCustomDimension3 instead");
 
 /**
  * Returns ad's Extraparam4
  * @return extraparam 5 value
  */
-- (nullable NSString *) getAdExtraparam4;
+- (nullable NSString *) getAdExtraparam4 __deprecated_msg("Use getAdCustomDimension4 instead");
 
 /**
  * Returns ad's Extraparam5
  * @return extraparam 5 value
  */
-- (nullable NSString *) getAdExtraparam5;
+- (nullable NSString *) getAdExtraparam5 __deprecated_msg("Use getAdCustomDimension5 instead");
 
 /**
  * Returns ad's Extraparam6
  * @return extraparam 6 value
  */
-- (nullable NSString *) getAdExtraparam6;
+- (nullable NSString *) getAdExtraparam6 __deprecated_msg("Use getAdCustomDimension6 instead");
 
 /**
  * Returns ad's Extraparam7
  * @return extraparam 7 value
  */
-- (nullable NSString *) getAdExtraparam7;
+- (nullable NSString *) getAdExtraparam7 __deprecated_msg("Use getAdCustomDimension7 instead");
 
 /**
  * Returns ad's Extraparam8
  * @return extraparam 8 value
  */
-- (nullable NSString *) getAdExtraparam8;
+- (nullable NSString *) getAdExtraparam8 __deprecated_msg("Use getAdCustomDimension8 instead");
 
 /**
  * Returns ad's Extraparam9
  * @return extraparam 9 value
  */
-- (nullable NSString *) getAdExtraparam9;
+- (nullable NSString *) getAdExtraparam9 __deprecated_msg("Use getAdCustomDimension9 instead");
 
 /**
  * Returns ad's Extraparam10
  * @return extraparam 10 value
  */
-- (nullable NSString *) getAdExtraparam10;
+- (nullable NSString *) getAdExtraparam10 __deprecated_msg("Use getAdCustomDimension10 instead");
+
+/**
+ * Returns content's customDimension1
+ * @return customDimension1 value
+ */
+- (nullable NSString *) getCustomDimension1;
+
+/**
+ * Returns content's customDimension2
+ * @return customDimension2 value
+ */
+- (nullable NSString *) getCustomDimension2;
+
+/**
+ * Returns content's customDimension3
+ * @return customDimension3 value
+ */
+- (nullable NSString *) getCustomDimension3;
+
+/**
+ * Returns content's customDimension4
+ * @return customDimension5 value
+ */
+- (nullable NSString *) getCustomDimension4;
+
+/**
+ * Returns content's customDimension5
+ * @return customDimension5 value
+ */
+- (nullable NSString *) getCustomDimension5;
+
+/**
+ * Returns content's customDimension6
+ * @return customDimension6 value
+ */
+- (nullable NSString *) getCustomDimension6;
+
+/**
+ * Returns content's customDimension7
+ * @return customDimension7 value
+ */
+- (nullable NSString *) getCustomDimension7;
+
+/**
+ * Returns content's customDimension8
+ * @return customDimension8 value
+ */
+- (nullable NSString *) getCustomDimension8;
+
+/**
+ * Returns content's customDimension9
+ * @return customDimension9 value
+ */
+- (nullable NSString *) getCustomDimension9;
+
+/**
+ * Returns content's customDimension10
+ * @return customDimension10 value
+ */
+- (nullable NSString *) getCustomDimension10;
+
+/**
+ * Returns content's customDimension11
+ * @return customDimension11 value
+ */
+- (nullable NSString *) getCustomDimension11;
+
+/**
+ * Returns content's customDimension12
+ * @return customDimension12 value
+ */
+- (nullable NSString *) getCustomDimension12;
+
+/**
+ * Returns content's customDimension13
+ * @return customDimension13 value
+ */
+- (nullable NSString *) getCustomDimension13;
+
+/**
+ * Returns content's customDimension14
+ * @return customDimension14 value
+ */
+- (nullable NSString *) getCustomDimension14;
+
+/**
+ * Returns content's customDimension15
+ * @return customDimension15 value
+ */
+- (nullable NSString *) getCustomDimension15;
+
+/**
+ * Returns content's customDimension16
+ * @return customDimension16 value
+ */
+- (nullable NSString *) getCustomDimension16;
+
+/**
+ * Returns content's customDimension17
+ * @return customDimension17 value
+ */
+- (nullable NSString *) getCustomDimension17;
+
+/**
+ * Returns content's customDimension18
+ * @return customDimension18 value
+ */
+- (nullable NSString *) getCustomDimension18;
+
+/**
+ * Returns content's customDimension19
+ * @return customDimension19 value
+ */
+- (nullable NSString *) getCustomDimension19;
+
+/**
+ * Returns content's customDimension20
+ * @return customDimension20 value
+ */
+- (nullable NSString *) getCustomDimension20;
+
+/**
+ * Returns content's adCustomDimension1
+ * @return adCustomDimension1 value
+ */
+- (nullable NSString *) getAdCustomDimension1;
+
+/**
+ * Returns content's adCustomDimension2
+ * @return adCustomDimension2 value
+ */
+- (nullable NSString *) getAdCustomDimension2;
+
+/**
+ * Returns content's adCustomDimension3
+ * @return adCustomDimension3 value
+ */
+- (nullable NSString *) getAdCustomDimension3;
+
+/**
+ * Returns content's adCustomDimension4
+ * @return adCustomDimension5 value
+ */
+- (nullable NSString *) getAdCustomDimension4;
+
+/**
+ * Returns content's adCustomDimension5
+ * @return adCustomDimension5 value
+ */
+- (nullable NSString *) getAdCustomDimension5;
+
+/**
+ * Returns content's adCustomDimension6
+ * @return adCustomDimension6 value
+ */
+- (nullable NSString *) getAdCustomDimension6;
+
+/**
+ * Returns content's adCustomDimension7
+ * @return adCustomDimension7 value
+ */
+- (nullable NSString *) getAdCustomDimension7;
+
+/**
+ * Returns content's adCustomDimension8
+ * @return adCustomDimension8 value
+ */
+- (nullable NSString *) getAdCustomDimension8;
+
+/**
+ * Returns content's adCustomDimension9
+ * @return adCustomDimension9 value
+ */
+- (nullable NSString *) getAdCustomDimension9;
+
+/**
+ * Returns content's adCustomDimension10
+ * @return adCustomDimension10 value
+ */
+- (nullable NSString *) getAdCustomDimension10;
 
 /**
  * Returns the version of the player that is used to play the ad(s)

@@ -452,50 +452,50 @@
     XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
 }
 
-- (void)testExtraparams {
-    stubProperty(self.mockOptions, extraparam1, @"value-extraparam1");
-    stubProperty(self.mockOptions, extraparam2, @"value-extraparam2");
-    stubProperty(self.mockOptions, extraparam3, @"value-extraparam3");
-    stubProperty(self.mockOptions, extraparam4, @"value-extraparam4");
-    stubProperty(self.mockOptions, extraparam5, @"value-extraparam5");
-    stubProperty(self.mockOptions, extraparam6, @"value-extraparam6");
-    stubProperty(self.mockOptions, extraparam7, @"value-extraparam7");
-    stubProperty(self.mockOptions, extraparam8, @"value-extraparam8");
-    stubProperty(self.mockOptions, extraparam9, @"value-extraparam9");
-    stubProperty(self.mockOptions, extraparam10, @"value-extraparam10");
+- (void)testCustomDimensions {
+    stubProperty(self.mockOptions, customDimension1, @"value-custom-dimension1");
+    stubProperty(self.mockOptions, customDimension2, @"value-custom-dimension2");
+    stubProperty(self.mockOptions, customDimension3, @"value-custom-dimension3");
+    stubProperty(self.mockOptions, customDimension4, @"value-custom-dimension4");
+    stubProperty(self.mockOptions, customDimension5, @"value-custom-dimension5");
+    stubProperty(self.mockOptions, customDimension6, @"value-custom-dimension6");
+    stubProperty(self.mockOptions, customDimension7, @"value-custom-dimension7");
+    stubProperty(self.mockOptions, customDimension8, @"value-custom-dimension8");
+    stubProperty(self.mockOptions, customDimension9, @"value-custom-dimension9");
+    stubProperty(self.mockOptions, customDimension10, @"value-custom-dimension10");
     
-    XCTAssertEqualObjects(@"value-extraparam1", [self.p getExtraparam1]);
-    XCTAssertEqualObjects(@"value-extraparam2", [self.p getExtraparam2]);
-    XCTAssertEqualObjects(@"value-extraparam3", [self.p getExtraparam3]);
-    XCTAssertEqualObjects(@"value-extraparam4", [self.p getExtraparam4]);
-    XCTAssertEqualObjects(@"value-extraparam5", [self.p getExtraparam5]);
-    XCTAssertEqualObjects(@"value-extraparam6", [self.p getExtraparam6]);
-    XCTAssertEqualObjects(@"value-extraparam7", [self.p getExtraparam7]);
-    XCTAssertEqualObjects(@"value-extraparam8", [self.p getExtraparam8]);
-    XCTAssertEqualObjects(@"value-extraparam9", [self.p getExtraparam9]);
-    XCTAssertEqualObjects(@"value-extraparam10", [self.p getExtraparam10]);
+    XCTAssertEqualObjects(@"value-custom-dimension1", [self.p getCustomDimension1]);
+    XCTAssertEqualObjects(@"value-custom-dimension2", [self.p getCustomDimension2]);
+    XCTAssertEqualObjects(@"value-custom-dimension3", [self.p getCustomDimension3]);
+    XCTAssertEqualObjects(@"value-custom-dimension4", [self.p getCustomDimension4]);
+    XCTAssertEqualObjects(@"value-custom-dimension5", [self.p getCustomDimension5]);
+    XCTAssertEqualObjects(@"value-custom-dimension6", [self.p getCustomDimension6]);
+    XCTAssertEqualObjects(@"value-custom-dimension7", [self.p getCustomDimension7]);
+    XCTAssertEqualObjects(@"value-custom-dimension8", [self.p getCustomDimension8]);
+    XCTAssertEqualObjects(@"value-custom-dimension9", [self.p getCustomDimension9]);
+    XCTAssertEqualObjects(@"value-custom-dimension10", [self.p getCustomDimension10]);
     
-    stubProperty(self.mockOptions, extraparam1, nil);
-    stubProperty(self.mockOptions, extraparam2, nil);
-    stubProperty(self.mockOptions, extraparam3, nil);
-    stubProperty(self.mockOptions, extraparam4, nil);
-    stubProperty(self.mockOptions, extraparam5, nil);
-    stubProperty(self.mockOptions, extraparam6, nil);
-    stubProperty(self.mockOptions, extraparam7, nil);
-    stubProperty(self.mockOptions, extraparam8, nil);
-    stubProperty(self.mockOptions, extraparam9, nil);
-    stubProperty(self.mockOptions, extraparam10, nil);
+    stubProperty(self.mockOptions, customDimension1, nil);
+    stubProperty(self.mockOptions, customDimension2, nil);
+    stubProperty(self.mockOptions, customDimension3, nil);
+    stubProperty(self.mockOptions, customDimension4, nil);
+    stubProperty(self.mockOptions, customDimension5, nil);
+    stubProperty(self.mockOptions, customDimension6, nil);
+    stubProperty(self.mockOptions, customDimension7, nil);
+    stubProperty(self.mockOptions, customDimension8, nil);
+    stubProperty(self.mockOptions, customDimension9, nil);
+    stubProperty(self.mockOptions, customDimension10, nil);
     
-    XCTAssertNil([self.p getExtraparam1]);
-    XCTAssertNil([self.p getExtraparam2]);
-    XCTAssertNil([self.p getExtraparam3]);
-    XCTAssertNil([self.p getExtraparam4]);
-    XCTAssertNil([self.p getExtraparam5]);
-    XCTAssertNil([self.p getExtraparam6]);
-    XCTAssertNil([self.p getExtraparam7]);
-    XCTAssertNil([self.p getExtraparam8]);
-    XCTAssertNil([self.p getExtraparam9]);
-    XCTAssertNil([self.p getExtraparam10]);
+    XCTAssertNil([self.p getCustomDimension1]);
+    XCTAssertNil([self.p getCustomDimension2]);
+    XCTAssertNil([self.p getCustomDimension3]);
+    XCTAssertNil([self.p getCustomDimension4]);
+    XCTAssertNil([self.p getCustomDimension5]);
+    XCTAssertNil([self.p getCustomDimension6]);
+    XCTAssertNil([self.p getCustomDimension7]);
+    XCTAssertNil([self.p getCustomDimension8]);
+    XCTAssertNil([self.p getCustomDimension9]);
+    XCTAssertNil([self.p getCustomDimension10]);
 }
 
 - (void)testAdPlayerVersion {

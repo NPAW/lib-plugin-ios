@@ -752,7 +752,6 @@
     return self.options.extraparam4;
 }
 
-
 - (NSString *) getExtraparam5 {
     return self.options.extraparam5;
 }
@@ -855,6 +854,126 @@
 
 - (NSString *) getAdExtraparam10 {
     return self.options.adExtraparam10;
+}
+
+- (NSString *) getCustomDimension1 {
+    return self.options.customDimension1;
+}
+
+- (NSString *) getCustomDimension2 {
+    return self.options.customDimension2;
+}
+
+- (NSString *) getCustomDimension3 {
+    return self.options.customDimension3;
+}
+
+- (NSString *) getCustomDimension4 {
+    return self.options.customDimension4;
+}
+
+- (NSString *) getCustomDimension5 {
+    return self.options.customDimension5;
+}
+
+- (NSString *) getCustomDimension6 {
+    return self.options.customDimension6;
+}
+
+- (NSString *) getCustomDimension7 {
+    return self.options.customDimension7;
+}
+
+- (NSString *) getCustomDimension8 {
+    return self.options.customDimension8;
+}
+
+- (NSString *) getCustomDimension9 {
+    return self.options.customDimension9;
+}
+
+- (NSString *) getCustomDimension10 {
+    return self.options.customDimension10;
+}
+
+- (NSString *) getCustomDimension11 {
+    return self.options.customDimension11;
+}
+
+- (NSString *) getCustomDimension12 {
+    return self.options.customDimension12;
+}
+
+- (NSString *) getCustomDimension13 {
+    return self.options.customDimension13;
+}
+
+- (NSString *) getCustomDimension14 {
+    return self.options.customDimension14;
+}
+
+- (NSString *) getCustomDimension15 {
+    return self.options.customDimension15;
+}
+
+- (NSString *) getCustomDimension16 {
+    return self.options.customDimension16;
+}
+
+- (NSString *) getCustomDimension17 {
+    return self.options.customDimension17;
+}
+
+- (NSString *) getCustomDimension18 {
+    return self.options.customDimension18;
+}
+
+- (NSString *) getCustomDimension19 {
+    return self.options.customDimension19;
+}
+
+- (NSString *) getCustomDimension20 {
+    return self.options.customDimension20;
+}
+
+- (NSString *) getAdCustomDimension1 {
+    return self.options.adCustomDimension1;
+}
+
+- (NSString *) getAdCustomDimension2 {
+    return self.options.adCustomDimension2;
+}
+
+- (NSString *) getAdCustomDimension3 {
+    return self.options.adCustomDimension3;
+}
+
+- (NSString *) getAdCustomDimension4 {
+    return self.options.adCustomDimension4;
+}
+
+- (NSString *) getAdCustomDimension5 {
+    return self.options.adCustomDimension5;
+}
+
+- (NSString *) getAdCustomDimension6 {
+    return self.options.adCustomDimension6;
+}
+
+- (NSString *) getAdCustomDimension7 {
+    return self.options.adCustomDimension7;
+}
+
+- (NSString *) getAdCustomDimension8 {
+    return self.options.adCustomDimension8;
+}
+
+- (NSString *) getAdCustomDimension9 {
+    return self.options.adCustomDimension9;
+}
+
+- (NSString *) getAdCustomDimension10 {
+    return self.options.adCustomDimension10;
 }
 
 - (NSString *) getAdPlayerVersion {
