@@ -292,9 +292,9 @@
 }
 
 - (void) fireStop{
-    if(self.adapter != nil){
+    if (self.adapter != nil) {
         [self.adapter fireStop];
-    }else{
+    } else {
         [self fireStop:nil];
     }
 }

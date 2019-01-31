@@ -82,8 +82,6 @@
 - Ping log now shows params
 ###Fix
 - Household id getter now is set as nullable
->>>>>>> master
-
 
 ##  [6.1.7] - 2018-05-04
 ###Added
