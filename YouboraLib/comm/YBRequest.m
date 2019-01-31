@@ -215,7 +215,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     if (self.pendingAttempts > 0) {
         [YBLog warn:[NSString stringWithFormat:@"Request \"%@\" failed. Retry %d of %d in %dms.", self.service, (self.maxRetries + 1 - self.pendingAttempts), self.maxRetries, self.retryInterval]];
         __weak typeof (self) weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
             __strong typeof (weakSelf) strongSelf = weakSelf;
             [strongSelf sendRequest];
         });
