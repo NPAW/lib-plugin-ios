@@ -18,7 +18,8 @@
 @interface YBOfflineTransform()
 
 @property(nonatomic, strong) YBEventDataSource * dataSource;
-
+@property(nonatomic, assign) BOOL startSaved;
+@property(nonatomic, strong) NSMutableArray * queuedEvents;
 @end
 
 @implementation YBOfflineTransform
@@ -28,6 +29,8 @@
     if (self) {
         self.sendRequest = false;
         self.isBusy = false;
+        self.startSaved = false;
+        self.queuedEvents = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -57,27 +60,49 @@
     params[@"request"] = service;
     params[@"unixtime"] = [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils unixTimeNow]];
     
-    [self.dataSource lastIdWithCompletion:^(NSNumber* offlineId){
-        __block int offlineIdInt = [offlineId intValue];
-        [self.dataSource allEventsWithCompletion:^(NSArray * events) {
-            int eventsCount = (int)[events count];
-            if(eventsCount != 0 && [service isEqualToString:[YouboraServiceStart substringFromIndex:1]]){
-                offlineIdInt++;
-            }
-            params[@"code"] = [NSString stringWithFormat:@"[VIEW_CODE]_%@",[NSString stringWithFormat:@"%d",offlineIdInt]];
-            NSString* jsonEvents = [YBYouboraUtils stringifyDictionary:params];
-            
-            if(jsonEvents != nil){
-                [YBLog debug:@"Saving offline event: %@",jsonEvents];
+    if (self.startSaved || [service isEqualToString:[YouboraServiceStart substringFromIndex:1]]) {
+        [self.dataSource lastIdWithCompletion:^(NSNumber* offlineId){
+            __block int offlineIdInt = [offlineId intValue];
+            [self.dataSource allEventsWithCompletion:^(NSArray * events) {
+                int eventsCount = (int)[events count];
+                if(eventsCount != 0 && [service isEqualToString:[YouboraServiceStart substringFromIndex:1]]){
+                    offlineIdInt++;
+                }
+                params[@"code"] = [NSString stringWithFormat:@"[VIEW_CODE]_%@",[NSString stringWithFormat:@"%d",offlineIdInt]];
+                NSString* jsonEvents = [YBYouboraUtils stringifyDictionary:params];
                 
-                YBEvent* event = [[YBEvent alloc] init];
-                event.jsonEvents = jsonEvents;
-                event.offlineId = [NSNumber numberWithInt:offlineIdInt];
-                [self.dataSource putNewEvent:event completion:nil];
-            }
-            
+                if(jsonEvents != nil){
+                    [YBLog debug:@"Saving offline event: %@",jsonEvents];
+                    
+                    YBEvent* event = [[YBEvent alloc] init];
+                    event.jsonEvents = jsonEvents;
+                    event.offlineId = [NSNumber numberWithInt:offlineIdInt];
+                    if ([service isEqualToString:[YouboraServiceStart substringFromIndex:1]]) {
+                        [self.dataSource putNewEvent:event completion:^(void) {
+                            self.startSaved = true;
+                            [self processQueue];
+                        }];
+                    } else if ([service isEqualToString:[YouboraServiceStop substringFromIndex:1]]) {
+                        [self.dataSource putNewEvent:event completion:^(void) {
+                            self.startSaved = false;
+                        }];
+                    } else {
+                        [self.dataSource putNewEvent:event completion:nil];
+                    }
+                    
+                }
+                
+            }];
         }];
-    }];
+    } else{
+        [self.queuedEvents addObject:params];
+    }
+}
+
+- (void) processQueue {
+    for (int k = 0; k < self.queuedEvents.count; k++) {
+        [self saveEventWithParams:self.queuedEvents[k] andService:self.queuedEvents[k][@"request"]];
+    }
 }
 
 @end

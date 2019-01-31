@@ -188,6 +188,24 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  */
 - (nullable NSString *) getResource;
 
+/** Override to return player latency.
+ *
+ * @return the current latency
+ */
+- (nullable NSNumber *)getLatency;
+
+/** Override to return lost packets.
+ *
+ * @return the current packets being lost
+ */
+- (nullable NSNumber *)getPacketLost;
+
+/** Override to return sent packets.
+ *
+ * @return the current packets being sent
+ */
+- (nullable NSNumber *)getPacketSent;
+
 /** Override to return player version
  *
  * @return the player version
@@ -212,6 +230,41 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * @return the current ad position
  */
 - (YBAdPosition) getPosition;
+
+/**
+ * Override to return household id
+ *
+ * @return housohold player id
+ */
+- (NSString *) getHouseholdId;
+
+/**
+ * Override to return current CDN traffic
+ *
+ * @return current CDN traffic
+ */
+-(NSNumber *) getCdnTraffic;
+
+/**
+ * Override to return current P2P traffic
+ *
+ * @return current P2P traffic
+ */
+-(NSNumber *) getP2PTraffic;
+
+/**
+ * Override to return current upload traffic
+ *
+ * @return current upload traffic
+ */
+-(NSNumber *) getUploadTraffic;
+
+/**
+ * Override to return if p2p mode is enabled
+ *
+ * @return current p2p state
+ */
+-(NSValue *) getIsP2PEnabled;
 
 /// ---------------------------------
 /// @name Flow methods
@@ -334,7 +387,7 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * Shortcut for <fireStop:> with params = nil.
  */
 - (void) fireStop;
-                                                
+
 /**
  * Emits related event and set flags if current status is valid.
  * @param params Map of key:value pairs to add to the request
@@ -342,9 +395,25 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params;
 
 /**
+ * Shortcut for <fireStop:> with a param skipped = true
+ */
+- (void) fireSkip;
+
+/**
+ * Shortcut for <fireStop:> with a param casted = true
+ */
+- (void) fireCast;
+
+/**
  * Shortcut for <fireClick:> with {@code params = null}.
  */
 - (void) fireClick;
+
+/**
+ * Shortcut for <fireClick:> accepting an url
+ * @param adUrl NSString with clicktrough url
+ */
+- (void) fireClickWithAdUrl:(nullable NSString*) adUrl;
 
 /**
  * Emits related event and set flags if current status is valid. Only for ads
@@ -355,13 +424,13 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 /**
  * Shortcut for <fireAllAdsCompleted:> with {@code params = null}.
  */
-- (void)fireAllAdsCompleted;
+- (void)fireAllAdsCompleted __deprecated_msg("This method is going to be removed on future releases");
 
 /**
  * Let the plugin know that all ads have been played
  * @param params params to add to the request. If it is null default values will be added.
  */
-- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params;
+- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params __deprecated_msg("This method is going to be removed on future releases");
 /**
  * Basic error handler. msg, code, errorMetadata and level params can be included in the params
  * argument.

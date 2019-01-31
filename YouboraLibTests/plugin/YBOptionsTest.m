@@ -40,6 +40,7 @@
     opt.networkIP = @"1.2.3.4";
     opt.networkIsp = @"isp";
     opt.networkConnectionType = @"connectiontype";
+    opt.networkObfuscateIp = @NO;
     opt.deviceCode = @"devicecode";
     opt.contentResource = @"resource";
     opt.contentIsLive = @YES;
@@ -127,6 +128,7 @@
     XCTAssertEqualObjects(opt.extraparam18, opt2.extraparam18);
     XCTAssertEqualObjects(opt.extraparam19, opt2.extraparam19);
     XCTAssertEqualObjects(opt.extraparam20, opt2.extraparam20);
+    XCTAssertEqualObjects(opt.networkObfuscateIp, opt2.networkObfuscateIp);
 }
 
 @end

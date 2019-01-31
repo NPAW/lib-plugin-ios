@@ -62,7 +62,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     r.requestHeaders = @{headerName:headerValue};
     
     NSData * mockData = [@"Data" dataUsingEncoding:NSUTF8StringEncoding];
-    NSURLResponse * mockResponse = mock([NSURLResponse class]);
+    NSURLResponse * mockResponse = mock([NSHTTPURLResponse class]);
     __block int callbacks = 0;
     
     // Set callbacks

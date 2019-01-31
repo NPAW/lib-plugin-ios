@@ -142,6 +142,18 @@
     return nil;
 }
 
+- (NSNumber *)getLatency {
+    return nil;
+}
+
+- (NSNumber *)getPacketSent {
+    return nil;
+}
+
+- (NSNumber *)getPacketLost {
+    return nil;
+}
+
 - (NSString *)getPlayerVersion {
     return nil;
 }
@@ -156,6 +168,26 @@
 
 - (YBAdPosition)getPosition {
     return YBAdPositionUnknown;
+}
+
+- (NSString *) getHouseholdId {
+    return nil;
+}
+
+-(NSNumber *) getCdnTraffic {
+    return nil;
+}
+
+-(NSNumber *) getP2PTraffic {
+    return nil;
+}
+
+-(NSNumber *) getUploadTraffic {
+    return nil;
+}
+
+-(NSValue *) getIsP2PEnabled {
+    return nil;
 }
 
 // Fire methods
@@ -314,6 +346,9 @@
 }
 
 - (void)fireSeekBegin:(NSDictionary<NSString *,NSString *> *)params convertFromBuffer:(bool)convertFromBuffer {
+    if (self.plugin != nil && self.plugin.options.contentIsLiveNoSeek != nil && [self.plugin.options.contentIsLiveNoSeek isEqualToValue:@YES] && [[self.plugin getIsLive] isEqualToValue:@YES]){
+        return;
+    }
     if (self.flags.joined && !self.flags.seeking) {
         if (self.flags.buffering) {
             if (convertFromBuffer) {
@@ -343,6 +378,9 @@
 }
 
 - (void)fireSeekEnd:(NSDictionary<NSString *,NSString *> *)params {
+    if (self.plugin != nil && self.plugin.options.contentIsLiveNoSeek != nil && [self.plugin.options.contentIsLiveNoSeek isEqualToValue:@YES] && [[self.plugin getIsLive] isEqualToValue:@YES]){
+        return;
+    }
     if (self.flags.joined && self.flags.seeking) {
         self.flags.seeking = false;
         
@@ -395,6 +433,14 @@
     }
 }
 
+- (void) fireSkip{
+    [self fireStop: @{@"skipped" : @"true"}];
+}
+
+- (void) fireCast{
+    [self fireStop: @{@"casted" : @"true"}];
+}
+
 - (void)fireError:(NSDictionary<NSString *,NSString *> *)params {
     params = [YBYouboraUtils buildErrorParams:[params mutableCopy]];
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
@@ -432,7 +478,15 @@
 }
 
 - (void) fireClick{
-    [self fireClick:nil];
+    [self fireClick:[[NSDictionary alloc] init]];
+}
+
+- (void) fireClickWithAdUrl:(NSString*)adUrl{
+    NSMutableDictionary<NSString *,NSString *>* params = [[NSMutableDictionary alloc] init];
+    if(adUrl != nil){
+        params[@"adUrl"] = adUrl;
+    }
+    [self fireClick:params];
 }
 
 - (void) fireClick:(NSDictionary<NSString *,NSString *> *)params{

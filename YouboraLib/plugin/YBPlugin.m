@@ -29,6 +29,10 @@
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
 #import "YBEvent.h"
+#import "YBDeviceInfo.h"
+
+#import "YBInfinity.h"
+#import "YBInfinityFlags.h"
 
 @interface YBPlugin()
 
@@ -37,15 +41,22 @@
 @property(nonatomic, strong, readwrite) YBViewTransform * viewTransform;
 @property(nonatomic, strong, readwrite) YBRequestBuilder * requestBuilder;
 @property(nonatomic, strong, readwrite) YBTimer * pingTimer;
+@property(nonatomic, strong, readwrite) YBTimer * beatTimer;
 @property(nonatomic, strong, readwrite) YBCommunication * comm;
 
 // Private properties
 @property(nonatomic, assign) bool isInitiated;
 @property(nonatomic, assign) bool isPreloading;
+@property(nonatomic, assign) bool isStarted;
 @property(nonatomic, strong) YBChrono * preloadChrono;
 @property(nonatomic, strong) YBChrono * iinitChrono;
 
 @property(nonatomic, strong) NSString * lastServiceSent;
+
+// Infinity initial variables
+@property(nonatomic, strong) NSString * startScreenName;
+@property(nonatomic, strong) NSDictionary<NSString *, NSString *> * startDimensions;
+@property(nonatomic, strong) NSString * startParentId;
 
 // Will send listeners
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendInitListeners;
@@ -69,6 +80,12 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendClickListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdErrorListeners;
 
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionStartListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionStopListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionNavListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionEventListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionBeatListeners;
+
 @end
 
 @implementation YBPlugin
@@ -88,6 +105,7 @@
         
         self.isInitiated = false;
         self.isPreloading = false;
+        self.isStarted = false;
         self.preloadChrono = [self createChrono];
         self.iinitChrono = [self createChrono];
         self.options = options;
@@ -100,14 +118,18 @@
         self.pingTimer = [self createTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             [weakSelf sendPing:diffTime];
         } andInterval:5000];
+        
+        self.beatTimer = [self createBeatTimerWithCallback:^(YBTimer *timer, long long diffTime) {
+            [weakSelf sendBeat:diffTime];
+        } andInterval:30000];
+        
         self.requestBuilder = [self createRequestBuilder];
         self.resourceTransform = [self createResourceTransform];
-        self.viewTransform = [self createViewTransform];
-        [self.viewTransform addTransformDoneListener:self];
-        
-        [self.viewTransform begin];
+        [self initViewTransform];
         
         self.lastServiceSent = nil;
+        
+        [self registerLifeCycleEvents];
     }
     return self;
 }
@@ -121,17 +143,20 @@
         adapter.plugin = self;
         [adapter addYouboraAdapterDelegate:self];
         
-        if(self.options.autoDetectBackground){
+        /*if(self.options.autoDetectBackground){
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(eventListenerDidReceivetoBack:)
                                                          name:UIApplicationDidEnterBackgroundNotification
                                                        object:nil];
-        }
+        
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(eventListenerDidReceiveToFore:)
+                                                         name:UIApplicationDidBecomeActiveNotification
+                                                       object:nil];
+        }*/
     }else{
         [YBLog error:@"Adapter is null in setAdapter"];
     }
-    
-    
 }
 
 - (void) removeAdapter {
@@ -149,10 +174,10 @@
         
         _adapter = nil;
         
-        if(self.options.autoDetectBackground){
+        //if(self.options.autoDetectBackground){
             
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-        }
+        //}
     }
     
     if(shouldStopPings && self.adsAdapter == nil){
@@ -195,6 +220,16 @@
     }
 }
 
+- (YBInfinity *) getInfinity {
+    YBInfinity *infinity = [YBInfinity sharedManager];
+    if (infinity.plugin == nil) {
+        infinity.plugin = self;
+        [infinity addYouboraInfinityDelegate:self];
+        infinity.viewTransform = self.viewTransform;
+    }
+    return [YBInfinity sharedManager];
+}
+
 - (void) disable {
     self.options.enabled = false;
 }
@@ -222,7 +257,7 @@
 }
 
 - (void) fireInitWithParams:(NSDictionary<NSString *, NSString *> *) params {
-    if (!self.isInitiated) {
+    if (!self.isInitiated && !self.isStarted) {
         [self.viewTransform nextView];
         [self initComm];
         [self startPings];
@@ -289,9 +324,9 @@
         [YBLog error:@"Adapters have to be stopped"];
         return;
     }
-    
-    self.comm = [self createCommunication];
-    [self.comm addTransform:self.viewTransform];
+    [self initComm];
+    /*self.comm = [self createCommunication];
+    [self.comm addTransform:self.viewTransform];*/
     
     YBEventDataSource *dataSource = [[YBEventDataSource alloc] init];
     [dataSource allEventsWithCompletion:^(NSArray* events){
@@ -341,6 +376,13 @@
     params[@"events"] = events;
     params[@"offlineId"] = [offlineId stringValue];
     [self sendWithCallbacks:nil service:YouboraServiceOffline andParams:params];*/
+}
+
+- (void) initViewTransform {
+    self.viewTransform = [self createViewTransform];
+    [self.viewTransform addTransformDoneListener:self];
+    
+    [self.viewTransform begin];
 }
 
 // ------ INFO GETTERS ------
@@ -615,6 +657,45 @@
         cdn = self.options.contentCdn;
     }
     return cdn;
+}
+
+- (NSNumber *)getLatency{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getLatency];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getLatency"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *)getPacketLost{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getPacketLost];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getPacketLost"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *)getPacketSent{
+    NSNumber * val = nil;
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getPacketSent];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getPacketSent"];
+            [YBLog logException:exception];
+        }
+    }
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
 }
 
 - (NSString *) getPluginVersion {
@@ -943,6 +1024,10 @@
     return self.options.networkConnectionType;
 }
 
+- (NSValue *) getNetworkObfuscateIp {
+    return self.options.networkObfuscateIp;
+}
+
 - (NSString *) getDeviceCode {
     return self.options.deviceCode;
 }
@@ -959,6 +1044,10 @@
     return self.options.userType;
 }
 
+- (NSString *) getAnonymousUser {
+    return self.options.anonymousUser;
+}
+
 - (NSString *) getNodeHost {
     return [self.resourceTransform getNodeHost];
 }
@@ -969,6 +1058,97 @@
 
 - (NSString *) getNodeTypeString {
     return [self.resourceTransform getNodeTypeString];
+}
+
+- (NSString *) getHouseholdId {
+    NSString * val = nil;
+    
+    if (self.adapter != nil) {
+        @try {
+            val = [self.adapter getHouseholdId];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getHouseholdId"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    if (val == nil) {
+        val = @"";
+    }
+    
+    return val;
+}
+
+- (NSNumber *) getCdnTraffic {
+    NSNumber * val = nil;
+    if (val == nil && self.adapter != nil) {
+        @try {
+            val = [self.adapter getCdnTraffic];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getCdnTraffic"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *) getP2PTraffic {
+    NSNumber * val = nil;
+    if (val == nil && self.adapter != nil) {
+        @try {
+            val = [self.adapter getP2PTraffic];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getP2PTraffic"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSNumber *) getUploadTraffic {
+    NSNumber * val = nil;
+    if (val == nil && self.adapter != nil) {
+        @try {
+            val = [self.adapter getUploadTraffic];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getUploadTraffic"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@0];
+}
+
+- (NSValue *) getIsP2PEnabled {
+    NSValue * val = nil;
+    if ((val == nil) && self.adapter != nil) {
+        @try {
+            val = [self.adapter getIsP2PEnabled];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getIsP2PEnabled"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val;
+}
+
+- (NSString *) getNavContext {
+    return [self getInfinity].navContext;
+}
+
+- (NSMutableArray *) getActiveSessions {
+    return [self getInfinity].activeSessions;
+}
+
+- (NSString *) getLanguage {
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSDictionary *languageDict = [NSLocale componentsFromLocaleIdentifier:language];
+    NSString *countryCode = [languageDict objectForKey:@"kCFLocaleCountryCodeKey"];
+    NSString *languageCode = [languageDict objectForKey:@"kCFLocaleLanguageCodeKey"];
+    return [NSString stringWithFormat:@"%@-%@",languageCode, countryCode];
 }
 
 // ------ CHRONOS ------
@@ -1044,6 +1224,22 @@
     } else {
         return -1;
     }
+}
+
+- (NSValue *) getIsInfinity {
+    return self.options.isInfinity;
+}
+
+- (NSString *) getSmartSwitchConfigCode {
+    return self.options.smartswitchConfigCode;
+}
+
+- (NSString *) getSmartSwitchGroupCode {
+    return self.options.smartswitchGroupCode;
+}
+
+- (NSString *) getSmartSwitchContractCode {
+    return self.options.smartswitchContractCode;
 }
 
 // Add listeners
@@ -1227,10 +1423,40 @@
  * Adds a ad error listener
  * @param listener to add
  */
--(void) addWillSendAdErrorListener:(YBWillSendRequestBlock) listener{
+- (void) addWillSendAdErrorListener:(YBWillSendRequestBlock) listener{
     if(self.willSendAdErrorListeners == nil)
         self.willSendAdErrorListeners = [NSMutableArray arrayWithCapacity:1];
     [self.willSendAdErrorListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionStartListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionStartListeners == nil)
+        self.willSendSessionStartListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionStartListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionStopListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionStopListeners == nil)
+        self.willSendSessionStopListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionStopListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionEventListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionEventListeners == nil)
+        self.willSendSessionEventListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionEventListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionNavListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionNavListeners == nil)
+        self.willSendSessionNavListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionNavListeners addObject:listener];
+}
+
+- (void) addOnWillSendSessionBeatListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionBeatListeners == nil)
+        self.willSendSessionBeatListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionBeatListeners addObject:listener];
 }
 
 // Remove listeners
@@ -1405,12 +1631,41 @@
     [self.willSendAdErrorListeners removeObject:listener];
 }
 
+- (void) removeOnWillSendSessionStart:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionStartListeners != nil)
+        [self.willSendSessionStartListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionStop:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionStopListeners != nil)
+        [self.willSendSessionStopListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionNav:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionNavListeners != nil)
+        [self.willSendSessionNavListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionEvent:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionEventListeners != nil)
+        [self.willSendSessionEventListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionBeat:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionBeatListeners != nil)
+        [self.willSendSessionBeatListeners removeObject:listener];
+}
+
 #pragma mark - Private methods
 - (YBChrono *) createChrono {
     return [YBChrono new];
 }
 
 - (YBTimer *) createTimerWithCallback:(TimerCallback)callback andInterval:(long) interval {
+    return [[YBTimer alloc] initWithCallback:callback andInterval:interval];
+}
+
+- (YBTimer *) createBeatTimerWithCallback:(TimerCallback)callback andInterval:(long) interval {
     return [[YBTimer alloc] initWithCallback:callback andInterval:interval];
 }
 
@@ -1432,6 +1687,10 @@
 
 - (YBRequest *) createRequestWithHost:(NSString *)host andService:(NSString *)service {
     return [[YBRequest alloc] initWithHost:host andService:service];
+}
+
+- (BOOL) isSessionExpired {
+    return [[self getInfinity] getLastSent] != nil && [[[self getInfinity] getLastSent] longLongValue] + [self.viewTransform.fastDataConfig.expirationTime longLongValue] * 1000 < [YBChrono getNow];
 }
 
 - (YBCommunication *) createCommunication {
@@ -1505,6 +1764,32 @@
     
 }
 
+/*- (void) sendInfinityWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params {
+    
+    params = [self.requestBuilder buildParams:params forService:service];
+    
+    if (callbacks != nil) {
+        for (YBWillSendRequestBlock block in callbacks) {
+            @try {
+                block(service, self, params);
+            } @catch (NSException *exception) {
+                [YBLog error:@"Exception while calling willSendRequest"];
+                [YBLog logException:exception];
+            }
+        }
+    }
+    
+    if ([self getInfinity].communication != nil && params != nil && self.options.enabled) {
+        YBRequest * r = [self createRequestWithHost:nil andService:service];
+        r.params = params;
+        
+        self.lastServiceSent = r.service;
+        
+        [[self getInfinity].communication sendRequest:r withCallback:nil andListenerParams:nil];
+    }
+    
+}*/
+
 - (NSString *) jsonFromDictionary: (NSDictionary*) dictionary{
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary
@@ -1520,16 +1805,18 @@
 }
 
 - (void) initComm {
-    self.comm = [self createCommunication];
-    [self.comm addTransform:[self createFlowTransform]];
-    
-    [self.comm addTransform:self.resourceTransform];
-    [self.comm addTransform:[self createNqs6Transform]];
-    
-    if(self.options.offline){
-        [self.comm addTransform:[self createOfflineTransform]];
-    }else{
-        [self.comm addTransform:self.viewTransform];
+    if (self.comm == nil) {
+        self.comm = [self createCommunication];
+        [self.comm addTransform:[self createFlowTransform]];
+        
+        [self.comm addTransform:self.resourceTransform];
+        [self.comm addTransform:[self createNqs6Transform]];
+        
+        if(self.options.offline){
+            [self.comm addTransform:[self createOfflineTransform]];
+        }else{
+            [self.comm addTransform:self.viewTransform];
+        }
     }
 }
 
@@ -1543,12 +1830,59 @@
     }
 }
 
-- (void) eventListenerDidReceivetoBack:(NSNotification*)uselessNotification {
-    if(self.adapter != nil){
-        [self.adapter fireStop];
+- (NSString*) getDeviceInfoString {
+ 
+    YBDeviceInfo *deviceInfo = [[YBDeviceInfo alloc] init];
+    [deviceInfo setDeviceBrand:self.options.deviceBrand];
+    [deviceInfo setDeviceModel:self.options.deviceModel];
+    [deviceInfo setDeviceType:self.options.deviceType];
+    [deviceInfo setDeviceCode:self.options.deviceCode];
+    [deviceInfo setDeviceOsName:self.options.deviceOsName];
+    [deviceInfo setDeviceOsVersion:self.options.deviceOsVersion];
+    
+    return [deviceInfo mapToJSONString];
+    
+}
+
+- (void) eventListenerDidReceivetoBack: (NSNotification*)uselessNotification {
+    if(self.options.autoDetectBackground){
+        if (self.adsAdapter != nil && (self.adsAdapter.flags.started || self.adsAdapter.flags.adInitiated)) {
+            [self.adsAdapter fireStop];
+        }
+        
+        if (self.isInitiated && (self.adapter == nil || !self.adapter.flags.started)) {
+            [self fireStop];
+        } else if (self.adapter != nil && self.adapter.flags.started) {
+            [self.adapter fireStop];
+        }
+        /*if(self.adapter != nil){
+            [self.adapter fireStop];
+        }*/
+    }
+    if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
+        if ([self getInfinity].flags.started) {
+            long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+            [self sendBeat:time];
+            [self stopBeats];
+        }
     }
 }
 
+- (void) eventListenerDidReceiveToFore: (NSNotification*)uselessNotification {
+    if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
+        if ([self getInfinity].flags.started && ![self isSessionExpired]) {
+            long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+            [self sendBeat:time];
+            [self startBeats];
+        } else {
+            [[self getInfinity].flags reset];
+            [self.viewTransform removeTransformDoneListener:self];
+            [self initViewTransform];
+            [self getInfinity].viewTransform = self.viewTransform;
+            [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions andParentId:self.startParentId];
+        }
+    }
+}
 // Listener methods
 - (void) startListener:(NSDictionary<NSString *, NSString *> *) params {
     if (!self.isInitiated || [YouboraServiceError isEqualToString:self.lastServiceSent]) {
@@ -1559,11 +1893,24 @@
     
     [self startResourceParsing];
     
-    [self sendStart:params];
+    if (!self.isInitiated && !self.options.forceInit && [self getTitle] != nil
+        && [self getResource] != nil && [self getIsLive] != nil
+        && [self isLiveOrNotNullDuration]) {
+        [self sendStart:params];
+    } else if(!self.isInitiated) {
+        [self fireInitWithParams:params];
+    }
 }
 
 - (void) joinListener:(NSDictionary<NSString *, NSString *> *) params {
     if (self.adsAdapter == nil || !self.adsAdapter.flags.started) {
+        if(self.isInitiated && !self.isStarted) {
+            if (self.adapter.flags.started == false)
+                [self.adapter fireStart];
+            else
+                [self sendStart:@{}];
+        }
+            
         [self sendJoin:params];
     } else {
         // Revert join state
@@ -1743,6 +2090,7 @@
         titleOrResource = mutParams[@"mediaResource"];
     }
     [YBLog notice:@"%@ %@", YouboraServiceStart, titleOrResource];
+    self.isStarted = true;
 }
 
 - (void) sendJoin:(NSDictionary<NSString *, NSString *> *) params {
@@ -1865,6 +2213,67 @@
 
 }
 
+- (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStart];
+    [self initComm];
+    [self sendWithCallbacks:self.willSendSessionStartListeners service:YouboraServiceSessionStart andParams:mutParams];
+    [self startBeats];
+    [YBLog notice:YouboraServiceSessionStart];
+}
+
+- (void) sendSessionStop:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStop];
+    [self sendWithCallbacks:self.willSendSessionStopListeners service:YouboraServiceSessionStop andParams:mutParams];
+    [self stopBeats];
+    [YBLog notice:YouboraServiceSessionStop];
+}
+
+- (void) sendSessionNav:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionNav];
+    [self sendWithCallbacks:self.willSendSessionNavListeners service:YouboraServiceSessionNav andParams:mutParams];
+    if (self.beatTimer != nil) {
+        long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+        [self sendBeat:time];
+        [self.beatTimer.chrono setStartTime:time];
+    }
+    [YBLog notice:YouboraServiceSessionNav];
+}
+
+- (void) sendSessionEvent:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionEvent];
+    [self sendWithCallbacks:self.willSendSessionEventListeners service:YouboraServiceSessionEvent andParams:mutParams];
+    [YBLog notice:YouboraServiceSessionEvent];
+}
+
+- (bool) isLiveOrNotNullDuration {
+    return [[self getIsLive] isEqualToValue:@YES]
+                || ([[self getIsLive] isEqualToValue:@NO] && ![[self getDuration] isEqualToNumber:@(0)]);
+}
+
+// ----------------------------------------- BEATS ---------------------------------------------
+- (void) startBeats {
+    if (!self.beatTimer.isRunning) {
+        [self.beatTimer start];
+    }
+}
+
+- (void) stopBeats {
+    [self.beatTimer stop];
+}
+
+- (void) sendBeat:(double) diffTime {
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    params[@"diffTime"] = @(diffTime).stringValue;
+    if ([self getInfinity].activeSessions.count == 0)
+        [[self getInfinity] addActiveSession:self.viewTransform.fastDataConfig.code];
+    NSMutableArray<NSString *> * paramList = [NSMutableArray array];
+    [paramList addObject:@"sessions"];
+    params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
+    
+    [self sendWithCallbacks:self.willSendSessionBeatListeners service:YouboraServiceSessionBeat andParams:params];
+    [YBLog debug: @"%@ params: %@", YouboraServiceSessionBeat, params.description];
+}
+
 // ------ PINGS ------
 - (void) startPings {
     if (!self.pingTimer.isRunning) {
@@ -1913,6 +2322,11 @@
             [paramList addObject:@"seekDuration"];
         }
         
+        if ([self.adapter getIsP2PEnabled] != nil && [[self.adapter getIsP2PEnabled] isEqualToValue:@YES]) {
+            [paramList addObject:@"p2pDownloadedTraffic"];
+            [paramList addObject:@"cdnDownloadedTraffic"];
+            [paramList addObject:@"uploadTraffic"];
+        }
     }
     
     if (self.adsAdapter != nil) {
@@ -1933,12 +2347,13 @@
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
     
     [self sendWithCallbacks:self.willSendPingListeners service:YouboraServicePing andParams:params];
-    [YBLog debug:YouboraServicePing];
+    [YBLog debug: @"%@ params: %@", YouboraServicePing, params.description];
 }
 
 #pragma mark - YBTransformDoneListener protocol
 - (void) transformDone:(YBTransform *) transform {
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
+    [self.beatTimer setInterval:self.viewTransform.fastDataConfig.beatTime.longValue * 1000];
 }
 
 #pragma mark - YBPlayerAdapterEventDelegate
@@ -2037,5 +2452,68 @@
     }
 }
 
+- (void) youboraInfinityEventSessionStartWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions andParentId:(NSString *) parentId {
+    [self.viewTransform nextView];
+    
+    self.startScreenName = screenName;
+    self.startDimensions = dimensions;
+    self.startParentId = parentId;
+    
+    NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
+    
+    if (stringyfiedDict == nil)
+        stringyfiedDict = @"";
+    
+    NSDictionary *params = @{
+                             @"dimensions" : stringyfiedDict,
+                             @"page" : screenName,
+                             @"route" : screenName
+                             };
+    
+    [self sendSessionStart:params];
+}
+
+- (void) youboraInfinityEventSessionStop: (NSDictionary<NSString *, NSString *> *) params {
+    [self sendSessionStop:params];
+}
+
+- (void) youboraInfinityEventNavWithScreenName: (NSString *) screenName {
+    
+    NSDictionary *params = @{
+                             @"page" : screenName,
+                             @"route" : screenName
+                             };
+    [self sendSessionNav:params];
+}
+
+- (void) youboraInfinityEventEventWithDimensions: (NSDictionary<NSString *, NSString *> *) dimensions values: (NSDictionary<NSString *, NSNumber *> *) values andEventName: (NSString *) eventName {
+    NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
+    
+    if (stringyfiedDict == nil)
+        stringyfiedDict = @"";
+    
+    NSDictionary *params = @{
+                             @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions],
+                             @"values" : [YBYouboraUtils stringifyDictionary:values],
+                             @"name" : eventName
+                             };
+    [self sendSessionEvent:params];
+}
+
+- (void) registerLifeCycleEvents {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eventListenerDidReceivetoBack:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eventListenerDidReceiveToFore:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+}
 
 @end

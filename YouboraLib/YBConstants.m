@@ -30,6 +30,13 @@ NSString * const YouboraServiceAdStop = @"/adStop";
 NSString * const YouboraServiceClick = @"/adClick";
 NSString * const YouboraServiceAdError = @"/adError";
 
+/** Infinity **/
+NSString * const YouboraServiceSessionStart = @"/infinity/session/start";
+NSString * const YouboraServiceSessionStop = @"/infinity/session/stop";
+NSString * const YouboraServiceSessionNav = @"/infinity/session/nav";
+NSString * const YouboraServiceSessionEvent = @"/infinity/session/event";
+NSString * const YouboraServiceSessionBeat = @"/infinity/session/beat";
+
 //Request success constants
 NSString * const YouboraSuccsessListenerOfflineId = @"offline_id";
 

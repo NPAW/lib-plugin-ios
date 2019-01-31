@@ -10,28 +10,23 @@
 
 @interface YBDeviceInfo : NSObject
 
-/**
- * This will get you the phone model
- * @returns Model name
- */
-+ (NSString*) getModel;
+@property (nonatomic, strong) NSString * deviceModel;
+@property (nonatomic, strong) NSString * deviceBrand;
+@property (nonatomic, strong) NSString * deviceType;
+@property (nonatomic, strong) NSString * deviceName;
+@property (nonatomic, strong) NSString * deviceCode;
+@property (nonatomic, strong) NSString * deviceOsName;
+@property (nonatomic, strong) NSString * deviceOsVersion;
+@property (nonatomic, strong) NSString * deviceBrowserName;
+@property (nonatomic, strong) NSString * deviceBrowserVersion;
+@property (nonatomic, strong) NSString * deviceBrowserType;
+@property (nonatomic, strong) NSString * deviceBrowserEngine;
 
-/**
- * This will get you current OS version
- * @returns OS version
- */
-+ (NSString*) getOSVersion;
-
-/**
- * This will get you the brand
- * @returns brand
- */
-+ (NSString*) getBrand;
 
 /**
  * Maps all phone data to a JSON string
  * @returns formatted JSON string
  */
-+ (NSString*) mapToJSONString;
+- (NSString*) mapToJSONString;
 
 @end
