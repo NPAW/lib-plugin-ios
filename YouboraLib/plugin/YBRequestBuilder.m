@@ -11,7 +11,7 @@
 #import "YBLog.h"
 #import "YBConstants.h"
 #import "YBYouboraUtils.h"
-#import "YBDeviceInfo.h"
+#import "YBInfinity.h"
 
 @interface YBRequestBuilder()
 
@@ -48,7 +48,8 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
                                       @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
-                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId"];
+                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId", @"navContext", @"anonymousUser",
+                                      @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -56,7 +57,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                         @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10"];
             
             youboraRequestParams = @{
-                       YouboraServiceData:  @[@"system", @"pluginVersion"],
+                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
                        YouboraServiceInit:  startParams,
                        YouboraServiceStart: startParams,
                        YouboraServiceJoin:  @[@"joinDuration", @"playhead"],
@@ -75,7 +76,14 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
                        YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent"],
-                       YouboraServiceError: [startParams arrayByAddingObject:@"player"]
+                       YouboraServiceError: [startParams arrayByAddingObject:@"player"],
+                       
+                       //Infinity
+                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo"],
+                       YouboraServiceSessionStop: @[@"accountCode"],
+                       YouboraServiceSessionNav: @[@"username", @"navContext"],
+                       YouboraServiceSessionBeat: @[],
+                       YouboraServiceSessionEvent: @[@"navContext"]
             };
             
             youboraRequestParamsDifferent = @{YouboraServiceJoin:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],
@@ -357,11 +365,17 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getNodeType];
     } else if ([param isEqualToString:@"nodeTypeString"]){
         value = [self.plugin getNodeTypeString];
-    } else if([param isEqualToString:@"deviceInfo"]){
-        value = [YBDeviceInfo mapToJSONString];
-    } else if([param isEqualToString:@"householdId"]){
+    } else if ([param isEqualToString:@"deviceInfo"]){
+        value = [self.plugin getDeviceInfoString];
+    } else if ([param isEqualToString:@"householdId"]){
         value = [self.plugin getHouseholdId];
-    } else if([param isEqualToString:@"experiments"]){
+    }  else if ([param isEqualToString:@"p2pDownloadedTraffic"]){
+        value = [self.plugin getP2PTraffic];
+    }  else if ([param isEqualToString:@"cdnDownloadedTraffic"]){
+        value = [self.plugin getCdnTraffic];
+    }  else if ([param isEqualToString:@"uploadTraffic"]){
+        value = [self.plugin getUploadTraffic];
+    }  else if ([param isEqualToString:@"experiments"]){
         NSArray *experimentsArray = [self.plugin getExperimentIds];
         if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){
             value = nil;
@@ -369,17 +383,34 @@ static NSArray<NSString *> * youboraPingEntities;
             NSString *experimentsString = [experimentsArray componentsJoinedByString:@"\",\""];
             value = [NSString stringWithFormat:@"[\"%@\"]",experimentsString];
         }
-    } else if([param isEqualToString:@"latency"]){
+    } else if ([param isEqualToString:@"latency"]){
         value = [[self.plugin getLatency] stringValue];
-    } else if([param isEqualToString:@"packetLoss"]){
+    } else if ([param isEqualToString:@"packetLoss"]){
         value = [[self.plugin getPacketLost] stringValue];
-    } else if([param isEqualToString:@"packetSent"]){
+    } else if ([param isEqualToString:@"packetSent"]){
         value = [[self.plugin getPacketSent] stringValue];
-    } else if([param isEqualToString:@"obfuscateIp"]){
+    } else if ([param isEqualToString:@"obfuscateIp"]){
         NSValue * obfuscate = [self.plugin getNetworkObfuscateIp];
         if (obfuscate != nil) {
             value = [obfuscate isEqual:@YES] ? @"true" : @"false";
         }
+    } else if ([param isEqualToString:@"navContext"]) {
+        value = ((YBInfinity *)[YBInfinity sharedManager]).navContext;
+    } else if ([param isEqualToString:@"sessions"]) {
+        value = [YBYouboraUtils stringifyList:[self.plugin getActiveSessions]];
+    } else if ([param isEqualToString:@"anonymousUser"]){
+        value = [self.plugin getAnonymousUser];
+    } else if ([param isEqualToString:@"isInfinity"]) {
+        NSValue * isInfinity = [self.plugin getIsInfinity];
+        if (isInfinity != nil) {
+            value = [isInfinity isEqual:@YES] ? @"true" : @"false";
+        }
+    } else if ([param isEqualToString:@"smartswitchConfigCode"]) {
+        value = [self.plugin getSmartSwitchConfigCode];
+    } else if ([param isEqualToString:@"smartswitchGroupCode"]) {
+        value = [self.plugin getSmartSwitchGroupCode];
+    } else if ([param isEqualToString:@"smartswitchContractCode"]) {
+        value = [self.plugin getSmartSwitchContractCode];
     }
     
     return value;

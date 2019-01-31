@@ -54,6 +54,17 @@ FOUNDATION_EXPORT NSString * const YouboraServiceClick;
 /** /adError service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdError;
 
+/** /infinity/session/start service **/
+FOUNDATION_EXPORT NSString * const YouboraServiceSessionStart;
+/** /infinity/session/stop service **/
+FOUNDATION_EXPORT NSString * const YouboraServiceSessionStop;
+/** /infinity/session/nav service **/
+FOUNDATION_EXPORT NSString * const YouboraServiceSessionNav;
+/** /infinity/session/event service **/
+FOUNDATION_EXPORT NSString * const YouboraServiceSessionEvent;
+/** /infinity/session/beat service **/
+FOUNDATION_EXPORT NSString * const YouboraServiceSessionBeat;
+
 /** Key for request success param */
 FOUNDATION_EXPORT NSString * const YouboraSuccsessListenerOfflineId;
 

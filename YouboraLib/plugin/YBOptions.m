@@ -40,6 +40,12 @@
         self.networkConnectionType = [decoder decodeObjectForKey:@"networkConnectionType"];
         self.networkObfuscateIp = [decoder decodeObjectForKey:@"networkObfuscateIp"];
         self.deviceCode = [decoder decodeObjectForKey:@"deviceCode"];
+        self.forceInit = [decoder decodeObjectForKey:@"forceInit"];
+        self.deviceModel = [decoder decodeObjectForKey:@"deviceModel"];
+        self.deviceBrand = [decoder decodeObjectForKey:@"deviceBrand"];
+        self.deviceType = [decoder decodeObjectForKey:@"deviceType"];
+        self.deviceOsName = [decoder decodeObjectForKey:@"deviceOsName"];
+        self.deviceOsVersion = [decoder decodeObjectForKey:@"deviceOsVersion"];
         self.contentResource = [decoder decodeObjectForKey:@"contentResource"];
         self.contentIsLive = [decoder decodeObjectForKey:@"contentIsLive"];
         self.contentTitle = [decoder decodeObjectForKey:@"contentTitle"];
@@ -61,6 +67,11 @@
         self.adResource = [decoder decodeObjectForKey:@"adResource"];
         self.autoDetectBackground = [decoder decodeObjectForKey:@"autoDetectBackground"];
         self.offline = [decoder decodeObjectForKey:@"offline"];
+        self.anonymousUser = [decoder decodeObjectForKey:@"anonymousUser"];
+        self.isInfinity = [decoder decodeObjectForKey:@"isInfinity"];
+        self.smartswitchConfigCode = [decoder decodeObjectForKey:@"smartswitchConfigCode"];
+        self.smartswitchGroupCode = [decoder decodeObjectForKey:@"smartswitchGroupCode"];
+        self.smartswitchContractCode = [decoder decodeObjectForKey:@"smartswitchContractCode"];
         self.extraparam1 = [decoder decodeObjectForKey:@"extraparam1"];
         self.extraparam2 = [decoder decodeObjectForKey:@"extraparam2"];
         self.extraparam3 = [decoder decodeObjectForKey:@"extraparam3"];
@@ -112,6 +123,13 @@
     [coder encodeObject:self.networkConnectionType forKey:@"networkConnectionType"];
     [coder encodeObject:self.networkObfuscateIp forKey:@"networkObfuscateIp"];
     [coder encodeObject:self.deviceCode forKey:@"deviceCode"];
+    [coder encodeObject:@(self.forceInit) forKey:@"forceInit"];
+    [coder encodeObject:self.deviceModel forKey:@"deviceModel"];
+    [coder encodeObject:self.deviceBrand forKey:@"deviceBrand"];
+    [coder encodeObject:self.deviceType forKey:@"deviceType"];
+    [coder encodeObject:self.deviceName forKey:@"deviceName"];
+    [coder encodeObject:self.deviceOsName forKey:@"deviceOsName"];
+    [coder encodeObject:self.deviceOsVersion forKey:@"deviceOsVersion"];
     [coder encodeObject:self.contentStreamingProtocol forKey:@"contentStreamingProtocol"];
     [coder encodeObject:self.contentResource forKey:@"contentResource"];
     [coder encodeObject:self.contentIsLive forKey:@"contentIsLive"];
@@ -133,6 +151,11 @@
     [coder encodeObject:self.adResource forKey:@"adResource"];
     [coder encodeObject:@(self.autoDetectBackground) forKey:@"autoDetectBackground"];
     [coder encodeObject:@(self.offline) forKey:@"offline"];
+    [coder encodeObject:self.anonymousUser forKey:@"anonymousUser"];
+    [coder encodeObject:self.isInfinity forKey:@"isInfinity"];
+    [coder encodeObject:self.smartswitchConfigCode forKey:@"smartswitchConfigCode"];
+    [coder encodeObject:self.smartswitchGroupCode forKey:@"smartswitchGroupCode"];
+    [coder encodeObject:self.smartswitchContractCode forKey:@"smartswitchContractCode"];
     [coder encodeObject:self.extraparam1 forKey:@"extraparam1"];
     [coder encodeObject:self.extraparam2 forKey:@"extraparam2"];
     [coder encodeObject:self.extraparam3 forKey:@"extraparam3"];
@@ -172,6 +195,7 @@
     self.accountCode = @"nicetest";
     self.username = nil;
     self.userType = nil;
+    self.anonymousUser = nil;
     
     self.parseHls = false;
     self.parseCdnNameHeader = @"x-cdn-forward";
@@ -187,6 +211,15 @@
     self.networkObfuscateIp = nil;
     
     self.deviceCode = nil;
+    self.deviceModel = nil;
+    self.deviceBrand = nil;
+    self.deviceType = nil;
+    self.deviceName = nil;
+    self.deviceOsName = nil;
+    self.deviceOsVersion = nil;
+    
+    
+    self.forceInit = false;
     
     self.contentStreamingProtocol = nil;
     self.contentResource = nil;
@@ -209,8 +242,15 @@
     self.adTitle = nil;
     self.adResource = nil;
     
-    self.autoDetectBackground = NO;
+    self.autoDetectBackground = YES;
     self.offline = NO;
+    
+    self.isInfinity = nil;
+    
+    //SmartSwitch
+    self.smartswitchConfigCode = nil;
+    self.smartswitchGroupCode = nil;
+    self.smartswitchContractCode = nil;
     
     self.extraparam1 = nil;
     self.extraparam2 = nil;

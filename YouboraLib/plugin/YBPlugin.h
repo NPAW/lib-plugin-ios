@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "YBTransform.h"
 #import "YBPlayerAdapter.h"
+#import "YBInfinity.h"
 
 @class YBRequestBuilder, YBOptions, YBResourceTransform, YBViewTransform, YBTimer, YBPlayerAdapter, YBCommunication;
 
@@ -31,7 +32,7 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * This is the main class of video analytics. You may want one instance for each video you want
  * to track. Will need <YBPlayerAdapter>s for both content and ads, manage options and general flow.
  */
-@interface YBPlugin : NSObject<YBTransformDoneListener, YBPlayerAdapterEventDelegate>
+@interface YBPlugin : NSObject<YBTransformDoneListener, YBPlayerAdapterEventDelegate, YBInfinityDelegate>
 
 /// ---------------------------------
 /// @name Public properties
@@ -40,6 +41,7 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 @property(nonatomic, strong, readonly) YBViewTransform * viewTransform;
 @property(nonatomic, strong, readonly) YBRequestBuilder * requestBuilder;
 @property(nonatomic, strong, readonly) YBTimer * pingTimer;
+@property(nonatomic, strong, readonly) YBTimer * beatTimer;
 @property(nonatomic, strong) YBOptions * options;
 @property(nonatomic, strong, nullable) YBPlayerAdapter * adapter;
 @property(nonatomic, strong, nullable) YBPlayerAdapter * adsAdapter;
@@ -107,6 +109,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param shouldStopPings if pings should stop
  */
 - (void) removeAdsAdapter: (BOOL)shouldStopPings;
+
+/**
+ * Returns the infinity instance object as singleton, since we need to use the same for all
+ * the application
+ */
+- (YBInfinity *) getInfinity;
 
 /**
  * Disable request sending.
@@ -652,6 +660,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getUserType;
 
 /**
+ * Returns the anonymousUser
+ * @return the anonymousUser
+ */
+- (nullable NSString *) getAnonymousUser;
+
+/**
  * Get CDN node
  * @return the CDN node or nil if unknown
  */
@@ -731,6 +745,32 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (long long) getAdTotalDuration;
 
 /**
+ * Returns if Infinity is enabled
+ * @return if Infinity is enabled
+ */
+- (NSValue *) getIsInfinity;
+
+/**
+ * Returns SmartSwitch config code
+ * @return martSwitch config code
+ */
+- (NSString *) getSmartSwitchConfigCode;
+
+/**
+ * Returns SmartSwitch group code
+ * @return martSwitch group code
+ */
+- (NSString *) getSmartSwitchGroupCode;
+
+
+/**
+ * Returns SmartSwitch contract code
+ * @return martSwitch contract code
+ */
+- (NSString *) getSmartSwitchContractCode;
+
+
+/**
  * Returns ad campaign
  * @return Ad campaign
  */
@@ -741,6 +781,53 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @return Household Id
  */
 - (NSString *) getHouseholdId;
+
+/**
+ * Returns CDN traffic
+ * @return CDN traffic
+ */
+- (NSString *) getCdnTraffic;
+
+/**
+ * Returns P2P traffic
+ * @return P2P traffic
+ */
+- (NSString *) getP2PTraffic;
+
+/**
+ * Returns upload traffic
+ * @return upload traffic
+ */
+- (NSString *) getUploadTraffic;
+
+/**
+ * Returns if P2P is enabled
+ * @return if P2P is enabled
+ */
+- (NSString *) getIsP2PEnabled;
+
+/**
+ * Returns current nav context
+ * @return nav context
+ */
+- (NSString *) getNavContext;
+
+/**
+ * Returns current active sessions
+ * @return Active sessions
+ */
+- (NSMutableArray *) getActiveSessions;
+
+/**
+ * Get Device info String
+ */
+- (NSString*) getDeviceInfoString;
+
+/**
+ * Returns current device language in language-COUNTRYCODE format
+ * @return Current language
+ */
+- (nullable NSString *) getLanguage;
 
 /**
  * Adds an Init listener

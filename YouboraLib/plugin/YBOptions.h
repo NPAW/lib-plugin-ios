@@ -114,6 +114,41 @@
 @property(nonatomic, strong) NSString * deviceCode;
 
 /**
+ * Force init enabled
+ */
+@property(nonatomic, assign) bool forceInit;
+
+/**
+* What will be displayed as the device model on Youbora (provided by default with android.os.Build.MODEL if not set)
+*/
+@property(nonatomic, strong) NSString * deviceModel;
+
+/**
+ * What will be displayed as the device brand on Youbora (provided by default with android.os.Build.BRAND if not set)
+ */
+@property(nonatomic, strong) NSString * deviceBrand;
+
+/**
+ * What will be displayed as the device type on Youbora (pc, smartphone, stb, tv, etc.)
+ */
+@property(nonatomic, strong) NSString * deviceType;
+
+/**
+ * What will be displayed as the device name on Youbora (pc, smartphone, stb, tv, etc.)
+ */
+@property(nonatomic, strong) NSString * deviceName;
+
+/**
+ * OS name that will be displayed on Youbora
+ */
+@property(nonatomic, strong) NSString * deviceOsName;
+
+/**
+ * OS version that will be displayed on Youbora (provided by default with android.os.Build.VERSION.RELEASE if not set)
+ */
+@property(nonatomic, strong) NSString * deviceOsVersion;
+
+/**
  * URL/path of the current media resource.
  */
 @property(nonatomic, strong) NSString * contentResource;
@@ -213,7 +248,7 @@
 
 /**
  * If true the plugin will fireStop when going to background
- * Default: false
+ * Default: true
  */
 @property(nonatomic, assign) bool autoDetectBackground;
 
@@ -221,6 +256,31 @@
  * If true no request will we send and saved for later instead
  */
 @property(nonatomic, assign) bool offline;
+
+/**
+ * User ID value inside your system for anon users
+ */
+@property(nonatomic, strong) NSString * anonymousUser;
+
+/**
+ * Flag if Infinity is going to be used
+ */
+@property(nonatomic, strong) NSValue * isInfinity;
+
+/**
+ * Config code for smartswitch
+ */
+@property(nonatomic, strong) NSString * smartswitchConfigCode;
+
+/**
+ * Group code for smartswitch
+ */
+@property(nonatomic, strong) NSString * smartswitchGroupCode;
+
+/**
+ * Contract code for smartswitch
+ */
+@property(nonatomic, strong) NSString * smartswitchContractCode;
 
 /**
  * Custom parameter 1.

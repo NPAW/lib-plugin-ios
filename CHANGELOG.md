@@ -1,10 +1,88 @@
-##  [6.1.8] - 
-###Added
-- fireClick, fireCasted and fireSkip helper methods
-- Now when fireStop() is called from the Plugin's class, it will check if the adapter is not null. If it isn't, it will call the adapter's fireStop().
+## [6.3.3] - 2019-01-24
+###Fixed
+- Improved support for carthage as a build and dependency system
 
-## [6.1.7] - 2018-05-04
-### Add
+## [6.3.2] - 2019-01-24
+###Fixed
+- In certain cases comm was reinstantiated and no event where send afterwards
+
+## [6.3.1] - 2019-01-23
+###Added
+- Deprecate all ads completed method
+###Fixed
+- Playhead monitor with different playrate than 0 or 1
+
+## [6.3.0] - 2019-01-21
+###Added
+- Automatic init
+
+## [6.2.13] - 2018-01-16
+###Fixed
+- Apple TV now is named AppleTV 4G
+
+## [6.2.12] - 2018-01-14
+###Added
+- Added pluginInfo paramter on session start too
+- New iPhone models for device info
+- Added AppleTV models
+
+## [6.2.11] - 2018 -12-20
+###Fixed
+- Viewcode timestamp doesn't include "extra" zeros anymore
+- Better auto background management
+
+## [6.2.10] - 2018-12-03
+###Changed
+- Now autoDetectBackground option is set to true by default
+
+## [6.2.9] - 2018-11-25
+###Fixed
+- An specific event flow was not adding all transforms when sending collected offline events
+
+## [6.2.8] - 2018-11-21
+###Fixed
+- Since migration to SQLite v2 to support multithreading the local db was not being created
+
+## [6.2.7] - 2018-11-20
+###Fixed
+- Several retain cycles Infinity related and memory leaks have been fixed
+
+## [6.2.6] - 2018-11-07
+###Fix
+- Crash on iOS 12 due to thread management on sqlite database access
+
+## [6.2.5] - 2018-10-30
+###Improved
+- Posible null pointer exceptions when passin nil to some Infinity public methods
+
+## [6.2.4] - 2018-10-29
+###Fixed
+- Posible crash when getting nil sessionId
+
+## [6.2.3] - 2018-10-09
+###Fixed
+- Crash when passing nil screenName
+
+## [6.2.2] - 2018-10-03
+###Updated
+ - Swift version to support 4.2
+###Added
+- Add response code log
+
+## [6.2.1] - 2018-08-27
+###Fixed
+- Correct view expiration behaviour
+
+## [6.2.0] - 2018-08-20
+###Added
+- Support for Infinity
+
+## [6.1.8] - 2018-07-30
+###Improved
+- Ping log now shows params
+###Fix
+- Household id getter now is set as nullable
+>>>>>>> master
 
 
 ##  [6.1.7] - 2018-05-04
