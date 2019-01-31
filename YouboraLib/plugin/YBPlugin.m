@@ -2209,7 +2209,7 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdError];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     [self sendWithCallbacks:self.willSendAdErrorListeners service:YouboraServiceAdError andParams:mutParams];
-    [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
+    [YBLog notice:@"%@ %@ s", YouboraServiceAdError, mutParams[@"errorCode"]];
 
 }
 
