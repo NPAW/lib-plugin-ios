@@ -201,7 +201,7 @@
     self.parseCdnNameHeader = @"x-cdn-forward";
     self.parseCdnNode = false;
     // TODO: Node list constants
-    self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, nil];
+    self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, nil];
     
     self.experimentIds = [[NSMutableArray alloc] init];
     
