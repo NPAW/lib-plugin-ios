@@ -2165,6 +2165,9 @@
     //Required params
     mutParams[@"adDuration"] = @"0";
     mutParams[@"adPlayhead"] = @"0";
+    if (self.adsAdapter != nil) {
+        self.adsAdapter.flags.adInitiated = true;
+    }
     [self sendWithCallbacks:self.willSendAdInitListeners service:YouboraServiceAdInit andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
