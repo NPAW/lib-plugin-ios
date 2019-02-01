@@ -115,7 +115,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     mockSessionClass = nil;
 }
 
-/*- (void)testSendErrorRequest {
+- (void)testSendErrorRequest {
     YBTestableRequest * r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
     r.mockRequest = mock([NSMutableURLRequest class]);
     
@@ -166,7 +166,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     // Stop mocking singleton
     stopMocking(mockSessionClass);
     mockSessionClass = nil;
-}*/
+}
 
 - (void)testRequestFields {
     YBRequest * req = [[YBRequest alloc] initWithHost:@"http://example.com" andService:@"/service"];
