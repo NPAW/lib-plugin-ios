@@ -1001,8 +1001,68 @@
     XCTAssertEqual(1, callbackTimes);
 }
 
+- (void) testWillSendAdInitListener {
+    static int callbackTimes;
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
+    
+    // Stop
+    callbackTimes = 0;
+    [self.p addWillSendAdInitListener:listener];
+    [self.p youboraAdapterEventAdInit:params fromAdapter:self.mockAdAdapter];
+    [self.p removeWillSendAdInitListener:listener];
+    [self.p youboraAdapterEventAdInit:params fromAdapter:self.mockAdAdapter];
+    XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillSendAdInitWhenAdStartedListener {
+    static int callbackTimes;
+    
+    [self.p fireInit];
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
+    
+    // Stop
+    callbackTimes = 0;
+    [self.p addWillSendAdInitListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
+    [self.p removeWillSendAdInitListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
+    XCTAssertEqual(1, callbackTimes);
+}
+
 - (void) testWillSendAdStartListener {
     static int callbackTimes;
+    
+    [given([self.p getAdDuration]) willReturn:@10];
+    [given([self.p getAdResource]) willReturn:@"a"];
+    [given([self.p getAdTitle]) willReturn:@"b"];
+    
+    [self.p fireInit];
     
     // Make build params return the first argument
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
@@ -1025,6 +1085,78 @@
     [self.p removeWillSendAdStartListener:listener];
     [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
     XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testwillSendAdStartWhenAdInitiatedListener {
+    static int callbackTimes;
+    
+    [self.p fireInit];
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
+    
+    // Ad Start
+    callbackTimes = 0;
+    [self.p addWillSendAdStartListener:listener];
+    [self.p youboraAdapterEventAdInit:params fromAdapter:self.mockAdAdapter];
+    [self.p youboraAdapterEventJoin:params fromAdapter:self.mockAdAdapter];
+    [self.p removeWillSendAdStartListener:listener];
+    [self.p youboraAdapterEventAdInit:params fromAdapter:self.mockAdAdapter];
+    [self.p youboraAdapterEventJoin:params fromAdapter:self.mockAdAdapter];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
+    XCTAssertEqual(1, callbackTimes);
+}
+
+- (void) testWillNotSendInitWhenAdStarted {
+    static int callbackTimes;
+    
+     [self.p fireInit];
+    
+    // Make build params return the first argument
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy];
+    }];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        callbackTimes++;
+        XCTAssertEqualObjects(@"value", params[@"key"]);
+    };
+    
+    NSDictionary * params = @{@"key":@"value"};
+    
+    self.p.adsAdapter = self.mockAdAdapter;
+    // Ad Start
+    callbackTimes = 0;
+    [self.p addWillSendInitListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
+    [self.p removeWillSendInitListener:listener];
+    
+    XCTAssertEqual(0, callbackTimes);
+    
+    [given([self.p getTitle]) willReturn:@"title"];
+    [given([self.p getResource]) willReturn:@"resource"];
+    [given([self.p getIsLive]) willReturn:@NO];
+    [given([self.p getDuration]) willReturn:@30];
+    
+    [self.p addWillSendStartListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdapter];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
+    [self.p removeWillSendStartListener:listener];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdapter];
+    [self.p youboraAdapterEventStart:params fromAdapter:self.mockAdAdapter];
+    
+    XCTAssertEqual(0, callbackTimes);
 }
 
 - (void) testWillSendAdJoinListener {
