@@ -48,6 +48,7 @@
 @property(nonatomic, assign) bool isInitiated;
 @property(nonatomic, assign) bool isPreloading;
 @property(nonatomic, assign) bool isStarted;
+@property(nonatomic, assign) bool isAdStarted;
 @property(nonatomic, strong) YBChrono * preloadChrono;
 @property(nonatomic, strong) YBChrono * iinitChrono;
 
@@ -106,6 +107,7 @@
         self.isInitiated = false;
         self.isPreloading = false;
         self.isStarted = false;
+        self.isAdStarted = false;
         self.preloadChrono = [self createChrono];
         self.iinitChrono = [self createChrono];
         self.options = options;
@@ -1844,6 +1846,8 @@
     self.resourceTransform = [self createResourceTransform];
     self.isInitiated = false;
     self.isPreloading = false;
+    self.isStarted = false;
+    self.isAdStarted = false;
     [self.preloadChrono reset];
     [self.iinitChrono reset];
 }
@@ -2139,10 +2143,22 @@
         }
     }
     
-    [self sendAdStart:params];
+    if (!self.isInitiated && !self.isStarted) {
+        [self fireInit];
+    }
+        
+    if ([self getAdDuration] != nil && [self getAdTitle] != nil && [self getAdResource] != nil
+        && !self.adsAdapter.flags.adInitiated) {
+        [self sendAdStart:params];
+    } else if (!self.adsAdapter.flags.adInitiated) {
+        [self sendAdInit:params];
+    }
 }
 
 - (void) adJoinListener:(NSDictionary<NSString *, NSString *> *) params {
+    if (self.adsAdapter.flags.adInitiated && !self.isAdStarted) {
+        [self sendAdStart:params];
+    }
     [self sendAdJoin:params];
 }
 
@@ -2282,6 +2298,9 @@
     //Required params
     mutParams[@"adDuration"] = @"0";
     mutParams[@"adPlayhead"] = @"0";
+    if (self.adsAdapter != nil) {
+        self.adsAdapter.flags.adInitiated = true;
+    }
     [self sendWithCallbacks:self.willSendAdInitListeners service:YouboraServiceAdInit andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
@@ -2294,6 +2313,7 @@
     mutParams[@"adNumber"] = realNumber;
     [self sendWithCallbacks:self.willSendAdStartListeners service:YouboraServiceAdStart andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdStart, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
+    self.isAdStarted = true;
 }
 
 - (void) sendAdJoin:(NSDictionary<NSString *, NSString *> *) params {
@@ -2329,6 +2349,7 @@
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     [self sendWithCallbacks:self.willSendAdStopListeners service:YouboraServiceAdStop andParams:mutParams];
     [YBLog notice:@"%@ %@ms", YouboraServiceAdStop, mutParams[@"adTotalDuration"]];
+    self.isAdStarted = false;
 }
 
 - (void) sendClick:(NSDictionary<NSString *, NSString *> *) params{
@@ -2342,7 +2363,7 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdError];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     [self sendWithCallbacks:self.willSendAdErrorListeners service:YouboraServiceAdError andParams:mutParams];
-    [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
+    [YBLog notice:@"%@ %@ s", YouboraServiceAdError, mutParams[@"errorCode"]];
 
 }
 
