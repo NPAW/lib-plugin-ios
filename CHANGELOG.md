@@ -1,3 +1,8 @@
+## [6.3.4] - 
+### Added
+- Auto ad Init
+- Telefonica CDN
+
 ## [6.3.3] - 2019-01-24
 ###Fixed
 - Improved support for carthage as a build and dependency system

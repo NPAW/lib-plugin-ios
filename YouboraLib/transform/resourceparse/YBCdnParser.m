@@ -18,6 +18,7 @@ NSString * const YouboraCDNNameAkamai =     @"Akamai";
 NSString * const YouboraCDNNameHighwinds =  @"Highwinds";
 NSString * const YouboraCDNNameFastly =     @"Fastly";
 NSString * const YouboraCDNNameBalancer =   @"Balancer";
+NSString * const YouboraCDNNameTelefonica = @"Telefonica";
 
 @interface YBCdnParser()
 
@@ -253,6 +254,22 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
             return YBCdnTypeUnknown;
         };
         cdnDefinitions[YouboraCDNNameLevel3] = cdnConfig;
+        
+        cdnConfig = [[YBCdnConfig alloc] initWithCode:@"TELEFO"];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHostAndType headerName:@"x-tcdn" andRegexPattern:@"Host:(.+)\\sType:(.+)"]];
+        cdnConfig.requestHeaders[@"x-tcdn"] = @"host";
+        cdnConfig.typeParser = ^YBCdnType(NSString * type) {
+            if ([type rangeOfString:@"p"].location != NSNotFound ||
+                [type rangeOfString:@"c"].location != NSNotFound) {
+                return YBCdnTypeHit;
+            }
+            if ([type rangeOfString:@"i"].location != NSNotFound ||
+                [type rangeOfString:@"m"].location != NSNotFound) {
+                return YBCdnTypeMiss;
+            }
+            return YBCdnTypeUnknown;
+        };
+        cdnDefinitions[YouboraCDNNameTelefonica] = cdnConfig;
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:@"CLOUDFRT"];
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHost headerName:@"X-Amz-Cf-Id" andRegexPattern:@"(.+)"]];
