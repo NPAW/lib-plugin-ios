@@ -2,8 +2,13 @@
 ###Added
 - Auto ad Init
 - Telefonica CDN
+- New getProgram method
+- New customDimensions method for content and ads
 ###Fixed
 - Correct time between retries
+###Deprecated
+- getTitle2
+- Extra params
 
 ## [6.3.3] - 2019-01-24
 ###Fixed
