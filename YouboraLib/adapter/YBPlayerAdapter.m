@@ -134,6 +134,10 @@
     return nil;
 }
 
+- (NSString *)getProgram {
+    return nil;
+}
+
 - (NSValue *)getIsLive {
     return nil;
 }

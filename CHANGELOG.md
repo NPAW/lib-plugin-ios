@@ -2,8 +2,13 @@
 ###Added
 - Auto ad Init
 - Telefonica CDN
+- New getProgram method
+- New customDimensions method for content and ads
 ###Fixed
 - Correct time between retries
+###Deprecated
+- getTitle2
+- Extra params
 
 ## [6.3.3] - 2019-01-24
 ###Fixed
@@ -34,7 +39,6 @@
 - Added AppleTV models
 
 ## [6.2.11] - 2018 -12-20
->>>>>>> master
 ###Fixed
 - Viewcode timestamp doesn't include "extra" zeros anymore
 - Better auto background management
