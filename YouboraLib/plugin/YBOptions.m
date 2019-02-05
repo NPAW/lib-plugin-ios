@@ -102,6 +102,8 @@
         self.adCustomDimension8 = [decoder decodeObjectForKey:@"adCustomDimension8"];
         self.adCustomDimension9 = [decoder decodeObjectForKey:@"adCustomDimension9"];
         self.adCustomDimension10 = [decoder decodeObjectForKey:@"adCustomDimension10"];
+        self.appName = [decoder decodeObjectForKey:@"appName"];
+        self.appReleaseVersion = [decoder decodeObjectForKey:@"appReleaseVersion"];
     }
     return self;
 }
@@ -186,6 +188,8 @@
     [coder encodeObject:self.adCustomDimension8 forKey:@"adCustomDimension8"];
     [coder encodeObject:self.adCustomDimension9 forKey:@"adCustomDimension9"];
     [coder encodeObject:self.adCustomDimension10 forKey:@"adCustomDimension10"];
+    [coder encodeObject:self.appName forKey:@"appName"];
+    [coder encodeObject:self.appReleaseVersion forKey:@"appReleaseVersion"];
 }
 
 - (void) defaultValues {
@@ -283,6 +287,9 @@
     self.adCustomDimension8 = nil;
     self.adCustomDimension9 = nil;
     self.adCustomDimension10 = nil;
+    
+    self.appName = nil;
+    self.appReleaseVersion = nil;
 }
 
 @end

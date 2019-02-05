@@ -587,4 +587,14 @@
  */
 @property(nonatomic, strong) NSString * adCustomDimension10;
 
+/*
+ * Name of the app
+ */
+@property(nonatomic, strong) NSString * appName;
+
+/**
+ * Release version of the app
+ */
+@property(nonatomic, strong) NSString * appReleaseVersion;
+
 @end
