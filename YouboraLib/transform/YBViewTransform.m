@@ -99,6 +99,10 @@
         params[@"sessionId"] = self.fastDataConfig.code;
     }
     
+    if (self.plugin.options.accountCode != nil) {
+        params[@"accountCode"] = self.plugin.options.accountCode;
+    }
+    
     // Request-specific transforms
     NSString * service = request.service;
     if (service == YouboraServicePing ||
