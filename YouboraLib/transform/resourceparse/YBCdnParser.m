@@ -94,7 +94,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
 - (void) requestResponse:(NSString *) url {
     YBRequest * r = [self createRequestWithHost:url andService:nil];
     
-    r.method = YouboraHTTPMethodHead;
+    r.method = self.cdnConfig.requestMethod;
     r.requestHeaders = self.cdnConfig.requestHeaders;
     r.maxRetries = 0;
     
@@ -290,6 +290,8 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:@"AKAMAI"];
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementTypeAndHost headerName:@"X-Cache" andRegexPattern:@"(.+)\\sfrom\\s.+\\(.+\\/(.+)\\).*"]];
+        cdnConfig.requestHeaders = [[NSMutableDictionary alloc] initWithDictionary:@{@"Pragma": @"akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id,akamai-x-get-nonces,akamai-x-get-client-ip,akamai-x-feo-trace"}];
+        cdnConfig.requestMethod = YouboraHTTPMethodGet;
         cdnConfig.typeParser = ^YBCdnType(NSString * type) {
             
             if ([@"TCP_HIT" isEqualToString:type]) {
