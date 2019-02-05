@@ -6,6 +6,7 @@
 - New customDimensions method for content and ads
 ###Fixed
 - Correct time between retries
+- AKAMAI cdn parse should work as expected right now
 ###Deprecated
 - getTitle2
 - Extra params
