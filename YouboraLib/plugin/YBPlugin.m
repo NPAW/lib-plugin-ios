@@ -1377,6 +1377,14 @@
     return self.options.smartswitchContractCode;
 }
 
+- (NSString *) getAppName {
+    return self.options.appName;
+}
+
+- (NSString *) getAppReleaseVersion {
+    return self.options.appReleaseVersion;
+}
+
 // Add listeners
 - (void) addWillSendInitListener:(YBWillSendRequestBlock) listener {
     if (self.willSendInitListeners == nil)
