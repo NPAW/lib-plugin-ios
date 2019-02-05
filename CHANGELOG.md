@@ -4,6 +4,7 @@
 - Telefonica CDN
 - New getProgram method
 - New customDimensions method for content and ads
+- App name and App release version options
 ###Fixed
 - Correct time between retries
 ###Deprecated
