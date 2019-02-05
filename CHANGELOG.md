@@ -4,6 +4,7 @@
 - Telefonica CDN
 - New getProgram method
 - New customDimensions method for content and ads
+- Fingerprint parameter
 ###Fixed
 - Correct time between retries
 ###Deprecated
