@@ -14,7 +14,7 @@ install:
 
 script:
   # Open simulator
-  - open -b com.apple.iphonesimulator
+  # open -b com.apple.iphonesimulator
   # Build lib
   - xcodebuild clean build -scheme YouboraLib\ iOS
   # Run tests
