@@ -32,4 +32,4 @@ after_failure:
   - cat -n ~/Library/Logs/DiagnosticReports/xctest*.crash
 
 env:
-  - QA_KNOWN_HOSTS="qa-smartplugin.youbora.com,81.171.21.12 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM6lBT/mNpS5Sl2GtOiZiWsMr1XB+tluRmakhEyjPtOjQRjbP4Z/D9+yK0Iy5v99pecazEDuigHh5BZ2v3zWYUw="
+  - QA_KNOWN_HOSTS="qa-smartplugin.youbora.com,212.32.252.199 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM6lBT/mNpS5Sl2GtOiZiWsMr1XB+tluRmakhEyjPtOjQRjbP4Z/D9+yK0Iy5v99pecazEDuigHh5BZ2v3zWYUw="
