@@ -47,6 +47,7 @@
 @property(nonatomic, assign) bool isInitiated;
 @property(nonatomic, assign) bool isPreloading;
 @property(nonatomic, assign) bool isStarted;
+@property(nonatomic, assign) bool isAdStarted;
 @property(nonatomic, strong) YBChrono * preloadChrono;
 @property(nonatomic, strong) YBChrono * iinitChrono;
 
@@ -105,6 +106,7 @@
         self.isInitiated = false;
         self.isPreloading = false;
         self.isStarted = false;
+        self.isAdStarted = false;
         self.preloadChrono = [self createChrono];
         self.iinitChrono = [self createChrono];
         self.options = options;
@@ -540,12 +542,26 @@
 }
 
 - (NSString *) getTitle2 {
-    NSString * val = self.options.contentTitle2;
+    NSString * val = self.options.program;
     if ((val == nil || val.length == 0) && self.adapter != nil) {
         @try {
-            val = [self.adapter getTitle2];
+            val = [self.adapter getProgram];
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling getTitle2"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val;
+}
+
+- (NSString *) getProgram {
+    NSString * val = self.options.program;
+    if ((val == nil || val.length == 0) && self.adapter != nil) {
+        @try {
+            val = [self.adapter getProgram];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getProgram"];
             [YBLog logException:exception];
         }
     }
@@ -741,7 +757,6 @@
     return self.options.extraparam4;
 }
 
-
 - (NSString *) getExtraparam5 {
     return self.options.extraparam5;
 }
@@ -844,6 +859,126 @@
 
 - (NSString *) getAdExtraparam10 {
     return self.options.adExtraparam10;
+}
+
+- (NSString *) getCustomDimension1 {
+    return self.options.customDimension1;
+}
+
+- (NSString *) getCustomDimension2 {
+    return self.options.customDimension2;
+}
+
+- (NSString *) getCustomDimension3 {
+    return self.options.customDimension3;
+}
+
+- (NSString *) getCustomDimension4 {
+    return self.options.customDimension4;
+}
+
+- (NSString *) getCustomDimension5 {
+    return self.options.customDimension5;
+}
+
+- (NSString *) getCustomDimension6 {
+    return self.options.customDimension6;
+}
+
+- (NSString *) getCustomDimension7 {
+    return self.options.customDimension7;
+}
+
+- (NSString *) getCustomDimension8 {
+    return self.options.customDimension8;
+}
+
+- (NSString *) getCustomDimension9 {
+    return self.options.customDimension9;
+}
+
+- (NSString *) getCustomDimension10 {
+    return self.options.customDimension10;
+}
+
+- (NSString *) getCustomDimension11 {
+    return self.options.customDimension11;
+}
+
+- (NSString *) getCustomDimension12 {
+    return self.options.customDimension12;
+}
+
+- (NSString *) getCustomDimension13 {
+    return self.options.customDimension13;
+}
+
+- (NSString *) getCustomDimension14 {
+    return self.options.customDimension14;
+}
+
+- (NSString *) getCustomDimension15 {
+    return self.options.customDimension15;
+}
+
+- (NSString *) getCustomDimension16 {
+    return self.options.customDimension16;
+}
+
+- (NSString *) getCustomDimension17 {
+    return self.options.customDimension17;
+}
+
+- (NSString *) getCustomDimension18 {
+    return self.options.customDimension18;
+}
+
+- (NSString *) getCustomDimension19 {
+    return self.options.customDimension19;
+}
+
+- (NSString *) getCustomDimension20 {
+    return self.options.customDimension20;
+}
+
+- (NSString *) getAdCustomDimension1 {
+    return self.options.adCustomDimension1;
+}
+
+- (NSString *) getAdCustomDimension2 {
+    return self.options.adCustomDimension2;
+}
+
+- (NSString *) getAdCustomDimension3 {
+    return self.options.adCustomDimension3;
+}
+
+- (NSString *) getAdCustomDimension4 {
+    return self.options.adCustomDimension4;
+}
+
+- (NSString *) getAdCustomDimension5 {
+    return self.options.adCustomDimension5;
+}
+
+- (NSString *) getAdCustomDimension6 {
+    return self.options.adCustomDimension6;
+}
+
+- (NSString *) getAdCustomDimension7 {
+    return self.options.adCustomDimension7;
+}
+
+- (NSString *) getAdCustomDimension8 {
+    return self.options.adCustomDimension8;
+}
+
+- (NSString *) getAdCustomDimension9 {
+    return self.options.adCustomDimension9;
+}
+
+- (NSString *) getAdCustomDimension10 {
+    return self.options.adCustomDimension10;
 }
 
 - (NSString *) getAdPlayerVersion {
@@ -1710,6 +1845,8 @@
     self.resourceTransform = [self createResourceTransform];
     self.isInitiated = false;
     self.isPreloading = false;
+    self.isStarted = false;
+    self.isAdStarted = false;
     [self.preloadChrono reset];
     [self.iinitChrono reset];
 }
@@ -2004,10 +2141,22 @@
         }
     }
     
-    [self sendAdStart:params];
+    if (!self.isInitiated && !self.isStarted) {
+        [self fireInit];
+    }
+        
+    if ([self getAdDuration] != nil && [self getAdTitle] != nil && [self getAdResource] != nil
+        && !self.adsAdapter.flags.adInitiated) {
+        [self sendAdStart:params];
+    } else if (!self.adsAdapter.flags.adInitiated) {
+        [self sendAdInit:params];
+    }
 }
 
 - (void) adJoinListener:(NSDictionary<NSString *, NSString *> *) params {
+    if (self.adsAdapter.flags.adInitiated && !self.isAdStarted) {
+        [self sendAdStart:params];
+    }
     [self sendAdJoin:params];
 }
 
@@ -2147,6 +2296,9 @@
     //Required params
     mutParams[@"adDuration"] = @"0";
     mutParams[@"adPlayhead"] = @"0";
+    if (self.adsAdapter != nil) {
+        self.adsAdapter.flags.adInitiated = true;
+    }
     [self sendWithCallbacks:self.willSendAdInitListeners service:YouboraServiceAdInit andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
@@ -2159,6 +2311,7 @@
     mutParams[@"adNumber"] = realNumber;
     [self sendWithCallbacks:self.willSendAdStartListeners service:YouboraServiceAdStart andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdStart, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
+    self.isAdStarted = true;
 }
 
 - (void) sendAdJoin:(NSDictionary<NSString *, NSString *> *) params {
@@ -2194,6 +2347,7 @@
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     [self sendWithCallbacks:self.willSendAdStopListeners service:YouboraServiceAdStop andParams:mutParams];
     [YBLog notice:@"%@ %@ms", YouboraServiceAdStop, mutParams[@"adTotalDuration"]];
+    self.isAdStarted = false;
 }
 
 - (void) sendClick:(NSDictionary<NSString *, NSString *> *) params{
@@ -2207,7 +2361,7 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdError];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     [self sendWithCallbacks:self.willSendAdErrorListeners service:YouboraServiceAdError andParams:mutParams];
-    [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
+    [YBLog notice:@"%@ %@ s", YouboraServiceAdError, mutParams[@"errorCode"]];
 
 }
 

@@ -166,7 +166,12 @@
 /**
  * Secondary title of the media. This could be program name, season, episode, etc.
  */
-@property(nonatomic, strong) NSString * contentTitle2;
+@property(nonatomic, strong) NSString * contentTitle2 __deprecated_msg("Use program instead");
+
+/**
+ * Program title of the media. This could be program name, season, episode, etc.
+ */
+@property(nonatomic, strong) NSString * program;
 
 /**
  * Duration of the media <b>in seconds</b>.
@@ -285,151 +290,301 @@
 /**
  * Custom parameter 1.
  */
-@property(nonatomic, strong) NSString * extraparam1;
+@property(nonatomic, strong) NSString * extraparam1 __deprecated_msg("Use customDimension1 instead");
 
 /**
  * Custom parameter 2.
  */
-@property(nonatomic, strong) NSString * extraparam2;
+@property(nonatomic, strong) NSString * extraparam2 __deprecated_msg("Use customDimension2 instead");
 
 /**
  * Custom parameter 3.
  */
-@property(nonatomic, strong) NSString * extraparam3;
+@property(nonatomic, strong) NSString * extraparam3 __deprecated_msg("Use customDimension3 instead");
 
 /**
  * Custom parameter 4.
  */
-@property(nonatomic, strong) NSString * extraparam4;
+@property(nonatomic, strong) NSString * extraparam4 __deprecated_msg("Use customDimension4 instead");
 
 /**
  * Custom parameter 5.
  */
-@property(nonatomic, strong) NSString * extraparam5;
+@property(nonatomic, strong) NSString * extraparam5 __deprecated_msg("Use customDimension5 instead");
 
 /**
  * Custom parameter 6.
  */
-@property(nonatomic, strong) NSString * extraparam6;
+@property(nonatomic, strong) NSString * extraparam6 __deprecated_msg("Use customDimension6 instead");
 
 /**
  * Custom parameter 7.
  */
-@property(nonatomic, strong) NSString * extraparam7;
+@property(nonatomic, strong) NSString * extraparam7 __deprecated_msg("Use customDimension7 instead");
 
 /**
  * Custom parameter 8.
  */
-@property(nonatomic, strong) NSString * extraparam8;
+@property(nonatomic, strong) NSString * extraparam8 __deprecated_msg("Use customDimension8 instead");
 
 /**
  * Custom parameter 9.
  */
-@property(nonatomic, strong) NSString * extraparam9;
+@property(nonatomic, strong) NSString * extraparam9 __deprecated_msg("Use customDimension9 instead");
 
 /**
  * Custom parameter 10.
  */
-@property(nonatomic, strong) NSString * extraparam10;
+@property(nonatomic, strong) NSString * extraparam10 __deprecated_msg("Use customDimension10 instead");
 
 /**
  * Custom parameter 11.
  */
-@property(nonatomic, strong) NSString * extraparam11;
+@property(nonatomic, strong) NSString * extraparam11 __deprecated_msg("Use customDimension11 instead");
 
 /**
  * Custom parameter 12.
  */
-@property(nonatomic, strong) NSString * extraparam12;
+@property(nonatomic, strong) NSString * extraparam12 __deprecated_msg("Use customDimension12 instead");
 
 /**
  * Custom parameter 13.
  */
-@property(nonatomic, strong) NSString * extraparam13;
+@property(nonatomic, strong) NSString * extraparam13 __deprecated_msg("Use customDimension13 instead");
 
 /**
  * Custom parameter 14.
  */
-@property(nonatomic, strong) NSString * extraparam14;
+@property(nonatomic, strong) NSString * extraparam14 __deprecated_msg("Use customDimension14 instead");
 
 /**
  * Custom parameter 15.
  */
-@property(nonatomic, strong) NSString * extraparam15;
+@property(nonatomic, strong) NSString * extraparam15 __deprecated_msg("Use customDimension15 instead");
 
 /**
  * Custom parameter 16.
  */
-@property(nonatomic, strong) NSString * extraparam16;
+@property(nonatomic, strong) NSString * extraparam16 __deprecated_msg("Use customDimension16 instead");
 
 /**
  * Custom parameter 17.
  */
-@property(nonatomic, strong) NSString * extraparam17;
+@property(nonatomic, strong) NSString * extraparam17 __deprecated_msg("Use customDimension17 instead");
 
 /**
  * Custom parameter 18.
  */
-@property(nonatomic, strong) NSString * extraparam18;
+@property(nonatomic, strong) NSString * extraparam18 __deprecated_msg("Use customDimension18 instead");
 
 /**
  * Custom parameter 19.
  */
-@property(nonatomic, strong) NSString * extraparam19;
+@property(nonatomic, strong) NSString * extraparam19 __deprecated_msg("Use customDimension19 instead");
 
 /**
  * Custom parameter 20.
  */
-@property(nonatomic, strong) NSString * extraparam20;
+@property(nonatomic, strong) NSString * extraparam20 __deprecated_msg("Use customDimension20 instead");
 
 /**
  * Custom ad parameter 1.
  */
-@property(nonatomic, strong) NSString * adExtraparam1;
+@property(nonatomic, strong) NSString * adExtraparam1 __deprecated_msg("Use adCustomDimension1 instead");
 
 /**
  * Custom ad parameter 2.
  */
-@property(nonatomic, strong) NSString * adExtraparam2;
+@property(nonatomic, strong) NSString * adExtraparam2 __deprecated_msg("Use adCustomDimension2 instead");
 
 /**
  * Custom ad parameter 3.
  */
-@property(nonatomic, strong) NSString * adExtraparam3;
+@property(nonatomic, strong) NSString * adExtraparam3 __deprecated_msg("Use adCustomDimension3 instead");
 
 /**
  * Custom ad parameter 4.
  */
-@property(nonatomic, strong) NSString * adExtraparam4;
+@property(nonatomic, strong) NSString * adExtraparam4 __deprecated_msg("Use adCustomDimension4 instead");
 
 /**
  * Custom ad parameter 5.
  */
-@property(nonatomic, strong) NSString * adExtraparam5;
+@property(nonatomic, strong) NSString * adExtraparam5 __deprecated_msg("Use adCustomDimension5 instead");
 
 /**
  * Custom ad parameter 6.
  */
-@property(nonatomic, strong) NSString * adExtraparam6;
+@property(nonatomic, strong) NSString * adExtraparam6 __deprecated_msg("Use adCustomDimension6 instead");
 
 /**
  * Custom ad parameter 7.
  */
-@property(nonatomic, strong) NSString * adExtraparam7;
+@property(nonatomic, strong) NSString * adExtraparam7 __deprecated_msg("Use adCustomDimension7 instead");
 
 /**
  * Custom ad parameter 8.
  */
-@property(nonatomic, strong) NSString * adExtraparam8;
+@property(nonatomic, strong) NSString * adExtraparam8 __deprecated_msg("Use adCustomDimension8 instead");
 
 /**
  * Custom ad parameter 9.
  */
-@property(nonatomic, strong) NSString * adExtraparam9;
+@property(nonatomic, strong) NSString * adExtraparam9 __deprecated_msg("Use adCustomDimension9 instead");
 
 /**
  * Custom ad parameter 10.
  */
-@property(nonatomic, strong) NSString * adExtraparam10;
+@property(nonatomic, strong) NSString * adExtraparam10 __deprecated_msg("Use adCustomDimension10 instead");
+
+/**
+ * Custom dimension 1.
+ */
+@property(nonatomic, strong) NSString * customDimension1;
+
+/**
+ * Custom dimension 2.
+ */
+@property(nonatomic, strong) NSString * customDimension2;
+
+/**
+ * Custom dimension 3.
+ */
+@property(nonatomic, strong) NSString * customDimension3;
+
+/**
+ * Custom dimension 4.
+ */
+@property(nonatomic, strong) NSString * customDimension4;
+
+/**
+ * Custom dimension 5.
+ */
+@property(nonatomic, strong) NSString * customDimension5;
+
+/**
+ * Custom dimension 6.
+ */
+@property(nonatomic, strong) NSString * customDimension6;
+
+/**
+ * Custom dimension 7.
+ */
+@property(nonatomic, strong) NSString * customDimension7;
+
+/**
+ * Custom dimension 8.
+ */
+@property(nonatomic, strong) NSString * customDimension8;
+
+/**
+ * Custom dimension 9.
+ */
+@property(nonatomic, strong) NSString * customDimension9;
+
+/**
+ * Custom dimension 10.
+ */
+@property(nonatomic, strong) NSString * customDimension10;
+
+/**
+ * Custom dimension 11.
+ */
+@property(nonatomic, strong) NSString * customDimension11;
+
+/**
+ * Custom dimension 12.
+ */
+@property(nonatomic, strong) NSString * customDimension12;
+
+/**
+ * Custom dimension 13.
+ */
+@property(nonatomic, strong) NSString * customDimension13;
+
+/**
+ * Custom dimension 14.
+ */
+@property(nonatomic, strong) NSString * customDimension14;
+
+/**
+ * Custom dimension 15.
+ */
+@property(nonatomic, strong) NSString * customDimension15;
+
+/**
+ * Custom dimension 16.
+ */
+@property(nonatomic, strong) NSString * customDimension16;
+
+/**
+ * Custom dimension 17.
+ */
+@property(nonatomic, strong) NSString * customDimension17;
+
+/**
+ * Custom dimension 18.
+ */
+@property(nonatomic, strong) NSString * customDimension18;
+
+/**
+ * Custom dimension 19.
+ */
+@property(nonatomic, strong) NSString * customDimension19;
+
+/**
+ * Custom dimension 20.
+ */
+@property(nonatomic, strong) NSString * customDimension20;
+
+/**
+ * Custom ad dimension 1.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension1;
+
+/**
+ * Custom ad dimension 2.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension2;
+
+/**
+ * Custom ad dimension 3.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension3;
+
+/**
+ * Custom ad dimension 4.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension4;
+
+/**
+ * Custom ad dimension 5.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension5;
+
+/**
+ * Custom ad dimension 6.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension6;
+
+/**
+ * Custom ad dimension 7.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension7;
+
+/**
+ * Custom ad dimension 8.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension8;
+
+/**
+ * Custom ad dimension 9.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension9;
+
+/**
+ * Custom ad dimension 10.
+ */
+@property(nonatomic, strong) NSString * adCustomDimension10;
 
 @end
