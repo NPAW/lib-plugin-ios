@@ -13,15 +13,13 @@ install:
   - carthage update --platform ios,tvos
 
 script:
-  # Open simulator
-  # open -b com.apple.iphonesimulator
   # Build lib
   - xcodebuild clean build -scheme YouboraLib\ iOS
   # Run tests
-  - xcodebuild test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1'
+  - xcodebuild test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 
 after_success:
-  # bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
   - ruby scripts/createManifest.rb YouboraLib YouboraLib
   - ruby scripts/make_deployable.rb
   - ruby scripts/deploy_to_qa.rb
