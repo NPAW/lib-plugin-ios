@@ -289,7 +289,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         cdnDefinitions[YouboraCDNNameCloudfront] = cdnConfig;
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:@"AKAMAI"];
-        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementTypeAndHost headerName:@"X-Cache" andRegexPattern:@"(.+)\\sfrom\\s.+\\(.+\\/(.+)\\).*"]];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementTypeAndHost headerName:@"X-Cache" andRegexPattern:@"(.+)\\sfrom (.+?(?=.deploy.akamaitechnologies))"]];
         cdnConfig.requestHeaders = [[NSMutableDictionary alloc] initWithDictionary:@{@"Pragma": @"akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id,akamai-x-get-nonces,akamai-x-get-client-ip,akamai-x-feo-trace"}];
         cdnConfig.requestMethod = YouboraHTTPMethodGet;
         cdnConfig.typeParser = ^YBCdnType(NSString * type) {
