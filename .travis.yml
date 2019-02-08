@@ -16,7 +16,7 @@ script:
   # Build lib
   - xcodebuild clean build -scheme YouboraLib\ iOS
   # Run tests
-  - xcodebuild test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+  - xcodebuild test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1'
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
