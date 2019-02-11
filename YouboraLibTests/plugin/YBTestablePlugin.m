@@ -24,7 +24,6 @@
 #import "YBPlaybackChronos.h"
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
-#import "YBNqs6Transform.h"
 #import "YBPlayheadMonitor.h"
 
 #import <OCMockito/OCMockito.h>
@@ -89,13 +88,6 @@
         self.mockFlowTransform = mock([YBFlowTransform class]);
     }
     return self.mockFlowTransform;
-}
-
-- (YBNqs6Transform *) createNqs6Transform {
-    if (self.mockNqs6Transform == nil) {
-        self.mockNqs6Transform = mock([YBNqs6Transform class]);
-    }
-    return self.mockNqs6Transform;
 }
 
 @end

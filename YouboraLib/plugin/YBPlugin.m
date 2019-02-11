@@ -17,14 +17,13 @@
 #import "YBPlayerAdapter.h"
 #import "YBRequest.h"
 #import "YBCommunication.h"
-#import "YBConstants.h"
+#import "YBConstants.h" 
 #import "YBTimer.h"
 #import "YBYouboraUtils.h"
 #import "YBPlaybackFlags.h"
 #import "YBPlaybackChronos.h"
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
-#import "YBNqs6Transform.h"
 #import "YBPlayheadMonitor.h"
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
@@ -293,8 +292,12 @@
     [self fireStop];
 }
 
-- (void) fireStop{
-    [self fireStop:nil];
+- (void) fireStop {
+    if (self.adapter != nil) {
+        [self.adapter fireStop];
+    } else {
+        [self fireStop:nil];
+    }
 }
 
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params{
@@ -1377,6 +1380,21 @@
     return self.options.smartswitchContractCode;
 }
 
+- (NSString *) getAppName {
+    return self.options.appName;
+}
+
+- (NSString *) getAppReleaseVersion {
+    return self.options.appReleaseVersion;
+}
+
+- (NSString *) getFingerprint {
+    if (UIDevice.currentDevice.identifierForVendor) {
+        return UIDevice.currentDevice.identifierForVendor.UUIDString;
+    }
+    return nil;
+}
+
 // Add listeners
 - (void) addWillSendInitListener:(YBWillSendRequestBlock) listener {
     if (self.willSendInitListeners == nil)
@@ -1836,10 +1854,6 @@
     return [YBFlowTransform new];
 }
 
-- (YBNqs6Transform *) createNqs6Transform {
-    return [YBNqs6Transform new];
-}
-
 - (void) reset {
     [self stopPings];
     
@@ -1947,11 +1961,11 @@
         [self.comm addTransform:[self createFlowTransform]];
         
         [self.comm addTransform:self.resourceTransform];
-        [self.comm addTransform:[self createNqs6Transform]];
+        //[self.comm addTransform:[self createNqs6Transform]];
         
-        if(self.options.offline){
+        if (self.options.offline) {
             [self.comm addTransform:[self createOfflineTransform]];
-        }else{
+        } else {
             [self.comm addTransform:self.viewTransform];
         }
     }
