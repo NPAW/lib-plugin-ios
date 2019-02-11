@@ -1016,6 +1016,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getLanguage;
 
 /**
+ * Retruns vendor id
+ * @return Current vendor id
+ */
+- (nullable NSString *) getFingerprint;
+
+/**
  * Adds an Init listener
  * @param listener to add
  */

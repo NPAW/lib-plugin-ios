@@ -57,7 +57,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                         @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10"];
             
             youboraRequestParams = @{
-                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
+                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity", @"fingerprint"],
                        YouboraServiceInit:  startParams,
                        YouboraServiceStart: startParams,
                        YouboraServiceJoin:  @[@"joinDuration", @"playhead"],
@@ -411,6 +411,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getSmartSwitchGroupCode];
     } else if ([param isEqualToString:@"smartswitchContractCode"]) {
         value = [self.plugin getSmartSwitchContractCode];
+    } else if ([param isEqualToString:@"fingerprint"]) {
+        value = [self.plugin getFingerprint];
     }
     
     return value;

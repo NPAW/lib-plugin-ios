@@ -1377,6 +1377,13 @@
     return self.options.smartswitchContractCode;
 }
 
+- (NSString *) getFingerprint {
+    if (UIDevice.currentDevice.identifierForVendor) {
+        return UIDevice.currentDevice.identifierForVendor.UUIDString;
+    }
+    return nil;
+}
+
 // Add listeners
 - (void) addWillSendInitListener:(YBWillSendRequestBlock) listener {
     if (self.willSendInitListeners == nil)
