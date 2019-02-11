@@ -44,4 +44,9 @@
  */
 @property(nonatomic, strong) NSNumber * expirationTime;
 
+/**
+ * Youbora id used internally to identify every different device
+ */
+@property(nonatomic, strong) NSString * youboraId;
+
 @end

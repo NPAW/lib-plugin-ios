@@ -1,4 +1,12 @@
-## [6.3.4] - 
+##[6.3.5] - 2019-02-13
+###Added
+- Fingerprint parameter
+###Fixed
+- AKAMAI cdn parse should work as expected right now
+###Removed
+- NQS6 transform
+
+## [6.3.4] - 2019-02-06
 ###Added
 - Auto ad Init
 - Telefonica CDN
@@ -95,7 +103,6 @@
 - Ping log now shows params
 ###Fix
 - Household id getter now is set as nullable
-
 
 ##  [6.1.7] - 2018-05-04
 ###Added

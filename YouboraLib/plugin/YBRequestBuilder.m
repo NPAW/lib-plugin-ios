@@ -57,7 +57,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                         @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10"];
             
             youboraRequestParams = @{
-                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
+                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity", @"fingerprint"],
                        YouboraServiceInit:  startParams,
                        YouboraServiceStart: startParams,
                        YouboraServiceJoin:  @[@"joinDuration", @"playhead"],
@@ -415,6 +415,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAppName];
     } else if ([param isEqualToString:@"appReleaseVersion"]) {
         value = [self.plugin getAppReleaseVersion];
+    } else if ([param isEqualToString:@"fingerprint"]) {
+        value = [self.plugin getFingerprint];
     }
     
     return value;
