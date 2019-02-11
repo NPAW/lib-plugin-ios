@@ -69,6 +69,12 @@ typedef YBCdnType (^YBCdnTypeParserBlock) (NSString * type);
  */
 @property (nonatomic, copy, nullable) YBCdnTypeParserBlock typeParser;
 
+/**
+ * Request method to use when requesting for info on the CDN
+ * Default: HEAD
+ */
+@property (nonatomic, copy, nonnull) NSString * requestMethod;
+
 /// ---------------------------------
 /// @name Init
 /// ---------------------------------
