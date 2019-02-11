@@ -1,4 +1,4 @@
-## [6.3.4] - 
+## [6.3.4] - 2019-02-06
 ###Added
 - Auto ad Init
 - Telefonica CDN
