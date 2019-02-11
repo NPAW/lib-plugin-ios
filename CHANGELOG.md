@@ -1,13 +1,17 @@
+##[6.3.5] - 2019-02-13
+###Added
+- Fingerprint parameter
+###Fixed
+- AKAMAI cdn parse should work as expected right now
+
 ## [6.3.4] - 2019-02-06
 ###Added
 - Auto ad Init
 - Telefonica CDN
 - New getProgram method
 - New customDimensions method for content and ads
-- Fingerprint parameter
 ###Fixed
 - Correct time between retries
-- AKAMAI cdn parse should work as expected right now
 ###Deprecated
 - getTitle2
 - Extra params
