@@ -1380,6 +1380,14 @@
     return self.options.smartswitchContractCode;
 }
 
+- (NSString *) getAppName {
+    return self.options.appName;
+}
+
+- (NSString *) getAppReleaseVersion {
+    return self.options.appReleaseVersion;
+}
+
 - (NSString *) getFingerprint {
     if (UIDevice.currentDevice.identifierForVendor) {
         return UIDevice.currentDevice.identifierForVendor.UUIDString;

@@ -49,7 +49,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
                                       @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
                                       @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId", @"navContext", @"anonymousUser",
-                                      @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType"];
+                                      @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType", @"appName", @"appReleaseVersion"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -79,7 +79,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"],
                        
                        //Infinity
-                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo"],
+                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion"],
                        YouboraServiceSessionStop: @[@"accountCode"],
                        YouboraServiceSessionNav: @[@"username", @"navContext"],
                        YouboraServiceSessionBeat: @[],
@@ -411,6 +411,10 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getSmartSwitchGroupCode];
     } else if ([param isEqualToString:@"smartswitchContractCode"]) {
         value = [self.plugin getSmartSwitchContractCode];
+    } else if ([param isEqualToString:@"appName"]) {
+        value = [self.plugin getAppName];
+    } else if ([param isEqualToString:@"appReleaseVersion"]) {
+        value = [self.plugin getAppReleaseVersion];
     } else if ([param isEqualToString:@"fingerprint"]) {
         value = [self.plugin getFingerprint];
     }

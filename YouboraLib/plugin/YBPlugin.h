@@ -1016,6 +1016,18 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getLanguage;
 
 /**
+* Returns App name
+* @return App name
+*/
+- (NSString *) getAppName;
+
+/**
+ * Returns App release version
+ * @return App release version
+ */
+- (NSString *) getAppReleaseVersion;
+
+/**
  * Retruns vendor id
  * @return Current vendor id
  */
