@@ -156,6 +156,11 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
                 return;
             }
             
+            if(response != nil) {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                [YBLog debug:[NSString stringWithFormat:@"Response code for: %@ %ld",weakSelf.service, (long)httpResponse.statusCode]];
+            }
+            
             if (error == nil) {
                 [weakSelf didSucceedWithData:data andResponse:response];
             } else {
@@ -209,10 +214,10 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
     // Retry
     if (self.pendingAttempts > 0) {
         [YBLog warn:[NSString stringWithFormat:@"Request \"%@\" failed. Retry %d of %d in %dms.", self.service, (self.maxRetries + 1 - self.pendingAttempts), self.maxRetries, self.retryInterval]];
-        __weak typeof (self) weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            __strong typeof (weakSelf) strongSelf = weakSelf;
-            [strongSelf sendRequest];
+        //__weak typeof (self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+            //__strong typeof (weakSelf) strongSelf = weakSelf;
+            [self sendRequest];
         });
     } else {
         [YBLog error:[NSString stringWithFormat:@"Aborting failed request \"%@\". Max retries reached(%d)", self.service, self.maxRetries]];

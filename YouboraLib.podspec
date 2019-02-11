@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "YouboraLib"
-  s.version      = "6.1.7"
+  s.version      = "6.3.4"
 
   # Metadata
   s.summary      = "Library required by Youbora plugins"
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.author             = { "Nice People at Work" => "support@nicepeopleatwork.com" }
 
   # Platforms
-  s.ios.deployment_target = "8.0"
+  s.ios.deployment_target = "9.0"
   s.tvos.deployment_target = "9.0"
 
   # Source Location

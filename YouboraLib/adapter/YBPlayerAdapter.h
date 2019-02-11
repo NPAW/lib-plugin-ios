@@ -174,7 +174,13 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  *
  * @return the secondary title. It may be program name, episode, etc.
  */
-- (nullable NSString *) getTitle2;
+- (nullable NSString *) getTitle2 __deprecated_msg("Use getProgram instead");
+
+/** Override to return program
+ *
+ * @return program. It may be program name, episode, etc.
+ */
+- (nullable NSString *) getProgram;
 
 /** Override to recurn true if live and false if VOD
  *
@@ -237,6 +243,34 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * @return housohold player id
  */
 - (NSString *) getHouseholdId;
+
+/**
+ * Override to return current CDN traffic
+ *
+ * @return current CDN traffic
+ */
+-(NSNumber *) getCdnTraffic;
+
+/**
+ * Override to return current P2P traffic
+ *
+ * @return current P2P traffic
+ */
+-(NSNumber *) getP2PTraffic;
+
+/**
+ * Override to return current upload traffic
+ *
+ * @return current upload traffic
+ */
+-(NSNumber *) getUploadTraffic;
+
+/**
+ * Override to return if p2p mode is enabled
+ *
+ * @return current p2p state
+ */
+-(NSValue *) getIsP2PEnabled;
 
 /// ---------------------------------
 /// @name Flow methods
@@ -396,13 +430,13 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 /**
  * Shortcut for <fireAllAdsCompleted:> with {@code params = null}.
  */
-- (void)fireAllAdsCompleted;
+- (void)fireAllAdsCompleted __deprecated_msg("This method is going to be removed on future releases");
 
 /**
  * Let the plugin know that all ads have been played
  * @param params params to add to the request. If it is null default values will be added.
  */
-- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params;
+- (void)fireAllAdsCompleted:(nullable NSDictionary<NSString *, NSString *> *) params __deprecated_msg("This method is going to be removed on future releases");
 /**
  * Basic error handler. msg, code, errorMetadata and level params can be included in the params
  * argument.

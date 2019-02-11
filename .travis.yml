@@ -3,7 +3,7 @@ branches:
   - master
 
 language: objective-c
-osx_image: xcode8.3
+osx_image: xcode10.1
 
 before_install:
   - brew update
@@ -13,12 +13,10 @@ install:
   - carthage update --platform ios,tvos
 
 script:
-  # Open simulator
-  - open -b com.apple.iphonesimulator
   # Build lib
   - xcodebuild clean build -scheme YouboraLib\ iOS
   # Run tests
-  - xcodebuild test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone SE,OS=10.3.1' GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+  - xcodebuild test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1'
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
@@ -32,4 +30,4 @@ after_failure:
   - cat -n ~/Library/Logs/DiagnosticReports/xctest*.crash
 
 env:
-  - QA_KNOWN_HOSTS="qa-smartplugin.youbora.com,81.171.21.12 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM6lBT/mNpS5Sl2GtOiZiWsMr1XB+tluRmakhEyjPtOjQRjbP4Z/D9+yK0Iy5v99pecazEDuigHh5BZ2v3zWYUw="
+  - QA_KNOWN_HOSTS="qa-smartplugin.youbora.com,212.32.252.199 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM6lBT/mNpS5Sl2GtOiZiWsMr1XB+tluRmakhEyjPtOjQRjbP4Z/D9+yK0Iy5v99pecazEDuigHh5BZ2v3zWYUw="

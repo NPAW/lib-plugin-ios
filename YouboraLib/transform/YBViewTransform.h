@@ -65,6 +65,11 @@ NS_ASSUME_NONNULL_BEGIN;
  */
 - (void)parse:(nullable YBRequest *)request;
 
+/**
+ * Method to get current timestamp
+ */
+- (NSString *) getViewCodeTimeStamp;
+
 @end
 
 NS_ASSUME_NONNULL_END;

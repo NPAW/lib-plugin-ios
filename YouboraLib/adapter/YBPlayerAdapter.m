@@ -134,6 +134,10 @@
     return nil;
 }
 
+- (NSString *)getProgram {
+    return nil;
+}
+
 - (NSValue *)getIsLive {
     return nil;
 }
@@ -171,6 +175,22 @@
 }
 
 - (NSString *) getHouseholdId {
+    return nil;
+}
+
+-(NSNumber *) getCdnTraffic {
+    return nil;
+}
+
+-(NSNumber *) getP2PTraffic {
+    return nil;
+}
+
+-(NSNumber *) getUploadTraffic {
+    return nil;
+}
+
+-(NSValue *) getIsP2PEnabled {
     return nil;
 }
 

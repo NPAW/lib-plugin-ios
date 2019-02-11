@@ -18,6 +18,7 @@ NSString * const YouboraCDNNameAkamai =     @"Akamai";
 NSString * const YouboraCDNNameHighwinds =  @"Highwinds";
 NSString * const YouboraCDNNameFastly =     @"Fastly";
 NSString * const YouboraCDNNameBalancer =   @"Balancer";
+NSString * const YouboraCDNNameTelefonica = @"Telefonica";
 
 @interface YBCdnParser()
 
@@ -93,7 +94,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
 - (void) requestResponse:(NSString *) url {
     YBRequest * r = [self createRequestWithHost:url andService:nil];
     
-    r.method = YouboraHTTPMethodHead;
+    r.method = self.cdnConfig.requestMethod;
     r.requestHeaders = self.cdnConfig.requestHeaders;
     r.maxRetries = 0;
     
@@ -254,6 +255,22 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         };
         cdnDefinitions[YouboraCDNNameLevel3] = cdnConfig;
         
+        cdnConfig = [[YBCdnConfig alloc] initWithCode:@"TELEFO"];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHostAndType headerName:@"x-tcdn" andRegexPattern:@"Host:(.+)\\sType:(.+)"]];
+        cdnConfig.requestHeaders[@"x-tcdn"] = @"host";
+        cdnConfig.typeParser = ^YBCdnType(NSString * type) {
+            if ([type rangeOfString:@"p"].location != NSNotFound ||
+                [type rangeOfString:@"c"].location != NSNotFound) {
+                return YBCdnTypeHit;
+            }
+            if ([type rangeOfString:@"i"].location != NSNotFound ||
+                [type rangeOfString:@"m"].location != NSNotFound) {
+                return YBCdnTypeMiss;
+            }
+            return YBCdnTypeUnknown;
+        };
+        cdnDefinitions[YouboraCDNNameTelefonica] = cdnConfig;
+        
         cdnConfig = [[YBCdnConfig alloc] initWithCode:@"CLOUDFRT"];
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHost headerName:@"X-Amz-Cf-Id" andRegexPattern:@"(.+)"]];
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementType headerName:@"X-Cache" andRegexPattern:@"(\\S+)\\s.+"]];
@@ -272,7 +289,9 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         cdnDefinitions[YouboraCDNNameCloudfront] = cdnConfig;
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:@"AKAMAI"];
-        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementTypeAndHost headerName:@"X-Cache" andRegexPattern:@"(.+)\\sfrom\\s.+\\(.+\\/(.+)\\).*"]];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementTypeAndHost headerName:@"X-Cache" andRegexPattern:@"(.+)\\sfrom (.+?(?=.deploy.akamaitechnologies))"]];
+        cdnConfig.requestHeaders = [[NSMutableDictionary alloc] initWithDictionary:@{@"Pragma": @"akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id,akamai-x-get-nonces,akamai-x-get-client-ip,akamai-x-feo-trace"}];
+        cdnConfig.requestMethod = YouboraHTTPMethodGet;
         cdnConfig.typeParser = ^YBCdnType(NSString * type) {
             
             if ([@"TCP_HIT" isEqualToString:type]) {

@@ -33,4 +33,20 @@
  */
 @property(nonatomic, strong) NSNumber * pingTime;
 
+/**
+ * Beat time: how often should beats be reported. This is a per-account configurable
+ * although 99% of the time this is 30 seconds.
+ */
+@property(nonatomic, strong) NSNumber * beatTime;
+
+/**
+ * The maximum time (in seconds) is going to last without expiring and sending session start again
+ */
+@property(nonatomic, strong) NSNumber * expirationTime;
+
+/**
+ * Youbora id used internally to identify every different device
+ */
+@property(nonatomic, strong) NSString * youboraId;
+
 @end

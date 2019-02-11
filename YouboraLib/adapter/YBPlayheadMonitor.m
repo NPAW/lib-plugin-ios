@@ -91,6 +91,11 @@ double const YB_SEEK_THRESHOLD_RATIO = 2.0;
     // Define thresholds
     double bufferThreshold = deltaTime * YB_BUFFER_THRESHOLD_RATIO;
     double seekThreshold = deltaTime * YB_SEEK_THRESHOLD_RATIO;
+
+    if ([self.adapter getPlayrate] != nil && [[self.adapter getPlayrate] doubleValue] != 0.0 && [[self.adapter getPlayrate] doubleValue] != 1.0) {
+        bufferThreshold = bufferThreshold * [[self.adapter getPlayrate] doubleValue];
+        seekThreshold = seekThreshold * [[self.adapter getPlayrate] doubleValue];
+    }
     
     // Calculate diff playhead
     NSNumber * playhead = [self getPlayhead];

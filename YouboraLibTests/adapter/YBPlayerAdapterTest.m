@@ -87,7 +87,7 @@
     XCTAssertNil([adapter getThroughput]);
     XCTAssertNil([adapter getRendition]);
     XCTAssertNil([adapter getTitle]);
-    XCTAssertNil([adapter getTitle2]);
+    XCTAssertNil([adapter getProgram]);
     XCTAssertNil([adapter getIsLive]);
     XCTAssertNil([adapter getResource]);
     XCTAssertNil([adapter getPlayerVersion]);

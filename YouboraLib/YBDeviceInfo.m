@@ -8,13 +8,29 @@
 
 #import "YBDeviceInfo.h"
 
+#import "YBLog.h"
+
 #import <sys/utsname.h>
 #import <UIKit/UIKit.h>
 
+@interface YBDeviceInfo()
+
+@end
+
 @implementation YBDeviceInfo
 
-+ (NSString*) getModel{
-    
+- (instancetype) init {
+    self = [super init];
+    if (self) {
+        self.deviceModel = [self getAppleDeviceModel];
+        self.deviceBrand = @"Apple";
+        self.deviceOsVersion = [UIDevice currentDevice].systemVersion;
+    }
+    return self;
+}
+
+// Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
+- (NSString*) getAppleDeviceModel{
     struct utsname systemInfo;
     
     uname(&systemInfo);
@@ -65,6 +81,10 @@
                               @"iPhone10,5": @"iPhone 8 Plus",     // GSM
                               @"iPhone10,3": @"iPhone X",          // CDMA
                               @"iPhone10,6": @"iPhone X",          // GSM
+                              @"iPhone11,2": @"iPhone XS",         //
+                              @"iPhone11,4": @"iPhone XS Max",     //
+                              @"iPhone11,6": @"iPhone XS Max",     // China
+                              @"iPhone11,8": @"iPhone XR",
                               
                               @"iPad4,1"   : @"iPad Air",          // 5th Generation iPad (iPad Air) - Wifi
                               @"iPad4,2"   : @"iPad Air",          // 5th Generation iPad (iPad Air) - Cellular
@@ -74,7 +94,10 @@
                               @"iPad6,7"   : @"iPad Pro (12.9\")", // iPad Pro 12.9 inches - (model A1584)
                               @"iPad6,8"   : @"iPad Pro (12.9\")", // iPad Pro 12.9 inches - (model A1652)
                               @"iPad6,3"   : @"iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (model A1673)
-                              @"iPad6,4"   : @"iPad Pro (9.7\")"   // iPad Pro 9.7 inches - (models A1674 and A1675)
+                              @"iPad6,4"   : @"iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (models A1674 and A1675)
+                              
+                              @"AppleTV5,3": @"Apple TV 4G",       // AppleTV 4G
+                              @"AppleTV6,2": @"Apple TV 4K"        // AppleTV 4K
                               };
     }
     
@@ -91,6 +114,8 @@
         }
         else if([code rangeOfString:@"iPhone"].location != NSNotFound){
             deviceName = @"iPhone";
+        } else if ([code rangeOfString:@"AppleTV"].location != NSNotFound) {
+            deviceName = @"Apple TV";
         }
         else {
             deviceName = @"Unknown";
@@ -99,32 +124,74 @@
     
     return deviceName;
 }
-+ (NSString*) getOSVersion{
-    return [UIDevice currentDevice].systemVersion;
-}
-+ (NSString*) getBrand{
-    return @"Apple"; //Hardcoded since it's always apple made
-}
 
-+ (NSString*) mapToJSONString{
-    NSError *error;
+- (NSString*) mapToJSONString{
     
-    NSDictionary *deviceInfo = @{
-                                 @"model": [YBDeviceInfo getModel],
-                                 @"osversion": [YBDeviceInfo getOSVersion],
-                                 @"brand": [YBDeviceInfo getBrand]
-                                 };
+     NSError *error;
     
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:deviceInfo
+    NSDictionary* jsonObject = [self getDeviceParameters];
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     
-    if (! jsonData) {
-        NSLog(@"Unable to generate device JSON");
+    if (!jsonData) {
+        [YBLog error:@"Unable to generate device JSON"];
         return nil;
-    } else {
-        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+- (NSDictionary*) getDeviceParameters {
+    NSMutableDictionary * deviceDict = [[NSMutableDictionary alloc] init];
+    
+    if (self.deviceModel != nil)
+        deviceDict[@"model"] = self.deviceModel;
+    else
+        deviceDict[@"model"] = [self getAppleDeviceModel];
+    
+    if (self.deviceOsVersion != nil)
+        deviceDict[@"osVersion"] = self.deviceOsVersion;
+    else
+        deviceDict[@"osVersion"] = [UIDevice currentDevice].systemVersion;
+    
+    if (self.deviceBrand != nil)
+        deviceDict[@"brand"] = self.deviceBrand;
+    else
+        deviceDict[@"brand"] = @"Apple";
+    
+    if (self.deviceType != nil)
+        deviceDict[@"deviceType"] = self.deviceType;
+    
+    if (self.deviceCode != nil)
+        deviceDict[@"deviceCode"] = self.deviceCode;
+    
+    if (self.deviceOsName != nil)
+        deviceDict[@"osName"] = self.deviceOsName;
+    
+    if (self.deviceBrowserName != nil)
+        deviceDict[@"browserName"] = self.deviceBrowserName;
+    else
+        deviceDict[@"browserName"] = @"";
+    
+    if (self.deviceBrowserVersion != nil)
+        deviceDict[@"browserVersion"] = self.deviceBrowserVersion;
+    else
+        deviceDict[@"browserVersion"] = @"";
+    
+    if (self.deviceBrowserType != nil)
+        deviceDict[@"browserType"] = self.deviceBrowserType;
+    else
+        deviceDict[@"browserType"] = @"";
+    
+    if (self.deviceBrowserEngine != nil)
+        deviceDict[@"browserEngine"] = self.deviceBrowserEngine;
+    else
+        deviceDict[@"browserEngine"] = @"";
+    
+    return deviceDict;
+        
 }
 
 
