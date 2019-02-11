@@ -336,7 +336,7 @@
 - (void)testAkamai {
     YBCdnParser * parser = [YBCdnParser createWithName:YouboraCDNNameAkamai];
     
-    NSDictionary * responses = @{@{}:@{@"X-Cache":@"TCP_HIT from a(a/HOST123)"}};
+    NSDictionary * responses = @{@{@"Pragma":@"akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id,akamai-x-get-nonces,akamai-x-get-client-ip,akamai-x-feo-trace"}:@{@"X-Cache":@"TCP_HIT from HOST123.deploy.akamaitechnologies.com (a/288) (D)"}};
     
     [parser parseWithUrl:@"resource" andPreviousResponses:responses];
     
