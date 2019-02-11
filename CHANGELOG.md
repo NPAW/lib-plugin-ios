@@ -4,6 +4,8 @@
 - Account code on all requests
 ###Fixed
 - AKAMAI cdn parse should work as expected right now
+###Improved
+-Infinity url parameters are not send anymore if false
 ###Removed
 - NQS6 transform
 

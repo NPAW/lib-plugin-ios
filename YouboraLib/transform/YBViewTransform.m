@@ -91,12 +91,14 @@
         params[@"code"] = self.viewCode;
     }
     
-    if (params[@"sessionRoot"] == nil) {
-        params[@"sessionRoot"] = self.fastDataConfig.code;
-    }
-    
-    if (params[@"sessionId"] == nil) {
-        params[@"sessionId"] = self.fastDataConfig.code;
+    if ([self.plugin getIsInfinity] != nil && [[self.plugin getIsInfinity] isEqual:@YES]) {
+        if (params[@"sessionRoot"] == nil) {
+            params[@"sessionRoot"] = self.fastDataConfig.code;
+        }
+        
+        if (params[@"sessionId"] == nil) {
+            params[@"sessionId"] = self.fastDataConfig.code;
+        }
     }
     
     if (self.plugin.options.accountCode != nil) {
@@ -112,7 +114,7 @@
             params[@"pingTime"] = self.fastDataConfig.pingTime.stringValue;
         }
         
-        if (params[@"sessionParent"] == nil) {
+        if (params[@"sessionParent"] == nil && [self.plugin getIsInfinity] != nil && [[self.plugin getIsInfinity] isEqual:@YES]) {
             params[@"sessionParent"] = self.fastDataConfig.code;
         }
     }
