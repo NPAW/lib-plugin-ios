@@ -1,6 +1,7 @@
-##[6.3.5] - 2019-02-13
+## [6.3.5] - 2019-02-13
 ###Added
 - Fingerprint parameter
+- Account code on all requests
 ###Fixed
 - AKAMAI cdn parse should work as expected right now
 ###Removed
