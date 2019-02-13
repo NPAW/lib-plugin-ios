@@ -29,7 +29,6 @@
 #import "YBPlaybackChronos.h"
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
-#import "YBNqs6Transform.h"
 #import "YBPlayheadMonitor.h"
 
 @interface YBPluginTest : XCTestCase
@@ -1299,6 +1298,67 @@
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
     [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+}
+
+- (void)testStop {
+    stubProperty(self.mockOptions, enabled, @YES);
+    [self.p removeAdapter];
+    
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
+    
+    [self.p fireInit];
+    [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
+    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [self.p fireStop];
+    [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
+    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceStop];
+}
+
+- (void) testStopNotSentTwice {
+    stubProperty(self.mockOptions, enabled, @YES);
+    [self.p removeAdapter];
+    
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
+    
+    [self.p fireInit];
+    [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
+    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    
+    [self.p fireStop];
+    [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
+    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceStop];
+    
+    [self.p fireStop];
+    [verifyCount(self.p.mockRequest, times(0)) setHost:anything()];
+    [verifyCount(self.p.mockRequest, times(0)) setService:YouboraServiceStop];
+}
+
+- (void) testStopCalledWithoutInit {
+    static BOOL stopCalled = false;
+    
+    stubProperty(self.mockOptions, enabled, @YES);
+    [self.p removeAdapter];
+    
+    YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
+        stopCalled = true;
+    };
+    
+    [self.p addWillSendStopListener:listener];
+    [self.p fireStop];
+    [self.p removeWillSendStopListener:listener];
+    XCTAssertFalse(stopCalled);
+}
+
+- (void) testStopWhenAdapterNotNull{
+    stubProperty(self.mockOptions, enabled, @YES);
+    //we don't want to mock adapter for this test
+    [self.p setAdapter:[YBPlayerAdapter new]];
+    id<YBPlayerAdapterEventDelegate> mockDelegate = mockProtocol(@protocol(YBPlayerAdapterEventDelegate));
+    
+    [self.p.adapter addYouboraAdapterDelegate:mockDelegate];
+    [self.p.adapter fireStart];
+    [self.p.adapter fireStop];
+    [verify(mockDelegate) youboraAdapterEventStop:anything() fromAdapter:self.p.adapter];
 }
 
 - (void) testWillForceInit {

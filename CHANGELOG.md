@@ -1,9 +1,21 @@
+## [6.3.5] - 2019-02-13
+###Added
+- Fingerprint parameter
+- Account code on all requests
+###Fixed
+- AKAMAI cdn parse should work as expected right now
+###Improved
+-Infinity url parameters are not send anymore if false
+###Removed
+- NQS6 transform
+
 ## [6.3.4] - 2019-02-06
 ###Added
 - Auto ad Init
 - Telefonica CDN
 - New getProgram method
 - New customDimensions method for content and ads
+- App name and App release version options
 ###Fixed
 - Correct time between retries
 ###Deprecated
@@ -94,7 +106,6 @@
 - Ping log now shows params
 ###Fix
 - Household id getter now is set as nullable
-
 
 ##  [6.1.7] - 2018-05-04
 ###Added

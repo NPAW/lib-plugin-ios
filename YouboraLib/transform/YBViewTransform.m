@@ -91,12 +91,18 @@
         params[@"code"] = self.viewCode;
     }
     
-    if (params[@"sessionRoot"] == nil) {
-        params[@"sessionRoot"] = self.fastDataConfig.code;
+    if ([self.plugin getIsInfinity] != nil && [[self.plugin getIsInfinity] isEqual:@YES]) {
+        if (params[@"sessionRoot"] == nil) {
+            params[@"sessionRoot"] = self.fastDataConfig.code;
+        }
+        
+        if (params[@"sessionId"] == nil) {
+            params[@"sessionId"] = self.fastDataConfig.code;
+        }
     }
     
-    if (params[@"sessionId"] == nil) {
-        params[@"sessionId"] = self.fastDataConfig.code;
+    if (self.plugin.options.accountCode != nil) {
+        params[@"accountCode"] = self.plugin.options.accountCode;
     }
     
     // Request-specific transforms
@@ -108,7 +114,7 @@
             params[@"pingTime"] = self.fastDataConfig.pingTime.stringValue;
         }
         
-        if (params[@"sessionParent"] == nil) {
+        if (params[@"sessionParent"] == nil && [self.plugin getIsInfinity] != nil && [[self.plugin getIsInfinity] isEqual:@YES]) {
             params[@"sessionParent"] = self.fastDataConfig.code;
         }
     }
@@ -133,6 +139,13 @@
         if ([params[@"code"] isEqualToString:self.viewCode]) {
             params[@"code"] = self.fastDataConfig.code;
         }
+    }
+    
+    if ((service == YouboraServiceStart
+         || service == YouboraServiceInit
+         || service == YouboraServiceSessionStart)
+        && self.fastDataConfig.youboraId != nil) {
+        params[@"youboraId"] = self.fastDataConfig.youboraId;
     }
     
 }
@@ -193,10 +206,15 @@
         NSString * pt = q[@"pt"];
         NSString * bt = @"";
         NSString * exp = @"";
+        NSString * yid = nil;
 
         if (q[@"i"] != nil) {
             bt = q[@"i"][@"bt"];
             exp = q[@"i"][@"exp"];
+        }
+        
+        if (q[@"f"] != nil && q[@"f"][@"yid"]) {
+            yid = q[@"f"][@"yid"];
         }
 
         if (host.length > 0 && code.length > 0 && pt.length > 0) {
@@ -208,6 +226,7 @@
             strongSelf.fastDataConfig.pingTime = @(pt.intValue);
             strongSelf.fastDataConfig.beatTime = bt.length > 0 ? @(bt.intValue) : @(30);
             strongSelf.fastDataConfig.expirationTime = exp.length > 0 ? @(exp.intValue) : @(300);
+            strongSelf.fastDataConfig.youboraId = yid;
             
             [strongSelf buildCode];
             
