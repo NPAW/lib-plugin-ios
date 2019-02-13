@@ -2,6 +2,7 @@
 ###Added
 - Fingerprint parameter
 - Account code on all requests
+- AdError is sent if happens before init or start
 ###Fixed
 - AKAMAI cdn parse should work as expected right now
 ###Improved
