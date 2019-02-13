@@ -2054,6 +2054,14 @@
     } else if(!self.isInitiated) {
         [self fireInitWithParams:params];
     }
+    
+    if (self.adErrorMessage != nil && self.adErrorCode != nil) {
+        if (self.adsAdapter != nil) {
+            [self.adsAdapter fireFatalErrorWithMessage:self.adErrorMessage code:self.adErrorCode andMetadata:nil];
+            self.adErrorMessage = nil;
+            self.adErrorCode = nil;
+        }
+    }
 }
 
 - (void) joinListener:(NSDictionary<NSString *, NSString *> *) params {
@@ -2383,7 +2391,8 @@
 
 - (void) sendAdError:(NSDictionary<NSString *, NSString *> *) params{
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdError];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    NSString* realNumber = self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
+    mutParams[@"adNumber"] = realNumber;
     [self sendWithCallbacks:self.willSendAdErrorListeners service:YouboraServiceAdError andParams:mutParams];
     [YBLog notice:@"%@ %@ s", YouboraServiceAdError, mutParams[@"errorCode"]];
 
