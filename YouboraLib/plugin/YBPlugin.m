@@ -86,6 +86,10 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionEventListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionBeatListeners;
 
+// Ad error variables
+@property(nonatomic, strong) NSString * adErrorCode;
+@property(nonatomic, strong) NSString * adErrorMessage;
+
 @end
 
 @implementation YBPlugin
@@ -267,6 +271,15 @@
         [self.iinitChrono start];
         
         [self sendInit:params];
+        
+        if (self.adErrorMessage != nil && self.adErrorCode != nil) {
+            if (self.adsAdapter != nil) {
+                [self.adsAdapter fireFatalErrorWithMessage:self.adErrorMessage code:self.adErrorCode andMetadata:nil];
+                self.adErrorMessage = nil;
+                self.adErrorCode = nil;
+            }
+        }
+        
     }
     //TODO: check why this no added
     //[self startResourceParsing];
@@ -1862,6 +1875,10 @@
     self.isPreloading = false;
     self.isStarted = false;
     self.isAdStarted = false;
+    
+    self.adErrorCode = nil;
+    self.adErrorMessage = nil;
+    
     [self.preloadChrono reset];
     [self.iinitChrono reset];
 }
@@ -2051,6 +2068,14 @@
     } else if(!self.isInitiated) {
         [self fireInitWithParams:params];
     }
+    
+    if (self.adErrorMessage != nil && self.adErrorCode != nil) {
+        if (self.adsAdapter != nil) {
+            [self.adsAdapter fireFatalErrorWithMessage:self.adErrorMessage code:self.adErrorCode andMetadata:nil];
+            self.adErrorMessage = nil;
+            self.adErrorCode = nil;
+        }
+    }
 }
 
 - (void) joinListener:(NSDictionary<NSString *, NSString *> *) params {
@@ -2231,7 +2256,12 @@
 }
 
 - (void) adErrorListener:(NSDictionary<NSString *,NSString *>*) params{
-    [self sendAdError:params];
+    if (!self.isInitiated && !self.isStarted) {
+        self.adErrorCode = params[@"errorCode"];
+        self.adErrorMessage = params[@"errorMsg"];
+    } else {
+        [self sendAdError:params];
+    }
 }
 
 // Send methods
@@ -2375,7 +2405,8 @@
 
 - (void) sendAdError:(NSDictionary<NSString *, NSString *> *) params{
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdError];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    NSString* realNumber = self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
+    mutParams[@"adNumber"] = realNumber;
     [self sendWithCallbacks:self.willSendAdErrorListeners service:YouboraServiceAdError andParams:mutParams];
     [YBLog notice:@"%@ %@ s", YouboraServiceAdError, mutParams[@"errorCode"]];
 
