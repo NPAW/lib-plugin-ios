@@ -292,4 +292,8 @@
     self.appReleaseVersion = nil;
 }
 
+- (void)setExtraParam1:(NSString *)extraparam1{
+    self.customDimension1 = extraparam1;
+}
+
 @end

@@ -290,7 +290,7 @@
 /**
  * Custom parameter 1.
  */
-@property(nonatomic, strong) NSString * extraparam1 __deprecated_msg("Use customDimension1 instead");
+@property(nonatomic, strong, setter=setExtraParam1:) NSString * extraparam1 __deprecated_msg("Use customDimension1 instead");
 
 /**
  * Custom parameter 2.
