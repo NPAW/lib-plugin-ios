@@ -292,8 +292,128 @@
     self.appReleaseVersion = nil;
 }
 
-- (void)setExtraParam1:(NSString *)extraparam1{
+- (void) setContentTitle2:(NSString *)contentTitle2 {
+    self.program = contentTitle2;
+}
+
+- (void) setExtraParam1:(NSString *)extraparam1 {
     self.customDimension1 = extraparam1;
+}
+
+- (void) setExtraParam2:(NSString *)extraparam2 {
+    self.customDimension2 = extraparam2;
+}
+
+- (void) setExtraParam3:(NSString *)extraparam3 {
+    self.customDimension3 = extraparam3;
+}
+
+- (void) setExtraParam4:(NSString *)extraparam4 {
+    self.customDimension4 = extraparam4;
+}
+
+- (void) setExtraParam5:(NSString *)extraparam5 {
+    self.customDimension5 = extraparam5;
+}
+
+- (void) setExtraParam6:(NSString *)extraparam6 {
+    self.customDimension6 = extraparam6;
+}
+
+- (void) setExtraParam7:(NSString *)extraparam7 {
+    self.customDimension7 = extraparam7;
+}
+
+- (void) setExtraParam8:(NSString *)extraparam8 {
+    self.customDimension8 = extraparam8;
+}
+
+- (void) setExtraParam9:(NSString *)extraparam9 {
+    self.customDimension9 = extraparam9;
+}
+
+- (void) setExtraParam10:(NSString *)extraparam10 {
+    self.customDimension10 = extraparam10;
+}
+
+- (void) setExtraParam11:(NSString *)extraparam11 {
+    self.customDimension11 = extraparam11;
+}
+
+- (void) setExtraParam12:(NSString *)extraparam12 {
+    self.customDimension12 = extraparam12;
+}
+
+- (void) setExtraParam13:(NSString *)extraparam13 {
+    self.customDimension13 = extraparam13;
+}
+
+- (void) setExtraParam14:(NSString *)extraparam14 {
+    self.customDimension14 = extraparam14;
+}
+
+- (void) setExtraParam15:(NSString *)extraparam15 {
+    self.customDimension15 = extraparam15;
+}
+
+- (void) setExtraParam16:(NSString *)extraparam16 {
+    self.customDimension16 = extraparam16;
+}
+
+- (void) setExtraParam17:(NSString *)extraparam17 {
+    self.customDimension17 = extraparam17;
+}
+
+- (void) setExtraParam18:(NSString *)extraparam18 {
+    self.customDimension18 = extraparam18;
+}
+
+- (void) setExtraParam19:(NSString *)extraparam19 {
+    self.customDimension19 = extraparam19;
+}
+
+- (void) setExtraParam20:(NSString *)extraparam20 {
+    self.customDimension20 = extraparam20;
+}
+
+- (void) setAdExtraParam1:(NSString *)adExtraparam1 {
+    self.adCustomDimension1 = adExtraparam1;
+}
+
+- (void) setAdExtraParam2:(NSString *)adExtraparam2 {
+    self.adCustomDimension2 = adExtraparam2;
+}
+
+- (void) setAdExtraParam3:(NSString *)adExtraparam3 {
+    self.adCustomDimension3 = adExtraparam3;
+}
+
+- (void) setAdExtraParam4:(NSString *)adExtraparam4 {
+    self.adCustomDimension4 = adExtraparam4;
+}
+
+- (void) setAdExtraParam5:(NSString *)adExtraparam5 {
+    self.adCustomDimension5 = adExtraparam5;
+}
+
+- (void) setAdExtraParam6:(NSString *)adExtraparam6 {
+    self.adCustomDimension6 = adExtraparam6;
+}
+
+- (void) setAdExtraParam7:(NSString *)adExtraparam7 {
+    self.adCustomDimension7 = adExtraparam7;
+}
+
+- (void) setAdExtraParam8:(NSString *)adExtraparam8 {
+    self.adCustomDimension8 = adExtraparam8;
+}
+
+- (void) setAdExtraParam9:(NSString *)adExtraparam9 {
+    self.adCustomDimension9 = adExtraparam9;
+}
+
+- (void) setAdExtraParam10:(NSString *)adExtraparam10 {
+    self.adCustomDimension10 = adExtraparam10;
 }
 
 @end
