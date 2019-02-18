@@ -1,3 +1,7 @@
+## [6.3.6] -
+###Fixed
+- If using extraparamN they were not sent, now they are
+
 ## [6.3.5] - 2019-02-13
 ###Added
 - Fingerprint parameter
@@ -6,7 +10,7 @@
 ###Fixed
 - AKAMAI cdn parse should work as expected right now
 ###Improved
--Infinity url parameters are not send anymore if false
+- Infinity url parameters are not send anymore if false
 ###Removed
 - NQS6 transform
 
