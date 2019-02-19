@@ -91,10 +91,11 @@
         params[@"code"] = self.viewCode;
     }
     
+    if (params[@"sessionRoot"] == nil) {
+        params[@"sessionRoot"] = self.fastDataConfig.code;
+    }
+    
     if ([self.plugin getIsInfinity] != nil && [[self.plugin getIsInfinity] isEqual:@YES]) {
-        if (params[@"sessionRoot"] == nil) {
-            params[@"sessionRoot"] = self.fastDataConfig.code;
-        }
         
         if (params[@"sessionId"] == nil) {
             params[@"sessionId"] = self.fastDataConfig.code;
