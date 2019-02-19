@@ -1,3 +1,7 @@
+## [6.3.7] - 
+###Added
+- sessionRoot parameter is back for ALL requests
+
 ## [6.3.6] - 2019-02-18
 ###Fixed
 - If using extraparamN they were not sent, now they are
