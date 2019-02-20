@@ -1,4 +1,4 @@
-## [6.3.7] - 
+## [6.3.7] - 2019-02-20
 ###Added
 - sessionRoot parameter is back for ALL requests
 
