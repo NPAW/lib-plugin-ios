@@ -92,6 +92,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         }
         
         [components setQueryItems:queryItems];
+        components.percentEncodedQuery = [[components.percentEncodedQuery stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"] stringByReplacingOccurrencesOfString:@"%20" withString:@"+"];
     }
     
     return components.URL;
