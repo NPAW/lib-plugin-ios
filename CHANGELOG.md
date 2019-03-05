@@ -1,3 +1,7 @@
+## [6.3.8] - 
+###Fixed
+- Plus sign '+' is now sent correctly on any given parameter of the url
+
 ## [6.3.7] - 2019-02-20
 ###Added
 - sessionRoot parameter is back for ALL requests
