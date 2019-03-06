@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "YouboraLib"
-  s.version      = "6.3.7"
+  s.version      = "6.3.8"
 
   # Metadata
   s.summary      = "Library required by Youbora plugins"

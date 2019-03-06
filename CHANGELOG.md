@@ -1,4 +1,4 @@
-## [6.3.8] - 
+## [6.3.8] - 2019-03-06
 ###Fixed
 - Plus sign '+' is now sent correctly on any given parameter of the url
 
