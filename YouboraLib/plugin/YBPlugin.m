@@ -306,7 +306,7 @@
 }
 
 - (void) fireStop {
-    if (self.adapter != nil) {
+    if (self.adapter != nil && self.adapter.flags.started) {
         [self.adapter fireStop];
     } else {
         [self fireStop:nil];

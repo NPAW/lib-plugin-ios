@@ -1,3 +1,7 @@
+## [6.3.9] - 2019-03-07
+###Fixed
+- Plugin now stops in case of error between /init and /start
+
 ## [6.3.8] - 2019-03-06
 ###Fixed
 - Plus sign '+' is now sent correctly on any given parameter of the url
