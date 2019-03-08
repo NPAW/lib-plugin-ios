@@ -29,7 +29,6 @@ open class YBChrono: NSObject, NSCopying {
      * Returns the current time in milliseconds
      * @returns the current time in milliseconds
      */
-    //+ (long long) getNow;
     @objc public var now: Int64 {
         get {
             return Int64(round(Date().timeIntervalSince1970 * 1000))
@@ -60,6 +59,7 @@ open class YBChrono: NSObject, NSCopying {
      * Same as calling <getDeltaTime:> with stop = false
      * @returns the elapsed time in ms since the start call.
      */
+    //TODO: Remove when there is no trace of objc
     @objc public func getDeltaTime() -> Int64 {
         return getDeltaTime(true)
     }
