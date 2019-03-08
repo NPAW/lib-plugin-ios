@@ -12,7 +12,7 @@ import Foundation
  * Utility class that provides chronometer like functionality.
  * Used to calculate the elapsed time between <start> and <stop> calls.
  */
-class YBChrono: NSObject, NSCopying {
+open class YBChrono: NSObject, NSCopying {
     /// ---------------------------------
     /// @name Public properties
     /// ---------------------------------
@@ -44,7 +44,7 @@ class YBChrono: NSObject, NSCopying {
      * @param stop If true, it will force a stop if it wasn't sent before.
      * @return Time lapse in ms or -1 if start was not called.
      */
-    @objc func getDeltaTime(_ stop: Bool) -> Int64 {
+    @objc public func getDeltaTime(_ stop: Bool) -> Int64 {
         if (self.startTime <= 0) {
             return -1
         }
@@ -60,14 +60,14 @@ class YBChrono: NSObject, NSCopying {
      * Same as calling <getDeltaTime:> with stop = false
      * @returns the elapsed time in ms since the start call.
      */
-    @objc func getDeltaTime() -> Int64 {
+    @objc public func getDeltaTime() -> Int64 {
         return getDeltaTime(true)
     }
     
     /**
      * Starts timing
      */
-    @objc func start() -> Void {
+    @objc public func start() -> Void {
         self.startTime = YBChrono().now
         self.stopTime = 0
     }
@@ -76,7 +76,7 @@ class YBChrono: NSObject, NSCopying {
      * Stop the timer and returns the difference since it <start>ed
      * @returns the difference since it <start>ed
      */
-    @objc func stop() -> Int64 {
+    @objc @discardableResult public func stop() -> Int64 {
         self.stopTime = YBChrono().now
         return getDeltaTime(false)
     }
@@ -84,13 +84,13 @@ class YBChrono: NSObject, NSCopying {
     /**
      * Reset the Chrono to its initial state.
      */
-    @objc func reset() -> Void {
+    @objc public func reset() -> Void {
         self.startTime = 0
         self.stopTime = 0
         self.offset = 0
     }
     
-    func copy(with zone: NSZone? = nil) -> Any {
+    @objc public func copy(with zone: NSZone? = nil) -> Any {
         let c = YBChrono()
         c.startTime = self.startTime
         c.stopTime = self.stopTime
