@@ -7,7 +7,8 @@
 //
 
 #import "YBPlaybackChronos.h"
-#import "YBChrono.h"
+
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @implementation YBPlaybackChronos
 
