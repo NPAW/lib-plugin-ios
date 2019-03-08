@@ -1,3 +1,7 @@
+## [6.3.10] - 
+###Ported
+- YBChrono has been ported to Swift
+
 ## [6.3.9] - 2019-03-07
 ###Fixed
 - Plugin now stops in case of error between /init and /start
