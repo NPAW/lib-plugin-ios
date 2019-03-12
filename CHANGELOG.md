@@ -1,4 +1,4 @@
-## [6.3.10] - 
+## [6.3.10] - 2019-03-13
 ###Ported
 - YBChrono has been ported to Swift
 
