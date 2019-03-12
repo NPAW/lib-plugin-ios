@@ -34,7 +34,6 @@
 		4E4956131E9F4F2600FF6280 /* YBOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5E535D1E7C4C3C00966C7B /* YBOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E4956141E9F4F2600FF6280 /* YBPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E7CBCB01E826C6F00FF7D7A /* YBPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E4956151E9F4F2600FF6280 /* YBRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2817101E85121A00F450C1 /* YBRequestBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E4956161E9F4F2600FF6280 /* YBChrono.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EC7F39C1E795FC5004E8CE5 /* YBChrono.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E4956171E9F4F2600FF6280 /* YBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF293881E7AA524008B0A99 /* YBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E4956181E9F4F2600FF6280 /* YBTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF2937C1E79A33B008B0A99 /* YBTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E4956191E9F4F2600FF6280 /* YBLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF293841E7A92E7008B0A99 /* YBLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,7 +57,6 @@
 		4E49562B1E9F4F5300FF6280 /* YBOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E535E1E7C4C3C00966C7B /* YBOptions.m */; };
 		4E49562C1E9F4F5300FF6280 /* YBPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CBCB11E826C6F00FF7D7A /* YBPlugin.m */; };
 		4E49562D1E9F4F5300FF6280 /* YBRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2817111E85121A00F450C1 /* YBRequestBuilder.m */; };
-		4E49562E1E9F4F5300FF6280 /* YBChrono.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F39D1E795FC5004E8CE5 /* YBChrono.m */; };
 		4E49562F1E9F4F5300FF6280 /* YBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF293891E7AA524008B0A99 /* YBConstants.m */; };
 		4E4956301E9F4F5300FF6280 /* YBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2937D1E79A33B008B0A99 /* YBTimer.m */; };
 		4E4956311E9F4F5300FF6280 /* YBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF293851E7A92E7008B0A99 /* YBLog.m */; };
@@ -150,8 +148,6 @@
 		4EA275001EA7649D00D5329C /* YBNqs6TransformTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA274FE1EA7649D00D5329C /* YBNqs6TransformTest.m */; };
 		4EAC2D171E8A70F000946EC5 /* YBPluginTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D161E8A70F000946EC5 /* YBPluginTest.m */; };
 		4EAC2D1E1E8A729100946EC5 /* YBTestablePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D1D1E8A729100946EC5 /* YBTestablePlugin.m */; };
-		4EC7F39E1E795FC5004E8CE5 /* YBChrono.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EC7F39C1E795FC5004E8CE5 /* YBChrono.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4EC7F39F1E795FC5004E8CE5 /* YBChrono.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F39D1E795FC5004E8CE5 /* YBChrono.m */; };
 		4EC7F3A21E797DF6004E8CE5 /* YBChronoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F3A11E797DF6004E8CE5 /* YBChronoTest.m */; };
 		4ECFCC5C1E95446800E07785 /* YBCdnParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC561E95446800E07785 /* YBCdnParserTest.m */; };
 		4ECFCC5D1E95446800E07785 /* YBParseHlsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC571E95446800E07785 /* YBParseHlsTest.m */; };
@@ -193,6 +189,8 @@
 		CD9373872104ECBC00C75E3A /* YBInfinityFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9373832104ECBC00C75E3A /* YBInfinityFlags.m */; };
 		CD9373AE21062C0300C75E3A /* YBTimestampLastSentTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9373AD21062C0300C75E3A /* YBTimestampLastSentTransform.m */; };
 		CD9373AF21062C0300C75E3A /* YBTimestampLastSentTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9373AD21062C0300C75E3A /* YBTimestampLastSentTransform.m */; };
+		CDA9FD832231F01E00CD72E5 /* YBChrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA9FD822231F01E00CD72E5 /* YBChrono.swift */; };
+		CDA9FD842231F02500CD72E5 /* YBChrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA9FD822231F01E00CD72E5 /* YBChrono.swift */; };
 		CDBE2A50200F5E310034A660 /* YBOfflineTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = CDBE2A4E200F5E310034A660 /* YBOfflineTransform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDBE2A51200F5E310034A660 /* YBOfflineTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = CDBE2A4E200F5E310034A660 /* YBOfflineTransform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDBE2A52200F5E310034A660 /* YBOfflineTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBE2A4F200F5E310034A660 /* YBOfflineTransform.m */; };
@@ -314,8 +312,6 @@
 		4EAC2D161E8A70F000946EC5 /* YBPluginTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = YBPluginTest.m; path = plugin/YBPluginTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4EAC2D1C1E8A729100946EC5 /* YBTestablePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBTestablePlugin.h; path = plugin/YBTestablePlugin.h; sourceTree = "<group>"; };
 		4EAC2D1D1E8A729100946EC5 /* YBTestablePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTestablePlugin.m; path = plugin/YBTestablePlugin.m; sourceTree = "<group>"; };
-		4EC7F39C1E795FC5004E8CE5 /* YBChrono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBChrono.h; sourceTree = "<group>"; };
-		4EC7F39D1E795FC5004E8CE5 /* YBChrono.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBChrono.m; sourceTree = "<group>"; };
 		4EC7F3A11E797DF6004E8CE5 /* YBChronoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBChronoTest.m; sourceTree = "<group>"; };
 		4ECFCC561E95446800E07785 /* YBCdnParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBCdnParserTest.m; path = comm/transform/resourceparse/YBCdnParserTest.m; sourceTree = "<group>"; };
 		4ECFCC571E95446800E07785 /* YBParseHlsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBParseHlsTest.m; path = comm/transform/resourceparse/YBParseHlsTest.m; sourceTree = "<group>"; };
@@ -354,6 +350,7 @@
 		CD9373822104ECBC00C75E3A /* YBInfinityFlags.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBInfinityFlags.h; sourceTree = "<group>"; };
 		CD9373832104ECBC00C75E3A /* YBInfinityFlags.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBInfinityFlags.m; sourceTree = "<group>"; };
 		CD9373AD21062C0300C75E3A /* YBTimestampLastSentTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTimestampLastSentTransform.m; path = YouboraLib/transform/infinity/YBTimestampLastSentTransform.m; sourceTree = SOURCE_ROOT; };
+		CDA9FD822231F01E00CD72E5 /* YBChrono.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBChrono.swift; sourceTree = "<group>"; };
 		CDBE2A4E200F5E310034A660 /* YBOfflineTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YBOfflineTransform.h; path = transform/YBOfflineTransform.h; sourceTree = "<group>"; };
 		CDBE2A4F200F5E310034A660 /* YBOfflineTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YBOfflineTransform.m; path = transform/YBOfflineTransform.m; sourceTree = "<group>"; };
 		CDD3882D2109C63F00C027FF /* YBInfinityTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBInfinityTest.m; sourceTree = "<group>"; };
@@ -437,8 +434,7 @@
 				4EF293901E7AB55C008B0A99 /* comm */,
 				4E5E53611E7C4C4000966C7B /* plugin */,
 				CD93549D20068487003A0797 /* persistence */,
-				4EC7F39C1E795FC5004E8CE5 /* YBChrono.h */,
-				4EC7F39D1E795FC5004E8CE5 /* YBChrono.m */,
+				CDA9FD822231F01E00CD72E5 /* YBChrono.swift */,
 				4EF293881E7AA524008B0A99 /* YBConstants.h */,
 				4EF293891E7AA524008B0A99 /* YBConstants.m */,
 				4EF2937C1E79A33B008B0A99 /* YBTimer.h */,
@@ -751,7 +747,6 @@
 				4E5E535F1E7C4C3C00966C7B /* YBOptions.h in Headers */,
 				4E5E539C1E81316400966C7B /* YBPlayheadMonitor.h in Headers */,
 				4E5B8F8F1E89717800171D47 /* YBNqs6Transform.h in Headers */,
-				4EC7F39E1E795FC5004E8CE5 /* YBChrono.h in Headers */,
 				4E9C7BB61E8E6D3B00E10631 /* YBCdnConfig.h in Headers */,
 				4E28171B1E85373F00F450C1 /* YBResourceTransform.h in Headers */,
 				4E5E536D1E7FD5ED00966C7B /* YBTransform.h in Headers */,
@@ -807,7 +802,6 @@
 				4E4956131E9F4F2600FF6280 /* YBOptions.h in Headers */,
 				4E4956141E9F4F2600FF6280 /* YBPlugin.h in Headers */,
 				4E4956151E9F4F2600FF6280 /* YBRequestBuilder.h in Headers */,
-				4E4956161E9F4F2600FF6280 /* YBChrono.h in Headers */,
 				4E4956171E9F4F2600FF6280 /* YBConstants.h in Headers */,
 				4E4956181E9F4F2600FF6280 /* YBTimer.h in Headers */,
 				CDBE2A51200F5E310034A660 /* YBOfflineTransform.h in Headers */,
@@ -916,6 +910,7 @@
 					4E5E11AF1E7841BF0097FA21 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = DAR8GLKRWU;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 					4E5E11B81E7841C00097FA21 = {
@@ -1040,7 +1035,6 @@
 				4E9C7BC51E8E6D9D00E10631 /* YBHlsParser.m in Sources */,
 				CDFEAF1520FF6F7400C59B67 /* YBInfinityLocalManager.m in Sources */,
 				CDFEAF1E2100E0C600C59B67 /* YBInfinity.m in Sources */,
-				4EC7F39F1E795FC5004E8CE5 /* YBChrono.m in Sources */,
 				CDBE2A52200F5E310034A660 /* YBOfflineTransform.m in Sources */,
 				4E5E53991E8039DB00966C7B /* YBPlayerAdapter.m in Sources */,
 				4E7CBCC01E82D78800FF7D7A /* YBFastDataConfig.m in Sources */,
@@ -1057,6 +1051,7 @@
 				CD414470200DF56E00783B65 /* YBAppDatabase.m in Sources */,
 				4E7CBCBC1E82D64400FF7D7A /* YBViewTransform.m in Sources */,
 				4E5E53931E80303700966C7B /* YBPlaybackFlags.m in Sources */,
+				CDA9FD832231F01E00CD72E5 /* YBChrono.swift in Sources */,
 				CD9354B320076F19003A0797 /* YBEventDataSource.m in Sources */,
 				CD9354A720075175003A0797 /* YBEvent.m in Sources */,
 			);
@@ -1133,9 +1128,9 @@
 				4E49562C1E9F4F5300FF6280 /* YBPlugin.m in Sources */,
 				4E49562D1E9F4F5300FF6280 /* YBRequestBuilder.m in Sources */,
 				CD9373872104ECBC00C75E3A /* YBInfinityFlags.m in Sources */,
-				4E49562E1E9F4F5300FF6280 /* YBChrono.m in Sources */,
 				4E49562F1E9F4F5300FF6280 /* YBConstants.m in Sources */,
 				4E4956301E9F4F5300FF6280 /* YBTimer.m in Sources */,
+				CDA9FD842231F02500CD72E5 /* YBChrono.swift in Sources */,
 				4E4956311E9F4F5300FF6280 /* YBLog.m in Sources */,
 				4E4956321E9F4F5300FF6280 /* YBYouboraUtils.m in Sources */,
 			);
@@ -1242,6 +1237,9 @@
 				OTHER_LDFLAGS = "-DSQLITE_THREADSAFE=1";
 				PRODUCT_MODULE_NAME = YouboraLib;
 				SDKROOT = iphoneos;
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1291,6 +1289,9 @@
 				OTHER_LDFLAGS = "-DSQLITE_THREADSAFE=1";
 				PRODUCT_MODULE_NAME = YouboraLib;
 				SDKROOT = iphoneos;
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VALIDATE_PRODUCT = YES;
@@ -1304,6 +1305,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
@@ -1318,6 +1320,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1325,6 +1330,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
@@ -1339,12 +1345,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(inherited)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
 		4E5E11C81E7841C00097FA21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1361,6 +1370,7 @@
 		4E5E11C91E7841C00097FA21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1392,6 +1402,7 @@
 				PRODUCT_NAME = YouboraLib;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -1415,6 +1426,7 @@
 				PRODUCT_NAME = YouboraLib;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -1423,6 +1435,7 @@
 		4E7D080A1E9E0EFE0079F187 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1441,6 +1454,7 @@
 		4E7D080B1E9E0EFE0079F187 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
 				FRAMEWORK_SEARCH_PATHS = (

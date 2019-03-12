@@ -11,12 +11,13 @@
 
 #import "YBPlaybackFlags.h"
 #import "YBPlaybackChronos.h"
-#import "YBChrono.h"
 #import "YBPlayheadMonitor.h"
 #import "YBLog.h"
 #import "YBYouboraUtils.h"
 #import "YBPlugin.h"
 #import "YBOptions.h"
+
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBPlayerAdapter()
 

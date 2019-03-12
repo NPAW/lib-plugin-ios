@@ -7,8 +7,9 @@
 //
 
 #import "YBTestablePlayheadMonitor.h"
-#import "YBChrono.h"
 #import "YBTimer.h"
+
+#import "YouboraLib/YouboraLib-Swift.h"
 
 #import <OCMockito/OCMockito.h>
 

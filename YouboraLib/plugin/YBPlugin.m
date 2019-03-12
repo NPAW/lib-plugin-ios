@@ -9,7 +9,6 @@
 #import "YBPlugin.h"
 
 #import "YBRequestBuilder.h"
-#import "YBChrono.h"
 #import "YBOptions.h"
 #import "YBLog.h"
 #import "YBViewTransform.h"
@@ -32,6 +31,8 @@
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
+
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBPlugin()
 
@@ -1856,7 +1857,7 @@
 }
 
 - (BOOL) isSessionExpired {
-    return [[self getInfinity] getLastSent] != nil && [[[self getInfinity] getLastSent] longLongValue] + [self.viewTransform.fastDataConfig.expirationTime longLongValue] * 1000 < [YBChrono getNow];
+    return [[self getInfinity] getLastSent] != nil && [[[self getInfinity] getLastSent] longLongValue] + [self.viewTransform.fastDataConfig.expirationTime longLongValue] * 1000 < [[[YBChrono alloc] init] now];
 }
 
 - (YBCommunication *) createCommunication {
@@ -2029,7 +2030,7 @@
     }
     if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
         if ([self getInfinity].flags.started) {
-            long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+            long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
             [self sendBeat:time];
             [self stopBeats];
         }
@@ -2039,7 +2040,7 @@
 - (void) eventListenerDidReceiveToFore: (NSNotification*)uselessNotification {
     if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
         if ([self getInfinity].flags.started && ![self isSessionExpired]) {
-            long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+            long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
             [self sendBeat:time];
             [self startBeats];
         } else {
@@ -2225,7 +2226,7 @@
     // Remove time from joinDuration, "delaying" the start time
     
     if (!(self.adapter != nil && self.adapter.flags.joined) && self.adsAdapter != nil) {
-        long long now = [YBChrono getNow];
+        long long now = [[[YBChrono alloc] init] now];
         //YBChrono* realJoinChrono = self.isInitiated ? self.iinitChrono : self.adapter.chronos.join;
         YBChrono* realJoinChrono = self.iinitChrono;
         
@@ -2431,7 +2432,7 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionNav];
     [self sendWithCallbacks:self.willSendSessionNavListeners service:YouboraServiceSessionNav andParams:mutParams];
     if (self.beatTimer != nil) {
-        long long time = [YBChrono getNow] - self.beatTimer.chrono.startTime;
+        long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
         [self sendBeat:time];
         [self.beatTimer.chrono setStartTime:time];
     }

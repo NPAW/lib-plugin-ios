@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://bitbucket.org/npaw/lib-plugin-ios.git', :tag => s.version}
 
   # Source files
-  s.source_files  = 'YouboraLib/**/*.{h,m}'
+  s.source_files  = 'YouboraLib/**/*.{swift,h,m}'
   s.public_header_files = "YouboraLib/**/*.h"
 
   # Project settings

@@ -11,7 +11,8 @@
 #import "YBTestablePlayheadMonitor.h"
 #import "YBPlayerAdapter.h"
 #import "YBPlaybackFlags.h"
-#import "YBChrono.h"
+
+#import "YouboraLib/YouboraLib-Swift.h"
 
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
