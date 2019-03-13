@@ -34,6 +34,7 @@
         self.parseCdnNameHeader = [decoder decodeObjectForKey:@"parseCdnNameHeader"];
         self.parseCdnNode = [[decoder decodeObjectForKey:@"parseCdnNode"] isEqualToValue:@YES];
         self.parseCdnNodeList = [decoder decodeObjectForKey:@"parseCdnNodeList"];
+        self.parseLocationHeader = [[decoder decodeObjectForKey:@"parseLocationHeader"] isEqualToValue:@YES];
         self.experimentIds = [decoder decodeObjectForKey:@"experiments"];
         self.networkIP = [decoder decodeObjectForKey:@"networkIP"];
         self.networkIsp = [decoder decodeObjectForKey:@"networkIsp"];
@@ -119,6 +120,7 @@
     [coder encodeObject:self.parseCdnNameHeader forKey:@"parseCdnNameHeader"];
     [coder encodeObject:@(self.parseCdnNode) forKey:@"parseCdnNode"];
     [coder encodeObject:self.parseCdnNodeList forKey:@"parseCdnNodeList"];
+    [coder encodeObject:@(self.parseLocationHeader) forKey:@"parseLocationHeader"];
     [coder encodeObject:self.experimentIds forKey:@"experiments"];
     [coder encodeObject:self.networkIP forKey:@"networkIP"];
     [coder encodeObject:self.networkIsp forKey:@"networkIsp"];
@@ -202,6 +204,7 @@
     self.anonymousUser = nil;
     
     self.parseHls = false;
+    self.parseLocationHeader = false;
     self.parseCdnNameHeader = @"x-cdn-forward";
     self.parseCdnNode = false;
     // TODO: Node list constants

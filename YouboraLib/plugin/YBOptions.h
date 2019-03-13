@@ -63,6 +63,13 @@
 @property(nonatomic, assign) bool parseHls;
 
 /**
+ * If true the plugin will parse the resource to try and find out the real given resource instead of the API url
+ * It might slow performance down.
+ * Default: false
+ */
+@property(nonatomic, assign) bool parseLocationHeader;
+
+/**
  * If defined, resource parse will try to fetch the CDN code from the custom header defined
  * by this property, e.g. "x-cdn-forward"
  */
