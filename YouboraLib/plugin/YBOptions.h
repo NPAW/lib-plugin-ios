@@ -21,6 +21,109 @@
 /// @name Public properties
 /// ---------------------------------
 
+/// Option keys
+extern NSString * const YBOPTIONS_KEY_ENABLED;
+extern NSString * const YBOPTIONS_KEY_HTTP_SECURE;
+extern NSString * const YBOPTIONS_KEY_HOST;
+extern NSString * const YBOPTIONS_KEY_ACCOUNT_CODE;
+extern NSString * const YBOPTIONS_KEY_USERNAME;
+extern NSString * const YBOPTIONS_KEY_ANONYMOUS_USER;
+extern NSString * const YBOPTIONS_KEY_OFFLINE;
+extern NSString * const YBOPTIONS_KEY_IS_INFINITY;
+extern NSString * const YBOPTIONS_KEY_BACKGROUND;
+extern NSString * const YBOPTIONS_KEY_AUTOSTART;
+extern NSString * const YBOPTIONS_KEY_FORCEINIT;
+extern NSString * const YBOPTIONS_KEY_USER_TYPE;
+extern NSString * const YBOPTIONS_KEY_EXPERIMENT_IDS;
+extern NSString * const YBOPTIONS_KEY_SS_CONFIG_CODE;
+extern NSString * const YBOPTIONS_KEY_SS_GROUP_CODE;
+extern NSString * const YBOPTIONS_KEY_SS_CONTRACT_CODE;
+
+extern NSString * const YBOPTIONS_KEY_PARSE_HLS;
+extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER;
+extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE;
+extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE_LIST;
+
+extern NSString * const YBOPTIONS_KEY_NETWORK_IP;
+extern NSString * const YBOPTIONS_KEY_NETWORK_ISP;
+extern NSString * const YBOPTIONS_KEY_NETWORK_CONNECTION_TYPE;
+extern NSString * const YBOPTIONS_KEY_NETWORK_OBFUSCATE_IP;
+
+extern NSString * const YBOPTIONS_KEY_DEVICE_CODE;
+extern NSString * const YBOPTIONS_KEY_DEVICE_MODEL;
+extern NSString * const YBOPTIONS_KEY_DEVICE_BRAND;
+extern NSString * const YBOPTIONS_KEY_DEVICE_TYPE;
+extern NSString * const YBOPTIONS_KEY_DEVICE_NAME;
+extern NSString * const YBOPTIONS_KEY_DEVICE_OS_NAME;
+extern NSString * const YBOPTIONS_KEY_DEVICE_OS_VERSION;
+
+extern NSString * const YBOPTIONS_KEY_CONTENT_RESOURCE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_IS_LIVE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_TITLE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_PROGRAM;
+extern NSString * const YBOPTIONS_KEY_CONTENT_DURATION;
+extern NSString * const YBOPTIONS_KEY_CONTENT_TRANSACTION_CODE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_BITRATE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_THROUGHPUT;
+extern NSString * const YBOPTIONS_KEY_CONTENT_RENDITION;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CDN;
+extern NSString * const YBOPTIONS_KEY_CONTENT_FPS;
+extern NSString * const YBOPTIONS_KEY_CONTENT_STREAMING_PROTOCOL;
+extern NSString * const YBOPTIONS_KEY_CONTENT_METADATA;
+extern NSString * const YBOPTIONS_KEY_CONTENT_METRICS;
+extern NSString * const YBOPTIONS_KEY_CONTENT_IS_LIVE_NO_SEEK;
+
+extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
+
+extern NSString * const YBOPTIONS_KEY_AD_METADATA;
+extern NSString * const YBOPTIONS_KEY_AD_IGNORE;
+extern NSString * const YBOPTIONS_KEY_ADS_AFTERSTOP;
+extern NSString * const YBOPTIONS_KEY_AD_CAMPAIGN;
+extern NSString * const YBOPTIONS_KEY_AD_TITLE;
+extern NSString * const YBOPTIONS_KEY_AD_RESOURCE;
+
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_1;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_2;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_3;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_4;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_5;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_6;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_7;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_8;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_9;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_10;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_11;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_12;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_13;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_14;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_15;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_16;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_17;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_18;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_19;
+extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_20;
+
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_1;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_2;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_3;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_4;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_5;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_6;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_7;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_8;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_9;
+extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_10;
+
+extern NSString * const YBOPTIONS_KEY_APP_NAME;
+extern NSString * const YBOPTIONS_KEY_APP_RELEASE_VERSION;
+
+extern NSString * const YBOPTIONS_KEY_WAIT_METADATA;
+extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
+
+/// Public methods
+- (NSDictionary *) toDictionary;
+
+/// Options
 /**
  * If enabled the plugin won't send NQS requests.
  * Default: true
@@ -605,6 +708,6 @@
 /**
  * Which parameters will make the start to be delayed
  */
-@property(nonatomic, strong) NSArray * pendingMetadata;
+@property(nonatomic, strong) NSArray<NSString *> * pendingMetadata;
 
 @end
