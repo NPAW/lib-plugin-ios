@@ -221,7 +221,7 @@
 }
 
 - (void)fireStart:(nullable NSDictionary<NSString *,NSString *> *)params {
-    if (!self.flags.started) {
+    if (!self.flags.started || (self.plugin != nil && !self.plugin.isStarted)) {
         self.flags.started = true;
         
         
