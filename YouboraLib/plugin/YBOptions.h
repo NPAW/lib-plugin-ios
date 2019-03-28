@@ -597,4 +597,14 @@
  */
 @property(nonatomic, strong) NSString * appReleaseVersion;
 
+/**
+ * Wait metadata flag
+ */
+@property(nonatomic, assign) BOOL waitForMetadata;
+
+/**
+ * Which parameters will make the start to be delayed
+ */
+@property(nonatomic, strong) NSArray * pendingMetadata;
+
 @end

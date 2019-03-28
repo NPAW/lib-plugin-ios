@@ -104,6 +104,8 @@
         self.adCustomDimension10 = [decoder decodeObjectForKey:@"adCustomDimension10"];
         self.appName = [decoder decodeObjectForKey:@"appName"];
         self.appReleaseVersion = [decoder decodeObjectForKey:@"appReleaseVersion"];
+        self.waitForMetadata = [[decoder decodeObjectForKey:@"waitForMetadata"] isEqualToValue:@NO];
+        self.pendingMetadata = [decoder decodeObjectForKey:@"pendingMetadata"];
     }
     return self;
 }
@@ -190,6 +192,8 @@
     [coder encodeObject:self.adCustomDimension10 forKey:@"adCustomDimension10"];
     [coder encodeObject:self.appName forKey:@"appName"];
     [coder encodeObject:self.appReleaseVersion forKey:@"appReleaseVersion"];
+    [coder encodeObject:self.waitForMetadata forKey:@"waitForMetadata"];
+    [coder encodeObject:self.pendingMetadata forKey:@"pendingMetadata"];
 }
 
 - (void) defaultValues {
@@ -290,6 +294,9 @@
     
     self.appName = nil;
     self.appReleaseVersion = nil;
+    
+    self.waitForMetadata = false;
+    self.pendingMetadata = [[NSArray alloc] init];
 }
 
 - (void) setContentTitle2:(NSString *)contentTitle2 {
