@@ -47,7 +47,6 @@
 // Private properties
 @property(nonatomic, assign) bool isInitiated;
 @property(nonatomic, assign) bool isPreloading;
-@property(nonatomic, assign) bool isStarted;
 @property(nonatomic, assign) bool isAdStarted;
 @property(nonatomic, strong) YBChrono * preloadChrono;
 @property(nonatomic, strong) YBChrono * iinitChrono;
@@ -123,6 +122,10 @@
         __weak typeof(self) weakSelf = self;
         self.pingTimer = [self createTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             [weakSelf sendPing:diffTime];
+            //We "use" the ping timer to check if any metadata was missing too
+            if ([weakSelf isExtraMetadataReady]) {
+                [weakSelf startListener:nil];
+            }
         } andInterval:5000];
         
         self.beatTimer = [self createBeatTimerWithCallback:^(YBTimer *timer, long long diffTime) {
@@ -2054,7 +2057,7 @@
 }
 // Listener methods
 - (void) startListener:(NSDictionary<NSString *, NSString *> *) params {
-    if (!self.isInitiated || [YouboraServiceError isEqualToString:self.lastServiceSent]) {
+    if ((!self.isInitiated && !self.isStarted) || [YouboraServiceError isEqualToString:self.lastServiceSent]) {
         [self.viewTransform nextView];
         [self initComm];
         [self startPings];
@@ -2062,9 +2065,13 @@
     
     [self startResourceParsing];
     
+    if (self.isInitiated && self.adapter.flags.joined && !self.isStarted && [self isExtraMetadataReady]) {
+        [self sendStart:params];
+    }
+    
     if (!self.isInitiated && !self.options.forceInit && [self getTitle] != nil
         && [self getResource] != nil && [self getIsLive] != nil
-        && [self isLiveOrNotNullDuration]) {
+        && [self isLiveOrNotNullDuration] && !self.isStarted && [self isExtraMetadataReady]) {
         [self sendStart:params];
     } else if(!self.isInitiated) {
         [self fireInitWithParams:params];
@@ -2081,7 +2088,7 @@
 
 - (void) joinListener:(NSDictionary<NSString *, NSString *> *) params {
     if (self.adsAdapter == nil || !self.adsAdapter.flags.started) {
-        if(self.isInitiated && !self.isStarted) {
+        if(self.isInitiated && !self.isStarted && !self.options.waitForMetadata) {
             if (self.adapter.flags.started == false)
                 [self.adapter fireStart];
             else
@@ -2714,6 +2721,20 @@
                                              selector:@selector(eventListenerDidReceiveToFore:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
+}
+
+- (BOOL) isExtraMetadataReady {
+    NSDictionary *dictOpts = [self.options toDictionary];
+    
+    if (self.options.pendingMetadata != nil && self.options.waitForMetadata) {
+        NSArray *pendingMetadataKeys = self.options.pendingMetadata;
+        for (NSString * pendingKey in pendingMetadataKeys) {
+            if (dictOpts[pendingKey] == nil) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 @end

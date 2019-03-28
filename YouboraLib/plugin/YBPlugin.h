@@ -48,6 +48,8 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 
 @property(nonatomic, strong, readonly) YBCommunication * comm;
 
+@property(nonatomic, assign) bool isStarted;
+
 /// ---------------------------------
 /// @name Init
 /// ---------------------------------
