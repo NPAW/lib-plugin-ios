@@ -1,3 +1,7 @@
+## [6.4.1] - 2019-04-02
+###Add
+- Renaming for customDimensions
+
 ## [6.4.0] - 2019-04-02
 ###Added
 - Now is possible to delay the start event (and therefore have all the metadata ready) and have correcto joinTime

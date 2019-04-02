@@ -21,6 +21,7 @@ NSString * const YBOPTIONS_KEY_BACKGROUND = @"autoDetectBackground";
 NSString * const YBOPTIONS_KEY_AUTOSTART = @"autoStart";
 NSString * const YBOPTIONS_KEY_FORCEINIT = @"forceInit";
 NSString * const YBOPTIONS_KEY_USER_TYPE = @"userType";
+NSString * const YBOPTIONS_KEY_USER_EMAIL = @"user.email";
 NSString * const YBOPTIONS_KEY_EXPERIMENT_IDS = @"experiments";
 NSString * const YBOPTIONS_KEY_SS_CONFIG_CODE = @"smartswitch.configCode";
 NSString * const YBOPTIONS_KEY_SS_GROUP_CODE = @"smartswitch.groupCode";
@@ -34,7 +35,7 @@ NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE_LIST = @"parse.CdnNodeList";
 NSString * const YBOPTIONS_KEY_NETWORK_IP = @"network.IP";
 NSString * const YBOPTIONS_KEY_NETWORK_ISP = @"network.Isp";
 NSString * const YBOPTIONS_KEY_NETWORK_CONNECTION_TYPE = @"network.connectionType";
-NSString * const YBOPTIONS_KEY_NETWORK_OBFUSCATE_IP = @"network.obfuscateIp";
+NSString * const YBOPTIONS_KEY_USER_OBFUSCATE_IP = @"user.ObfuscateIp";
 
 NSString * const YBOPTIONS_KEY_DEVICE_CODE = @"device.code";
 NSString * const YBOPTIONS_KEY_DEVICE_MODEL = @"device.model";
@@ -60,6 +61,30 @@ NSString * const YBOPTIONS_KEY_CONTENT_METADATA = @"content.metadata";
 NSString * const YBOPTIONS_KEY_CONTENT_METRICS = @"content.metrics";
 NSString * const YBOPTIONS_KEY_CONTENT_IS_LIVE_NO_SEEK = @"content.isLiveNoSeek";
 
+NSString * const YBOPTIONS_KEY_CONTENT_PACKAGE = @"content.package";
+NSString * const YBOPTIONS_KEY_CONTENT_SAGA = @"content.saga";
+NSString * const YBOPTIONS_KEY_CONTENT_TV_SHOW = @"content.tvShow";
+NSString * const YBOPTIONS_KEY_CONTENT_SEASON = @"content.season";
+NSString * const YBOPTIONS_KEY_CONTENT_EPISODE_TITLE = @"content.episodeTitle";
+NSString * const YBOPTIONS_KEY_CONTENT_CHANNEL = @"content.Channel";
+NSString * const YBOPTIONS_KEY_CONTENT_ID = @"content.id";
+NSString * const YBOPTIONS_KEY_CONTENT_IMDB_ID = @"content.imdbId";
+NSString * const YBOPTIONS_KEY_CONTENT_GRACENOTE_ID = @"content.gracenoteId";
+NSString * const YBOPTIONS_KEY_CONTENT_TYPE = @"content.type";
+NSString * const YBOPTIONS_KEY_CONTENT_GENRE = @"content.genre";
+NSString * const YBOPTIONS_KEY_CONTENT_LANGUAGE = @"content.language";
+NSString * const YBOPTIONS_KEY_CONTENT_SUBTITLES = @"content.subtitles";
+NSString * const YBOPTIONS_KEY_CONTENT_CONTRACTED_RESOLUTION = @"content.contractedResolution";
+NSString * const YBOPTIONS_KEY_CONTENT_COST = @"content.cost";
+NSString * const YBOPTIONS_KEY_CONTENT_PRICE = @"content.price";
+NSString * const YBOPTIONS_KEY_CONTENT_PLAYBACK_TYPE = @"content.playbackType";
+NSString * const YBOPTIONS_KEY_CONTENT_DRM = @"content.drm";
+NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_VIDEO_CODEC = @"content.encoding.videoCodec";
+NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_AUDIO_CODEC = @"content.encoding.audioCodec";
+NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CODEC_SETTINGS = @"content.encoding.codecSettings";
+NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CODEC_PROFILE = @"content.encoding.codecProfile";
+NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CONTAINER_FORMAT = @"content.encoding.containerFormat";
+
 NSString * const YBOPTIONS_KEY_SESSION_METRICS = @"session.metrics";
 
 NSString * const YBOPTIONS_KEY_AD_METADATA = @"ad.metadata";
@@ -69,26 +94,26 @@ NSString * const YBOPTIONS_KEY_AD_CAMPAIGN = @"ad.campaign";
 NSString * const YBOPTIONS_KEY_AD_TITLE = @"ad.title";
 NSString * const YBOPTIONS_KEY_AD_RESOURCE = @"ad.resource";
 
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_1 = @"custom.dimension.1";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_2 = @"custom.dimension.2";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_3 = @"custom.dimension.3";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_4 = @"custom.dimension.4";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_5 = @"custom.dimension.5";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_6 = @"custom.dimension.6";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_7 = @"custom.dimension.7";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_8 = @"custom.dimension.8";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_9 = @"custom.dimension.9";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_10 = @"custom.dimension.10";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_11 = @"custom.dimension.11";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_12 = @"custom.dimension.12";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_13 = @"custom.dimension.13";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_14 = @"custom.dimension.14";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_15 = @"custom.dimension.15";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_16 = @"custom.dimension.16";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_17 = @"custom.dimension.17";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_18 = @"custom.dimension.18";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_19 = @"custom.dimension.19";
-NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_20 = @"custom.dimension.20";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_1 = @"contentCustom.dimension.1";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_2 = @"contentCustom.dimension.2";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_3 = @"contentCustom.dimension.3";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_4 = @"contentCustom.dimension.4";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_5 = @"contentCustom.dimension.5";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_6 = @"contentCustom.dimension.6";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_7 = @"contentCustom.dimension.7";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_8 = @"contentCustom.dimension.8";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_9 = @"contentCustom.dimension.9";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_10 = @"contentCustom.dimension.10";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_11 = @"contentCustom.dimension.11";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_12 = @"contentCustom.dimension.12";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_13 = @"contentCustom.dimension.13";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_14 = @"contentCustom.dimension.14";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_15 = @"contentCustom.dimension.15";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_16 = @"contentCustom.dimension.16";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_17 = @"contentCustom.dimension.17";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_18 = @"contentCustom.dimension.18";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_19 = @"contentCustom.dimension.19";
+NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_20 = @"contentCustom.dimension.20";
 
 NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_1 = @"ad.custom.dimension.1";
 NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_2 = @"ad.custom.dimension.2";
@@ -136,7 +161,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
         self.networkIP = [decoder decodeObjectForKey:YBOPTIONS_KEY_NETWORK_IP];
         self.networkIsp = [decoder decodeObjectForKey:YBOPTIONS_KEY_NETWORK_ISP];
         self.networkConnectionType = [decoder decodeObjectForKey:YBOPTIONS_KEY_NETWORK_CONNECTION_TYPE];
-        self.networkObfuscateIp = [decoder decodeObjectForKey:YBOPTIONS_KEY_NETWORK_OBFUSCATE_IP];
+        self.userObfuscateIp = [decoder decodeObjectForKey:YBOPTIONS_KEY_USER_OBFUSCATE_IP];
         self.deviceCode = [decoder decodeObjectForKey:YBOPTIONS_KEY_DEVICE_CODE];
         self.forceInit = [decoder decodeObjectForKey:YBOPTIONS_KEY_FORCEINIT];
         self.deviceModel = [decoder decodeObjectForKey:YBOPTIONS_KEY_DEVICE_MODEL];
@@ -170,26 +195,26 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
         self.smartswitchConfigCode = [decoder decodeObjectForKey:YBOPTIONS_KEY_SS_CONFIG_CODE];
         self.smartswitchGroupCode = [decoder decodeObjectForKey:YBOPTIONS_KEY_SS_GROUP_CODE];
         self.smartswitchContractCode = [decoder decodeObjectForKey:YBOPTIONS_KEY_SS_CONTRACT_CODE];
-        self.customDimension1 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_1];
-        self.customDimension2 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_2];
-        self.customDimension3 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_3];
-        self.customDimension4 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_4];
-        self.customDimension5 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_5];
-        self.customDimension6 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_6];
-        self.customDimension7 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_7];
-        self.customDimension8 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_8];
-        self.customDimension9 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_9];
-        self.customDimension10 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_10];
-        self.customDimension11 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_11];
-        self.customDimension12 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_12];
-        self.customDimension13 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_13];
-        self.customDimension14 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_14];
-        self.customDimension15 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_15];
-        self.customDimension16 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_16];
-        self.customDimension17 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_17];
-        self.customDimension18 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_18];
-        self.customDimension19 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_19];
-        self.customDimension20 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_20];
+        self.contentCustomDimension1 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_1];
+        self.contentCustomDimension2 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_2];
+        self.contentCustomDimension3 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_3];
+        self.contentCustomDimension4 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_4];
+        self.contentCustomDimension5 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_5];
+        self.contentCustomDimension6 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_6];
+        self.contentCustomDimension7 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_7];
+        self.contentCustomDimension8 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_8];
+        self.contentCustomDimension9 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_9];
+        self.contentCustomDimension10 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_10];
+        self.contentCustomDimension11 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_11];
+        self.contentCustomDimension12 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_12];
+        self.contentCustomDimension13 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_13];
+        self.contentCustomDimension14 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_14];
+        self.contentCustomDimension15 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_15];
+        self.contentCustomDimension16 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_16];
+        self.contentCustomDimension17 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_17];
+        self.contentCustomDimension18 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_18];
+        self.contentCustomDimension19 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_19];
+        self.contentCustomDimension20 = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_20];
         self.adCustomDimension1 = [decoder decodeObjectForKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_1];
         self.adCustomDimension2 = [decoder decodeObjectForKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_2];
         self.adCustomDimension3 = [decoder decodeObjectForKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_3];
@@ -223,7 +248,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [coder encodeObject:self.networkIP forKey:YBOPTIONS_KEY_NETWORK_IP];
     [coder encodeObject:self.networkIsp forKey:YBOPTIONS_KEY_NETWORK_ISP];
     [coder encodeObject:self.networkConnectionType forKey:YBOPTIONS_KEY_NETWORK_CONNECTION_TYPE];
-    [coder encodeObject:self.networkObfuscateIp forKey:YBOPTIONS_KEY_NETWORK_OBFUSCATE_IP];
+    [coder encodeObject:self.userObfuscateIp forKey:YBOPTIONS_KEY_USER_OBFUSCATE_IP];
     [coder encodeObject:self.deviceCode forKey:YBOPTIONS_KEY_DEVICE_CODE];
     [coder encodeObject:@(self.forceInit) forKey:YBOPTIONS_KEY_FORCEINIT];
     [coder encodeObject:self.deviceModel forKey:YBOPTIONS_KEY_DEVICE_MODEL];
@@ -258,26 +283,26 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [coder encodeObject:self.smartswitchConfigCode forKey:YBOPTIONS_KEY_SS_CONFIG_CODE];
     [coder encodeObject:self.smartswitchGroupCode forKey:YBOPTIONS_KEY_SS_GROUP_CODE];
     [coder encodeObject:self.smartswitchContractCode forKey:YBOPTIONS_KEY_SS_CONTRACT_CODE];
-    [coder encodeObject:self.customDimension1 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_1];
-    [coder encodeObject:self.customDimension2 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_2];
-    [coder encodeObject:self.customDimension3 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_3];
-    [coder encodeObject:self.customDimension4 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_4];
-    [coder encodeObject:self.customDimension5 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_5];
-    [coder encodeObject:self.customDimension6 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_6];
-    [coder encodeObject:self.customDimension7 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_7];
-    [coder encodeObject:self.customDimension8 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_8];
-    [coder encodeObject:self.customDimension9 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_9];
-    [coder encodeObject:self.customDimension10 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_10];
-    [coder encodeObject:self.customDimension11 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_11];
-    [coder encodeObject:self.customDimension12 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_12];
-    [coder encodeObject:self.customDimension13 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_13];
-    [coder encodeObject:self.customDimension14 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_14];
-    [coder encodeObject:self.customDimension15 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_15];
-    [coder encodeObject:self.customDimension16 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_16];
-    [coder encodeObject:self.customDimension17 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_17];
-    [coder encodeObject:self.customDimension18 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_18];
-    [coder encodeObject:self.customDimension19 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_19];
-    [coder encodeObject:self.customDimension20 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_20];
+    [coder encodeObject:self.contentCustomDimension1 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_1];
+    [coder encodeObject:self.contentCustomDimension2 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_2];
+    [coder encodeObject:self.contentCustomDimension3 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_3];
+    [coder encodeObject:self.contentCustomDimension4 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_4];
+    [coder encodeObject:self.contentCustomDimension5 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_5];
+    [coder encodeObject:self.contentCustomDimension6 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_6];
+    [coder encodeObject:self.contentCustomDimension7 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_7];
+    [coder encodeObject:self.contentCustomDimension8 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_8];
+    [coder encodeObject:self.contentCustomDimension9 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_9];
+    [coder encodeObject:self.contentCustomDimension10 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_10];
+    [coder encodeObject:self.contentCustomDimension11 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_11];
+    [coder encodeObject:self.contentCustomDimension12 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_12];
+    [coder encodeObject:self.contentCustomDimension13 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_13];
+    [coder encodeObject:self.contentCustomDimension14 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_14];
+    [coder encodeObject:self.contentCustomDimension15 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_15];
+    [coder encodeObject:self.contentCustomDimension16 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_16];
+    [coder encodeObject:self.contentCustomDimension17 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_17];
+    [coder encodeObject:self.contentCustomDimension18 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_18];
+    [coder encodeObject:self.contentCustomDimension19 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_19];
+    [coder encodeObject:self.contentCustomDimension20 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_20];
     [coder encodeObject:self.adCustomDimension1 forKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_1];
     [coder encodeObject:self.adCustomDimension2 forKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_2];
     [coder encodeObject:self.adCustomDimension3 forKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_3];
@@ -301,6 +326,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     self.accountCode = @"nicetest";
     self.username = nil;
     self.userType = nil;
+    self.userEmail = nil;
     self.anonymousUser = nil;
     
     self.parseHls = false;
@@ -314,7 +340,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     self.networkIP = nil;
     self.networkIsp = nil;
     self.networkConnectionType = nil;
-    self.networkObfuscateIp = nil;
+    self.userObfuscateIp = nil;
     
     self.deviceCode = nil;
     self.deviceModel = nil;
@@ -358,26 +384,26 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     self.smartswitchGroupCode = nil;
     self.smartswitchContractCode = nil;
     
-    self.customDimension1 = nil;
-    self.customDimension2 = nil;
-    self.customDimension3 = nil;
-    self.customDimension4 = nil;
-    self.customDimension5 = nil;
-    self.customDimension6 = nil;
-    self.customDimension7 = nil;
-    self.customDimension8 = nil;
-    self.customDimension9 = nil;
-    self.customDimension10 = nil;
-    self.customDimension11 = nil;
-    self.customDimension12 = nil;
-    self.customDimension13 = nil;
-    self.customDimension14 = nil;
-    self.customDimension15 = nil;
-    self.customDimension16 = nil;
-    self.customDimension17 = nil;
-    self.customDimension18 = nil;
-    self.customDimension19 = nil;
-    self.customDimension20 = nil;
+    self.contentCustomDimension1 = nil;
+    self.contentCustomDimension2 = nil;
+    self.contentCustomDimension3 = nil;
+    self.contentCustomDimension4 = nil;
+    self.contentCustomDimension5 = nil;
+    self.contentCustomDimension6 = nil;
+    self.contentCustomDimension7 = nil;
+    self.contentCustomDimension8 = nil;
+    self.contentCustomDimension9 = nil;
+    self.contentCustomDimension10 = nil;
+    self.contentCustomDimension11 = nil;
+    self.contentCustomDimension12 = nil;
+    self.contentCustomDimension13 = nil;
+    self.contentCustomDimension14 = nil;
+    self.contentCustomDimension15 = nil;
+    self.contentCustomDimension16 = nil;
+    self.contentCustomDimension17 = nil;
+    self.contentCustomDimension18 = nil;
+    self.contentCustomDimension19 = nil;
+    self.contentCustomDimension20 = nil;
     
     self.adCustomDimension1 = nil;
     self.adCustomDimension2 = nil;
@@ -405,6 +431,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [dict setValue:self.accountCode forKey:YBOPTIONS_KEY_ACCOUNT_CODE];
     [dict setValue:self.username forKey:YBOPTIONS_KEY_USERNAME];
     [dict setValue:self.userType forKey:YBOPTIONS_KEY_USER_TYPE];
+    [dict setValue:self.userEmail forKey:YBOPTIONS_KEY_USER_EMAIL];
     [dict setValue:@(self.parseHls) forKey:YBOPTIONS_KEY_PARSE_HLS];
     [dict setValue:self.parseCdnNameHeader forKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
     [dict setValue:@(self.parseCdnNode) forKey:YBOPTIONS_KEY_PARSE_CDN_NODE];
@@ -413,7 +440,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [dict setValue:self.networkIP forKey:YBOPTIONS_KEY_NETWORK_IP];
     [dict setValue:self.networkIsp forKey:YBOPTIONS_KEY_NETWORK_ISP];
     [dict setValue:self.networkConnectionType forKey:YBOPTIONS_KEY_NETWORK_CONNECTION_TYPE];
-    [dict setValue:self.networkObfuscateIp forKey:YBOPTIONS_KEY_NETWORK_OBFUSCATE_IP];
+    [dict setValue:self.userObfuscateIp forKey:YBOPTIONS_KEY_USER_OBFUSCATE_IP];
     [dict setValue:self.deviceCode forKey:YBOPTIONS_KEY_DEVICE_CODE];
     [dict setValue:@(self.forceInit) forKey:YBOPTIONS_KEY_FORCEINIT];
     [dict setValue:self.deviceModel forKey:YBOPTIONS_KEY_DEVICE_MODEL];
@@ -448,26 +475,26 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [dict setValue:self.smartswitchConfigCode forKey:YBOPTIONS_KEY_SS_CONFIG_CODE];
     [dict setValue:self.smartswitchGroupCode forKey:YBOPTIONS_KEY_SS_GROUP_CODE];
     [dict setValue:self.smartswitchContractCode forKey:YBOPTIONS_KEY_SS_CONTRACT_CODE];
-    [dict setValue:self.customDimension1 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_1];
-    [dict setValue:self.customDimension2 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_2];
-    [dict setValue:self.customDimension3 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_3];
-    [dict setValue:self.customDimension4 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_4];
-    [dict setValue:self.customDimension5 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_5];
-    [dict setValue:self.customDimension6 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_6];
-    [dict setValue:self.customDimension7 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_7];
-    [dict setValue:self.customDimension8 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_8];
-    [dict setValue:self.customDimension9 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_9];
-    [dict setValue:self.customDimension10 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_10];
-    [dict setValue:self.customDimension11 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_11];
-    [dict setValue:self.customDimension12 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_12];
-    [dict setValue:self.customDimension13 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_13];
-    [dict setValue:self.customDimension14 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_14];
-    [dict setValue:self.customDimension15 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_15];
-    [dict setValue:self.customDimension16 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_16];
-    [dict setValue:self.customDimension17 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_17];
-    [dict setValue:self.customDimension18 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_18];
-    [dict setValue:self.customDimension19 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_19];
-    [dict setValue:self.customDimension20 forKey:YBOPTIONS_KEY_CUSTOM_DIMENSION_20];
+    [dict setValue:self.contentCustomDimension1 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_1];
+    [dict setValue:self.contentCustomDimension2 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_2];
+    [dict setValue:self.contentCustomDimension3 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_3];
+    [dict setValue:self.contentCustomDimension4 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_4];
+    [dict setValue:self.contentCustomDimension5 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_5];
+    [dict setValue:self.contentCustomDimension6 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_6];
+    [dict setValue:self.contentCustomDimension7 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_7];
+    [dict setValue:self.contentCustomDimension8 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_8];
+    [dict setValue:self.contentCustomDimension9 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_9];
+    [dict setValue:self.contentCustomDimension10 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_10];
+    [dict setValue:self.contentCustomDimension11 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_11];
+    [dict setValue:self.contentCustomDimension12 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_12];
+    [dict setValue:self.contentCustomDimension13 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_13];
+    [dict setValue:self.contentCustomDimension14 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_14];
+    [dict setValue:self.contentCustomDimension15 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_15];
+    [dict setValue:self.contentCustomDimension16 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_16];
+    [dict setValue:self.contentCustomDimension17 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_17];
+    [dict setValue:self.contentCustomDimension18 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_18];
+    [dict setValue:self.contentCustomDimension19 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_19];
+    [dict setValue:self.contentCustomDimension20 forKey:YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_20];
     [dict setValue:self.adCustomDimension1 forKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_1];
     [dict setValue:self.adCustomDimension2 forKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_2];
     [dict setValue:self.adCustomDimension3 forKey:YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_3];
@@ -490,83 +517,83 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
 }
 
 - (void) setExtraParam1:(NSString *)extraparam1 {
-    self.customDimension1 = extraparam1;
+    self.contentCustomDimension1 = extraparam1;
 }
 
 - (void) setExtraParam2:(NSString *)extraparam2 {
-    self.customDimension2 = extraparam2;
+    self.contentCustomDimension2 = extraparam2;
 }
 
 - (void) setExtraParam3:(NSString *)extraparam3 {
-    self.customDimension3 = extraparam3;
+    self.contentCustomDimension3 = extraparam3;
 }
 
 - (void) setExtraParam4:(NSString *)extraparam4 {
-    self.customDimension4 = extraparam4;
+    self.contentCustomDimension4 = extraparam4;
 }
 
 - (void) setExtraParam5:(NSString *)extraparam5 {
-    self.customDimension5 = extraparam5;
+    self.contentCustomDimension5 = extraparam5;
 }
 
 - (void) setExtraParam6:(NSString *)extraparam6 {
-    self.customDimension6 = extraparam6;
+    self.contentCustomDimension6 = extraparam6;
 }
 
 - (void) setExtraParam7:(NSString *)extraparam7 {
-    self.customDimension7 = extraparam7;
+    self.contentCustomDimension7 = extraparam7;
 }
 
 - (void) setExtraParam8:(NSString *)extraparam8 {
-    self.customDimension8 = extraparam8;
+    self.contentCustomDimension8 = extraparam8;
 }
 
 - (void) setExtraParam9:(NSString *)extraparam9 {
-    self.customDimension9 = extraparam9;
+    self.contentCustomDimension9 = extraparam9;
 }
 
 - (void) setExtraParam10:(NSString *)extraparam10 {
-    self.customDimension10 = extraparam10;
+    self.contentCustomDimension10 = extraparam10;
 }
 
 - (void) setExtraParam11:(NSString *)extraparam11 {
-    self.customDimension11 = extraparam11;
+    self.contentCustomDimension11 = extraparam11;
 }
 
 - (void) setExtraParam12:(NSString *)extraparam12 {
-    self.customDimension12 = extraparam12;
+    self.contentCustomDimension12 = extraparam12;
 }
 
 - (void) setExtraParam13:(NSString *)extraparam13 {
-    self.customDimension13 = extraparam13;
+    self.contentCustomDimension13 = extraparam13;
 }
 
 - (void) setExtraParam14:(NSString *)extraparam14 {
-    self.customDimension14 = extraparam14;
+    self.contentCustomDimension14 = extraparam14;
 }
 
 - (void) setExtraParam15:(NSString *)extraparam15 {
-    self.customDimension15 = extraparam15;
+    self.contentCustomDimension15 = extraparam15;
 }
 
 - (void) setExtraParam16:(NSString *)extraparam16 {
-    self.customDimension16 = extraparam16;
+    self.contentCustomDimension16 = extraparam16;
 }
 
 - (void) setExtraParam17:(NSString *)extraparam17 {
-    self.customDimension17 = extraparam17;
+    self.contentCustomDimension17 = extraparam17;
 }
 
 - (void) setExtraParam18:(NSString *)extraparam18 {
-    self.customDimension18 = extraparam18;
+    self.contentCustomDimension18 = extraparam18;
 }
 
 - (void) setExtraParam19:(NSString *)extraparam19 {
-    self.customDimension19 = extraparam19;
+    self.contentCustomDimension19 = extraparam19;
 }
 
 - (void) setExtraParam20:(NSString *)extraparam20 {
-    self.customDimension20 = extraparam20;
+    self.contentCustomDimension20 = extraparam20;
 }
 
 - (void) setAdExtraParam1:(NSString *)adExtraparam1 {
@@ -607,6 +634,10 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
 
 - (void) setAdExtraParam10:(NSString *)adExtraparam10 {
     self.adCustomDimension10 = adExtraparam10;
+}
+
+- (void) setNetworkObfuscateIp:(NSValue *)networkObfuscateIp {
+    self.userObfuscateIp = networkObfuscateIp;
 }
 
 @end

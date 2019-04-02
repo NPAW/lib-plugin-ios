@@ -879,83 +879,163 @@
 }
 
 - (NSString *) getCustomDimension1 {
-    return self.options.customDimension1;
+    return self.options.contentCustomDimension1;
 }
 
 - (NSString *) getCustomDimension2 {
-    return self.options.customDimension2;
+    return self.options.contentCustomDimension2;
 }
 
 - (NSString *) getCustomDimension3 {
-    return self.options.customDimension3;
+    return self.options.contentCustomDimension3;
 }
 
 - (NSString *) getCustomDimension4 {
-    return self.options.customDimension4;
+    return self.options.contentCustomDimension4;
 }
 
 - (NSString *) getCustomDimension5 {
-    return self.options.customDimension5;
+    return self.options.contentCustomDimension5;
 }
 
 - (NSString *) getCustomDimension6 {
-    return self.options.customDimension6;
+    return self.options.contentCustomDimension6;
 }
 
 - (NSString *) getCustomDimension7 {
-    return self.options.customDimension7;
+    return self.options.contentCustomDimension7;
 }
 
 - (NSString *) getCustomDimension8 {
-    return self.options.customDimension8;
+    return self.options.contentCustomDimension8;
 }
 
 - (NSString *) getCustomDimension9 {
-    return self.options.customDimension9;
+    return self.options.contentCustomDimension9;
 }
 
 - (NSString *) getCustomDimension10 {
-    return self.options.customDimension10;
+    return self.options.contentCustomDimension10;
 }
 
 - (NSString *) getCustomDimension11 {
-    return self.options.customDimension11;
+    return self.options.contentCustomDimension11;
 }
 
 - (NSString *) getCustomDimension12 {
-    return self.options.customDimension12;
+    return self.options.contentCustomDimension12;
 }
 
 - (NSString *) getCustomDimension13 {
-    return self.options.customDimension13;
+    return self.options.contentCustomDimension13;
 }
 
 - (NSString *) getCustomDimension14 {
-    return self.options.customDimension14;
+    return self.options.contentCustomDimension14;
 }
 
 - (NSString *) getCustomDimension15 {
-    return self.options.customDimension15;
+    return self.options.contentCustomDimension15;
 }
 
 - (NSString *) getCustomDimension16 {
-    return self.options.customDimension16;
+    return self.options.contentCustomDimension16;
 }
 
 - (NSString *) getCustomDimension17 {
-    return self.options.customDimension17;
+    return self.options.contentCustomDimension17;
 }
 
 - (NSString *) getCustomDimension18 {
-    return self.options.customDimension18;
+    return self.options.contentCustomDimension18;
 }
 
 - (NSString *) getCustomDimension19 {
-    return self.options.customDimension19;
+    return self.options.contentCustomDimension19;
 }
 
-- (NSString *) getCustomDimension20 {
-    return self.options.customDimension20;
+- (NSString *) getCustomDimension20{
+    return self.options.contentCustomDimension20;
+}
+
+- (NSString *) getContentCustomDimension1 {
+    return self.options.contentCustomDimension1;
+}
+
+- (NSString *) getContentCustomDimension2 {
+    return self.options.contentCustomDimension2;
+}
+
+- (NSString *) getContentCustomDimension3 {
+    return self.options.contentCustomDimension3;
+}
+
+- (NSString *) getContentCustomDimension4 {
+    return self.options.contentCustomDimension4;
+}
+
+- (NSString *) getContentCustomDimension5 {
+    return self.options.contentCustomDimension5;
+}
+
+- (NSString *) getContentCustomDimension6 {
+    return self.options.contentCustomDimension6;
+}
+
+- (NSString *) getContentCustomDimension7 {
+    return self.options.contentCustomDimension7;
+}
+
+- (NSString *) getContentCustomDimension8 {
+    return self.options.contentCustomDimension8;
+}
+
+- (NSString *) getContentCustomDimension9 {
+    return self.options.contentCustomDimension9;
+}
+
+- (NSString *) getContentCustomDimension10 {
+    return self.options.contentCustomDimension10;
+}
+
+- (NSString *) getContentCustomDimension11 {
+    return self.options.contentCustomDimension11;
+}
+
+- (NSString *) getContentCustomDimension12 {
+    return self.options.contentCustomDimension12;
+}
+
+- (NSString *) getContentCustomDimension13 {
+    return self.options.contentCustomDimension13;
+}
+
+- (NSString *) getContentCustomDimension14 {
+    return self.options.contentCustomDimension14;
+}
+
+- (NSString *) getContentCustomDimension15 {
+    return self.options.contentCustomDimension15;
+}
+
+- (NSString *) getContentCustomDimension16 {
+    return self.options.contentCustomDimension16;
+}
+
+- (NSString *) getContentCustomDimension17 {
+    return self.options.contentCustomDimension17;
+}
+
+- (NSString *) getContentCustomDimension18 {
+    return self.options.contentCustomDimension18;
+}
+
+- (NSString *) getContentCustomDimension19 {
+    return self.options.contentCustomDimension19;
+}
+
+- (NSString *) getContentCustomDimension20{
+    return self.options.contentCustomDimension20;
 }
 
 - (NSString *) getAdCustomDimension1 {
@@ -1180,7 +1260,7 @@
 }
 
 - (NSValue *) getNetworkObfuscateIp {
-    return self.options.networkObfuscateIp;
+    return self.options.userObfuscateIp;
 }
 
 - (NSString *) getDeviceCode {
