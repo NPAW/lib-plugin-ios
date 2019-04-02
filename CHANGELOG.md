@@ -1,4 +1,4 @@
-## [6.4.0] - 
+## [6.4.0] - 2019-04-02
 ###Added
 - Now is possible to delay the start event (and therefore have all the metadata ready) and have correcto joinTime
 
