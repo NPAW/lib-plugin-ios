@@ -34,6 +34,7 @@ extern NSString * const YBOPTIONS_KEY_BACKGROUND;
 extern NSString * const YBOPTIONS_KEY_AUTOSTART;
 extern NSString * const YBOPTIONS_KEY_FORCEINIT;
 extern NSString * const YBOPTIONS_KEY_USER_TYPE;
+extern NSString * const YBOPTIONS_KEY_USER_EMAIL;
 extern NSString * const YBOPTIONS_KEY_EXPERIMENT_IDS;
 extern NSString * const YBOPTIONS_KEY_SS_CONFIG_CODE;
 extern NSString * const YBOPTIONS_KEY_SS_GROUP_CODE;
@@ -47,7 +48,7 @@ extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE_LIST;
 extern NSString * const YBOPTIONS_KEY_NETWORK_IP;
 extern NSString * const YBOPTIONS_KEY_NETWORK_ISP;
 extern NSString * const YBOPTIONS_KEY_NETWORK_CONNECTION_TYPE;
-extern NSString * const YBOPTIONS_KEY_NETWORK_OBFUSCATE_IP;
+extern NSString * const YBOPTIONS_KEY_USER_OBFUSCATE_IP;
 
 extern NSString * const YBOPTIONS_KEY_DEVICE_CODE;
 extern NSString * const YBOPTIONS_KEY_DEVICE_MODEL;
@@ -73,6 +74,30 @@ extern NSString * const YBOPTIONS_KEY_CONTENT_METADATA;
 extern NSString * const YBOPTIONS_KEY_CONTENT_METRICS;
 extern NSString * const YBOPTIONS_KEY_CONTENT_IS_LIVE_NO_SEEK;
 
+extern NSString * const YBOPTIONS_KEY_CONTENT_PACKAGE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_SAGA;
+extern NSString * const YBOPTIONS_KEY_CONTENT_TV_SHOW;
+extern NSString * const YBOPTIONS_KEY_CONTENT_SEASON;
+extern NSString * const YBOPTIONS_KEY_CONTENT_EPISODE_TITLE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CHANNEL;
+extern NSString * const YBOPTIONS_KEY_CONTENT_ID;
+extern NSString * const YBOPTIONS_KEY_CONTENT_IMDB_ID;
+extern NSString * const YBOPTIONS_KEY_CONTENT_GRACENOTE_ID;
+extern NSString * const YBOPTIONS_KEY_CONTENT_TYPE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_GENRE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_LANGUAGE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_SUBTITLES;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CONTRACTED_RESOLUTION;
+extern NSString * const YBOPTIONS_KEY_CONTENT_COST;
+extern NSString * const YBOPTIONS_KEY_CONTENT_PRICE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_PLAYBACK_TYPE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_DRM;
+extern NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_VIDEO_CODEC;
+extern NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_AUDIO_CODEC;
+extern NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CODEC_SETTINGS;
+extern NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CODEC_PROFILE;
+extern NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CONTAINER_FORMAT;
+
 extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
 
 extern NSString * const YBOPTIONS_KEY_AD_METADATA;
@@ -82,26 +107,26 @@ extern NSString * const YBOPTIONS_KEY_AD_CAMPAIGN;
 extern NSString * const YBOPTIONS_KEY_AD_TITLE;
 extern NSString * const YBOPTIONS_KEY_AD_RESOURCE;
 
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_1;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_2;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_3;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_4;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_5;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_6;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_7;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_8;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_9;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_10;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_11;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_12;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_13;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_14;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_15;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_16;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_17;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_18;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_19;
-extern NSString * const YBOPTIONS_KEY_CUSTOM_DIMENSION_20;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_1;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_2;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_3;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_4;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_5;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_6;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_7;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_8;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_9;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_10;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_11;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_12;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_13;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_14;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_15;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_16;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_17;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_18;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_19;
+extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_20;
 
 extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_1;
 extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_2;
@@ -159,6 +184,11 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
 @property(nonatomic, strong) NSString * userType;
 
 /**
+ * User email
+ */
+@property(nonatomic, strong) NSString *userEmail;
+
+/**
  * If true the plugin will parse HLS files to use the first .ts file found as resource.
  * It might slow performance down.
  * Default: false
@@ -208,7 +238,12 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
 /**
  * If the ip address should be abfuscated
  */
-@property(nonatomic, strong) NSValue * networkObfuscateIp;
+@property(nonatomic, strong, setter=setNetworkObfuscateIp:) NSValue * networkObfuscateIp __deprecated_msg("Use userObfuscateIp instead");
+
+/**
+ * If the ip address should be abfuscated
+ */
+@property(nonatomic, strong) NSValue * userObfuscateIp;
 
 /**
  * Youbora's device code. If specified it will rewrite info gotten from user agent.
@@ -327,6 +362,52 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
  * NSValue containing if seeks should be disabled for life content, only applies if content is live, if it's VOD it gets ignored
  */
 @property(nonatomic, strong) NSValue * contentIsLiveNoSeek;
+
+@property(nonatomic, strong) NSString * contentPackage;
+
+@property(nonatomic, strong) NSString * contentSaga;
+
+@property(nonatomic, strong) NSString * contentTvShow;
+
+@property(nonatomic, strong) NSString * contentSeason;
+
+@property(nonatomic, strong) NSString * contentEpisodeTitle;
+
+@property(nonatomic, strong) NSString * contentChannel;
+
+@property(nonatomic, strong) NSString * contentId;
+
+@property(nonatomic, strong) NSString * contentImdbId;
+
+@property(nonatomic, strong) NSString * contentGracenoteId;
+
+@property(nonatomic, strong) NSString * contentType;
+
+@property(nonatomic, strong) NSString * contentGenre;
+
+@property(nonatomic, strong) NSString * contentLanguage;
+
+@property(nonatomic, strong) NSString * contentSubtitles;
+
+@property(nonatomic, strong) NSString * contentContractedResolution;
+
+@property(nonatomic, strong) NSString * contentCost;
+
+@property(nonatomic, strong) NSString * contentPrice;
+
+@property(nonatomic, strong) NSString * contentPlaybackType;
+
+@property(nonatomic, strong) NSString * contentDrm;
+
+@property(nonatomic, strong) NSString * contentEncodingVideoCodec;
+
+@property(nonatomic, strong) NSString * contentEncodingAudioCodec;
+
+@property(nonatomic, strong) NSDictionary * contentEncodingCodecSettings;
+
+@property(nonatomic, strong) NSString * contentEncodingCodecProfile;
+
+@property(nonatomic, strong) NSString * contentEncodingContainerFormat;
 
 /**
  * NSDictionary containing mixed extra information about the ads like: director, parental rating,
@@ -491,6 +572,106 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
 @property(nonatomic, strong, setter=setExtraParam20:) NSString * extraparam20 __deprecated_msg("Use customDimension20 instead");
 
 /**
+ * Custom dimension 1.
+ */
+@property(nonatomic, strong, setter=setExtraParam1:) NSString * customDimension1 __deprecated_msg("Use contentCustomDimension1 instead");
+
+/**
+ * Custom dimension 2.
+ */
+@property(nonatomic, strong, setter=setExtraParam2:) NSString * customDimension2 __deprecated_msg("Use contentCustomDimension2 instead");
+
+/**
+ * Custom dimension 3.
+ */
+@property(nonatomic, strong, setter=setExtraParam3:) NSString * customDimension3 __deprecated_msg("Use contentCustomDimension3 instead");
+
+/**
+ * Custom dimension 4.
+ */
+@property(nonatomic, strong, setter=setExtraParam4:) NSString * customDimension4 __deprecated_msg("Use contentCustomDimension4 instead");
+
+/**
+ * Custom dimension 5.
+ */
+@property(nonatomic, strong, setter=setExtraParam5:) NSString * customDimension5 __deprecated_msg("Use contentCustomDimension5 instead");
+
+/**
+ * Custom dimension 6.
+ */
+@property(nonatomic, strong, setter=setExtraParam6:) NSString * customDimension6 __deprecated_msg("Use contentCustomDimension6 instead");
+
+/**
+ * Custom dimension 7.
+ */
+@property(nonatomic, strong, setter=setExtraParam7:) NSString * customDimension7 __deprecated_msg("Use contentCustomDimension7 instead");
+
+/**
+ * Custom dimension 8.
+ */
+@property(nonatomic, strong, setter=setExtraParam8:) NSString * customDimension8 __deprecated_msg("Use contentCustomDimension8 instead");
+
+/**
+ * Custom dimension 9.
+ */
+@property(nonatomic, strong, setter=setExtraParam9:) NSString * customDimension9 __deprecated_msg("Use contentCustomDimension9 instead");
+
+/**
+ * Custom dimension 10.
+ */
+@property(nonatomic, strong, setter=setExtraParam10:) NSString * customDimension10 __deprecated_msg("Use contentCustomDimension10 instead");
+
+/**
+ * Custom dimension 11.
+ */
+@property(nonatomic, strong, setter=setExtraParam11:) NSString * customDimension11 __deprecated_msg("Use contentCustomDimension11 instead");
+
+/**
+ * Custom dimension 12.
+ */
+@property(nonatomic, strong, setter=setExtraParam12:) NSString * customDimension12 __deprecated_msg("Use contentCustomDimension12 instead");
+
+/**
+ * Custom dimension 13.
+ */
+@property(nonatomic, strong, setter=setExtraParam13:) NSString * customDimension13 __deprecated_msg("Use contentCustomDimension13 instead");
+
+/**
+ * Custom dimension 14.
+ */
+@property(nonatomic, strong, setter=setExtraParam14:) NSString * customDimension14 __deprecated_msg("Use contentCustomDimension14 instead");
+
+/**
+ * Custom dimension 15.
+ */
+@property(nonatomic, strong, setter=setExtraParam15:) NSString * customDimension15 __deprecated_msg("Use contentCustomDimension15 instead");
+
+/**
+ * Custom dimension 16.
+ */
+@property(nonatomic, strong, setter=setExtraParam16:) NSString * customDimension16 __deprecated_msg("Use contentCustomDimension16 instead");
+
+/**
+ * Custom dimension 17.
+ */
+@property(nonatomic, strong, setter=setExtraParam17:) NSString * customDimension17 __deprecated_msg("Use contentCustomDimension17 instead");
+
+/**
+ * Custom dimension 18.
+ */
+@property(nonatomic, strong, setter=setExtraParam18:) NSString * customDimension18 __deprecated_msg("Use contentCustomDimension18 instead");
+
+/**
+ * Custom dimension 19.
+ */
+@property(nonatomic, strong, setter=setExtraParam19:) NSString * customDimension19 __deprecated_msg("Use contentCustomDimension19 instead");
+
+/**
+ * Custom dimension 20.
+ */
+@property(nonatomic, strong, setter=setExtraParam20:) NSString * customDimension20 __deprecated_msg("Use contentCustomDimension20 instead");
+
+/**
  * Custom ad parameter 1.
  */
 @property(nonatomic, strong, setter=setAdExtraParam1:) NSString * adExtraparam1 __deprecated_msg("Use adCustomDimension1 instead");
@@ -541,104 +722,104 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
 @property(nonatomic, strong, setter=setAdExtraParam10:) NSString * adExtraparam10 __deprecated_msg("Use adCustomDimension10 instead");
 
 /**
- * Custom dimension 1.
+ * Content custom dimension 1.
  */
-@property(nonatomic, strong) NSString * customDimension1;
+@property(nonatomic, strong) NSString * contentCustomDimension1;
 
 /**
- * Custom dimension 2.
+ * Content custom dimension 2.
  */
-@property(nonatomic, strong) NSString * customDimension2;
+@property(nonatomic, strong) NSString * contentCustomDimension2;
 
 /**
- * Custom dimension 3.
+ * Content custom dimension 3.
  */
-@property(nonatomic, strong) NSString * customDimension3;
+@property(nonatomic, strong) NSString * contentCustomDimension3;
 
 /**
- * Custom dimension 4.
+ * Content custom dimension 4.
  */
-@property(nonatomic, strong) NSString * customDimension4;
+@property(nonatomic, strong) NSString * contentCustomDimension4;
 
 /**
- * Custom dimension 5.
+ * Content custom dimension 5.
  */
-@property(nonatomic, strong) NSString * customDimension5;
+@property(nonatomic, strong) NSString * contentCustomDimension5;
 
 /**
- * Custom dimension 6.
+ * Content custom dimension 6.
  */
-@property(nonatomic, strong) NSString * customDimension6;
+@property(nonatomic, strong) NSString * contentCustomDimension6;
 
 /**
- * Custom dimension 7.
+ * Content custom dimension 7.
  */
-@property(nonatomic, strong) NSString * customDimension7;
+@property(nonatomic, strong) NSString * contentCustomDimension7;
 
 /**
- * Custom dimension 8.
+ * Content custom dimension 8.
  */
-@property(nonatomic, strong) NSString * customDimension8;
+@property(nonatomic, strong) NSString * contentCustomDimension8;
 
 /**
- * Custom dimension 9.
+ * Content custom dimension 9.
  */
-@property(nonatomic, strong) NSString * customDimension9;
+@property(nonatomic, strong) NSString * contentCustomDimension9;
 
 /**
- * Custom dimension 10.
+ * Content custom dimension 10.
  */
-@property(nonatomic, strong) NSString * customDimension10;
+@property(nonatomic, strong) NSString * contentCustomDimension10;
 
 /**
- * Custom dimension 11.
+ * Content custom dimension 11.
  */
-@property(nonatomic, strong) NSString * customDimension11;
+@property(nonatomic, strong) NSString * contentCustomDimension11;
 
 /**
- * Custom dimension 12.
+ * Content custom dimension 12.
  */
-@property(nonatomic, strong) NSString * customDimension12;
+@property(nonatomic, strong) NSString * contentCustomDimension12;
 
 /**
- * Custom dimension 13.
+ * Content custom dimension 13.
  */
-@property(nonatomic, strong) NSString * customDimension13;
+@property(nonatomic, strong) NSString * contentCustomDimension13;
 
 /**
- * Custom dimension 14.
+ * Content custom dimension 14.
  */
-@property(nonatomic, strong) NSString * customDimension14;
+@property(nonatomic, strong) NSString * contentCustomDimension14;
 
 /**
- * Custom dimension 15.
+ * Content custom dimension 15.
  */
-@property(nonatomic, strong) NSString * customDimension15;
+@property(nonatomic, strong) NSString * contentCustomDimension15;
 
 /**
- * Custom dimension 16.
+ * Content custom dimension 16.
  */
-@property(nonatomic, strong) NSString * customDimension16;
+@property(nonatomic, strong) NSString * contentCustomDimension16;
 
 /**
- * Custom dimension 17.
+ * Content custom dimension 17.
  */
-@property(nonatomic, strong) NSString * customDimension17;
+@property(nonatomic, strong) NSString * contentCustomDimension17;
 
 /**
- * Custom dimension 18.
+ * Content custom dimension 18.
  */
-@property(nonatomic, strong) NSString * customDimension18;
+@property(nonatomic, strong) NSString * contentCustomDimension18;
 
 /**
- * Custom dimension 19.
+ * Content custom dimension 19.
  */
-@property(nonatomic, strong) NSString * customDimension19;
+@property(nonatomic, strong) NSString * contentCustomDimension19;
 
 /**
- * Custom dimension 20.
+ * Content custom dimension 20.
  */
-@property(nonatomic, strong) NSString * customDimension20;
+@property(nonatomic, strong) NSString * contentCustomDimension20;
 
 /**
  * Custom ad dimension 1.
