@@ -1,3 +1,7 @@
+## [6.4.2] - 2019-04-09
+###Fix
+- Optional Swift vars and params, set as nullable in Objective-C.
+
 ## [6.4.1] - 2019-04-02
 ###Add
 - Renaming for customDimensions
