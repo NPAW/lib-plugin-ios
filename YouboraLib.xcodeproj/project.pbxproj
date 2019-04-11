@@ -410,7 +410,6 @@
 				4E7D08011E9E0EFE0079F187 /* YouboraLib tvOSTests */,
 				4E5E11B11E7841C00097FA21 /* Products */,
 				4E8A63681EA8A31B008C6759 /* Frameworks */,
-				8D5E75114BE2468ECC4C36BA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -651,13 +650,6 @@
 				4EF2938D1E7AB559008B0A99 /* YBRequest.m */,
 			);
 			name = comm;
-			sourceTree = "<group>";
-		};
-		8D5E75114BE2468ECC4C36BA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		CD414478200E2AD100783B65 /* queries */ = {
