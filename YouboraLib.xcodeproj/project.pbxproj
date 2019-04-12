@@ -165,6 +165,10 @@
 		4EF2938B1E7AA524008B0A99 /* YBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF293891E7AA524008B0A99 /* YBConstants.m */; };
 		4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF2938C1E7AB559008B0A99 /* YBRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EF2938F1E7AB559008B0A99 /* YBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2938D1E7AB559008B0A99 /* YBRequest.m */; };
+		CD2390632238FBE400C9D6BC /* YBLocationHeaderParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD2390612238FBE400C9D6BC /* YBLocationHeaderParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD2390642238FBE400C9D6BC /* YBLocationHeaderParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD2390612238FBE400C9D6BC /* YBLocationHeaderParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD2390652238FBE400C9D6BC /* YBLocationHeaderParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2390622238FBE400C9D6BC /* YBLocationHeaderParser.m */; };
+		CD2390662238FBE400C9D6BC /* YBLocationHeaderParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2390622238FBE400C9D6BC /* YBLocationHeaderParser.m */; };
 		CD41446E200DF56E00783B65 /* YBAppDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = CD41446C200DF56E00783B65 /* YBAppDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD41446F200DF56E00783B65 /* YBAppDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = CD41446C200DF56E00783B65 /* YBAppDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD414470200DF56E00783B65 /* YBAppDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = CD41446D200DF56E00783B65 /* YBAppDatabase.m */; };
@@ -332,6 +336,8 @@
 		4EF293891E7AA524008B0A99 /* YBConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBConstants.m; sourceTree = "<group>"; };
 		4EF2938C1E7AB559008B0A99 /* YBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBRequest.h; path = comm/YBRequest.h; sourceTree = "<group>"; };
 		4EF2938D1E7AB559008B0A99 /* YBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBRequest.m; path = comm/YBRequest.m; sourceTree = "<group>"; };
+		CD2390612238FBE400C9D6BC /* YBLocationHeaderParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBLocationHeaderParser.h; sourceTree = "<group>"; };
+		CD2390622238FBE400C9D6BC /* YBLocationHeaderParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBLocationHeaderParser.m; sourceTree = "<group>"; };
 		CD41446C200DF56E00783B65 /* YBAppDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBAppDatabase.h; sourceTree = "<group>"; };
 		CD41446D200DF56E00783B65 /* YBAppDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBAppDatabase.m; sourceTree = "<group>"; };
 		CD414479200E2AE400783B65 /* YBEventQueries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBEventQueries.h; sourceTree = "<group>"; };
@@ -612,6 +618,8 @@
 				4E9C7BBF1E8E6D8B00E10631 /* YBCdnParser.m */,
 				4E9C7BC21E8E6D9D00E10631 /* YBHlsParser.h */,
 				4E9C7BC31E8E6D9D00E10631 /* YBHlsParser.m */,
+				CD2390612238FBE400C9D6BC /* YBLocationHeaderParser.h */,
+				CD2390622238FBE400C9D6BC /* YBLocationHeaderParser.m */,
 			);
 			name = resourceparse;
 			sourceTree = "<group>";
@@ -771,6 +779,7 @@
 				CDFEAF1320FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */,
 				CD9373842104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				4E7CBCBF1E82D78800FF7D7A /* YBFastDataConfig.h in Headers */,
+				CD2390632238FBE400C9D6BC /* YBLocationHeaderParser.h in Headers */,
 				4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */,
 				CD935497200678D8003A0797 /* YBDeviceInfo.h in Headers */,
 				4E2817121E85121A00F450C1 /* YBRequestBuilder.h in Headers */,
@@ -816,6 +825,7 @@
 				CDEB0D532011EE0600B297B7 /* YBEvent.h in Headers */,
 				CDEB0D542011EE0600B297B7 /* YBEventDAO.h in Headers */,
 				CDEB0D552011EE0600B297B7 /* YBEventDataSource.h in Headers */,
+				CD2390642238FBE400C9D6BC /* YBLocationHeaderParser.h in Headers */,
 				CD93549A2006791C003A0797 /* YBDeviceInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1049,6 +1059,7 @@
 				4E28171C1E85373F00F450C1 /* YBResourceTransform.m in Sources */,
 				4E9C7BC11E8E6D8B00E10631 /* YBCdnParser.m in Sources */,
 				CD9373862104ECBC00C75E3A /* YBInfinityFlags.m in Sources */,
+				CD2390652238FBE400C9D6BC /* YBLocationHeaderParser.m in Sources */,
 				CD414470200DF56E00783B65 /* YBAppDatabase.m in Sources */,
 				4E7CBCBC1E82D64400FF7D7A /* YBViewTransform.m in Sources */,
 				4E5E53931E80303700966C7B /* YBPlaybackFlags.m in Sources */,
@@ -1128,6 +1139,7 @@
 				CD935499200678DC003A0797 /* YBDeviceInfo.m in Sources */,
 				4E49562C1E9F4F5300FF6280 /* YBPlugin.m in Sources */,
 				4E49562D1E9F4F5300FF6280 /* YBRequestBuilder.m in Sources */,
+				CD2390662238FBE400C9D6BC /* YBLocationHeaderParser.m in Sources */,
 				CD9373872104ECBC00C75E3A /* YBInfinityFlags.m in Sources */,
 				4E49562F1E9F4F5300FF6280 /* YBConstants.m in Sources */,
 				4E4956301E9F4F5300FF6280 /* YBTimer.m in Sources */,

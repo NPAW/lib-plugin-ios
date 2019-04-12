@@ -44,6 +44,7 @@ extern NSString * const YBOPTIONS_KEY_PARSE_HLS;
 extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER;
 extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE;
 extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE_LIST;
+extern NSString * const YBOPTIONS_KEY_PARSE_LOCATION_HEADER;
 
 extern NSString * const YBOPTIONS_KEY_NETWORK_IP;
 extern NSString * const YBOPTIONS_KEY_NETWORK_ISP;
@@ -194,6 +195,13 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
  * Default: false
  */
 @property(nonatomic, assign) bool parseHls;
+
+/**
+ * If true the plugin will parse the resource to try and find out the real given resource instead of the API url
+ * It might slow performance down.
+ * Default: false
+ */
+@property(nonatomic, assign) bool parseLocationHeader;
 
 /**
  * If defined, resource parse will try to fetch the CDN code from the custom header defined

@@ -15,6 +15,7 @@
 #import "YBCdnParser.h"
 #import "YBHlsParser.h"
 #import "YBCdnConfig.h"
+#import "YBLocationHeaderParser.h"
 #import "YBLog.h"
 
 @interface YBResourceTransform()
@@ -31,11 +32,13 @@
 
 @property(nonatomic, strong) YBHlsParser * hlsParser;
 @property(nonatomic, strong) YBCdnParser * cdnParser;
+@property(nonatomic, strong) YBLocationHeaderParser * locHeaderParser;
 
 @property(nonatomic, strong) NSMutableArray<NSString *> * cdnList;
 
 @property(nonatomic, assign) bool hlsEnabled;
 @property(nonatomic, assign) bool cdnEnabled;
+@property(nonatomic, assign) bool locationHeaderParserEnabled;
 
 @property(nonatomic, strong) NSTimer * timerTimeout;
 
@@ -118,6 +121,7 @@
         
         self.hlsEnabled = [self.plugin isParseHls];
         self.cdnEnabled = [self.plugin isParseCdnNode];
+        self.locationHeaderParserEnabled = [self.plugin isParseLocationHeader];
         self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
         self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
         if (self.cdnNameHeader != nil) {
@@ -128,8 +132,10 @@
         
         [self setTimeout];
         
-        if (self.hlsEnabled) {
-            [self parseHls];
+        if (self.locationHeaderParserEnabled) {
+            [self parseLocationHeader];
+        } else if (self.hlsEnabled) {
+             [self parseHls];
         } else if (self.cdnEnabled) {
             [self parseCdn];
         } else {
@@ -176,7 +182,12 @@
     
     [self.hlsParser addHlsTransformDoneDelegate:self];
     
-    [self.hlsParser parse:self.beginResource parentResource:nil];
+    if (self.locHeaderParser) {
+        [self.hlsParser parse:self.realResource parentResource:nil];
+    } else {
+        [self.hlsParser parse:self.beginResource parentResource:nil];
+    }
+    
 }
 
 - (void) parseCdn {
@@ -202,6 +213,14 @@
     } else {
         [self done];
     }
+}
+
+- (void) parseLocationHeader {
+    self.locHeaderParser = [self createLocHeaderParser];
+    
+    [self.locHeaderParser addLocationHeaderTransformDoneDelegate:self];
+    
+    [self.locHeaderParser parse:self.beginResource];
 }
 
 - (void) setTimeout {
@@ -241,6 +260,10 @@
     return [YBCdnParser createWithName:cdn];
 }
 
+- (YBLocationHeaderParser *) createLocHeaderParser {
+    return [YBLocationHeaderParser new];
+}
+
 # pragma mark - HlsTransformDoneDelegate
 - (void) hlsTransformDone:(nullable NSString *) parsedResource fromHlsParser:(YBHlsParser *) parser {
     self.realResource = parsedResource;
@@ -266,6 +289,11 @@
     } else {
         [self parseCdn];
     }
+}
+
+# pragma mark - LocationHeaderParserDoneTransformDoneDelegate
+- (void)locationHeaderTransformDone:(nullable NSString *)parsedResource fromLocationHeaderParser:(nonnull YBLocationHeaderParser *)parser {
+    self.realResource = [parser getResource];
 }
 
 @end

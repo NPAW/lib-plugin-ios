@@ -1,3 +1,7 @@
+## [6.4.3] - 2019-
+###Added
+- Now the parsing of Location header is supported
+
 ## [6.4.2] - 2019-04-09
 ###Fix
 - Optional Swift vars and params, set as nullable in Objective-C.

@@ -420,6 +420,10 @@
     return self.options.parseCdnNode;
 }
 
+- (bool) isParseLocationHeader {
+    return self.options.parseLocationHeader;
+}
+
 - (NSArray<NSString *> *) getParseCdnNodeList {
     return self.options.parseCdnNodeList;
 }

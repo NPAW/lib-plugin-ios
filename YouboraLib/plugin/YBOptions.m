@@ -31,6 +31,7 @@ NSString * const YBOPTIONS_KEY_PARSE_HLS = @"parse.Hls";
 NSString * const YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER = @"parse.CdnNameHeader";
 NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE = @"parse.CdnNode";
 NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE_LIST = @"parse.CdnNodeList";
+NSString * const YBOPTIONS_KEY_PARSE_LOCATION_HEADER = @"parse.LocationHeader";
 
 NSString * const YBOPTIONS_KEY_NETWORK_IP = @"network.IP";
 NSString * const YBOPTIONS_KEY_NETWORK_ISP = @"network.Isp";
@@ -157,6 +158,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
         self.parseCdnNameHeader = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
         self.parseCdnNode = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE] isEqualToValue:@YES];
         self.parseCdnNodeList = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
+        self.parseLocationHeader = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_LOCATION_HEADER] isEqualToValue:@YES];
         self.experimentIds = [decoder decodeObjectForKey:YBOPTIONS_KEY_EXPERIMENT_IDS];
         self.networkIP = [decoder decodeObjectForKey:YBOPTIONS_KEY_NETWORK_IP];
         self.networkIsp = [decoder decodeObjectForKey:YBOPTIONS_KEY_NETWORK_ISP];
@@ -244,6 +246,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [coder encodeObject:self.parseCdnNameHeader forKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
     [coder encodeObject:@(self.parseCdnNode) forKey:YBOPTIONS_KEY_PARSE_CDN_NODE];
     [coder encodeObject:self.parseCdnNodeList forKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
+    [coder encodeObject:@(self.parseLocationHeader) forKey:YBOPTIONS_KEY_PARSE_LOCATION_HEADER];
     [coder encodeObject:self.experimentIds forKey:YBOPTIONS_KEY_EXPERIMENT_IDS];
     [coder encodeObject:self.networkIP forKey:YBOPTIONS_KEY_NETWORK_IP];
     [coder encodeObject:self.networkIsp forKey:YBOPTIONS_KEY_NETWORK_ISP];
@@ -330,8 +333,10 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     self.anonymousUser = nil;
     
     self.parseHls = false;
+    self.parseLocationHeader = false;
     self.parseCdnNameHeader = @"x-cdn-forward";
     self.parseCdnNode = false;
+    self.parseLocationHeader = false;
     // TODO: Node list constants
     self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, nil];
     
@@ -436,6 +441,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [dict setValue:self.parseCdnNameHeader forKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
     [dict setValue:@(self.parseCdnNode) forKey:YBOPTIONS_KEY_PARSE_CDN_NODE];
     [dict setValue:self.parseCdnNodeList forKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
+    [dict setValue:@(self.parseLocationHeader) forKey:YBOPTIONS_KEY_PARSE_LOCATION_HEADER];
     [dict setValue:self.experimentIds forKey:YBOPTIONS_KEY_EXPERIMENT_IDS];
     [dict setValue:self.networkIP forKey:YBOPTIONS_KEY_NETWORK_IP];
     [dict setValue:self.networkIsp forKey:YBOPTIONS_KEY_NETWORK_ISP];
