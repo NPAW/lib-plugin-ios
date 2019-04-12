@@ -920,7 +920,7 @@
 					4E5E11AF1E7841BF0097FA21 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = DAR8GLKRWU;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					4E5E11B81E7841C00097FA21 = {
@@ -1335,7 +1335,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1359,7 +1359,7 @@
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(inherited)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
