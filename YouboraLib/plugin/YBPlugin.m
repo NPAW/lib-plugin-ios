@@ -670,7 +670,7 @@
 }
 
 - (NSString *) getContentChannel {
-    return self.options.contentTvShow;
+    return self.options.contentChannel;
 }
 
 - (NSString *) getContentId {
