@@ -371,50 +371,119 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
  */
 @property(nonatomic, strong) NSValue * contentIsLiveNoSeek;
 
+/**
+ * NSString containing the content package
+ */
 @property(nonatomic, strong) NSString * contentPackage;
 
+/**
+ * NSString containing the content saga
+ */
 @property(nonatomic, strong) NSString * contentSaga;
 
+/**
+ * NSString containing the content show
+ */
 @property(nonatomic, strong) NSString * contentTvShow;
 
+/**
+ * NSString containing the content season
+ */
 @property(nonatomic, strong) NSString * contentSeason;
 
+/**
+ * NSString containing the content episode title
+ */
 @property(nonatomic, strong) NSString * contentEpisodeTitle;
 
+/**
+ * NSString containing the content channel
+ */
 @property(nonatomic, strong) NSString * contentChannel;
 
+/**
+ * NSString containing the content id
+ */
 @property(nonatomic, strong) NSString * contentId;
 
+/**
+ * NSString containing the content imdb id
+ */
 @property(nonatomic, strong) NSString * contentImdbId;
 
+/**
+ * NSString containing the content gracenote id
+ */
 @property(nonatomic, strong) NSString * contentGracenoteId;
 
+/**
+ * NSString containing the content type
+ */
 @property(nonatomic, strong) NSString * contentType;
 
+/**
+ * NSString containing the content genre
+ */
 @property(nonatomic, strong) NSString * contentGenre;
 
+/**
+ * NSString containing the content language
+ */
 @property(nonatomic, strong) NSString * contentLanguage;
 
+/**
+ * NSString containing the content subtitles
+ */
 @property(nonatomic, strong) NSString * contentSubtitles;
 
+/**
+ * NSString containing the content contracted resolution
+ */
 @property(nonatomic, strong) NSString * contentContractedResolution;
 
+/**
+ * NSString containing the content cost
+ */
 @property(nonatomic, strong) NSString * contentCost;
 
+/**
+ * NSString containing the content price
+ */
 @property(nonatomic, strong) NSString * contentPrice;
 
+/**
+ * NSString containing the content playback type
+ */
 @property(nonatomic, strong) NSString * contentPlaybackType;
 
+/**
+ * NSString containing the content drm
+ */
 @property(nonatomic, strong) NSString * contentDrm;
 
+/**
+ * NSString containing the content encoding video codec
+ */
 @property(nonatomic, strong) NSString * contentEncodingVideoCodec;
 
+/**
+ * NSString containing the content encoding audio codec
+ */
 @property(nonatomic, strong) NSString * contentEncodingAudioCodec;
 
+/**
+ * NSString containing the content encoding codec settings
+ */
 @property(nonatomic, strong) NSDictionary * contentEncodingCodecSettings;
 
+/**
+ * NSString containing the content encoding codec profile
+ */
 @property(nonatomic, strong) NSString * contentEncodingCodecProfile;
 
+/**
+ * NSString containing the content encoding container format
+ */
 @property(nonatomic, strong) NSString * contentEncodingContainerFormat;
 
 /**
