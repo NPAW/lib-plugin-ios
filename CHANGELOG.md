@@ -1,3 +1,15 @@
+## [6.4.2] - 2019-04-09
+###Fix
+- Optional Swift vars and params, set as nullable in Objective-C.
+
+## [6.4.1] - 2019-04-02
+###Add
+- Renaming for customDimensions
+
+## [6.4.0] - 2019-04-02
+###Added
+- Now is possible to delay the start event (and therefore have all the metadata ready) and have correcto joinTime
+
 ## [6.3.10] - 2019-03-13
 ###Ported
 - YBChrono has been ported to Swift

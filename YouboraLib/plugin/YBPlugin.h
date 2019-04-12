@@ -48,6 +48,8 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 
 @property(nonatomic, strong, readonly) YBCommunication * comm;
 
+@property(nonatomic, assign) bool isStarted;
+
 /// ---------------------------------
 /// @name Init
 /// ---------------------------------
@@ -568,121 +570,241 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns content's customDimension1
  * @return customDimension1 value
  */
-- (nullable NSString *) getCustomDimension1;
+- (nullable NSString *) getCustomDimension1 __deprecated_msg("Use getContentCustomDimension1 instead");
 
 /**
  * Returns content's customDimension2
  * @return customDimension2 value
  */
-- (nullable NSString *) getCustomDimension2;
+- (nullable NSString *) getCustomDimension2 __deprecated_msg("Use getContentCustomDimension2 instead");
 
 /**
  * Returns content's customDimension3
  * @return customDimension3 value
  */
-- (nullable NSString *) getCustomDimension3;
+- (nullable NSString *) getCustomDimension3 __deprecated_msg("Use getContentCustomDimension3 instead");
 
 /**
  * Returns content's customDimension4
  * @return customDimension5 value
  */
-- (nullable NSString *) getCustomDimension4;
+- (nullable NSString *) getCustomDimension4 __deprecated_msg("Use getContentCustomDimension4 instead");
 
 /**
  * Returns content's customDimension5
  * @return customDimension5 value
  */
-- (nullable NSString *) getCustomDimension5;
+- (nullable NSString *) getCustomDimension5 __deprecated_msg("Use getContentCustomDimension5 instead");
 
 /**
  * Returns content's customDimension6
  * @return customDimension6 value
  */
-- (nullable NSString *) getCustomDimension6;
+- (nullable NSString *) getCustomDimension6 __deprecated_msg("Use getContentCustomDimension6 instead");
 
 /**
  * Returns content's customDimension7
  * @return customDimension7 value
  */
-- (nullable NSString *) getCustomDimension7;
+- (nullable NSString *) getCustomDimension7 __deprecated_msg("Use getContentCustomDimension7 instead");
 
 /**
  * Returns content's customDimension8
  * @return customDimension8 value
  */
-- (nullable NSString *) getCustomDimension8;
+- (nullable NSString *) getCustomDimension8 __deprecated_msg("Use getContentCustomDimension8 instead");
 
 /**
  * Returns content's customDimension9
  * @return customDimension9 value
  */
-- (nullable NSString *) getCustomDimension9;
+- (nullable NSString *) getCustomDimension9 __deprecated_msg("Use getContentCustomDimension9 instead");
 
 /**
  * Returns content's customDimension10
  * @return customDimension10 value
  */
-- (nullable NSString *) getCustomDimension10;
+- (nullable NSString *) getCustomDimension10 __deprecated_msg("Use getContentCustomDimension10 instead");
 
 /**
  * Returns content's customDimension11
  * @return customDimension11 value
  */
-- (nullable NSString *) getCustomDimension11;
+- (nullable NSString *) getCustomDimension11 __deprecated_msg("Use getContentCustomDimension11 instead");
 
 /**
  * Returns content's customDimension12
  * @return customDimension12 value
  */
-- (nullable NSString *) getCustomDimension12;
+- (nullable NSString *) getCustomDimension12  __deprecated_msg("Use getContentCustomDimension12 instead");
 
 /**
  * Returns content's customDimension13
  * @return customDimension13 value
  */
-- (nullable NSString *) getCustomDimension13;
+- (nullable NSString *) getCustomDimension13 __deprecated_msg("Use getContentCustomDimension13 instead");
 
 /**
  * Returns content's customDimension14
  * @return customDimension14 value
  */
-- (nullable NSString *) getCustomDimension14;
+- (nullable NSString *) getCustomDimension14 __deprecated_msg("Use getContentCustomDimension14 instead");
 
 /**
  * Returns content's customDimension15
  * @return customDimension15 value
  */
-- (nullable NSString *) getCustomDimension15;
+- (nullable NSString *) getCustomDimension15 __deprecated_msg("Use getContentCustomDimension15 instead");
 
 /**
  * Returns content's customDimension16
  * @return customDimension16 value
  */
-- (nullable NSString *) getCustomDimension16;
+- (nullable NSString *) getCustomDimension16 __deprecated_msg("Use getContentCustomDimension16 instead");
 
 /**
  * Returns content's customDimension17
  * @return customDimension17 value
  */
-- (nullable NSString *) getCustomDimension17;
+- (nullable NSString *) getCustomDimension17 __deprecated_msg("Use getContentCustomDimension17 instead");
 
 /**
  * Returns content's customDimension18
  * @return customDimension18 value
  */
-- (nullable NSString *) getCustomDimension18;
+- (nullable NSString *) getCustomDimension18  __deprecated_msg("Use getContentCustomDimension18 instead");
 
 /**
  * Returns content's customDimension19
  * @return customDimension19 value
  */
-- (nullable NSString *) getCustomDimension19;
+- (nullable NSString *) getCustomDimension19 __deprecated_msg("Use getContentCustomDimension19 instead");
 
 /**
  * Returns content's customDimension20
  * @return customDimension20 value
  */
-- (nullable NSString *) getCustomDimension20;
+- (nullable NSString *) getCustomDimension20  __deprecated_msg("Use getContentCustomDimension20 instead");
+
+/**
+ * Returns content's customDimension1
+ * @return customDimension1 value
+ */
+- (nullable NSString *) getContentCustomDimension1;
+
+/**
+ * Returns content's customDimension2
+ * @return customDimension2 value
+ */
+- (nullable NSString *) getContentCustomDimension2;
+
+/**
+ * Returns content's customDimension3
+ * @return customDimension3 value
+ */
+- (nullable NSString *) getContentCustomDimension3;
+
+/**
+ * Returns content's customDimension4
+ * @return customDimension5 value
+ */
+- (nullable NSString *) getContentCustomDimension4;
+
+/**
+ * Returns content's customDimension5
+ * @return customDimension5 value
+ */
+- (nullable NSString *) getContentCustomDimension5;
+
+/**
+ * Returns content's customDimension6
+ * @return customDimension6 value
+ */
+- (nullable NSString *) getContentCustomDimension6;
+
+/**
+ * Returns content's customDimension7
+ * @return customDimension7 value
+ */
+- (nullable NSString *) getContentCustomDimension7;
+
+/**
+ * Returns content's customDimension8
+ * @return customDimension8 value
+ */
+- (nullable NSString *) getContentCustomDimension8;
+
+/**
+ * Returns content's customDimension9
+ * @return customDimension9 value
+ */
+- (nullable NSString *) getContentCustomDimension9;
+
+/**
+ * Returns content's customDimension10
+ * @return customDimension10 value
+ */
+- (nullable NSString *) getContentCustomDimension10;
+
+/**
+ * Returns content's customDimension11
+ * @return customDimension11 value
+ */
+- (nullable NSString *) getContentCustomDimension11;
+
+/**
+ * Returns content's customDimension12
+ * @return customDimension12 value
+ */
+- (nullable NSString *) getContentCustomDimension12;
+
+/**
+ * Returns content's customDimension13
+ * @return customDimension13 value
+ */
+- (nullable NSString *) getContentCustomDimension13;
+
+/**
+ * Returns content's customDimension14
+ * @return customDimension14 value
+ */
+- (nullable NSString *) getContentCustomDimension14;
+
+/**
+ * Returns content's customDimension15
+ * @return customDimension15 value
+ */
+- (nullable NSString *) getContentCustomDimension15;
+
+/**
+ * Returns content's customDimension16
+ * @return customDimension16 value
+ */
+- (nullable NSString *) getContentCustomDimension16;
+
+/**
+ * Returns content's customDimension17
+ * @return customDimension17 value
+ */
+- (nullable NSString *) getContentCustomDimension17;
+
+/**
+ * Returns content's customDimension18
+ * @return customDimension18 value
+ */
+- (nullable NSString *) getContentCustomDimension18;
+
+/**
+ * Returns content's customDimension19
+ * @return customDimension19 value
+ */
+- (nullable NSString *) getContentCustomDimension19;
+
+/**
+ * Returns content's customDimension20
+ * @return customDimension20 value
+ */
+- (nullable NSString *) getContentCustomDimension20;
 
 /**
  * Returns content's adCustomDimension1

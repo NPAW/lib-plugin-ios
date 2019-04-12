@@ -945,6 +945,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 4E5E11A61E7841BF0097FA21;
@@ -1256,7 +1257,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.3.10;
+				YOUBORALIB_VERSION_SETTING = 6.4.2;
 			};
 			name = Debug;
 		};
@@ -1309,7 +1310,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.3.10;
+				YOUBORALIB_VERSION_SETTING = 6.4.2;
 			};
 			name = Release;
 		};
