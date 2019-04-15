@@ -1,6 +1,8 @@
-## [6.4.3] - 2019-
+## [6.4.3] - 2019-04-15
 ###Added
 - Now the parsing of Location header is supported
+###Updated
+- Update to Swift 5
 
 ## [6.4.2] - 2019-04-09
 ###Fix
