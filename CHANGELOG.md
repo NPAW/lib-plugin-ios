@@ -1,6 +1,12 @@
-## [6.4.3] - 2019-
+## [6.4.4] - 2019-04-16
+###Fixed
+- Macro for SWIFT_VERSION now is set to 5.0
+
+## [6.4.3] - 2019-04-15
 ###Added
 - Now the parsing of Location header is supported
+###Updated
+- Update to Swift 5
 
 ## [6.4.2] - 2019-04-09
 ###Fix
