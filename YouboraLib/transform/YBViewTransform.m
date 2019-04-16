@@ -133,11 +133,6 @@
             params[@"code"] = self.fastDataConfig.code;
         }
     }
-    if (!isInfinityRequest) {
-        if ([params[@"code"] isEqualToString:self.viewCode]) {
-            params[@"code"] = self.fastDataConfig.code;
-        }
-    }
     
     if ((service == YouboraServiceStart
          || service == YouboraServiceInit
