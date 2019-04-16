@@ -80,11 +80,14 @@
 
 - (void)parse:(nullable YBRequest *)request {
     NSMutableDictionary<NSString *, NSString *> * params = request.params;
+    NSString * service = request.service;
+    BOOL isInfinityRequest = service == YouboraServiceSessionStart || service == YouboraServiceSessionBeat || service == YouboraServiceSessionNav || service == YouboraServiceSessionStop || service == YouboraServiceSessionEvent;
+    
     if (request.host == nil || request.host.length == 0) {
         request.host = self.fastDataConfig.host;
     }
     
-    if (params[@"code"] == nil) {
+    if (!isInfinityRequest && params[@"code"] == nil) {
         if(request.service == YouboraServiceOffline){
             [self nextView];
         }
@@ -95,8 +98,7 @@
         params[@"sessionRoot"] = self.fastDataConfig.code;
     }
     
-    if ([self.plugin getIsInfinity] != nil && [[self.plugin getIsInfinity] isEqual:@YES]) {
-        
+    if (isInfinityRequest) {
         if (params[@"sessionId"] == nil) {
             params[@"sessionId"] = self.fastDataConfig.code;
         }
@@ -107,7 +109,7 @@
     }
     
     // Request-specific transforms
-    NSString * service = request.service;
+    
     if (service == YouboraServicePing ||
         service == YouboraServiceStart) {
         
@@ -131,12 +133,7 @@
             params[@"code"] = self.fastDataConfig.code;
         }
     }
-    if (service == YouboraServiceSessionStart ||
-        service == YouboraServiceSessionBeat ||
-        service == YouboraServiceSessionNav ||
-        service == YouboraServiceSessionStop ||
-        service == YouboraServiceSessionEvent) {
-        
+    if (!isInfinityRequest) {
         if ([params[@"code"] isEqualToString:self.viewCode]) {
             params[@"code"] = self.fastDataConfig.code;
         }
