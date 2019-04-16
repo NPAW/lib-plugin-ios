@@ -1,4 +1,4 @@
-## [6.4.5] - 2019-04-17
+## [6.4.5] - 2019-04-16
 ###Improved
 - Now any Infinity request won't have code, sessionId will be used instead
 
