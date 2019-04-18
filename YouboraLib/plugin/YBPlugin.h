@@ -333,6 +333,144 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getContentMetadata;
 
 /**
+ * Returns the content package
+ * @return the content package
+ */
+- (nullable NSString *) getContentPackage;
+
+/**
+ * Returns the content saga
+ * @return the content saga
+ */
+- (nullable NSString *) getContentSaga;
+
+/**
+ * Returns the content tv show
+ * @return the content tv show
+ */
+- (nullable NSString *) getContentTvShow;
+
+/**
+ * Returns the content season
+ * @return the content season
+ */
+- (nullable NSString *) getContentSeason;
+
+/**
+ * Returns the content episode title
+ * @return the content episode title
+ */
+- (nullable NSString *) getContentEpisodeTitle;
+
+/**
+ * Returns the content channel
+ * @return the content channel
+ */
+- (nullable NSString *) getContentChannel;
+
+/**
+ * Returns the content id
+ * @return the content id
+ */
+- (nullable NSString *) getContentId;
+
+/**
+ * Returns the content IMDB id
+ * @return the content IMDB id
+ */
+- (nullable NSString *) getContentImdbId;
+
+/**
+ * Returns the content gracenote id
+ * @return the content gracenote id
+ */
+- (nullable NSString *) getContentGracenoteId;
+
+/**
+ * Returns the content type
+ * @return the content type
+ */
+- (nullable NSString *) getContentType;
+
+/**
+ * Returns the content genre
+ * @return the content genre
+ */
+- (nullable NSString *) getContentGenre;
+
+/**
+ * Returns the content language
+ * @return the content language
+ */
+- (nullable NSString *) getContentLanguage;
+
+/**
+ * Returns the content subtitles
+ * @return the content subtitles
+ */
+- (nullable NSString *) getContentSubtitles;
+
+/**
+ * Returns the content contracted resolution
+ * @return the content contracted resolution
+ */
+- (nullable NSString *) getContentContractedResolution;
+
+/**
+ * Returns the content cost
+ * @return the content cost
+ */
+- (nullable NSString *) getContentCost;
+
+/**
+ * Returns the content price
+ * @return the content price
+ */
+- (nullable NSString *) getContentPrice;
+
+/**
+ * Returns the content playback type
+ * @return the content playback type
+ */
+- (nullable NSString *) getContentPlaybackType;
+
+/**
+ * Returns the content DRM
+ * @return the content DRM
+ */
+- (nullable NSString *) getContentDrm;
+
+/**
+ * Returns the content encoding video codec
+ * @return the content encoding video codec
+ */
+- (nullable NSString *) getContentEncodingVideoCodec;
+
+/**
+ * Returns the content encoding audio codec
+ * @return the content encoding audio codec
+ */
+- (nullable NSString *) getContentEncodingAudioCodec;
+
+/**
+ * Returns the content encoding codec settings
+ * @return the content encoding codec settings
+ */
+- (nullable NSString *) getContentEncodingCodecSettings;
+
+/**
+ * Returns the content encoding codec profile
+ * @return the content encoding audio profile
+ */
+- (nullable NSString *) getContentEncodingCodecProfile;
+
+/**
+ * Returns the content encoding container format
+ * @return the content encoding container format
+ */
+- (nullable NSString *) getContentEncodingContainerFormat;
+
+/**
  * Returns the content streaming protocol
  * @return the content streaming protocol
  */
@@ -972,6 +1110,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @return the userType
  */
 - (nullable NSString *) getUserType;
+
+/**
+ * Returns the user email
+ * @return the user email
+ */
+- (nullable NSString *) getUserEmail;
 
 /**
  * Returns the anonymousUser
