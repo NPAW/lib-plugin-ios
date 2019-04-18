@@ -197,11 +197,11 @@
     return YBAdPositionUnknown;
 }
 
-- (NSArray *) getGivenBreaks {
+- (NSNumber *) getGivenBreaks {
     return nil;
 }
 
-- (NSArray *) getExpectedBreaks {
+- (NSNumber *) getExpectedBreaks {
     return nil;
 }
 
@@ -213,11 +213,11 @@
     return nil;
 }
 
-- (NSArray *) getGivenAds {
+- (NSNumber *) getGivenAds {
     return nil;
 }
 
-- (NSArray *) getExpectedAds {
+- (NSNumber *) getExpectedAds {
     return nil;
 }
 

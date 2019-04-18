@@ -293,14 +293,14 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  *
  * @return total ad breaks that will play
  */
-- (NSArray *) getGivenBreaks;
+- (NSNumber *) getGivenBreaks;
 
 /**
  * Override to return total breaks should play
  *
  * @return total ad breaks that should play
  */
-- (NSArray *) getExpectedBreaks;
+- (NSNumber *) getExpectedBreaks;
 
 /**
  * Override to return the ad structure requested
@@ -322,14 +322,14 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  *
  * @return number of ads on current break
  */
-- (NSArray *) getGivenAds;
+- (NSNumber *) getGivenAds;
 
 /**
  * Override to return the number of ads requested for the break (only ads)
  *
  * @return number of expected ads on current break
  */
-- (NSArray *) getExpectedAds;
+- (NSNumber *) getExpectedAds;
 
 /**
  * Override to return if ad can be skipped
