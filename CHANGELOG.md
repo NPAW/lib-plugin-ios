@@ -1,8 +1,20 @@
-## [6.4.3] - 2019-
+## [6.4.6] - 2019-
+###Added
+- New content options have been added
+
+## [6.4.5] - 2019-04-16
+###Improved
+- Now any Infinity request won't have code, sessionId will be used instead
+
+## [6.4.4] - 2019-04-16
+###Fixed
+- Macro for SWIFT_VERSION now is set to 5.0
+
+## [6.4.3] - 2019-04-15
 ###Added
 - Now the parsing of Location header is supported
-- New content options have been added
-- 
+###Updated
+- Update to Swift 5
 
 ## [6.4.2] - 2019-04-09
 ###Fix
