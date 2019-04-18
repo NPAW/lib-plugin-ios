@@ -28,6 +28,7 @@
     self.buffering = false;
     
     self.adInitiated = false;
+    self.adBreakStarted = false;
 }
 
 @end

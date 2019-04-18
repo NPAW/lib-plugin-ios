@@ -41,9 +41,13 @@
 
 /// Stopped
 @property(nonatomic, assign) bool stopped;
-    
+
+/// Ads only
+
 /// Only used for ads
 @property(nonatomic, assign) bool adInitiated;
+
+@property(nonatomic, assign) bool adBreakStarted;
 
 /// ---------------------------------
 /// @name Public methods
