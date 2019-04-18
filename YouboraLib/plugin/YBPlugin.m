@@ -649,6 +649,114 @@
     return [YBYouboraUtils stringifyDictionary:self.options.contentMetadata];
 }
 
+- (NSString *) getContentPackage {
+    return self.options.contentPackage;
+}
+
+- (NSString *) getContentSaga {
+    return self.options.contentSaga;
+}
+
+- (NSString *) getContentTvShow {
+    return self.options.contentTvShow;
+}
+
+- (NSString *) getContentSeason {
+    return self.options.contentSeason;
+}
+
+- (NSString *) getContentEpisodeTitle {
+    return self.options.contentEpisodeTitle;
+}
+
+- (NSString *) getContentChannel {
+    return self.options.contentChannel;
+}
+
+- (NSString *) getContentId {
+    return self.options.contentId;
+}
+
+- (NSString *) getContentImdbId {
+    return self.options.contentImdbId;
+}
+
+- (NSString *) getContentGracenoteId {
+    return self.options.contentGracenoteId;
+}
+
+- (NSString *) getContentType {
+    return self.options.contentType;
+}
+
+- (NSString *) getContentGenre {
+    return self.options.contentGenre;
+}
+
+- (NSString *) getContentLanguage {
+    return self.options.contentLanguage;
+}
+
+- (NSString *) getContentSubtitles {
+    return self.options.contentSubtitles;
+}
+
+- (NSString *) getContentContractedResolution {
+    return self.options.contentContractedResolution;
+}
+
+- (NSString *) getContentCost {
+    return self.options.contentCost;
+}
+
+- (NSString *) getContentPrice {
+    return self.options.contentPrice;
+}
+
+- (NSString *) getContentPlaybackType {
+    NSString * val = self.options.contentPlaybackType;
+    
+    if (self.adapter != nil) {
+        @try {
+            if (self.options.offline) {
+                val = @"Offline";
+            } else {
+                if ([self getIsLive] != nil) {
+                    val = [[self getIsLive] isEqualToValue:@YES] ? @"Live" : @"VoD";
+                }
+            }
+        } @catch (NSException *exception) {
+            [YBLog debug:@"An error occurred while calling getContentPlaybackType"];
+            [YBLog logException:exception];
+        }
+    }
+    return val;
+}
+
+- (NSString *) getContentDrm {
+    return self.options.contentDrm;
+}
+
+- (NSString *) getContentEncodingVideoCodec {
+    return self.options.contentEncodingVideoCodec;
+}
+
+- (NSString *) getContentEncodingAudioCodec {
+    return self.options.contentEncodingAudioCodec;
+}
+
+- (NSString *) getContentEncodingCodecSettings {
+    return [YBYouboraUtils stringifyDictionary:self.options.contentEncodingCodecSettings];
+}
+
+- (NSString *) getContentEncodingCodecProfile {
+    return self.options.contentEncodingCodecProfile;
+}
+
+- (NSString *) getContentEncodingContainerFormat {
+    return self.options.contentEncodingContainerFormat;
+}
+
 - (NSString *) getPlayerVersion {
     NSString * val = nil;
     
@@ -1281,6 +1389,10 @@
 
 - (NSString *) getUserType {
     return self.options.userType;
+}
+
+- (NSString *) getUserEmail {
+    return self.options.userEmail;
 }
 
 - (NSString *) getAnonymousUser {

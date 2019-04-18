@@ -49,7 +49,10 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
                                       @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
                                       @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId", @"navContext", @"anonymousUser",
-                                      @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType", @"appName", @"appReleaseVersion"];
+                                      @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType", @"appName", @"appReleaseVersion",
+                                      @"email", @"package", @"saga", @"tvshow", @"season", @"titleEpisode", @"channel", @"contentId", @"imdbID", @"gracenoteID", @"contentType",
+                                      @"genre", @"contentLanguage", @"subtitles", @"contractedResolution", @"cost", @"price", @"playbackType", @"drm",
+                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -417,6 +420,54 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAppReleaseVersion];
     } else if ([param isEqualToString:@"fingerprint"]) {
         value = [self.plugin getFingerprint];
+    } else if ([param isEqualToString:@"email"]) {
+        value = [self.plugin getUserEmail];
+    } else if ([param isEqualToString:@"package"]) {
+        value = [self.plugin getContentPackage];
+    } else if ([param isEqualToString:@"saga"]) {
+        value = [self.plugin getContentSaga];
+    } else if ([param isEqualToString:@"tvshow"]) {
+        value = [self.plugin getContentTvShow];
+    } else if ([param isEqualToString:@"season"]) {
+        value = [self.plugin getContentSeason];
+    } else if ([param isEqualToString:@"titleEpisode"]) {
+        value = [self.plugin getContentEpisodeTitle];
+    } else if ([param isEqualToString:@"channel"]) {
+        value = [self.plugin getContentChannel];
+    } else if ([param isEqualToString:@"contentId"]) {
+        value = [self.plugin getContentId];
+    } else if ([param isEqualToString:@"imdbID"]) {
+        value = [self.plugin getContentImdbId];
+    } else if ([param isEqualToString:@"gracenoteID"]) {
+        value = [self.plugin getContentGracenoteId];
+    } else if ([param isEqualToString:@"contentType"]) {
+        value = [self.plugin getContentType];
+    } else if ([param isEqualToString:@"genre"]) {
+        value = [self.plugin getContentGenre];
+    } else if ([param isEqualToString:@"contentLanguage"]) {
+        value = [self.plugin getContentLanguage];
+    } else if ([param isEqualToString:@"subtitles"]) {
+        value = [self.plugin getContentSubtitles];
+    } else if ([param isEqualToString:@"contractedResolution"]) {
+        value = [self.plugin getContentContractedResolution];
+    } else if ([param isEqualToString:@"cost"]) {
+        value = [self.plugin getContentCost];
+    } else if ([param isEqualToString:@"price"]) {
+        value = [self.plugin getContentPrice];
+    } else if ([param isEqualToString:@"playbackType"]) {
+        value = [self.plugin getContentPlaybackType];
+    } else if ([param isEqualToString:@"drm"]) {
+        value = [self.plugin getContentDrm];
+    } else if ([param isEqualToString:@"videoCodec"]) {
+        value = [self.plugin getContentEncodingVideoCodec];
+    } else if ([param isEqualToString:@"audioCodec"]) {
+        value = [self.plugin getContentEncodingAudioCodec];
+    } else if ([param isEqualToString:@"codecSettings"]) {
+        value = [self.plugin getContentEncodingCodecSettings];
+    } else if ([param isEqualToString:@"codecProfile"]) {
+        value = [self.plugin getContentEncodingCodecProfile];
+    } else if ([param isEqualToString:@"containerFormat"]) {
+        value = [self.plugin getContentEncodingContainerFormat];
     }
     
     return value;
