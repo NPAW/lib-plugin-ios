@@ -171,10 +171,6 @@
     return [YouboraLibVersion stringByAppendingString:@"-generic-ios"];
 }
 
-- (YBAdPosition)getPosition {
-    return YBAdPositionUnknown;
-}
-
 - (NSString *) getHouseholdId {
     return nil;
 }
@@ -193,6 +189,40 @@
 
 -(NSValue *) getIsP2PEnabled {
     return nil;
+}
+
+//Ads only
+
+- (YBAdPosition)getPosition {
+    return YBAdPositionUnknown;
+}
+
+- (NSArray *) getGivenBreaks {
+    return nil;
+}
+
+- (NSArray *) getExpectedBreaks {
+    return nil;
+}
+
+- (NSDictionary *) getExpectedPattern {
+    return nil;
+}
+
+- (NSArray *) getBreaksTime {
+    return nil;
+}
+
+- (NSArray *) getGivenAds {
+    return nil;
+}
+
+- (NSArray *) getExpectedAds {
+    return nil;
+}
+
+- (BOOL) isSkippable {
+    return false;
 }
 
 // Fire methods
@@ -507,6 +537,74 @@
 - (void) fireAllAdsCompleted:(NSDictionary<NSString *,NSString *> *)params{
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
         [delegate youboraAdapterEventAllAdsCompleted:params fromAdapter:self];
+    }
+}
+
+- (void) fireQuartile:(int) quartileNumber {
+    if (self.flags.started && quartileNumber > 1 && quartileNumber < 4) {
+        NSDictionary * params = @{@"quartile":[NSString stringWithFormat:@"%d",quartileNumber]};
+        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+            [delegate youboraAdapterEventAllAdsCompleted:params fromAdapter:self];
+        }
+    }
+}
+
+- (void) fireAdManifest:(nullable NSDictionary<NSString *, NSString *> *) params {
+    for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+        [delegate youboraAdapterEventAdManifest:params fromAdapter:self];
+    }
+}
+
+- (void) fireAdManifestWithError:(YBAdManifestError)error andMessage:(NSString *)message {
+    NSString *errorType = @"UNKNOWN";
+    switch (error) {
+        case YBAdManifestEmptyResponse:
+            errorType = @"NO_RESPONSE";
+            break;
+        case YBAdManifestWrongResponse:
+            errorType = @"EMPTY_RESPONSE";
+            break;
+        case YBAdManifestErrorNoResponse:
+            errorType = @"WRONG_RESPONSE";
+            break;
+        default:
+            errorType = @"UNKNOWN";
+            break;
+    }
+    
+    NSDictionary *params = @{
+                             @"errorType" : errorType,
+                             @"errorMessage" : message
+                             };
+    
+    for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+        [delegate youboraAdapterEventAdManifestError:params fromAdapter:self];
+    }
+}
+
+- (void) fireAdBreakStart {
+    [self fireAdBreakStart:nil];
+}
+
+- (void) fireAdBreakStart:(nullable NSDictionary<NSString *, NSString *> *) params {
+    if (!self.flags.adBreakStarted) {
+        self.flags.adBreakStarted = true;
+        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+            [delegate youboraAdapterEventAdBreakStart:params fromAdapter:self];
+        }
+    }
+}
+
+- (void) fireAdBreakStop {
+    [self fireAdBreakStop:nil];
+}
+
+- (void) fireAdBreakStop:(NSDictionary<NSString *,NSString *> *)params {
+    if (self.flags.adBreakStarted) {
+        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+            [delegate youboraAdapterEventAdBreakStop:params fromAdapter:self];
+        }
+        self.flags.adBreakStarted = false;
     }
 }
 
