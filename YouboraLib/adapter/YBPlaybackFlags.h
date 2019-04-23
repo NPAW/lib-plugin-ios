@@ -44,9 +44,13 @@
 
 /// Ads only
 
+///Ad Manifest file requested
+@property(nonatomic, assign) bool adManifestRequested;
+
 /// Only used for ads
 @property(nonatomic, assign) bool adInitiated;
 
+/// Ad break started
 @property(nonatomic, assign) bool adBreakStarted;
 
 /// ---------------------------------

@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         [self reset];
+        self.adManifestRequested = false; //We don't want to be able to reset this one
     }
     return self;
 }
