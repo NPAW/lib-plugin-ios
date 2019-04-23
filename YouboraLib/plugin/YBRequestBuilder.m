@@ -52,12 +52,12 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType", @"appName", @"appReleaseVersion",
                                       @"email", @"package", @"saga", @"tvshow", @"season", @"titleEpisode", @"channel", @"contentId", @"imdbID", @"gracenoteID", @"contentType",
                                       @"genre", @"contentLanguage", @"subtitles", @"contractedResolution", @"cost", @"price", @"playbackType", @"drm",
-                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat"];
+                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat", @"adsExpected"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
                                         @"extraparam2", @"extraparam3", @"extraparam4", @"extraparam5", @"extraparam6",
-                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10"];
+                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable"];
             
             youboraRequestParams = @{
                        YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity", @"fingerprint"],
@@ -78,6 +78,10 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
+                       YouboraServiceAdManifest: @[@"givenBreaks", @"expectedBreaks", @"expectedPattern", @"breaksTime"],
+                       YouboraServiceAdBreakStart: @[@"breakPosition", @"givenAds", @"expectedAds"],
+                       YouboraServiceAdBreakStop: @[],
+                       YouboraServiceAdQuartile: @[@"breakPosition", @"adPosition"],
                        YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"],
                        
@@ -468,6 +472,30 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getContentEncodingCodecProfile];
     } else if ([param isEqualToString:@"containerFormat"]) {
         value = [self.plugin getContentEncodingContainerFormat];
+    } else if ([param isEqualToString:@"givenBreaks"]) {
+        value = [self.plugin getAdGivenBreaks];
+    } else if ([param isEqualToString:@"expectedBreaks"]) {
+        value = [self.plugin getAdExpectedBreaks];
+    } else if ([param isEqualToString:@"expectedPattern"]) {
+        value = [self.plugin getAdExpectedPattern];
+    } else if ([param isEqualToString:@"breaksTime"]) {
+        value = [self.plugin getAdBreaksTime];
+    } else if ([param isEqualToString:@"breakPosition"]) {
+        value = [self.plugin getAdBreakPosition];
+    } else if ([param isEqualToString:@"givenAds"]) {
+        value = [self.plugin getAdGivenAds];
+    } else if ([param isEqualToString:@"expectedAds"]) {
+        value = [self.plugin getExpectedAds];
+    } else if ([param isEqualToString:@"adsExpected"]) {
+        NSValue * expected = [self.plugin getAdsExpected];
+        if (expected != nil) {
+            value = [expected isEqual:@YES] ? @"true" : @"false";
+        }
+    } else if ([param isEqualToString:@"skippable"]) {
+        NSValue * skippable = [self.plugin isAdSkippable];
+        if (skippable != nil) {
+            value = [skippable isEqual:@YES] ? @"true" : @"false";
+        }
     }
     
     return value;
