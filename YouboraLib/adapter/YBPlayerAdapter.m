@@ -197,19 +197,23 @@
     return YBAdPositionUnknown;
 }
 
-- (NSNumber *) getGivenBreaks {
+- (NSNumber *) getAdBreakNumber {
     return nil;
 }
 
-- (NSNumber *) getExpectedBreaks {
+- (NSNumber *) getAdGivenBreaks {
     return nil;
 }
 
-- (NSDictionary *) getExpectedPattern {
+- (NSNumber *) getAdExpectedBreaks {
     return nil;
 }
 
-- (NSArray *) getBreaksTime {
+- (NSDictionary *) getAdExpectedPattern {
+    return nil;
+}
+
+- (NSArray *) getAdBreaksTime {
     return nil;
 }
 
@@ -221,8 +225,8 @@
     return nil;
 }
 
-- (BOOL) isSkippable {
-    return false;
+- (NSValue *) isSkippable {
+    return nil;
 }
 
 // Fire methods
