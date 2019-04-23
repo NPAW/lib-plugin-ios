@@ -1059,6 +1059,56 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getAdMetadata;
 
 /**
+ * Returns how many ad breaks will be played
+ */
+- (nullable NSString *) getAdGivenBreaks;
+
+/**
+ * Returns how many ad breaks should be played
+ */
+- (nullable NSString *) getAdExpectedBreaks;
+
+/**
+ * Returns how many ad breaks contains each position
+ */
+- (nullable NSString *) getAdExpectedPattern;
+
+/**
+ * Returns when an ad break will be played
+ */
+- (nullable NSString *) getAdBreaksTime;
+
+/**
+ * Returns how many ads contains the current ad break
+ */
+- (nullable NSString *) getAdGivenAds;
+
+/**
+ * Returns current ad break playing
+ */
+- (nullable NSString *) getAdBreakNumber;
+
+/**
+ * Returns ad break position
+ */
+- (NSString *) getAdBreakPosition;
+
+/**
+ * Returns the number of ads requested for the break (only ads)
+ */
+- (nullable NSString *) getExpectedAds;
+
+/**
+ * Returns boolean if any ads may come
+ */
+- (NSValue *) getAdsExpected;
+
+/**
+ * Returns if the current ad can be skipped, false by default
+ */
+- (nullable NSValue *) isAdSkippable;
+
+/**
  * Returns a json-formatted string with plugin info
  * @return plugin info
  */
@@ -1414,6 +1464,30 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (void) addWillSendAdErrorListener:(YBWillSendRequestBlock) listener;
 
 /**
+ * Adds an ad Manifest listener
+ * @param listener to add
+ */
+- (void) addWillSendAdManifestListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Adds an ad Break start listener
+ * @param listener to add
+ */
+- (void) addWillSendAdBreakStartListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Adds an ad Break stop listener
+ * @param listener to add
+ */
+- (void) addWillSendAdBreakStopListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Adds an ad Quartile listener
+ * @param listener to add
+ */
+- (void) addWillSendQuartileListener:(YBWillSendRequestBlock) listener;
+
+/**
  * Removes an Init listener
  * @param listener to remove
  */
@@ -1519,7 +1593,31 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Removes an ad Error listener
  * @param listener to remove
  */
--(void) removeWillSendAdErrorListener:(YBWillSendRequestBlock) listener;
+- (void) removeWillSendAdErrorListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Removes an ad Manifest listener
+ * @param listener to remove
+ */
+- (void) removeWillSendAdManifestListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Removes an ad Break start listener
+ * @param listener to remove
+ */
+- (void) removeWillSendAdBreakStartListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Removes an ad Break stop listener
+ * @param listener to remove
+ */
+- (void) removeWillSendAdBreakStopListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Removes an ad Quartile listener
+ * @param listener to remove
+ */
+- (void) removeWillSendQuartileListener:(YBWillSendRequestBlock) listener;
 
 @end
 
