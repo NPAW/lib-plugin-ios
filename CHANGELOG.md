@@ -1,4 +1,4 @@
-## [6.4.6] - 2019-
+## [6.4.6] - 2019-04-24
 ###Added
 - New content options have been added
 
