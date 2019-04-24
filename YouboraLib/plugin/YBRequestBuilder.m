@@ -178,6 +178,25 @@ static NSArray<NSString *> * youboraPingEntities;
     return sAdNumber;
 }
 
+- (NSString *) getNewAdBreakNumber {
+    NSString * sAdBreakNumber = self.lastSent[@"breakNumber"];
+    
+    if (sAdBreakNumber != nil) {
+        @try {
+            int num = sAdBreakNumber.intValue;
+            sAdBreakNumber = @(num + 1).stringValue;
+        } @catch (NSException *exception) {
+            [YBLog logException:exception]; // should never happen
+        }
+    }else {
+        sAdBreakNumber = @"1";
+    }
+    
+    self.lastSent[@"breakNumber"] = sAdBreakNumber;
+    
+    return sAdBreakNumber;
+}
+
 - (NSMutableDictionary *) getChangedEntitites {
     return [self fetchParams:nil paramList:youboraPingEntities onlyDifferent:true];
 }
@@ -496,6 +515,8 @@ static NSArray<NSString *> * youboraPingEntities;
         if (skippable != nil) {
             value = [skippable isEqual:@YES] ? @"true" : @"false";
         }
+    } else if ([param isEqualToString:@"breakNumber"]) {
+        value = [self.plugin getAdBreakNumber];
     }
     
     return value;
