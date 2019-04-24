@@ -1428,17 +1428,7 @@
 }
 
 - (NSString *) getAdBreakNumber {
-    NSNumber * val = nil;
-    
-    if (self.adsAdapter != nil) {
-        @try {
-            val = [self.adsAdapter getAdBreakNumber];
-        } @catch (NSException *exception) {
-            [YBLog warn:@"An error occurred while calling ad getAdBreakNumber"];
-            [YBLog logException:exception];
-        }
-    }
-    return val != nil ? [val stringValue] : nil;
+   return self.requestBuilder.lastSent[@"breakNumber"];
 }
 
 - (NSString *) getAdBreakPosition {
@@ -2845,6 +2835,8 @@
 
 - (void) sendAdBreakStart:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStart];
+    NSString* realNumber = [self.requestBuilder getNewAdBreakNumber];
+    mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
     [self sendWithCallbacks:self.willSendAdBreakStartListeners service:YouboraServiceAdBreakStart andParams:mutParams];
 }
 
