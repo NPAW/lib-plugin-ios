@@ -19,7 +19,7 @@
     }
     return self;
 }
-
+//TODO: Rethink this method contemplating somehow the ad break flag
 - (void)reset {
     self.preloading = false;
     self.started = false;
@@ -29,7 +29,7 @@
     self.buffering = false;
     
     self.adInitiated = false;
-    self.adBreakStarted = false;
+    //self.adBreakStarted = false; //This on MUST stay commented since we don't want to reset it with the rest
 }
 
 @end
