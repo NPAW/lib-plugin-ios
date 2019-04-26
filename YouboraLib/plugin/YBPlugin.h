@@ -1101,7 +1101,17 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 /**
  * Returns boolean if any ads may come
  */
-- (NSValue *) getAdsExpected;
+- (nullable NSValue *) getAdsExpected;
+
+/**
+ * Returns how long the ad has been watched
+ */
+- (nullable NSString *) getAdViewedDuration;
+
+/**
+ * Returns maximum time the ad has been watched without interruptions
+ */
+- (nullable NSString *) getAdViewability;
 
 /**
  * Returns if the current ad can be skipped, false by default

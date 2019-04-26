@@ -1435,6 +1435,32 @@
     return [self getAdPosition];
 }
 
+- (NSString *) getAdViewedDuration {
+    NSNumber * val = nil;
+    if (self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdViewedDuration] != nil ? [self.adsAdapter getAdViewedDuration] : [self.adsAdapter getPlayhead];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
+            [YBLog logException:exception];
+        }
+    }
+    return val != nil ? [val stringValue] : nil;
+}
+
+- (NSString *) getAdViewability {
+    NSNumber * val = nil;
+    if (self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdViewability] != nil ? [self.adsAdapter getAdViewability] : [self.adsAdapter getPlayhead];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
+            [YBLog logException:exception];
+        }
+    }
+    return val != nil ? [val stringValue] : nil;
+}
+
 - (NSValue *) isAdSkippable {
     if (self.adsAdapter != nil) {
         @try {
@@ -2835,8 +2861,7 @@
 
 - (void) sendAdBreakStart:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStart];
-    NSString* realNumber = [self.requestBuilder getNewAdBreakNumber];
-    mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
+    mutParams[@"breakNumber"] = [self.requestBuilder getNewAdBreakNumber];
     [self sendWithCallbacks:self.willSendAdBreakStartListeners service:YouboraServiceAdBreakStart andParams:mutParams];
 }
 
@@ -2848,7 +2873,7 @@
 - (void) sendAdQuartile:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStop];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
-    [self sendWithCallbacks:self.willSendAdBreakStopListeners service:YouboraServiceAdBreakStop andParams:mutParams];
+    [self sendWithCallbacks:self.willSendAdQuartileListeners service:YouboraServiceAdQuartile andParams:mutParams];
 }
 
 - (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
@@ -3114,7 +3139,7 @@
     }
 }
 
-- (void) youboraAdapterEventQuartile:(NSDictionary *)params fromAdapter:(YBPlayerAdapter *)adapter {
+- (void) youboraAdapterEventAdQuartile:(NSDictionary *)params fromAdapter:(YBPlayerAdapter *)adapter {
     if (adapter == self.adsAdapter) {
         [self adQuartileListener:params];
     }
