@@ -225,6 +225,14 @@
     return nil;
 }
 
+- (NSNumber *) getAdViewedDuration {
+    return nil;
+}
+
+- (NSNumber *) getAdViewability {
+    return nil;
+}
+
 - (NSValue *) isSkippable {
     return nil;
 }
@@ -548,41 +556,47 @@
     if (self.flags.started && quartileNumber > 1 && quartileNumber < 4) {
         NSDictionary * params = @{@"quartile":[NSString stringWithFormat:@"%d",quartileNumber]};
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
-            [delegate youboraAdapterEventAllAdsCompleted:params fromAdapter:self];
+            [delegate youboraAdapterEventAdQuartile:params fromAdapter:self];
         }
     }
 }
 
 - (void) fireAdManifest:(nullable NSDictionary<NSString *, NSString *> *) params {
-    for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
-        [delegate youboraAdapterEventAdManifest:params fromAdapter:self];
+    if (!self.flags.adManifestRequested) {
+        self.flags.adManifestRequested = true;
+        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+            [delegate youboraAdapterEventAdManifest:params fromAdapter:self];
+        }
     }
 }
 
 - (void) fireAdManifestWithError:(YBAdManifestError)error andMessage:(NSString *)message {
-    NSString *errorType = @"UNKNOWN";
-    switch (error) {
-        case YBAdManifestEmptyResponse:
-            errorType = @"NO_RESPONSE";
-            break;
-        case YBAdManifestWrongResponse:
-            errorType = @"EMPTY_RESPONSE";
-            break;
-        case YBAdManifestErrorNoResponse:
-            errorType = @"WRONG_RESPONSE";
-            break;
-        default:
-            errorType = @"UNKNOWN";
-            break;
-    }
-    
-    NSDictionary *params = @{
-                             @"errorType" : errorType,
-                             @"errorMessage" : message
-                             };
-    
-    for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
-        [delegate youboraAdapterEventAdManifestError:params fromAdapter:self];
+    if (!self.flags.adManifestRequested) {
+        self.flags.adManifestRequested = true;
+        NSString *errorType = @"UNKNOWN";
+        switch (error) {
+            case YBAdManifestEmptyResponse:
+                errorType = @"NO_RESPONSE";
+                break;
+            case YBAdManifestWrongResponse:
+                errorType = @"EMPTY_RESPONSE";
+                break;
+            case YBAdManifestErrorNoResponse:
+                errorType = @"WRONG_RESPONSE";
+                break;
+            default:
+                errorType = @"UNKNOWN";
+                break;
+        }
+        
+        NSDictionary *params = @{
+                                 @"errorType" : errorType,
+                                 @"errorMessage" : message
+                                 };
+        
+        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+            [delegate youboraAdapterEventAdManifestError:params fromAdapter:self];
+        }
     }
 }
 
@@ -604,11 +618,11 @@
 }
 
 - (void) fireAdBreakStop:(NSDictionary<NSString *,NSString *> *)params {
-    if (self.flags.adBreakStarted) {
+    if (self.flags.adBreakStarted && !self.flags.started) {
+        self.flags.adBreakStarted = false;
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventAdBreakStop:params fromAdapter:self];
         }
-        self.flags.adBreakStarted = false;
     }
 }
 

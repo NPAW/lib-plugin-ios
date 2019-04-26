@@ -292,21 +292,21 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  * Override to return current ad break playing
  * @return current break playing
  */
-- (NSNumber *) getAdBreakNumber;
+- (nullable NSNumber *) getAdBreakNumber;
 
 /**
  * Override to return total breaks will play
  *
  * @return total ad breaks that will play
  */
-- (NSNumber *) getAdGivenBreaks;
+- (nullable NSNumber *) getAdGivenBreaks;
 
 /**
  * Override to return total breaks should play
  *
  * @return total ad breaks that should play
  */
-- (NSNumber *) getAdExpectedBreaks;
+- (nullable NSNumber *) getAdExpectedBreaks;
 
 /**
  * Override to return the ad structure requested
@@ -314,35 +314,49 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  *
  * @return how many braeaks per position (pre,mid,post) will be played
  */
-- (NSDictionary *) getAdExpectedPattern;
+- (nullable NSDictionary *) getAdExpectedPattern;
 
 /**
  * Override to return a list of playheads of ad breaks begin time (only ads)
  *
  * @return current time of playaback when an ad break will play
  */
-- (NSArray *) getAdBreaksTime;
+- (nullable NSArray *) getAdBreaksTime;
 
 /**
  * Override to return the number of ads given for the break (only ads)
  *
  * @return number of ads on current break
  */
-- (NSNumber *) getGivenAds;
+- (nullable NSNumber *) getGivenAds;
 
 /**
  * Override to return the number of ads requested for the break (only ads)
  *
  * @return number of expected ads on current break
  */
-- (NSNumber *) getExpectedAds;
+- (nullable NSNumber *) getExpectedAds;
+
+/**
+ * Override to return how long the ad has been watched
+ *
+ * @return how long the ad has been watched
+ */
+- (nullable NSNumber *) getAdViewedDuration;
+
+/**
+ * Override to return maximum time the ad has been watched without interruptions
+ *
+ * @return maximum time the ad has been watched without interruptions
+ */
+- (nullable NSNumber *) getAdViewability;
 
 /**
  * Override to return if ad can be skipped
  *
  * @return boolean indicating if ad can be skipped
  */
-- (NSValue *) isSkippable;
+- (nullable NSValue *) isSkippable;
 
 /// ---------------------------------
 /// @name Flow methods
@@ -724,7 +738,7 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  * @param params params to add to the request
  * @param adapter the adapter that is firing the event
  */
-- (void) youboraAdapterEventQuartile:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
+- (void) youboraAdapterEventAdQuartile:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
 
 /** Adapter deteccted a successful ad manifest request
  * @param params params to add to the request
