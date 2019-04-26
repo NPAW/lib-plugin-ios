@@ -80,8 +80,8 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
                        YouboraServiceAdManifest: @[@"givenBreaks", @"expectedBreaks", @"expectedPattern", @"breaksTime"],
                        YouboraServiceAdBreakStart: @[@"breakPosition", @"givenAds", @"expectedAds"],
-                       YouboraServiceAdBreakStop: @[],
-                       YouboraServiceAdQuartile: @[@"breakPosition", @"adPosition"],
+                       YouboraServiceAdBreakStop: @[@"breakPosition", @"breakNumber"],
+                       YouboraServiceAdQuartile: @[@"breakPosition", @"adPosition", @"adViewedDuration", @"adViewability"],
                        YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"],
                        
@@ -517,6 +517,10 @@ static NSArray<NSString *> * youboraPingEntities;
         }
     } else if ([param isEqualToString:@"breakNumber"]) {
         value = [self.plugin getAdBreakNumber];
+    } else if ([param isEqualToString: @"adViewedDuration"]) {
+        value = [self.plugin getAdViewedDuration];
+    } else if ([param isEqualToString:@"adViewability"]) {
+        value = [self.plugin getAdViewability];
     }
     
     return value;
