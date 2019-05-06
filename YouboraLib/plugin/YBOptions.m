@@ -373,7 +373,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
 - (void) defaultValues {
     self.enabled = true;
     self.httpSecure = true;
-    self.host = @"nqs.nice264.com";
+    self.host = @"a-fds.youborafds01.com";
     self.accountCode = @"nicetest";
     self.username = nil;
     self.userType = nil;

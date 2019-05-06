@@ -54,7 +54,7 @@ typedef void (^YBRequestErrorBlock) (NSError * _Nullable error);
 @property (nonatomic, strong, nullable) NSString * host;
 
 /// The service. This will be the "/something" part of the url.
-/// For instance the "/start" in "nqs.nice264.com/start"
+/// For instance the "/start" in "a-fds.youborafds01.com/start"
 @property (nonatomic, strong, nullable) NSString * service;
 
 /// NSDictionary with params to add to the http request
@@ -86,7 +86,7 @@ typedef void (^YBRequestErrorBlock) (NSError * _Nullable error);
 /**
  * YBRequest will generate the URL call.
  *
- * @param host NSString with the URL of the request. Example: nqs.nice264.com
+ * @param host NSString with the URL of the request. Example: a-fds.youborafds01.com
  * @param service NSString with the name of the service. Example: '/start'
  * @returns An instance of YBRequest
  */
