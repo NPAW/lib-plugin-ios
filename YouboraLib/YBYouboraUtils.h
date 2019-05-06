@@ -57,7 +57,7 @@
 + (NSString *) stripProtocol:(NSString *) host;
 
 /**
- * Adds specific protocol. ie: [http[s]:]//nqs.nice264.com
+ * Adds specific protocol. ie: [http[s]:]//a-fds.youborafds01.com
  * @param url Domain of the service.
  * @param httpSecure If true will add https, if false http.
  * @return Return the complete service URL.
