@@ -18,7 +18,7 @@
 - (void)testOptions {
     YBOptions * options = [YBOptions new];
     
-    XCTAssertEqualObjects(@"nqs.nice264.com", options.host);
+    XCTAssertEqualObjects(@"a-fds.youborafds01.com", options.host);
 }
 
 - (void)testCoding {
