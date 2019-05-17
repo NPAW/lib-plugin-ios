@@ -184,8 +184,9 @@
         _adapter = nil;
         
         //if(self.options.autoDetectBackground){
-            
+        #if TARGET_OS_TV==1
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+        #endif
         //}
     }
     
@@ -1602,9 +1603,12 @@
 }
 
 - (NSString *) getFingerprint {
-    if (UIDevice.currentDevice.identifierForVendor) {
-        return UIDevice.currentDevice.identifierForVendor.UUIDString;
-    }
+    #if TARGET_OS_TV==1
+        if (UIDevice.currentDevice.identifierForVendor) {
+            return UIDevice.currentDevice.identifierForVendor.UUIDString;
+        }
+    #endif
+    
     return nil;
 }
 
@@ -2904,6 +2908,8 @@
 }
 
 - (void) registerLifeCycleEvents {
+    
+    #if TARGET_OS_TV==1
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -2917,6 +2923,7 @@
                                              selector:@selector(eventListenerDidReceiveToFore:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
+    #endif
 }
 
 - (BOOL) isExtraMetadataReady {

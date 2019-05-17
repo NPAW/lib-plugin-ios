@@ -6,7 +6,8 @@
 //  Copyright © 2017 NPAW. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
 //! Project version number for YouboraLib.
