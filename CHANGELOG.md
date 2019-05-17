@@ -1,3 +1,7 @@
+## [6.4.7] - 2019-05-08
+###Changed
+- Fastdata url now points to a-fds.youborafds01.com
+
 ## [6.4.6] - 2019-04-24
 ###Added
 - New content options have been added
