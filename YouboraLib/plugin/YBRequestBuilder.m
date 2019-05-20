@@ -57,7 +57,7 @@ static NSArray<NSString *> * youboraPingEntities;
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
                                         @"extraparam2", @"extraparam3", @"extraparam4", @"extraparam5", @"extraparam6",
-                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable"];
+                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable", @"breakNumber"];
             
             youboraRequestParams = @{
                        YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity", @"fingerprint"],
@@ -72,10 +72,10 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdInit: adStartParams,
                        YouboraServiceAdStart: adStartParams,
                        YouboraServiceAdJoin: @[@"adPosition", @"adJoinDuration", @"adPlayhead", @"playhead"],
-                       YouboraServiceAdPause: @[@"adPosition", @"adPlayhead", @"playhead"],
-                       YouboraServiceAdResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration", @"playhead"],
+                       YouboraServiceAdPause: @[@"adPosition", @"adPlayhead", @"playhead", @"breakNumber"],
+                       YouboraServiceAdResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration", @"playhead", @"breakNumber"],
                        YouboraServiceAdBuffer: @[@"adPosition", @"adPlayhead", @"adBufferDuration", @"playhead"],
-                       YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
+                       YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead", @"breakNumber"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
                        YouboraServiceAdManifest: @[@"givenBreaks", @"expectedBreaks", @"expectedPattern", @"breaksTime"],
