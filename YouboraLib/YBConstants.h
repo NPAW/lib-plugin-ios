@@ -64,6 +64,7 @@ FOUNDATION_EXPORT NSString * const YouboraServiceSessionNav;
 FOUNDATION_EXPORT NSString * const YouboraServiceSessionEvent;
 /** /infinity/session/beat service **/
 FOUNDATION_EXPORT NSString * const YouboraServiceSessionBeat;
+FOUNDATION_EXPORT NSString * const YouboraServiceVideoEvent;
 
 /** Key for request success param */
 FOUNDATION_EXPORT NSString * const YouboraSuccsessListenerOfflineId;
