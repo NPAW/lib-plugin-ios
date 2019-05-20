@@ -128,10 +128,6 @@
         if (params[@"beatTime"] == nil) {
             params[@"beatTime"] = self.fastDataConfig.beatTime.stringValue;
         }
-        
-        if ([params[@"code"] isEqualToString:self.viewCode]) {
-            params[@"code"] = self.fastDataConfig.code;
-        }
     }
     
     if ((service == YouboraServiceStart
