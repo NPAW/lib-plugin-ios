@@ -1626,10 +1626,6 @@
     }
 }
 
-- (NSString *) getSessionMetrics {
-    
-}
-
 // Add listeners
 - (void) addWillSendInitListener:(YBWillSendRequestBlock) listener {
     if (self.willSendInitListeners == nil)
@@ -2572,7 +2568,7 @@
 
 - (void) sendVideoEvent:(NSDictionary<NSString *, NSString*> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceVideoEvent];
-    [self sendWithCallbacks:self.willSendVideoEventListeners service:YouboraServiceVideoEvent andParams:params];
+    [self sendWithCallbacks:self.willSendVideoEventListeners service:YouboraServiceVideoEvent andParams:mutParams];
     [YBLog notice:@"%@", YouboraServiceVideoEvent];
 }
 
