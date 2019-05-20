@@ -69,6 +69,7 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendErrorListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendStopListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendPingListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendVideoEventListeners;
 
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdInitListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdStartListeners;
@@ -1502,6 +1503,54 @@
     return [NSString stringWithFormat:@"%@-%@",languageCode, countryCode];
 }
 
+- (NSValue *) getIsInfinity {
+    return self.options.isInfinity;
+}
+
+- (NSString *) getSmartSwitchConfigCode {
+    return self.options.smartswitchConfigCode;
+}
+
+- (NSString *) getSmartSwitchGroupCode {
+    return self.options.smartswitchGroupCode;
+}
+
+- (NSString *) getSmartSwitchContractCode {
+    return self.options.smartswitchContractCode;
+}
+
+- (NSString *) getAppName {
+    return self.options.appName;
+}
+
+- (NSString *) getAppReleaseVersion {
+    return self.options.appReleaseVersion;
+}
+
+- (NSString *) getFingerprint {
+    if (UIDevice.currentDevice.identifierForVendor) {
+        return UIDevice.currentDevice.identifierForVendor.UUIDString;
+    }
+    return nil;
+}
+
+- (NSString *) getVideoMetrics {
+    NSString * metrics = [YBYouboraUtils stringifyDictionary:self.options.contentMetrics];
+    
+    if ((metrics == nil || metrics.length == 0) && self.adapter != nil) {
+        @try {
+            metrics = [YBYouboraUtils stringifyDictionary:[self.adapter getMetrics]];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getVideoMetrics"];
+            [YBLog logException:exception];
+        }
+    }
+}
+
+- (NSString *) getSessionMetrics {
+    return [YBYouboraUtils stringifyDictionary: self.options.sessionMetrics];
+}
+
 // ------ CHRONOS ------
 - (long long) getPreloadDuration {
     return [self.preloadChrono getDeltaTime:false];
@@ -1577,35 +1626,8 @@
     }
 }
 
-- (NSValue *) getIsInfinity {
-    return self.options.isInfinity;
-}
-
-- (NSString *) getSmartSwitchConfigCode {
-    return self.options.smartswitchConfigCode;
-}
-
-- (NSString *) getSmartSwitchGroupCode {
-    return self.options.smartswitchGroupCode;
-}
-
-- (NSString *) getSmartSwitchContractCode {
-    return self.options.smartswitchContractCode;
-}
-
-- (NSString *) getAppName {
-    return self.options.appName;
-}
-
-- (NSString *) getAppReleaseVersion {
-    return self.options.appReleaseVersion;
-}
-
-- (NSString *) getFingerprint {
-    if (UIDevice.currentDevice.identifierForVendor) {
-        return UIDevice.currentDevice.identifierForVendor.UUIDString;
-    }
-    return nil;
+- (NSString *) getSessionMetrics {
+    
 }
 
 // Add listeners
@@ -1783,6 +1805,12 @@
     if (self.willSendClickListeners == nil)
         self.willSendClickListeners = [NSMutableArray arrayWithCapacity:1];
     [self.willSendClickListeners addObject:listener];
+}
+
+- (void) addWillSendVideoEventListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendVideoEventListeners == nil)
+        self.willSendVideoEventListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendVideoEventListeners addObject:listener];
 }
 
 /**
@@ -1994,7 +2022,12 @@
  */
 - (void) removeWillSendAdErrorListener:(YBWillSendRequestBlock) listener {
     if (self.willSendAdErrorListeners != nil)
-    [self.willSendAdErrorListeners removeObject:listener];
+        [self.willSendAdErrorListeners removeObject:listener];
+}
+
+- (void) removeWillSendVideoEventListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendVideoEventListeners != nil)
+        [self.willSendVideoEventListeners removeObject:listener];
 }
 
 - (void) removeOnWillSendSessionStart:(YBWillSendRequestBlock) listener {
@@ -2360,6 +2393,10 @@
     }
 }
 
+- (void) videoEventListener:(NSDictionary<NSString *, NSString*> *) params {
+    [self sendVideoEvent:params];
+}
+
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
     [self sendStop:params];
     [self reset];
@@ -2531,6 +2568,12 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceError];
     [self sendWithCallbacks:self.willSendErrorListeners service:YouboraServiceError andParams:mutParams];
     [YBLog notice:@"%@ %@", YouboraServiceError, mutParams[@"errorCode"]];
+}
+
+- (void) sendVideoEvent:(NSDictionary<NSString *, NSString*> *) params {
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceVideoEvent];
+    [self sendWithCallbacks:self.willSendVideoEventListeners service:YouboraServiceVideoEvent andParams:params];
+    [YBLog notice:@"%@", YouboraServiceVideoEvent];
 }
 
 - (void) sendStop:(NSDictionary<NSString *, NSString *> *) params {
@@ -2797,6 +2840,10 @@
     } else if (adapter == self.adsAdapter) {
         [self adResumeListener:params];
     }
+}
+
+- (void) youboraAdapterEventVideoEvent:(nullable NSDictionary *)params fromAdapter:(YBPlayerAdapter *) adapter {
+    [self videoEventListener: params];
 }
 
 - (void) youboraAdapterEventStop:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter {
