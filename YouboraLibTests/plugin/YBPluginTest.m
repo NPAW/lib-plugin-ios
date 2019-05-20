@@ -678,6 +678,23 @@
     XCTAssertEqualObjects(@"typeString", [self.p getNodeTypeString]);
 }
 
+- (void)testContentMetrics {
+    XCTAssertNil([self.p getVideoMetrics]);
+    stubProperty(self.mockOptions, contentMetrics, @{@"key": @"value"});
+    XCTAssertEqualObjects(@"{\"key\":\"value\"}", [self.p getVideoMetrics]);
+    
+    stubProperty(self.mockOptions, contentMetrics, nil);
+    
+    [given([self.mockAdapter getMetrics]) willReturn:@{@"key": @"value"}];
+    XCTAssertEqualObjects(@"{\"key\":\"value\"}", [self.p getVideoMetrics]);
+}
+
+- (void)testSessionMetrics {
+    XCTAssertNil([self.p getSessionMetrics]);
+    stubProperty(self.mockOptions, sessionMetrics, @{@"key": @"value"});
+    XCTAssertEqualObjects(@"{\"key\":\"value\"}", [self.p getSessionMetrics]);
+}
+
 - (void)testChronoTimes {
     // Init and preload chronos don't depend on the adapter
     [given([self.p.mockChrono getDeltaTime:false]) willReturn:@100];

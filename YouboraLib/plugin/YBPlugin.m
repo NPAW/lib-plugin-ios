@@ -1545,6 +1545,7 @@
             [YBLog logException:exception];
         }
     }
+    return metrics;
 }
 
 - (NSString *) getSessionMetrics {
