@@ -212,6 +212,12 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  */
 - (nullable NSNumber *)getPacketSent;
 
+/** Override to return a map with metrics
+ *
+ * @return metrics
+ */
+- (nullable NSDictionary *)getMetrics;
+
 /** Override to return player version
  *
  * @return the player version
@@ -404,6 +410,14 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * Shortcut for <fireStop:> with a param skipped = true
  */
 - (void) fireSkip;
+
+/**
+ * Emits related event
+ * @param eventName name of the event (in case of empty or null will be reported as "Unknown"
+ * @param dimensions key value map with dimensions
+ * @param values key value map with the event values
+ */
+- (void) fireEventWithName:(nullable NSString *) eventName dimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values;
 
 /**
  * Shortcut for <fireStop:> with a param casted = true
@@ -606,6 +620,13 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
  * @param adapter the adapter that is firing the event
  */
 - (void) youboraAdapterEventAllAdsCompleted:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
+
+/**
+ * Adapter detected video event
+ * @param params params to add to the request
+ * @param adapter the adapter that is firing the event
+ */
+- (void) youboraAdapterEventVideoEvent:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter;
 @end
 
 NS_ASSUME_NONNULL_END
