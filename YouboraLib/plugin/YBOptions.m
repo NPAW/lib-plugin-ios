@@ -133,6 +133,8 @@ NSString * const YBOPTIONS_KEY_APP_RELEASE_VERSION = @"app.release.version";
 NSString * const YBOPTIONS_KEY_WAIT_METADATA = @"waitForMetadata";
 NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
 
+NSString * const YBOPTIONS_KEY_SESSION_METRICS = @"session.metrics";
+
 @implementation YBOptions
 
 - (instancetype)init
@@ -185,6 +187,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
         self.contentCdn = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_CDN];
         self.contentFps = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_FPS];
         self.contentMetadata = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_METADATA];
+        self.contentMetrics = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_METRICS];
         self.contentIsLiveNoSeek = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_IS_LIVE_NO_SEEK];
         self.contentPackage = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_PACKAGE];
         self.contentSaga = [decoder decodeObjectForKey:YBOPTIONS_KEY_CONTENT_SAGA];
@@ -255,6 +258,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
         self.appReleaseVersion = [decoder decodeObjectForKey:YBOPTIONS_KEY_APP_RELEASE_VERSION];
         self.waitForMetadata = [[decoder decodeObjectForKey:YBOPTIONS_KEY_WAIT_METADATA] isEqualToValue:@NO];
         self.pendingMetadata = [decoder decodeObjectForKey:YBOPTIONS_KEY_PENDING_METADATA];
+        self.sessionMetrics = [decoder decodeObjectForKey:YBOPTIONS_KEY_SESSION_METRICS];
     }
     return self;
 }
@@ -298,6 +302,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [coder encodeObject:self.contentCdn forKey:YBOPTIONS_KEY_CONTENT_CDN];
     [coder encodeObject:self.contentFps forKey:YBOPTIONS_KEY_CONTENT_FPS];
     [coder encodeObject:self.contentMetadata forKey:YBOPTIONS_KEY_CONTENT_METADATA];
+    [coder encodeObject:self.contentMetrics forKey:YBOPTIONS_KEY_CONTENT_METRICS];
     [coder encodeObject:self.contentIsLiveNoSeek forKey:YBOPTIONS_KEY_CONTENT_IS_LIVE_NO_SEEK];
     [coder encodeObject:self.contentPackage forKey:YBOPTIONS_KEY_CONTENT_PACKAGE];
     [coder encodeObject:self.contentSaga forKey:YBOPTIONS_KEY_CONTENT_SAGA];
@@ -368,6 +373,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [coder encodeObject:self.appReleaseVersion forKey:YBOPTIONS_KEY_APP_RELEASE_VERSION];
     [coder encodeObject:@(self.waitForMetadata) forKey:YBOPTIONS_KEY_WAIT_METADATA];
     [coder encodeObject:self.pendingMetadata forKey:YBOPTIONS_KEY_PENDING_METADATA];
+    [coder encodeObject:self.sessionMetrics forKey:YBOPTIONS_KEY_SESSION_METRICS];
 }
 
 - (void) defaultValues {
@@ -419,6 +425,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     self.contentCdn = nil;
     self.contentFps = nil;
     self.contentMetadata = [NSMutableDictionary dictionary];
+    self.contentMetrics = [NSMutableDictionary dictionary];
     self.contentIsLiveNoSeek = nil;
     self.contentPackage = nil;
     self.contentSaga = nil;
@@ -497,6 +504,8 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     
     self.waitForMetadata = false;
     self.pendingMetadata = [[NSArray alloc] init];
+    
+    self.sessionMetrics = [NSMutableDictionary dictionary];
 }
 
 - (NSDictionary *) toDictionary {
@@ -539,6 +548,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [dict setValue:self.contentCdn forKey:YBOPTIONS_KEY_CONTENT_CDN];
     [dict setValue:self.contentFps forKey:YBOPTIONS_KEY_CONTENT_FPS];
     [dict setValue:self.contentMetadata forKey:YBOPTIONS_KEY_CONTENT_METADATA];
+    [dict setValue:self.contentMetrics forKey:YBOPTIONS_KEY_CONTENT_METRICS];
     [dict setValue:self.contentIsLiveNoSeek forKey:YBOPTIONS_KEY_CONTENT_IS_LIVE_NO_SEEK];
     [dict setValue:self.contentPackage forKey:YBOPTIONS_KEY_CONTENT_PACKAGE];
     [dict setValue:self.contentSaga forKey:YBOPTIONS_KEY_CONTENT_SAGA];
@@ -609,6 +619,7 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
     [dict setValue:self.appReleaseVersion forKey:YBOPTIONS_KEY_APP_RELEASE_VERSION];
     [dict setValue:@(self.waitForMetadata) forKey:YBOPTIONS_KEY_WAIT_METADATA];
     [dict setValue:self.pendingMetadata forKey:YBOPTIONS_KEY_PENDING_METADATA];
+    [dict setValue:self.sessionMetrics forKey:YBOPTIONS_KEY_SESSION_METRICS];
     return [[NSDictionary alloc] initWithDictionary:dict];
 }
 
