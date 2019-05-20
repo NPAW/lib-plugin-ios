@@ -86,8 +86,6 @@ NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CODEC_SETTINGS = @"content.encod
 NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CODEC_PROFILE = @"content.encoding.codecProfile";
 NSString * const YBOPTIONS_KEY_CONTENT_ENCODING_CONTAINER_FORMAT = @"content.encoding.containerFormat";
 
-NSString * const YBOPTIONS_KEY_SESSION_METRICS = @"session.metrics";
-
 NSString * const YBOPTIONS_KEY_AD_METADATA = @"ad.metadata";
 NSString * const YBOPTIONS_KEY_AD_IGNORE = @"ad.ignore";
 NSString * const YBOPTIONS_KEY_ADS_AFTERSTOP = @"ad.afterStop";
