@@ -3004,6 +3004,11 @@
         if (self.adsAdapter.flags.buffering) {
             [paramList addObject:@"adBufferDuration"];
         }
+        
+        if (self.adsAdapter.flags.paused) {
+            [paramList addObject:@"adPauseDuration"];
+        }
+        
         [paramList addObject:@"playhead"];
     }
     
