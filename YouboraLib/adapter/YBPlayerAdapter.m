@@ -447,7 +447,7 @@
 }
 
 - (void) fireEventWithName:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values {
-    eventName = eventName == nil || [eventName isEqualToString:@""] ? @"Unknown" : eventName;
+    eventName = eventName == nil || [eventName isEqualToString:@""] ? @"" : eventName; //Empty string, will get ignored by the backend
     dimensions = dimensions == nil ? @{} : dimensions;
     values = values == nil ? @{} : values;
     NSDictionary * params = @{
