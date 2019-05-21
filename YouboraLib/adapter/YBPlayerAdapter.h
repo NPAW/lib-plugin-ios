@@ -413,7 +413,7 @@ typedef NS_ENUM(NSUInteger, YBAdPosition) {
 
 /**
  * Emits related event
- * @param eventName name of the event (in case of empty or null will be reported as "Unknown"
+ * @param eventName name of the event (in case of empty or null will be reported as empty and therefore ignored)
  * @param dimensions key value map with dimensions
  * @param values key value map with the event values
  */
