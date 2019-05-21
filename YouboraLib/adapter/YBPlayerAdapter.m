@@ -447,16 +447,18 @@
 }
 
 - (void) fireEventWithName:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values {
-    eventName = eventName == nil || [eventName isEqualToString:@""] ? @"" : eventName; //Empty string, will get ignored by the backend
-    dimensions = dimensions == nil ? @{} : dimensions;
-    values = values == nil ? @{} : values;
-    NSDictionary * params = @{
-                              @"name" : eventName,
-                              @"dimensions" : dimensions,
-                              @"values" : values
-                              };
-    for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
-        [delegate youboraAdapterEventVideoEvent:params fromAdapter:self];
+    if (self.flags.started) {
+        eventName = eventName == nil || [eventName isEqualToString:@""] ? @"" : eventName; //Empty string, will get ignored by the backend
+        dimensions = dimensions == nil ? @{} : dimensions;
+        values = values == nil ? @{} : values;
+        NSDictionary * params = @{
+                                  @"name" : eventName,
+                                  @"dimensions" : dimensions,
+                                  @"values" : values
+                                  };
+        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+            [delegate youboraAdapterEventVideoEvent:params fromAdapter:self];
+        }
     }
 }
 
