@@ -28,6 +28,13 @@
     if (self) {
         self.deviceModel = [self getAppleDeviceModel];
         self.deviceBrand = @"Apple";
+        
+    #if TARGET_OS_IPHONE==1
+        self.deviceOsVersion = [UIDevice currentDevice].systemVersion;
+    #else
+        self.deviceOsVersion = [NSProcessInfo processInfo].operatingSystemVersionString;
+    #endif
+        
         //self.deviceOsVersion = [UIDevice currentDevice].systemVersion;
     }
     return self;
@@ -161,6 +168,11 @@
             deviceDict[@"osVersion"] = self.deviceOsVersion;
         else
             deviceDict[@"osVersion"] = [UIDevice currentDevice].systemVersion;
+    #else
+    if (self.deviceOsVersion != nil)
+        deviceDict[@"osVersion"] = self.deviceOsVersion;
+    else
+        deviceDict[@"osVersion"] = [NSProcessInfo processInfo].operatingSystemVersionString;
     #endif
     
     if (self.deviceBrand != nil)
