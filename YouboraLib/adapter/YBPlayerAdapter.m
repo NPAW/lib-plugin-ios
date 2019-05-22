@@ -195,6 +195,10 @@
     return nil;
 }
 
+- (NSDictionary *) getMetrics {
+    return nil;
+}
+
 // Fire methods
     
 - (void)fireAdInit {
@@ -440,6 +444,22 @@
 
 - (void) fireSkip{
     [self fireStop: @{@"skipped" : @"true"}];
+}
+
+- (void) fireEventWithName:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values {
+    if (self.flags.started) {
+        eventName = eventName == nil || [eventName isEqualToString:@""] ? @"" : eventName; //Empty string, will get ignored by the backend
+        dimensions = dimensions == nil ? @{} : dimensions;
+        values = values == nil ? @{} : values;
+        NSDictionary * params = @{
+                                  @"name" : eventName,
+                                  @"dimensions" : dimensions,
+                                  @"values" : values
+                                  };
+        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+            [delegate youboraAdapterEventVideoEvent:params fromAdapter:self];
+        }
+    }
 }
 
 - (void) fireCast{
