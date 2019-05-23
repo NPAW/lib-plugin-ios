@@ -553,7 +553,7 @@
 }
 
 - (void) fireQuartile:(int) quartileNumber {
-    if (self.flags.started && quartileNumber > 1 && quartileNumber < 4) {
+    if (self.flags.started && quartileNumber > 0 && quartileNumber < 4) {
         NSDictionary * params = @{@"quartile":[NSString stringWithFormat:@"%d",quartileNumber]};
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventAdQuartile:params fromAdapter:self];
