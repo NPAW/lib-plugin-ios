@@ -78,15 +78,16 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
-                       YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent"],
+                       YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent", @"metrics"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"],
                        
                        //Infinity
                        YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion"],
                        YouboraServiceSessionStop: @[@"accountCode"],
                        YouboraServiceSessionNav: @[@"username", @"navContext"],
-                       YouboraServiceSessionBeat: @[],
-                       YouboraServiceSessionEvent: @[@"navContext"]
+                       YouboraServiceSessionBeat: @[@"sessionMetrics"],
+                       YouboraServiceSessionEvent: @[@"navContext"],
+                       YouboraServiceVideoEvent: @[]
             };
             
             youboraRequestParamsDifferent = @{YouboraServiceJoin:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],
@@ -468,6 +469,10 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getContentEncodingCodecProfile];
     } else if ([param isEqualToString:@"containerFormat"]) {
         value = [self.plugin getContentEncodingContainerFormat];
+    } else if ([param isEqualToString:@"sessionMetrics"]) {
+        value = [self.plugin getSessionMetrics];
+    } else if ([param isEqualToString:@"metrics"]) {
+        value = [self.plugin getVideoMetrics];
     }
     
     return value;

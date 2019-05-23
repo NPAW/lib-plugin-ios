@@ -1,3 +1,7 @@
+## [6.4.8] - 2019-05-22
+###Added
+- Video events
+
 ## [6.4.7] - 2019-05-08
 ###Changed
 - Fastdata url now points to a-fds.youborafds01.com

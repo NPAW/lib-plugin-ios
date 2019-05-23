@@ -36,6 +36,7 @@ NSString * const YouboraServiceSessionStop = @"/infinity/session/stop";
 NSString * const YouboraServiceSessionNav = @"/infinity/session/nav";
 NSString * const YouboraServiceSessionEvent = @"/infinity/session/event";
 NSString * const YouboraServiceSessionBeat = @"/infinity/session/beat";
+NSString * const YouboraServiceVideoEvent = @"/infinity/video/event";
 
 //Request success constants
 NSString * const YouboraSuccsessListenerOfflineId = @"offline_id";

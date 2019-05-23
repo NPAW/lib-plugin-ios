@@ -1306,6 +1306,18 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getFingerprint;
 
 /**
+ * Returns the video metrics sent on the pings
+ * @return content metrics
+ */
+- (nullable NSString *) getVideoMetrics;
+
+/**
+ * Returns the session metrics sent on the beats
+ * @return session metrics
+ */
+- (nullable NSString *) getSessionMetrics;
+
+/**
  * Adds an Init listener
  * @param listener to add
  */
@@ -1414,6 +1426,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (void) addWillSendAdErrorListener:(YBWillSendRequestBlock) listener;
 
 /**
+ * Adds an video event listener
+ * @param listener to add
+ */
+- (void) addWillSendVideoEventListener:(YBWillSendRequestBlock) listener;
+
+/**
  * Removes an Init listener
  * @param listener to remove
  */
@@ -1520,6 +1538,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param listener to remove
  */
 -(void) removeWillSendAdErrorListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Removes a video event listener
+ * @param listener to remove
+ */
+- (void) removeWillSendVideoEventListener:(YBWillSendRequestBlock) listener;
 
 @end
 
