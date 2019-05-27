@@ -290,7 +290,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
         NSMutableString * builtUserAgent = [NSMutableString stringWithFormat:@"%@/%@/%@/%@/%@",
                                             [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"],
                                             [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],
-                                            machine,
+                                            @"Mac",
                                             machineName,
                                             [NSProcessInfo processInfo].operatingSystemVersionString
                                             ];
