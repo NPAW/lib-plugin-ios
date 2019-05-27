@@ -41,7 +41,6 @@ FOUNDATION_EXPORT const unsigned char YouboraLibVersionString[];
 #import <YouboraLib/YBFastDataConfig.h>
 #import <YouboraLib/YBRequest.h>
 #import <YouboraLib/YBRequestBuilder.h>
-#import <YouboraLib/YBDeviceInfo.h>
 #import <YouboraLib/YBAppDatabase.h>
 #import <YouboraLib/YBEvent.h>
 #import <YouboraLib/YBEventDAO.h>
@@ -54,3 +53,15 @@ FOUNDATION_EXPORT const unsigned char YouboraLibVersionString[];
 #import <YouboraLib/YBInfinityFlags.h>
 #import <YouboraLib/YBInfinityLocalManager.h>
 #import <YouboraLib/YBTimestampLastSentTransform.h>
+
+#if TARGET_OS_IPHONE
+
+#import <YouboraLib/YBDeviceInfo_iOS.h>
+
+#endif
+
+#if !TARGET_OS_IPHONE
+
+#import <YouboraLib/YBDeviceInfo_OSX.h>
+
+#endif
