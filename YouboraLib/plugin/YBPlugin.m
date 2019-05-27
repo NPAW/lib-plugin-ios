@@ -185,7 +185,7 @@
         _adapter = nil;
         
         //if(self.options.autoDetectBackground){
-        #if TARGET_OS_TV==1
+        #if TARGET_OS_IPHONE==1
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
         #endif
         //}
@@ -1529,7 +1529,7 @@
 }
 
 - (NSString *) getFingerprint {
-    #if TARGET_OS_TV==1
+    #if TARGET_OS_IPHONE==1
         if (UIDevice.currentDevice.identifierForVendor) {
             return UIDevice.currentDevice.identifierForVendor.UUIDString;
         }
@@ -2952,7 +2952,7 @@
 
 - (void) registerLifeCycleEvents {
     
-    #if TARGET_OS_TV==1
+    #if TARGET_OS_IPHONE==1
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
