@@ -2857,23 +2857,27 @@
     }
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdManifest];
     [self sendWithCallbacks:self.willSendAdManifestListeners service:YouboraServiceAdManifest andParams:mutParams];
+    [YBLog notice:YouboraServiceAdManifest];
 }
 
 - (void) sendAdBreakStart:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStart];
     mutParams[@"breakNumber"] = [self.requestBuilder getNewAdBreakNumber];
     [self sendWithCallbacks:self.willSendAdBreakStartListeners service:YouboraServiceAdBreakStart andParams:mutParams];
+    [YBLog notice:YouboraServiceAdBreakStart];
 }
 
 - (void) sendAdBreakStop:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStop];
     [self sendWithCallbacks:self.willSendAdBreakStopListeners service:YouboraServiceAdBreakStop andParams:mutParams];
+    [YBLog notice:YouboraServiceAdBreakStop];
 }
 
 - (void) sendAdQuartile:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStop];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     [self sendWithCallbacks:self.willSendAdQuartileListeners service:YouboraServiceAdQuartile andParams:mutParams];
+    [YBLog notice:YouboraServiceAdQuartile];
 }
 
 - (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
