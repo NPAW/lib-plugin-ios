@@ -9,13 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
-    #import "YBDeviceInfo_iOS.h"
-#endif
-
-#if !TARGET_OS_IPHONE
-    #import "YBDeviceInfo_OSX.h"
-#endif
+#import "YBDeviceInfo.h"
 
 @interface YBDeviceInfoTest : XCTestCase
 

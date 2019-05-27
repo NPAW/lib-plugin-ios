@@ -27,15 +27,7 @@
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
 #import "YBEvent.h"
-
-#if TARGET_OS_IPHONE
-    #import "YBDeviceInfo_iOS.h"
-    #import <UIKit/UIKit.h>
-#endif
-
-#if !TARGET_OS_IPHONE
-    #import "YBDeviceInfo_OSX.h"
-#endif
+#import "YBDeviceInfo.h"
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
@@ -192,9 +184,11 @@
         
         _adapter = nil;
         
-        #if TARGET_OS_IPHONE
+        //if(self.options.autoDetectBackground){
+        #if TARGET_OS_TV==1
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
         #endif
+        //}
     }
     
     if(shouldStopPings && self.adsAdapter == nil){
@@ -1535,7 +1529,7 @@
 }
 
 - (NSString *) getFingerprint {
-    #if TARGET_OS_IPHONE
+    #if TARGET_OS_TV==1
         if (UIDevice.currentDevice.identifierForVendor) {
             return UIDevice.currentDevice.identifierForVendor.UUIDString;
         }
@@ -2957,20 +2951,21 @@
 }
 
 - (void) registerLifeCycleEvents {
-    #if TARGET_OS_IPHONE
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-        
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(eventListenerDidReceivetoBack:)
-                                                     name:UIApplicationDidEnterBackgroundNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(eventListenerDidReceiveToFore:)
-                                                     name:UIApplicationWillEnterForegroundNotification
-                                                   object:nil];
+    
+    #if TARGET_OS_TV==1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eventListenerDidReceivetoBack:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(eventListenerDidReceiveToFore:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
     #endif
 }
 
