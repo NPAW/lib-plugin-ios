@@ -1,3 +1,7 @@
+## [6.4.8] - 2019-
+###Added
+- Mac OS support
+
 ## [6.4.8] - 2019-05-22
 ###Added
 - Video events
