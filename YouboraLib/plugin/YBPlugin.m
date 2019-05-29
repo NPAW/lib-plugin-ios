@@ -34,6 +34,10 @@
 
 #import "YouboraLib/YouboraLib-Swift.h"
 
+#if TARGET_OS_IPHONE==1
+    #import <UIKit/UIKit.h>
+#endif
+
 @interface YBPlugin()
 
 // Redefinition with readwrite access
@@ -185,8 +189,9 @@
         _adapter = nil;
         
         //if(self.options.autoDetectBackground){
-            
+        #if TARGET_OS_IPHONE==1
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+        #endif
         //}
     }
     
@@ -1528,9 +1533,12 @@
 }
 
 - (NSString *) getFingerprint {
-    if (UIDevice.currentDevice.identifierForVendor) {
-        return UIDevice.currentDevice.identifierForVendor.UUIDString;
-    }
+    #if TARGET_OS_IPHONE==1
+        if (UIDevice.currentDevice.identifierForVendor) {
+            return UIDevice.currentDevice.identifierForVendor.UUIDString;
+        }
+    #endif
+    
     return nil;
 }
 
@@ -1626,7 +1634,6 @@
         return -1;
     }
 }
-
 // Add listeners
 - (void) addWillSendInitListener:(YBWillSendRequestBlock) listener {
     if (self.willSendInitListeners == nil)
@@ -2948,6 +2955,8 @@
 }
 
 - (void) registerLifeCycleEvents {
+    
+    #if TARGET_OS_IPHONE==1
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -2961,6 +2970,7 @@
                                              selector:@selector(eventListenerDidReceiveToFore:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
+    #endif
 }
 
 - (BOOL) isExtraMetadataReady {
