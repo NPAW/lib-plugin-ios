@@ -34,6 +34,10 @@
 
 #import "YouboraLib/YouboraLib-Swift.h"
 
+#if TARGET_OS_IPHONE==1
+    #import <UIKit/UIKit.h>
+#endif
+
 @interface YBPlugin()
 
 // Redefinition with readwrite access
