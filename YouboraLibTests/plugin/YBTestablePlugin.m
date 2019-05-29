@@ -47,6 +47,15 @@
     return self.mockTimer;
 }
 
+- (YBTimer *) createBeatTimeWithCallback:(TimerCallback)callback andInterval:(long) interval {
+    if (self.mockBeatTimer == nil) {
+        self.mockBeatTimer = mock([YBTimer class]);
+    }
+    // Capture callback
+    self.beatTimerCallback = callback;
+    return self.mockBeatTimer;
+}
+
 - (YBRequestBuilder *) createRequestBuilder {
     if (self.mockRequestBuilder == nil) {
         self.mockRequestBuilder = mock([YBRequestBuilder class]);
