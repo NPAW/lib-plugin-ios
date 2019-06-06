@@ -131,7 +131,12 @@
             [weakSelf sendPing:diffTime];
             //We "use" the ping timer to check if any metadata was missing too
             if ([weakSelf isExtraMetadataReady]) {
-                [weakSelf startListener:nil];
+                if (weakSelf.adsAdapter != nil
+                    && weakSelf.adsAdapter.flags.adBreakStarted
+                    && ![[weakSelf getAdBreakPosition] isEqualToString:@"post"]) {
+                    [weakSelf startListener:nil];
+                }
+                
             }
         } andInterval:5000];
         
@@ -2599,7 +2604,9 @@
     }
     
     if (!self.isInitiated && !self.isStarted) {
-        [self fireInit];
+        if (![[self getAdBreakPosition] isEqualToString:@"post"]) {
+            [self fireInit];
+        }
     }
         
     if ([self getAdDuration] != nil && [self getAdTitle] != nil && [self getAdResource] != nil
@@ -2688,7 +2695,9 @@
 
 - (void) adBreakStartListener:(NSDictionary<NSString *,NSString *>*) params {
     if (!self.isInitiated && !self.isStarted) {
-        [self fireInit];
+        if (![[self getAdBreakPosition] isEqualToString:@"post"]) {
+            [self fireInit];
+        }
     }
     
     [self sendAdBreakStart:params];
