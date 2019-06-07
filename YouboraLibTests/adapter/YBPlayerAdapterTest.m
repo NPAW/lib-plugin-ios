@@ -8,10 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
+#import "YouboraLib/YouboraLib-Swift.h"
+
 #import "YBTestablePlayerAdapter.h"
 #import "YBPlayheadMonitor.h"
 #import "YBPlugin.h"
-#import "YBPlaybackFlags.h"
 #import "YBConstants.h"
 
 #import <OCHamcrest/OCHamcrest.h>
@@ -47,7 +48,7 @@
     [adapter dispose];
     
     XCTAssertEqual(1, adapter.stopTimes);
-    [verifyCount(mockMonitor, times(1)) stop];
+    [(YBPlayheadMonitor*)verifyCount(mockMonitor, times(1)) stop];
     XCTAssertEqual(1, adapter.unregisteredTimes);
     XCTAssertNil(adapter.player);
     
