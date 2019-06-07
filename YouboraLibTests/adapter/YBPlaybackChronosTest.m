@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBPlaybackChronos.h"
 
 @interface YBPlaybackChronosTest : XCTestCase
 
