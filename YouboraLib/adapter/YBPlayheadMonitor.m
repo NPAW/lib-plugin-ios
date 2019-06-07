@@ -9,6 +9,7 @@
 #import "YBPlayheadMonitor.h"
 #import "YBTimer.h"
 #import "YBPlayerAdapter.h"
+#import "YBPlaybackFlags.h"
 
 #import "YouboraLib/YouboraLib-Swift.h"
 

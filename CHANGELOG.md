@@ -1,7 +1,6 @@
 ## [6.4.10] - 2019-
 ###Ported
 - YBPlaybackChronos is in Swift now
-- YBPlaybackFlags is in Swift now
 
 ## [6.4.9] - 2019-05-29
 ###Added
