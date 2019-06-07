@@ -423,7 +423,7 @@
 		CD52376A228DA2C30013BA16 /* YouboraLib_OSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YouboraLib_OSXTests.m; sourceTree = "<group>"; };
 		CD52376C228DA2C30013BA16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD58A97022AA52E200B05B35 /* YBPlaybackChronos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YBPlaybackChronos.swift; path = adapter/YBPlaybackChronos.swift; sourceTree = "<group>"; };
-		CD58A97622AA57DA00B05B35 /* YBPlaybackFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBPlaybackFlags.swift; sourceTree = "<group>"; };
+		CD58A97622AA57DA00B05B35 /* YBPlaybackFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YBPlaybackFlags.swift; path = adapter/YBPlaybackFlags.swift; sourceTree = "<group>"; };
 		CD6CB6D9202C4D7400B2B290 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		CD935495200678D8003A0797 /* YBDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBDeviceInfo.h; sourceTree = "<group>"; };
 		CD935496200678D8003A0797 /* YBDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBDeviceInfo.m; sourceTree = "<group>"; };
