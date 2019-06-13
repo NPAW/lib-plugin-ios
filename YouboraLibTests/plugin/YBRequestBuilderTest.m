@@ -40,7 +40,7 @@ static NSArray * ALL_PARAMS;
                        @"system", @"accountCode", @"username", @"preloadDuration", @"joinDuration",
                        @"bufferDuration", @"seekDuration", @"pauseDuration", @"adJoinDuration",
                        @"adBufferDuration", @"adPauseDuration", @"adTotalDuration", @"nodeHost", @"nodeType",
-                       @"nodeTypeString"];
+                       @"nodeTypeString", @"adCreativeId", @"adProvider"];
     });
 
     self.mockPlugin = mock([YBPlugin class]);
@@ -103,6 +103,8 @@ static NSArray * ALL_PARAMS;
     [given([self.mockPlugin getNodeHost]) willReturn:@"aj"];
     [given([self.mockPlugin getNodeType]) willReturn:@"ak"];
     [given([self.mockPlugin getNodeTypeString]) willReturn:@"al"];
+    [given([self.mockPlugin getAdProvider]) willReturn:@"am"];
+    [given([self.mockPlugin getAdCreativeId]) willReturn:@"an"];
 }
 
 - (void)testBuildParams {
@@ -171,6 +173,8 @@ static NSArray * ALL_PARAMS;
     XCTAssertEqualObjects(@"aj", params[@"nodeHost"]);
     XCTAssertEqualObjects(@"ak", params[@"nodeType"]);
     XCTAssertEqualObjects(@"al", params[@"nodeTypeString"]);
+    XCTAssertEqualObjects(@"am", params[@"adProvider"]);
+    XCTAssertEqualObjects(@"an", params[@"adCreativeId"]);
     
 }
 

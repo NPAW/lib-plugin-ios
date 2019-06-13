@@ -1119,6 +1119,16 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSValue *) isAdSkippable;
 
 /**
+ * Retruns current ad creative id.
+ */
+- (nullable NSString *) getAdCreativeId;
+
+/**
+ * Returns current ad provider.
+ */
+- (nullable NSString *) getAdProvider;
+
+/**
  * Returns a json-formatted string with plugin info
  * @return plugin info
  */

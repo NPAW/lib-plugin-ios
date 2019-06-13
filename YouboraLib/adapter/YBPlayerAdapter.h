@@ -358,6 +358,20 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  */
 - (nullable NSValue *) isSkippable;
 
+/**
+ * Override to return ad creative id
+ *
+ * @return string with ad creative id value
+ */
+- (nullable NSString *) getAdCreativeId;
+
+/**
+ * Override to return ad provider
+ *
+ * @return string with ad provider
+ */
+- (nullable NSString *) getAdProvider;
+
 /// ---------------------------------
 /// @name Flow methods
 /// ---------------------------------

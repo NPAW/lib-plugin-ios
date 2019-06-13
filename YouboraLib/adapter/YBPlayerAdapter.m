@@ -237,6 +237,14 @@
     return nil;
 }
 
+- (NSString *) getAdCreativeId {
+    return nil;
+}
+
+- (NSString *) getAdProvider {
+    return nil;
+}
+
 // Fire methods
     
 - (void)fireAdInit {

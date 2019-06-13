@@ -112,6 +112,8 @@ extern NSString * const YBOPTIONS_KEY_AD_EXPECTED_BREAKS;
 extern NSString * const YBOPTIONS_KEY_AD_EXPECTED_PATTERN;
 extern NSString * const YBOPTIONS_KEY_AD_BREAKS_TIME;
 extern NSString * const YBOPTIONS_KEY_AD_GIVEN_ADS;
+extern NSString * const YBOPTIONS_KEY_AD_CREATIVEID;
+extern NSString * const YBOPTIONS_KEY_AD_PROVIDER;
 
 extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_1;
 extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_2;
@@ -541,6 +543,16 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
  * Variable containing how many ads should be played for the current break
  */
 @property(nonatomic, strong) NSNumber* adGivenAds;
+
+/**
+ * Variable containing ad creativeId
+ */
+@property(nonatomic, strong) NSString *adCreativeId;
+
+/**
+ * Variable containing ad provider
+ */
+@property(nonatomic, strong) NSString *adProvider;
 
 /**
  * If true the plugin will fireStop when going to background

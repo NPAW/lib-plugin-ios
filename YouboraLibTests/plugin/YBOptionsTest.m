@@ -55,6 +55,8 @@
     opt.contentFps = @12;
     opt.contentMetadata = @{@"metakey":@"metavalue"};
     opt.adMetadata = @{@"admetakey":@"admetavalue"};
+    opt.adProvider = @"provider";
+    opt.adCreativeId = @"creative";
     opt.contentCustomDimension1 = @"extra1";
     opt.contentCustomDimension2 = @"extra2";
     opt.contentCustomDimension3 = @"extra3";
@@ -108,6 +110,8 @@
     XCTAssertEqualObjects(opt.contentFps, opt2.contentFps);
     XCTAssertEqualObjects(opt.contentMetadata, opt2.contentMetadata);
     XCTAssertEqualObjects(opt.adMetadata, opt2.adMetadata);
+    XCTAssertEqualObjects(opt.adProvider, opt2.adProvider);
+    XCTAssertEqualObjects(opt.adCreativeId, opt2.adCreativeId);
     XCTAssertEqualObjects(opt.contentCustomDimension1, opt2.contentCustomDimension1);
     XCTAssertEqualObjects(opt.contentCustomDimension2, opt2.contentCustomDimension2);
     XCTAssertEqualObjects(opt.contentCustomDimension3, opt2.contentCustomDimension3);

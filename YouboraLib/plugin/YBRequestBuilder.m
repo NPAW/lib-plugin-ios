@@ -57,7 +57,7 @@ static NSArray<NSString *> * youboraPingEntities;
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
                                         @"extraparam2", @"extraparam3", @"extraparam4", @"extraparam5", @"extraparam6",
-                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable", @"breakNumber"];
+                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable", @"breakNumber", @"adCreativeId", @"adProvider"];
             
             youboraRequestParams = @{
                        YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity", @"fingerprint"],
@@ -521,6 +521,10 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAdViewedDuration];
     } else if ([param isEqualToString:@"adViewability"]) {
         value = [self.plugin getAdViewability];
+    } else if ([param isEqualToString:@"adCreativeId"]) {
+        value = [self.plugin getAdCreativeId];
+    } else if ([param isEqualToString:@"adProvider"]) {
+        value = [self.plugin getAdProvider];
     }
     
     return value;

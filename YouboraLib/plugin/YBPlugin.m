@@ -1510,6 +1510,34 @@
     return ([self getAdExpectedPattern] != nil || [self getAdGivenAds] != nil) ? @true : @false;
 }
 
+- (NSString *) getAdCreativeId {
+    NSString * val = self.options.adCreativeId;
+    if ((val == nil || val.length == 0) && self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdCreativeId];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdCreativeId"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val;
+}
+
+- (NSString *) getAdProvider {
+    NSString * val = self.options.adProvider;
+    if ((val == nil || val.length == 0) && self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdProvider];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdCreativeId"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val;
+}
+
 - (NSString *) getPluginInfo {
 
     NSMutableDictionary * info = [NSMutableDictionary dictionaryWithObject:YouboraLibVersion forKey:@"lib"];
