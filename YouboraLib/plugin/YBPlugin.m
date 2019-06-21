@@ -2838,6 +2838,7 @@
 - (void) sendAdJoin:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdJoin];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
     [self sendWithCallbacks:self.willSendAdJoinListeners service:YouboraServiceAdJoin andParams:mutParams];
     [YBLog notice:@"%@ %@ms", YouboraServiceAdJoin, mutParams[@"adJoinDuration"]];
 }
@@ -2874,6 +2875,7 @@
 - (void) sendClick:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceClick];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
     [self sendWithCallbacks:self.willSendClickListeners service:YouboraServiceClick andParams:mutParams];
     [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
 }
