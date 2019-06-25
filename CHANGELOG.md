@@ -1,4 +1,6 @@
 ## [6.4.10] - 2019-
+###Added
+- All extraparams are sent on session start request as well
 ###Fixed
 - Different threads were accessing the same array to make RW operations and in some cases the index may not exist anymore, now this is prevented locking the array between operations
 
