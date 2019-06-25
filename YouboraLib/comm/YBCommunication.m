@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) NSMutableArray<YBRequest *> * requests;
 
+@property (nonatomic, strong) NSLock * requestsLock;
+
 @end
 
 @implementation YBCommunication
@@ -28,6 +30,7 @@
     if (self) {
         self.transforms = [NSMutableArray array];
         self.requests = [NSMutableArray array];
+        self.requestsLock = [[NSLock alloc] init];
     }
     return self;
 }
@@ -66,12 +69,21 @@
 
 #pragma mark - Private methods
 - (void) registerRequest:(YBRequest *) request {
+    // Lock
+    [self.requestsLock lock];
     [self.requests addObject:request];
+    // Unlock
+    [self.requestsLock unlock];
     [self processRequests];
+    
+    
 }
 
 - (void) processRequests {
+    // Lock
+    [self.requestsLock lock];
     for (int i = (int) self.requests.count - 1; i >= 0; i--) {
+        
         YBRequest * request = self.requests[i];
         YBTransformState transformState = [self transform:request];
         if(transformState == YBStateOffline){
@@ -87,6 +99,8 @@
             [request send];
         }*/
     }
+    [self.requestsLock unlock];
+    // Unlock
 }
 
 - (YBTransformState) transform: (YBRequest *) request {
