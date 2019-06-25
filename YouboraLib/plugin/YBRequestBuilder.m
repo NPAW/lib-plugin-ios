@@ -82,7 +82,8 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"],
                        
                        //Infinity
-                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion"],
+                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion", @"param1",                               @"param2", @"param3", @"param4", @"param5", @"param6", @"param7", @"param8", @"param9", @"param10", @"param11",
+                                                     @"param12", @"param13", @"param14", @"param15", @"param16", @"param17", @"param18", @"param19", @"param20"],
                        YouboraServiceSessionStop: @[@"accountCode"],
                        YouboraServiceSessionNav: @[@"username", @"navContext"],
                        YouboraServiceSessionBeat: @[@"sessionMetrics"],
