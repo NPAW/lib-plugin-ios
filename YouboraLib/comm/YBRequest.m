@@ -160,19 +160,17 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
                 [YBLog error:@"YBRequest instance has been deallocated while waiting for completion handler"];
                 return;
             }
-
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                if(response != nil) {
-                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                    [YBLog debug:[NSString stringWithFormat:@"Response code for: %@ %ld",weakSelf.service, (long)httpResponse.statusCode]];
-                }
-
-                if (error == nil) {
-                    [weakSelf didSucceedWithData:data andResponse:response];
-                } else {
-                    [weakSelf didFailWithError:error];
-                }
-            });
+            
+            if(response != nil) {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                [YBLog debug:[NSString stringWithFormat:@"Response code for: %@ %ld",weakSelf.service, (long)httpResponse.statusCode]];
+            }
+            
+            if (error == nil) {
+                [weakSelf didSucceedWithData:data andResponse:response];
+            } else {
+                [weakSelf didFailWithError:error];
+            }
         }] resume];
         
     } @catch (NSException *exception) {
