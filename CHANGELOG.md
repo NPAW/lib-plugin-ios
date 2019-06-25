@@ -1,6 +1,6 @@
 ## [6.4.10] - 2019-
 ###Fixed
-- Different threads were accessing the same array to make RW operations and in some cases the index may not exist anymore, now this is prevented running that part on the main thread too
+- Different threads were accessing the same array to make RW operations and in some cases the index may not exist anymore, now this is prevented locking the array between operations
 
 ## [6.4.9] - 2019-05-29
 ###Added
