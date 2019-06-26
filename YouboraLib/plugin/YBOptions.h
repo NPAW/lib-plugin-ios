@@ -107,6 +107,13 @@ extern NSString * const YBOPTIONS_KEY_ADS_AFTERSTOP;
 extern NSString * const YBOPTIONS_KEY_AD_CAMPAIGN;
 extern NSString * const YBOPTIONS_KEY_AD_TITLE;
 extern NSString * const YBOPTIONS_KEY_AD_RESOURCE;
+extern NSString * const YBOPTIONS_KEY_AD_GIVEN_BREAKS;
+extern NSString * const YBOPTIONS_KEY_AD_EXPECTED_BREAKS;
+extern NSString * const YBOPTIONS_KEY_AD_EXPECTED_PATTERN;
+extern NSString * const YBOPTIONS_KEY_AD_BREAKS_TIME;
+extern NSString * const YBOPTIONS_KEY_AD_GIVEN_ADS;
+extern NSString * const YBOPTIONS_KEY_AD_CREATIVEID;
+extern NSString * const YBOPTIONS_KEY_AD_PROVIDER;
 
 extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_1;
 extern NSString * const YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_2;
@@ -523,6 +530,41 @@ extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
  * Variable containing ad resource
  */
 @property(nonatomic, strong) NSString* adResource;
+
+/**
+ * Variable containing how many ad breaks will be shown for the active view
+ */
+@property(nonatomic, strong) NSNumber* adGivenBreaks;
+
+/**
+ * Variable containing how many ad breaks should be shown for the active view
+ */
+@property(nonatomic, strong) NSNumber* adExpectedBreaks;
+
+/**
+ * Variable containing how many ads will be shown for each break
+ */
+@property(nonatomic, strong) NSDictionary* adExpectedPattern;
+
+/**
+ * Variable containing at which moment of the playback a break should be displayed
+ */
+@property(nonatomic, strong) NSArray* adBreaksTime;
+
+/**
+ * Variable containing how many ads should be played for the current break
+ */
+@property(nonatomic, strong) NSNumber* adGivenAds;
+
+/**
+ * Variable containing ad creativeId
+ */
+@property(nonatomic, strong) NSString *adCreativeId;
+
+/**
+ * Variable containing ad provider
+ */
+@property(nonatomic, strong) NSString *adProvider;
 
 /**
  * If true the plugin will fireStop when going to background

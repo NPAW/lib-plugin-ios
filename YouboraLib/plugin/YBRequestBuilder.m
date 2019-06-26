@@ -52,12 +52,12 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType", @"appName", @"appReleaseVersion",
                                       @"email", @"package", @"saga", @"tvshow", @"season", @"titleEpisode", @"channel", @"contentId", @"imdbID", @"gracenoteID", @"contentType",
                                       @"genre", @"contentLanguage", @"subtitles", @"contractedResolution", @"cost", @"price", @"playbackType", @"drm",
-                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat"];
+                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat", @"adsExpected"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
                                         @"extraparam2", @"extraparam3", @"extraparam4", @"extraparam5", @"extraparam6",
-                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10"];
+                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable", @"breakNumber", @"adCreativeId", @"adProvider"];
             
             youboraRequestParams = @{
                        YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity", @"fingerprint"],
@@ -72,12 +72,16 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdInit: adStartParams,
                        YouboraServiceAdStart: adStartParams,
                        YouboraServiceAdJoin: @[@"adPosition", @"adJoinDuration", @"adPlayhead", @"playhead"],
-                       YouboraServiceAdPause: @[@"adPosition", @"adPlayhead", @"playhead"],
-                       YouboraServiceAdResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration", @"playhead"],
+                       YouboraServiceAdPause: @[@"adPosition", @"adPlayhead", @"playhead", @"breakNumber"],
+                       YouboraServiceAdResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration", @"playhead", @"breakNumber"],
                        YouboraServiceAdBuffer: @[@"adPosition", @"adPlayhead", @"adBufferDuration", @"playhead"],
-                       YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead"],
+                       YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead", @"breakNumber"],
                        YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
                        YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
+                       YouboraServiceAdManifest: @[@"givenBreaks", @"expectedBreaks", @"expectedPattern", @"breaksTime"],
+                       YouboraServiceAdBreakStart: @[@"breakPosition", @"givenAds", @"expectedAds"],
+                       YouboraServiceAdBreakStop: @[@"breakPosition", @"breakNumber"],
+                       YouboraServiceAdQuartile: @[@"breakPosition", @"adPosition", @"adViewedDuration", @"adViewability"],
                        YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent", @"metrics"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"],
                        
@@ -174,6 +178,25 @@ static NSArray<NSString *> * youboraPingEntities;
     self.lastSent[@"adNumber"] = sAdNumber;
     
     return sAdNumber;
+}
+
+- (NSString *) getNewAdBreakNumber {
+    NSString * sAdBreakNumber = self.lastSent[@"breakNumber"];
+    
+    if (sAdBreakNumber != nil) {
+        @try {
+            int num = sAdBreakNumber.intValue;
+            sAdBreakNumber = @(num + 1).stringValue;
+        } @catch (NSException *exception) {
+            [YBLog logException:exception]; // should never happen
+        }
+    }else {
+        sAdBreakNumber = @"1";
+    }
+    
+    self.lastSent[@"breakNumber"] = sAdBreakNumber;
+    
+    return sAdBreakNumber;
 }
 
 - (NSMutableDictionary *) getChangedEntitites {
@@ -470,6 +493,40 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getContentEncodingCodecProfile];
     } else if ([param isEqualToString:@"containerFormat"]) {
         value = [self.plugin getContentEncodingContainerFormat];
+    } else if ([param isEqualToString:@"givenBreaks"]) {
+        value = [self.plugin getAdGivenBreaks];
+    } else if ([param isEqualToString:@"expectedBreaks"]) {
+        value = [self.plugin getAdExpectedBreaks];
+    } else if ([param isEqualToString:@"expectedPattern"]) {
+        value = [self.plugin getAdExpectedPattern];
+    } else if ([param isEqualToString:@"breaksTime"]) {
+        value = [self.plugin getAdBreaksTime];
+    } else if ([param isEqualToString:@"breakPosition"]) {
+        value = [self.plugin getAdBreakPosition];
+    } else if ([param isEqualToString:@"givenAds"]) {
+        value = [self.plugin getAdGivenAds];
+    } else if ([param isEqualToString:@"expectedAds"]) {
+        value = [self.plugin getExpectedAds];
+    } else if ([param isEqualToString:@"adsExpected"]) {
+        NSValue * expected = [self.plugin getAdsExpected];
+        if (expected != nil) {
+            value = [expected isEqual:@YES] ? @"true" : @"false";
+        }
+    } else if ([param isEqualToString:@"skippable"]) {
+        NSValue * skippable = [self.plugin isAdSkippable];
+        if (skippable != nil) {
+            value = [skippable isEqual:@YES] ? @"true" : @"false";
+        }
+    } else if ([param isEqualToString:@"breakNumber"]) {
+        value = [self.plugin getAdBreakNumber];
+    } else if ([param isEqualToString: @"adViewedDuration"]) {
+        value = [self.plugin getAdViewedDuration];
+    } else if ([param isEqualToString:@"adViewability"]) {
+        value = [self.plugin getAdViewability];
+    } else if ([param isEqualToString:@"adCreativeId"]) {
+        value = [self.plugin getAdCreativeId];
+    } else if ([param isEqualToString:@"adProvider"]) {
+        value = [self.plugin getAdProvider];
     } else if ([param isEqualToString:@"sessionMetrics"]) {
         value = [self.plugin getSessionMetrics];
     } else if ([param isEqualToString:@"metrics"]) {

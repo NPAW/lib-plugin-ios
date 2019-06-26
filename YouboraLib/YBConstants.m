@@ -29,6 +29,10 @@ NSString * const YouboraServiceAdBuffer = @"/adBufferUnderrun";
 NSString * const YouboraServiceAdStop = @"/adStop";
 NSString * const YouboraServiceClick = @"/adClick";
 NSString * const YouboraServiceAdError = @"/adError";
+NSString * const YouboraServiceAdManifest = @"/adManifest";
+NSString * const YouboraServiceAdBreakStart = @"/adBreakStart";
+NSString * const YouboraServiceAdBreakStop = @"/adBreakStop";
+NSString * const YouboraServiceAdQuartile = @"/adQuartile";
 
 /** Infinity **/
 NSString * const YouboraServiceSessionStart = @"/infinity/session/start";

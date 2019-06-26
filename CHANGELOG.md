@@ -1,3 +1,8 @@
+## [6.5.0] - 2019-05-26
+###Added
+- New ad events ad manifest, break start, break stop and ad quartile
+- New parameters on the ads (givenAds, expectedAds, givenBreaks, expectedBreaks, breakNumber)
+
 ## [6.4.10] - 2019-05-26
 ###Added
 - All extraparams are sent on session start request as well

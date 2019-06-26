@@ -84,6 +84,10 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdStopListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendClickListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdErrorListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdManifestListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdBreakStartListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdBreakStopListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdQuartileListeners;
 
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionStartListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionStopListeners;
@@ -94,6 +98,9 @@
 // Ad error variables
 @property(nonatomic, strong) NSString * adErrorCode;
 @property(nonatomic, strong) NSString * adErrorMessage;
+
+//Ad Manifest
+@property(nonatomic, strong) NSDictionary * adManifestParams;
 
 @end
 
@@ -129,7 +136,12 @@
             [weakSelf sendPing:diffTime];
             //We "use" the ping timer to check if any metadata was missing too
             if ([weakSelf isExtraMetadataReady]) {
-                [weakSelf startListener:nil];
+                if (weakSelf.adsAdapter != nil
+                    && weakSelf.adsAdapter.flags.adBreakStarted
+                    && ![[weakSelf getAdBreakPosition] isEqualToString:@"post"]) {
+                    [weakSelf startListener:nil];
+                }
+                
             }
         } andInterval:5000];
         
@@ -1336,7 +1348,7 @@
         @try {
             val = [self.adsAdapter getVersion];
         } @catch (NSException *exception) {
-            [YBLog warn:@"An error occurred while calling ad getVersion"];
+            [YBLog warn:@"An error occurred while calling ad getAdAdapterVersion"];
             [YBLog logException:exception];
         }
     }
@@ -1346,6 +1358,190 @@
 
 - (NSString *) getAdMetadata {
     return [YBYouboraUtils stringifyDictionary:self.options.adMetadata];
+}
+
+- (nullable NSString *) getAdGivenBreaks {
+    NSNumber * val = self.options.adGivenBreaks;
+    if (val == nil && self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdGivenBreaks];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdGivenBreaks"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val != nil ? [val stringValue] : nil;
+}
+
+- (nullable NSString *) getAdExpectedBreaks {
+    NSNumber * val = self.options.adExpectedBreaks;
+    
+    if (val == nil && self.options.adExpectedPattern != nil) {
+        int totalBreaks = [self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPre]] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPre]] count]) : 0;
+        totalBreaks += [self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionMid]] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionMid]] count]) : 0;
+        totalBreaks += [self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPost]] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPost]] count]) : 0;
+        
+        val = [NSNumber numberWithInt:totalBreaks];
+    } else if (self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdExpectedBreaks];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdExpectedBreaks"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val != nil ? [val stringValue] : nil;
+}
+
+- (nullable NSString *) getAdExpectedPattern {
+    NSDictionary * val = self.options.adExpectedPattern;
+    if (val == nil && self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdExpectedPattern];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdExpectedPattern"];
+            [YBLog logException:exception];
+        }
+    }
+    
+     return [YBYouboraUtils stringifyDictionary:val];
+}
+
+- (nullable NSString *) getAdBreaksTime {
+    NSArray * val = self.options.adBreaksTime;
+    
+    if (val == nil && self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdBreaksTime];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdBreaksTime"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils stringifyList:val];
+}
+
+- (NSString *) getAdGivenAds {
+    NSNumber * val = self.options.adGivenAds;
+    if (val == nil && self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getGivenAds];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdGivenAds"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val != nil ? [val stringValue] : nil;
+}
+
+- (NSString *) getAdBreakNumber {
+   return self.requestBuilder.lastSent[@"breakNumber"];
+}
+
+- (NSString *) getAdBreakPosition {
+    return [self getAdPosition];
+}
+
+- (NSString *) getAdViewedDuration {
+    NSNumber * val = nil;
+    if (self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdViewedDuration] != nil ? [self.adsAdapter getAdViewedDuration] : [self.adsAdapter getPlayhead];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
+            [YBLog logException:exception];
+        }
+    }
+    return val != nil ? [val stringValue] : nil;
+}
+
+- (NSString *) getAdViewability {
+    NSNumber * val = nil;
+    if (self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdViewability] != nil ? [self.adsAdapter getAdViewability] : [self.adsAdapter getPlayhead];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
+            [YBLog logException:exception];
+        }
+    }
+    return val != nil ? [val stringValue] : nil;
+}
+
+- (NSValue *) isAdSkippable {
+    if (self.adsAdapter != nil) {
+        @try {
+            return [self.adsAdapter isSkippable];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
+            [YBLog logException:exception];
+        }
+    }
+    return false;
+}
+
+- (NSString *) getExpectedAds {
+    NSNumber * val = nil;
+    
+    @try {
+        if (self.adsAdapter != nil) {
+            if (self.options.adExpectedPattern != nil && [self getAdPosition]) {
+                NSArray * list = [NSArray arrayWithArray:[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPre]]];
+                [list arrayByAddingObjectsFromArray:[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionMid]]];
+                [list arrayByAddingObjectsFromArray:[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPost]]];
+                if ([list count] > 0) {
+                    int position = [[self.adsAdapter getAdBreakNumber] intValue] - 1;
+                    if (position > [list count] - 1) {
+                        position = (int)[list count] - 1;
+                    }
+                    val = list[position];
+                }
+            } else {
+                val = [self.adsAdapter getExpectedAds];
+            }
+        }
+    } @catch (NSException *exception) {
+        [YBLog warn:@"An error occurred while calling ad getExpectedAds"];
+        [YBLog logException:exception];
+    }
+    
+    return val != nil ? [val stringValue] : nil;
+}
+
+- (NSValue *) getAdsExpected {
+    return ([self getAdExpectedPattern] != nil || [self getAdGivenAds] != nil) ? @true : @false;
+}
+
+- (NSString *) getAdCreativeId {
+    NSString * val = self.options.adCreativeId;
+    if ((val == nil || val.length == 0) && self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdCreativeId];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdCreativeId"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val;
+}
+
+- (NSString *) getAdProvider {
+    NSString * val = self.options.adProvider;
+    if ((val == nil || val.length == 0) && self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdProvider];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdCreativeId"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return val;
 }
 
 - (NSString *) getPluginInfo {
@@ -1827,6 +2023,30 @@
     [self.willSendAdErrorListeners addObject:listener];
 }
 
+- (void) addWillSendAdManifestListener:(YBWillSendRequestBlock) listener {
+    if(self.willSendAdManifestListeners == nil)
+        self.willSendAdManifestListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendAdManifestListeners addObject:listener];
+}
+
+- (void) addWillSendAdBreakStartListener:(YBWillSendRequestBlock) listener {
+    if(self.willSendAdBreakStartListeners == nil)
+        self.willSendAdBreakStartListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendAdBreakStartListeners addObject:listener];
+}
+
+- (void) addWillSendAdBreakStopListener:(YBWillSendRequestBlock) listener {
+    if(self.willSendAdBreakStopListeners == nil)
+        self.willSendAdBreakStopListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendAdBreakStopListeners addObject:listener];
+}
+
+- (void) addWillSendQuartileListener:(YBWillSendRequestBlock) listener {
+    if(self.willSendAdQuartileListeners == nil)
+        self.willSendAdQuartileListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendAdQuartileListeners addObject:listener];
+}
+
 - (void) addOnWillSendSessionStartListener:(YBWillSendRequestBlock) listener{
     if(self.willSendSessionStartListeners == nil)
         self.willSendSessionStartListeners = [NSMutableArray arrayWithCapacity:1];
@@ -2057,6 +2277,26 @@
 - (void) removeOnWillSendSessionBeat:(YBWillSendRequestBlock) listener {
     if (self.willSendSessionBeatListeners != nil)
         [self.willSendSessionBeatListeners removeObject:listener];
+}
+
+- (void) removeWillSendAdManifestListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendAdManifestListeners != nil)
+        [self.willSendAdManifestListeners removeObject:listener];
+}
+
+- (void) removeWillSendAdBreakStartListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendAdBreakStartListeners != nil)
+        [self.willSendAdBreakStartListeners removeObject:listener];
+}
+
+- (void) removeWillSendAdBreakStopListener:(YBWillSendRequestBlock) listener{
+    if (self.willSendAdBreakStopListeners != nil)
+        [self.willSendAdBreakStopListeners removeObject:listener];
+}
+
+- (void) removeWillSendQuartileListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendAdQuartileListeners != nil)
+        [self.willSendAdQuartileListeners removeObject:listener];
 }
 
 #pragma mark - Private methods
@@ -2327,7 +2567,9 @@
             else
                 [self sendStart:@{}];
         }
-            
+        if (self.adsAdapter != nil && self.adsAdapter.flags.adBreakStarted) {
+            [self.adsAdapter fireAdBreakStop];
+        }
         [self sendJoin:params];
     } else {
         // Revert join state
@@ -2402,6 +2644,9 @@
 }
 
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
+    if (self.adsAdapter != nil && self.adsAdapter.flags.adBreakStarted) {
+        [self.adsAdapter fireAdBreakStop];
+    }
     [self sendStop:params];
     [self reset];
 }
@@ -2428,7 +2673,9 @@
     }
     
     if (!self.isInitiated && !self.isStarted) {
-        [self fireInit];
+        if (![[self getAdBreakPosition] isEqualToString:@"post"]) {
+            [self fireInit];
+        }
     }
         
     if ([self getAdDuration] != nil && [self getAdTitle] != nil && [self getAdResource] != nil
@@ -2496,17 +2743,41 @@
     [self sendClick:params];
 }
 
-- (void) allAdsCompletedListener:(NSDictionary<NSString *,NSString *>*) params{
+- (void) allAdsCompletedListener:(NSDictionary<NSString *,NSString *>*) params {
     if(self.adapter != nil && self.adapter.flags != nil && !self.adapter.flags.started) [self stopPings];
 }
 
-- (void) adErrorListener:(NSDictionary<NSString *,NSString *>*) params{
+- (void) adErrorListener:(NSDictionary<NSString *,NSString *>*) params {
     if (!self.isInitiated && !self.isStarted) {
         self.adErrorCode = params[@"errorCode"];
         self.adErrorMessage = params[@"errorMsg"];
     } else {
         [self sendAdError:params];
     }
+}
+
+- (void) adManifestListener:(NSDictionary<NSString *,NSString *>*) params {
+    if (self.isInitiated || self.isStarted) {
+        [self sendAdManifest:params];
+    }
+}
+
+- (void) adBreakStartListener:(NSDictionary<NSString *,NSString *>*) params {
+    if (!self.isInitiated && !self.isStarted) {
+        if (![[self getAdBreakPosition] isEqualToString:@"post"]) {
+            [self fireInit];
+        }
+    }
+    
+    [self sendAdBreakStart:params];
+}
+
+- (void) adBreakStopListener:(NSDictionary<NSString *,NSString *>*) params {
+    [self sendAdBreakStop:params];
+}
+
+- (void) adQuartileListener:(NSDictionary<NSString *,NSString *>*) params {
+    [self sendAdQuartile:params];
 }
 
 // Send methods
@@ -2614,6 +2885,7 @@
 - (void) sendAdJoin:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdJoin];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
     [self sendWithCallbacks:self.willSendAdJoinListeners service:YouboraServiceAdJoin andParams:mutParams];
     [YBLog notice:@"%@ %@ms", YouboraServiceAdJoin, mutParams[@"adJoinDuration"]];
 }
@@ -2647,20 +2919,51 @@
     self.isAdStarted = false;
 }
 
-- (void) sendClick:(NSDictionary<NSString *, NSString *> *) params{
+- (void) sendClick:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceClick];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
     [self sendWithCallbacks:self.willSendClickListeners service:YouboraServiceClick andParams:mutParams];
     [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
 }
 
-- (void) sendAdError:(NSDictionary<NSString *, NSString *> *) params{
+- (void) sendAdError:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdError];
     NSString* realNumber = self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
     mutParams[@"adNumber"] = realNumber;
     [self sendWithCallbacks:self.willSendAdErrorListeners service:YouboraServiceAdError andParams:mutParams];
     [YBLog notice:@"%@ %@ s", YouboraServiceAdError, mutParams[@"errorCode"]];
 
+}
+
+- (void) sendAdManifest:(NSDictionary<NSString *, NSString *> *) params {
+    if (self.adapter != nil && !self.adapter.flags.started && !self.isInitiated) {
+        self.adManifestParams = params;
+        return;
+    }
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdManifest];
+    [self sendWithCallbacks:self.willSendAdManifestListeners service:YouboraServiceAdManifest andParams:mutParams];
+    [YBLog notice:YouboraServiceAdManifest];
+}
+
+- (void) sendAdBreakStart:(NSDictionary<NSString *, NSString *> *) params {
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStart];
+    mutParams[@"breakNumber"] = [self.requestBuilder getNewAdBreakNumber];
+    [self sendWithCallbacks:self.willSendAdBreakStartListeners service:YouboraServiceAdBreakStart andParams:mutParams];
+    [YBLog notice:YouboraServiceAdBreakStart];
+}
+
+- (void) sendAdBreakStop:(NSDictionary<NSString *, NSString *> *) params {
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStop];
+    [self sendWithCallbacks:self.willSendAdBreakStopListeners service:YouboraServiceAdBreakStop andParams:mutParams];
+    [YBLog notice:YouboraServiceAdBreakStop];
+}
+
+- (void) sendAdQuartile:(NSDictionary<NSString *, NSString *> *) params {
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStop];
+    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    [self sendWithCallbacks:self.willSendAdQuartileListeners service:YouboraServiceAdQuartile andParams:mutParams];
+    [YBLog notice:YouboraServiceAdQuartile];
 }
 
 - (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
@@ -2791,6 +3094,11 @@
         if (self.adsAdapter.flags.buffering) {
             [paramList addObject:@"adBufferDuration"];
         }
+        
+        if (self.adsAdapter.flags.paused) {
+            [paramList addObject:@"adPauseDuration"];
+        }
+        
         [paramList addObject:@"playhead"];
     }
     
@@ -2903,6 +3211,36 @@
         [self errorListener:params];
     } else if(adapter == self.adsAdapter) {
         [self adErrorListener:params];
+    }
+}
+
+- (void) youboraAdapterEventAdManifest:(NSDictionary *)params fromAdapter:(YBPlayerAdapter *)adapter {
+    if (adapter == self.adsAdapter) {
+        [self adManifestListener:params];
+    }
+}
+
+- (void) youboraAdapterEventAdManifestError:(NSDictionary *)params fromAdapter:(YBPlayerAdapter *)adapter {
+    if (adapter == self.adsAdapter) {
+        [self adManifestListener:params];
+    }
+}
+
+- (void) youboraAdapterEventAdBreakStart:(NSDictionary *)params fromAdapter:(YBPlayerAdapter *)adapter {
+    if (adapter == self.adsAdapter) {
+        [self adBreakStartListener:params];
+    }
+}
+
+- (void) youboraAdapterEventAdBreakStop:(NSDictionary *)params fromAdapter:(YBPlayerAdapter *)adapter {
+    if (adapter == self.adsAdapter) {
+        [self adBreakStopListener:params];
+    }
+}
+
+- (void) youboraAdapterEventAdQuartile:(NSDictionary *)params fromAdapter:(YBPlayerAdapter *)adapter {
+    if (adapter == self.adsAdapter) {
+        [self adQuartileListener:params];
     }
 }
 
