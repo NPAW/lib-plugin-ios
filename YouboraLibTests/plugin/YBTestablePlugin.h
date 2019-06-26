@@ -16,6 +16,7 @@
 
 @property(nonatomic, strong) YBChrono * mockChrono;
 @property(nonatomic, strong) YBTimer * mockTimer;
+@property(nonatomic, strong) YBTimer * mockBeatTimer;
 @property(nonatomic, strong) YBRequestBuilder * mockRequestBuilder;
 @property(nonatomic, strong) YBResourceTransform * mockResourceTransform;
 @property(nonatomic, strong) YBFlowTransform * mockFlowTransform;
@@ -25,5 +26,6 @@
 @property(nonatomic, strong) YBRequest * mockRequest;
 
 @property(nonatomic, copy) TimerCallback timerCallback;
+@property(nonatomic, copy) TimerCallback beatTimerCallback;
 
 @end

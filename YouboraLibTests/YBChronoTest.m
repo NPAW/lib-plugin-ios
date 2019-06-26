@@ -39,6 +39,12 @@
     [self.chrono start];
     XCTAssertNotEqual(-1, [self.chrono getDeltaTime:true]);
     XCTAssertNotEqual(-1, [self.chrono getDeltaTime]);
+    
+    [self.chrono start];
+    XCTAssertNotEqual(-1, [self.chrono getDeltaTime:false]);
+    
+    [self.chrono stop];
+    XCTAssertNotEqual(-1, [self.chrono getDeltaTime]);
 }
 
 - (void)testStopBeforeStart {

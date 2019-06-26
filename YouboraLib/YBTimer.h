@@ -5,7 +5,7 @@
 //  Created by Joan on 15/03/2017.
 //  Copyright © 2017 NPAW. All rights reserved.
 //
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 // Forward declaration for the TimerCallback
 @class YBTimer, YBChrono;

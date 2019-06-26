@@ -153,6 +153,8 @@ extern NSString * const YBOPTIONS_KEY_APP_RELEASE_VERSION;
 extern NSString * const YBOPTIONS_KEY_WAIT_METADATA;
 extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
 
+extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
+
 /// Public methods
 - (NSDictionary *) toDictionary;
 
@@ -372,6 +374,16 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
  * device info or the audio channels.
  */
 @property(nonatomic, strong) NSDictionary * contentMetadata;
+
+/**
+ * NSDictionary containing the content metrics.
+ */
+@property(nonatomic, strong) NSDictionary * contentMetrics;
+
+/**
+ * NSDictionary containing the session metrics.
+ */
+@property(nonatomic, strong) NSDictionary * sessionMetrics;
 
 /**
  * NSValue containing if seeks should be disabled for life content, only applies if content is live, if it's VOD it gets ignored

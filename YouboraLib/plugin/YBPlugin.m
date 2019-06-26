@@ -34,6 +34,10 @@
 
 #import "YouboraLib/YouboraLib-Swift.h"
 
+#if TARGET_OS_IPHONE==1
+    #import <UIKit/UIKit.h>
+#endif
+
 @interface YBPlugin()
 
 // Redefinition with readwrite access
@@ -69,6 +73,7 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendErrorListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendStopListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendPingListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendVideoEventListeners;
 
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdInitListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdStartListeners;
@@ -196,8 +201,9 @@
         _adapter = nil;
         
         //if(self.options.autoDetectBackground){
-            
+        #if TARGET_OS_IPHONE==1
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+        #endif
         //}
     }
     
@@ -1698,6 +1704,58 @@
     return [NSString stringWithFormat:@"%@-%@",languageCode, countryCode];
 }
 
+- (NSValue *) getIsInfinity {
+    return self.options.isInfinity;
+}
+
+- (NSString *) getSmartSwitchConfigCode {
+    return self.options.smartswitchConfigCode;
+}
+
+- (NSString *) getSmartSwitchGroupCode {
+    return self.options.smartswitchGroupCode;
+}
+
+- (NSString *) getSmartSwitchContractCode {
+    return self.options.smartswitchContractCode;
+}
+
+- (NSString *) getAppName {
+    return self.options.appName;
+}
+
+- (NSString *) getAppReleaseVersion {
+    return self.options.appReleaseVersion;
+}
+
+- (NSString *) getFingerprint {
+    #if TARGET_OS_IPHONE==1
+        if (UIDevice.currentDevice.identifierForVendor) {
+            return UIDevice.currentDevice.identifierForVendor.UUIDString;
+        }
+    #endif
+    
+    return nil;
+}
+
+- (NSString *) getVideoMetrics {
+    NSString * metrics = [YBYouboraUtils stringifyDictionary:self.options.contentMetrics];
+    
+    if ((metrics == nil || metrics.length == 0) && self.adapter != nil) {
+        @try {
+            metrics = [YBYouboraUtils stringifyDictionary:[self.adapter getMetrics]];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getVideoMetrics"];
+            [YBLog logException:exception];
+        }
+    }
+    return metrics;
+}
+
+- (NSString *) getSessionMetrics {
+    return [YBYouboraUtils stringifyDictionary: self.options.sessionMetrics];
+}
+
 // ------ CHRONOS ------
 - (long long) getPreloadDuration {
     return [self.preloadChrono getDeltaTime:false];
@@ -1772,38 +1830,6 @@
         return -1;
     }
 }
-
-- (NSValue *) getIsInfinity {
-    return self.options.isInfinity;
-}
-
-- (NSString *) getSmartSwitchConfigCode {
-    return self.options.smartswitchConfigCode;
-}
-
-- (NSString *) getSmartSwitchGroupCode {
-    return self.options.smartswitchGroupCode;
-}
-
-- (NSString *) getSmartSwitchContractCode {
-    return self.options.smartswitchContractCode;
-}
-
-- (NSString *) getAppName {
-    return self.options.appName;
-}
-
-- (NSString *) getAppReleaseVersion {
-    return self.options.appReleaseVersion;
-}
-
-- (NSString *) getFingerprint {
-    if (UIDevice.currentDevice.identifierForVendor) {
-        return UIDevice.currentDevice.identifierForVendor.UUIDString;
-    }
-    return nil;
-}
-
 // Add listeners
 - (void) addWillSendInitListener:(YBWillSendRequestBlock) listener {
     if (self.willSendInitListeners == nil)
@@ -1979,6 +2005,12 @@
     if (self.willSendClickListeners == nil)
         self.willSendClickListeners = [NSMutableArray arrayWithCapacity:1];
     [self.willSendClickListeners addObject:listener];
+}
+
+- (void) addWillSendVideoEventListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendVideoEventListeners == nil)
+        self.willSendVideoEventListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendVideoEventListeners addObject:listener];
 }
 
 /**
@@ -2214,7 +2246,12 @@
  */
 - (void) removeWillSendAdErrorListener:(YBWillSendRequestBlock) listener {
     if (self.willSendAdErrorListeners != nil)
-    [self.willSendAdErrorListeners removeObject:listener];
+        [self.willSendAdErrorListeners removeObject:listener];
+}
+
+- (void) removeWillSendVideoEventListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendVideoEventListeners != nil)
+        [self.willSendVideoEventListeners removeObject:listener];
 }
 
 - (void) removeOnWillSendSessionStart:(YBWillSendRequestBlock) listener {
@@ -2602,6 +2639,10 @@
     }
 }
 
+- (void) videoEventListener:(NSDictionary<NSString *, NSString*> *) params {
+    [self sendVideoEvent:params];
+}
+
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
     if (self.adsAdapter != nil && self.adsAdapter.flags.adBreakStarted) {
         [self.adsAdapter fireAdBreakStop];
@@ -2802,6 +2843,12 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceError];
     [self sendWithCallbacks:self.willSendErrorListeners service:YouboraServiceError andParams:mutParams];
     [YBLog notice:@"%@ %@", YouboraServiceError, mutParams[@"errorCode"]];
+}
+
+- (void) sendVideoEvent:(NSDictionary<NSString *, NSString*> *) params {
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceVideoEvent];
+    [self sendWithCallbacks:self.willSendVideoEventListeners service:YouboraServiceVideoEvent andParams:mutParams];
+    [YBLog notice:@"%@", YouboraServiceVideoEvent];
 }
 
 - (void) sendStop:(NSDictionary<NSString *, NSString *> *) params {
@@ -3107,6 +3154,10 @@
     }
 }
 
+- (void) youboraAdapterEventVideoEvent:(nullable NSDictionary *)params fromAdapter:(YBPlayerAdapter *) adapter {
+    [self videoEventListener: params];
+}
+
 - (void) youboraAdapterEventStop:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter {
     if (adapter == self.adapter) {
         [self stopListener:params];
@@ -3242,6 +3293,8 @@
 }
 
 - (void) registerLifeCycleEvents {
+    
+    #if TARGET_OS_IPHONE==1
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -3255,6 +3308,7 @@
                                              selector:@selector(eventListenerDidReceiveToFore:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
+    #endif
 }
 
 - (BOOL) isExtraMetadataReady {

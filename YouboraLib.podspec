@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "YouboraLib"
-  s.version      = "6.4.7"
+  s.version      = "6.4.10"
 
 
   # Metadata
@@ -22,6 +22,7 @@ Pod::Spec.new do |s|
   # Platforms
   s.ios.deployment_target = "9.0"
   s.tvos.deployment_target = "9.0"
+  s.osx.deployment_target = "10.10"
 
   # Swift version
   s.swift_version = "5.0"

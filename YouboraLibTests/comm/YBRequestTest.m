@@ -51,6 +51,14 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
 
 }
 
+- (void) testRequestParams {
+    YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
+    [r setParam:@"value" forKey:@"key"];
+    XCTAssertNotNil(r.params[@"key"]);
+    [r setParam:@"value2" forKey:@"key2"];
+    XCTAssertNotNil(r.params[@"key2"]);
+}
+
 - (void)testSendSuccessRequest {
     
     YBTestableRequest * r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
@@ -278,5 +286,29 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     XCTAssertEqual(2, errorCallbacks);
 }
 
+- (void) testRequestBody {
+    YBTestableRequest * r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
+    r.mockRequest = mock([NSMutableURLRequest class]);
+    
+    r.body = @"body";
+    r.method = YouboraHTTPMethodPost;
+    
+    // Mock session singleton
+    __strong Class mockSessionClass = mockClass([NSURLSession class]);
+    NSURLSession * mockSession = mock([NSURLSession class]);
+    stubSingleton(mockSessionClass, sharedSession);
+    [given([NSURLSession sharedSession]) willReturn:mockSession];
+    
+    // Send request
+    [r send];
+    
+    // Verify request body is not null
+    [verify(r.mockRequest) setHTTPBody:equalTo([r.body dataUsingEncoding:NSUTF8StringEncoding])];
+    
+    
+    // Stop mocking singleton
+    stopMocking(mockSessionClass);
+    mockSessionClass = nil;
+}
 
 @end

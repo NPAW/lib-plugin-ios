@@ -1,3 +1,17 @@
+## [6.4.10] - 2019-05-26
+###Added
+- All extraparams are sent on session start request as well
+###Fixed
+- Different threads were accessing the same array to make RW operations and in some cases the index may not exist anymore, now this is prevented locking the array between operations
+
+## [6.4.9] - 2019-05-29
+###Added
+- Mac OS support
+
+## [6.4.8] - 2019-05-22
+###Added
+- Video events
+
 ## [6.4.7] - 2019-05-08
 ###Changed
 - Fastdata url now points to a-fds.youborafds01.com

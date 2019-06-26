@@ -40,7 +40,7 @@ static NSArray * ALL_PARAMS;
                        @"system", @"accountCode", @"username", @"preloadDuration", @"joinDuration",
                        @"bufferDuration", @"seekDuration", @"pauseDuration", @"adJoinDuration",
                        @"adBufferDuration", @"adPauseDuration", @"adTotalDuration", @"nodeHost", @"nodeType",
-                       @"nodeTypeString", @"adCreativeId", @"adProvider"];
+                       @"nodeTypeString", @"metrics", @"sessionMetrics", @"adCreativeId", @"adProvider"];
     });
 
     self.mockPlugin = mock([YBPlugin class]);
@@ -105,6 +105,8 @@ static NSArray * ALL_PARAMS;
     [given([self.mockPlugin getNodeTypeString]) willReturn:@"al"];
     [given([self.mockPlugin getAdProvider]) willReturn:@"am"];
     [given([self.mockPlugin getAdCreativeId]) willReturn:@"an"];
+    [given([self.mockPlugin getVideoMetrics]) willReturn:@"{\"key\":\"value\"}"];
+    [given([self.mockPlugin getSessionMetrics]) willReturn:@"{\"value\":\"key\"}"];
 }
 
 - (void)testBuildParams {
@@ -175,6 +177,8 @@ static NSArray * ALL_PARAMS;
     XCTAssertEqualObjects(@"al", params[@"nodeTypeString"]);
     XCTAssertEqualObjects(@"am", params[@"adProvider"]);
     XCTAssertEqualObjects(@"an", params[@"adCreativeId"]);
+    XCTAssertEqualObjects(@"{\"key\":\"value\"}", params[@"metrics"]);
+    XCTAssertEqualObjects(@"{\"value\":\"key\"}", params[@"sessionMetrics"]);
     
 }
 

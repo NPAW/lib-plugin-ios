@@ -82,15 +82,17 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceAdBreakStart: @[@"breakPosition", @"givenAds", @"expectedAds"],
                        YouboraServiceAdBreakStop: @[@"breakPosition", @"breakNumber"],
                        YouboraServiceAdQuartile: @[@"breakPosition", @"adPosition", @"adViewedDuration", @"adViewability"],
-                       YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent"],
+                       YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent", @"metrics"],
                        YouboraServiceError: [startParams arrayByAddingObject:@"player"],
                        
                        //Infinity
-                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion"],
+                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion", @"param1",                               @"param2", @"param3", @"param4", @"param5", @"param6", @"param7", @"param8", @"param9", @"param10", @"param11",
+                                                     @"param12", @"param13", @"param14", @"param15", @"param16", @"param17", @"param18", @"param19", @"param20"],
                        YouboraServiceSessionStop: @[@"accountCode"],
                        YouboraServiceSessionNav: @[@"username", @"navContext"],
-                       YouboraServiceSessionBeat: @[],
-                       YouboraServiceSessionEvent: @[@"navContext"]
+                       YouboraServiceSessionBeat: @[@"sessionMetrics"],
+                       YouboraServiceSessionEvent: @[@"navContext"],
+                       YouboraServiceVideoEvent: @[]
             };
             
             youboraRequestParamsDifferent = @{YouboraServiceJoin:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],
@@ -525,6 +527,10 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAdCreativeId];
     } else if ([param isEqualToString:@"adProvider"]) {
         value = [self.plugin getAdProvider];
+    } else if ([param isEqualToString:@"sessionMetrics"]) {
+        value = [self.plugin getSessionMetrics];
+    } else if ([param isEqualToString:@"metrics"]) {
+        value = [self.plugin getVideoMetrics];
     }
     
     return value;

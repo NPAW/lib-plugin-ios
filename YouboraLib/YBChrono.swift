@@ -50,9 +50,8 @@ open class YBChrono: NSObject, NSCopying {
         
         if (self.stopTime <= 0) {
             return stop ? self.stop() : YBChrono().now - self.startTime + self.offset
-        } else {
-            return self.stopTime - self.startTime + self.offset
         }
+        return self.stopTime - self.startTime + self.offset
     }
     
     /**

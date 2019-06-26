@@ -11,7 +11,11 @@
 #import "YBLog.h"
 
 #import <sys/utsname.h>
-#import <UIKit/UIKit.h>
+#if TARGET_OS_IPHONE==1
+    #import <UIKit/UIKit.h>
+#else
+    #import <Cocoa/Cocoa.h>
+#endif
 
 @interface YBDeviceInfo()
 
@@ -24,7 +28,14 @@
     if (self) {
         self.deviceModel = [self getAppleDeviceModel];
         self.deviceBrand = @"Apple";
+        
+    #if TARGET_OS_IPHONE==1
         self.deviceOsVersion = [UIDevice currentDevice].systemVersion;
+    #else
+        self.deviceOsVersion = [NSProcessInfo processInfo].operatingSystemVersionString;
+    #endif
+        
+        //self.deviceOsVersion = [UIDevice currentDevice].systemVersion;
     }
     return self;
 }
@@ -145,16 +156,24 @@
 
 - (NSDictionary*) getDeviceParameters {
     NSMutableDictionary * deviceDict = [[NSMutableDictionary alloc] init];
+
     
     if (self.deviceModel != nil)
         deviceDict[@"model"] = self.deviceModel;
     else
         deviceDict[@"model"] = [self getAppleDeviceModel];
     
+    #if TARGET_OS_IPHONE==1
+        if (self.deviceOsVersion != nil)
+            deviceDict[@"osVersion"] = self.deviceOsVersion;
+        else
+            deviceDict[@"osVersion"] = [UIDevice currentDevice].systemVersion;
+    #else
     if (self.deviceOsVersion != nil)
         deviceDict[@"osVersion"] = self.deviceOsVersion;
     else
-        deviceDict[@"osVersion"] = [UIDevice currentDevice].systemVersion;
+        deviceDict[@"osVersion"] = [NSProcessInfo processInfo].operatingSystemVersionString;
+    #endif
     
     if (self.deviceBrand != nil)
         deviceDict[@"brand"] = self.deviceBrand;
