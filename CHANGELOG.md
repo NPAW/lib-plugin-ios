@@ -1,4 +1,4 @@
-## [6.4.10] - 2019-
+## [6.4.10] - 2019-05-26
 ###Added
 - All extraparams are sent on session start request as well
 ###Fixed
