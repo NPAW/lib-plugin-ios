@@ -1,3 +1,7 @@
+## [6.5.1] - 
+###Added
+- Break stop request when going to background
+
 ## [6.5.0] - 2019-05-26
 ###Added
 - New ad events ad manifest, break start, break stop and ad quartile
