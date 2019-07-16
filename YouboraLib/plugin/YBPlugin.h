@@ -1373,7 +1373,7 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Retruns vendor id
  * @return Current vendor id
  */
-- (nullable NSString *) getFingerprint;
+- (nullable NSString *) getDeviceUUID;
 
 /**
  * Returns the video metrics sent on the pings
