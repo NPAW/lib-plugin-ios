@@ -2491,8 +2491,13 @@
 
 - (void) eventListenerDidReceivetoBack: (NSNotification*)uselessNotification {
     if(self.options.autoDetectBackground){
-        if (self.adsAdapter != nil && (self.adsAdapter.flags.started || self.adsAdapter.flags.adInitiated)) {
-            [self.adsAdapter fireStop];
+        if (self.adsAdapter != nil) {
+            if (self.adsAdapter.flags.started || self.adsAdapter.flags.adInitiated) {
+                [self.adsAdapter fireStop];
+            }
+            if (self.adsAdapter.flags.adBreakStarted) {
+                [self.adsAdapter fireAdBreakStop];
+            }
         }
         
         if (self.isInitiated && (self.adapter == nil || !self.adapter.flags.started)) {
