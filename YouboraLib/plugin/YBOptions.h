@@ -58,6 +58,7 @@ extern NSString * const YBOPTIONS_KEY_DEVICE_TYPE;
 extern NSString * const YBOPTIONS_KEY_DEVICE_NAME;
 extern NSString * const YBOPTIONS_KEY_DEVICE_OS_NAME;
 extern NSString * const YBOPTIONS_KEY_DEVICE_OS_VERSION;
+extern NSString * const YBOPTIONS_KEY_DEVICE_IS_ANONYMOUS;
 
 extern NSString * const YBOPTIONS_KEY_CONTENT_RESOURCE;
 extern NSString * const YBOPTIONS_KEY_CONTENT_IS_LIVE;
@@ -302,6 +303,11 @@ extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
  * OS version that will be displayed on Youbora (provided by default with android.os.Build.VERSION.RELEASE if not set)
  */
 @property(nonatomic, strong) NSString * deviceOsVersion;
+
+/**
+ * Option to not send deviceUUID
+ */
+@property(nonatomic, assign) BOOL deviceIsAnonymous;
 
 /**
  * URL/path of the current media resource.
