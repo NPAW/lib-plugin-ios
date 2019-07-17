@@ -1,6 +1,9 @@
-## [6.5.1] - 
+
+## [6.5.1] - 2019-
 ###Added
 - Break stop request when going to background
+###Replaced
+- Now deviceUUID is used instead of Fingerprint
 
 ## [6.5.0] - 2019-05-26
 ###Added

@@ -52,7 +52,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType", @"appName", @"appReleaseVersion",
                                       @"email", @"package", @"saga", @"tvshow", @"season", @"titleEpisode", @"channel", @"contentId", @"imdbID", @"gracenoteID", @"contentType",
                                       @"genre", @"contentLanguage", @"subtitles", @"contractedResolution", @"cost", @"price", @"playbackType", @"drm",
-                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat", @"adsExpected"];
+                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat", @"adsExpected", @"deviceUUID"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -60,7 +60,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                         @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable", @"breakNumber", @"adCreativeId", @"adProvider"];
             
             youboraRequestParams = @{
-                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity", @"fingerprint"],
+                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
                        YouboraServiceInit:  startParams,
                        YouboraServiceStart: startParams,
                        YouboraServiceJoin:  @[@"joinDuration", @"playhead"],
@@ -87,7 +87,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        
                        //Infinity
                        YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion", @"param1",                               @"param2", @"param3", @"param4", @"param5", @"param6", @"param7", @"param8", @"param9", @"param10", @"param11",
-                                                     @"param12", @"param13", @"param14", @"param15", @"param16", @"param17", @"param18", @"param19", @"param20"],
+                                                     @"param12", @"param13", @"param14", @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"deviceUUID"],
                        YouboraServiceSessionStop: @[@"accountCode"],
                        YouboraServiceSessionNav: @[@"username", @"navContext"],
                        YouboraServiceSessionBeat: @[@"sessionMetrics"],
@@ -398,11 +398,11 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:@"householdId"]){
         value = [self.plugin getHouseholdId];
     }  else if ([param isEqualToString:@"p2pDownloadedTraffic"]){
-        value = [self.plugin getP2PTraffic];
+        value = [[self.plugin getP2PTraffic] stringValue];
     }  else if ([param isEqualToString:@"cdnDownloadedTraffic"]){
-        value = [self.plugin getCdnTraffic];
+        value = [[self.plugin getCdnTraffic] stringValue];
     }  else if ([param isEqualToString:@"uploadTraffic"]){
-        value = [self.plugin getUploadTraffic];
+        value = [[self.plugin getUploadTraffic] stringValue];
     }  else if ([param isEqualToString:@"experiments"]){
         NSArray *experimentsArray = [self.plugin getExperimentIds];
         if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){
@@ -443,8 +443,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAppName];
     } else if ([param isEqualToString:@"appReleaseVersion"]) {
         value = [self.plugin getAppReleaseVersion];
-    } else if ([param isEqualToString:@"fingerprint"]) {
-        value = [self.plugin getFingerprint];
+    } else if ([param isEqualToString:@"deviceUUID"]) {
+        value = [self.plugin getDeviceUUID];
     } else if ([param isEqualToString:@"email"]) {
         value = [self.plugin getUserEmail];
     } else if ([param isEqualToString:@"package"]) {

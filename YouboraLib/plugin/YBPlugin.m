@@ -1728,9 +1728,9 @@
     return self.options.appReleaseVersion;
 }
 
-- (NSString *) getFingerprint {
+- (NSString *) getDeviceUUID {
     #if TARGET_OS_IPHONE==1
-        if (UIDevice.currentDevice.identifierForVendor) {
+        if (UIDevice.currentDevice.identifierForVendor && !self.options.deviceIsAnonymous) {
             return UIDevice.currentDevice.identifierForVendor.UUIDString;
         }
     #endif
