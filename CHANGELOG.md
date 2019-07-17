@@ -1,5 +1,8 @@
+## [6.5.2] - 2019-07-17
+###Added
+- Bump version
 
-## [6.5.1] - 2019-
+## [6.5.1] - 2019-07-17
 ###Added
 - Break stop request when going to background
 ###Replaced
