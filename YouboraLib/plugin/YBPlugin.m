@@ -31,6 +31,7 @@
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
+#import "YBTimestampLastSentTransform.h"
 
 #import "YouboraLib/YouboraLib-Swift.h"
 
@@ -2344,6 +2345,10 @@
     return [YBFlowTransform new];
 }
 
+- (YBTimestampLastSentTransform *) createLastSentTransform {
+    return [YBTimestampLastSentTransform new];
+}
+
 - (void) reset {
     [self stopPings];
     
@@ -2453,6 +2458,7 @@
     if (self.comm == nil) {
         self.comm = [self createCommunication];
         [self.comm addTransform:[self createFlowTransform]];
+        [self.comm addTransform:[self createLastSentTransform]]; //Mostly used for Infinity, but may be interesting to use it along other requests
         
         [self.comm addTransform:self.resourceTransform];
         //[self.comm addTransform:[self createNqs6Transform]];
