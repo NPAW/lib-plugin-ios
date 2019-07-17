@@ -1314,25 +1314,25 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns CDN traffic
  * @return CDN traffic
  */
-- (NSString *) getCdnTraffic;
+- (NSNumber *) getCdnTraffic;
 
 /**
  * Returns P2P traffic
  * @return P2P traffic
  */
-- (NSString *) getP2PTraffic;
+- (NSNumber *) getP2PTraffic;
 
 /**
  * Returns upload traffic
  * @return upload traffic
  */
-- (NSString *) getUploadTraffic;
+- (NSNumber *) getUploadTraffic;
 
 /**
  * Returns if P2P is enabled
  * @return if P2P is enabled
  */
-- (NSString *) getIsP2PEnabled;
+- (NSValue *) getIsP2PEnabled;
 
 /**
  * Returns current nav context

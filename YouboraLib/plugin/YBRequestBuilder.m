@@ -398,11 +398,11 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:@"householdId"]){
         value = [self.plugin getHouseholdId];
     }  else if ([param isEqualToString:@"p2pDownloadedTraffic"]){
-        value = [self.plugin getP2PTraffic];
+        value = [[self.plugin getP2PTraffic] stringValue];
     }  else if ([param isEqualToString:@"cdnDownloadedTraffic"]){
-        value = [self.plugin getCdnTraffic];
+        value = [[self.plugin getCdnTraffic] stringValue];
     }  else if ([param isEqualToString:@"uploadTraffic"]){
-        value = [self.plugin getUploadTraffic];
+        value = [[self.plugin getUploadTraffic] stringValue];
     }  else if ([param isEqualToString:@"experiments"]){
         NSArray *experimentsArray = [self.plugin getExperimentIds];
         if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){
