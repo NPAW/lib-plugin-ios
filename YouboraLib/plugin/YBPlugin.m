@@ -2533,7 +2533,9 @@
         } else {
             [[self getInfinity].flags reset];
             [self.viewTransform removeTransformDoneListener:self];
+            [self.comm removeTransform:self.viewTransform];
             [self initViewTransform];
+            [self.comm addTransform:self.viewTransform];
             [self getInfinity].viewTransform = self.viewTransform;
             [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions andParentId:self.startParentId];
         }
