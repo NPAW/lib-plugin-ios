@@ -1,3 +1,7 @@
+## [6.5.3] - 2019
+###Added
+- Fix Infinity background
+
 ## [6.5.2] - 2019-07-17
 ###Added
 - Bump version
