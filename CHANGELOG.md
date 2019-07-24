@@ -1,6 +1,7 @@
 ## [6.5.3] - 2019
-###Added
+###Fixed
 - Fix Infinity background
+- Metadata check when not having an ad adapter
 
 ## [6.5.2] - 2019-07-17
 ###Added
