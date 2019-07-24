@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "YouboraLib"
-  s.version      = "6.5.2"
+  s.version      = "6.5.3"
 
 
   # Metadata
