@@ -137,6 +137,11 @@
             [weakSelf sendPing:diffTime];
             //We "use" the ping timer to check if any metadata was missing too
             if ([weakSelf isExtraMetadataReady]) {
+                
+                if (weakSelf.adsAdapter == nil) {
+                    [weakSelf startListener:nil];
+                }
+                
                 if (weakSelf.adsAdapter != nil
                     && weakSelf.adsAdapter.flags.adBreakStarted
                     && ![[weakSelf getAdBreakPosition] isEqualToString:@"post"]) {
