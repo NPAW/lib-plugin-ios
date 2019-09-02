@@ -1,3 +1,7 @@
+## [6.5.4] - 2019
+###Fixed
+- ContentPlayerbackType was being ignored if setting isLive option to any non nil value
+
 ## [6.5.3] - 2019-07-24
 ###Fixed
 - Fix Infinity background
