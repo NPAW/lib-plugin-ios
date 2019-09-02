@@ -740,7 +740,7 @@
 - (NSString *) getContentPlaybackType {
     NSString * val = self.options.contentPlaybackType;
     
-    if (self.adapter != nil) {
+    if (self.adapter != nil && val == nil) {
         @try {
             if (self.options.offline) {
                 val = @"Offline";

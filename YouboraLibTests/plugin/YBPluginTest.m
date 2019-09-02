@@ -1049,6 +1049,19 @@
     XCTAssertEqualObjects(@"contract", [self.p getSmartSwitchContractCode]);
 }
 
+- (void) testGetPlaybackType {
+    XCTAssertNil([self.p getContentPlaybackType]);
+    
+    stubProperty(self.mockOptions, contentIsLive, @NO);
+    XCTAssertEqualObjects(@"VoD", [self.p getContentPlaybackType]);
+    
+    stubProperty(self.mockOptions, contentIsLive, @YES);
+    XCTAssertEqualObjects(@"Live", [self.p getContentPlaybackType]);
+    
+    stubProperty(self.mockOptions, contentPlaybackType, @"content type");
+    XCTAssertEqualObjects(@"content type", [self.p getContentPlaybackType]);
+}
+
 - (void)testChronoTimes {
     // Init and preload chronos don't depend on the adapter
     [given([self.p.mockChrono getDeltaTime:false]) willReturn:@100];
