@@ -1,4 +1,4 @@
-## [6.5.4] - 2019
+## [6.5.4] - 2019-09-04
 ###Fixed
 - ContentPlayerbackType was being ignored if setting isLive option to any non nil value
 
