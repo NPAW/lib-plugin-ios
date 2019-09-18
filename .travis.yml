@@ -1,36 +1,59 @@
+os: osx
+osx_image: xcode10.3
+language: swift
+
 branches:
   only:
   - master
+  - /^\d+\.\d+\.\d+$/
 
-language: objective-c
-osx_image: xcode10.2
+stages:
+  - name: lint
+  - name: carthage
+  - name: test
+  - name: deploy
 
 jobs:
   include:
-    - stage: test
-    before_install:
+
+    - &pod
+      stage: lint
+      install: gem install cocoapods -v '~> 1.7.0'
+      script: pod lib lint --fail-fast --allow-warnings
+
+    - &carthage
+      stage: carthage
+      env: PLATFORM=ios
+      before_install:
       - brew update
       - brew outdated carthage || brew upgrade carthage
+      before_script: |
+        sed -i '' "s/SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;/SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;/" *.xcodeproj/project.pbxproj
+        sed -i '' "s/GCC_TREAT_WARNINGS_AS_ERRORS = NO;/GCC_TREAT_WARNINGS_AS_ERRORS = YES;/" *.xcodeproj/project.pbxproj
+      script: carthage build --no-skip-current --configuration Release --platform $PLATFORM
+      name: iOS
+    - <<: *carthage
+      env: PLATFORM=tvos
+    - <<: *carthage
+      env: PLATFORM=macos
 
-    install:
-      - carthage update --platform ios,tvos
+    - &test
+      stage: test
+      name: iOS
+      xcode_scheme: YouboraLib\ iOS
+      xcode_project: YouboraLib.xcodeproj
+      xcode_destination: 'platform=iOS Simulator,OS=12.2,name=iPhone SE'
+      before_install:
+        - brew update
+        - brew outdated carthage || brew upgrade carthage
+      install:
+        - carthage update
+    - <<: *test
+      name: tvOS
+      xcode_scheme: YouboraLib\ tvOS
+      xcode_destination: 'platform=tvOS Simulator,OS=12.2,name=Apple TV'
+    - <<: *test
+      name: tvOS
+      xcode_scheme: YouboraLib\ OSX
+      xcode_destination: 'platform=macOS'
 
-    script:
-      # Build lib
-      - xcodebuild clean build -scheme YouboraLib\ iOS
-      # Run tests
-      - xcodebuild test -scheme YouboraLib\ iOS -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1'
-
-    after_success:
-      - bash <(curl -s https://codecov.io/bash)
-      - ruby scripts/createManifest.rb YouboraLib YouboraLib
-      - ruby scripts/make_deployable.rb
-      - ruby scripts/deploy_to_qa.rb
-
-    after_failure:
-      - cat -n ~/Library/Logs/scan/*
-      - cat -n $TMPDIR/com.apple.dt.XCTest-status/Session*.log
-      - cat -n ~/Library/Logs/DiagnosticReports/xctest*.crash
-
-    env:
-      - QA_KNOWN_HOSTS="qa-smartplugin.youbora.com,212.32.252.199 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM6lBT/mNpS5Sl2GtOiZiWsMr1XB+tluRmakhEyjPtOjQRjbP4Z/D9+yK0Iy5v99pecazEDuigHh5BZ2v3zWYUw="
