@@ -59,7 +59,7 @@ jobs:
       xcode_scheme: 'YouboraLib tvOS'
       xcode_destination: 'platform=tvOS Simulator,OS=12.2,name=Apple TV'
     - <<: *test
-      name: tvOS
+      name: macOS
       xcode_scheme: 'YouboraLib OSX'
       xcode_destination: 'platform=macOS'
 
