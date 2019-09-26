@@ -125,13 +125,14 @@
     
     [resourceTransform parse:mockRequest];
     
-    [verifyCount(mockRequest, times(1)) setParam:@"parsed-resource" forKey:@"mediaResource"];
+    //We don't modify the mediaResource anymore, any mod is done on the parsedResource
+    //[verifyCount(mockRequest, times(1)) setParam:@"parsed-resource" forKey:@"mediaResource"];
     [verifyCount(mockRequest, times(1)) setParam:@"parsedCdnName" forKey:@"cdn"];
     [verifyCount(mockRequest, times(1)) setParam:@"parsedNodeHost" forKey:@"nodeHost"];
     [verifyCount(mockRequest, times(1)) setParam:@"1" forKey:@"nodeType"];
     [verifyCount(mockRequest, times(1)) setParam:@"HIT" forKey:@"nodeTypeString"];
     
-    XCTAssertEqualObjects(@"parsed-resource", lastSent[@"mediaResource"]);
+    XCTAssertEqualObjects(nil, lastSent[@"mediaResource"]);
     XCTAssertEqualObjects(@"parsedCdnName", lastSent[@"cdn"]);
     XCTAssertEqualObjects(@"parsedNodeHost", lastSent[@"nodeHost"]);
     XCTAssertEqualObjects(@"1", lastSent[@"nodeType"]);
