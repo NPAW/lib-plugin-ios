@@ -312,13 +312,19 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns the content's resource after being parsed by the <YBResourceTransform>
  * @return the content's resource
  */
-- (NSString *) getResource;
+- (NSString *) getParsedResource;
 
 /**
  * Returns the content's original resource (before being parsed by the <YBResourceTransform>)
  * @return the content's original resource
  */
 - (NSString *) getOriginalResource;
+
+/**
+ * Returns the content's original resource (before being parsed by the <YBResourceTransform>)
+ * @return the content's original resource
+ */
+- (NSString *) getResource; __deprecated_msg("Use getOriginalResource instead");
 
 /**
  * Returns the transaction code

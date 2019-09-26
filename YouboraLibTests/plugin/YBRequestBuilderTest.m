@@ -58,7 +58,7 @@ static NSArray * ALL_PARAMS;
     [given([self.mockPlugin getTitle]) willReturn:@"b"];
     [given([self.mockPlugin getProgram]) willReturn:@"c"];
     [given([self.mockPlugin getIsLive]) willReturn:@(true)];
-    [given([self.mockPlugin getResource]) willReturn:@"d"];
+    [given([self.mockPlugin getOriginalResource]) willReturn:@"d"];
     [given([self.mockPlugin getTransactionCode]) willReturn:@"e"];
     [given([self.mockPlugin getContentMetadata]) willReturn:@"f"];
     [given([self.mockPlugin getPlayerVersion]) willReturn:@"g"];
@@ -228,7 +228,7 @@ static NSArray * ALL_PARAMS;
     
     XCTAssertEqual(0, params.count);
     
-    [given([self.mockPlugin getResource]) willReturn:@"newResource"];
+    [given([self.mockPlugin getOriginalResource]) willReturn:@"newResource"];
     [given([self.mockPlugin getDuration]) willReturn:@234];
     
     params = [self.builder getChangedEntitites];

@@ -43,7 +43,7 @@ static NSArray<NSString *> * youboraPingEntities;
         dispatch_once(&onceToken, ^{
             
             NSArray * startParams = @[@"accountCode", @"username", @"rendition", @"title",
-                                      @"title2", @"live", @"mediaDuration", @"mediaResource", @"transactionCode", @"properties",
+                                      @"title2", @"live", @"mediaDuration", @"mediaResource", @"parsedResource", @"transactionCode", @"properties",
                                       @"cdn", @"playerVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
                                       @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
                                       @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
@@ -245,10 +245,13 @@ static NSArray<NSString *> * youboraPingEntities;
             value = [live isEqual:@YES] ? @"true" : @"false";
         }
     } else if ([param isEqualToString:@"mediaResource"]){
-        value = [self.plugin getResource];
+        value = [self.plugin getOriginalResource];
+        [YBLog debug:@"original resource: %@", [self.plugin getOriginalResource]];
         if (!value) {
             value = @"unknown";
         }
+    } else if ([param isEqualToString:@"parsedResource"]) {
+        value = [self.plugin getParsedResource];
     } else if ([param isEqualToString:@"transactionCode"]){
         value = [self.plugin getTransactionCode];
     } else if ([param isEqualToString:@"properties"]){

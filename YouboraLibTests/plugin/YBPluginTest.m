@@ -394,19 +394,19 @@
     [given([self.p.mockResourceTransform getResource]) willReturn:@"ResourceFromTransform"];
     [given([self.mockAdapter getResource]) willReturn:@"ResourceFromAdapter"];
     
-    XCTAssertEqualObjects(@"ResourceFromOptions", [self.p getResource]);
+    XCTAssertEqualObjects(@"ResourceFromOptions", [self.p getOriginalResource]);
     
     [given([self.p.mockResourceTransform isBlocking:anything()]) willReturn:@NO];
-    XCTAssertEqualObjects(@"ResourceFromTransform", [self.p getResource]);
+    XCTAssertEqualObjects(@"ResourceFromTransform", [self.p getParsedResource]);
     
     stubProperty(self.mockOptions, contentResource, nil);
     [given([self.p.mockResourceTransform getResource]) willReturn:nil];
 
-    XCTAssertEqualObjects(@"ResourceFromAdapter", [self.p getResource]);
+    XCTAssertEqualObjects(@"ResourceFromAdapter", [self.p getOriginalResource]);
 
     [given([self.mockAdapter getResource]) willReturn:nil];
     
-    XCTAssertNil([self.p getResource]);
+    XCTAssertNil([self.p getOriginalResource]);
 }
 
 - (void)testTransactionCode {
@@ -1162,7 +1162,7 @@
     }];
     
     [given([self.p getTitle]) willReturn:@"title"];
-    [given([self.p getResource]) willReturn:@"resource"];
+    [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@(288)];
     
@@ -1529,7 +1529,7 @@
     XCTAssertEqual(0, callbackTimes);
     
     [given([self.p getTitle]) willReturn:@"title"];
-    [given([self.p getResource]) willReturn:@"resource"];
+    [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@30];
     
@@ -1828,7 +1828,7 @@
     NSDictionary * params = @{@"key":@"value"};
     
     [given([self.p getTitle]) willReturn:@"title"];
-    [given([self.p getResource]) willReturn:@"resource"];
+    [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@(288)];
     stubProperty(self.mockOptions, forceInit, @(true));

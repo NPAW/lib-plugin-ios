@@ -1,3 +1,7 @@
+## [6.5.6] - 
+###Added
+- Add parsedResource parameter
+
 ## [6.5.5] - 2019-09-19
 ###Misc
 - Dummy commit to trigger travis deploy stage
