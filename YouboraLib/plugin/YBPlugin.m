@@ -300,6 +300,8 @@
         
         [self sendInit:params];
         
+        [self startResourceParsing];
+        
         if (self.adErrorMessage != nil && self.adErrorCode != nil) {
             if (self.adsAdapter != nil) {
                 [self.adsAdapter fireFatalErrorWithMessage:self.adErrorMessage code:self.adErrorCode andMetadata:nil];
@@ -309,8 +311,6 @@
         }
         
     }
-    //TODO: check why this no added
-    //[self startResourceParsing];
 }
 
 - (void) fireErrorWithParams:(NSDictionary<NSString *, NSString *> *) params {
@@ -629,16 +629,15 @@
 }
 
 - (NSString *) getResource {
+    return [self getOriginalResource];
+}
+
+- (NSString *) getParsedResource {
     NSString * val = nil;
     if (![self.resourceTransform isBlocking:nil]) {
-        val = [self.resourceTransform getResource];
-    }
-    
-    if (val == nil) {
-        val = [self getOriginalResource];
-    }
-    
-    return val;
+         val = [self.resourceTransform getResource];
+     }
+    return [val isEqualToString:[self getOriginalResource]] ? nil : val;
 }
 
 - (NSString *) getOriginalResource {
