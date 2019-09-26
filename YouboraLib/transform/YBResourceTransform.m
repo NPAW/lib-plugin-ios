@@ -150,10 +150,12 @@
     if ([YouboraServiceStart isEqualToString:request.service]) {
         NSMutableDictionary * lastSent = self.plugin.requestBuilder.lastSent;
         
-        NSString * resource = [self getResource];
+        //No need to replace now
+        /*NSString * resource = [self getResource];
+        
         
         [request setParam:resource forKey:@"mediaResource"];
-        lastSent[@"mediaResource"] = resource;
+        lastSent[@"mediaResource"] = resource;*/
         
         if (self.cdnEnabled) {
             NSString * cdn = request.params[@"cdn"];
