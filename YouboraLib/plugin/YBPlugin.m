@@ -47,6 +47,7 @@
 @property(nonatomic, strong, readwrite) YBRequestBuilder * requestBuilder;
 @property(nonatomic, strong, readwrite) YBTimer * pingTimer;
 @property(nonatomic, strong, readwrite) YBTimer * beatTimer;
+@property(nonatomic, strong, readwrite) YBTimer * metadataTimer;
 @property(nonatomic, strong, readwrite) YBCommunication * comm;
 
 // Private properties
@@ -135,7 +136,14 @@
         __weak typeof(self) weakSelf = self;
         self.pingTimer = [self createTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             [weakSelf sendPing:diffTime];
-            //We "use" the ping timer to check if any metadata was missing too
+            
+        } andInterval:5000];
+        
+        self.beatTimer = [self createBeatTimerWithCallback:^(YBTimer *timer, long long diffTime) {
+            [weakSelf sendBeat:diffTime];
+        } andInterval:30000];
+        
+        self.metadataTimer = [self createMetadataTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             if ([weakSelf isExtraMetadataReady]) {
                 
                 if (weakSelf.adsAdapter == nil) {
@@ -147,13 +155,9 @@
                     && ![[weakSelf getAdBreakPosition] isEqualToString:@"post"]) {
                     [weakSelf startListener:nil];
                 }
-                
+                [timer stop];
             }
         } andInterval:5000];
-        
-        self.beatTimer = [self createBeatTimerWithCallback:^(YBTimer *timer, long long diffTime) {
-            [weakSelf sendBeat:diffTime];
-        } andInterval:30000];
         
         self.requestBuilder = [self createRequestBuilder];
         self.resourceTransform = [self createResourceTransform];
@@ -294,6 +298,7 @@
         [self.viewTransform nextView];
         [self initComm];
         [self startPings];
+        [self startMetadataTimer];
         
         self.isInitiated = true;
         [self.iinitChrono start];
@@ -2317,6 +2322,10 @@
     return [[YBTimer alloc] initWithCallback:callback andInterval:interval];
 }
 
+- (YBTimer *) createMetadataTimerWithCallback:(TimerCallback)callback andInterval:(long) interval {
+    return [[YBTimer alloc] initWithCallback:callback andInterval:interval];
+}
+
 - (YBRequestBuilder *) createRequestBuilder {
     return [[YBRequestBuilder alloc] initWithPlugin:self];
 }
@@ -3332,14 +3341,30 @@
     NSDictionary *dictOpts = [self.options toDictionary];
     
     if (self.options.pendingMetadata != nil && self.options.waitForMetadata) {
-        NSArray *pendingMetadataKeys = self.options.pendingMetadata;
+        NSMutableArray *pendingMetadataKeys = [[NSMutableArray alloc] initWithArray:self.options.pendingMetadata];
+        NSMutableArray *pendingDataToRemove = [[NSMutableArray alloc] init];
         for (NSString * pendingKey in pendingMetadataKeys) {
             if (dictOpts[pendingKey] == nil) {
+                [self removeNotPendingOptions:pendingDataToRemove];
                 return false;
+            } else {
+                [pendingDataToRemove addObject:pendingKey];
             }
         }
+        [self removeNotPendingOptions:pendingDataToRemove];
     }
     return true;
+}
+
+- (void) removeNotPendingOptions: (NSArray *) readykeys {
+    NSMutableArray *pendingMetadataKeys = [[NSMutableArray alloc] initWithArray:self.options.pendingMetadata];
+    [pendingMetadataKeys removeObjectsInArray:readykeys];
+}
+
+- (void) startMetadataTimer {
+    if (self.options.pendingMetadata != nil && self.options.waitForMetadata) {
+        [self.metadataTimer start];
+    }
 }
 
 @end
