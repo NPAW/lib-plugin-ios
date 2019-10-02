@@ -1,6 +1,8 @@
 ## [6.5.6] - 
 ###Added
 - Add parsedResource parameter
+### Improved
+- Wait for metadata now is not attached to ping timer
 
 ## [6.5.5] - 2019-09-19
 ###Misc
