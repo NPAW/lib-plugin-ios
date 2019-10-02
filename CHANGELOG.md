@@ -1,4 +1,4 @@
-## [6.5.6] - 
+## [6.5.6] - 2019-10-02
 ###Added
 - Add parsedResource parameter
 ### Improved
