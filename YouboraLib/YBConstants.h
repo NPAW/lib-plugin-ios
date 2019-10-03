@@ -53,13 +53,13 @@ FOUNDATION_EXPORT NSString * const YouboraServiceAdStop;
 FOUNDATION_EXPORT NSString * const YouboraServiceClick;
 /** /adError service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdError;
-/** /adError service */
+/** /adManifest service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdManifest;
-/** /adError service */
+/** /adBreakStart service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdBreakStart;
-/** /adError service */
+/** /adBreakStop service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdBreakStop;
-/** /adError service */
+/** /adQuartile service */
 FOUNDATION_EXPORT NSString * const YouboraServiceAdQuartile;
 
 /** /infinity/session/start service **/

@@ -2986,7 +2986,7 @@
 }
 
 - (void) sendAdQuartile:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStop];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdQuartile];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     [self sendWithCallbacks:self.willSendAdQuartileListeners service:YouboraServiceAdQuartile andParams:mutParams];
     [YBLog notice:YouboraServiceAdQuartile];
