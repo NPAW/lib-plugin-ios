@@ -352,7 +352,7 @@ extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
 /**
  * Streaming protocol of the content, accepted types are HDS, HLS, MSS, DASH, RTMP, RTP, RTSP
  */
-@property(nonatomic, strong, getter=getAndCheckStreamingprotocol) NSString * contentStreamingProtocol;
+@property(nonatomic, strong) NSString * contentStreamingProtocol;
 
 /**
  * Throughput of the client bandwidth in bits per second.

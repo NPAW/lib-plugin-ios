@@ -618,9 +618,17 @@
 - (void) testGetStreamingProtocolValid {
     XCTAssertNil([self.p getStreamingProtocol]);
     
-    stubProperty(self.mockOptions, contentStreamingProtocol, @"HLS");
+    stubProperty(self.mockOptions, contentStreamingProtocol, @"hls");
     
     XCTAssertEqualObjects(@"HLS", [self.p getStreamingProtocol]);
+}
+
+- (void) testGetStreamingProtocolInvalid {
+    XCTAssertNil([self.p getStreamingProtocol]);
+    
+    stubProperty(self.mockOptions, contentStreamingProtocol, @"Not valid protocol");
+    
+    XCTAssertEqualObjects(nil, [self.p getStreamingProtocol]);
 }
 
 - (void) testDeprecatedExtraParams {
