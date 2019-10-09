@@ -789,17 +789,4 @@ NSString * const YBOPTIONS_KEY_SESSION_METRICS = @"session.metrics";
     self.userObfuscateIp = networkObfuscateIp;
 }
 
-// Convenience method to check if the set has been valid
-
-- (NSString *) getAndCheckStreamingprotocol {
-    NSArray * acceptedProtocols = @[@"HDS", @"HLS", @"MSS", @"DASH", @"RTMP", @"RTP", @"RTSP"];
-    
-    if (_contentStreamingProtocol != nil) {
-        if ([acceptedProtocols containsObject:[_contentStreamingProtocol uppercaseString]]) {
-            return [_contentStreamingProtocol uppercaseString];
-        }
-    }
-    return nil;
-}
-
 @end
