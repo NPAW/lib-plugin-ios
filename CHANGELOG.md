@@ -1,3 +1,7 @@
+## [6.5.7] - 2019-10-09
+###Fixed
+- Fix streaming protocol optoin
+
 ## [6.5.6] - 2019-10-02
 ###Added
 - Add parsedResource parameter
