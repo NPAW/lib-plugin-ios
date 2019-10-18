@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "YouboraLib"
-  s.version      = "6.5.7"
+  s.version      = "6.5.8"
 
 
   # Metadata
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.10"
 
   # Swift version
-  s.swift_version = "5.0"
+  s.swift_version = "4.0", "4.1", "4.2", "4.3", "5.0", "5.1"
 
   # Source Location
   s.source       = { :git => 'https://bitbucket.org/npaw/lib-plugin-ios.git', :tag => s.version}

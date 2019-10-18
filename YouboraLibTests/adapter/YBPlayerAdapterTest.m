@@ -47,7 +47,7 @@
     [adapter dispose];
     
     XCTAssertEqual(1, adapter.stopTimes);
-    [verifyCount(mockMonitor, times(1)) stop];
+    [(YBPlayheadMonitor*)verifyCount(mockMonitor, times(1)) stop];
     XCTAssertEqual(1, adapter.unregisteredTimes);
     XCTAssertNil(adapter.player);
     

@@ -12,16 +12,17 @@ import Foundation
  * Utility class that provides chronometer like functionality.
  * Used to calculate the elapsed time between <start> and <stop> calls.
  */
-open class YBChrono: NSObject, NSCopying {
+@objc open class YBChrono: NSObject, NSCopying {
+    var value: Any?
     /// ---------------------------------
     /// @name Public properties
     /// ---------------------------------
-    
+
     /// Start time
     @objc public var startTime: Int64 = 0
     @objc public var stopTime: Int64 = 0
     @objc public var offset: Int64 = 0
-    
+
     /// ---------------------------------
     /// @name Static properties
     /// ---------------------------------
@@ -30,11 +31,9 @@ open class YBChrono: NSObject, NSCopying {
      * @returns the current time in milliseconds
      */
     @objc public var now: Int64 {
-        get {
-            return Int64(round(Date().timeIntervalSince1970 * 1000))
-        }
+        return Int64(round(Date().timeIntervalSince1970 * 1000))
     }
-    
+
     /// ---------------------------------
     /// @name Public methods
     /// ---------------------------------
@@ -44,16 +43,16 @@ open class YBChrono: NSObject, NSCopying {
      * @return Time lapse in ms or -1 if start was not called.
      */
     @objc public func getDeltaTime(_ stop: Bool) -> Int64 {
-        if (self.startTime <= 0) {
+        if self.startTime <= 0 {
             return -1
         }
-        
-        if (self.stopTime <= 0) {
+
+        if self.stopTime <= 0 {
             return stop ? self.stop() : YBChrono().now - self.startTime + self.offset
         }
         return self.stopTime - self.startTime + self.offset
     }
-    
+
     /**
      * Same as calling <getDeltaTime:> with stop = false
      * @returns the elapsed time in ms since the start call.
@@ -62,15 +61,15 @@ open class YBChrono: NSObject, NSCopying {
     @objc public func getDeltaTime() -> Int64 {
         return getDeltaTime(true)
     }
-    
+
     /**
      * Starts timing
      */
-    @objc public func start() -> Void {
+    @objc public func start() {
         self.startTime = YBChrono().now
         self.stopTime = 0
     }
-    
+
     /**
      * Stop the timer and returns the difference since it <start>ed
      * @returns the difference since it <start>ed
@@ -79,16 +78,16 @@ open class YBChrono: NSObject, NSCopying {
         self.stopTime = YBChrono().now
         return getDeltaTime(false)
     }
-    
+
     /**
      * Reset the Chrono to its initial state.
      */
-    @objc public func reset() -> Void {
+    @objc public func reset() {
         self.startTime = 0
         self.stopTime = 0
         self.offset = 0
     }
-    
+
     @objc public func copy(with zone: NSZone? = nil) -> Any {
         let c = YBChrono()
         c.startTime = self.startTime
