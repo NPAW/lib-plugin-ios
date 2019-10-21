@@ -11,6 +11,7 @@ env:
     - INFO_PLIST_TV_OS=$PWD/$APP_NAME tvOS/Info.plist
     - INFO_PLIST_MAC_OS=$PWD/$APP_NAME OSX/Info.plist
     - PLATFORMS=ios,tvos,macos
+    - GENERIC_VERSION=0.0.1
 
 stages:
   - name: swiftLint
@@ -105,13 +106,8 @@ jobs:
       install: gem install cocoapods -v '~> 1.7.0'
       # UNCOMMENT WHEN MAKE SURE THAT WORKS AS EXPECTED
       before_script:
-        - sed -i '' "s/s.version = 'VERSION_TAG'/s.version = '$TRAVIS_TAG'/g" $APP_NAME.podspec
-      #   - /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $TRAVIS_BUILD_NUMBER" "$INFO_PLIST"
-      #   - /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $TRAVIS_TAG" "$INFO_PLIST"
-      #   - /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $TRAVIS_BUILD_NUMBER" "$INFO_PLIST_TV_OS"
-      #   - /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $TRAVIS_TAG" "$INFO_PLIST_TV_OS"
-      #   - /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $TRAVIS_BUILD_NUMBER" "$INFO_PLIST_MAC_OS"
-      #   - /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $TRAVIS_TAG" "$INFO_PLIST_MAC_OS"
+        - sed -i '' "s/s.version = '$GENERIC_VERSION'/s.version = '$TRAVIS_TAG'/g" $APP_NAME.podspec
+        - sed -i '' "s/YOUBORALIB_VERSION_SETTING = $GENERIC_VERSION;/YOUBORALIB_VERSION_SETTING = $TRAVIS_TAG;/g" YouboraLib.xcodeproj/project.pbxproj
       script:
         - set -exo pipefail
         - pod trunk push --verbose --allow-warnings | tee pod.log | ruby -e 'ARGF.each{ print "." }'
