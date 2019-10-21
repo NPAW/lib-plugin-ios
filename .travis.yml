@@ -24,7 +24,7 @@ stages:
     if: branch = master OR branch =~ /^\d+\.\d+\.\d+$/
   - name: deploy
     if: branch =~ ^\d+\.\d+\.\d+$
-    - name: deploy
+  - name: deploy
     if: branch =~ ^\d+\.\d+\.\d-beta+$
 
 jobs:
