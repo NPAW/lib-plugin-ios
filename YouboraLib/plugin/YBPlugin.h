@@ -325,7 +325,7 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns the content's original resource (before being parsed by the <YBResourceTransform>)
  * @return the content's original resource
  */
-- (NSString *) getResource; __deprecated_msg("Use getOriginalResource instead");
+- (NSString *) getResource __deprecated_msg("Use getOriginalResource instead");
 
 /**
  * Returns the transaction code
