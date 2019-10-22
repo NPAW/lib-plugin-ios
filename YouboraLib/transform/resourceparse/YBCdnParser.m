@@ -19,6 +19,7 @@ NSString * const YouboraCDNNameHighwinds =  @"Highwinds";
 NSString * const YouboraCDNNameFastly =     @"Fastly";
 NSString * const YouboraCDNNameBalancer =   @"Balancer";
 NSString * const YouboraCDNNameTelefonica = @"Telefonica";
+NSString * const YouboraCDNNameAmazon = @"Amazon";
 
 @interface YBCdnParser()
 
