@@ -22,10 +22,8 @@ stages:
     if: branch = master OR branch =~ /^\d+\.\d+\.\d+$/
   - name: test
     if: branch = master OR branch =~ /^\d+\.\d+\.\d+$/
-  # - name: deploy
-  #   if: branch =~ ^\d+\.\d+\.\d+$
   - name: deploy
-    if: branch =~ ^\d+\.\d+\.\d-beta+$
+    if: branch =~ ^\d+\.\d+\.\d+$
 
 jobs:
   include:
