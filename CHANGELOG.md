@@ -1,8 +1,10 @@
-## [6.5.8] - 2019-10-16
+## [6.5.8] - 2019-10-23
 ###Added
 
 - Add support for swift from 4.0 to 5.1
 - Add support for xCode compilers from 9.2 to 11
+###Fixed
+- Remove getResource semicolon
 
 ## [6.5.7] - 2019-10-09
 ###Fixed
