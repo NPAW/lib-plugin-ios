@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "YBPlaybackFlags.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBPlaybackFlagsTest : XCTestCase
 
