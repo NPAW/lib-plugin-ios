@@ -56,22 +56,22 @@ jobs:
       env: SWIFT=5.1
 
     - &test
-    stage: test
-    name: iOS
-    xcode_scheme: "YouboraLib iOS"
-    xcode_project: YouboraLib.xcodeproj
-    xcode_destination: "platform=iOS Simulator,OS=12.2,name=iPhone SE"
-    before_install:
-      - brew update
-      - brew outdated carthage || brew upgrade carthage
-    install:
-      - carthage update
-    after_success: bash <(curl -s https://codecov.io/bash)
+      stage: test
+      name: iOS
+      xcode_scheme: "YouboraLib iOS"
+      xcode_project: YouboraLib.xcodeproj
+      xcode_destination: "platform=iOS Simulator,OS=12.2,name=iPhone SE"
+      before_install:
+        - brew update
+        - brew outdated carthage || brew upgrade carthage
+      install:
+        - carthage update
+      after_success: bash <(curl -s https://codecov.io/bash)
     - <<: *test
       name: tvOS
       xcode_scheme: "YouboraLib tvOS"
       xcode_destination: "platform=tvOS Simulator,OS=12.2,name=Apple TV"
-  # UNCOMMENT WHEN CHECK WHATS GOING WRONG WITH MACOS
+    # UNCOMMENT WHEN CHECK WHATS GOING WRONG WITH MACOS
     - <<: *test
       name: macOS
       xcode_scheme: "YouboraLib OSX"
