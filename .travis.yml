@@ -33,12 +33,16 @@ jobs:
       install: pod deintegrate
       script:
         - xcodebuild build
+      after_failure:
+        - 'curl -X POST -H "Travis-Api-Version: 3" -H "Authorization: token $TRAVIS_API_TOKEN" https://api.travis-ci.com/build/$TRAVIS_BUILD_ID/cancel'
     - &pod
       stage: podLint
       osx_image: xcode9.2
       env: SWIFT=4.0
       install: gem install cocoapods -v '~> 1.7.0'
       script: pod lib lint --fail-fast --swift-version=$SWIFT --allow-warnings --verbose
+      after_failure:
+        - 'curl -X POST -H "Travis-Api-Version: 3" -H "Authorization: token $TRAVIS_API_TOKEN" https://api.travis-ci.com/build/$TRAVIS_BUILD_ID/cancel'
     - <<: *pod
       osx_image: xcode9.4
       env: SWIFT=4.1
@@ -67,6 +71,8 @@ jobs:
       install:
         - carthage update
       after_success: bash <(curl -s https://codecov.io/bash)
+      after_failure:
+        - 'curl -X POST -H "Travis-Api-Version: 3" -H "Authorization: token $TRAVIS_API_TOKEN" https://api.travis-ci.com/build/$TRAVIS_BUILD_ID/cancel'
     - <<: *test
       name: tvOS
       xcode_scheme: "YouboraLib tvOS"
@@ -87,6 +93,8 @@ jobs:
         sed -i '' "s/SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;/SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;/" *.xcodeproj/project.pbxproj
         sed -i '' "s/GCC_TREAT_WARNINGS_AS_ERRORS = NO;/GCC_TREAT_WARNINGS_AS_ERRORS = YES;/" *.xcodeproj/project.pbxproj
       script: carthage build --no-skip-current --configuration Release --platform $PLATFORMS
+      after_failure:
+        - 'curl -X POST -H "Travis-Api-Version: 3" -H "Authorization: token $TRAVIS_API_TOKEN" https://api.travis-ci.com/build/$TRAVIS_BUILD_ID/cancel'
     - <<: *carthage
       osx_image: xcode9.3
       name: Swift 4.1.0 / Xcode 9.3.1
