@@ -571,7 +571,7 @@
 				CD523769228DA2C30013BA16 /* YouboraLib OSXTests */,
 				4E5E11B11E7841C00097FA21 /* Products */,
 				4E8A63681EA8A31B008C6759 /* Frameworks */,
-				C95A3D601D4F1C8DE16D3582 /* Pods */,
+				8F30DFC827590F6B95E7C22D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -823,19 +823,10 @@
 			name = comm;
 			sourceTree = "<group>";
 		};
-		C95A3D601D4F1C8DE16D3582 /* Pods */ = {
+		8F30DFC827590F6B95E7C22D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				215B41C3264D17C3A0FEB46B /* Pods-YouboraLib iOS.debug.xcconfig */,
-				5FB21FF541870FFC491002A7 /* Pods-YouboraLib iOS.release.xcconfig */,
-				3F2CA63E929E9E83302DFBDC /* Pods-YouboraLib tvOS.debug.xcconfig */,
-				089FA0661EC3B24A55D81281 /* Pods-YouboraLib tvOS.release.xcconfig */,
-				27F0559A6D5093F8F69075BF /* Pods-YouboraLibTests iOS.debug.xcconfig */,
-				ED65610745ECF26684F9159C /* Pods-YouboraLibTests iOS.release.xcconfig */,
-				0529CD71AC92BC7C4518DE62 /* Pods-YouboraLibTests tvOS.debug.xcconfig */,
-				992B6558F01162642A413A62 /* Pods-YouboraLibTests tvOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -1831,7 +1822,8 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 0.0.1;
+				YOUBORALIB_VERSION_SETTING = 6.5.8;
+				YOUBORALIB_VERSION_TO_DEPLOY = 0.0.1;
 			};
 			name = Debug;
 		};
@@ -1885,7 +1877,8 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 0.0.1;
+				YOUBORALIB_VERSION_SETTING = 6.5.8;
+				YOUBORALIB_VERSION_TO_DEPLOY = 0.0.1;
 			};
 			name = Release;
 		};
