@@ -84,4 +84,62 @@
     XCTAssertEqualObjects(def, [YBYouboraUtils parseNumber:@(NAN) orDefault:def]);
 }
 
+- (void) testErrorBuilder {
+    NSDictionary<NSString *, NSString *> * expectedDict = @{
+        @"errorCode" : @"code",
+        @"errorMsg" : @"msg",
+        @"errorMetadata" : @"metadata",
+        @"errorLevel" : @"level"
+    };
+    
+    NSDictionary<NSString *, NSString *> * errorDict = [YBYouboraUtils buildErrorParamsWithMessage:@"msg" code:@"code" metadata:@"metadata" andLevel:@"level"];
+    
+    XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
+    XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
+    XCTAssertEqualObjects(expectedDict[@"errorMetadata"], errorDict[@"errorMetadata"]);
+    XCTAssertEqualObjects(expectedDict[@"errorLevel"], errorDict[@"errorLevel"]);
+    
+    expectedDict = @{
+        @"errorCode" : @"msg",
+        @"errorMsg" : @"msg",
+        @"errorMetadata" : @"metadata",
+        @"errorLevel" : @"level"
+    };
+    
+    errorDict = [YBYouboraUtils buildErrorParamsWithMessage:@"msg" code:nil metadata:@"metadata" andLevel:@"level"];
+    
+    XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
+    XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
+    XCTAssertEqualObjects(expectedDict[@"errorMetadata"], errorDict[@"errorMetadata"]);
+    XCTAssertEqualObjects(expectedDict[@"errorLevel"], errorDict[@"errorLevel"]);
+    
+    expectedDict = @{
+        @"errorCode" : @"code",
+        @"errorMsg" : @"code",
+        @"errorMetadata" : @"metadata",
+        @"errorLevel" : @"level"
+    };
+    
+    errorDict = [YBYouboraUtils buildErrorParamsWithMessage:nil code:@"code" metadata:@"metadata" andLevel:@"level"];
+    
+    XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
+    XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
+    XCTAssertEqualObjects(expectedDict[@"errorMetadata"], errorDict[@"errorMetadata"]);
+    XCTAssertEqualObjects(expectedDict[@"errorLevel"], errorDict[@"errorLevel"]);
+    
+    expectedDict = @{
+        @"errorCode" : @"PLAY_FAILURE",
+        @"errorMsg" : @"PLAY_FAILURE",
+        @"errorMetadata" : @"metadata",
+        @"errorLevel" : @"level"
+    };
+    
+    errorDict = [YBYouboraUtils buildErrorParamsWithMessage:nil code:nil metadata:nil andLevel:nil];
+    
+    XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
+    XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
+    XCTAssertEqualObjects(nil, errorDict[@"errorMetadata"]);
+    XCTAssertEqualObjects(nil, errorDict[@"errorLevel"]);
+}
+
 @end
