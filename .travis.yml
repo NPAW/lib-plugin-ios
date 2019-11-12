@@ -12,7 +12,7 @@ env:
     - INFO_PLIST_MAC_OS=$PWD/$APP_NAME OSX/Info.plist
     - PLATFORMS=ios,tvos,macos
     - GENERIC_VERSION=0.0.1
-    - SETTINGS_VERSION_TAG=YOUBORALIB_VERSION_SETTING
+    - SETTINGS_VERSION_TAG=YOUBORALIB_VERSION_TO_DEPLOY
 
 stages:
   - name: swiftLint
@@ -118,6 +118,9 @@ jobs:
       before_script:
         - sed -i '' "s/s.version = '$GENERIC_VERSION'/s.version = '$TRAVIS_TAG'/g" $APP_NAME.podspec
         - sed -i '' "s/$SETTINGS_VERSION_TAG = $GENERIC_VERSION;/$SETTINGS_VERSION_TAG = $TRAVIS_TAG;/g" $APP_NAME.xcodeproj/project.pbxproj
+        - plutil -replace CFBundleShortVersionString -string "\$($SETTINGS_VERSION_TAG)" $INFO_PLIST
+        - plutil -replace CFBundleShortVersionString -string "\$($SETTINGS_VERSION_TAG)" $INFO_PLIST_TV_OS
+        - plutil -replace CFBundleShortVersionString -string "\$($SETTINGS_VERSION_TAG)" $INFO_PLIST_MAC_OS
       script:
         - set -exo pipefail
         - pod trunk push --verbose --allow-warnings | tee pod.log | ruby -e 'ARGF.each{ print "." }'
