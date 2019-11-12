@@ -141,7 +141,7 @@
 
 - (NSString*) addCodeToEvents:(NSString*) body{
     if(body != nil){
-        return [body stringByReplacingOccurrencesOfString:@"[VIEW_CODE]" withString:self.fastDataConfig.code];
+        return [body stringByReplacingOccurrencesOfString:@"[VIEW_CODE]" withString:[self nextView]];
     }
     return nil;
 }
@@ -262,7 +262,7 @@
  * view.
  */
 - (void) buildCode: (BOOL) isOffline {
-    NSString * suffix = isOffline ? [NSString stringWithFormat:@"%d",self.viewIndex] : [self getViewCodeTimeStamp];
+    NSString * suffix = isOffline ? @"" : [self getViewCodeTimeStamp];
     
     if (self.fastDataConfig.code != nil && self.fastDataConfig.code.length > 0) {
         self.viewCode = [NSString stringWithFormat:@"%@_%@",self.fastDataConfig.code, suffix];
