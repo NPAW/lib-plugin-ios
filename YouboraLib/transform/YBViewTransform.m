@@ -141,7 +141,7 @@
 
 - (NSString*) addCodeToEvents:(NSString*) body{
     if(body != nil){
-        return [body stringByReplacingOccurrencesOfString:@"[VIEW_CODE]" withString:[self nextView]];
+        return [body stringByReplacingOccurrencesOfString:@"[VIEW_CODE]" withString:self.viewCode];
     }
     return nil;
 }
