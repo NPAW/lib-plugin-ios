@@ -142,4 +142,12 @@
     XCTAssertEqualObjects(nil, errorDict[@"errorLevel"]);
 }
 
+- (void) testStringifyList {
+    
+    NSString *returnString = [YBYouboraUtils stringifyList:@[@"value1", @"value2"]];
+    NSString *expectedString = @"[\"value1\",\"value2\"]";
+    
+    XCTAssertEqualObjects(expectedString, returnString);
+}
+
 @end
