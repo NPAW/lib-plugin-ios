@@ -29,4 +29,10 @@
  */
 - (NSString*) mapToJSONString;
 
+/**
+ * Returns "comercial name" of an Apple device for a given code
+ * @returns comercial apple device name
+ */
+- (NSString *) deviceNameWithCode: (NSString *)code;
+
 @end
