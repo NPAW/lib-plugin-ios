@@ -35,13 +35,24 @@
     
     XCTestExpectation * expectation = [self expectationWithDescription:@"callback called"];
     
-    YBTimer * t = [[YBTimer alloc] initWithCallback:^(YBTimer *timer, long long diffTime) {
+    TimerCallback callback1 = ^(YBTimer *timer, long long diffTime) {
         ticks--;
         XCTAssertNotEqual(0, diffTime);
         if (ticks == 0) {
             [expectation fulfill];
         }
-    } andInterval:10]; // 10ms
+    };
+    
+    TimerCallback callback2 = ^(YBTimer *timer, long long diffTime) {
+        ticks--;
+        XCTAssertNotEqual(0, diffTime);
+        if (ticks == 0) {
+            [expectation fulfill];
+        }
+    };
+    
+    YBTimer * t = [[YBTimer alloc] initWithCallback:callback1 andInterval:10]; // 10ms
+    [t addTimerCallback:callback2];
     
     [t start];
     

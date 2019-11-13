@@ -78,4 +78,10 @@ typedef void (^TimerCallback) (YBTimer * timer, long long diffTime);
  */
 - (void) stop;
 
+/**
+ * Adds a new callback to fire on the timer
+ * @param callback callback that must conform to type TimerCallback
+ */
+- (void) addTimerCallback:(TimerCallback) callback;
+
 @end
