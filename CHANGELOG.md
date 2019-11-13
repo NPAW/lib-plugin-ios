@@ -1,6 +1,8 @@
+## [6.5.9] - 2019-11-12
+###Fixed
+- Offline events view code was not properly set when using timestamps
 ## [6.5.8] - 2019-10-23
 ###Added
-
 - Add support for swift from 4.0 to 5.1
 - Add support for xCode compilers from 9.2 to 11
 ###Fixed

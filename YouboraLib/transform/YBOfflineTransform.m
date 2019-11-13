@@ -68,7 +68,7 @@
                 if(eventsCount != 0 && [service isEqualToString:[YouboraServiceStart substringFromIndex:1]]){
                     offlineIdInt++;
                 }
-                params[@"code"] = [NSString stringWithFormat:@"[VIEW_CODE]_%@",[NSString stringWithFormat:@"%d",offlineIdInt]];
+                params[@"code"] = @"[VIEW_CODE]";
                 NSString* jsonEvents = [YBYouboraUtils stringifyDictionary:params];
                 
                 if(jsonEvents != nil){
