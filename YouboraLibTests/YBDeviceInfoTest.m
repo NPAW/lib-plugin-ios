@@ -7,6 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <OCMockito/OCMockito.h>
+#import <OCHamcrest/OCHamcrest.h>
+
 #import <Foundation/Foundation.h>
 
 #import "YBDeviceInfo.h"
@@ -19,12 +22,12 @@
 
 - (void) testDeviceInfoGetter {
     YBDeviceInfo *deviceInfo = [[YBDeviceInfo alloc] init];
-    XCTAssertNotNil(deviceInfo.deviceBrand);
-    XCTAssertNotNil(deviceInfo.deviceModel);
+    XCTAssertNil(deviceInfo.deviceBrand);
+    XCTAssertNil(deviceInfo.deviceModel);
     XCTAssertNil(deviceInfo.deviceType);
     XCTAssertNil(deviceInfo.deviceCode);
     XCTAssertNil(deviceInfo.deviceOsName);
-    XCTAssertNotNil(deviceInfo.deviceOsVersion);
+    XCTAssertNil(deviceInfo.deviceOsVersion);
     XCTAssertNil(deviceInfo.deviceName);
 }
 
@@ -80,6 +83,24 @@
     
 }
 
+- (void) testDeviceCodeNotFound {
+    YBDeviceInfo * deviceInfo = [[YBDeviceInfo alloc] init];
+    NSString * deviceModel = [deviceInfo deviceNameWithCode:@"iPod"];
+    XCTAssertEqualObjects(deviceModel, @"iPod Touch");
+    
+    deviceModel = [deviceInfo deviceNameWithCode:@"iPad"];
+    XCTAssertEqualObjects(deviceModel, @"iPad");
+    
+    deviceModel = [deviceInfo deviceNameWithCode:@"iPhone"];
+    XCTAssertEqualObjects(deviceModel, @"iPhone");
+    
+    deviceModel = [deviceInfo deviceNameWithCode:@"AppleTV"];
+    XCTAssertEqualObjects(deviceModel, @"Apple TV");
+    
+    deviceModel = [deviceInfo deviceNameWithCode:@"fake code"];
+    XCTAssertEqualObjects(deviceModel, @"Unknown");
+}
+
 - (YBDeviceInfo*) getCompleteDeviceInfo {
     YBDeviceInfo *deviceInfo = [[YBDeviceInfo alloc] init];
     [deviceInfo setDeviceBrand:@"brand"];
@@ -105,11 +126,8 @@
 
     if (error) {
         NSLog(@"Error parsing JSON: %@", error);
-    }
-    else
-    {
-        if ([jsonObject isKindOfClass:[NSDictionary class]])
-        {
+    } else {
+        if ([jsonObject isKindOfClass:[NSDictionary class]]) {
             return (NSDictionary *)jsonObject;
         }
     }
