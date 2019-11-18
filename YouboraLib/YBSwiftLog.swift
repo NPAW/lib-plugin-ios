@@ -22,77 +22,77 @@ import Foundation
 }
 
 @objcMembers class YBSwiftLog: NSObject {
-    
-    static var debugLevel = YBSwiftLogLevel.YBLogLevelError
+
+    public static var debugLevel = YBSwiftLogLevel.YBLogLevelError
     fileprivate static var loggers: [YBSwiftLogger] = []
-    
-    
-    static func reportLogMessage(_ level :YBSwiftLogLevel, _ format: String, _ args:  CVarArg...) {
+
+
+    public static func reportLogMessage(_ level :YBSwiftLogLevel, _ format: String, _ args:  CVarArg...) {
         let isAtLeastRequestedLevel = YBSwiftLog.isAtLeastLevel(level)
-        
+
         if (isAtLeastRequestedLevel || (loggers.count > 0)) {
-            
+
             //Build String
             let customformat = String.init(format: "[Youbora: %i] %@", level.rawValue, format)
-            
+
             // Create formatted string from variable argument list
             let str = String.init(format: customformat, args)
-            
+
             if (isAtLeastRequestedLevel) {
                 //Log it
                 NSLog("%@", str)
             }
-            
+
             // Call the delegates if any
             for logger in loggers {
                 logger.logYoubora(message: str, logLevel: level)
             }
         }
     }
-    
-    static func error(_ format: String, _ args: CVarArg...) {
+
+    public static func error(_ format: String, _ args: CVarArg...) {
         YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelError, format, args)
     }
-    
-    static func warn(_ format: String, _ args:  CVarArg...) {
+
+    public static func warn(_ format: String, _ args:  CVarArg...) {
         YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelWarning, format, args)
     }
-    
-    static func notice(_ format: String, _ args:  CVarArg...) {
+
+    public static func notice(_ format: String, _ args:  CVarArg...) {
         YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelNotice, format, args)
     }
-    
-    static func debug(_ format: String, _ args:  CVarArg...) {
+
+    public static func debug(_ format: String, _ args:  CVarArg...) {
         YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelDebug, format, args)
     }
-    
-    static func requestLog(_ format: String, _ args:  CVarArg...) {
+
+    public static func requestLog(_ format: String, _ args:  CVarArg...) {
         YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelVerbose, format, args)
     }
-    
-    static func logException(_ exception: NSException) {
+
+    public static func logException(_ exception: NSException) {
         guard let reason = exception.reason else {
             return
         }
         let str = String.init(format: "Exception: %@. Stack trace:\n%@", reason, exception.callStackSymbols)
         YBSwiftLog.error("%@", str)
     }
-    
-    static func addLoggerDelegate(_ delegate: YBSwiftLogger?) {
+
+    public static func addLoggerDelegate(_ delegate: YBSwiftLogger?) {
         guard let delegate = delegate else {
             return
         }
         loggers.append(delegate)
     }
-    
-    static func removeLoggerDelegate(_ delegate: YBSwiftLogger?) {
+
+    public static func removeLoggerDelegate(_ delegate: YBSwiftLogger?) {
         guard let delegate = delegate else {
             return
         }
         loggers = loggers.filter { $0 === delegate }
     }
-    
-    static func isAtLeastLevel(_ level: YBSwiftLogLevel) -> Bool {
+
+    public static func isAtLeastLevel(_ level: YBSwiftLogLevel) -> Bool {
         return debugLevel.rawValue <= level.rawValue
     }
 }
