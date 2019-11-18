@@ -10,16 +10,16 @@ import XCTest
 
 @objcMembers open class YBSwiftLogTests : XCTestCase, YBSwiftLogger {
 
-    var delegateCallback: ((String,YBSwiftLogLevel) -> ())? = nil
+    var delegateCallback: ((String, YBSwiftLogLevel) -> Void)?
 
     func testLogLevel() {
-        YBSwiftLog.debugLevel = YBSwiftLogLevel.YBLogLevelError
+        YBSwiftLog.debugLevel = YBSwiftLogLevel.error
 
-        XCTAssertEqual(YBSwiftLogLevel.YBLogLevelError, YBSwiftLog.debugLevel)
+        XCTAssertEqual(YBSwiftLogLevel.error, YBSwiftLog.debugLevel)
 
-        YBSwiftLog.debugLevel = YBSwiftLogLevel.YBLogLevelWarning
+        YBSwiftLog.debugLevel = YBSwiftLogLevel.warning
 
-        XCTAssertEqual(YBSwiftLogLevel.YBLogLevelWarning, YBSwiftLog.debugLevel)
+        XCTAssertEqual(YBSwiftLogLevel.warning, YBSwiftLog.debugLevel)
     }
 
     func testLogCallbacks() {
@@ -30,22 +30,22 @@ import XCTest
             switch pendingCallbacks {
             case 5:
                 XCTAssertTrue(message.contains("requestLog"))
-                XCTAssertEqual(YBSwiftLogLevel.YBLogLevelVerbose, level)
+                XCTAssertEqual(YBSwiftLogLevel.verbose, level)
             case 4:
                 XCTAssertTrue(message.contains("debug"))
-                XCTAssertEqual(YBSwiftLogLevel.YBLogLevelDebug, level)
+                XCTAssertEqual(YBSwiftLogLevel.debug, level)
             case 3:
                 XCTAssertTrue(message.contains("notice"))
-                XCTAssertEqual(YBSwiftLogLevel.YBLogLevelNotice, level)
+                XCTAssertEqual(YBSwiftLogLevel.notice, level)
             case 2:
                 XCTAssertTrue(message.contains("warn"))
-                XCTAssertEqual(YBSwiftLogLevel.YBLogLevelWarning, level)
+                XCTAssertEqual(YBSwiftLogLevel.warning, level)
             case 1:
                 XCTAssertTrue(message.contains("error"))
-                XCTAssertEqual(YBSwiftLogLevel.YBLogLevelError, level)
+                XCTAssertEqual(YBSwiftLogLevel.error, level)
             case 0:
                 XCTAssertTrue(message.contains("Exception"))
-                XCTAssertEqual(YBSwiftLogLevel.YBLogLevelError, level)
+                XCTAssertEqual(YBSwiftLogLevel.error, level)
             default:
                 XCTFail("unexpected pendingCallbacks")
             }
