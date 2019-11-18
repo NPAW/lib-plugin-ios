@@ -9,12 +9,12 @@
 import Foundation
 
 @objc public enum YBSwiftLogLevel: Int {
-    case YBLogLevelSilent = 6
-    case YBLogLevelError = 5
-    case YBLogLevelWarning = 4
-    case YBLogLevelNotice = 3
-    case YBLogLevelDebug = 2
-    case YBLogLevelVerbose = 1
+    case silent = 6
+    case error = 5
+    case warning = 4
+    case notice = 3
+    case debug = 2
+    case verbose = 1
 }
 
 @objc public protocol YBSwiftLogger {
@@ -23,7 +23,7 @@ import Foundation
 
 @objcMembers open class YBSwiftLog: NSObject {
 
-    public static var debugLevel = YBSwiftLogLevel.YBLogLevelError
+    public static var debugLevel = YBSwiftLogLevel.error
     fileprivate static var loggers: [YBSwiftLogger] = []
 
     public static func reportLogMessage(_ level: YBSwiftLogLevel, _ format: String, _ args: CVarArg...) {
@@ -50,23 +50,23 @@ import Foundation
     }
 
     public static func error(_ format: String, _ args: CVarArg...) {
-        YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelError, format, args)
+        YBSwiftLog.reportLogMessage(.error, format, args)
     }
 
     public static func warn(_ format: String, _ args: CVarArg...) {
-        YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelWarning, format, args)
+        YBSwiftLog.reportLogMessage(.warning, format, args)
     }
 
     public static func notice(_ format: String, _ args: CVarArg...) {
-        YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelNotice, format, args)
+        YBSwiftLog.reportLogMessage(.notice, format, args)
     }
 
     public static func debug(_ format: String, _ args: CVarArg...) {
-        YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelDebug, format, args)
+        YBSwiftLog.reportLogMessage(.debug, format, args)
     }
 
     public static func requestLog(_ format: String, _ args: CVarArg...) {
-        YBSwiftLog.reportLogMessage(YBSwiftLogLevel.YBLogLevelVerbose, format, args)
+        YBSwiftLog.reportLogMessage(.verbose, format, args)
     }
 
     public static func logException(_ exception: NSException) {
