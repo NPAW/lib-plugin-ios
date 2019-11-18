@@ -251,6 +251,12 @@
 		CD9113792382B5DC00D54E38 /* YBSwiftLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113782382B5DC00D54E38 /* YBSwiftLog.swift */; };
 		CD91137A2382B5DC00D54E38 /* YBSwiftLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113782382B5DC00D54E38 /* YBSwiftLog.swift */; };
 		CD91137B2382B5DC00D54E38 /* YBSwiftLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113782382B5DC00D54E38 /* YBSwiftLog.swift */; };
+		CD9113842382F53A00D54E38 /* YBSwiftLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113832382F53A00D54E38 /* YBSwiftLogTests.swift */; };
+		CD9113852382F53A00D54E38 /* YBSwiftLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113832382F53A00D54E38 /* YBSwiftLogTests.swift */; };
+		CD9113862382F53A00D54E38 /* YBSwiftLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113832382F53A00D54E38 /* YBSwiftLogTests.swift */; };
+		CD9113872382F81F00D54E38 /* YBSwiftLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113782382B5DC00D54E38 /* YBSwiftLog.swift */; };
+		CD9113882382F81F00D54E38 /* YBSwiftLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113782382B5DC00D54E38 /* YBSwiftLog.swift */; };
+		CD9113892382F82000D54E38 /* YBSwiftLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9113782382B5DC00D54E38 /* YBSwiftLog.swift */; };
 		CD935497200678D8003A0797 /* YBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CD935495200678D8003A0797 /* YBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD935498200678D8003A0797 /* YBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD935496200678D8003A0797 /* YBDeviceInfo.m */; };
 		CD935499200678DC003A0797 /* YBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD935496200678D8003A0797 /* YBDeviceInfo.m */; };
@@ -461,6 +467,10 @@
 		CD60B25A2360678A008231FF /* YBPlaybackFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YBPlaybackFlags.swift; path = adapter/YBPlaybackFlags.swift; sourceTree = "<group>"; };
 		CD6CB6D9202C4D7400B2B290 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		CD9113782382B5DC00D54E38 /* YBSwiftLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBSwiftLog.swift; sourceTree = "<group>"; };
+		CD9113802382F53A00D54E38 /* YouboraLibTests iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YouboraLibTests iOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		CD9113812382F53A00D54E38 /* YouboraLibTests tvOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YouboraLibTests tvOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		CD9113822382F53A00D54E38 /* YouboraLibTests OSX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YouboraLibTests OSX-Bridging-Header.h"; sourceTree = "<group>"; };
+		CD9113832382F53A00D54E38 /* YBSwiftLogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBSwiftLogTests.swift; sourceTree = "<group>"; };
 		CD935495200678D8003A0797 /* YBDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBDeviceInfo.h; sourceTree = "<group>"; };
 		CD935496200678D8003A0797 /* YBDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBDeviceInfo.m; sourceTree = "<group>"; };
 		CD9354A0200684BC003A0797 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -611,6 +621,10 @@
 				4EF293821E7A90C0008B0A99 /* YBLogTests.m */,
 				4E5E53A21E816FAD00966C7B /* YBYouboraUtilsTest.m */,
 				CDDF50BF21DF755B00BB4F3B /* YBDeviceInfoTest.m */,
+				CD9113832382F53A00D54E38 /* YBSwiftLogTests.swift */,
+				CD9113802382F53A00D54E38 /* YouboraLibTests iOS-Bridging-Header.h */,
+				CD9113812382F53A00D54E38 /* YouboraLibTests tvOS-Bridging-Header.h */,
+				CD9113822382F53A00D54E38 /* YouboraLibTests OSX-Bridging-Header.h */,
 			);
 			path = YouboraLibTests;
 			sourceTree = "<group>";
@@ -1174,6 +1188,7 @@
 					4E5E11B81E7841C00097FA21 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = DAR8GLKRWU;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 					};
 					4E7D07F41E9E0EFE0079F187 = {
@@ -1183,6 +1198,7 @@
 					4E7D07FC1E9E0EFE0079F187 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = DAR8GLKRWU;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 					};
 					CD52375C228DA2C20013BA16 = {
@@ -1192,6 +1208,7 @@
 					CD523764228DA2C20013BA16 = {
 						CreatedOnToolsVersion = 10.2.1;
 						DevelopmentTeam = DAR8GLKRWU;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1408,6 +1425,7 @@
 				4ECFCC641E95478600E07785 /* YBTestableResourceTransform.m in Sources */,
 				4E2817151E85205500F450C1 /* YBViewTransformTest.m in Sources */,
 				4ECFCC5D1E95446800E07785 /* YBParseHlsTest.m in Sources */,
+				CD9113842382F53A00D54E38 /* YBSwiftLogTests.swift in Sources */,
 				4E5E53631E7C4CA800966C7B /* YBOptionsTest.m in Sources */,
 				4E2817181E85218800F450C1 /* YBTestableViewTransform.m in Sources */,
 				4E5E53861E8015FB00966C7B /* YBFlowTransformTest.m in Sources */,
@@ -1420,6 +1438,7 @@
 				4E5E53AA1E8182F000966C7B /* YBTestablePlayerAdapter.m in Sources */,
 				4E9C7BA01E8D514200E10631 /* YBRequestBuilderTest.m in Sources */,
 				4E5E535C1E7BEEF600966C7B /* YBTestableRequest.m in Sources */,
+				CD9113872382F81F00D54E38 /* YBSwiftLog.swift in Sources */,
 				4EAC2D171E8A70F000946EC5 /* YBPluginTest.m in Sources */,
 				4E5E538E1E802E8000966C7B /* YBPlaybackChronosTest.m in Sources */,
 				4E5E53A31E816FAD00966C7B /* YBYouboraUtilsTest.m in Sources */,
@@ -1489,6 +1508,7 @@
 				4EA274E61EA758E700D5329C /* YBTestablePlayerAdapter.m in Sources */,
 				4EA274E71EA758E700D5329C /* YBPlayheadMonitorTest.m in Sources */,
 				4EA274E81EA758E700D5329C /* YBTestablePlayheadMonitor.m in Sources */,
+				CD9113852382F53A00D54E38 /* YBSwiftLogTests.swift in Sources */,
 				4EA274E91EA758E700D5329C /* YBCdnParserTest.m in Sources */,
 				4EA274EA1EA758E700D5329C /* YBParseHlsTest.m in Sources */,
 				4EA274EB1EA758E700D5329C /* YBTestableCdnParser.m in Sources */,
@@ -1501,6 +1521,7 @@
 				4EA274F11EA758E700D5329C /* YBResourceTransformTest.m in Sources */,
 				4EA274F21EA758E700D5329C /* YBTestableResourceTransform.m in Sources */,
 				4EA274F31EA758E700D5329C /* YBCommunicationTest.m in Sources */,
+				CD9113882382F81F00D54E38 /* YBSwiftLog.swift in Sources */,
 				4EA274F41EA758E700D5329C /* YBRequestTest.m in Sources */,
 				4EA274F51EA758E700D5329C /* YBTestableRequest.m in Sources */,
 				4EA274F61EA758E700D5329C /* YBOptionsTest.m in Sources */,
@@ -1570,6 +1591,7 @@
 				CDBA72FE23337B65008716B5 /* YBPlayheadMonitorTest.m in Sources */,
 				CDBA730023337B65008716B5 /* YBTestablePlayheadMonitor.m in Sources */,
 				CDBA730123337B65008716B5 /* YBCdnParserTest.m in Sources */,
+				CD9113862382F53A00D54E38 /* YBSwiftLogTests.swift in Sources */,
 				CDBA730223337B65008716B5 /* YBParseHlsTest.m in Sources */,
 				CDBA730423337B65008716B5 /* YBTestableCdnParser.m in Sources */,
 				CDBA730623337B65008716B5 /* YBTestableHlsParser.m in Sources */,
@@ -1582,6 +1604,7 @@
 				CDBA730F23337B65008716B5 /* YBTestableResourceTransform.m in Sources */,
 				CDBA731023337B65008716B5 /* YBCommunicationTest.m in Sources */,
 				CDBA731123337B65008716B5 /* YBRequestTest.m in Sources */,
+				CD9113892382F82000D54E38 /* YBSwiftLog.swift in Sources */,
 				CDBA731323337B65008716B5 /* YBTestableRequest.m in Sources */,
 				CDBA731423337B65008716B5 /* YBOptionsTest.m in Sources */,
 				CDBA731623337B65008716B5 /* YBTestablePlugin.m in Sources */,
@@ -1783,6 +1806,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1793,6 +1817,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLibTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "YouboraLibTests/YouboraLibTests iOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1800,6 +1827,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1810,6 +1838,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLibTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "YouboraLibTests/YouboraLibTests iOS-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1866,6 +1896,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
@@ -1878,6 +1909,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.npaw.youbora.YouboraLib-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "YouboraLibTests/YouboraLibTests tvOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
@@ -1887,6 +1921,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
@@ -1899,6 +1934,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.npaw.youbora.YouboraLib-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "YouboraLibTests/YouboraLibTests tvOS-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
@@ -1994,6 +2031,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2026,6 +2064,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.npaw.youbora.YouboraLib-OSXTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "YouboraLibTests/YouboraLibTests OSX-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2035,6 +2076,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2062,6 +2104,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.npaw.youbora.YouboraLib-OSXTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "YouboraLibTests/YouboraLibTests OSX-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
