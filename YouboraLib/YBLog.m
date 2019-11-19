@@ -8,6 +8,8 @@
 
 #import "YBLog.h"
 
+#import "YouboraLib/YouboraLib-Swift.h"
+
 /// Current log level
 static YBLogLevel currentLogLevel = YBLogLevelError;
 /// Logger delegate instance
@@ -46,6 +48,7 @@ static NSMutableArray<NSObject<YBLogger> *> * loggers;
 
 + (void) setDebugLevel:(YBLogLevel) debugLevel {
     currentLogLevel = debugLevel;
+    YBSwiftLog.debugLevel = debugLevel;
 }
 
 + (void) error:(NSString *) format, ... {
