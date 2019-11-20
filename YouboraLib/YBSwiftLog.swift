@@ -32,10 +32,10 @@ import Foundation
         if isAtLeastRequestedLevel || (loggers.count > 0) {
 
             //Build String
-            let customformat = String.init(format: "[Youbora: %i] %@", level.rawValue, format)
+            let customformat = String(format: "[Youbora: %i] %@", level.rawValue, format)
 
             // Create formatted string from variable argument list
-            let str = String.init(format: customformat, args)
+            let str = String(format: customformat, args)
 
             if isAtLeastRequestedLevel {
                 //Log it
@@ -73,7 +73,7 @@ import Foundation
         guard let reason = exception.reason else {
             return
         }
-        let str = String.init(format: "Exception: %@. Stack trace:\n%@", reason, exception.callStackSymbols)
+        let str = String(format: "Exception: %@. Stack trace:\n%@", reason, exception.callStackSymbols)
         YBSwiftLog.error("%@", str)
     }
 
