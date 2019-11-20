@@ -8,7 +8,7 @@
 
 import XCTest
 
-@objcMembers open class YBSwiftLogTests : XCTestCase, YBSwiftLogger {
+@objcMembers open class YBSwiftLogTests: XCTestCase, YBSwiftLogger {
 
     var delegateCallback: ((String, YBSwiftLogLevel) -> Void)?
 
