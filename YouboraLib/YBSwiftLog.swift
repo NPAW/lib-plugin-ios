@@ -29,7 +29,7 @@ import Foundation
 * Protocol that receives log messages as reported by <YBLog> class.
 */
 @objc public protocol YBSwiftLogger {
-    
+
     /**
     * This will be invoked whenever a log message is created
     * @param message The log message
@@ -46,9 +46,9 @@ import Foundation
     /// ---------------------------------
     /// @name Private properties
     /// ---------------------------------
-    
+
     fileprivate static var loggers: [YBSwiftLogger] = []
-    
+
     /// ---------------------------------
     /// @name Public properties
     /// ---------------------------------
@@ -57,11 +57,13 @@ import Foundation
     * @returns the current debug level
     */
     public static var debugLevel = YBSwiftLogLevel.error
-    
+
+    /// MARK Public methods
+
     /// ---------------------------------
     /// @name Public methods
     /// ---------------------------------
-    
+
     /**
     * Generic logging method
     *
