@@ -1,6 +1,8 @@
 ## [6.5.10] - 
 ###Added
 - Add SwiftLog class
+###Fixed
+- Fix crash on adapter's fireEvent
 
 ## [6.5.9] - 2019-11-14
 ###Fixed
