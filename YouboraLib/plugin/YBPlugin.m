@@ -2672,8 +2672,17 @@
     }
 }
 
-- (void) videoEventListener:(NSDictionary<NSString *, NSString*> *) params {
-    [self sendVideoEvent:params];
+- (void) videoEventListener:(NSDictionary<NSString *, NSString*> *) params {    
+    NSMutableDictionary<NSString *, NSString *> *params2 = [params mutableCopy];
+    if (params2[@"dimensions"] != nil && [params2[@"dimensions"] isKindOfClass:[NSDictionary class]]) {
+        params2[@"dimensions"] = [YBYouboraUtils stringifyDictionary:(NSDictionary *)params2[@"dimensions"]];
+    }
+    if (params2[@"values"] && [params2[@"values"] isKindOfClass:[NSDictionary class]]) {
+        params2[@"values"] = [YBYouboraUtils stringifyDictionary:(NSDictionary *)params2[@"values"]];
+    }
+    
+    
+    [self sendVideoEvent:params2];
 }
 
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
