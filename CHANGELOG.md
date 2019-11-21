@@ -1,3 +1,7 @@
+## [6.5.10] - 
+###Added
+- Add SwiftLog class
+
 ## [6.5.9] - 2019-11-14
 ###Fixed
 - Offline events view code was not properly set when using timestamps
