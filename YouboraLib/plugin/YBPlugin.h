@@ -207,6 +207,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (bool) isParseHls;
 
 /**
+ * Returns the parse DASH flag
+ * @return the parse DASH flag
+ */
+- (bool) isParseDASH;
+
+/**
  * Returns the parse Location Header flag
  * @return the parse Location Header flag
  */

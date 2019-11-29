@@ -17,6 +17,7 @@
 #import "YBCdnConfig.h"
 #import "YBLocationHeaderParser.h"
 #import "YBLog.h"
+#import "YBDashParser.h"
 
 @interface YBResourceTransform()
 
@@ -31,12 +32,14 @@
 @property(nonatomic, strong) NSString * cdnNameHeader;
 
 @property(nonatomic, strong) YBHlsParser * hlsParser;
+@property(nonatomic, strong) YBDashParser * dashParser;
 @property(nonatomic, strong) YBCdnParser * cdnParser;
 @property(nonatomic, strong) YBLocationHeaderParser * locHeaderParser;
 
 @property(nonatomic, strong) NSMutableArray<NSString *> * cdnList;
 
 @property(nonatomic, assign) bool hlsEnabled;
+@property(nonatomic, assign) bool dashEnabled;
 @property(nonatomic, assign) bool cdnEnabled;
 @property(nonatomic, assign) bool locationHeaderParserEnabled;
 
@@ -119,11 +122,13 @@
         self.isBusy = true;
         self.isFinished = false;
         
+        self.dashEnabled = [self.plugin isParseDASH];
         self.hlsEnabled = [self.plugin isParseHls];
         self.cdnEnabled = [self.plugin isParseCdnNode];
         self.locationHeaderParserEnabled = [self.plugin isParseLocationHeader];
         self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
         self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
+        
         if (self.cdnNameHeader != nil) {
             [YBCdnParser setBalancerHeaderName:self.cdnNameHeader];
         }
@@ -136,6 +141,8 @@
             [self parseLocationHeader];
         } else if (self.hlsEnabled) {
              [self parseHls];
+        } else if (self.dashEnabled) {
+             [self parseDash];
         } else if (self.cdnEnabled) {
             [self parseCdn];
         } else {
@@ -190,6 +197,18 @@
         [self.hlsParser parse:self.beginResource parentResource:nil];
     }
     
+}
+
+- (void) parseDash {
+    self.dashParser = [YBDashParser new];
+    
+    [self.dashParser addDashTransformDoneDelegate:self];
+    
+    if (self.locationHeaderParserEnabled) {
+        [self.dashParser parse: self.realResource];
+    } else {
+        [self.dashParser parse: self.beginResource];
+    }
 }
 
 - (void) parseCdn {
@@ -275,6 +294,17 @@
         [self done];
     }
     self.hlsParser = nil;
+}
+
+# pragma mark - DashTransformDoneDelegate
+- (void) dashTransformDone:(nullable NSString *) parsedResource fromDashParser:(YBDashParser*) parser {
+    self.realResource = parsedResource;
+    if (self.cdnEnabled) {
+        [self parseCdn];
+    } else {
+        [self done];
+    }
+    self.dashParser = nil;
 }
 
 #pragma mark - CdnTransformDoneDelegate

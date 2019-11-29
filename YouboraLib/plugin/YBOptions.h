@@ -207,6 +207,13 @@ extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
 @property(nonatomic, assign) bool parseHls;
 
 /**
+ * If true the plugin will look for the location and segment values inside dash manifest to retrieve the actual resource
+ * It might slow performance down.
+ * Default: false
+ */
+@property(nonatomic, assign) bool parseDash;
+
+/**
  * If true the plugin will parse the resource to try and find out the real given resource instead of the API url
  * It might slow performance down.
  * Default: false

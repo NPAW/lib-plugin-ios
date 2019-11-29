@@ -444,6 +444,10 @@
     return self.options.parseHls;
 }
 
+- (bool) isParseDASH {
+    return self.options.parseDash;
+}
+
 - (bool) isParseCdnNode {
     return self.options.parseCdnNode;
 }

@@ -9,6 +9,7 @@
 #import "YBTransformSubclass.h"
 #import "YBHlsParser.h"
 #import "YBCdnParser.h"
+#import "YBDashParser.h"
 #import "YBLocationHeaderParser.h"
 
 @class YBPlugin;
@@ -18,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN;
 /**
  * Parses resource urls to get transportstreams and CDN-related info.
  */
-@interface YBResourceTransform : YBTransform<HlsTransformDoneDelegate, CdnTransformDoneDelegate, LocationHeaderTransformDoneDelegate>
+@interface YBResourceTransform : YBTransform<HlsTransformDoneDelegate, CdnTransformDoneDelegate, LocationHeaderTransformDoneDelegate, DashTransformDoneDelegate>
 
 /// ---------------------------------
 /// @name Public properties
