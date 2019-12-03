@@ -1399,9 +1399,9 @@
     NSNumber * val = self.options.adExpectedBreaks;
     
     if (val == nil && self.options.adExpectedPattern != nil) {
-        int totalBreaks = [self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPre]] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPre]] count]) : 0;
-        totalBreaks += [self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionMid]] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionMid]] count]) : 0;
-        totalBreaks += [self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPost]] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPost]] count]) : 0;
+        int totalBreaks = [self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_PRE] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_PRE] count]) : 0;
+        totalBreaks += [self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_MID] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_MID] count]) : 0;
+        totalBreaks += [self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_POST] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_POST] count]) : 0;
         
         val = [NSNumber numberWithInt:totalBreaks];
     } else if (self.adsAdapter != nil) {
@@ -1511,9 +1511,9 @@
     @try {
         if (self.adsAdapter != nil) {
             if (self.options.adExpectedPattern != nil && [self getAdPosition]) {
-                NSArray * list = [NSArray arrayWithArray:[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPre]]];
-                [list arrayByAddingObjectsFromArray:[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionMid]]];
-                [list arrayByAddingObjectsFromArray:[self.options.adExpectedPattern objectForKey:[NSNumber numberWithInteger:YBAdPositionPost]]];
+                NSArray * list = [NSArray arrayWithArray:[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_PRE]];
+                [list arrayByAddingObjectsFromArray:[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_MID]];
+                [list arrayByAddingObjectsFromArray:[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_POST]];
                 if ([list count] > 0) {
                     int position = [[self.adsAdapter getAdBreakNumber] intValue] - 1;
                     if (position > [list count] - 1) {

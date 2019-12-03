@@ -156,6 +156,11 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
 
 extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
 
+//Ad position constants
+extern NSString * const YBOPTIONS_AD_POSITION_PRE;
+extern NSString * const YBOPTIONS_AD_POSITION_MID;
+extern NSString * const YBOPTIONS_AD_POSITION_POST;
+
 /// Public methods
 - (NSDictionary *) toDictionary;
 
@@ -556,8 +561,10 @@ extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
 
 /**
  * Variable containing how many ads will be shown for each break
+ * Keys must be any of the following constants: YBOPTIONS_AD_POSITION_PRE, YBOPTIONS_AD_POSITION_MID or YBOPTIONS_AD_POSITION_POST
+ * Value must be an NSArray containing the number of ads per break (each break is an Array position)
  */
-@property(nonatomic, strong) NSDictionary* adExpectedPattern;
+@property(nonatomic, strong) NSDictionary<NSString *, NSArray<NSNumber *> *> * adExpectedPattern;
 
 /**
  * Variable containing at which moment of the playback a break should be displayed

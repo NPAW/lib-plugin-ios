@@ -1,5 +1,9 @@
+## [6.5.11] - 
+###Fixed
+- There as an issue with NSDictionary types for some options 
+
 ## [6.5.10] - 2019-11-26
-##Added
+###Added
 - Add SwiftLog class
 ###Fixed
 - Fix crash on adapter's fireEvent

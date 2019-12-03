@@ -190,7 +190,7 @@
     return nil;
 }
 
-- (NSDictionary *) getMetrics {
+- (NSDictionary<NSString *, NSString *> *) getMetrics {
     return nil;
 }
 
@@ -212,7 +212,7 @@
     return nil;
 }
 
-- (NSDictionary *) getAdExpectedPattern {
+- (NSDictionary<NSString*, NSArray<NSNumber *> *> *) getAdExpectedPattern {
     return nil;
 }
 

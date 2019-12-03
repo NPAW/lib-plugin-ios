@@ -153,7 +153,7 @@
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
-- (NSDictionary *) getDeviceParameters {
+- (NSDictionary<NSString *, NSString *> *) getDeviceParameters {
     NSMutableDictionary * deviceDict = [[NSMutableDictionary alloc] init];
 
     
