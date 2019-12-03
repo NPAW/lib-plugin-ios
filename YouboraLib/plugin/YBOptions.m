@@ -418,7 +418,7 @@ NSString * const YBOPTIONS_KEY_SESSION_METRICS = @"session.metrics";
     self.parseCdnNode = false;
     self.parseLocationHeader = false;
     // TODO: Node list constants
-    self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, nil];
+    self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, YouboraCDNNameAmazon,nil];
     
     self.experimentIds = [[NSMutableArray alloc] init];
     
