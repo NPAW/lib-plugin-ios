@@ -142,6 +142,10 @@ NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
 
 NSString * const YBOPTIONS_KEY_SESSION_METRICS = @"session.metrics";
 
+NSString * const YBOPTIONS_AD_POSITION_PRE = @"pre";
+NSString * const YBOPTIONS_AD_POSITION_MID = @"mid";
+NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
+
 @implementation YBOptions
 
 - (instancetype)init

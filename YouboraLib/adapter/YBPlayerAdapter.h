@@ -230,7 +230,7 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  *
  * @return metrics
  */
-- (nullable NSDictionary *)getMetrics;
+- (nullable NSDictionary<NSString*, NSString *> *)getMetrics;
 
 /** Override to return player version
  *
@@ -320,7 +320,7 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  *
  * @return how many braeaks per position (pre,mid,post) will be played
  */
-- (nullable NSDictionary *) getAdExpectedPattern;
+- (nullable NSDictionary<NSString *, NSArray<NSNumber*> *> *) getAdExpectedPattern;
 
 /**
  * Override to return a list of playheads of ad breaks begin time (only ads)
