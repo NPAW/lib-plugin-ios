@@ -1,4 +1,7 @@
-## [6.5.11] - 
+## [6.5.11] - 2019-12-04
+###Added
+- Support to the new xcframeworks (module stability)
+- Option to parse dash resources
 ###Fixed
 - There as an issue with NSDictionary types for some options 
 
