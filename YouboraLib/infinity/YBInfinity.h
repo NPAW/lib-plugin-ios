@@ -8,34 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-@class YBPlugin, YBCommunication, YBInfinityFlags, YBViewTransform;
+@class YBInfinityFlags, YBViewTransform;
 @protocol YBInfinityDelegate;
 
 @interface YBInfinity : NSObject
 
-@property(nonatomic, weak, nullable) YBPlugin * plugin;
 @property(nonatomic, weak, nullable) YBViewTransform * viewTransform;
 
-@property(nonatomic, strong, nullable) YBInfinityFlags * flags;
+@property(nonatomic, strong) YBInfinityFlags * _Nonnull flags;
 
 @property(nonatomic, strong, nullable) NSString * navContext;
 @property(nonatomic, strong, nullable) NSMutableArray<NSString *> * activeSessions;
 
-+ (nullable id) sharedManager;
+- (void) beginWithScreenName:(nonnull NSString *)screenName;
 
-- (void) beginWithScreenName:(nullable NSString *)screenName;
-
-- (void) beginWithScreenName:(nullable NSString *)screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions;
-
-- (void) beginWithScreenName:(nullable NSString *)screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions andParentId:(nullable NSString *)parentId;
-
-- (void) fireSessionStartWithScreenName:(nullable NSString *)screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions andParentId:(nullable NSString *)parentId;
+- (void) beginWithScreenName:(nonnull NSString *)screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions;
 
 - (void) fireNavWithScreenName:(nullable NSString *)screenName;
 
-- (void) fireEvent:(nullable NSDictionary<NSString *, NSString *> *)dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *)values andEventName:(nullable NSString *)eventName;
+- (void) fireEvent:(nullable NSDictionary<NSString *, NSString *> *)dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *)values andEventName:(nullable NSString *)eventName __deprecated_msg("Use fireEvent:dimensions:values:");
 
-- (void) fireSessionStop:(nullable NSDictionary<NSString *, NSString *> *)params;
+- (void) fireEvent: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions values: (nullable NSDictionary<NSString *, NSNumber *> *) values;
 
 - (void) end;
 
@@ -43,9 +36,9 @@
 
 - (nullable NSNumber *)getLastSent;
 
-- (void) addActiveSession:(nullable NSString *)sessionId;
+/*- (void) addActiveSession:(nullable NSString *)sessionId;
 
-- (void) removeActiveSession:(nullable NSString *)sessionId;
+- (void) removeActiveSession:(nullable NSString *)sessionId;*/
 
 - (void) addYouboraInfinityDelegate:(nullable id<YBInfinityDelegate>)delegate;
 
@@ -57,7 +50,7 @@
 
 @optional
 
-- (void) youboraInfinityEventSessionStartWithScreenName:(nullable NSString *)screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions andParentId:(nullable NSString *)parentId;
+- (void) youboraInfinityEventSessionStartWithScreenName:(nullable NSString *)screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions;
 
 - (void) youboraInfinityEventNavWithScreenName:(nullable NSString *)screenName;
 

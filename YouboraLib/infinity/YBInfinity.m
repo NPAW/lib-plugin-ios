@@ -25,18 +25,10 @@
 
 @implementation YBInfinity
 
-+ (id)sharedManager {
-    static YBInfinity *sharedMyManager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedMyManager = [[self alloc] init];
-    });
-    return sharedMyManager;
-}
-
 - (id)init {
     if (self = [super init]) {
         self.flags = [[YBInfinityFlags alloc] init];
+        self.infinityStorage = [[YBInfinityLocalManager alloc] init];
     }
     return self;
 }
@@ -46,43 +38,25 @@
 }
 
 - (void) beginWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions {
-    [self beginWithScreenName:screenName andDimensions:dimensions andParentId:nil];
-}
-
-- (void) beginWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions andParentId:(NSString *) parentId {
-    if (self.plugin == nil) {
-        [YBLog error:@"Plugin is null, have the plugin been set?"];
-        return;
-    }
-    
-    if (screenName == nil) {
-        screenName = @"Unknown";
-    }
-    
     if (dimensions == nil) {
         dimensions = @{};
     }
     
     if (!self.flags.started) {
         self.flags.started = true;
-        
-        //self.communication = [[YBCommunication alloc] init];
         if (self.viewTransform != nil) {
-            /*[self.communication addTransform:self.viewTransform];
-            [self.communication addTransform:[[YBTimestampLastSentTransform alloc] init]];*/
-            [self fireSessionStartWithScreenName:screenName andDimensions:dimensions andParentId:parentId];
+            [self fireSessionStartWithScreenName:screenName andDimensions:dimensions];
         }
     } else {
         [self fireNavWithScreenName:screenName];
     }
 }
 
-- (void) fireSessionStartWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions andParentId:(NSString *) parentId {
-    self.infinityStorage = [[YBInfinityLocalManager alloc] init];
+- (void) fireSessionStartWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions{
     [self generateNewContext];
     
     for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
-        [delegate youboraInfinityEventSessionStartWithScreenName:screenName andDimensions:dimensions andParentId:parentId];
+        [delegate youboraInfinityEventSessionStartWithScreenName:screenName andDimensions:dimensions];
     }
 }
 
@@ -93,7 +67,10 @@
 }
 
 - (void) fireEvent: (NSDictionary<NSString *, NSString *> *) dimensions values: (NSDictionary<NSString *, NSNumber *> *) values andEventName: (NSString *) eventName {
-    
+    [self fireEvent:eventName dimensions:dimensions values:values];
+}
+
+- (void) fireEvent: (NSString *) eventName dimensions: (NSDictionary<NSString *, NSString *> *) dimensions values: (NSDictionary<NSString *, NSNumber *> *) values {
     if (dimensions == nil) {
         dimensions = @{};
     }
@@ -102,7 +79,7 @@
         values = @{};
     }
     
-    if (eventName == nil || [eventName isEqualToString:@""]) {
+    if ([eventName isEqualToString:@""]) {
         eventName = @"Unknown";
     }
     
@@ -112,11 +89,9 @@
 }
 
 - (void) fireSessionStop: (NSDictionary<NSString *, NSString *> *) params {
-    if (self.flags.started) {
-        [self.flags reset];
-        for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
-            [delegate youboraInfinityEventSessionStop:params];
-        }
+    [self.flags reset];
+    for (id<YBInfinityDelegate> delegate in self.eventDelegates) {
+        [delegate youboraInfinityEventSessionStop:params];
     }
 }
 
@@ -139,7 +114,7 @@
     return [self.infinityStorage getLastActive];
 }
 
-- (void) addActiveSession: (nullable NSString *) sessionId {
+/*- (void) addActiveSession: (nullable NSString *) sessionId {
     if (sessionId == nil)
         return;
     if (self.activeSessions == nil)
@@ -151,7 +126,7 @@
     if (sessionId == nil)
         return;
     [self.activeSessions removeObject:sessionId];
-}
+}*/
 
 - (void)addYouboraInfinityDelegate:(id<YBInfinityDelegate>)delegate {
     if (delegate != nil) {

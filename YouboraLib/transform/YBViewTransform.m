@@ -16,6 +16,7 @@
 #import "YBRequestBuilder.h"
 #import "YBOptions.h"
 #import "YBYouboraUtils.h"
+#import "YBInfinityFlags.h"
 
 @interface YBViewTransform()
 
@@ -95,7 +96,14 @@
     }
     
     if (params[@"sessionRoot"] == nil) {
-        params[@"sessionRoot"] = self.fastDataConfig.code;
+        
+        NSString * code = self.viewCode;
+        YBInfinityFlags *flags = [self.plugin getInfinity].flags;
+        if (flags.started) {
+            code = self.fastDataConfig.code;
+        }
+        
+        params[@"sessionRoot"] = code;
     }
     
     if (isInfinityRequest) {

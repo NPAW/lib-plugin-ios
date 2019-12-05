@@ -43,9 +43,9 @@
     
     XCTAssertFalse([plugin getInfinity].flags.started);
     
-    [[plugin getInfinity] beginWithScreenName:nil];
+    [[plugin getInfinity] beginWithScreenName:@"Unknown"];
     
-    [[plugin getInfinity] beginWithScreenName:nil];
+    [[plugin getInfinity] beginWithScreenName:@"Unknown"];
     
     XCTAssertTrue([plugin getInfinity].flags.started);
 }
@@ -61,24 +61,20 @@
     
     HCArgumentCaptor * dimensionsCaptor = [HCArgumentCaptor new];
     HCArgumentCaptor * screenNameCaptor = [HCArgumentCaptor new];
-    HCArgumentCaptor * parentIdCaptor = [HCArgumentCaptor new];
     
     NSDictionary *dimensDict = @{ @"key" : @"value" };
-    NSString *parentId = @"parentId";
     NSString *screenName = @"some screen name";
     
     //[verify(self.p.mockRequestBuilder) fetchParams:anything() paramList:(id)captor onlyDifferent:false];
     
-    [[plugin getInfinity] beginWithScreenName:screenName andDimensions:dimensDict andParentId:parentId];
+    [[plugin getInfinity] beginWithScreenName:screenName andDimensions:dimensDict];
     
     XCTAssertTrue([plugin getInfinity].flags.started);
-    [verifyCount(mockDelegate, times(1)) youboraInfinityEventSessionStartWithScreenName:(id)screenNameCaptor andDimensions:(id)dimensionsCaptor andParentId:(id)parentIdCaptor];
+    [verifyCount(mockDelegate, times(1)) youboraInfinityEventSessionStartWithScreenName:(id)screenNameCaptor andDimensions:(id)dimensionsCaptor];
     
     XCTAssertEqual(dimensDict[@"key"], dimensionsCaptor.value[@"key"]);
     
     XCTAssertTrue([screenName isEqualToString:screenNameCaptor.value]);
-    
-    XCTAssertTrue([parentId isEqualToString:parentIdCaptor.value]);
 }
 
 - (void)testBeginMethodWithoutParams {
@@ -97,17 +93,16 @@
     
     //[verify(self.p.mockRequestBuilder) fetchParams:anything() paramList:(id)captor onlyDifferent:false];
     
-    [[plugin getInfinity] beginWithScreenName:nil];
+    [[plugin getInfinity] beginWithScreenName:@"Unknown"];
     
     XCTAssertTrue([plugin getInfinity].flags.started);
     
-    [verifyCount(mockDelegate, times(1)) youboraInfinityEventSessionStartWithScreenName:(id)screenNameCaptor andDimensions:(id)dimensionsCaptor andParentId:(id)parentIdCaptor];
+    [verifyCount(mockDelegate, times(1)) youboraInfinityEventSessionStartWithScreenName:(id)screenNameCaptor andDimensions:(id)dimensionsCaptor];
     
     //XCTAssertTrue([((NSDictionary *)dimensionsCaptor.value) containsValueForKey:@"key"]);
 
     XCTAssertTrue([dimensionsCaptor.value count] == 0);
     XCTAssertTrue([screenNameCaptor.value isEqualToString:@"Unknown"]);
-    XCTAssertTrue([parentIdCaptor.value isEqual:[NSNull null]]);
 }
 
 - (void)testFireNavMethod {
@@ -116,13 +111,13 @@
     
     [[plugin getInfinity] addYouboraInfinityDelegate:mockDelegate];
     
-    [[plugin getInfinity] beginWithScreenName:nil];
+    [[plugin getInfinity] beginWithScreenName:@"Unknown"];
     
     XCTAssertTrue([plugin getInfinity].flags.started);
     
     HCArgumentCaptor * screenNanmeCaptor = [HCArgumentCaptor new];
     
-    [[plugin getInfinity] beginWithScreenName:nil];
+    [[plugin getInfinity] beginWithScreenName:@"Unknown"];
     
     [verifyCount(mockDelegate, times(1)) youboraInfinityEventNavWithScreenName:(id)screenNanmeCaptor];
     
@@ -145,7 +140,7 @@
     
     [[plugin getInfinity] addYouboraInfinityDelegate:mockDelegate];
     
-    [[plugin getInfinity] beginWithScreenName:nil];
+    [[plugin getInfinity] beginWithScreenName:@"Unknown"];
     
     XCTAssertTrue([plugin getInfinity].flags.started);
     
@@ -153,7 +148,7 @@
     HCArgumentCaptor * valuesCaptor = [HCArgumentCaptor new];
     HCArgumentCaptor * eventNameCaptor = [HCArgumentCaptor new];
     
-    [[plugin getInfinity] fireEvent:nil values:nil andEventName:nil];
+    [[plugin getInfinity] fireEvent:@"Unknown" dimensions:nil values:nil];
     
     [verifyCount(mockDelegate, times(1)) youboraInfinityEventEventWithDimensions:(id)dimensionsCaptor values:(id)valuesCaptor andEventName:(id)eventNameCaptor];
     
