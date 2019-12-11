@@ -422,7 +422,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.parseCdnNode = false;
     self.parseLocationHeader = false;
     // TODO: Node list constants
-    self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, nil];
+    self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, YouboraCDNNameAmazon,nil];
     
     self.experimentIds = [[NSMutableArray alloc] init];
     

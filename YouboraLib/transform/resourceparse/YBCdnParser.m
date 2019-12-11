@@ -19,6 +19,7 @@ NSString * const YouboraCDNNameHighwinds =  @"Highwinds";
 NSString * const YouboraCDNNameFastly =     @"Fastly";
 NSString * const YouboraCDNNameBalancer =   @"Balancer";
 NSString * const YouboraCDNNameTelefonica = @"Telefonica";
+NSString * const YouboraCDNNameAmazon =     @"Amazon";
 
 @interface YBCdnParser()
 
@@ -317,6 +318,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
             
             return YBCdnTypeMiss;
         };
+        
         cdnDefinitions[YouboraCDNNameHighwinds] = cdnConfig;
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:@"FASTLY"];
@@ -335,7 +337,28 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
             
             return YBCdnTypeUnknown;
         };
+        
         cdnDefinitions[YouboraCDNNameFastly] = cdnConfig;
+        
+        cdnConfig = [[YBCdnConfig alloc] initWithCode:@"AMAZON"];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHost headerName:@"X-AMZ-CF-POP" andRegexPattern:@"(.+)"]];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementType headerName:@"X-Cache" andRegexPattern:@"(\\S+)\\s.+"]];
+        cdnConfig.typeParser = ^YBCdnType(NSString * type) {
+            
+            if ([@"HIT" isEqualToString:type]) {
+                return YBCdnTypeHit;
+            }
+            
+            if ([@"MISS" isEqualToString:type]) {
+                return YBCdnTypeMiss;
+            }
+            
+            return YBCdnTypeUnknown;
+        };
+        
+        
+        cdnDefinitions[YouboraCDNNameAmazon] = cdnConfig;
+       
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:nil];
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementName headerName:nil andRegexPattern:@"(.+)"]];
