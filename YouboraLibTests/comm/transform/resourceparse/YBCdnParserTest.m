@@ -347,6 +347,20 @@
     XCTAssertEqualObjects(@"AKAMAI", parser.cdnName);
 }
 
+- (void)testAmazon {
+    YBCdnParser * parser = [YBCdnParser createWithName:YouboraCDNNameAmazon];
+    
+    NSDictionary * responses = @{@{}:@{@"X-AMZ-CF-POP":@"EWR53-C2\n",@"X-Cache":@"Unknown from abcd"}};
+    
+    [parser parseWithUrl:@"resource" andPreviousResponses:responses];
+    
+    // Check successful parsing
+    XCTAssertEqual(YBCdnTypeUnknown, parser.cdnNodeType);
+    XCTAssertEqualObjects(@"EWR53-C2", parser.cdnNodeHost);
+    XCTAssertEqualObjects(@"Unknown", parser.cdnNodeTypeString);
+    XCTAssertEqualObjects(@"AMAZON", parser.cdnName);
+}
+
 #pragma mark - CdnTransformDoneDelegate
 - (void)cdnTransformDone:(YBCdnParser *)cdnParser {
     self.transformDoneBlock(cdnParser);
