@@ -125,6 +125,9 @@ static NSArray<NSString *> * youboraPingEntities;
 
 - (NSMutableDictionary<NSString *, NSString *> *) fetchParams:(NSDictionary<NSString *, NSString *> *)params paramList:(NSArray <NSString *> *) paramList onlyDifferent:(bool) different{
     NSMutableDictionary * mutParams;
+    
+    BOOL isLive = [self.plugin.getIsLive isEqual: @(true)];
+    
     if (params == nil) {
         mutParams = [NSMutableDictionary dictionary];
     } else {
@@ -139,6 +142,11 @@ static NSArray<NSString *> * youboraPingEntities;
         for (NSString * param in paramList) {
             if (mutParams[param] != nil) {
                 continue; // Para already informed
+            }
+            
+            // Don't send playhead when is live
+            if ([param isEqualToString:@"playhead"] && isLive) {
+                continue;
             }
             
             NSString * value = [self getParamValue:param];

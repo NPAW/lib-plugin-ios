@@ -117,8 +117,12 @@ static NSArray * ALL_PARAMS;
 
 - (void)testParamsFetchedFromPlugin {
     NSDictionary * params = [self.builder fetchParams:nil paramList:ALL_PARAMS onlyDifferent:false];
+    if ([self.mockPlugin.getIsLive isEqual: @(true)]) {
+        XCTAssertNil(params[@"playhead"]);
+    } else {
+        XCTAssertEqualObjects(@"1", params[@"playhead"]);
+    }
     
-    XCTAssertEqualObjects(@"1", params[@"playhead"]);
     XCTAssertEqualObjects(@"2", params[@"playrate"]);
     XCTAssertEqualObjects(@"3", params[@"fps"]);
     XCTAssertEqualObjects(@"4", params[@"droppedFrames"]);
