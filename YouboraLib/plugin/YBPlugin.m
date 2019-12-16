@@ -260,7 +260,7 @@
 
 - (YBInfinity *) getInfinity {
     
-    if (self.infinity == nil) {
+    if (!self.infinity) {
         self.infinity = [[YBInfinity alloc] init];
         [self.infinity addYouboraInfinityDelegate:self];
         self.infinity.viewTransform = self.viewTransform;
@@ -2363,7 +2363,7 @@
 - (BOOL) isSessionExpired {
     bool val = false;
     
-    if (self.viewTransform.fastDataConfig.expirationTime != nil && self.infinity != nil && [self.infinity getLastSent] != nil) {
+    if (self.viewTransform.fastDataConfig.expirationTime && self.infinity && [self.infinity getLastSent]) {
         val = ([self.infinity getLastSent].longLongValue + self.viewTransform.fastDataConfig.expirationTime.longLongValue * 1000) < [[[YBChrono alloc] init] now];
     }
     

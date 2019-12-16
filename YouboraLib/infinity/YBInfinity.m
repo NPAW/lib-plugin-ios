@@ -79,7 +79,7 @@
         values = @{};
     }
     
-    if ([eventName isEqualToString:@""]) {
+    if ([eventName length]) {
         eventName = @"Unknown";
     }
     
