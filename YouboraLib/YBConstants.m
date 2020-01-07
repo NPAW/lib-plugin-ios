@@ -45,6 +45,17 @@ NSString * const YouboraServiceVideoEvent = @"/infinity/video/event";
 //Request success constants
 NSString * const YouboraSuccsessListenerOfflineId = @"offline_id";
 
+/** Stream Protocol constants **/
+NSString * const STREAM_PROTOCOL_HDS = @"HDS";
+NSString * const STREAM_PROTOCOL_HLS = @"HLS";
+NSString * const STREAM_PROTOCOL_MSS = @"MSS";
+NSString * const STREAM_PROTOCOL_DASH = @"DASH";
+NSString * const STREAM_PROTOCOL_RTMP = @"RTMP";
+NSString * const STREAM_PROTOCOL_RTP = @"RTP";
+NSString * const STREAM_PROTOCOL_RTSP = @"RTSP";
+NSString * const STREAM_PROTOCOL_HLS_TS = @"HLS-TS";
+NSString * const STREAM_PROTOCOL_HLS_FMP4 = @"HLS-FMP4";
+
 #define MACRO_NAME(f) #f
 #define MACRO_VALUE(f)  MACRO_NAME(f)
 

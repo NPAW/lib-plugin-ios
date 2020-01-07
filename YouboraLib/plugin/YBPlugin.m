@@ -668,14 +668,9 @@
 }
 
 - (NSString *) getStreamingProtocol {
-    NSArray * acceptedProtocols = @[@"HDS", @"HLS", @"MSS", @"DASH", @"RTMP", @"RTP", @"RTSP"];
-    
     if (self.options.contentStreamingProtocol != nil) {
-        if ([acceptedProtocols containsObject:[self.options.contentStreamingProtocol uppercaseString]]) {
-            return [self.options.contentStreamingProtocol uppercaseString];
-        }
+         return [self.options.contentStreamingProtocol uppercaseString];
     }
-    
     return nil;
 }
 

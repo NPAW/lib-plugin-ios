@@ -29,6 +29,7 @@
 #import "YBFlowTransform.h"
 #import "YBPlayheadMonitor.h"
 
+
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBPluginTest : XCTestCase
@@ -614,20 +615,12 @@
     XCTAssertEqualObjects(@(3), [self.p getPacketSent]);
 }
 
-- (void) testGetStreamingProtocolValid {
+- (void) testGetStreamingProtocol {
     XCTAssertNil([self.p getStreamingProtocol]);
     
-    stubProperty(self.mockOptions, contentStreamingProtocol, @"hls");
+    stubProperty(self.mockOptions, contentStreamingProtocol, STREAM_PROTOCOL_HLS);
     
-    XCTAssertEqualObjects(@"HLS", [self.p getStreamingProtocol]);
-}
-
-- (void) testGetStreamingProtocolInvalid {
-    XCTAssertNil([self.p getStreamingProtocol]);
-    
-    stubProperty(self.mockOptions, contentStreamingProtocol, @"Not valid protocol");
-    
-    XCTAssertEqualObjects(nil, [self.p getStreamingProtocol]);
+    XCTAssertEqualObjects(STREAM_PROTOCOL_HLS, [self.p getStreamingProtocol]);
 }
 
 - (void) testDeprecatedExtraParams {
