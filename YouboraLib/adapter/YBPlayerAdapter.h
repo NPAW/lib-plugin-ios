@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
 @property(nonatomic, strong) YBPlaybackChronos * chronos;
 
 /// Plugin this Adapter is linked to
-@property(nonatomic, strong, nullable) YBPlugin * plugin;
+@property(nonatomic, weak, nullable) YBPlugin * plugin;
 
 /// ---------------------------------
 /// @name Init

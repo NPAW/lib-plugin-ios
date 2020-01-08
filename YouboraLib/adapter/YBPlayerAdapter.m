@@ -21,7 +21,7 @@
 @interface YBPlayerAdapter()
 
 // Delegates list
-@property (nonatomic, strong) NSMutableArray<id<YBPlayerAdapterEventDelegate>> * eventDelegates;
+@property (nonatomic, weak) NSMutableArray<id<YBPlayerAdapterEventDelegate>> * eventDelegates;
 
 @end
 
