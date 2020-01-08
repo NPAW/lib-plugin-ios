@@ -19,7 +19,7 @@
  * List of listeners that will be notified once the Transform is done, if it's asynchronous or
  * it has to wait for something to happen.
  */
-@property (nonatomic, strong) NSMutableArray<id<YBTransformDoneListener>> * listeners;
+@property (nonatomic, weak) NSMutableArray<id<YBTransformDoneListener>> * listeners;
 
 @end
 

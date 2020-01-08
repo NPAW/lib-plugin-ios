@@ -53,8 +53,8 @@
 @property(nonatomic, assign) bool isInitiated;
 @property(nonatomic, assign) bool isPreloading;
 @property(nonatomic, assign) bool isAdStarted;
-@property(nonatomic, strong) YBChrono * preloadChrono;
-@property(nonatomic, strong) YBChrono * iinitChrono;
+@property(nonatomic, weak) YBChrono * preloadChrono;
+@property(nonatomic, weak) YBChrono * iinitChrono;
 
 @property(nonatomic, strong) NSString * lastServiceSent;
 
