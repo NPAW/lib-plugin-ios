@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSTimer * timer;
 
 // Duplicate properties with readwrite access
-@property(nonatomic, weak, readwrite) YBChrono * chrono;
+@property(nonatomic, strong, readwrite) YBChrono * chrono;
 @property(nonatomic, assign, readwrite) bool isRunning;
 
 @end

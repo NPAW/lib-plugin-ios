@@ -41,7 +41,7 @@ typedef void (^TimerCallback) (YBTimer * timer, long long diffTime);
 /**
  * Chrono to inform the callback how much time has passed since the previous call.
  */
-@property(nonatomic, weak, readonly) YBChrono * chrono;
+@property(nonatomic, strong, readonly) YBChrono * chrono;
 
 /// ---------------------------------
 /// @name Init

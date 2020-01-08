@@ -40,9 +40,9 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 @property(nonatomic, strong, readonly) YBResourceTransform * resourceTransform;
 @property(nonatomic, strong, readonly) YBViewTransform * viewTransform;
 @property(nonatomic, strong, readonly) YBRequestBuilder * requestBuilder;
-@property(nonatomic, weak, readonly) YBTimer * pingTimer;
-@property(nonatomic, weak, readonly) YBTimer * beatTimer;
-@property(nonatomic, weak, readonly) YBTimer * metadataTimer;
+@property(nonatomic, strong, readonly) YBTimer * pingTimer;
+@property(nonatomic, strong, readonly) YBTimer * beatTimer;
+@property(nonatomic, strong, readonly) YBTimer * metadataTimer;
 @property(nonatomic, strong) YBOptions * options;
 @property(nonatomic, strong, nullable) YBPlayerAdapter * adapter;
 @property(nonatomic, strong, nullable) YBPlayerAdapter * adsAdapter;

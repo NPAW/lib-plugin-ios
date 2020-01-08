@@ -44,9 +44,9 @@
 @property(nonatomic, strong, readwrite) YBResourceTransform * resourceTransform;
 @property(nonatomic, strong, readwrite) YBViewTransform * viewTransform;
 @property(nonatomic, strong, readwrite) YBRequestBuilder * requestBuilder;
-@property(nonatomic, weak, readwrite) YBTimer * pingTimer;
-@property(nonatomic, weak, readwrite) YBTimer * beatTimer;
-@property(nonatomic, weak, readwrite) YBTimer * metadataTimer;
+@property(nonatomic, strong, readwrite) YBTimer * pingTimer;
+@property(nonatomic, strong, readwrite) YBTimer * beatTimer;
+@property(nonatomic, strong, readwrite) YBTimer * metadataTimer;
 @property(nonatomic, strong, readwrite) YBCommunication * comm;
 
 // Private properties
