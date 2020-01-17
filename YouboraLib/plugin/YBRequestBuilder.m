@@ -9,9 +9,9 @@
 #import "YBRequestBuilder.h"
 #import "YBPlugin.h"
 #import "YBLog.h"
-#import "YBConstants.h"
 #import "YBYouboraUtils.h"
 #import "YBInfinity.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBRequestBuilder()
 
@@ -60,43 +60,43 @@ static NSArray<NSString *> * youboraPingEntities;
                                         @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable", @"breakNumber", @"adCreativeId", @"adProvider"];
             
             youboraRequestParams = @{
-                       YouboraServiceData:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
-                       YouboraServiceInit:  startParams,
-                       YouboraServiceStart: startParams,
-                       YouboraServiceJoin:  @[@"joinDuration", @"playhead"],
-                       YouboraServicePause: @[@"playhead"],
-                       YouboraServiceResume: @[@"pauseDuration", @"playhead"],
-                       YouboraServiceSeek: @[@"seekDuration", @"playhead"],
-                       YouboraServiceBuffer: @[@"bufferDuration", @"playhead"],
-                       YouboraServiceStop: @[@"bitrate", @"playhead"],
-                       YouboraServiceAdInit: adStartParams,
-                       YouboraServiceAdStart: adStartParams,
-                       YouboraServiceAdJoin: @[@"adPosition", @"adJoinDuration", @"adPlayhead", @"playhead"],
-                       YouboraServiceAdPause: @[@"adPosition", @"adPlayhead", @"playhead", @"breakNumber"],
-                       YouboraServiceAdResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration", @"playhead", @"breakNumber"],
-                       YouboraServiceAdBuffer: @[@"adPosition", @"adPlayhead", @"adBufferDuration", @"playhead"],
-                       YouboraServiceAdStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead", @"breakNumber"],
-                       YouboraServiceClick: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
-                       YouboraServiceAdError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
-                       YouboraServiceAdManifest: @[@"givenBreaks", @"expectedBreaks", @"expectedPattern", @"breaksTime"],
-                       YouboraServiceAdBreakStart: @[@"breakPosition", @"givenAds", @"expectedAds"],
-                       YouboraServiceAdBreakStop: @[@"breakPosition", @"breakNumber"],
-                       YouboraServiceAdQuartile: @[@"breakPosition", @"adPosition", @"adViewedDuration", @"adViewability"],
-                       YouboraServicePing: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent", @"metrics"],
-                       YouboraServiceError: [startParams arrayByAddingObject:@"player"],
+                       ConstantsYouboraService.data:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
+                       ConstantsYouboraService.init:  startParams,
+                       ConstantsYouboraService.start: startParams,
+                       ConstantsYouboraService.join:  @[@"joinDuration", @"playhead"],
+                       ConstantsYouboraService.pause: @[@"playhead"],
+                       ConstantsYouboraService.resume: @[@"pauseDuration", @"playhead"],
+                       ConstantsYouboraService.seek: @[@"seekDuration", @"playhead"],
+                       ConstantsYouboraService.buffer: @[@"bufferDuration", @"playhead"],
+                       ConstantsYouboraService.stop: @[@"bitrate", @"playhead"],
+                       ConstantsYouboraService.adInit: adStartParams,
+                       ConstantsYouboraService.adStart: adStartParams,
+                       ConstantsYouboraService.adJoin: @[@"adPosition", @"adJoinDuration", @"adPlayhead", @"playhead"],
+                       ConstantsYouboraService.adPause: @[@"adPosition", @"adPlayhead", @"playhead", @"breakNumber"],
+                       ConstantsYouboraService.adResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration", @"playhead", @"breakNumber"],
+                       ConstantsYouboraService.adBuffer: @[@"adPosition", @"adPlayhead", @"adBufferDuration", @"playhead"],
+                       ConstantsYouboraService.adStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead", @"breakNumber"],
+                       ConstantsYouboraService.click: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
+                       ConstantsYouboraService.adError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
+                       ConstantsYouboraService.adManifest: @[@"givenBreaks", @"expectedBreaks", @"expectedPattern", @"breaksTime"],
+                       ConstantsYouboraService.adBreakStart: @[@"breakPosition", @"givenAds", @"expectedAds"],
+                       ConstantsYouboraService.adBreakStop: @[@"breakPosition", @"breakNumber"],
+                       ConstantsYouboraService.adQuartile: @[@"breakPosition", @"adPosition", @"adViewedDuration", @"adViewability"],
+                       ConstantsYouboraService.ping: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent", @"metrics"],
+                       ConstantsYouboraService.error: [startParams arrayByAddingObject:@"player"],
                        
                        //Infinity
-                       YouboraServiceSessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion", @"param1",                               @"param2", @"param3", @"param4", @"param5", @"param6", @"param7", @"param8", @"param9", @"param10", @"param11",
+                       ConstantsYouboraInfinity.sessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion", @"param1",                               @"param2", @"param3", @"param4", @"param5", @"param6", @"param7", @"param8", @"param9", @"param10", @"param11",
                                                      @"param12", @"param13", @"param14", @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"deviceUUID"],
-                       YouboraServiceSessionStop: @[@"accountCode"],
-                       YouboraServiceSessionNav: @[@"username", @"navContext"],
-                       YouboraServiceSessionBeat: @[@"sessionMetrics"],
-                       YouboraServiceSessionEvent: @[@"navContext"],
-                       YouboraServiceVideoEvent: @[]
+                       ConstantsYouboraInfinity.sessionStop: @[@"accountCode"],
+                       ConstantsYouboraInfinity.sessionNav: @[@"username", @"navContext"],
+                       ConstantsYouboraInfinity.sessionBeat: @[@"sessionMetrics"],
+                       ConstantsYouboraInfinity.sessionEvent: @[@"navContext"],
+                       ConstantsYouboraInfinity.videoEvent: @[]
             };
             
-            youboraRequestParamsDifferent = @{YouboraServiceJoin:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],
-                                YouboraServiceAdJoin:   @[@"adTitle", @"adDuration", @"adResource"]};
+            youboraRequestParamsDifferent = @{ConstantsYouboraService.join:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],
+                                ConstantsYouboraService.adJoin:   @[@"adTitle", @"adDuration", @"adResource"]};
             
             youboraPingEntities = @[@"rendition", @"title", @"title2",
                              @"live", @"mediaDuration", @"mediaResource", @"param1", @"param2", @"param3", @"param4",

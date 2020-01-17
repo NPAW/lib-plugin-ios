@@ -9,7 +9,6 @@
 #import "YBResourceTransform.h"
 
 #import "YBPlugin.h"
-#import "YBConstants.h"
 #import "YBRequest.h"
 #import "YBRequestBuilder.h"
 #import "YBCdnParser.h"
@@ -18,6 +17,7 @@
 #import "YBLocationHeaderParser.h"
 #import "YBLog.h"
 #import "YBDashParser.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBResourceTransform()
 
@@ -154,31 +154,31 @@
 
 // Override
 - (void)parse:(YBRequest *)request {
-    if ([YouboraServiceStart isEqualToString:request.service]) {
+    if ([ConstantsYouboraService.start isEqualToString:request.service]) {
         NSMutableDictionary * lastSent = self.plugin.requestBuilder.lastSent;
-        
+
         //No need to replace now
         /*NSString * resource = [self getResource];
-        
-        
+
+
         [request setParam:resource forKey:@"mediaResource"];
         lastSent[@"mediaResource"] = resource;*/
-        
+
         if (self.cdnEnabled) {
             NSString * cdn = request.params[@"cdn"];
             if (cdn == nil) {
                 cdn = [self getCdnName];
                 [request setParam:cdn forKey:@"cdn"];
             }
-            
+
             lastSent[@"cdn"] = cdn;
-            
+
             [request setParam:[self getNodeHost] forKey:@"nodeHost"];
             lastSent[@"nodeHost"] = [self getNodeHost];
-            
+
             [request setParam:[self getNodeType] forKey:@"nodeType"];
             lastSent[@"nodeType"] = [self getNodeType];
-            
+
             [request setParam:[self getNodeTypeString] forKey:@"nodeTypeString"];
             lastSent[@"nodeTypeString"] = [self getNodeTypeString];
         }

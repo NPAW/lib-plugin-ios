@@ -8,7 +8,7 @@
 
 #import "YBNqs6Transform.h"
 #import "YBRequest.h"
-#import "YBConstants.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 #define YB_REG_EXP_ENTITY_TYPE_AND_VALUE @"\"(.+?)\":\"?(.+?)\"?[,}]"
 
@@ -41,11 +41,11 @@ static NSRegularExpression * regexPattern;
             return;
         }
         
-        if ([service isEqualToString:YouboraServiceJoin]) {
+        if ([service isEqualToString: ConstantsYouboraService.join]) {
             [YBNqs6Transform cloneParam:@"playhead" intoParam:@"time" forRequest:request];
         }
         
-        if ([service isEqualToString:YouboraServicePing]) {
+        if ([service isEqualToString: ConstantsYouboraService.ping]) {
             /*
              * NQS6 only allows one entity change per ping. In order to be as most backwards
              * compatible as possible, at least we send one.
@@ -73,16 +73,16 @@ static NSRegularExpression * regexPattern;
                     request.params[@"entityValue"] = entityValue;
                 }
             }
-        } else if ([service isEqualToString:YouboraServiceBuffer]) {
+        } else if ([service isEqualToString: ConstantsYouboraService.buffer]) {
             [YBNqs6Transform cloneParam:@"bufferDuration" intoParam:@"duration" forRequest:request];
             
-        } else if ([service isEqualToString:YouboraServiceSeek]) {
+        } else if ([service isEqualToString: ConstantsYouboraService.seek]) {
             [YBNqs6Transform cloneParam:@"seekDuration" intoParam:@"duration" forRequest:request];
             
-        } else if ([service isEqualToString:YouboraServiceStart]) {
+        } else if ([service isEqualToString: ConstantsYouboraService.start]) {
             [YBNqs6Transform cloneParam:@"mediaDuration" intoParam:@"duration" forRequest:request];
             
-        } else if ([service isEqualToString:YouboraServiceJoin]) {
+        } else if ([service isEqualToString: ConstantsYouboraService.join]) {
             [YBNqs6Transform cloneParam:@"joinDuration" intoParam:@"time" forRequest:request];
             [YBNqs6Transform cloneParam:@"playhead" intoParam:@"eventTime" forRequest:request];
         }

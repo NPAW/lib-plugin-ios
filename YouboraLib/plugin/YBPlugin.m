@@ -16,7 +16,7 @@
 #import "YBPlayerAdapter.h"
 #import "YBRequest.h"
 #import "YBCommunication.h"
-#import "YBConstants.h" 
+// #import "YBConstants.h"
 #import "YBTimer.h"
 #import "YBYouboraUtils.h"
 #import "YBPlaybackChronos.h"
@@ -414,14 +414,14 @@
 
 - (void) sendOfflineEventsWithEventsString:(NSString *)events andOfflineId:(NSNumber *)offlineId{
     NSMutableDictionary<NSString*, id> *listenerParams = [[NSMutableDictionary alloc] init];
-    [listenerParams setValue:offlineId forKey:YouboraSuccsessListenerOfflineId];
+    [listenerParams setValue:offlineId forKey: Constants.successListenerOfflineId];
     YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response,  NSDictionary<NSString *, id>* listenerParams) {
         __block YBEventDataSource* dataSource = [[YBEventDataSource alloc] init];
         [dataSource deleteEventsWithOfflineId:offlineId completion:^{
             [YBLog debug:@"Offline events deleted"];
         }];
     };
-    [self sendWithCallbacks:nil service:YouboraServiceOffline andParams:nil andMethod:YouboraHTTPMethodPost andBody:events withSuccessListener:successListener andSuccessListenerParams:listenerParams];
+    [self sendWithCallbacks:nil service: ConstantsYouboraService.offline andParams:nil andMethod:YouboraHTTPMethodPost andBody:events withSuccessListener:successListener andSuccessListenerParams:listenerParams];
     /*NSMutableDictionary<NSString*, NSString*> *params = [[NSMutableDictionary alloc] init];
     params[@"events"] = events;
     params[@"offlineId"] = [offlineId stringValue];
@@ -2562,7 +2562,7 @@
 }
 // Listener methods
 - (void) startListener:(NSDictionary<NSString *, NSString *> *) params {
-    if ((!self.isInitiated && !self.isStarted) || [YouboraServiceError isEqualToString:self.lastServiceSent]) {
+    if ((!self.isInitiated && !self.isStarted) || [ConstantsYouboraService.error isEqualToString:self.lastServiceSent]) {
         [self.viewTransform nextView];
         [self initComm];
         [self startPings];
@@ -2823,54 +2823,54 @@
 
 // Send methods
 - (void) sendInit:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceInit];
-    [self sendWithCallbacks:self.willSendInitListeners service:YouboraServiceInit andParams:mutParams];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.init];
+    [self sendWithCallbacks:self.willSendInitListeners service:ConstantsYouboraService.init andParams:mutParams];
     NSString * titleOrResource = mutParams[@"title"];
     if (titleOrResource == nil) {
         titleOrResource = mutParams[@"mediaResource"];
     }
-    [YBLog notice:@"%@ %@", YouboraServiceInit, titleOrResource];
+    [YBLog notice:@"%@ %@", ConstantsYouboraService.init, titleOrResource];
 }
 
 - (void) sendStart:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceStart];
-    [self sendWithCallbacks:self.willSendStartListeners service:YouboraServiceStart andParams:mutParams];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.start];
+    [self sendWithCallbacks:self.willSendStartListeners service:ConstantsYouboraService.start andParams:mutParams];
     NSString * titleOrResource = mutParams[@"title"];
     if (titleOrResource == nil) {
         titleOrResource = mutParams[@"mediaResource"];
     }
-    [YBLog notice:@"%@ %@", YouboraServiceStart, titleOrResource];
+    [YBLog notice:@"%@ %@", ConstantsYouboraService.start, titleOrResource];
     self.isStarted = true;
 }
 
 - (void) sendJoin:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceJoin];
-    [self sendWithCallbacks:self.willSendJoinListeners service:YouboraServiceJoin andParams:mutParams];
-    [YBLog notice:@"%@ %@ ms", YouboraServiceJoin, mutParams[@"joinDuration"]];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.join];
+    [self sendWithCallbacks:self.willSendJoinListeners service:ConstantsYouboraService.join andParams:mutParams];
+    [YBLog notice:@"%@ %@ ms", ConstantsYouboraService.join, mutParams[@"joinDuration"]];
 }
 
 - (void) sendPause:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServicePause];
-    [self sendWithCallbacks:self.willSendPauseListeners service:YouboraServicePause andParams:mutParams];
-    [YBLog notice:@"%@ %@ s", YouboraServicePause, mutParams[@"playhead"]];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.pause];
+    [self sendWithCallbacks:self.willSendPauseListeners service:ConstantsYouboraService.pause andParams:mutParams];
+    [YBLog notice:@"%@ %@ s", ConstantsYouboraService.pause, mutParams[@"playhead"]];
 }
 
 - (void) sendResume:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceResume];
-    [self sendWithCallbacks:self.willSendResumeListeners service:YouboraServiceResume andParams:mutParams];
-    [YBLog notice:@"%@ %@ ms", YouboraServiceResume, mutParams[@"pauseDuration"]];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.resume];
+    [self sendWithCallbacks:self.willSendResumeListeners service:ConstantsYouboraService.resume andParams:mutParams];
+    [YBLog notice:@"%@ %@ ms", ConstantsYouboraService.resume, mutParams[@"pauseDuration"]];
 }
 
 - (void) sendSeekEnd:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSeek];
-    [self sendWithCallbacks:self.willSendSeekListeners service:YouboraServiceSeek andParams:mutParams];
-    [YBLog notice:@"%@ to %@ in %@ ms", YouboraServiceSeek, mutParams[@"playhead"], mutParams[@"seekDuration"]];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.seek];
+    [self sendWithCallbacks:self.willSendSeekListeners service:ConstantsYouboraService.seek andParams:mutParams];
+    [YBLog notice:@"%@ to %@ in %@ ms", ConstantsYouboraService.seek, mutParams[@"playhead"], mutParams[@"seekDuration"]];
 }
 
 - (void) sendBufferEmd:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceBuffer];
-    [self sendWithCallbacks:self.willSendBufferListeners service:YouboraServiceBuffer andParams:mutParams];
-    [YBLog notice:@"%@ %@ ms", YouboraServiceBuffer, mutParams[@"bufferDuration"]];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.buffer];
+    [self sendWithCallbacks:self.willSendBufferListeners service:ConstantsYouboraService.buffer andParams:mutParams];
+    [YBLog notice:@"%@ %@ ms", ConstantsYouboraService.buffer, mutParams[@"bufferDuration"]];
 }
 
 - (void) sendError:(NSDictionary<NSString *, NSString *> *) params {
@@ -2881,26 +2881,26 @@
         [self initComm];
     }
     [self startResourceParsing];
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceError];
-    [self sendWithCallbacks:self.willSendErrorListeners service:YouboraServiceError andParams:mutParams];
-    [YBLog notice:@"%@ %@", YouboraServiceError, mutParams[@"errorCode"]];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.error];
+    [self sendWithCallbacks:self.willSendErrorListeners service:ConstantsYouboraService.error andParams:mutParams];
+    [YBLog notice:@"%@ %@", ConstantsYouboraService.error, mutParams[@"errorCode"]];
 }
 
 - (void) sendVideoEvent:(NSDictionary<NSString *, NSString*> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceVideoEvent];
-    [self sendWithCallbacks:self.willSendVideoEventListeners service:YouboraServiceVideoEvent andParams:mutParams];
-    [YBLog notice:@"%@", YouboraServiceVideoEvent];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraInfinity.videoEvent];
+    [self sendWithCallbacks:self.willSendVideoEventListeners service:ConstantsYouboraInfinity.videoEvent andParams:mutParams];
+    [YBLog notice:@"%@", ConstantsYouboraInfinity.videoEvent];
 }
 
 - (void) sendStop:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceStop];
-    [self sendWithCallbacks:self.willSendStopListeners service:YouboraServiceStop andParams:mutParams];
-    [YBLog notice:@"%@ at %@", YouboraServiceStop, mutParams[@"playhead"]];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: ConstantsYouboraService.stop];
+    [self sendWithCallbacks:self.willSendStopListeners service:ConstantsYouboraService.stop andParams:mutParams];
+    [YBLog notice:@"%@ at %@", ConstantsYouboraService.stop, mutParams[@"playhead"]];
 }
     
 - (void) sendAdInit:(NSDictionary<NSString *, NSString *> *) params {
     NSString* realNumber = [self.requestBuilder getNewAdNumber];
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdInit];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adInit];
     mutParams[@"adNumber"] = realNumber;
     //Required params
     mutParams[@"adDuration"] = @"0";
@@ -2908,72 +2908,72 @@
     if (self.adsAdapter != nil) {
         self.adsAdapter.flags.adInitiated = true;
     }
-    [self sendWithCallbacks:self.willSendAdInitListeners service:YouboraServiceAdInit andParams:mutParams];
-    [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
+    [self sendWithCallbacks:self.willSendAdInitListeners service:ConstantsYouboraService.adInit andParams:mutParams];
+    [YBLog notice:@"%@ %@%@ at %@s", ConstantsYouboraService.adInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
 }
 
 - (void) sendAdStart:(NSDictionary<NSString *, NSString *> *) params {
     [self startPings];
     NSString* realNumber = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdStart];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adStart];
     //mutParams[@"adNumber"] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
     mutParams[@"adNumber"] = realNumber;
-    [self sendWithCallbacks:self.willSendAdStartListeners service:YouboraServiceAdStart andParams:mutParams];
-    [YBLog notice:@"%@ %@%@ at %@s", YouboraServiceAdStart, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
+    [self sendWithCallbacks:self.willSendAdStartListeners service:ConstantsYouboraService.adStart andParams:mutParams];
+    [YBLog notice:@"%@ %@%@ at %@s", ConstantsYouboraService.adStart, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
     self.isAdStarted = true;
 }
 
 - (void) sendAdJoin:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdJoin];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adJoin];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
-    [self sendWithCallbacks:self.willSendAdJoinListeners service:YouboraServiceAdJoin andParams:mutParams];
-    [YBLog notice:@"%@ %@ms", YouboraServiceAdJoin, mutParams[@"adJoinDuration"]];
+    [self sendWithCallbacks:self.willSendAdJoinListeners service:ConstantsYouboraService.adJoin andParams:mutParams];
+    [YBLog notice:@"%@ %@ms", ConstantsYouboraService.adJoin, mutParams[@"adJoinDuration"]];
 }
 
 - (void) sendAdPause:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdPause];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adPause];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
-    [self sendWithCallbacks:self.willSendAdPauseListeners service:YouboraServiceAdPause andParams:mutParams];
-    [YBLog notice:@"%@ at %@s", YouboraServiceAdPause, mutParams[@"adPlayhead"]];
+    [self sendWithCallbacks:self.willSendAdPauseListeners service:ConstantsYouboraService.adPause andParams:mutParams];
+    [YBLog notice:@"%@ at %@s", ConstantsYouboraService.adPause, mutParams[@"adPlayhead"]];
 }
 
 - (void) sendAdResume:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdResume];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adResume];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
-    [self sendWithCallbacks:self.willSendAdResumeListeners service:YouboraServiceAdResume andParams:mutParams];
-    [YBLog notice:@"%@ %@ms", YouboraServiceAdResume, mutParams[@"adPauseDuration"]];
+    [self sendWithCallbacks:self.willSendAdResumeListeners service:ConstantsYouboraService.adResume andParams:mutParams];
+    [YBLog notice:@"%@ %@ms", ConstantsYouboraService.adResume, mutParams[@"adPauseDuration"]];
 }
 
 - (void) sendAdBufferEnd:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBuffer];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adBuffer];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
-    [self sendWithCallbacks:self.willSendAdBufferListeners service:YouboraServiceAdBuffer andParams:mutParams];
-    [YBLog notice:@"%@ %@ms", YouboraServiceAdBuffer, mutParams[@"adBufferDuration"]];
+    [self sendWithCallbacks:self.willSendAdBufferListeners service:ConstantsYouboraService.adBuffer andParams:mutParams];
+    [YBLog notice:@"%@ %@ms", ConstantsYouboraService.adBuffer, mutParams[@"adBufferDuration"]];
 }
 
 - (void) sendAdStop:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdStop];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adStop];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
-    [self sendWithCallbacks:self.willSendAdStopListeners service:YouboraServiceAdStop andParams:mutParams];
-    [YBLog notice:@"%@ %@ms", YouboraServiceAdStop, mutParams[@"adTotalDuration"]];
+    [self sendWithCallbacks:self.willSendAdStopListeners service:ConstantsYouboraService.adStop andParams:mutParams];
+    [YBLog notice:@"%@ %@ms", ConstantsYouboraService.adStop, mutParams[@"adTotalDuration"]];
     self.isAdStarted = false;
 }
 
 - (void) sendClick:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceClick];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.click];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
     mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
-    [self sendWithCallbacks:self.willSendClickListeners service:YouboraServiceClick andParams:mutParams];
-    [YBLog notice:@"%@ %@ s", YouboraServiceClick, mutParams[@"playhead"]];
+    [self sendWithCallbacks:self.willSendClickListeners service:ConstantsYouboraService.click andParams:mutParams];
+    [YBLog notice:@"%@ %@ s", ConstantsYouboraService.click, mutParams[@"playhead"]];
 }
 
 - (void) sendAdError:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdError];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adError];
     NSString* realNumber = self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
     mutParams[@"adNumber"] = realNumber;
-    [self sendWithCallbacks:self.willSendAdErrorListeners service:YouboraServiceAdError andParams:mutParams];
-    [YBLog notice:@"%@ %@ s", YouboraServiceAdError, mutParams[@"errorCode"]];
+    [self sendWithCallbacks:self.willSendAdErrorListeners service:ConstantsYouboraService.adError andParams:mutParams];
+    [YBLog notice:@"%@ %@ s", ConstantsYouboraService.adError, mutParams[@"errorCode"]];
 
 }
 
@@ -2982,61 +2982,61 @@
         self.adManifestParams = params;
         return;
     }
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdManifest];
-    [self sendWithCallbacks:self.willSendAdManifestListeners service:YouboraServiceAdManifest andParams:mutParams];
-    [YBLog notice:YouboraServiceAdManifest];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adManifest];
+    [self sendWithCallbacks:self.willSendAdManifestListeners service:ConstantsYouboraService.adManifest andParams:mutParams];
+    [YBLog notice:ConstantsYouboraService.adManifest];
 }
 
 - (void) sendAdBreakStart:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStart];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraService.adBreakStart];
     mutParams[@"breakNumber"] = [self.requestBuilder getNewAdBreakNumber];
-    [self sendWithCallbacks:self.willSendAdBreakStartListeners service:YouboraServiceAdBreakStart andParams:mutParams];
-    [YBLog notice:YouboraServiceAdBreakStart];
+    [self sendWithCallbacks:self.willSendAdBreakStartListeners service:ConstantsYouboraService.adBreakStart andParams:mutParams];
+    [YBLog notice:ConstantsYouboraService.adBreakStart];
 }
 
 - (void) sendAdBreakStop:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdBreakStop];
-    [self sendWithCallbacks:self.willSendAdBreakStopListeners service:YouboraServiceAdBreakStop andParams:mutParams];
-    [YBLog notice:YouboraServiceAdBreakStop];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: ConstantsYouboraService.adBreakStop];
+    [self sendWithCallbacks:self.willSendAdBreakStopListeners service:ConstantsYouboraService.adBreakStop andParams:mutParams];
+    [YBLog notice:ConstantsYouboraService.adBreakStop];
 }
 
 - (void) sendAdQuartile:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceAdQuartile];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: ConstantsYouboraService.adQuartile];
     mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
-    [self sendWithCallbacks:self.willSendAdQuartileListeners service:YouboraServiceAdQuartile andParams:mutParams];
-    [YBLog notice:YouboraServiceAdQuartile];
+    [self sendWithCallbacks:self.willSendAdQuartileListeners service: ConstantsYouboraService.adQuartile andParams:mutParams];
+    [YBLog notice: ConstantsYouboraService.adQuartile];
 }
 
 - (void) sendSessionStart:(NSDictionary<NSString *, NSString *> *) params{
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStart];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraInfinity.sessionStart];
     [self initComm];
-    [self sendWithCallbacks:self.willSendSessionStartListeners service:YouboraServiceSessionStart andParams:mutParams];
+    [self sendWithCallbacks:self.willSendSessionStartListeners service:ConstantsYouboraInfinity.sessionStart andParams:mutParams];
     [self startBeats];
-    [YBLog notice:YouboraServiceSessionStart];
+    [YBLog notice:ConstantsYouboraInfinity.sessionStart];
 }
 
 - (void) sendSessionStop:(NSDictionary<NSString *, NSString *> *) params{
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionStop];
-    [self sendWithCallbacks:self.willSendSessionStopListeners service:YouboraServiceSessionStop andParams:mutParams];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: ConstantsYouboraInfinity.sessionStop];
+    [self sendWithCallbacks:self.willSendSessionStopListeners service:ConstantsYouboraInfinity.sessionStop andParams:mutParams];
     [self stopBeats];
-    [YBLog notice:YouboraServiceSessionStop];
+    [YBLog notice:ConstantsYouboraInfinity.sessionStop];
 }
 
 - (void) sendSessionNav:(NSDictionary<NSString *, NSString *> *) params{
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionNav];
-    [self sendWithCallbacks:self.willSendSessionNavListeners service:YouboraServiceSessionNav andParams:mutParams];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:ConstantsYouboraInfinity.sessionNav];
+    [self sendWithCallbacks:self.willSendSessionNavListeners service: ConstantsYouboraInfinity.sessionNav andParams:mutParams];
     if (self.beatTimer != nil) {
         long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
         [self sendBeat:time];
         [self.beatTimer.chrono setStartTime:time];
     }
-    [YBLog notice:YouboraServiceSessionNav];
+    [YBLog notice: ConstantsYouboraInfinity.sessionNav];
 }
 
 - (void) sendSessionEvent:(NSDictionary<NSString *, NSString *> *) params{
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YouboraServiceSessionEvent];
-    [self sendWithCallbacks:self.willSendSessionEventListeners service:YouboraServiceSessionEvent andParams:mutParams];
-    [YBLog notice:YouboraServiceSessionEvent];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: ConstantsYouboraInfinity.sessionEvent ];
+    [self sendWithCallbacks:self.willSendSessionEventListeners service:ConstantsYouboraInfinity.sessionEvent andParams:mutParams];
+    [YBLog notice:ConstantsYouboraInfinity.sessionEvent];
 }
 
 - (bool) isLiveOrNotNullDuration {
@@ -3064,8 +3064,8 @@
     [paramList addObject:@"sessions"];
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
     
-    [self sendWithCallbacks:self.willSendSessionBeatListeners service:YouboraServiceSessionBeat andParams:params];
-    [YBLog debug: @"%@ params: %@", YouboraServiceSessionBeat, params.description];
+    [self sendWithCallbacks:self.willSendSessionBeatListeners service:ConstantsYouboraInfinity.sessionBeat andParams:params];
+    [YBLog debug: @"%@ params: %@", ConstantsYouboraInfinity.sessionBeat, params.description];
 }
 
 // ------ PINGS ------
@@ -3145,8 +3145,8 @@
     
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
     
-    [self sendWithCallbacks:self.willSendPingListeners service:YouboraServicePing andParams:params];
-    [YBLog debug: @"%@ params: %@", YouboraServicePing, params.description];
+    [self sendWithCallbacks:self.willSendPingListeners service: ConstantsYouboraService.ping andParams:params];
+    [YBLog debug: @"%@ params: %@", ConstantsYouboraService.ping, params.description];
 }
 
 #pragma mark - YBTransformDoneListener protocol
