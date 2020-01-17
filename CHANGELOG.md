@@ -1,7 +1,9 @@
+## [6.5.13] - 2019-12-04
+###Added
+- Send p2pEnabled property to init and start events
 ## [6.5.12] - 2019-12-04
 ###Fixed
 - Fix issues with CFBundleShortVersionString
-
 ## [6.5.11] - 2019-12-04
 ###Added
 - Support to the new xcframeworks (module stability)
