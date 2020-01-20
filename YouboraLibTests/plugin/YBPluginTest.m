@@ -27,7 +27,6 @@
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
 #import "YBPlayheadMonitor.h"
-#import "YBConstants.h"
 
 
 #import "YouboraLib/YouboraLib-Swift.h"
@@ -459,15 +458,15 @@
 - (void)testPluginVersion {
     [given([self.mockAdapter getVersion]) willReturn:nil];
     
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
+    XCTAssertEqualObjects([Constants.youboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
     
-    [given([self.mockAdapter getVersion]) willReturn:[YouboraLibVersion stringByAppendingString:@"-CustomPlugin"]];
+    [given([self.mockAdapter getVersion]) willReturn:[Constants.youboraLibVersion stringByAppendingString:@"-CustomPlugin"]];
     
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-CustomPlugin"], [self.p getPluginVersion]);
+    XCTAssertEqualObjects([Constants.youboraLibVersion stringByAppendingString:@"-CustomPlugin"], [self.p getPluginVersion]);
     
     [self.p removeAdapter];
     
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
+    XCTAssertEqualObjects([Constants.youboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
 }
 
 - (void)testCustomDimensions {
@@ -893,9 +892,9 @@
     
     XCTAssertNil([self.p getAdAdapterVersion]);
     
-    [given([self.mockAdAdapter getVersion]) willReturn:[YouboraLibVersion stringByAppendingString:@"-CustomAdapter"]];
+    [given([self.mockAdAdapter getVersion]) willReturn:[Constants.youboraLibVersion stringByAppendingString:@"-CustomAdapter"]];
     
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-CustomAdapter"], [self.p getAdAdapterVersion]);
+    XCTAssertEqualObjects([Constants.youboraLibVersion stringByAppendingString:@"-CustomAdapter"], [self.p getAdAdapterVersion]);
     
     [self.p removeAdsAdapter];
     

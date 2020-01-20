@@ -11,7 +11,6 @@
 #import "YBTestablePlayerAdapter.h"
 #import "YBPlayheadMonitor.h"
 #import "YBPlugin.h"
-#import "YBConstants.h"
 
 #import "YouboraLib/YouboraLib-Swift.h"
 
@@ -96,7 +95,7 @@
     XCTAssertNil([adapter getMetrics]);
     XCTAssertEqual(YBAdPositionUnknown, [adapter getPosition]);
 
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-generic-ios"], [adapter getVersion]);
+    XCTAssertEqualObjects([Constants.youboraLibVersion stringByAppendingString:@"-generic-ios"], [adapter getVersion]);
 }
 
 - (void)testFireMethodsFlags {

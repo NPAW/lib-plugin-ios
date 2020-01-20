@@ -10,7 +10,4 @@
 
 #import <Foundation/Foundation.h>
 
-// Lib version
-FOUNDATION_EXPORT NSString * const YouboraLibVersion;
-
 #endif

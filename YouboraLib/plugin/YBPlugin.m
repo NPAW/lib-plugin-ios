@@ -882,7 +882,7 @@
 - (NSString *) getPluginVersion {
     NSString * ver = [self getAdapterVersion];
     if (ver == nil) {
-        ver = [YouboraLibVersion stringByAppendingString:@"-adapterless"];
+        ver = [Constants.youboraLibVersion stringByAppendingString:@"-adapterless"];
     }
     
     return ver;
@@ -1561,7 +1561,7 @@
 
 - (NSString *) getPluginInfo {
 
-    NSMutableDictionary * info = [NSMutableDictionary dictionaryWithObject:YouboraLibVersion forKey:@"lib"];
+    NSMutableDictionary * info = [NSMutableDictionary dictionaryWithObject:Constants.youboraLibVersion forKey:@"lib"];
     
     NSString * adapterVersion = [self getAdapterVersion];
     if (adapterVersion) {
