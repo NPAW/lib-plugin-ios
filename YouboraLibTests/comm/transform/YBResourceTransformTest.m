@@ -8,7 +8,6 @@
 
 #import <XCTest/XCTest.h>
 
-#import "YBConstants.h"
 #import "YBResourceTransform.h"
 #import "YBRequest.h"
 #import "YBCdnParser.h"
@@ -20,6 +19,7 @@
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBResourceTransformTest : XCTestCase
 
@@ -115,7 +115,7 @@
     
     // Check parse start request
     YBRequest * mockRequest = mock([YBRequest class]);
-    stubProperty(mockRequest, service, YouboraServiceStart);
+    stubProperty(mockRequest, service, ConstantsYouboraService.start);
     
     // Mocks
     NSDictionary * lastSent = [NSMutableDictionary dictionary];

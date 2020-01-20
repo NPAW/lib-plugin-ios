@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Constants made with class instead of structs to support Objc as well
+// Constants made with class instead of structs in order to support Objc as well
 
 @objcMembers class ConstantsStreamProtocol: NSObject {
     static let hds = "HDS"
@@ -62,4 +62,3 @@ import Foundation
 @objcMembers class Constants: NSObject {
     static let successListenerOfflineId = "offline_id"
 }
-

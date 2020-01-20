@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0601DCED23D59A0100128F32 /* YBRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2817111E85121A00F450C1 /* YBRequestBuilder.m */; };
+		0601DCEE23D59A0200128F32 /* YBRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2817111E85121A00F450C1 /* YBRequestBuilder.m */; };
+		0601DCEF23D59A0300128F32 /* YBRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2817111E85121A00F450C1 /* YBRequestBuilder.m */; };
 		069FD67A23D202A5004A0726 /* YBConstantsTmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstantsTmp.swift */; };
 		069FD67B23D202A5004A0726 /* YBConstantsTmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstantsTmp.swift */; };
 		069FD67C23D202A5004A0726 /* YBConstantsTmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstantsTmp.swift */; };
@@ -1672,6 +1675,7 @@
 				4ECFCC5C1E95446800E07785 /* YBCdnParserTest.m in Sources */,
 				4E5E53831E8015D100966C7B /* YBCommunicationTest.m in Sources */,
 				4E5E53871E8015FB00966C7B /* YBTransformTest.m in Sources */,
+				0601DCED23D59A0100128F32 /* YBRequestBuilder.m in Sources */,
 				4E5E53AA1E8182F000966C7B /* YBTestablePlayerAdapter.m in Sources */,
 				4E9C7BA01E8D514200E10631 /* YBRequestBuilderTest.m in Sources */,
 				4E5E535C1E7BEEF600966C7B /* YBTestableRequest.m in Sources */,
@@ -1760,6 +1764,7 @@
 				4EA274EE1EA758E700D5329C /* YBTransformTest.m in Sources */,
 				4EA274EF1EA758E700D5329C /* YBViewTransformTest.m in Sources */,
 				4EA274F01EA758E700D5329C /* YBTestableViewTransform.m in Sources */,
+				0601DCEE23D59A0200128F32 /* YBRequestBuilder.m in Sources */,
 				4EA274F11EA758E700D5329C /* YBResourceTransformTest.m in Sources */,
 				4EA274F21EA758E700D5329C /* YBTestableResourceTransform.m in Sources */,
 				4EA274F31EA758E700D5329C /* YBCommunicationTest.m in Sources */,
@@ -1848,6 +1853,7 @@
 				CDBA730A23337B65008716B5 /* YBViewTransformTest.m in Sources */,
 				CDBA730C23337B65008716B5 /* YBTestableViewTransform.m in Sources */,
 				CDBA730D23337B65008716B5 /* YBResourceTransformTest.m in Sources */,
+				0601DCEF23D59A0300128F32 /* YBRequestBuilder.m in Sources */,
 				CDBA730F23337B65008716B5 /* YBTestableResourceTransform.m in Sources */,
 				CDBA731023337B65008716B5 /* YBCommunicationTest.m in Sources */,
 				CDBA731123337B65008716B5 /* YBRequestTest.m in Sources */,
@@ -2059,6 +2065,7 @@
 			baseConfigurationReference = 6DB7DFB161870790451EAA1C /* Pods-YouboraLibTests iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2080,6 +2087,7 @@
 			baseConfigurationReference = 4CD311F28D0FD5FE497AE2E4 /* Pods-YouboraLibTests iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = DAR8GLKRWU;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2150,6 +2158,7 @@
 			baseConfigurationReference = AF4E132FD5284D10990A6464 /* Pods-YouboraLibTests tvOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2175,6 +2184,7 @@
 			baseConfigurationReference = 3CB6121102476431EBFB5B85 /* Pods-YouboraLibTests tvOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2283,6 +2293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
@@ -2327,6 +2338,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;

@@ -14,11 +14,11 @@
 #import "YBRequest.h"
 #import "YBLog.h"
 #import "YBRequestBuilder.h"
-#import "YBConstants.h"
 #import "YBFastDataConfig.h"
 
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBViewTransformTest : XCTestCase
 
@@ -41,7 +41,7 @@
 
     YBRequestBuilder * mockBuilder = mock([YBRequestBuilder class]);
     
-    [given([mockBuilder buildParams:anything() forService:YouboraServiceData]) willReturn:[NSMutableDictionary dictionary]];
+    [given([mockBuilder buildParams:anything() forService: ConstantsYouboraService.data]) willReturn:[NSMutableDictionary dictionary]];
     
     stubProperty(self.mockPlugin, requestBuilder, mockBuilder);
     
@@ -142,7 +142,7 @@
     YBRequest * mockStart = mock([YBRequest class]);
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
     stubProperty(mockStart, params, dict);
-    stubProperty(mockStart, service, YouboraServiceStart);
+    stubProperty(mockStart, service, ConstantsYouboraService.start);
     
     // Parse requests
     [self.viewTransform parse:mockStart];
@@ -158,7 +158,7 @@
     YBRequest * mockPing = mock([YBRequest class]);
     dict = [NSMutableDictionary dictionary];
     stubProperty(mockPing, params, dict);
-    stubProperty(mockPing, service, YouboraServicePing);
+    stubProperty(mockPing, service, ConstantsYouboraService.ping);
     
     [self.viewTransform parse:mockPing];
     

@@ -7,7 +7,6 @@
 //
 
 #import "YBPlayerAdapter.h"
-#import "YBConstants.h"
 
 #import "YBPlaybackChronos.h"
 #import "YBPlayheadMonitor.h"
@@ -15,6 +14,7 @@
 #import "YBYouboraUtils.h"
 #import "YBPlugin.h"
 #import "YBOptions.h"
+#import "YBConstants.h"
 
 #import "YouboraLib/YouboraLib-Swift.h"
 

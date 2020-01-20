@@ -21,13 +21,13 @@
 #import "YBPlayerAdapter.h"
 #import "YBRequest.h"
 #import "YBCommunication.h"
-#import "YBConstants.h"
 #import "YBTimer.h"
 #import "YBYouboraUtils.h"
 #import "YBPlaybackChronos.h"
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
 #import "YBPlayheadMonitor.h"
+#import "YBConstants.h"
 
 
 #import "YouboraLib/YouboraLib-Swift.h"
@@ -618,9 +618,9 @@
 - (void) testGetStreamingProtocol {
     XCTAssertNil([self.p getStreamingProtocol]);
     
-    stubProperty(self.mockOptions, contentStreamingProtocol, STREAM_PROTOCOL_HLS);
+    stubProperty(self.mockOptions, contentStreamingProtocol, ConstantsStreamProtocol.hls);
     
-    XCTAssertEqualObjects(STREAM_PROTOCOL_HLS, [self.p getStreamingProtocol]);
+    XCTAssertEqualObjects(ConstantsStreamProtocol.hls, [self.p getStreamingProtocol]);
 }
 
 - (void) testDeprecatedExtraParams {
@@ -1233,10 +1233,10 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString:YouboraServiceInit]) {
+        if ([serviceName isEqualToString: ConstantsYouboraService.init]) {
             initCallbackTimes++;
         }
-        if ([serviceName isEqualToString:YouboraServiceStart]) {
+        if ([serviceName isEqualToString: ConstantsYouboraService.start]) {
             startCallbackTimes++;
         }
         XCTAssertEqualObjects(@"value", params[@"key"]);
@@ -1723,7 +1723,7 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [verifyCount(self.p.mockRequest, times(1)) setService:ConstantsYouboraService.init];
 }
 
 - (void)testError {
@@ -1734,7 +1734,7 @@
     [self.p fireErrorWithParams:nil];
     [self.p fireErrorWithMessage:@"" code:@"" andErrorMetadata:@""];
     [self.p fireFatalErrorWithMessage:@"" code:@"" andErrorMetadata:@"" andException:nil];
-    [verifyCount(self.p.mockRequest, times(3)) setService:YouboraServiceError];
+    [verifyCount(self.p.mockRequest, times(3)) setService:ConstantsYouboraService.error];
 }
 
 - (void)testStop {
@@ -1745,10 +1745,10 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [verifyCount(self.p.mockRequest, times(1)) setService: ConstantsYouboraService.init];
     [self.p fireStop];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceStop];
+    [verifyCount(self.p.mockRequest, times(1)) setService: ConstantsYouboraService.stop];
 }
 
 - (void)testStopWithAdapter {
@@ -1758,7 +1758,7 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [verifyCount(self.p.mockRequest, times(1)) setService: ConstantsYouboraService.init];
     YBPlaybackFlags * adapterFlags = [YBPlaybackFlags new];
     adapterFlags.started = true;
     stubProperty(self.mockAdapter, flags, adapterFlags);
@@ -1788,7 +1788,7 @@
     
     [self.p fireInit];
     [self.p fireOfflineEvents];
-    [verifyCount(self.p.mockRequest, times(0)) setService:YouboraServiceOffline];
+    [verifyCount(self.p.mockRequest, times(0)) setService: ConstantsYouboraService.offline];
 }
 
 - (void)testOfflineEventsAdapterNotNil {
@@ -1808,15 +1808,15 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [verifyCount(self.p.mockRequest, times(1)) setService: ConstantsYouboraService.init];
     
     [self.p fireStop];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceStop];
+    [verifyCount(self.p.mockRequest, times(1)) setService: ConstantsYouboraService.stop];
     
     [self.p fireStop];
     [verifyCount(self.p.mockRequest, times(0)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(0)) setService:YouboraServiceStop];
+    [verifyCount(self.p.mockRequest, times(0)) setService: ConstantsYouboraService.stop];
 }
 
 - (void) testStopCalledWithoutInit {
@@ -1857,10 +1857,10 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString:YouboraServiceInit]) {
+        if ([serviceName isEqualToString: ConstantsYouboraService.init]) {
             initCallbackTimes++;
         }
-        if ([serviceName isEqualToString:YouboraServiceStart]) {
+        if ([serviceName isEqualToString: ConstantsYouboraService.start]) {
             startCallbackTimes++;
         }
         XCTAssertEqualObjects(@"value", params[@"key"]);
@@ -1896,10 +1896,10 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString:YouboraServiceInit]) {
+        if ([serviceName isEqualToString: ConstantsYouboraService.init]) {
             initCallbackTimes++;
         }
-        if ([serviceName isEqualToString:YouboraServiceStart]) {
+        if ([serviceName isEqualToString: ConstantsYouboraService.start]) {
             startCallbackTimes++;
         }
         //Doesn't apply since we want to send this start "blank"
@@ -1930,7 +1930,7 @@
     self.p.timerCallback(self.p.mockTimer, 5000);
     
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
-    [verify(self.p.mockRequestBuilder) buildParams:anything() forService:YouboraServicePing];
+    [verify(self.p.mockRequestBuilder) buildParams:anything() forService:ConstantsYouboraService.ping];
     [verify(self.p.mockRequestBuilder) fetchParams:anything() paramList:(id)captor onlyDifferent:false];
     
     NSArray * params = captor.value;
