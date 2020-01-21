@@ -11,30 +11,6 @@
 
 @implementation YBYouboraUtils
 
-+ (NSString *) buildRenditionStringWithWidth:(int) width height:(int) height andBitrate:(double) bitrate{
-    
-    NSMutableString * outStr = [NSMutableString string];
-    
-    if (width > 0 && height > 0) {
-        [outStr appendFormat:@"%dx%d", width, height];
-        if (bitrate > 0) {
-            [outStr appendFormat:@"@"];
-        }
-    }
-    
-    if (bitrate > 0) {
-        if (bitrate < 1e3) {
-            [outStr appendFormat:@"%.0fbps", bitrate];
-        } else if (bitrate < 1e6) {
-            [outStr appendFormat:@"%.0fKbps", bitrate/1e3];
-        } else {
-            [outStr appendFormat:@"%.2fMbps", bitrate/1e6];
-        }
-    }
-    
-    return outStr;
-}
-
 + (NSString *) stripProtocol:(NSString *) host {
     if (host == nil) {
         return nil;
@@ -85,42 +61,6 @@
     }
     
     return mutParams;
-}
-
-+ (NSMutableDictionary<NSString *, NSString *> *) buildErrorParamsWithMessage:(NSString *) msg code:(NSString *) code metadata:(NSString *) errorMetadata andLevel:(NSString *) level {
-    
-    NSMutableDictionary<NSString *, NSString *> * params = [NSMutableDictionary dictionaryWithCapacity:4];
-    
-    bool codeOk = code != nil && code.length > 0;
-    bool msgOk = msg != nil && msg.length > 0;
-    
-    if (codeOk) {
-        if (!msgOk) {
-            msg = code;
-        }
-    } else if (msgOk) {
-        code = msg;
-    } else {
-        code = msg = @"PLAY_FAILURE";
-    }
-    
-    params[@"errorCode"] = code;
-    params[@"errorMsg"] = msg;
-    
-    if (errorMetadata != nil && errorMetadata.length > 0) {
-        params[@"errorMetadata"] = errorMetadata;
-    }
-    if(level != nil && level.length > 0){
-        params[@"errorLevel"] = level;
-    }
-    
-    /*if (level == nil || level.length == 0) {
-        level = @"error";
-    }*/
-    
-    //params[@"errorLevel"] = level;
-    
-    return params;
 }
 
 + (NSString *) stringifyList: (NSArray *) list {

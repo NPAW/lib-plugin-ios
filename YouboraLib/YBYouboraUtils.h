@@ -13,41 +13,7 @@
  */
 @interface YBYouboraUtils : NSObject
 
-/**
- * Builds a string that represents the rendition.
- *
- * The returned string will have the following format: [width]x[height]@[bitrate][suffix].
- * If either the width or height are &lt; 1, only the bitrate will be returned.
- * If bitrate is &lt; 1, only the dimensions will be returned.
- * If bitrate is &lt; and there is no dimensions, a null will be returned.
- * The bitrate will also have one of the following suffixes depending on its
- * magnitude: bps, Kbps, Mbps
- *
- * @param width The width of the asset.
- * @param height The height of the asset.
- * @param bitrate The indicated bitrate (in the manifest) of the asset.
- * @return A string with the following format: [width]x[height]@[bitrate][suffix]
- */
-+ (NSString *) buildRenditionStringWithWidth:(int) width height:(int) height andBitrate:(double) bitrate;
 
-/**
- * Returns a params dictionary with filled error fields.
- *
- * @param params Map of pre filled params or null. If this is not empty nor null, nothing will be done.
- * @return Built params
- */
-+ (NSMutableDictionary<NSString *, NSString *> *) buildErrorParams:(NSDictionary<NSString *, NSString *> *) params;
-
-/**
- * Returns a params dictionary with filled error fields.
- *
- * @param msg Error Message
- * @param code Error code
- * @param errorMetadata additional error info
- * @param level Level of the error. Currently supports 'error' and 'fatal'
- * @return Built params
- */
-+ (NSMutableDictionary<NSString *, NSString *> *) buildErrorParamsWithMessage:(NSString *) msg code:(NSString *) code metadata:(NSString *) errorMetadata andLevel:(NSString *) level;
 
 /**
  * Strip [protocol]:// from the beginning of the string.

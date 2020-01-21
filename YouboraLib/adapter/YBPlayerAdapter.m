@@ -515,14 +515,14 @@
 }
 
 - (void)fireError:(NSDictionary<NSString *,NSString *> *)params {
-    params = [YBYouboraUtils buildErrorParams:[params mutableCopy]];
+    params = [YBYouboraUtilsSwift  buildErrorParams:[params mutableCopy]];
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
         [delegate youboraAdapterEventError:params fromAdapter:self];
     }
 }
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
-    [self fireError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
+    [self fireError:[YBYouboraUtilsSwift buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
 }
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception{
@@ -542,7 +542,7 @@
 }
 
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
-    [self fireFatalError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
+    [self fireFatalError:[YBYouboraUtilsSwift buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     [self fireStop];
 }
 

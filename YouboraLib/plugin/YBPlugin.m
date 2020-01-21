@@ -317,11 +317,11 @@
 }
 
 - (void) fireErrorWithParams:(NSDictionary<NSString *, NSString *> *) params {
-    [self sendError:[YBYouboraUtils buildErrorParams:params]];
+    [self sendError:[YBYouboraUtilsSwift buildErrorParams:params]];
 }
 
 - (void) fireErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata {
-    [self sendError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
+    [self sendError:[YBYouboraUtilsSwift buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
 }
 - (void) fireFatalErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata andException:(nullable NSException*) exception{
     if(self.adapter != nil){
@@ -331,7 +331,7 @@
             [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata];
         }
     }else{
-        [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
+        [self fireErrorWithParams:[YBYouboraUtilsSwift buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     }
     [self fireStop];
 }
