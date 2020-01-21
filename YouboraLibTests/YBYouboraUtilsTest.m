@@ -7,7 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "YBYouboraUtils.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBYouboraUtilsTest : XCTestCase
@@ -17,11 +16,11 @@
 @implementation YBYouboraUtilsTest
 
 - (void)testStripProtocol {
-    XCTAssertNil([YBYouboraUtilsSwift stripProtocol:nil]);
-    XCTAssertEqualObjects(@"", [YBYouboraUtilsSwift stripProtocol:@""]);
-    XCTAssertEqualObjects(@"google.com", [YBYouboraUtilsSwift stripProtocol:@"http://google.com"]);
-    XCTAssertEqualObjects(@"google.com", [YBYouboraUtilsSwift stripProtocol:@"https://google.com"]);
-    XCTAssertEqualObjects(@"google.com", [YBYouboraUtilsSwift stripProtocol:@"//google.com"]);
+    XCTAssertNil([YBYouboraUtils stripProtocol:nil]);
+    XCTAssertEqualObjects(@"", [YBYouboraUtils stripProtocol:@""]);
+    XCTAssertEqualObjects(@"google.com", [YBYouboraUtils stripProtocol:@"http://google.com"]);
+    XCTAssertEqualObjects(@"google.com", [YBYouboraUtils stripProtocol:@"https://google.com"]);
+    XCTAssertEqualObjects(@"google.com", [YBYouboraUtils stripProtocol:@"//google.com"]);
 }
 
 - (void)testAddProtocol {
@@ -31,17 +30,17 @@
 }
 
 - (void)testRenditionString {
-    XCTAssertEqualObjects(@"1920x1080@4.57Mbps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:1080 andBitrate:4567452.9817]);
-    XCTAssertEqualObjects(@"4.57Mbps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:0 height:1080 andBitrate:4567452.9817]);
-    XCTAssertEqualObjects(@"4.57Mbps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:0 andBitrate:4567452.9817]);
-    XCTAssertEqualObjects(@"4.57Mbps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:0 height:0 andBitrate:4567452.9817]);
-    XCTAssertEqualObjects(@"1920x1080@457Kbps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:1080 andBitrate:456745.9817]);
-    XCTAssertEqualObjects(@"1920x1080@46Kbps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:1080 andBitrate:45674.9817]);
-    XCTAssertEqualObjects(@"1920x1080@5Kbps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:1080 andBitrate:4567.9817]);
-    XCTAssertEqualObjects(@"1920x1080@457bps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:1080 andBitrate:456.9817]);
-    XCTAssertEqualObjects(@"1920x1080", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:1080 andBitrate:0]);
-    XCTAssertEqualObjects(@"1920x1080", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:1080 andBitrate:-123]);
-    XCTAssertEqualObjects(@"1920x1080@1bps", [YBYouboraUtilsSwift buildRenditionStringWithWidth:1920 height:1080 andBitrate:1]);
+    XCTAssertEqualObjects(@"1920x1080@4.57Mbps", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:1080 andBitrate:4567452.9817]);
+    XCTAssertEqualObjects(@"4.57Mbps", [YBYouboraUtils buildRenditionStringWithWidth:0 height:1080 andBitrate:4567452.9817]);
+    XCTAssertEqualObjects(@"4.57Mbps", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:0 andBitrate:4567452.9817]);
+    XCTAssertEqualObjects(@"4.57Mbps", [YBYouboraUtils buildRenditionStringWithWidth:0 height:0 andBitrate:4567452.9817]);
+    XCTAssertEqualObjects(@"1920x1080@457Kbps", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:1080 andBitrate:456745.9817]);
+    XCTAssertEqualObjects(@"1920x1080@46Kbps", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:1080 andBitrate:45674.9817]);
+    XCTAssertEqualObjects(@"1920x1080@5Kbps", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:1080 andBitrate:4567.9817]);
+    XCTAssertEqualObjects(@"1920x1080@457bps", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:1080 andBitrate:456.9817]);
+    XCTAssertEqualObjects(@"1920x1080", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:1080 andBitrate:0]);
+    XCTAssertEqualObjects(@"1920x1080", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:1080 andBitrate:-123]);
+    XCTAssertEqualObjects(@"1920x1080@1bps", [YBYouboraUtils buildRenditionStringWithWidth:1920 height:1080 andBitrate:1]);
 }
 
 - (void) testStringifyDict {
@@ -92,20 +91,20 @@
         @"errorLevel" : @""
     };
     
-    NSDictionary<NSString *, NSString *> * errorDict = [YBYouboraUtilsSwift buildErrorParams:dict];
+    NSDictionary<NSString *, NSString *> * errorDict = [YBYouboraUtils buildErrorParams:dict];
     
     XCTAssertEqualObjects(errorDict[@"errorLevel"], expectedDict[@"errorLevel"]);
     
     dict = @{ @"errorLevel" : @"" };
     expectedDict = @{ @"errorLevel" : @""};
     
-    errorDict = [YBYouboraUtilsSwift buildErrorParams:dict];
+    errorDict = [YBYouboraUtils buildErrorParams:dict];
     XCTAssertEqualObjects(errorDict[@"errorLevel"], expectedDict[@"errorLevel"]);
     
     dict = @{ @"errorLevel" : @"something" };
     expectedDict = @{ @"errorLevel" : @"something"};
     
-    errorDict = [YBYouboraUtilsSwift buildErrorParams:dict];
+    errorDict = [YBYouboraUtils buildErrorParams:dict];
     XCTAssertEqualObjects(errorDict[@"errorLevel"], expectedDict[@"errorLevel"]);
     
     expectedDict = @{
@@ -115,7 +114,7 @@
         @"errorLevel" : @"level"
     };
     
-    errorDict = [YBYouboraUtilsSwift buildErrorParamsWithMessage:@"msg" code:@"code" metadata:@"metadata" andLevel:@"level"];
+    errorDict = [YBYouboraUtils buildErrorParamsWithMessage:@"msg" code:@"code" metadata:@"metadata" andLevel:@"level"];
     
     XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
     XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
@@ -129,7 +128,7 @@
         @"errorLevel" : @"level"
     };
     
-    errorDict = [YBYouboraUtilsSwift buildErrorParamsWithMessage:@"msg" code:nil metadata:@"metadata" andLevel:@"level"];
+    errorDict = [YBYouboraUtils buildErrorParamsWithMessage:@"msg" code:nil metadata:@"metadata" andLevel:@"level"];
     
     XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
     XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
@@ -143,7 +142,7 @@
         @"errorLevel" : @"level"
     };
     
-    errorDict = [YBYouboraUtilsSwift buildErrorParamsWithMessage:nil code:@"code" metadata:@"metadata" andLevel:@"level"];
+    errorDict = [YBYouboraUtils buildErrorParamsWithMessage:nil code:@"code" metadata:@"metadata" andLevel:@"level"];
     
     XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
     XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
@@ -157,7 +156,7 @@
         @"errorLevel" : @"level"
     };
     
-    errorDict = [YBYouboraUtilsSwift buildErrorParamsWithMessage:nil code:nil metadata:nil andLevel:nil];
+    errorDict = [YBYouboraUtils buildErrorParamsWithMessage:nil code:nil metadata:nil andLevel:nil];
     
     XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
     XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
@@ -171,6 +170,13 @@
     NSString *expectedString = @"[\"value1\",\"value2\"]";
     
     XCTAssertEqualObjects(expectedString, returnString);
+}
+
+- (void) testGetAppName {
+    
+    NSString *appName = [YBYouboraUtils getAppName];
+    
+    XCTAssertEqualObjects(appName, @"xctest");
 }
 
 @end

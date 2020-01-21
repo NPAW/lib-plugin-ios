@@ -11,7 +11,6 @@
 #import "YBPlaybackChronos.h"
 #import "YBPlayheadMonitor.h"
 #import "YBLog.h"
-#import "YBYouboraUtils.h"
 #import "YBPlugin.h"
 #import "YBOptions.h"
 
@@ -515,14 +514,14 @@
 }
 
 - (void)fireError:(NSDictionary<NSString *,NSString *> *)params {
-    params = [YBYouboraUtilsSwift  buildErrorParams:[params mutableCopy]];
+    params = [YBYouboraUtils  buildErrorParams:[params mutableCopy]];
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
         [delegate youboraAdapterEventError:params fromAdapter:self];
     }
 }
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
-    [self fireError:[YBYouboraUtilsSwift buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
+    [self fireError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
 }
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception{
@@ -542,7 +541,7 @@
 }
 
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
-    [self fireFatalError:[YBYouboraUtilsSwift buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
+    [self fireFatalError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     [self fireStop];
 }
 

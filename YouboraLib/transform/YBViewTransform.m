@@ -14,7 +14,6 @@
 #import "YBRequest.h"
 #import "YBRequestBuilder.h"
 #import "YBOptions.h"
-#import "YBYouboraUtils.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBViewTransform()
@@ -239,7 +238,6 @@
 
 - (NSString *) getViewCodeTimeStamp {
     return [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils unixTimeNow]];
-    //return [NSString stringWithFormat:@"%lf", [YBYouboraUtils unixTimeNow]];
 }
 
 - (YBRequest *) createRequestWithHost:(NSString *) host andService:(NSString *) service {

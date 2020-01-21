@@ -11,7 +11,7 @@ import Foundation
 /**
 * A utility class with static methods
 */
-@objcMembers class YBYouboraUtilsSwift: NSObject {
+@objcMembers class YBYouboraUtils: NSObject {
     /**
     * Builds a string that represents the rendition.
     *
@@ -114,5 +114,93 @@ import Foundation
      */
     static func stripProtocol(_ host: String?) -> String? {
         return host?.replacingOccurrences(of: "^(.*?://|//)", with: "", options: .regularExpression)
+    }
+
+    /**
+     * Adds specific protocol. ie: [http[s]:]//a-fds.youborafds01.com
+     * @param url Domain of the service.
+     * @param httpSecure If true will add https, if false http.
+     * @return Return the complete service URL.
+     */
+    static func addProtocol(_ url: String?, https: Bool) -> String {
+        let newUrl = url != nil ? url! : ""
+
+        if https { return "https://"+newUrl }
+
+        return "http://"+newUrl
+    }
+
+    /**
+     * Returns a JSON-formatted String representation of the list.
+     * If the list is nil, nil will be returned.
+     * @param list NSArray to convert to JSON
+     * @return JSON-formatted NSString
+     */
+    static func stringifyList(_ list: [Any]?) -> String? {
+        guard let list = list else { return nil }
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: list, options: .init(rawValue: 0))
+            return String(data: jsonData, encoding: .utf8)
+        } catch {
+            YBSwiftLog.error("Error converting to json: \(error)")
+            return nil
+        }
+    }
+
+    /**
+     * Returns a JSON-formatted String representation of the dictionary.
+     * If the dict is nil, nil will be returned.
+     * @param dict NSDictionary to convert to JSON
+     * @return JSON-formatted NSString
+     */
+    static func stringifyDictionary(_ dict: [AnyHashable: Any]?) -> String? {
+        guard let dict = dict else { return nil }
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .init(rawValue: 0))
+            return String(data: jsonData, encoding: .utf8)
+        } catch {
+            YBSwiftLog.error("Error converting to json: \(error)")
+            return nil
+        }
+    }
+
+    /**
+     * Returns number if it's not nil, infinity or NaN.
+     * Otherwise, def defaultValue will be returned.
+     * @param number The number to be parsed
+     * @param def Number to return if number is 'incorrect'
+     * @return number if it's a 'real' value, def otherwise
+     */
+    static func parseNumber(_ number: NSNumber?, orDefault defaultValue: NSNumber?) -> NSNumber? {
+        guard let number = number else { return defaultValue }
+
+        let val = number.doubleValue
+
+        if !val.isNaN && !val.isInfinite && val != Double(Int.max) && val != Double(Int.min) {
+            return number
+        }
+
+        return defaultValue
+    }
+
+    /**
+     * Returns current timestamp in milliseconds
+     * @return long timestamp
+     */
+    static func unixTimeNow() -> Double {
+        let now = Date()
+        let nowEpochSeconds = now.timeIntervalSince1970
+
+        return round(nowEpochSeconds * 1000)
+    }
+
+    /**
+     * Returns display application name
+     * @return Application name
+     */
+    static func getAppName() -> String? {
+        return Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String
     }
 }

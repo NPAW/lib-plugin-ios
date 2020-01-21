@@ -9,7 +9,6 @@
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
 #import "YBRequest.h"
-#import "YBYouboraUtils.h"
 #import "YBLog.h"
 #import "YBEvent.h"
 #import "YouboraLib/YouboraLib-Swift.h"

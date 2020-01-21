@@ -17,7 +17,6 @@
 #import "YBRequest.h"
 #import "YBCommunication.h"
 #import "YBTimer.h"
-#import "YBYouboraUtils.h"
 #import "YBPlaybackChronos.h"
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
@@ -317,11 +316,11 @@
 }
 
 - (void) fireErrorWithParams:(NSDictionary<NSString *, NSString *> *) params {
-    [self sendError:[YBYouboraUtilsSwift buildErrorParams:params]];
+    [self sendError:[YBYouboraUtils buildErrorParams:params]];
 }
 
 - (void) fireErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata {
-    [self sendError:[YBYouboraUtilsSwift buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
+    [self sendError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
 }
 - (void) fireFatalErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata andException:(nullable NSException*) exception{
     if(self.adapter != nil){
@@ -331,7 +330,7 @@
             [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata];
         }
     }else{
-        [self fireErrorWithParams:[YBYouboraUtilsSwift buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
+        [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     }
     [self fireStop];
 }
@@ -436,7 +435,7 @@
 
 // ------ INFO GETTERS ------
 - (NSString *) getHost {
-    return [YBYouboraUtils addProtocol:[YBYouboraUtilsSwift stripProtocol:self.options.host] https:self.options.httpSecure];
+    return [YBYouboraUtils addProtocol:[YBYouboraUtils stripProtocol:self.options.host] https:self.options.httpSecure];
 }
 
 - (bool) isParseHls {
