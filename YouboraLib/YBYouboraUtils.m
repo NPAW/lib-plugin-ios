@@ -11,27 +11,6 @@
 
 @implementation YBYouboraUtils
 
-+ (NSString *) stripProtocol:(NSString *) host {
-    if (host == nil) {
-        return nil;
-    }
-    
-    // Create regex only once
-    static dispatch_once_t dispatchOnceRegex;
-    static NSRegularExpression * staticRegex;
-    
-    dispatch_once(&dispatchOnceRegex, ^{
-        NSError *err;
-        staticRegex = [NSRegularExpression regularExpressionWithPattern:@"^(.*?://|//)"
-                                                                options:NSRegularExpressionCaseInsensitive
-                                                                  error:&err];
-    });
-    
-    NSTextCheckingResult * match = [staticRegex firstMatchInString:host options:0 range:NSMakeRange(0, host.length)];
-    
-    return [host stringByReplacingCharactersInRange:[match rangeAtIndex:1] withString:@""];
-}
-
 + (NSString *) addProtocol:(NSString *) url https:(bool) httpSecure {
     if (url == nil) {
         url = @"";

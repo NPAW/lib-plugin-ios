@@ -106,34 +106,13 @@ import Foundation
 
         return params
     }
-}
 
-//+ (NSMutableDictionary<NSString *, NSString *> *) buildErrorParamsWithMessage:(NSString *) msg code:(NSString *) code metadata:(NSString *) errorMetadata andLevel:(NSString *) level {
-//
-//    NSMutableDictionary<NSString *, NSString *> * params = [NSMutableDictionary dictionaryWithCapacity:4];
-//
-//    bool codeOk = code != nil && code.length > 0;
-//    bool msgOk = msg != nil && msg.length > 0;
-//
-//    if (codeOk) {
-//        if (!msgOk) {
-//            msg = code;
-//        }
-//    } else if (msgOk) {
-//        code = msg;
-//    } else {
-//        code = msg = @"PLAY_FAILURE";
-//    }
-//
-//    params[@"errorCode"] = code;
-//    params[@"errorMsg"] = msg;
-//
-//    if (errorMetadata != nil && errorMetadata.length > 0) {
-//        params[@"errorMetadata"] = errorMetadata;
-//    }
-//    if(level != nil && level.length > 0){
-//        params[@"errorLevel"] = level;
-//    }
-//
-//    return params;
-//}
+    /**
+     * Strip [protocol]:// from the beginning of the string.
+     * @param host Url
+     * @return stripped url
+     */
+    static func stripProtocol(_ host: String?) -> String? {
+        return host?.replacingOccurrences(of: "^(.*?://|//)", with: "", options: .regularExpression)
+    }
+}

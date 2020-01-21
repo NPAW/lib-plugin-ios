@@ -17,11 +17,11 @@
 @implementation YBYouboraUtilsTest
 
 - (void)testStripProtocol {
-    XCTAssertNil([YBYouboraUtils stripProtocol:nil]);
-    XCTAssertEqualObjects(@"", [YBYouboraUtils stripProtocol:@""]);
-    XCTAssertEqualObjects(@"google.com", [YBYouboraUtils stripProtocol:@"http://google.com"]);
-    XCTAssertEqualObjects(@"google.com", [YBYouboraUtils stripProtocol:@"https://google.com"]);
-    XCTAssertEqualObjects(@"google.com", [YBYouboraUtils stripProtocol:@"//google.com"]);
+    XCTAssertNil([YBYouboraUtilsSwift stripProtocol:nil]);
+    XCTAssertEqualObjects(@"", [YBYouboraUtilsSwift stripProtocol:@""]);
+    XCTAssertEqualObjects(@"google.com", [YBYouboraUtilsSwift stripProtocol:@"http://google.com"]);
+    XCTAssertEqualObjects(@"google.com", [YBYouboraUtilsSwift stripProtocol:@"https://google.com"]);
+    XCTAssertEqualObjects(@"google.com", [YBYouboraUtilsSwift stripProtocol:@"//google.com"]);
 }
 
 - (void)testAddProtocol {

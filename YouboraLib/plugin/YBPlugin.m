@@ -436,7 +436,7 @@
 
 // ------ INFO GETTERS ------
 - (NSString *) getHost {
-    return [YBYouboraUtils addProtocol:[YBYouboraUtils stripProtocol:self.options.host] https:self.options.httpSecure];
+    return [YBYouboraUtils addProtocol:[YBYouboraUtilsSwift stripProtocol:self.options.host] https:self.options.httpSecure];
 }
 
 - (bool) isParseHls {

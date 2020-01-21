@@ -13,15 +13,6 @@
  */
 @interface YBYouboraUtils : NSObject
 
-
-
-/**
- * Strip [protocol]:// from the beginning of the string.
- * @param host Url
- * @return stripped url
- */
-+ (NSString *) stripProtocol:(NSString *) host;
-
 /**
  * Adds specific protocol. ie: [http[s]:]//a-fds.youborafds01.com
  * @param url Domain of the service.
