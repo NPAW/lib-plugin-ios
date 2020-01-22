@@ -11,7 +11,7 @@ import Foundation
 /**
 * A utility class with static methods
 */
-@objcMembers class YBYouboraUtils: NSObject {
+@objcMembers open class YBYouboraUtils: NSObject {
     /**
     * Builds a string that represents the rendition.
     *
@@ -27,7 +27,7 @@ import Foundation
     * @param bitrate The indicated bitrate (in the manifest) of the asset.
     * @return A string with the following format: [width]x[height]@[bitrate][suffix]
     */
-    static func buildRenditionString(width: Int, height: Int, andBitrate bitrate: Double) -> String {
+    static public func buildRenditionString(width: Int, height: Int, andBitrate bitrate: Double) -> String {
         var outStr = ""
 
         if width > 0 && height > 0 {
@@ -87,7 +87,7 @@ import Foundation
      * @param level Level of the error. Currently supports 'error' and 'fatal'
      * @return Built params
      */
-    static func buildErrorParams(message msg: String?, code: String?, metadata: String?, andLevel level: String?) -> [String: String] {
+    static public func buildErrorParams(message msg: String?, code: String?, metadata: String?, andLevel level: String?) -> [String: String] {
         var params: [String: String] = Dictionary(minimumCapacity: 4)
 
         let finalCode = code != nil && code!.count > 0 ? code : msg
@@ -112,7 +112,7 @@ import Foundation
      * @param host Url
      * @return stripped url
      */
-    static func stripProtocol(_ host: String?) -> String? {
+    static public func stripProtocol(_ host: String?) -> String? {
         return host?.replacingOccurrences(of: "^(.*?://|//)", with: "", options: .regularExpression)
     }
 
@@ -122,7 +122,7 @@ import Foundation
      * @param httpSecure If true will add https, if false http.
      * @return Return the complete service URL.
      */
-    static func addProtocol(_ url: String?, https: Bool) -> String {
+    static public func addProtocol(_ url: String?, https: Bool) -> String {
         let newUrl = url != nil ? url! : ""
 
         if https { return "https://"+newUrl }
@@ -136,7 +136,7 @@ import Foundation
      * @param list NSArray to convert to JSON
      * @return JSON-formatted NSString
      */
-    static func stringifyList(_ list: [Any]?) -> String? {
+    static public func stringifyList(_ list: [Any]?) -> String? {
         guard let list = list else { return nil }
 
         do {
@@ -154,7 +154,7 @@ import Foundation
      * @param dict NSDictionary to convert to JSON
      * @return JSON-formatted NSString
      */
-    static func stringifyDictionary(_ dict: [AnyHashable: Any]?) -> String? {
+    static public func stringifyDictionary(_ dict: [AnyHashable: Any]?) -> String? {
         guard let dict = dict else { return nil }
 
         do {
@@ -173,7 +173,7 @@ import Foundation
      * @param def Number to return if number is 'incorrect'
      * @return number if it's a 'real' value, def otherwise
      */
-    static func parseNumber(_ number: NSNumber?, orDefault defaultValue: NSNumber?) -> NSNumber? {
+    static public func parseNumber(_ number: NSNumber?, orDefault defaultValue: NSNumber?) -> NSNumber? {
         guard let number = number else { return defaultValue }
 
         let val = number.doubleValue
@@ -189,7 +189,7 @@ import Foundation
      * Returns current timestamp in milliseconds
      * @return long timestamp
      */
-    static func unixTimeNow() -> Double {
+    static public func unixTimeNow() -> Double {
         let now = Date()
         let nowEpochSeconds = now.timeIntervalSince1970
 
@@ -200,7 +200,7 @@ import Foundation
      * Returns display application name
      * @return Application name
      */
-    static func getAppName() -> String? {
+    static public func getAppName() -> String? {
         return Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String
     }
 }

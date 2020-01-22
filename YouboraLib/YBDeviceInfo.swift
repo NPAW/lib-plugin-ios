@@ -14,20 +14,20 @@ import Cocoa
 import UIKit
 #endif
 
-@objcMembers class YBDeviceInfo: NSObject {
-    var deviceModel: String?
-    var deviceBrand: String?
-    var deviceType: String?
-    var deviceName: String?
-    var deviceCode: String?
-    var deviceOsName: String?
-    var deviceOsVersion: String?
-    var deviceBrowserName: String?
-    var deviceBrowserVersion: String?
-    var deviceBrowserType: String?
-    var deviceBrowserEngine: String?
+@objcMembers open class YBDeviceInfo: NSObject {
+    public var deviceModel: String?
+    public var deviceBrand: String?
+    public var deviceType: String?
+    public var deviceName: String?
+    public var deviceCode: String?
+    public var deviceOsName: String?
+    public var deviceOsVersion: String?
+    public var deviceBrowserName: String?
+    public var deviceBrowserVersion: String?
+    public var deviceBrowserType: String?
+    public var deviceBrowserEngine: String?
 
-    func deviceName(code: String) -> String {
+    public func deviceName(code: String) -> String {
         guard let deviceName = Constants.deviceModels[code] else {
             if code.contains("iPod") { return "iPod Touch" }
             if code.contains("iPad") { return "iPad" }
