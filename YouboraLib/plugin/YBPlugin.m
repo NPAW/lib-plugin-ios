@@ -24,7 +24,6 @@
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
 #import "YBEvent.h"
-#import "YBDeviceInfo.h"
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"

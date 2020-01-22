@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "YBDeviceInfo.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBDeviceInfoTest : XCTestCase
 
