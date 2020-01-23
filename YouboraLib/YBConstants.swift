@@ -70,6 +70,8 @@ import Foundation
 
         return version
     }
+    
+    // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
     static public var deviceModels: [String: String] {
         return [
             "iPhone3,3" : "iPhone 4",          // (CDMA/Verizon/Sprint)
