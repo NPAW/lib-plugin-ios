@@ -10,7 +10,7 @@ import XCTest
 
 class YBSwiftTimerTests: XCTestCase {
     func testIsRunning() {
-        let timer = YBSwiftTimer(callback: nil)
+        let timer = YBSwiftTimer(callback: {_, _  in })
 
         XCTAssertFalse(timer.isRunning)
 
@@ -45,6 +45,7 @@ class YBSwiftTimerTests: XCTestCase {
         }
 
         let timer = YBSwiftTimer(callback: callback1, andInterval: 10)
+
         timer.addTimerCallback(callback2)
 
         timer.start()

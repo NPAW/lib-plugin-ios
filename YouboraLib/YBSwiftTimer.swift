@@ -29,14 +29,12 @@ typealias SwiftTimerCallback = (_ timer: YBSwiftTimer, _ diffTime: Int64) -> Voi
     /**
      * Whether the Timer is running or not.
      */
-    var isRunning: Bool { return isRunningAux }
-    private var isRunningAux: Bool
+    private (set) var isRunning: Bool
 
     /**
      * Chrono to inform the callback how much time has passed since the previous call.
      */
-    var chrono: YBChrono { return chronoAux }
-    var chronoAux: YBChrono
+    private (set) var chrono: YBChrono
 
     var callbacks: [SwiftTimerCallback]
 
@@ -49,16 +47,12 @@ typealias SwiftTimerCallback = (_ timer: YBSwiftTimer, _ diffTime: Int64) -> Voi
     * @param callback the block to execute every <interval> milliseconds
     * @returns an instance of YBTimer
     */
-    init(callback: SwiftTimerCallback?) {
+    init(callback: @escaping SwiftTimerCallback) {
 
-        self.chronoAux = YBChrono()
+        self.chrono = YBChrono()
         self.interval = 5000
-        self.callbacks = []
-        self.isRunningAux = false
-
-        if let callback = callback {
-            callbacks.append(callback)
-        }
+        self.callbacks = [callback]
+        self.isRunning = false
     }
 
     /**
@@ -67,15 +61,9 @@ typealias SwiftTimerCallback = (_ timer: YBSwiftTimer, _ diffTime: Int64) -> Voi
     * @param intervalMillis interval of the timer
     * @returns an instance of YBTimer
     */
-    init(callback: SwiftTimerCallback?, andInterval intervalMillis: Double) {
-        self.chronoAux = YBChrono()
+    convenience init(callback: @escaping SwiftTimerCallback, andInterval intervalMillis: Double) {
+        self.init(callback: callback)
         self.interval = intervalMillis
-        self.callbacks = []
-        self.isRunningAux = false
-
-        if let callback = callback {
-            callbacks.append(callback)
-        }
     }
 
     /**
@@ -91,8 +79,8 @@ typealias SwiftTimerCallback = (_ timer: YBSwiftTimer, _ diffTime: Int64) -> Voi
      * Starts the timer.
      */
     func start() {
-        if !self.isRunningAux {
-            self.isRunningAux = true
+        if !self.isRunning {
+            self.isRunning = true
             self.scheduleTimer()
         }
     }
@@ -101,19 +89,17 @@ typealias SwiftTimerCallback = (_ timer: YBSwiftTimer, _ diffTime: Int64) -> Voi
      * Stops the timer.
      */
     func stop() {
-        if self.isRunningAux {
-            self.isRunningAux = false
-            if let timer = timer {
-                timer.invalidate()
-                self.timer = nil
-            }
+        if self.isRunning {
+            self.isRunning = false
+            self.timer?.invalidate()
+            self.timer = nil
         }
     }
 
     private func scheduleTimer() {
         if Thread.isMainThread {
             if self.isRunning {
-                self.chronoAux.start()
+                self.chrono.start()
                 self.timer = Timer.scheduledTimer(timeInterval: self.interval/1000, target: self, selector: #selector(performCallback), userInfo: nil, repeats: false)
             }
         } else {
@@ -125,7 +111,7 @@ typealias SwiftTimerCallback = (_ timer: YBSwiftTimer, _ diffTime: Int64) -> Voi
 
     @objc private func performCallback() {
         if self.callbacks.count > 0 {
-            let elapsedTime = self.chronoAux.stop()
+            let elapsedTime = self.chrono.stop()
             self.callbacks.forEach { callback in
                callback(self, elapsedTime)
             }

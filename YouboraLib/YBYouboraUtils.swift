@@ -66,6 +66,7 @@ import Foundation
 
         var noNilParams: [String: Any] = [:]
 
+        //TODO: try to find a better way to check this code
         for (key, paramValue) in params {
             switch paramValue {
             case Optional<Any>.none:
@@ -123,11 +124,13 @@ import Foundation
      * @return Return the complete service URL.
      */
     static public func addProtocol(_ url: String?, https: Bool) -> String {
-        let newUrl = url != nil ? url! : ""
+        let stringProtocol = https ? "https://" : "http://"
 
-        if https { return "https://"+newUrl }
-
-        return "http://"+newUrl
+        if let newUrl = url {
+            return stringProtocol+newUrl
+        } else {
+             return stringProtocol
+        }
     }
 
     /**
