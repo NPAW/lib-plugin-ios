@@ -98,8 +98,7 @@
     if (params[@"sessionRoot"] == nil) {
         
         NSString * code = self.viewCode;
-        YBInfinityFlags *flags = [self.plugin getInfinity].flags;
-        if (flags.started) {
+        if (([self.plugin getInfinity] != nil && [self.plugin getInfinity].flags.started) || service == YouboraServiceSessionStop) {
             code = self.fastDataConfig.code;
         }
         
