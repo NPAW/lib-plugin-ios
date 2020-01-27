@@ -1,3 +1,7 @@
+## [6.5.14] - 2020-01-27
+###Fixed
+- Infinity sends propper codes for all cases now
+
 ## [6.5.13] - 2019-12-04
 ###Added
 - Send p2pEnabled property to init and start events
