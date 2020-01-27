@@ -671,14 +671,9 @@
 }
 
 - (NSString *) getStreamingProtocol {
-    NSArray * acceptedProtocols = @[@"HDS", @"HLS", @"MSS", @"DASH", @"RTMP", @"RTP", @"RTSP"];
-    
     if (self.options.contentStreamingProtocol != nil) {
-        if ([acceptedProtocols containsObject:[self.options.contentStreamingProtocol uppercaseString]]) {
-            return [self.options.contentStreamingProtocol uppercaseString];
-        }
+         return [self.options.contentStreamingProtocol uppercaseString];
     }
-    
     return nil;
 }
 
@@ -1514,9 +1509,9 @@
     @try {
         if (self.adsAdapter != nil) {
             if (self.options.adExpectedPattern != nil && [self getAdPosition]) {
-                NSArray * list = [NSArray arrayWithArray:[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_PRE]];
-                [list arrayByAddingObjectsFromArray:[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_MID]];
-                [list arrayByAddingObjectsFromArray:[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_POST]];
+                NSMutableArray * list = [NSMutableArray arrayWithArray:[self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_PRE]];
+                [list addObjectsFromArray: [self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_MID]];
+                [list addObjectsFromArray: [self.options.adExpectedPattern objectForKey:YBOPTIONS_AD_POSITION_POST]];
                 if ([list count] > 0) {
                     int position = [[self.adsAdapter getAdBreakNumber] intValue] - 1;
                     if (position > [list count] - 1) {

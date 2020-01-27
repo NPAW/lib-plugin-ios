@@ -52,7 +52,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType", @"appName", @"appReleaseVersion",
                                       @"email", @"package", @"saga", @"tvshow", @"season", @"titleEpisode", @"channel", @"contentId", @"imdbID", @"gracenoteID", @"contentType",
                                       @"genre", @"contentLanguage", @"subtitles", @"contractedResolution", @"cost", @"price", @"playbackType", @"drm",
-                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat", @"adsExpected", @"deviceUUID"];
+                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat", @"adsExpected", @"deviceUUID",@"p2pEnabled"];
             
             NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
@@ -534,6 +534,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getSessionMetrics];
     } else if ([param isEqualToString:@"metrics"]) {
         value = [self.plugin getVideoMetrics];
+    } else if ([param isEqualToString:@"p2pEnabled"]) {
+        value = [[self.plugin getIsP2PEnabled] isEqualToValue:@YES] ? @"true" : @"false";
     }
     
     return value;

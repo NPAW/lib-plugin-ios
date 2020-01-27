@@ -29,6 +29,7 @@
 #import "YBFlowTransform.h"
 #import "YBPlayheadMonitor.h"
 
+
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBPluginTest : XCTestCase
@@ -614,20 +615,12 @@
     XCTAssertEqualObjects(@(3), [self.p getPacketSent]);
 }
 
-- (void) testGetStreamingProtocolValid {
+- (void) testGetStreamingProtocol {
     XCTAssertNil([self.p getStreamingProtocol]);
     
-    stubProperty(self.mockOptions, contentStreamingProtocol, @"hls");
+    stubProperty(self.mockOptions, contentStreamingProtocol, STREAM_PROTOCOL_HLS);
     
-    XCTAssertEqualObjects(@"HLS", [self.p getStreamingProtocol]);
-}
-
-- (void) testGetStreamingProtocolInvalid {
-    XCTAssertNil([self.p getStreamingProtocol]);
-    
-    stubProperty(self.mockOptions, contentStreamingProtocol, @"Not valid protocol");
-    
-    XCTAssertEqualObjects(nil, [self.p getStreamingProtocol]);
+    XCTAssertEqualObjects(STREAM_PROTOCOL_HLS, [self.p getStreamingProtocol]);
 }
 
 - (void) testDeprecatedExtraParams {
@@ -790,6 +783,47 @@
     [self.p removeAdapter];
     XCTAssertEqualObjects(@"unknown", [self.p getAdPosition]);
     
+}
+
+-(void)testGetExpectedAds {
+    stubProperty(self.mockOptions, adExpectedPattern, (@{
+        YBOPTIONS_AD_POSITION_PRE : @[@1],
+        YBOPTIONS_AD_POSITION_MID : @[@3,@5],
+        YBOPTIONS_AD_POSITION_POST : @[@2]
+    }));
+    
+    self.p.adsAdapter = self.mockAdAdapter;
+    [given([self.mockAdAdapter getAdBreakNumber]) willReturnUnsignedLong:1];
+    
+    XCTAssertEqualObjects(@"1", [self.p getExpectedAds]);
+    
+    [given([self.mockAdAdapter getAdBreakNumber]) willReturnUnsignedLong:3];
+    
+    XCTAssertEqualObjects(@"5", [self.p getExpectedAds]);
+    
+    [given([self.mockAdAdapter getAdBreakNumber]) willReturnUnsignedLong:4];
+    
+    XCTAssertEqualObjects(@"2", [self.p getExpectedAds]);
+    
+    [given([self.mockAdAdapter getAdBreakNumber]) willReturnUnsignedLong:9];
+    XCTAssertEqualObjects(@"2", [self.p getExpectedAds]);
+}
+
+-(void)testInvalidGetExpectedAds {
+    self.p.adsAdapter = self.mockAdAdapter;
+    
+    stubProperty(self.mockOptions, adExpectedPattern, (@{
+                                                         @"INVALID" : @[@1],
+                                                         }));
+    
+    self.p.adsAdapter = self.mockAdAdapter;
+    [given([self.mockAdAdapter getAdBreakNumber]) willReturnUnsignedLong:1];
+    
+    XCTAssertNil([self.p getExpectedAds]);
+    
+    stubProperty(self.mockOptions, adExpectedPattern, nil);
+    
+    XCTAssertNil([self.p getExpectedAds]);
 }
 
 - (void)testAdPlayhead {

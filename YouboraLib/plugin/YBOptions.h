@@ -362,7 +362,16 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST;
 @property(nonatomic, strong) NSNumber * contentBitrate; // long
 
 /**
- * Streaming protocol of the content, accepted types are HDS, HLS, MSS, DASH, RTMP, RTP, RTSP
+ * Streaming protocol of the content, you can use any of these constants:
+ STREAM_PROTOCOL_HDS
+ STREAM_PROTOCOL_HLS
+ STREAM_PROTOCOL_MSS
+ STREAM_PROTOCOL_DASH
+ STREAM_PROTOCOL_RTMP
+ STREAM_PROTOCOL_RTP
+ STREAM_PROTOCOL_RTSP
+ STREAM_PROTOCOL_HLS_TS
+ STREAM_PROTOCOL_HLS_FMP4
  */
 @property(nonatomic, strong) NSString * contentStreamingProtocol;
 
