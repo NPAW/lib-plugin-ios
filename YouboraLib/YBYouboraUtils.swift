@@ -27,7 +27,7 @@ import Foundation
     * @param bitrate The indicated bitrate (in the manifest) of the asset.
     * @return A string with the following format: [width]x[height]@[bitrate][suffix]
     */
-    static public func buildRenditionString(width: Int, height: Int, andBitrate bitrate: Double) -> String {
+    static public func buildRenditionString(withWidth width: Int, height: Int, andBitrate bitrate: Double) -> String {
         var outStr = ""
 
         if width > 0 && height > 0 {
