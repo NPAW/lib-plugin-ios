@@ -6,8 +6,6 @@
 //  Copyright © 2020 NPAW. All rights reserved.
 //
 
-import Foundation
-
 #if os(OSX)
 import Cocoa
 #else
@@ -16,7 +14,7 @@ import UIKit
 
 @objcMembers open class YBDeviceInfo: NSObject {
     public var deviceModel: String?
-    public var deviceBrand: String?
+    public var deviceBrand = "Apple"
     public var deviceType: String?
     public var deviceName: String?
     public var deviceCode: String?
@@ -66,7 +64,7 @@ import UIKit
         deviceDict["osVersion"] = self.deviceOsVersion != nil ? self.deviceOsVersion! : UIDevice.current.systemVersion
         #endif
 
-        deviceDict["brand"] = self.deviceBrand != nil ? self.deviceBrand! : "Apple"
+        deviceDict["brand"] = self.deviceBrand
         deviceDict["deviceType"] = self.deviceType
         deviceDict["deviceCode"] = self.deviceCode
         deviceDict["osName"] = self.deviceOsName
