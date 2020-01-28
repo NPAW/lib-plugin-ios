@@ -47,12 +47,8 @@ typealias SwiftTimerCallback = (_ timer: YBSwiftTimer, _ diffTime: Int64) -> Voi
     * @param callback the block to execute every <interval> milliseconds
     * @returns an instance of YBTimer
     */
-    init(callback: @escaping SwiftTimerCallback) {
-
-        self.chrono = YBChrono()
-        self.interval = 5000
-        self.callbacks = [callback]
-        self.isRunning = false
+    convenience init(callback: @escaping SwiftTimerCallback) {
+        self.init(callback: callback, andInterval: 5000)
     }
 
     /**
@@ -61,8 +57,10 @@ typealias SwiftTimerCallback = (_ timer: YBSwiftTimer, _ diffTime: Int64) -> Voi
     * @param intervalMillis interval of the timer
     * @returns an instance of YBTimer
     */
-    convenience init(callback: @escaping SwiftTimerCallback, andInterval intervalMillis: Double) {
-        self.init(callback: callback)
+    init(callback: @escaping SwiftTimerCallback, andInterval intervalMillis: Double) {
+        self.chrono = YBChrono()
+        self.callbacks = [callback]
+        self.isRunning = false
         self.interval = intervalMillis
     }
 
