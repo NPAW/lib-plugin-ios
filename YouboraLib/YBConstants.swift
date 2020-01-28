@@ -1,5 +1,5 @@
 //
-//  YBConstantsTmp.swift
+//  YBYBConstantsTmp.swift
 //  YouboraLib
 //
 //  Created by nice on 17/01/2020.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-// Constants made with class instead of structs in order to support Objc as well
+// YBConstants made with class instead of structs in order to support Objc as well
 
-// Constants with stream protocols
-@objcMembers open class ConstantsStreamProtocol: NSObject {
+// YBConstants with stream protocols
+@objcMembers open class YBConstantsStreamProtocol: NSObject {
     static public let hds = "HDS"
     static public let hls = "HLS"
     static public let mss = "MSS"
@@ -23,8 +23,8 @@ import Foundation
     static public let hlsFmp4 = "HLS-FMP4"
 }
 
-// Service constants
-@objcMembers open class ConstantsYouboraService: NSObject {
+// Service YBConstants
+@objcMembers open class YBConstantsYouboraService: NSObject {
     /** /data service */
     static public let data = "/data"
     /** /init service */
@@ -77,8 +77,8 @@ import Foundation
     static public let adQuartile = "/adQuartile"
 }
 
-// Infinity service constants
-@objcMembers open class ConstantsYouboraInfinity: NSObject {
+// Infinity service YBConstants
+@objcMembers open class YBConstantsYouboraInfinity: NSObject {
     /** /infinity/session/start service **/
     static public let sessionStart = "/infinity/session/start"
     /** /infinity/session/stop service **/
@@ -93,10 +93,11 @@ import Foundation
     static public let videoEvent = "/infinity/video/event"
 }
 
-// Generic constants
-@objcMembers open class Constants: NSObject {
+// Generic YBConstants
+@objcMembers open class YBConstants: NSObject {
     /** Key for request success param */
     static public let successListenerOfflineId = "offline_id"
+    static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     // Lib version
     static public var youboraLibVersion: String {
         guard let path = Bundle(for: self).url(forResource: "Info", withExtension: "plist"),

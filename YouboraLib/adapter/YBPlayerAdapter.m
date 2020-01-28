@@ -36,7 +36,7 @@
         self.chronos = [YBPlaybackChronos new];
         
         if ([YBLog isAtLeastLevel:YBLogLevelNotice]) {
-            [YBLog notice:@"Adapter %@ with lib %@ is ready.", [self getVersion], Constants.youboraLibVersion];
+            [YBLog notice:@"Adapter %@ with lib %@ is ready.", [self getVersion], YBConstants.youboraLibVersion];
         }
     }
     return self;
@@ -165,7 +165,7 @@
 }
 
 - (NSString *)getVersion {
-    return [Constants.youboraLibVersion stringByAppendingString:@"-generic-ios"];
+    return [YBConstants.youboraLibVersion stringByAppendingString:@"-generic-ios"];
 }
 
 - (NSString *) getHouseholdId {

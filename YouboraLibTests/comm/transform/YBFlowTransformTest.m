@@ -37,13 +37,13 @@
     stubProperty(blockingRequest, service, @"/service");
     
     YBRequest * initRequest = mock([YBRequest class]);
-    stubProperty(initRequest, service, ConstantsYouboraService.init);
+    stubProperty(initRequest, service, YBConstantsYouboraService.init);
     
     YBRequest * startRequest = mock([YBRequest class]);
-    stubProperty(startRequest, service, ConstantsYouboraService.start );
+    stubProperty(startRequest, service, YBConstantsYouboraService.start );
     
     YBRequest * errorRequest = mock([YBRequest class]);
-    stubProperty(errorRequest, service, ConstantsYouboraService.error);
+    stubProperty(errorRequest, service, YBConstantsYouboraService.error);
     
     // Init and start should unlock the transform, but error only bypass it
     
@@ -66,7 +66,7 @@
     
     YBRequest * startRequest = mock([YBRequest class]);
     
-    stubProperty(startRequest, service, ConstantsYouboraService.start);
+    stubProperty(startRequest, service, YBConstantsYouboraService.start);
     
     [self.ft parse:startRequest];
     XCTAssertTrue([self.ft isBlocking:nil]);

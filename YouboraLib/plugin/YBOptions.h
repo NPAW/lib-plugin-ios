@@ -156,7 +156,7 @@ extern NSString * const YBOPTIONS_KEY_PENDING_METADATA;
 
 extern NSString * const YBOPTIONS_KEY_SESSION_METRICS;
 
-//Ad position constants
+//Ad position YBConstants
 extern NSString * const YBOPTIONS_AD_POSITION_PRE;
 extern NSString * const YBOPTIONS_AD_POSITION_MID;
 extern NSString * const YBOPTIONS_AD_POSITION_POST;
@@ -362,7 +362,7 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST;
 @property(nonatomic, strong) NSNumber * contentBitrate; // long
 
 /**
- * Streaming protocol of the content, you can use any of these constants:
+ * Streaming protocol of the content, you can use any of these YBConstants:
  STREAM_PROTOCOL_HDS
  STREAM_PROTOCOL_HLS
  STREAM_PROTOCOL_MSS
@@ -570,7 +570,7 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST;
 
 /**
  * Variable containing how many ads will be shown for each break
- * Keys must be any of the following constants: YBOPTIONS_AD_POSITION_PRE, YBOPTIONS_AD_POSITION_MID or YBOPTIONS_AD_POSITION_POST
+ * Keys must be any of the following YBConstants: YBOPTIONS_AD_POSITION_PRE, YBOPTIONS_AD_POSITION_MID or YBOPTIONS_AD_POSITION_POST
  * Value must be an NSArray containing the number of ads per break (each break is an Array position)
  */
 @property(nonatomic, strong) NSDictionary<NSString *, NSArray<NSNumber *> *> * adExpectedPattern;

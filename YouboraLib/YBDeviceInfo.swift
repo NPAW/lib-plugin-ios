@@ -30,7 +30,7 @@ import UIKit
      * @returns comercial apple device name
      */
     public func deviceName(code: String) -> String {
-        guard let deviceName = Constants.deviceModels[code] else {
+        guard let deviceName = YBConstants.deviceModels[code] else {
             if code.contains("iPod") { return "iPod Touch" }
             if code.contains("iPad") { return "iPad" }
             if code.contains("iPhone") { return "iPhone" }

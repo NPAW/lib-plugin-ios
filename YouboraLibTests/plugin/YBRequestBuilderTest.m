@@ -110,7 +110,7 @@ static NSArray * ALL_PARAMS;
 }
 
 - (void)testBuildParams {
-    NSDictionary * params = [self.builder buildParams:nil forService: ConstantsYouboraService.join];
+    NSDictionary * params = [self.builder buildParams:nil forService: YBConstantsYouboraService.join];
     
     XCTAssertEqualObjects(@"12", params[@"joinDuration"]);
 }

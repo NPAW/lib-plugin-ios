@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Method constants
+// Method YBConstants
 /** HTTP GET method */
 FOUNDATION_EXPORT NSString * const YouboraHTTPMethodGet;
 /** HTTP POST method */

@@ -41,7 +41,7 @@
 
     YBRequestBuilder * mockBuilder = mock([YBRequestBuilder class]);
     
-    [given([mockBuilder buildParams:anything() forService: ConstantsYouboraService.data]) willReturn:[NSMutableDictionary dictionary]];
+    [given([mockBuilder buildParams:anything() forService: YBConstantsYouboraService.data]) willReturn:[NSMutableDictionary dictionary]];
     
     stubProperty(self.mockPlugin, requestBuilder, mockBuilder);
     
@@ -142,7 +142,7 @@
     YBRequest * mockStart = mock([YBRequest class]);
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
     stubProperty(mockStart, params, dict);
-    stubProperty(mockStart, service, ConstantsYouboraService.start);
+    stubProperty(mockStart, service, YBConstantsYouboraService.start);
     
     // Parse requests
     [self.viewTransform parse:mockStart];
@@ -158,7 +158,7 @@
     YBRequest * mockPing = mock([YBRequest class]);
     dict = [NSMutableDictionary dictionary];
     stubProperty(mockPing, params, dict);
-    stubProperty(mockPing, service, ConstantsYouboraService.ping);
+    stubProperty(mockPing, service, YBConstantsYouboraService.ping);
     
     [self.viewTransform parse:mockPing];
     

@@ -20,7 +20,7 @@ static NSArray<NSString *> * EXPECTED_SERVICES;
     if (self) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            EXPECTED_SERVICES = @[ ConstantsYouboraService.init, ConstantsYouboraService.start, ConstantsYouboraService.offline, ConstantsYouboraInfinity.sessionStart];
+            EXPECTED_SERVICES = @[ YBConstantsYouboraService.init, YBConstantsYouboraService.start, YBConstantsYouboraService.offline, YBConstantsYouboraInfinity.sessionStart];
         });
     }
     return self;
@@ -35,7 +35,7 @@ static NSArray<NSString *> * EXPECTED_SERVICES;
     if (self.isBusy && request != nil) {
         if ([EXPECTED_SERVICES containsObject:request.service]) {
             self.isBusy = false;
-        } else if ([ConstantsYouboraService.error isEqualToString:request.service]) {
+        } else if ([YBConstantsYouboraService.error isEqualToString:request.service]) {
             // If it's an error we make an exception and bypass the block
             return false;
         }

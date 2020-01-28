@@ -95,7 +95,7 @@
     XCTAssertNil([adapter getMetrics]);
     XCTAssertEqual(YBAdPositionUnknown, [adapter getPosition]);
 
-    XCTAssertEqualObjects([Constants.youboraLibVersion stringByAppendingString:@"-generic-ios"], [adapter getVersion]);
+    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-generic-ios"], [adapter getVersion]);
 }
 
 - (void)testFireMethodsFlags {

@@ -50,7 +50,7 @@
 
 - (void)testParamCloneStart {
     YBRequest * mockRequest = mock([YBRequest class]);
-    stubProperty(mockRequest, service, ConstantsYouboraService.start);
+    stubProperty(mockRequest, service, YBConstantsYouboraService.start);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     params[@"mediaDuration"] = @"1";
@@ -63,7 +63,7 @@
 
 - (void)testParamCloneJoin {
     YBRequest * mockRequest = mock([YBRequest class]);
-    stubProperty(mockRequest, service, ConstantsYouboraService.join);
+    stubProperty(mockRequest, service, YBConstantsYouboraService.join);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     params[@"joinDuration"] = @"1";
@@ -79,7 +79,7 @@
 
 - (void)testParamCloneSeek {
     YBRequest * mockRequest = mock([YBRequest class]);
-    stubProperty(mockRequest, service, ConstantsYouboraService.seek);
+    stubProperty(mockRequest, service, YBConstantsYouboraService.seek);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     params[@"seekDuration"] = @"1";
@@ -93,7 +93,7 @@
 
 - (void)testParamCloneBuffer {
     YBRequest * mockRequest = mock([YBRequest class]);
-    stubProperty(mockRequest, service, ConstantsYouboraService.buffer);
+    stubProperty(mockRequest, service, YBConstantsYouboraService.buffer);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     params[@"bufferDuration"] = @"1";
@@ -107,7 +107,7 @@
 
 - (void)testParamClonePing {
     YBRequest * mockRequest = mock([YBRequest class]);
-    stubProperty(mockRequest, service, ConstantsYouboraService.ping);
+    stubProperty(mockRequest, service, YBConstantsYouboraService.ping);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     params[@"entities"] = @"{\"entity1\":\"value1\",\"entity2\":\"value2\"}";

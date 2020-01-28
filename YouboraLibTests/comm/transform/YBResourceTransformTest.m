@@ -115,7 +115,7 @@
     
     // Check parse start request
     YBRequest * mockRequest = mock([YBRequest class]);
-    stubProperty(mockRequest, service, ConstantsYouboraService.start);
+    stubProperty(mockRequest, service, YBConstantsYouboraService.start);
     
     // Mocks
     NSDictionary * lastSent = [NSMutableDictionary dictionary];

@@ -1674,11 +1674,6 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param listener to remove
  */
 - (void) removeWillSendVideoEventListener:(YBWillSendRequestBlock) listener;
-
-/**
-* Method that will generate a js string to be injected into webview
-* @param listener to remove
-*/
 @end
 
 NS_ASSUME_NONNULL_END;

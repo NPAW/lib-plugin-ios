@@ -41,11 +41,11 @@ static NSRegularExpression * regexPattern;
             return;
         }
         
-        if ([service isEqualToString: ConstantsYouboraService.join]) {
+        if ([service isEqualToString: YBConstantsYouboraService.join]) {
             [YBNqs6Transform cloneParam:@"playhead" intoParam:@"time" forRequest:request];
         }
         
-        if ([service isEqualToString: ConstantsYouboraService.ping]) {
+        if ([service isEqualToString: YBConstantsYouboraService.ping]) {
             /*
              * NQS6 only allows one entity change per ping. In order to be as most backwards
              * compatible as possible, at least we send one.
@@ -73,16 +73,16 @@ static NSRegularExpression * regexPattern;
                     request.params[@"entityValue"] = entityValue;
                 }
             }
-        } else if ([service isEqualToString: ConstantsYouboraService.buffer]) {
+        } else if ([service isEqualToString: YBConstantsYouboraService.buffer]) {
             [YBNqs6Transform cloneParam:@"bufferDuration" intoParam:@"duration" forRequest:request];
             
-        } else if ([service isEqualToString: ConstantsYouboraService.seek]) {
+        } else if ([service isEqualToString: YBConstantsYouboraService.seek]) {
             [YBNqs6Transform cloneParam:@"seekDuration" intoParam:@"duration" forRequest:request];
             
-        } else if ([service isEqualToString: ConstantsYouboraService.start]) {
+        } else if ([service isEqualToString: YBConstantsYouboraService.start]) {
             [YBNqs6Transform cloneParam:@"mediaDuration" intoParam:@"duration" forRequest:request];
             
-        } else if ([service isEqualToString: ConstantsYouboraService.join]) {
+        } else if ([service isEqualToString: YBConstantsYouboraService.join]) {
             [YBNqs6Transform cloneParam:@"joinDuration" intoParam:@"time" forRequest:request];
             [YBNqs6Transform cloneParam:@"playhead" intoParam:@"eventTime" forRequest:request];
         }

@@ -51,19 +51,19 @@
     self.dataSource = [[YBEventDataSource alloc] init];
     
     //Skip if init
-    if([service isEqualToString: [ConstantsYouboraService.init substringFromIndex:1]]){
+    if([service isEqualToString: [YBConstantsYouboraService.init substringFromIndex:1]]){
         return;
     }
     
     params[@"request"] = service;
     params[@"unixtime"] = [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils unixTimeNow]];
     
-    if (self.startSaved || [service isEqualToString:[ConstantsYouboraService.start substringFromIndex:1]]) {
+    if (self.startSaved || [service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]) {
         [self.dataSource lastIdWithCompletion:^(NSNumber* offlineId){
             __block int offlineIdInt = [offlineId intValue];
             [self.dataSource allEventsWithCompletion:^(NSArray * events) {
                 int eventsCount = (int)[events count];
-                if(eventsCount != 0 && [service isEqualToString:[ConstantsYouboraService.start substringFromIndex:1]]){
+                if(eventsCount != 0 && [service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]){
                     offlineIdInt++;
                 }
                 params[@"code"] = @"[VIEW_CODE]";
@@ -75,12 +75,12 @@
                     YBEvent* event = [[YBEvent alloc] init];
                     event.jsonEvents = jsonEvents;
                     event.offlineId = [NSNumber numberWithInt:offlineIdInt];
-                    if ([service isEqualToString:[ConstantsYouboraService.start substringFromIndex:1]]) {
+                    if ([service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]) {
                         [self.dataSource putNewEvent:event completion:^(void) {
                             self.startSaved = true;
                             [self processQueue];
                         }];
-                    } else if ([service isEqualToString:[ConstantsYouboraService.stop substringFromIndex:1]]) {
+                    } else if ([service isEqualToString:[YBConstantsYouboraService.stop substringFromIndex:1]]) {
                         [self.dataSource putNewEvent:event completion:^(void) {
                             self.startSaved = false;
                         }];
