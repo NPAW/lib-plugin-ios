@@ -33,6 +33,7 @@ FOUNDATION_EXPORT const unsigned char YouboraLibVersionString[];
 #import <YouboraLib/YBLog.h>
 #import <YouboraLib/YBHlsParser.h>
 #import <YouboraLib/YBPlayerAdapter.h>
+#import <YouboraLib/YBTimer.h>
 #import <YouboraLib/YBCdnParser.h>
 #import <YouboraLib/YBFastDataConfig.h>
 #import <YouboraLib/YBRequest.h>
