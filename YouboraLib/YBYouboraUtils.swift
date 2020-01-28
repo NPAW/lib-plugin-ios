@@ -56,24 +56,17 @@ import Foundation
     * @param params Map of pre filled params or null. If this is not empty nor null, nothing will be done.
     * @return Built params
     */
-    static public func buildErrorParams(_ params: [String: Any]?) -> [String: Any] {
+    static public func buildErrorParams(_ params: [String: String]?) -> [String: String] {
         let key = "errorLevel"
         let value = ""
 
-        guard let params = params else {
+        guard var noNilParams = params else {
             return [key: value]
         }
 
-        var noNilParams: [String: Any] = [:]
-
-        //TODO: try to find a better way to check this code
-        for (key, paramValue) in params {
-            switch paramValue {
-            case Optional<Any>.none:
-                noNilParams[key] = value
-            default:
-                noNilParams[key] = paramValue
-            }
+        //Put the value if not present
+        if noNilParams[key]  == nil {
+            noNilParams[key] = value
         }
 
         return noNilParams
