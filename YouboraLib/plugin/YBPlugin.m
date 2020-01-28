@@ -58,7 +58,6 @@
 // Infinity initial variables
 @property(nonatomic, strong) NSString * startScreenName;
 @property(nonatomic, strong) NSDictionary<NSString *, NSString *> * startDimensions;
-@property(nonatomic, strong) NSString * startParentId;
 
 // Will send listeners
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendInitListeners;
@@ -99,6 +98,9 @@
 
 //Ad Manifest
 @property(nonatomic, strong) NSDictionary * adManifestParams;
+
+//Infinity
+@property(nonatomic, strong) YBInfinity * infinity;
 
 @end
 
@@ -254,13 +256,14 @@
 }
 
 - (YBInfinity *) getInfinity {
-    YBInfinity *infinity = [YBInfinity sharedManager];
-    if (infinity.plugin == nil) {
-        infinity.plugin = self;
-        [infinity addYouboraInfinityDelegate:self];
-        infinity.viewTransform = self.viewTransform;
+    
+    if (!self.infinity) {
+        self.infinity = [[YBInfinity alloc] init];
+        [self.infinity addYouboraInfinityDelegate:self];
+        self.infinity.viewTransform = self.viewTransform;
     }
-    return [YBInfinity sharedManager];
+    
+    return self.infinity;
 }
 
 - (void) disable {
@@ -2350,7 +2353,13 @@
 }
 
 - (BOOL) isSessionExpired {
-    return [[self getInfinity] getLastSent] != nil && [[[self getInfinity] getLastSent] longLongValue] + [self.viewTransform.fastDataConfig.expirationTime longLongValue] * 1000 < [[[YBChrono alloc] init] now];
+    bool val = false;
+    
+    if (self.viewTransform.fastDataConfig.expirationTime && self.infinity && [self.infinity getLastSent]) {
+        val = ([self.infinity getLastSent].longLongValue + self.viewTransform.fastDataConfig.expirationTime.longLongValue * 1000) < [[[YBChrono alloc] init] now];
+    }
+    
+    return val;
 }
 
 - (YBCommunication *) createCommunication {
@@ -2553,7 +2562,7 @@
             [self initViewTransform];
             [self.comm addTransform:self.viewTransform];
             [self getInfinity].viewTransform = self.viewTransform;
-            [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions andParentId:self.startParentId];
+            [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions];
         }
     }
 }
@@ -3055,8 +3064,6 @@
 - (void) sendBeat:(double) diffTime {
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     params[@"diffTime"] = @(diffTime).stringValue;
-    if ([self getInfinity].activeSessions.count == 0)
-        [[self getInfinity] addActiveSession:self.viewTransform.fastDataConfig.code];
     NSMutableArray<NSString *> * paramList = [NSMutableArray array];
     [paramList addObject:@"sessions"];
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
@@ -3282,12 +3289,11 @@
     }
 }
 
-- (void) youboraInfinityEventSessionStartWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions andParentId:(NSString *) parentId {
+- (void) youboraInfinityEventSessionStartWithScreenName: (NSString *) screenName andDimensions:(NSDictionary<NSString *, NSString *> *) dimensions {
     [self.viewTransform nextView];
     
     self.startScreenName = screenName;
     self.startDimensions = dimensions;
-    self.startParentId = parentId;
     
     NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
     
@@ -3305,6 +3311,7 @@
 
 - (void) youboraInfinityEventSessionStop: (NSDictionary<NSString *, NSString *> *) params {
     [self sendSessionStop:params];
+    self.infinity = nil;
 }
 
 - (void) youboraInfinityEventNavWithScreenName: (NSString *) screenName {

@@ -425,7 +425,7 @@ static NSArray<NSString *> * youboraPingEntities;
             value = [obfuscate isEqual:@YES] ? @"true" : @"false";
         }
     } else if ([param isEqualToString:@"navContext"]) {
-        value = ((YBInfinity *)[YBInfinity sharedManager]).navContext;
+        value = [self.plugin getInfinity].navContext;
     } else if ([param isEqualToString:@"sessions"]) {
         value = [YBYouboraUtils stringifyList:[self.plugin getActiveSessions]];
     } else if ([param isEqualToString:@"anonymousUser"]){

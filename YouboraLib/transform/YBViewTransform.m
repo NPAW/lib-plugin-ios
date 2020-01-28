@@ -10,11 +10,13 @@
 
 #import "YBPlugin.h"
 #import "YBFastDataConfig.h"
+#import "YBConstants.h"
 #import "YBLog.h"
 #import "YBRequest.h"
 #import "YBRequestBuilder.h"
 #import "YBOptions.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBYouboraUtils.h"
+#import "YBInfinityFlags.h"
 
 @interface YBViewTransform()
 
@@ -94,7 +96,13 @@
     }
     
     if (params[@"sessionRoot"] == nil) {
-        params[@"sessionRoot"] = self.fastDataConfig.code;
+        
+        NSString * code = self.viewCode;
+        if (([self.plugin getInfinity] != nil && [self.plugin getInfinity].flags.started) || service == YouboraServiceSessionStop) {
+            code = self.fastDataConfig.code;
+        }
+        
+        params[@"sessionRoot"] = code;
     }
     
     if (isInfinityRequest) {
