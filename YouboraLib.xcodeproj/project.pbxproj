@@ -19,7 +19,7 @@
 		0627CD0623D86DE000E5D937 /* YBSwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */; };
 		0627CD0723D86DE000E5D937 /* YBSwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */; };
 		0627CD0A23D88F0900E5D937 /* YBTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0627CD0823D88F0900E5D937 /* YBTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0627CD0B23D88F0900E5D937 /* YBTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0627CD0823D88F0900E5D937 /* YBTimer.h */; };
+		0627CD0B23D88F0900E5D937 /* YBTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0627CD0823D88F0900E5D937 /* YBTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0627CD0C23D88F0900E5D937 /* YBTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0627CD0823D88F0900E5D937 /* YBTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0627CD0D23D88F0900E5D937 /* YBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0923D88F0900E5D937 /* YBTimer.m */; };
 		0627CD0E23D88F0900E5D937 /* YBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0923D88F0900E5D937 /* YBTimer.m */; };

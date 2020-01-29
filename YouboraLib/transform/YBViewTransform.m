@@ -137,7 +137,7 @@
     }
     
     if ((service == YBConstantsYouboraService.start
-         || service == YBConstantsYouboraService.init
+         || service == YBConstantsYouboraService.sInit
          || service == YBConstantsYouboraInfinity.sessionStart)
         && self.fastDataConfig.youboraId != nil) {
         params[@"youboraId"] = self.fastDataConfig.youboraId;

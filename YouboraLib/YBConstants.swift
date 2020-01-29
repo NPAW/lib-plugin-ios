@@ -28,7 +28,7 @@ import Foundation
     /** /data service */
     static public let data = "/data"
     /** /init service */
-    static public let `init` = "/init"
+    static public let sInit = "/init"
     /** /start service */
     static public let start = "/start"
     /** /joinTime service */

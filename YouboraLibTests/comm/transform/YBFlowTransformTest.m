@@ -37,7 +37,7 @@
     stubProperty(blockingRequest, service, @"/service");
     
     YBRequest * initRequest = mock([YBRequest class]);
-    stubProperty(initRequest, service, YBConstantsYouboraService.init);
+    stubProperty(initRequest, service, YBConstantsYouboraService.sInit);
     
     YBRequest * startRequest = mock([YBRequest class]);
     stubProperty(startRequest, service, YBConstantsYouboraService.start );

@@ -51,7 +51,7 @@
     self.dataSource = [[YBEventDataSource alloc] init];
     
     //Skip if init
-    if([service isEqualToString: [YBConstantsYouboraService.init substringFromIndex:1]]){
+    if([service isEqualToString: [YBConstantsYouboraService.sInit substringFromIndex:1]]){
         return;
     }
     
