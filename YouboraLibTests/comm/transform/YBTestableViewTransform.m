@@ -9,9 +9,9 @@
 #import "YBTestableViewTransform.h"
 
 #import "YBRequest.h"
-#import "YBYouboraUtils.h"
 
 #import <OCMockito/OCMockito.h>
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @implementation YBTestableViewTransform
 

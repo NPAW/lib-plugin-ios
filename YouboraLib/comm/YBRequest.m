@@ -8,7 +8,6 @@
 
 #import "YBRequest.h"
 #import "YBLog.h"
-#import "YBConstants.h"
 
 // Required for User-Agent building
 #include <sys/sysctl.h>

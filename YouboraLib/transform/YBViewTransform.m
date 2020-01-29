@@ -10,13 +10,12 @@
 
 #import "YBPlugin.h"
 #import "YBFastDataConfig.h"
-#import "YBConstants.h"
 #import "YBLog.h"
 #import "YBRequest.h"
 #import "YBRequestBuilder.h"
 #import "YBOptions.h"
-#import "YBYouboraUtils.h"
 #import "YBInfinityFlags.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBViewTransform()
 
@@ -39,7 +38,7 @@
         self.viewIndex = -1;
         self.viewCode = nil;
         
-        NSString * service = YouboraServiceData;
+        NSString * service =  YBConstantsYouboraService.data;
         self.params = [NSMutableDictionary dictionary];
         self.params[@"apiVersion"] = @"v6,v7";
         self.params[@"outputformat"] = @"jsonp";
@@ -82,14 +81,14 @@
 - (void)parse:(nullable YBRequest *)request {
     NSMutableDictionary<NSString *, NSString *> * params = request.params;
     NSString * service = request.service;
-    BOOL isInfinityRequest = service == YouboraServiceSessionStart || service == YouboraServiceSessionBeat || service == YouboraServiceSessionNav || service == YouboraServiceSessionStop || service == YouboraServiceSessionEvent;
+    BOOL isInfinityRequest = service == YBConstantsYouboraInfinity.sessionStart || service == YBConstantsYouboraInfinity.sessionBeat || service == YBConstantsYouboraInfinity.sessionNav || service == YBConstantsYouboraInfinity.sessionStop || service == YBConstantsYouboraInfinity.sessionEvent;
     
     if (request.host == nil || request.host.length == 0) {
         request.host = self.fastDataConfig.host;
     }
     
     if (!isInfinityRequest && params[@"code"] == nil) {
-        if(request.service == YouboraServiceOffline){
+        if(request.service == YBConstantsYouboraService.offline){
             [self nextView];
         }
         params[@"code"] = self.viewCode;
@@ -98,7 +97,7 @@
     if (params[@"sessionRoot"] == nil) {
         
         NSString * code = self.viewCode;
-        if (([self.plugin getInfinity] != nil && [self.plugin getInfinity].flags.started) || service == YouboraServiceSessionStop) {
+        if (([self.plugin getInfinity] != nil && [self.plugin getInfinity].flags.started) || service == YBConstantsYouboraInfinity.sessionStop) {
             code = self.fastDataConfig.code;
         }
         
@@ -117,8 +116,8 @@
     
     // Request-specific transforms
     
-    if (service == YouboraServicePing ||
-        service == YouboraServiceStart) {
+    if (service == YBConstantsYouboraService.ping ||
+        service == YBConstantsYouboraService.start) {
         
         if (params[@"pingTime"] == nil) {
             params[@"pingTime"] = self.fastDataConfig.pingTime.stringValue;
@@ -128,18 +127,18 @@
             params[@"sessionParent"] = self.fastDataConfig.code;
         }
     }
-    if (service == YouboraServiceOffline) {
+    if (service == YBConstantsYouboraService.offline) {
         request.body = [self addCodeToEvents:request.body];
     }
-    if (service == YouboraServiceSessionStart) {
+    if (service == YBConstantsYouboraInfinity.sessionStart) {
         if (params[@"beatTime"] == nil) {
             params[@"beatTime"] = self.fastDataConfig.beatTime.stringValue;
         }
     }
     
-    if ((service == YouboraServiceStart
-         || service == YouboraServiceInit
-         || service == YouboraServiceSessionStart)
+    if ((service == YBConstantsYouboraService.start
+         || service == YBConstantsYouboraService.init
+         || service == YBConstantsYouboraInfinity.sessionStart)
         && self.fastDataConfig.youboraId != nil) {
         params[@"youboraId"] = self.fastDataConfig.youboraId;
     }
@@ -246,7 +245,6 @@
 
 - (NSString *) getViewCodeTimeStamp {
     return [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils unixTimeNow]];
-    //return [NSString stringWithFormat:@"%lf", [YBYouboraUtils unixTimeNow]];
 }
 
 - (YBRequest *) createRequestWithHost:(NSString *) host andService:(NSString *) service {

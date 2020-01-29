@@ -10,7 +10,7 @@
 
 #import "YBRequestBuilder.h"
 #import "YBPlugin.h"
-#import "YBConstants.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 #import <OCMockito/OCMockito.h>
 
@@ -110,7 +110,7 @@ static NSArray * ALL_PARAMS;
 }
 
 - (void)testBuildParams {
-    NSDictionary * params = [self.builder buildParams:nil forService:YouboraServiceJoin];
+    NSDictionary * params = [self.builder buildParams:nil forService: YBConstantsYouboraService.join];
     
     XCTAssertEqualObjects(@"12", params[@"joinDuration"]);
 }

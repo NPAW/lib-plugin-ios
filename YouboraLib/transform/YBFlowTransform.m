@@ -7,8 +7,8 @@
 //
 
 #import "YBFlowTransform.h"
-#import "YBConstants.h"
 #import "YBRequest.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @implementation YBFlowTransform
 
@@ -20,7 +20,7 @@ static NSArray<NSString *> * EXPECTED_SERVICES;
     if (self) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            EXPECTED_SERVICES = @[YouboraServiceInit, YouboraServiceStart, YouboraServiceOffline, YouboraServiceSessionStart];
+            EXPECTED_SERVICES = @[ YBConstantsYouboraService.init, YBConstantsYouboraService.start, YBConstantsYouboraService.offline, YBConstantsYouboraInfinity.sessionStart];
         });
     }
     return self;
@@ -35,7 +35,7 @@ static NSArray<NSString *> * EXPECTED_SERVICES;
     if (self.isBusy && request != nil) {
         if ([EXPECTED_SERVICES containsObject:request.service]) {
             self.isBusy = false;
-        } else if ([YouboraServiceError isEqualToString:request.service]) {
+        } else if ([YBConstantsYouboraService.error isEqualToString:request.service]) {
             // If it's an error we make an exception and bypass the block
             return false;
         }
