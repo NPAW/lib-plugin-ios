@@ -1,7 +1,8 @@
-## [6.5.15] 
-###Improved
-- Change classes (Timer, Utils, DeviceInfo, Constants and Chrono) to Swift
-
+## [6.5.15] - 2020-01-29
+###New
+- Add classes (YBTimer, YBUtils, YBDeviceInfo, YBConstants and YBChrono) to swift
+###Removed
+- Add classes (YBTimer, YBUtils, YBDeviceInfo, YBConstants and YBChrono) to Obj-c
 ## [6.5.14] - 2020-01-27
 ###Fixed
 - Infinity sends propper codes for all cases now
