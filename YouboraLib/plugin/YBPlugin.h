@@ -1674,7 +1674,6 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param listener to remove
  */
 - (void) removeWillSendVideoEventListener:(YBWillSendRequestBlock) listener;
-
 @end
 
 NS_ASSUME_NONNULL_END;

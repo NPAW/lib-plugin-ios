@@ -21,9 +21,7 @@
 #import "YBPlayerAdapter.h"
 #import "YBRequest.h"
 #import "YBCommunication.h"
-#import "YBConstants.h"
 #import "YBTimer.h"
-#import "YBYouboraUtils.h"
 #import "YBPlaybackChronos.h"
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
@@ -459,15 +457,15 @@
 - (void)testPluginVersion {
     [given([self.mockAdapter getVersion]) willReturn:nil];
     
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
+    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
     
-    [given([self.mockAdapter getVersion]) willReturn:[YouboraLibVersion stringByAppendingString:@"-CustomPlugin"]];
+    [given([self.mockAdapter getVersion]) willReturn:[YBConstants.youboraLibVersion stringByAppendingString:@"-CustomPlugin"]];
     
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-CustomPlugin"], [self.p getPluginVersion]);
+    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-CustomPlugin"], [self.p getPluginVersion]);
     
     [self.p removeAdapter];
     
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
+    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
 }
 
 - (void)testCustomDimensions {
@@ -618,9 +616,9 @@
 - (void) testGetStreamingProtocol {
     XCTAssertNil([self.p getStreamingProtocol]);
     
-    stubProperty(self.mockOptions, contentStreamingProtocol, STREAM_PROTOCOL_HLS);
+    stubProperty(self.mockOptions, contentStreamingProtocol, YBConstantsStreamProtocol.hls);
     
-    XCTAssertEqualObjects(STREAM_PROTOCOL_HLS, [self.p getStreamingProtocol]);
+    XCTAssertEqualObjects(YBConstantsStreamProtocol.hls, [self.p getStreamingProtocol]);
 }
 
 - (void) testDeprecatedExtraParams {
@@ -893,9 +891,9 @@
     
     XCTAssertNil([self.p getAdAdapterVersion]);
     
-    [given([self.mockAdAdapter getVersion]) willReturn:[YouboraLibVersion stringByAppendingString:@"-CustomAdapter"]];
+    [given([self.mockAdAdapter getVersion]) willReturn:[YBConstants.youboraLibVersion stringByAppendingString:@"-CustomAdapter"]];
     
-    XCTAssertEqualObjects([YouboraLibVersion stringByAppendingString:@"-CustomAdapter"], [self.p getAdAdapterVersion]);
+    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-CustomAdapter"], [self.p getAdAdapterVersion]);
     
     [self.p removeAdsAdapter];
     
@@ -1233,10 +1231,10 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString:YouboraServiceInit]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.sInit]) {
             initCallbackTimes++;
         }
-        if ([serviceName isEqualToString:YouboraServiceStart]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.start]) {
             startCallbackTimes++;
         }
         XCTAssertEqualObjects(@"value", params[@"key"]);
@@ -1723,7 +1721,7 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [verifyCount(self.p.mockRequest, times(1)) setService:YBConstantsYouboraService.sInit];
 }
 
 - (void)testError {
@@ -1734,7 +1732,7 @@
     [self.p fireErrorWithParams:nil];
     [self.p fireErrorWithMessage:@"" code:@"" andErrorMetadata:@""];
     [self.p fireFatalErrorWithMessage:@"" code:@"" andErrorMetadata:@"" andException:nil];
-    [verifyCount(self.p.mockRequest, times(3)) setService:YouboraServiceError];
+    [verifyCount(self.p.mockRequest, times(3)) setService:YBConstantsYouboraService.error];
 }
 
 - (void)testStop {
@@ -1745,10 +1743,10 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.sInit];
     [self.p fireStop];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceStop];
+    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.stop];
 }
 
 - (void)testStopWithAdapter {
@@ -1758,7 +1756,7 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.sInit];
     YBPlaybackFlags * adapterFlags = [YBPlaybackFlags new];
     adapterFlags.started = true;
     stubProperty(self.mockAdapter, flags, adapterFlags);
@@ -1788,7 +1786,7 @@
     
     [self.p fireInit];
     [self.p fireOfflineEvents];
-    [verifyCount(self.p.mockRequest, times(0)) setService:YouboraServiceOffline];
+    [verifyCount(self.p.mockRequest, times(0)) setService: YBConstantsYouboraService.offline];
 }
 
 - (void)testOfflineEventsAdapterNotNil {
@@ -1808,15 +1806,15 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceInit];
+    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.sInit];
     
     [self.p fireStop];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YouboraServiceStop];
+    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.stop];
     
     [self.p fireStop];
     [verifyCount(self.p.mockRequest, times(0)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(0)) setService:YouboraServiceStop];
+    [verifyCount(self.p.mockRequest, times(0)) setService: YBConstantsYouboraService.stop];
 }
 
 - (void) testStopCalledWithoutInit {
@@ -1857,10 +1855,10 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString:YouboraServiceInit]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.sInit]) {
             initCallbackTimes++;
         }
-        if ([serviceName isEqualToString:YouboraServiceStart]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.start]) {
             startCallbackTimes++;
         }
         XCTAssertEqualObjects(@"value", params[@"key"]);
@@ -1896,10 +1894,10 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString:YouboraServiceInit]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.sInit]) {
             initCallbackTimes++;
         }
-        if ([serviceName isEqualToString:YouboraServiceStart]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.start]) {
             startCallbackTimes++;
         }
         //Doesn't apply since we want to send this start "blank"
@@ -1930,7 +1928,7 @@
     self.p.timerCallback(self.p.mockTimer, 5000);
     
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
-    [verify(self.p.mockRequestBuilder) buildParams:anything() forService:YouboraServicePing];
+    [verify(self.p.mockRequestBuilder) buildParams:anything() forService:YBConstantsYouboraService.ping];
     [verify(self.p.mockRequestBuilder) fetchParams:anything() paramList:(id)captor onlyDifferent:false];
     
     NSArray * params = captor.value;

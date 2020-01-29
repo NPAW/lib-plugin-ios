@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "YBDeviceInfo.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBDeviceInfoTest : XCTestCase
 
@@ -22,7 +22,7 @@
 
 - (void) testDeviceInfoGetter {
     YBDeviceInfo *deviceInfo = [[YBDeviceInfo alloc] init];
-    XCTAssertNil(deviceInfo.deviceBrand);
+    XCTAssertTrue([deviceInfo.deviceBrand isEqualToString:@"Apple"]);
     XCTAssertNil(deviceInfo.deviceModel);
     XCTAssertNil(deviceInfo.deviceType);
     XCTAssertNil(deviceInfo.deviceCode);

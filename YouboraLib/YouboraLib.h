@@ -19,8 +19,6 @@ FOUNDATION_EXPORT const unsigned char YouboraLibVersionString[];
 #import <YouboraLib/YBCommunication.h>
 #import <YouboraLib/YBViewTransform.h>
 #import <YouboraLib/YBPlaybackChronos.h>
-#import <YouboraLib/YBConstants.h>
-#import <YouboraLib/YBYouboraUtils.h>
 #import <YouboraLib/YBPlugin.h>
 #import <YouboraLib/YBOptions.h>
 #import <YouboraLib/YBPlayheadMonitor.h>
@@ -40,7 +38,6 @@ FOUNDATION_EXPORT const unsigned char YouboraLibVersionString[];
 #import <YouboraLib/YBFastDataConfig.h>
 #import <YouboraLib/YBRequest.h>
 #import <YouboraLib/YBRequestBuilder.h>
-#import <YouboraLib/YBDeviceInfo.h>
 #import <YouboraLib/YBAppDatabase.h>
 #import <YouboraLib/YBEvent.h>
 #import <YouboraLib/YBEventDAO.h>

@@ -421,7 +421,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.parseCdnNameHeader = @"x-cdn-forward";
     self.parseCdnNode = false;
     self.parseLocationHeader = false;
-    // TODO: Node list constants
+    // TODO: Node list YBConstants
     self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, YouboraCDNNameAmazon,nil];
     
     self.experimentIds = [[NSMutableArray alloc] init];

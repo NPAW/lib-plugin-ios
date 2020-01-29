@@ -7,12 +7,10 @@
 //
 
 #import "YBPlayerAdapter.h"
-#import "YBConstants.h"
 
 #import "YBPlaybackChronos.h"
 #import "YBPlayheadMonitor.h"
 #import "YBLog.h"
-#import "YBYouboraUtils.h"
 #import "YBPlugin.h"
 #import "YBOptions.h"
 
@@ -38,7 +36,7 @@
         self.chronos = [YBPlaybackChronos new];
         
         if ([YBLog isAtLeastLevel:YBLogLevelNotice]) {
-            [YBLog notice:@"Adapter %@ with lib %@ is ready.", [self getVersion], YouboraLibVersion];
+            [YBLog notice:@"Adapter %@ with lib %@ is ready.", [self getVersion], YBConstants.youboraLibVersion];
         }
     }
     return self;
@@ -167,7 +165,7 @@
 }
 
 - (NSString *)getVersion {
-    return [YouboraLibVersion stringByAppendingString:@"-generic-ios"];
+    return [YBConstants.youboraLibVersion stringByAppendingString:@"-generic-ios"];
 }
 
 - (NSString *) getHouseholdId {

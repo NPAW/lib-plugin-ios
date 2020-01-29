@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "YBYouboraUtils.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBYouboraUtilsTest : XCTestCase
 
@@ -52,7 +52,7 @@
                             @"keyArrayString":@[@"value",@"value2",@"value3"],
                             @"keyMap":@{@"key2String":@"StringValue",
                                         @"key2Number":@45
-                                    }};
+                            }};
     
     NSString * json = [YBYouboraUtils stringifyDictionary:dict];
     
@@ -70,7 +70,7 @@
     XCTAssertEqualObjects(@"{}", [YBYouboraUtils stringifyDictionary:@{}]);
     
     XCTAssertNil([YBYouboraUtils stringifyDictionary:nil]);
-
+    
 }
 
 - (void)testParseNumber {
@@ -85,14 +85,36 @@
 }
 
 - (void) testErrorBuilder {
+    NSDictionary<NSString *, id> *dict;
+    
     NSDictionary<NSString *, NSString *> * expectedDict = @{
+        @"errorLevel" : @""
+    };
+    
+    NSDictionary<NSString *, NSString *> * errorDict = [YBYouboraUtils buildErrorParams:dict];
+    
+    XCTAssertEqualObjects(errorDict[@"errorLevel"], expectedDict[@"errorLevel"]);
+    
+    dict = @{ @"errorLevel" : @"" };
+    expectedDict = @{ @"errorLevel" : @""};
+    
+    errorDict = [YBYouboraUtils buildErrorParams:dict];
+    XCTAssertEqualObjects(errorDict[@"errorLevel"], expectedDict[@"errorLevel"]);
+    
+    dict = @{ @"errorLevel" : @"something" };
+    expectedDict = @{ @"errorLevel" : @"something"};
+    
+    errorDict = [YBYouboraUtils buildErrorParams:dict];
+    XCTAssertEqualObjects(errorDict[@"errorLevel"], expectedDict[@"errorLevel"]);
+    
+    expectedDict = @{
         @"errorCode" : @"code",
         @"errorMsg" : @"msg",
         @"errorMetadata" : @"metadata",
         @"errorLevel" : @"level"
     };
     
-    NSDictionary<NSString *, NSString *> * errorDict = [YBYouboraUtils buildErrorParamsWithMessage:@"msg" code:@"code" metadata:@"metadata" andLevel:@"level"];
+    errorDict = [YBYouboraUtils buildErrorParamsWithMessage:@"msg" code:@"code" metadata:@"metadata" andLevel:@"level"];
     
     XCTAssertEqualObjects(expectedDict[@"errorCode"], errorDict[@"errorCode"]);
     XCTAssertEqualObjects(expectedDict[@"errorMsg"], errorDict[@"errorMsg"]);
@@ -148,6 +170,13 @@
     NSString *expectedString = @"[\"value1\",\"value2\"]";
     
     XCTAssertEqualObjects(expectedString, returnString);
+}
+
+- (void) testGetAppName {
+    
+    NSString *appName = [YBYouboraUtils getAppName];
+    
+    XCTAssertEqualObjects(appName, @"xctest");
 }
 
 @end

@@ -9,10 +9,10 @@
 #import <XCTest/XCTest.h>
 #import "YBFlowTransform.h"
 
-#import "YBConstants.h"
 #import "YBRequest.h"
 
 #import <OCMockito/OCMockito.h>
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBFlowTransformTest : XCTestCase
 
@@ -37,13 +37,13 @@
     stubProperty(blockingRequest, service, @"/service");
     
     YBRequest * initRequest = mock([YBRequest class]);
-    stubProperty(initRequest, service, YouboraServiceInit);
+    stubProperty(initRequest, service, YBConstantsYouboraService.sInit);
     
     YBRequest * startRequest = mock([YBRequest class]);
-    stubProperty(startRequest, service, YouboraServiceStart);
+    stubProperty(startRequest, service, YBConstantsYouboraService.start );
     
     YBRequest * errorRequest = mock([YBRequest class]);
-    stubProperty(errorRequest, service, YouboraServiceError);
+    stubProperty(errorRequest, service, YBConstantsYouboraService.error);
     
     // Init and start should unlock the transform, but error only bypass it
     
@@ -66,7 +66,7 @@
     
     YBRequest * startRequest = mock([YBRequest class]);
     
-    stubProperty(startRequest, service, YouboraServiceStart);
+    stubProperty(startRequest, service, YBConstantsYouboraService.start);
     
     [self.ft parse:startRequest];
     XCTAssertTrue([self.ft isBlocking:nil]);
