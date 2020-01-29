@@ -95,8 +95,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YouboraServiceVideoEvent: @[]
             };
             
-            youboraRequestParamsDifferent = @{YouboraServiceJoin:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],
-                                YouboraServiceAdJoin:   @[@"adTitle", @"adDuration", @"adResource"]};
+            youboraRequestParamsDifferent = @{};
             
             youboraPingEntities = @[@"rendition", @"title", @"title2",
                              @"live", @"mediaDuration", @"mediaResource", @"param1", @"param2", @"param3", @"param4",
