@@ -60,7 +60,7 @@ static NSArray<NSString *> * youboraPingEntities;
             
             youboraRequestParams = @{
                        YBConstantsYouboraService.data:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
-                       YBConstantsYouboraService.init:  startParams,
+                       YBConstantsYouboraService.sInit:  startParams,
                        YBConstantsYouboraService.start: startParams,
                        YBConstantsYouboraService.join:  @[@"joinDuration", @"playhead"],
                        YBConstantsYouboraService.pause: @[@"playhead"],

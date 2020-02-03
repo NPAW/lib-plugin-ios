@@ -378,6 +378,20 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  */
 - (nullable NSString *) getAdProvider;
 
+/**
+* Override to return audio codec
+*
+* @return string with audio codec
+*/
+- (nullable NSString *) getAudioCodec;
+
+/**
+* Override to return video codec
+*
+* @return string with video codec
+*/
+- (nullable NSString *) getVideoCodec;
+
 /// ---------------------------------
 /// @name Flow methods
 /// ---------------------------------

@@ -1231,7 +1231,7 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString: YBConstantsYouboraService.init]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.sInit]) {
             initCallbackTimes++;
         }
         if ([serviceName isEqualToString: YBConstantsYouboraService.start]) {
@@ -1721,7 +1721,7 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService:YBConstantsYouboraService.init];
+    [verifyCount(self.p.mockRequest, times(1)) setService:YBConstantsYouboraService.sInit];
 }
 
 - (void)testError {
@@ -1743,7 +1743,7 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.init];
+    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.sInit];
     [self.p fireStop];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
     [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.stop];
@@ -1756,7 +1756,7 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.init];
+    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.sInit];
     YBPlaybackFlags * adapterFlags = [YBPlaybackFlags new];
     adapterFlags.started = true;
     stubProperty(self.mockAdapter, flags, adapterFlags);
@@ -1806,7 +1806,7 @@
     
     [self.p fireInit];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
-    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.init];
+    [verifyCount(self.p.mockRequest, times(1)) setService: YBConstantsYouboraService.sInit];
     
     [self.p fireStop];
     [verifyCount(self.p.mockRequest, times(1)) setHost:anything()];
@@ -1855,7 +1855,7 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString: YBConstantsYouboraService.init]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.sInit]) {
             initCallbackTimes++;
         }
         if ([serviceName isEqualToString: YBConstantsYouboraService.start]) {
@@ -1894,7 +1894,7 @@
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        if ([serviceName isEqualToString: YBConstantsYouboraService.init]) {
+        if ([serviceName isEqualToString: YBConstantsYouboraService.sInit]) {
             initCallbackTimes++;
         }
         if ([serviceName isEqualToString: YBConstantsYouboraService.start]) {
@@ -1989,6 +1989,52 @@
     XCTAssertTrue([params containsObject:@"adPlayhead"]);
     XCTAssertTrue([params containsObject:@"adBufferDuration"]);
 }
+
+-(void)testVideoCodec {
+    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    XCTAssertNil([p getContentEncodingVideoCodec]);
+    
+    NSString *testOptionsVideoCodec = @"OptionsVideoCodec";
+    
+    stubProperty(self.mockOptions, contentEncodingVideoCodec,testOptionsVideoCodec);
+    
+    XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testOptionsVideoCodec]);
+    
+    NSString *testAdapterVideoCodec = @"AdapterVideoCodec";
+    
+    [given([self.mockAdapter getVideoCodec]) willReturn:testAdapterVideoCodec];
+    p.adapter = self.mockAdapter;
+    
+    XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testOptionsVideoCodec]);
+    
+    stubProperty(self.mockOptions, contentEncodingVideoCodec,nil);
+    
+    XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testAdapterVideoCodec]);
+    
+}
+
+-(void)testAudioCodec {
+    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    XCTAssertNil([p getContentEncodingAudioCodec]);
+    
+    NSString *testOptionsAudioCodec = @"OptionsAudioCodec";
+    
+    stubProperty(self.mockOptions, contentEncodingAudioCodec,testOptionsAudioCodec);
+    
+    XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testOptionsAudioCodec]);
+    
+    NSString *testAdapterAudioCodec = @"AdapterAudioCodec";
+    
+    [given([self.mockAdapter getAudioCodec]) willReturn:testAdapterAudioCodec];
+    p.adapter = self.mockAdapter;
+    
+    XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testOptionsAudioCodec]);
+    
+    stubProperty(self.mockOptions, contentEncodingAudioCodec,nil);
+    
+    XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testAdapterAudioCodec]);
+}
+
 
 - (void) verifyBasicParamsPing:(NSArray *) params {
     XCTAssertTrue([params containsObject:@"bitrate"]);

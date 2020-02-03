@@ -772,11 +772,23 @@
 }
 
 - (NSString *) getContentEncodingVideoCodec {
-    return self.options.contentEncodingVideoCodec;
+    NSString *videoCodec = self.options.contentEncodingVideoCodec;
+    
+    if (!videoCodec && self.adapter) {
+        return [self.adapter getVideoCodec];
+    }
+    
+    return videoCodec;
 }
 
 - (NSString *) getContentEncodingAudioCodec {
-    return self.options.contentEncodingAudioCodec;
+    NSString *audioCodec = self.options.contentEncodingAudioCodec;
+    
+    if (!audioCodec && self.adapter) {
+        return [self.adapter getAudioCodec];
+    }
+    
+    return audioCodec;
 }
 
 - (NSString *) getContentEncodingCodecSettings {
@@ -2829,13 +2841,13 @@
 
 // Send methods
 - (void) sendInit:(NSDictionary<NSString *, NSString *> *) params {
-    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.init];
-    [self sendWithCallbacks:self.willSendInitListeners service:YBConstantsYouboraService.init andParams:mutParams];
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.sInit];
+    [self sendWithCallbacks:self.willSendInitListeners service:YBConstantsYouboraService.sInit andParams:mutParams];
     NSString * titleOrResource = mutParams[@"title"];
     if (titleOrResource == nil) {
         titleOrResource = mutParams[@"mediaResource"];
     }
-    [YBLog notice:@"%@ %@", YBConstantsYouboraService.init, titleOrResource];
+    [YBLog notice:@"%@ %@", YBConstantsYouboraService.sInit, titleOrResource];
 }
 
 - (void) sendStart:(NSDictionary<NSString *, NSString *> *) params {

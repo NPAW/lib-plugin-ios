@@ -20,7 +20,7 @@ static NSArray<NSString *> * EXPECTED_SERVICES;
     if (self) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            EXPECTED_SERVICES = @[ YBConstantsYouboraService.init, YBConstantsYouboraService.start, YBConstantsYouboraService.offline, YBConstantsYouboraInfinity.sessionStart];
+            EXPECTED_SERVICES = @[ YBConstantsYouboraService.sInit, YBConstantsYouboraService.start, YBConstantsYouboraService.offline, YBConstantsYouboraInfinity.sessionStart];
         });
     }
     return self;
