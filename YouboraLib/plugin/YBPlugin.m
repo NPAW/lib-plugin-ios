@@ -772,11 +772,23 @@
 }
 
 - (NSString *) getContentEncodingVideoCodec {
-    return self.options.contentEncodingVideoCodec;
+    NSString *videoCodec = self.options.contentEncodingVideoCodec;
+    
+    if (!videoCodec && self.adapter) {
+        return [self.adapter getVideoCodec];
+    }
+    
+    return videoCodec;
 }
 
 - (NSString *) getContentEncodingAudioCodec {
-    return self.options.contentEncodingAudioCodec;
+    NSString *audioCodec = self.options.contentEncodingAudioCodec;
+    
+    if (!audioCodec && self.adapter) {
+        return [self.adapter getAudioCodec];
+    }
+    
+    return audioCodec;
 }
 
 - (NSString *) getContentEncodingCodecSettings {
