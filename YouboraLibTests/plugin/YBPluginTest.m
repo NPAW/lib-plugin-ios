@@ -1990,6 +1990,52 @@
     XCTAssertTrue([params containsObject:@"adBufferDuration"]);
 }
 
+-(void)testVideoCodec {
+    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    XCTAssertNil([p getContentEncodingVideoCodec]);
+    
+    NSString *testOptionsVideoCodec = @"OptionsVideoCodec";
+    
+    stubProperty(self.mockOptions, contentEncodingVideoCodec,testOptionsVideoCodec);
+    
+    XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testOptionsVideoCodec]);
+    
+    NSString *testAdapterVideoCodec = @"AdapterVideoCodec";
+    
+    [given([self.mockAdapter getVideoCodec]) willReturn:testAdapterVideoCodec];
+    p.adapter = self.mockAdapter;
+    
+    XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testOptionsVideoCodec]);
+    
+    stubProperty(self.mockOptions, contentEncodingVideoCodec,nil);
+    
+    XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testAdapterVideoCodec]);
+    
+}
+
+-(void)testAudioCodec {
+    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    XCTAssertNil([p getContentEncodingAudioCodec]);
+    
+    NSString *testOptionsAudioCodec = @"OptionsAudioCodec";
+    
+    stubProperty(self.mockOptions, contentEncodingAudioCodec,testOptionsAudioCodec);
+    
+    XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testOptionsAudioCodec]);
+    
+    NSString *testAdapterAudioCodec = @"AdapterAudioCodec";
+    
+    [given([self.mockAdapter getAudioCodec]) willReturn:testAdapterAudioCodec];
+    p.adapter = self.mockAdapter;
+    
+    XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testOptionsAudioCodec]);
+    
+    stubProperty(self.mockOptions, contentEncodingAudioCodec,nil);
+    
+    XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testAdapterAudioCodec]);
+}
+
+
 - (void) verifyBasicParamsPing:(NSArray *) params {
     XCTAssertTrue([params containsObject:@"bitrate"]);
     XCTAssertTrue([params containsObject:@"throughput"]);

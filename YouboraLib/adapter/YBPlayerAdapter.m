@@ -246,6 +246,14 @@
     return nil;
 }
 
+- (nullable NSString *) getAudioCodec {
+    return nil;
+}
+
+- (nullable NSString *) getVideoCodec {
+    return nil;
+}
+
 // Fire methods
     
 - (void)fireAdInit {

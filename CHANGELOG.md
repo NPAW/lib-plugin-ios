@@ -1,3 +1,6 @@
+## [6.5.16] - 2020-02-03
+###New
+- Support to send audio and video codecs by the adapters
 ## [6.5.15] - 2020-01-29
 ###New
 - Add classes (YBTimer, YBUtils, YBDeviceInfo, YBConstants and YBChrono) to swift
