@@ -1675,21 +1675,6 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  */
 - (void) removeWillSendVideoEventListener:(YBWillSendRequestBlock) listener;
 
-/**
- * Register a new observer to get js string to be injected in a webview
- * @param observer instance that will receive the js strigs to inject
- * @param selector method where a Dictionary( or NSDictionary case Objc) will be sent through a NSNotification
- * To get the command type to inject you can use the key YBConstants.jsKeyInjectionType then you can compare with all YBJSInjectionType
- * values to check which value it is
- * To get the code to inject you can use the key YBConstants.jsKeyInjectionCode
- */
-- (void) addJSInjectionObserver:(id)observer andSelector:(SEL)selector;
-
-/**
- * Remove observer from listening notifications related with js injection
- * @param observer to remove
- */
-- (void) removeJSInjectionObserver:(id)observer;
 @end
 
 NS_ASSUME_NONNULL_END;

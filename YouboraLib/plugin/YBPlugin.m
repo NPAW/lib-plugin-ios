@@ -3400,12 +3400,4 @@
 
 #pragma mark - JS injection notifications
 
-- (void) addJSInjectionObserver:(id)observer andSelector:(SEL)selector {
-    [YBJavascriptCommunication registerObserverWithObserver:observer selector:selector];
-}
-
-- (void) removeJSInjectionObserver:(id)observer {
-    [YBJavascriptCommunication unregisterObserverWithObserver:observer];
-}
-
 @end

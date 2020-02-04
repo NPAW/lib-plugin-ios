@@ -30,10 +30,13 @@ private struct JSCommands {
     }
 
     /**
-    Register an observer and its selector to start getting js injection notifications
+     Register a new observer to get js string to be injected in a webview
     - Parameters:
-        - observer: Observer to listening js injection notifications
-        - selectior: Selector to receive new js injeciton notifications
+        - observer: instance that will receive the js strigs to inject
+        - selector:selector method where a Dictionary( or NSDictionary case Objc) will be sent through a NSNotification
+            To get the command type to inject you can use the key YBConstants.jsKeyInjectionType then you can compare with all YBJSInjectionType
+            values to check which value it is
+            To get the code to inject you can use the key YBConstants.jsKeyInjectionCode
     */
     public static func registerObserver(observer: Any, selector: Selector) {
         NotificationCenter.default.addObserver(observer, selector: selector, name: NotificationName.jsInjection, object: nil)
