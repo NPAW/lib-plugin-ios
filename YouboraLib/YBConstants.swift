@@ -105,6 +105,8 @@ import Foundation
     
     static public let jsKeyInjectionType = "injectionType"
     static public let jsKeyInjectionCode = "injectionCode"
+    static public let jsMessageHandler = "youboraLibMessageHandler"
+    
     // Lib version
     static public var youboraLibVersion: String {
         guard let path = Bundle(for: self).url(forResource: "Info", withExtension: "plist"),

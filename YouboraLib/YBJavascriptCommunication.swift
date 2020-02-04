@@ -21,7 +21,7 @@ private struct JSCommands {
 * In order to use this class the user should change the options jsCommunication as true
 * it will make the communications throught NotificationCenter
 */
-@objcMembers internal class YBJavascriptCommunication: NSObject {
+@objcMembers public class YBJavascriptCommunication: NSObject {
 
     private static var registerdObservers: [NSNotification.Name] = []
 
@@ -55,7 +55,7 @@ private struct JSCommands {
     - Parameters:
         - sessionRoot: string with the new generated session root
     */
-    static func notifyNewSessionRoot(sessionRoot: String) {
+    public static func notifyNewSessionRoot(sessionRoot: String) {
         let jsString = JSCommands.sharedSessionRoot+" = '"+sessionRoot+"';"
         postNotificationWithJS(key: YBJSInjectionType.sessionRootInjection, jsToInject: jsString)
     }
