@@ -37,6 +37,9 @@
 		0627CD2523D89DA400E5D937 /* YBSwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */; };
 		0627CD2623D89DA500E5D937 /* YBSwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */; };
 		0627CD2723D89DA500E5D937 /* YBSwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */; };
+		065D452323E898A9003BDA57 /* YBJavascriptCommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065D452223E898A9003BDA57 /* YBJavascriptCommunication.swift */; };
+		065D452423E898A9003BDA57 /* YBJavascriptCommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065D452223E898A9003BDA57 /* YBJavascriptCommunication.swift */; };
+		065D452523E898A9003BDA57 /* YBJavascriptCommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065D452223E898A9003BDA57 /* YBJavascriptCommunication.swift */; };
 		069FD67A23D202A5004A0726 /* YBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstants.swift */; };
 		069FD67B23D202A5004A0726 /* YBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstants.swift */; };
 		069FD67C23D202A5004A0726 /* YBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstants.swift */; };
@@ -397,6 +400,7 @@
 		0627CD0823D88F0900E5D937 /* YBTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBTimer.h; sourceTree = "<group>"; };
 		0627CD0923D88F0900E5D937 /* YBTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBTimer.m; sourceTree = "<group>"; };
 		0627CD1223D8928000E5D937 /* YBSwiftTimerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBSwiftTimerTest.swift; sourceTree = "<group>"; };
+		065D452223E898A9003BDA57 /* YBJavascriptCommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBJavascriptCommunication.swift; sourceTree = "<group>"; };
 		069FD67923D202A5004A0726 /* YBConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YBConstants.swift; path = YouboraLib/YBConstants.swift; sourceTree = SOURCE_ROOT; };
 		06B86F91238D333D000B6CD9 /* YBDashParseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBDashParseTest.m; sourceTree = "<group>"; };
 		06CF614D238D30BA000B4FAE /* YBDashParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBDashParser.m; path = transform/resourceparse/YBDashParser.m; sourceTree = "<group>"; };
@@ -871,6 +875,7 @@
 				4E5E537F1E7FF33E00966C7B /* YBCommunication.m */,
 				4EF2938C1E7AB559008B0A99 /* YBRequest.h */,
 				4EF2938D1E7AB559008B0A99 /* YBRequest.m */,
+				065D452223E898A9003BDA57 /* YBJavascriptCommunication.swift */,
 			);
 			name = comm;
 			sourceTree = "<group>";
@@ -1444,6 +1449,7 @@
 				06CF614F238D30BA000B4FAE /* YBDashParser.m in Sources */,
 				4E5E537B1E7FECEC00966C7B /* YBFlowTransform.m in Sources */,
 				4E5E53601E7C4C3C00966C7B /* YBOptions.m in Sources */,
+				065D452323E898A9003BDA57 /* YBJavascriptCommunication.swift in Sources */,
 				4E7CBCB31E826C6F00FF7D7A /* YBPlugin.m in Sources */,
 				4E9C7BC51E8E6D9D00E10631 /* YBHlsParser.m in Sources */,
 				CDFEAF1520FF6F7400C59B67 /* YBInfinityLocalManager.m in Sources */,
@@ -1537,6 +1543,7 @@
 				06CF6182238D952F000B4FAE /* YBDashFinalResourceParser.m in Sources */,
 				4E4956201E9F4F5300FF6280 /* YBParsableResponseHeader.m in Sources */,
 				06CF6150238D30BA000B4FAE /* YBDashParser.m in Sources */,
+				065D452423E898A9003BDA57 /* YBJavascriptCommunication.swift in Sources */,
 				4E4956211E9F4F5300FF6280 /* YBCdnParser.m in Sources */,
 				0601DCF823D763F600128F32 /* YBYouboraUtils.swift in Sources */,
 				4E4956221E9F4F5300FF6280 /* YBHlsParser.m in Sources */,
@@ -1630,6 +1637,7 @@
 				CD5237A9228DA30E0013BA16 /* YBEventDataSource.m in Sources */,
 				06CF6151238D30BA000B4FAE /* YBDashParser.m in Sources */,
 				CD52379F228DA3020013BA16 /* YBParsableResponseHeader.m in Sources */,
+				065D452523E898A9003BDA57 /* YBJavascriptCommunication.swift in Sources */,
 				CD5237B1228DA3200013BA16 /* YBEventDAO.m in Sources */,
 				CD523780228DA2E70013BA16 /* YBInfinityFlags.m in Sources */,
 				CD5237AF228DA31C0013BA16 /* YBEvent.m in Sources */,

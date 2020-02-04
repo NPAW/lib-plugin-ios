@@ -275,8 +275,7 @@
         self.viewCode = nil;
     }
     
-    NSString *jsSharedSession = [NSString stringWithFormat:@"window.sharedSessionRoot = %@;",self.viewCode];
-    [[NSNotificationCenter defaultCenter] postNotificationName:YBConstants.jsInjectionSessionRootNotification object:jsSharedSession];
+    [YBJavascriptCommunication notifyNewSessionRootWithSessionRoot:self.viewCode];
 }
 
 @end

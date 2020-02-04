@@ -93,11 +93,18 @@ import Foundation
     static public let videoEvent = "/infinity/video/event"
 }
 
+@objcMembers open class YBJSInjectionType: NSObject {
+    static public let sessionRootInjection = "sessionRootInjection"
+}
+
 // Generic YBConstants
 @objcMembers open class YBConstants: NSObject {
     /** Key for request success param */
     static public let successListenerOfflineId = "offline_id"
-    static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
+    static public let jsInjectionNotification = "jsInjectionNotification"
+    
+    static public let jsKeyInjectionType = "injectionType"
+    static public let jsKeyInjectionCode = "injectionCode"
     // Lib version
     static public var youboraLibVersion: String {
         guard let path = Bundle(for: self).url(forResource: "Info", withExtension: "plist"),
