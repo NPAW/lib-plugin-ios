@@ -1,3 +1,6 @@
+## [6.5.17] - 2020-02-06
+###Changed
+- macOS deployment target to 10.10
 ## [6.5.16] - 2020-02-03
 ###Added
 - Support to send audio and video codecs by the adapters
