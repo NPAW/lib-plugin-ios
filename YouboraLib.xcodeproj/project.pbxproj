@@ -1794,7 +1794,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.5.16;
+				YOUBORALIB_VERSION_SETTING = 6.5.17;
 			};
 			name = Debug;
 		};
@@ -1849,7 +1849,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.5.16;
+				YOUBORALIB_VERSION_SETTING = 6.5.17;
 			};
 			name = Release;
 		};
@@ -2075,7 +2075,7 @@
 				INFOPLIST_FILE = "YouboraLib OSX/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
@@ -2116,7 +2116,7 @@
 				INFOPLIST_FILE = "YouboraLib OSX/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
