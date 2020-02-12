@@ -1,3 +1,6 @@
+## [6.5.18]
+###Changed
+- Replace adPosition & breakPosition for position on requests
 ## [6.5.17] - 2020-02-06
 ###Changed
 - macOS deployment target to 10.10
