@@ -53,7 +53,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                       @"genre", @"contentLanguage", @"subtitles", @"contractedResolution", @"cost", @"price", @"playbackType", @"drm",
                                       @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat", @"adsExpected", @"deviceUUID",@"p2pEnabled"];
             
-            NSArray * adStartParams = @[@"playhead", @"adTitle", @"adPosition", @"adDuration", @"adResource", @"adCampaign",
+            NSArray * adStartParams = @[@"playhead", @"adTitle", @"position", @"adDuration", @"adResource", @"adCampaign",
                                         @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
                                         @"extraparam2", @"extraparam3", @"extraparam4", @"extraparam5", @"extraparam6",
                                         @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable", @"breakNumber", @"adCreativeId", @"adProvider"];
@@ -70,17 +70,17 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.stop: @[@"bitrate", @"playhead"],
                        YBConstantsYouboraService.adInit: adStartParams,
                        YBConstantsYouboraService.adStart: adStartParams,
-                       YBConstantsYouboraService.adJoin: @[@"adPosition", @"adJoinDuration", @"adPlayhead", @"playhead"],
-                       YBConstantsYouboraService.adPause: @[@"adPosition", @"adPlayhead", @"playhead", @"breakNumber"],
-                       YBConstantsYouboraService.adResume: @[@"adPosition", @"adPlayhead", @"adPauseDuration", @"playhead", @"breakNumber"],
-                       YBConstantsYouboraService.adBuffer: @[@"adPosition", @"adPlayhead", @"adBufferDuration", @"playhead"],
-                       YBConstantsYouboraService.adStop: @[@"adPosition", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead", @"breakNumber"],
-                       YBConstantsYouboraService.click: @[@"adPosition", @"adPlayhead", @"adUrl", @"playhead"],
+                       YBConstantsYouboraService.adJoin: @[@"position", @"adJoinDuration", @"adPlayhead", @"playhead"],
+                       YBConstantsYouboraService.adPause: @[@"position", @"adPlayhead", @"playhead", @"breakNumber"],
+                       YBConstantsYouboraService.adResume: @[@"position", @"adPlayhead", @"adPauseDuration", @"playhead", @"breakNumber"],
+                       YBConstantsYouboraService.adBuffer: @[@"position", @"adPlayhead", @"adBufferDuration", @"playhead"],
+                       YBConstantsYouboraService.adStop: @[@"position", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead", @"breakNumber"],
+                       YBConstantsYouboraService.click: @[@"position", @"adPlayhead", @"adUrl", @"playhead"],
                        YBConstantsYouboraService.adError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
                        YBConstantsYouboraService.adManifest: @[@"givenBreaks", @"expectedBreaks", @"expectedPattern", @"breaksTime"],
-                       YBConstantsYouboraService.adBreakStart: @[@"breakPosition", @"givenAds", @"expectedAds"],
-                       YBConstantsYouboraService.adBreakStop: @[@"breakPosition", @"breakNumber"],
-                       YBConstantsYouboraService.adQuartile: @[@"breakPosition", @"adPosition", @"adViewedDuration", @"adViewability"],
+                       YBConstantsYouboraService.adBreakStart: @[@"position", @"givenAds", @"expectedAds"],
+                       YBConstantsYouboraService.adBreakStop: @[@"position", @"breakNumber"],
+                       YBConstantsYouboraService.adQuartile: @[@"position", @"adViewedDuration", @"adViewability"],
                        YBConstantsYouboraService.ping: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent", @"metrics"],
                        YBConstantsYouboraService.error: [startParams arrayByAddingObject:@"player"],
                        
@@ -156,7 +156,7 @@ static NSArray<NSString *> * youboraPingEntities;
     NSString * sAdNumber = self.lastSent[@"adNumber"];
     
     if (sAdNumber != nil) {
-        NSString * position = self.lastSent[@"adPosition"];
+        NSString * position = self.lastSent[@"position"];
         if (position != nil && [position isEqualToString:[self.plugin getAdPosition]]) {
             // Increment
             @try {
@@ -323,7 +323,7 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAdCustomDimension9];
     } else if ([param isEqualToString:@"extraparam10"]){
         value = [self.plugin getAdCustomDimension10];
-    } else if ([param isEqualToString:@"adPosition"]){
+    } else if ([param isEqualToString:@"position"]){
         value = [self.plugin getAdPosition];
     } else if ([param isEqualToString:@"adPlayhead"]){
         value = [self.plugin getAdPlayhead].stringValue;
@@ -503,8 +503,6 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAdExpectedPattern];
     } else if ([param isEqualToString:@"breaksTime"]) {
         value = [self.plugin getAdBreaksTime];
-    } else if ([param isEqualToString:@"breakPosition"]) {
-        value = [self.plugin getAdBreakPosition];
     } else if ([param isEqualToString:@"givenAds"]) {
         value = [self.plugin getAdGivenAds];
     } else if ([param isEqualToString:@"expectedAds"]) {

@@ -34,7 +34,7 @@ static NSArray * ALL_PARAMS;
                        @"mediaDuration", @"bitrate", @"throughput", @"rendition", @"title", @"title2", @"live",
                        @"mediaResource", @"transactionCode", @"properties", @"playerVersion", @"player", @"cdn",
                        @"pluginVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
-                       @"param7", @"param8", @"param9", @"param10", @"adPosition", @"adPlayhead", @"adDuration",
+                       @"param7", @"param8", @"param9", @"param10", @"position", @"adPlayhead", @"adDuration",
                        @"adBitrate", @"adTitle", @"adResource", @"adPlayerVersion", @"adProperties",
                        @"adAdapterVersion", @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode",
                        @"system", @"accountCode", @"username", @"preloadDuration", @"joinDuration",
@@ -146,7 +146,7 @@ static NSArray * ALL_PARAMS;
     XCTAssertEqualObjects(@"r", params[@"param8"]);
     XCTAssertEqualObjects(@"s", params[@"param9"]);
     XCTAssertEqualObjects(@"t", params[@"param10"]);
-    XCTAssertEqualObjects(@"u", params[@"adPosition"]);
+    XCTAssertEqualObjects(@"u", params[@"position"]);
     XCTAssertEqualObjects(@"8", params[@"adPlayhead"]);
     XCTAssertEqualObjects(@"9", params[@"adDuration"]);
     XCTAssertEqualObjects(@"10", params[@"adBitrate"]);
@@ -189,7 +189,7 @@ static NSArray * ALL_PARAMS;
     for (int i = 1; i <= 10; i++) {
         NSLog(@"i: %@", @(i));
         XCTAssertEqualObjects(@(i).stringValue, [self.builder getNewAdNumber]);
-        [self.builder fetchParams:nil paramList:@[@"adPosition"] onlyDifferent:false];
+        [self.builder fetchParams:nil paramList:@[@"position"] onlyDifferent:false];
     }
     
     // Midrolls
@@ -197,7 +197,7 @@ static NSArray * ALL_PARAMS;
 
     for (int i = 1; i <= 10; i++) {
         XCTAssertEqualObjects(@(i).stringValue, [self.builder getNewAdNumber]);
-        [self.builder fetchParams:nil paramList:@[@"adPosition"] onlyDifferent:false];
+        [self.builder fetchParams:nil paramList:@[@"position"] onlyDifferent:false];
     }
 
     // Postrolls
@@ -205,7 +205,7 @@ static NSArray * ALL_PARAMS;
     
     for (int i = 1; i <= 10; i++) {
         XCTAssertEqualObjects(@(i).stringValue, [self.builder getNewAdNumber]);
-        [self.builder fetchParams:nil paramList:@[@"adPosition"] onlyDifferent:false];
+        [self.builder fetchParams:nil paramList:@[@"position"] onlyDifferent:false];
     }
 }
 
