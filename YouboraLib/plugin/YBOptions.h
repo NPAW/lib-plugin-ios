@@ -40,6 +40,7 @@ extern NSString * const YBOPTIONS_KEY_SS_CONFIG_CODE;
 extern NSString * const YBOPTIONS_KEY_SS_GROUP_CODE;
 extern NSString * const YBOPTIONS_KEY_SS_CONTRACT_CODE;
 
+extern NSString * const YBOPTIONS_KEY_PARSE_RESOURCE;
 extern NSString * const YBOPTIONS_KEY_PARSE_HLS;
 extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER;
 extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE;
@@ -205,25 +206,32 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST;
 @property(nonatomic, strong) NSString *userEmail;
 
 /**
+* If true the plugin will parse hls, cdn and location
+* It might slow performance down.
+* Default: false
+*/
+@property(nonatomic, assign) bool parseResource;
+
+/**
  * If true the plugin will parse HLS files to use the first .ts file found as resource.
  * It might slow performance down.
  * Default: false
  */
-@property(nonatomic, assign) bool parseHls;
+@property(nonatomic, assign) bool parseHls DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
 
 /**
  * If true the plugin will look for the location and segment values inside dash manifest to retrieve the actual resource
  * It might slow performance down.
  * Default: false
  */
-@property(nonatomic, assign) bool parseDash;
+@property(nonatomic, assign) bool parseDash DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
 
 /**
  * If true the plugin will parse the resource to try and find out the real given resource instead of the API url
  * It might slow performance down.
  * Default: false
  */
-@property(nonatomic, assign) bool parseLocationHeader;
+@property(nonatomic, assign) bool parseLocationHeader DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
 
 /**
  * If defined, resource parse will try to fetch the CDN code from the custom header defined
@@ -236,7 +244,7 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST;
  * It might slow performance down.
  * Default: false
  */
-@property(nonatomic, assign) bool parseCdnNode;
+@property(nonatomic, assign) bool parseCdnNode DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
 
 /**
  * List of CDN names to parse. This is only used when <parseCdnNode> is enabled.
