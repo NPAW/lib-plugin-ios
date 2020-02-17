@@ -2892,13 +2892,7 @@
 }
 
 - (void) sendError:(NSDictionary<NSString *, NSString *> *) params {
-    if(!self.isInitiated && (self.adapter == nil || (self.adapter != nil && !self.adapter.flags.started))){
-        [self.viewTransform nextView];
-    }
-    if(self.comm == nil){
-        [self initComm];
-    }
-    [self startResourceParsing];
+    [self fireInit];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.error];
     [self sendWithCallbacks:self.willSendErrorListeners service:YBConstantsYouboraService.error andParams:mutParams];
     [YBLog notice:@"%@ %@", YBConstantsYouboraService.error, mutParams[@"errorCode"]];

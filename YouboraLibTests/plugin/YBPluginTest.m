@@ -1377,27 +1377,36 @@
 }
 
 - (void) testWillSendErrorListener {
-    static int callbackTimes;
+    static int callbackTimesError;
+    static int callbackTimesInit;
     
     // Make build params return the first argument
-    [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
-        return [invocation.mkt_arguments[0] mutableCopy];
+    [given([self.p.mockRequestBuilder buildParams:anything() forService:YBConstantsYouboraService.error]) willDo:^id _Nonnull(NSInvocation * _Nonnull invocation) {
+        return [invocation.mkt_arguments[0] mutableCopy]; //[invocation respondsToSelector:@selector(mkt_arguments)] ? [invocation.mkt_arguments[0] mutableCopy] : [NSDictionary new];
     }];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
-        callbackTimes++;
-        XCTAssertEqualObjects(@"value", params[@"key"]);
+        if ([serviceName isEqualToString:YBConstantsYouboraService.error]) {
+            callbackTimesError++;
+            XCTAssertEqualObjects(@"value", params[@"key"]);
+        }
+        if ([serviceName isEqualToString:YBConstantsYouboraService.sInit]) {
+            callbackTimesInit++;
+        }
     };
     
     NSDictionary * params = @{@"key":@"value"};
     
     // Error
-    callbackTimes = 0;
+    callbackTimesError = 0;
+    callbackTimesInit = 0;
+    [self.p addWillSendInitListener:listener];
     [self.p addWillSendErrorListener:listener];
     [self.p youboraAdapterEventError:params fromAdapter:self.mockAdapter];
     [self.p removeWillSendErrorListener:listener];
     [self.p youboraAdapterEventError:params fromAdapter:self.mockAdapter];
-    XCTAssertEqual(1, callbackTimes);
+    XCTAssertEqual(1, callbackTimesError);
+    XCTAssertEqual(1, callbackTimesInit);
 }
 
 - (void) testWillSendStopListener {
