@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN;
 /**
  * Parses resource urls to get transportstreams and CDN-related info.
  */
-@interface YBResourceTransform : YBTransform<HlsTransformDoneDelegate, CdnTransformDoneDelegate, LocationHeaderTransformDoneDelegate, DashTransformDoneDelegate>
+@interface YBResourceTransform : YBTransform
 
 /// ---------------------------------
 /// @name Public properties
@@ -35,9 +35,10 @@ NS_ASSUME_NONNULL_BEGIN;
 /// ---------------------------------
 /**
  * Initializer
- * @param plugin the plugin this ResourceTransform will use to get the info it needs
+ * @param parseResource boolean option to check if this should parse resource or not
+ * @param parseCdn boolean option to check if this should parse the cdn or not
  */
--(instancetype) initWithPlugin:(YBPlugin *) plugin;
+- (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn;
 
 /// ---------------------------------
 /// @name Public methods

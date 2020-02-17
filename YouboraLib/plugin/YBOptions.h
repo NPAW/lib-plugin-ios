@@ -244,7 +244,7 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST;
  * It might slow performance down.
  * Default: false
  */
-@property(nonatomic, assign) bool parseCdnNode DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
+@property(nonatomic, assign) bool parseCdnNode;
 
 /**
  * List of CDN names to parse. This is only used when <parseCdnNode> is enabled.

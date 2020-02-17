@@ -19,29 +19,25 @@
 #import "YBDashParser.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
+typedef void (^ResourceCompletion)(NSString *finalResource);
+typedef void (^RequestCompletion)(NSString *);
+
 @interface YBResourceTransform()
 
 // Private properties
-@property(nonatomic, weak) YBPlugin * plugin;
-@property(nonatomic, strong) NSString * realResource;
-@property(nonatomic, strong) NSString * beginResource; // Initial resource
+@property(nonatomic, strong) NSString * currentResource;
+
 @property(nonatomic, strong) NSString * cdnName;
 @property(nonatomic, strong) NSString * cdnNodeHost;
 @property(nonatomic, assign) YBCdnType cdnNodeType;
 @property(nonatomic, strong) NSString * cdnNodeTypeString;
 @property(nonatomic, strong) NSString * cdnNameHeader;
 
-@property(nonatomic, strong) YBHlsParser * hlsParser;
-@property(nonatomic, strong) YBDashParser * dashParser;
 @property(nonatomic, strong) YBCdnParser * cdnParser;
-@property(nonatomic, strong) YBLocationHeaderParser * locHeaderParser;
+
+@property(nonatomic, strong) NSArray <YBFinalResourceParser*> *parsers;
 
 @property(nonatomic, strong) NSMutableArray<NSString *> * cdnList;
-
-@property(nonatomic, assign) bool hlsEnabled;
-@property(nonatomic, assign) bool dashEnabled;
-@property(nonatomic, assign) bool cdnEnabled;
-@property(nonatomic, assign) bool locationHeaderParserEnabled;
 
 @property(nonatomic, strong) NSTimer * timerTimeout;
 
@@ -57,18 +53,14 @@
 {
     self = [super init];
     if (self) {
-        self.plugin = nil;
         self.isFinished = false;
     }
     return self;
 }
 
-- (instancetype)initWithPlugin:(YBPlugin *)plugin {
+- (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn {
     self = [self init];
     
-    self.plugin = plugin;
-    self.realResource = nil;
-    self.beginResource = nil;
     self.cdnName = nil;
     self.cdnNodeHost = nil;
     self.cdnNodeType = YBCdnTypeUnknown;
@@ -76,16 +68,19 @@
     
     self.isBusy = false;
     
+    if (parseResource) {
+        self.parsers = @[
+            [[YBLocationHeaderParser alloc] init]
+        ];
+    } else {
+        self.parsers = @[];
+    }
     return self;
 }
 
 #pragma mark - Public methods
 - (NSString *) getResource {
-    if (self.realResource != nil) {
-        return self.realResource;
-    } else {
-        return self.beginResource;
-    }
+    return self.currentResource;
 }
 
 - (NSString *) getCdnName {
@@ -122,63 +117,94 @@
         self.isBusy = true;
         self.isFinished = false;
         
-        self.dashEnabled = [self.plugin isParseDASH];
-        self.hlsEnabled = [self.plugin isParseHls];
-        self.cdnEnabled = [self.plugin isParseCdnNode];
-        self.locationHeaderParserEnabled = [self.plugin isParseLocationHeader];
-        self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
-        self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
+        //        self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
+        //        self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
         
-        if (self.cdnNameHeader != nil) {
-            [YBCdnParser setBalancerHeaderName:self.cdnNameHeader];
-        }
-        
-        self.beginResource = originalResource;
+        //        if (self.cdnNameHeader != nil) {
+        //            [YBCdnParser setBalancerHeaderName:self.cdnNameHeader];
+        //        }
         
         [self setTimeout];
         
-        if (self.locationHeaderParserEnabled) {
-            [self parseLocationHeader];
-        } else if (self.hlsEnabled) {
-             [self parseHls];
-        } else if (self.dashEnabled) {
-             [self parseDash];
-        } else if (self.cdnEnabled) {
-            [self parseCdn];
+        if(self.parsers.count > 0) {
+            [self parseResourceWithParser:self.parsers.firstObject withResource:originalResource andCompletion:^(NSString *finalResource) {
+                self.currentResource = finalResource;
+            }];
         } else {
-            [self done];
+            // do now cdn
         }
+        
+        
+        
+        
+        //        for (id <YBFinalResourceParser> parser in self.parsers) {
+        //            if ([parser isSatisfiedWithResource:self.currentResource]) {
+        //                self.currentResource = [parser parseWithResource:self.currentResource];
+        //            }
+        //        }
+        
+        //        if (self.locationHeaderParserEnabled) {
+        //            [self parseLocationHeader];
+        //        } else if (self.hlsEnabled) {
+        //             [self parseHls];
+        //        } else if (self.dashEnabled) {
+        //             [self parseDash];
+        //        } else if (self.cdnEnabled) {
+        //            [self parseCdn];
+        //        } else {
+        //            [self done];
+        //        }
     }
+}
+
+-(void)parseResourceWithParser:(YBFinalResourceParser*)parser withResource:(NSString*)resource andCompletion:(ResourceCompletion)completion {
+    if (!parser) { completion(resource); }
+    
+    if ([parser isSatisfied:resource]) {
+        [parser parseResource:resource completion:^(NSString * _Nonnull finalResource) {
+            [self parseResourceWithParser:[self getNextParser:parser] withResource:finalResource andCompletion:completion];
+        } failure:^(NSError * _Nonnull error) {
+            [self parseResourceWithParser:[self getNextParser:parser] withResource:resource andCompletion:completion];
+        }];
+    } else {
+        [self parseResourceWithParser:[self getNextParser:parser] withResource:resource andCompletion:completion];
+    }
+}
+
+-(YBFinalResourceParser *)getNextParser:(YBFinalResourceParser*)currentParser {
+    if (currentParser == self.parsers.lastObject) { return nil; }
+    
+    return [self.parsers objectAtIndex:[self.parsers indexOfObject:currentParser] + 1];
 }
 
 
 // Override
 - (void)parse:(YBRequest *)request {
     if ([YBConstantsYouboraService.start isEqualToString:request.service]) {
-        NSMutableDictionary * lastSent = self.plugin.requestBuilder.lastSent;
-
+        NSMutableDictionary * lastSent = nil; //self.plugin.requestBuilder.lastSent;
+        
         //No need to replace now
         /*NSString * resource = [self getResource];
-
-
-        [request setParam:resource forKey:@"mediaResource"];
-        lastSent[@"mediaResource"] = resource;*/
-
-        if (self.cdnEnabled) {
+         
+         
+         [request setParam:resource forKey:@"mediaResource"];
+         lastSent[@"mediaResource"] = resource;*/
+        
+        if (self.cdnParser) {
             NSString * cdn = request.params[@"cdn"];
             if (cdn == nil) {
                 cdn = [self getCdnName];
                 [request setParam:cdn forKey:@"cdn"];
             }
-
+            
             lastSent[@"cdn"] = cdn;
-
+            
             [request setParam:[self getNodeHost] forKey:@"nodeHost"];
             lastSent[@"nodeHost"] = [self getNodeHost];
-
+            
             [request setParam:[self getNodeType] forKey:@"nodeType"];
             lastSent[@"nodeType"] = [self getNodeType];
-
+            
             [request setParam:[self getNodeTypeString] forKey:@"nodeTypeString"];
             lastSent[@"nodeTypeString"] = [self getNodeTypeString];
         }
@@ -186,30 +212,30 @@
 }
 
 #pragma mark - Private methods
-- (void) parseHls {
-    self.hlsParser = [self createHlsParser];
-    
-    [self.hlsParser addHlsTransformDoneDelegate:self];
-    
-    if (self.locHeaderParser) {
-        [self.hlsParser parse:self.realResource parentResource:nil];
-    } else {
-        [self.hlsParser parse:self.beginResource parentResource:nil];
-    }
-    
-}
-
-- (void) parseDash {
-    self.dashParser = [YBDashParser new];
-    
-    [self.dashParser addDashTransformDoneDelegate:self];
-    
-    if (self.locationHeaderParserEnabled) {
-        [self.dashParser parse: self.realResource];
-    } else {
-        [self.dashParser parse: self.beginResource];
-    }
-}
+//- (void) parseHls {
+//    self.hlsParser = [self createHlsParser];
+//
+//    [self.hlsParser addHlsTransformDoneDelegate:self];
+//
+//    if (self.locHeaderParser) {
+//        [self.hlsParser parse:self.realResource parentResource:nil];
+//    } else {
+//        [self.hlsParser parse:self.beginResource parentResource:nil];
+//    }
+//
+//}
+//
+//- (void) parseDash {
+//    self.dashParser = [YBDashParser new];
+//
+//    [self.dashParser addDashTransformDoneDelegate:self];
+//
+//    if (self.locationHeaderParserEnabled) {
+//        [self.dashParser parse: self.realResource];
+//    } else {
+//        [self.dashParser parse: self.beginResource];
+//    }
+//}
 
 - (void) parseCdn {
     if (self.cdnList.count != 0) {
@@ -236,13 +262,13 @@
     }
 }
 
-- (void) parseLocationHeader {
-    self.locHeaderParser = [self createLocHeaderParser];
-    
-    [self.locHeaderParser addLocationHeaderTransformDoneDelegate:self];
-    
-    [self.locHeaderParser parse:self.beginResource];
-}
+//- (void) parseLocationHeader {
+//    self.locHeaderParser = [self createLocHeaderParser];
+//
+//    [self.locHeaderParser addLocationHeaderTransformDoneDelegate:self];
+//
+//    [self.locHeaderParser parse:self.currentResource];
+//}
 
 - (void) setTimeout {
     // Since an NSTimer is being scheduled here, ensure we are on the main thread
@@ -279,53 +305,6 @@
 
 - (YBCdnParser *) createCdnParser:(NSString *) cdn {
     return [YBCdnParser createWithName:cdn];
-}
-
-- (YBLocationHeaderParser *) createLocHeaderParser {
-    return [YBLocationHeaderParser new];
-}
-
-# pragma mark - HlsTransformDoneDelegate
-- (void) hlsTransformDone:(nullable NSString *) parsedResource fromHlsParser:(YBHlsParser *) parser {
-    self.realResource = parsedResource;
-    if (self.cdnEnabled) {
-        [self parseCdn];
-    } else {
-        [self done];
-    }
-    self.hlsParser = nil;
-}
-
-# pragma mark - DashTransformDoneDelegate
-- (void) dashTransformDone:(nullable NSString *) parsedResource fromDashParser:(YBDashParser*) parser {
-    self.realResource = parsedResource;
-    if (self.cdnEnabled) {
-        [self parseCdn];
-    } else {
-        [self done];
-    }
-    self.dashParser = nil;
-}
-
-#pragma mark - CdnTransformDoneDelegate
-- (void) cdnTransformDone:(YBCdnParser *) cdnParser {
-    self.cdnName = cdnParser.cdnName;
-    self.cdnNodeHost = cdnParser.cdnNodeHost;
-    self.cdnNodeType = cdnParser.cdnNodeType;
-    self.cdnNodeTypeString = cdnParser.cdnNodeTypeString;
-    
-    self.cdnParser = nil;
-    
-    if ([self getNodeHost] != nil) {
-        [self done];
-    } else {
-        [self parseCdn];
-    }
-}
-
-# pragma mark - LocationHeaderParserDoneTransformDoneDelegate
-- (void)locationHeaderTransformDone:(nullable NSString *)parsedResource fromLocationHeaderParser:(nonnull YBLocationHeaderParser *)parser {
-    self.realResource = [parser getResource];
 }
 
 @end

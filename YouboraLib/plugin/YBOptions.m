@@ -172,15 +172,15 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         
         self.parseDash = [decoder decodeBoolForKey:YBOPTIONS_KEY_PARSE_DASH];
         self.parseHls = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_HLS] isEqualToValue:@YES];
-        self.parseCdnNode = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE] isEqualToValue:@YES];
         self.parseLocationHeader = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_LOCATION_HEADER] isEqualToValue:@YES];
         
         // if all false then false otherwise if at least one is true then true
         // TODO: Remove when clean deprecated parsers
         if (!self.parseResource) {
-            self.parseResource = self.parseDash || self.parseHls || self.parseCdnNode || self.parseLocationHeader;
+            self.parseResource = self.parseDash || self.parseHls || self.parseLocationHeader;
         }
         
+        self.parseCdnNode = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE] isEqualToValue:@YES];
         self.parseCdnNameHeader = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
         self.parseCdnNodeList = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
         self.experimentIds = [decoder decodeObjectForKey:YBOPTIONS_KEY_EXPERIMENT_IDS];
