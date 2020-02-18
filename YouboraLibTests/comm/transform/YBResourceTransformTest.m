@@ -37,7 +37,7 @@
 }
 
 - (void)testDefaultValues {
-    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initWithPlugin:self.mockPlugin];
+    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin getOriginalResource] parsingCdn:[self.mockPlugin isParseCdnNode]];
     
     // Assert default values
     XCTAssertNil([resourceTransform getCdnName]);
@@ -56,7 +56,7 @@
     [given([self.mockPlugin getParseCdnNameHeader]) willReturn:@"header-name"];
     
     // Resource transform to test
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.getOriginalResource parsingCdn:[self.mockPlugin isParseCdnNode]];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
@@ -144,7 +144,7 @@
     [given([self.mockPlugin isParseHls]) willReturnBool:NO];
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:NO];
     
-    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initWithPlugin:self.mockPlugin];
+    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin getOriginalResource] parsingCdn:[self.mockPlugin isParseCdnNode]];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
@@ -159,7 +159,7 @@
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:YES];
     
     // Resource transform to test
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.getOriginalResource parsingCdn:[self.mockPlugin isParseCdnNode]];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
