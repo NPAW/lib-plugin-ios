@@ -10,15 +10,19 @@
 
 @implementation YBLocationHeaderParser
 
+
+
 -(void)parseResource:(NSString*_Nonnull)resource completion:(ParseCompletion _Nonnull )completion failure:(ParseFailure _Nonnull )failure {
+    NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *) response;
+    NSDictionary * responseHeaders = httpResponse.allHeaderFields;
+    if (responseHeaders != nil && [responseHeaders count] != 0 && responseHeaders[@"Location"] != nil) {
+        [self parseResource:responseHeaders[@"Location"] completion:completion failure:failure];
+    } else {
+        completion(resource);
+    }
+    
     [self createRequestWithHost:resource service:nil success:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *,id> * _Nonnull listenerParams) {
-        NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *) response;
-        NSDictionary * responseHeaders = httpResponse.allHeaderFields;
-        if (responseHeaders != nil && [responseHeaders count] != 0 && responseHeaders[@"Location"] != nil) {
-            [self parseResource:responseHeaders[@"Location"] completion:completion failure:failure];
-        } else {
-            completion(resource);
-        }
+        
         
     } failure: failure];
 }

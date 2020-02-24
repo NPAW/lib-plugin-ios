@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^ParseCompletion)(NSString * _Nonnull finalResource);
-typedef void (^ParseFailure)(NSError * _Nonnull error);
 typedef void (^Success)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id>* _Nonnull listenerParams);
 typedef void (^Failure)(NSError * _Nonnull error);
 
@@ -19,7 +17,8 @@ typedef void (^Failure)(NSError * _Nonnull error);
 
 -(Boolean)isSatisfied:(NSString*_Nonnull)resource;
 
--(void)parseResource:(NSString*_Nonnull)resource completion:(ParseCompletion _Nonnull )completion failure:(ParseFailure _Nonnull )failure;
-
 - (void)createRequestWithHost:(NSString *_Nonnull)host service:(NSString *_Nullable)service success:(Success _Nonnull )success failure:(Failure _Nonnull )failure;
+
+-(NSString* _Nullable)parseResourceWithData:(NSData* _Nullable)data response:(NSURLResponse* _Nullable)response listenerParams:(NSDictionary<NSString *, id>* _Nullable)listenerParams error:(NSError* _Nullable)error;
+
 @end

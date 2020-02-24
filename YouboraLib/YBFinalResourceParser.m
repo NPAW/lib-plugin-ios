@@ -11,7 +11,7 @@
 
 @implementation YBFinalResourceParser
 
--(Boolean)isSatisfied:(NSString*)resource {;
+-(Boolean)isSatisfied:(NSString*)resource {
     return true;
 }
 
