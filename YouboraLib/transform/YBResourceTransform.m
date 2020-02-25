@@ -12,9 +12,7 @@
 #import "YBRequest.h"
 #import "YBRequestBuilder.h"
 #import "YBCdnParser.h"
-#import "YBHlsParser.h"
 #import "YBCdnConfig.h"
-#import "YBLocationHeaderParser.h"
 #import "YBLog.h"
 #import "YBDashParser.h"
 #import "YouboraLib/YouboraLib-Swift.h"
@@ -35,7 +33,7 @@ typedef void (^RequestCompletion)(NSString *);
 
 @property(nonatomic, strong) YBCdnParser * cdnParser;
 
-@property(nonatomic, strong) NSArray <YBFinalResourceParser*> *parsers;
+@property(nonatomic, strong) NSArray <id<YBResourceParser>> *parsers;
 
 @property(nonatomic, strong) NSMutableArray<NSString *> * cdnList;
 
@@ -70,7 +68,8 @@ typedef void (^RequestCompletion)(NSString *);
     
     if (parseResource) {
         self.parsers = @[
-            [[YBLocationHeaderParser alloc] init]
+            [[YBLocationParser alloc] init],
+            [[YBHlsParser alloc] init]
         ];
     } else {
         self.parsers = @[];
@@ -157,24 +156,14 @@ typedef void (^RequestCompletion)(NSString *);
     }
 }
 
--(void)parseResourceWithParser:(YBFinalResourceParser*)parser withResource:(NSString*)resource andCompletion:(ResourceCompletion)completion {
+-(void)parseResourceWithParser:(id<YBResourceParser>)parser withResource:(NSString*)resource andCompletion:(ResourceCompletion)completion {
     if (!parser) { completion(resource); }
     
-    if ([parser isSatisfied:resource]) {
-        [parser parseResource:resource completion:^(NSString * _Nonnull finalResource) {
-            [self parseResourceWithParser:[self getNextParser:parser] withResource:finalResource andCompletion:completion];
-        } failure:^(NSError * _Nonnull error) {
-            [self parseResourceWithParser:[self getNextParser:parser] withResource:resource andCompletion:completion];
-        }];
-    } else {
-        [self parseResourceWithParser:[self getNextParser:parser] withResource:resource andCompletion:completion];
-    }
-}
-
--(YBFinalResourceParser *)getNextParser:(YBFinalResourceParser*)currentParser {
-    if (currentParser == self.parsers.lastObject) { return nil; }
-    
-    return [self.parsers objectAtIndex:[self.parsers indexOfObject:currentParser] + 1];
+//    if ([parser isSatisfiedWithResource:resource]) {
+//        
+//    } else {
+//        [self parseResourceWithParser:[self getNextParser:parser] withResource:resource andCompletion:completion];
+//    }
 }
 
 
