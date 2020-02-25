@@ -11,7 +11,6 @@
 @interface YBTestableResourceTransform : YBResourceTransform
 
 @property(nonatomic, strong) NSDictionary<NSString *, YBCdnParser *> * mockCdnParsers;
-//@property(nonatomic, strong) YBHlsParser * mockHlsParser;
 @property(nonatomic, strong) YBCdnParser * mockCdnParser;
 @property(nonatomic, strong) NSString * lastCreatedCdnParser;
 @property(nonatomic, strong) NSTimer * mockTimer;

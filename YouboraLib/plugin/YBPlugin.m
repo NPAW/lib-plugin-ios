@@ -2349,7 +2349,7 @@
 }
 
 - (YBResourceTransform *) createResourceTransform {
-    return [[YBResourceTransform alloc] initParsingResource:[self getOriginalResource] parsingCdn:self.options.parseCdnNode];
+    return [[YBResourceTransform alloc] initParsingResource:[self getOriginalResource] parsingCdn:self.options.parseCdnNode plugin:self];
 }
 
 - (YBViewTransform *) createViewTransform {

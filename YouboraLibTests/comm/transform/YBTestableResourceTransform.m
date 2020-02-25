@@ -16,16 +16,11 @@
 {
     self = [super init];
     if (self) {
-        //self.mockHlsParser = mock([YBHlsParser class]);
         self.mockCdnParser = mock([YBCdnParser class]);
         self.mockTimer = mock([NSTimer class]);
     }
     return self;
 }
-
-//- (YBHlsParser *) createHlsParser {
-//    return self.mockHlsParser;
-//}
 
 - (YBCdnParser *) createCdnParser:(NSString *) cdn {
     self.lastCreatedCdnParser = cdn;

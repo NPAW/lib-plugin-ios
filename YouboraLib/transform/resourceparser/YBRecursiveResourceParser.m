@@ -16,7 +16,7 @@
         completion(resource);
     }
     
-    YBRequest *request =  [self createRequestWithHost: [parser getRequestSource] andService: nil]
+    YBRequest *request =  [self createRequestWithHost: [parser getRequestSource] andService: nil];
     
     [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString*, id>* _Nullable listenerParams) {
         NSString *finalResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams];

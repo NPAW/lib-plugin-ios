@@ -73,15 +73,12 @@
 		06B08712240565360076F7ED /* YBDashParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0870C240565360076F7ED /* YBDashParserTest.swift */; };
 		06B08714240565700076F7ED /* YBDashParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0870C240565360076F7ED /* YBDashParserTest.swift */; };
 		06B08715240565720076F7ED /* YBDashParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0870C240565360076F7ED /* YBDashParserTest.swift */; };
-		06B08721240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; };
-		06B08722240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; };
-		06B08723240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; };
+		06B08721240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		06B08722240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		06B08723240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		06B08724240574320076F7ED /* YBRecursiveResourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B08720240574320076F7ED /* YBRecursiveResourceParser.m */; };
 		06B08725240574320076F7ED /* YBRecursiveResourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B08720240574320076F7ED /* YBRecursiveResourceParser.m */; };
 		06B08726240574320076F7ED /* YBRecursiveResourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B08720240574320076F7ED /* YBRecursiveResourceParser.m */; };
-		06B0872E24057A240076F7ED /* YBTestableRecursiveParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B0872C24057A240076F7ED /* YBTestableRecursiveParser.m */; };
-		06B0872F24057A240076F7ED /* YBTestableRecursiveParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B0872C24057A240076F7ED /* YBTestableRecursiveParser.m */; };
-		06B0873024057A240076F7ED /* YBTestableRecursiveParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B0872C24057A240076F7ED /* YBTestableRecursiveParser.m */; };
 		06C14F8A23D8AD7D00E7525B /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
 		06C14F8B23D8AD7E00E7525B /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
 		06C14F8C23D8AD7E00E7525B /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
@@ -417,8 +414,6 @@
 		06B0870C240565360076F7ED /* YBDashParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YBDashParserTest.swift; path = comm/transform/resourceparse/YBDashParserTest.swift; sourceTree = "<group>"; };
 		06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBRecursiveResourceParser.h; sourceTree = "<group>"; };
 		06B08720240574320076F7ED /* YBRecursiveResourceParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBRecursiveResourceParser.m; sourceTree = "<group>"; };
-		06B0872C24057A240076F7ED /* YBTestableRecursiveParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTestableRecursiveParser.m; path = comm/transform/resourceparse/YBTestableRecursiveParser.m; sourceTree = "<group>"; };
-		06B0872D24057A240076F7ED /* YBTestableRecursiveParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBTestableRecursiveParser.h; path = comm/transform/resourceparse/YBTestableRecursiveParser.h; sourceTree = "<group>"; };
 		06CF6160238D4048000B4FAE /* dashResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = dashResponse.xml; path = comm/transform/resourceparse/dashResponse.xml; sourceTree = "<group>"; };
 		06CF6161238D4048000B4FAE /* dashCallbackResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = dashCallbackResponse.xml; path = comm/transform/resourceparse/dashCallbackResponse.xml; sourceTree = "<group>"; };
 		1F811A27ADFE1085023FC9B5 /* Pods-YouboraLibTests iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLibTests iOS.debug.xcconfig"; path = "Target Support Files/Pods-YouboraLibTests iOS/Pods-YouboraLibTests iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -496,9 +491,9 @@
 		4EAC2D1C1E8A729100946EC5 /* YBTestablePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBTestablePlugin.h; path = plugin/YBTestablePlugin.h; sourceTree = "<group>"; };
 		4EAC2D1D1E8A729100946EC5 /* YBTestablePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTestablePlugin.m; path = plugin/YBTestablePlugin.m; sourceTree = "<group>"; };
 		4EC7F3A11E797DF6004E8CE5 /* YBChronoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBChronoTest.m; sourceTree = "<group>"; };
-		4ECFCC561E95446800E07785 /* YBCdnParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBCdnParserTest.m; path = comm/transform/resourceparse/YBCdnParserTest.m; sourceTree = "<group>"; };
-		4ECFCC581E95446800E07785 /* YBTestableCdnParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBTestableCdnParser.h; path = comm/transform/resourceparse/YBTestableCdnParser.h; sourceTree = "<group>"; };
-		4ECFCC591E95446800E07785 /* YBTestableCdnParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTestableCdnParser.m; path = comm/transform/resourceparse/YBTestableCdnParser.m; sourceTree = "<group>"; };
+		4ECFCC561E95446800E07785 /* YBCdnParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBCdnParserTest.m; sourceTree = "<group>"; };
+		4ECFCC581E95446800E07785 /* YBTestableCdnParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBTestableCdnParser.h; sourceTree = "<group>"; };
+		4ECFCC591E95446800E07785 /* YBTestableCdnParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBTestableCdnParser.m; sourceTree = "<group>"; };
 		4ECFCC601E95449600E07785 /* YBResourceTransformTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBResourceTransformTest.m; path = comm/transform/YBResourceTransformTest.m; sourceTree = "<group>"; };
 		4ECFCC621E95478600E07785 /* YBTestableResourceTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBTestableResourceTransform.h; path = comm/transform/YBTestableResourceTransform.h; sourceTree = "<group>"; };
 		4ECFCC631E95478600E07785 /* YBTestableResourceTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBTestableResourceTransform.m; path = comm/transform/YBTestableResourceTransform.m; sourceTree = "<group>"; };
@@ -629,6 +624,17 @@
 			);
 			name = resourceparser;
 			path = transform/resourceparser;
+			sourceTree = "<group>";
+		};
+		06B0873824057BD90076F7ED /* cdn */ = {
+			isa = PBXGroup;
+			children = (
+				4ECFCC561E95446800E07785 /* YBCdnParserTest.m */,
+				4ECFCC581E95446800E07785 /* YBTestableCdnParser.h */,
+				4ECFCC591E95446800E07785 /* YBTestableCdnParser.m */,
+			);
+			name = cdn;
+			path = comm/transform/resourceparse/cdn;
 			sourceTree = "<group>";
 		};
 		4E5E11A61E7841BF0097FA21 = {
@@ -778,9 +784,6 @@
 				4E2817141E85205500F450C1 /* YBViewTransformTest.m */,
 				4E2817161E85218800F450C1 /* YBTestableViewTransform.h */,
 				4E2817171E85218800F450C1 /* YBTestableViewTransform.m */,
-				4ECFCC601E95449600E07785 /* YBResourceTransformTest.m */,
-				4ECFCC621E95478600E07785 /* YBTestableResourceTransform.h */,
-				4ECFCC631E95478600E07785 /* YBTestableResourceTransform.m */,
 			);
 			name = transform;
 			sourceTree = "<group>";
@@ -874,16 +877,15 @@
 		4E9C7BCE1E924D7800E10631 /* resourceparse */ = {
 			isa = PBXGroup;
 			children = (
-				06B0872D24057A240076F7ED /* YBTestableRecursiveParser.h */,
-				06B0872C24057A240076F7ED /* YBTestableRecursiveParser.m */,
+				06B0873824057BD90076F7ED /* cdn */,
 				06A0DB8624053A01002B689B /* YBLocationParserTest.swift */,
 				06A0DB8D24053A40002B689B /* YBHlsParserTest.swift */,
 				06B0870C240565360076F7ED /* YBDashParserTest.swift */,
 				06CF6161238D4048000B4FAE /* dashCallbackResponse.xml */,
 				06CF6160238D4048000B4FAE /* dashResponse.xml */,
-				4ECFCC561E95446800E07785 /* YBCdnParserTest.m */,
-				4ECFCC581E95446800E07785 /* YBTestableCdnParser.h */,
-				4ECFCC591E95446800E07785 /* YBTestableCdnParser.m */,
+				4ECFCC621E95478600E07785 /* YBTestableResourceTransform.h */,
+				4ECFCC631E95478600E07785 /* YBTestableResourceTransform.m */,
+				4ECFCC601E95449600E07785 /* YBResourceTransformTest.m */,
 			);
 			name = resourceparse;
 			sourceTree = "<group>";
@@ -1652,7 +1654,6 @@
 				06A0DB8E24053A40002B689B /* YBHlsParserTest.swift in Sources */,
 				4E5E53631E7C4CA800966C7B /* YBOptionsTest.m in Sources */,
 				4E2817181E85218800F450C1 /* YBTestableViewTransform.m in Sources */,
-				06B0872E24057A240076F7ED /* YBTestableRecursiveParser.m in Sources */,
 				4E5E53861E8015FB00966C7B /* YBFlowTransformTest.m in Sources */,
 				4EC7F3A21E797DF6004E8CE5 /* YBChronoTest.m in Sources */,
 				4E7CBCB81E8292C000FF7D7A /* YBTestablePlayheadMonitor.m in Sources */,
@@ -1750,7 +1751,6 @@
 				06A0DB8324053720002B689B /* YBHlsParser.swift in Sources */,
 				06A0DB8F24053A40002B689B /* YBHlsParserTest.swift in Sources */,
 				4EA274E91EA758E700D5329C /* YBCdnParserTest.m in Sources */,
-				06B0872F24057A240076F7ED /* YBTestableRecursiveParser.m in Sources */,
 				4EA274EB1EA758E700D5329C /* YBTestableCdnParser.m in Sources */,
 				4EA274ED1EA758E700D5329C /* YBFlowTransformTest.m in Sources */,
 				06A0DB8A24053A01002B689B /* YBLocationParserTest.swift in Sources */,
@@ -1848,7 +1848,6 @@
 				06A0DB8524053720002B689B /* YBHlsParser.swift in Sources */,
 				06A0DB9024053A40002B689B /* YBHlsParserTest.swift in Sources */,
 				CDBA730423337B65008716B5 /* YBTestableCdnParser.m in Sources */,
-				06B0873024057A240076F7ED /* YBTestableRecursiveParser.m in Sources */,
 				CDBA730723337B65008716B5 /* YBFlowTransformTest.m in Sources */,
 				CDBA730823337B65008716B5 /* YBNqs6TransformTest.m in Sources */,
 				06A0DB8C24053A01002B689B /* YBLocationParserTest.swift in Sources */,

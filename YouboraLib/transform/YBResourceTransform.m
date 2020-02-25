@@ -15,9 +15,9 @@
 #import "YBCdnConfig.h"
 #import "YBLog.h"
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YBRecursiveResourceParser.h"
 
 typedef void (^ResourceCompletion)(NSString *finalResource);
-typedef void (^RequestCompletion)(NSString *);
 
 @interface YBResourceTransform()
 
@@ -37,6 +37,8 @@ typedef void (^RequestCompletion)(NSString *);
 @property(nonatomic, strong) NSMutableArray<NSString *> * cdnList;
 
 @property(nonatomic, strong) NSTimer * timerTimeout;
+@property(nonatomic, weak) YBPlugin * plugin;
+@property(nonatomic) Boolean isToParseCdn;
 
 @property(nonatomic, assign, readwrite) bool isFinished;
 
@@ -55,7 +57,7 @@ typedef void (^RequestCompletion)(NSString *);
     return self;
 }
 
-- (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn {
+- (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn plugin:(YBPlugin*)plugin {
     self = [self init];
     
     self.cdnName = nil;
@@ -65,6 +67,9 @@ typedef void (^RequestCompletion)(NSString *);
     
     self.isBusy = false;
     
+    self.plugin = plugin;
+    
+    self.isToParseCdn = parseCdn;
     if (parseResource) {
         self.parsers = @[
             [[YBLocationParser alloc] init],
@@ -116,61 +121,49 @@ typedef void (^RequestCompletion)(NSString *);
         self.isBusy = true;
         self.isFinished = false;
         
-        //        self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
-        //        self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
+        self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
+        self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
         
-        //        if (self.cdnNameHeader != nil) {
-        //            [YBCdnParser setBalancerHeaderName:self.cdnNameHeader];
-        //        }
+        if (self.cdnNameHeader != nil) {
+            [YBCdnParser setBalancerHeaderName:self.cdnNameHeader];
+        }
         
         [self setTimeout];
         
         if(self.parsers.count > 0) {
             [self parseResourceWithParser:self.parsers.firstObject withResource:originalResource andCompletion:^(NSString *finalResource) {
                 self.currentResource = finalResource;
+                [self parseCdn];
             }];
         } else {
-            // do now cdn
+            self.currentResource = originalResource;
+            [self parseCdn];
         }
         
-        
-        
-        
-        //        for (id <YBFinalResourceParser> parser in self.parsers) {
-        //            if ([parser isSatisfiedWithResource:self.currentResource]) {
-        //                self.currentResource = [parser parseWithResource:self.currentResource];
-        //            }
-        //        }
-        
-        //        if (self.locationHeaderParserEnabled) {
-        //            [self parseLocationHeader];
-        //        } else if (self.hlsEnabled) {
-        //             [self parseHls];
-        //        } else if (self.dashEnabled) {
-        //             [self parseDash];
-        //        } else if (self.cdnEnabled) {
-        //            [self parseCdn];
-        //        } else {
-        //            [self done];
-        //        }
     }
 }
 
 -(void)parseResourceWithParser:(id<YBResourceParser>)parser withResource:(NSString*)resource andCompletion:(ResourceCompletion)completion {
     if (!parser) { completion(resource); }
     
-//    if ([parser isSatisfiedWithResource:resource]) {
-//        
-//    } else {
-//        [self parseResourceWithParser:[self getNextParser:parser] withResource:resource andCompletion:completion];
-//    }
+    [YBRecursiveResourceParser recursivelyParse:resource withParser:parser completion:^(NSString *finalResource) {
+        [self parseResourceWithParser:[self getNextParser:parser] withResource:resource andCompletion:completion];
+    }];
+}
+
+-(id<YBResourceParser>)getNextParser:(id<YBResourceParser>)parser {
+    NSUInteger currentIndex = [self.parsers indexOfObject:parser];
+    
+    if (currentIndex + 1 >= self.parsers.count) { return nil; }
+    
+    return [self.parsers objectAtIndex:currentIndex + 1];
 }
 
 
 // Override
 - (void)parse:(YBRequest *)request {
     if ([YBConstantsYouboraService.start isEqualToString:request.service]) {
-        NSMutableDictionary * lastSent = nil; //self.plugin.requestBuilder.lastSent;
+        NSMutableDictionary * lastSent = self.plugin.requestBuilder.lastSent;
         
         //No need to replace now
         /*NSString * resource = [self getResource];
@@ -201,33 +194,9 @@ typedef void (^RequestCompletion)(NSString *);
 }
 
 #pragma mark - Private methods
-//- (void) parseHls {
-//    self.hlsParser = [self createHlsParser];
-//
-//    [self.hlsParser addHlsTransformDoneDelegate:self];
-//
-//    if (self.locHeaderParser) {
-//        [self.hlsParser parse:self.realResource parentResource:nil];
-//    } else {
-//        [self.hlsParser parse:self.beginResource parentResource:nil];
-//    }
-//
-//}
-//
-//- (void) parseDash {
-//    self.dashParser = [YBDashParser new];
-//
-//    [self.dashParser addDashTransformDoneDelegate:self];
-//
-//    if (self.locationHeaderParserEnabled) {
-//        [self.dashParser parse: self.realResource];
-//    } else {
-//        [self.dashParser parse: self.beginResource];
-//    }
-//}
 
 - (void) parseCdn {
-    if (self.cdnList.count != 0) {
+    if (self.cdnList.count != 0 && self.isToParseCdn) {
         NSString * cdn = self.cdnList.firstObject;
         [self.cdnList removeObjectAtIndex:0];
         
@@ -242,7 +211,6 @@ typedef void (^RequestCompletion)(NSString *);
             [self parseCdn];
         } else {
             [self.cdnParser addCdnTransformDelegate:self];
-            
             // TODO: previous responses
             [self.cdnParser parseWithUrl:[self getResource] andPreviousResponses:nil];
         }
@@ -250,14 +218,6 @@ typedef void (^RequestCompletion)(NSString *);
         [self done];
     }
 }
-
-//- (void) parseLocationHeader {
-//    self.locHeaderParser = [self createLocHeaderParser];
-//
-//    [self.locHeaderParser addLocationHeaderTransformDoneDelegate:self];
-//
-//    [self.locHeaderParser parse:self.currentResource];
-//}
 
 - (void) setTimeout {
     // Since an NSTimer is being scheduled here, ensure we are on the main thread
@@ -286,10 +246,6 @@ typedef void (^RequestCompletion)(NSString *);
 
 - (NSTimer *) createNonRepeatingScheduledTimerWithInterval:(NSTimeInterval) interval {
     return [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(parseTimeout:) userInfo:nil repeats:false];
-}
-
-- (YBHlsParser *) createHlsParser {
-    return [YBHlsParser new];
 }
 
 - (YBCdnParser *) createCdnParser:(NSString *) cdn {

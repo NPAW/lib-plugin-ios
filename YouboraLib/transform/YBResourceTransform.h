@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN;
  * @param parseResource boolean option to check if this should parse resource or not
  * @param parseCdn boolean option to check if this should parse the cdn or not
  */
-- (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn;
+- (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn plugin:(YBPlugin*)plugin;
 
 /// ---------------------------------
 /// @name Public methods

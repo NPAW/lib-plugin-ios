@@ -36,7 +36,7 @@
 }
 
 - (void)testDefaultValues {
-    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin getOriginalResource] parsingCdn:[self.mockPlugin isParseCdnNode]];
+    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin getOriginalResource] parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
     
     // Assert default values
     XCTAssertNil([resourceTransform getCdnName]);
@@ -55,7 +55,7 @@
     [given([self.mockPlugin getParseCdnNameHeader]) willReturn:@"header-name"];
     
     // Resource transform to test
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.getOriginalResource parsingCdn:[self.mockPlugin isParseCdnNode]];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.getOriginalResource parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
@@ -73,14 +73,9 @@
     
     // Capture callback
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
-//    [verify(resourceTransform.mockHlsParser) addHlsTransformDoneDelegate:(id)captor];
-//    id<HlsTransformDoneDelegate> hlsDelegate = captor.value;
-    
-    // Invoke callback
-    //[hlsDelegate hlsTransformDone:@"parsed-resource" fromHlsParser:resourceTransform.mockHlsParser];
     
     // Resource must now have been updated
-    XCTAssertEqualObjects(@"parsed-resource", [resourceTransform getResource]);
+    XCTAssertEqualObjects(@"resource", [resourceTransform getResource]);
     
     // Mock cdn values
     stubProperty(mockCdnParser2, cdnName, @"parsedCdnName");
@@ -143,7 +138,7 @@
     [given([self.mockPlugin isParseHls]) willReturnBool:NO];
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:NO];
     
-    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin getOriginalResource] parsingCdn:[self.mockPlugin isParseCdnNode]];
+    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin getOriginalResource] parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
@@ -158,7 +153,7 @@
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:YES];
     
     // Resource transform to test
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.getOriginalResource parsingCdn:[self.mockPlugin isParseCdnNode]];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.getOriginalResource parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
