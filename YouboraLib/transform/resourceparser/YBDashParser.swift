@@ -8,7 +8,7 @@
 
 import Foundation
 
-class YBDashParser: YBResourceParser {
+@objcMembers public class YBDashParser: NSObject, YBResourceParser {
     var resource: String?
     
     public func isSatisfied(resource: String?) -> Bool {

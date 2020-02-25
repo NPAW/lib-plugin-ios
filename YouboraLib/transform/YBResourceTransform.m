@@ -68,7 +68,8 @@ typedef void (^RequestCompletion)(NSString *);
     if (parseResource) {
         self.parsers = @[
             [[YBLocationParser alloc] init],
-            [[YBHlsParser alloc] init]
+            [[YBHlsParser alloc] init],
+            [[YBDashParser alloc] init]
         ];
     } else {
         self.parsers = @[];
