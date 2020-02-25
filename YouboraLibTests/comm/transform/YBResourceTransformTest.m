@@ -11,7 +11,6 @@
 #import "YBResourceTransform.h"
 #import "YBRequest.h"
 #import "YBCdnParser.h"
-#import "YBHlsParser.h"
 #import "YBPlugin.h"
 #import "YBRequestBuilder.h"
 
