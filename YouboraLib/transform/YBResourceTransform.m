@@ -15,11 +15,8 @@
 #import "YBCdnConfig.h"
 #import "YBLog.h"
 #import "YouboraLib/YouboraLib-Swift.h"
-#import "YBRecursiveResourceParser.h"
 
-typedef void (^ResourceCompletion)(NSString *finalResource);
-
-@interface YBResourceTransform()
+@interface YBResourceTransform() <CdnTransformDoneDelegate>
 
 // Private properties
 @property(nonatomic, strong) NSString * currentResource;
@@ -32,13 +29,14 @@ typedef void (^ResourceCompletion)(NSString *finalResource);
 
 @property(nonatomic, strong) YBCdnParser * cdnParser;
 
+@property(nonatomic) Boolean cdnEnabled;
+
 @property(nonatomic, strong) NSArray <id<YBResourceParser>> *parsers;
 
 @property(nonatomic, strong) NSMutableArray<NSString *> * cdnList;
 
 @property(nonatomic, strong) NSTimer * timerTimeout;
 @property(nonatomic, weak) YBPlugin * plugin;
-@property(nonatomic) Boolean isToParseCdn;
 
 @property(nonatomic, assign, readwrite) bool isFinished;
 
@@ -60,16 +58,10 @@ typedef void (^ResourceCompletion)(NSString *finalResource);
 - (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn plugin:(YBPlugin*)plugin {
     self = [self init];
     
-    self.cdnName = nil;
-    self.cdnNodeHost = nil;
-    self.cdnNodeType = YBCdnTypeUnknown;
-    self.cdnNodeTypeString = nil;
-    
     self.isBusy = false;
     
     self.plugin = plugin;
     
-    self.isToParseCdn = parseCdn;
     if (parseResource) {
         self.parsers = @[
             [[YBLocationParser alloc] init],
@@ -121,42 +113,67 @@ typedef void (^ResourceCompletion)(NSString *finalResource);
         self.isBusy = true;
         self.isFinished = false;
         
+        self.cdnName = nil;
+        self.cdnNodeHost = nil;
+        self.cdnNodeType = YBCdnTypeUnknown;
+        self.cdnNodeTypeString = nil;
+        self.cdnEnabled = [self.plugin isParseCdnNode];
         self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
-        self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
         
         if (self.cdnNameHeader != nil) {
             [YBCdnParser setBalancerHeaderName:self.cdnNameHeader];
         }
+
         
         [self setTimeout];
         
         if(self.parsers.count > 0) {
-            [self parseResourceWithParser:self.parsers.firstObject withResource:originalResource andCompletion:^(NSString *finalResource) {
-                self.currentResource = finalResource;
-                [self parseCdn];
-            }];
+            [self parse:self.parsers.firstObject currentResource:originalResource];
         } else {
-            self.currentResource = originalResource;
-            [self parseCdn];
+            [self parse:nil currentResource:originalResource];
         }
         
     }
 }
 
--(void)parseResourceWithParser:(id<YBResourceParser>)parser withResource:(NSString*)resource andCompletion:(ResourceCompletion)completion {
-    if (!parser) { completion(resource); }
+-(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource {
+    //No more parsers available try to parse cdn then
+    if (!parser) {
+        self.currentResource = resource;
+        [self parseCdn];
+        return;
+    }
     
-    [YBRecursiveResourceParser recursivelyParse:resource withParser:parser completion:^(NSString *finalResource) {
-        [self parseResourceWithParser:[self getNextParser:parser] withResource:resource andCompletion:completion];
+    if (![parser isSatisfiedWithResource:resource]) {
+        [self parse:[self getNextParser:parser] currentResource:resource];
+    } else {
+        [self requestAndParse:parser currentResource:resource];
+    }
+    
+}
+
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource {
+    YBRequest *request = [[YBRequest alloc] initWithHost:[parser getRequestSource] andService:nil];
+    
+    [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *,id> * _Nullable listenerParams) {
+        NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams];
+        
+        if (!newResource) {
+            [self parse:[self getNextParser:parser] currentResource:resource];
+        } else {
+            [self parse:parser currentResource:newResource];
+        }
+    }];
+    
+    [request addRequestErrorListener:^(NSError * _Nullable error) {
+        [self parse:[self getNextParser:parser] currentResource:resource];
     }];
 }
 
--(id<YBResourceParser>)getNextParser:(id<YBResourceParser>)parser {
-    NSUInteger currentIndex = [self.parsers indexOfObject:parser];
+-(id<YBResourceParser> _Nullable)getNextParser:(id<YBResourceParser>)parser {
+    if (parser == self.parsers.lastObject) { return nil; }
     
-    if (currentIndex + 1 >= self.parsers.count) { return nil; }
-    
-    return [self.parsers objectAtIndex:currentIndex + 1];
+    return [self.parsers objectAtIndex: [self.parsers indexOfObject:parser] + 1];
 }
 
 
@@ -172,7 +189,7 @@ typedef void (^ResourceCompletion)(NSString *finalResource);
          [request setParam:resource forKey:@"mediaResource"];
          lastSent[@"mediaResource"] = resource;*/
         
-        if (self.cdnParser) {
+        if (self.cdnEnabled) {
             NSString * cdn = request.params[@"cdn"];
             if (cdn == nil) {
                 cdn = [self getCdnName];
@@ -196,7 +213,7 @@ typedef void (^ResourceCompletion)(NSString *finalResource);
 #pragma mark - Private methods
 
 - (void) parseCdn {
-    if (self.cdnList.count != 0 && self.isToParseCdn) {
+    if (self.cdnList.count != 0) {
         NSString * cdn = self.cdnList.firstObject;
         [self.cdnList removeObjectAtIndex:0];
         
@@ -236,6 +253,21 @@ typedef void (^ResourceCompletion)(NSString *finalResource);
     if (self.isBusy) {
         [self done];
         [YBLog warn:@"ResourceTransform has exceeded the maximum execution time (3s) and will be aborted"];
+    }
+}
+
+- (void)cdnTransformDone:(nonnull YBCdnParser *)cdnParser {
+    self.cdnName = cdnParser.cdnName;
+    self.cdnNodeHost = cdnParser.cdnNodeHost;
+    self.cdnNodeType = cdnParser.cdnNodeType;
+    self.cdnNodeTypeString = cdnParser.cdnNodeTypeString;
+    
+    self.cdnParser = nil;
+    
+    if ([self getNodeHost] != nil) {
+        [self done];
+    } else {
+        [self parseCdn];
     }
 }
 

@@ -7,8 +7,12 @@
 //
 
 #import "YBTestableResourceTransform.h"
-
 #import <OCMockito/OCMockito.h>
+#import "YouboraLib/YouboraLib-Swift.h"
+
+@interface YBTestableResourceTransform()
+
+@end
 
 @implementation YBTestableResourceTransform
 
@@ -18,6 +22,7 @@
     if (self) {
         self.mockCdnParser = mock([YBCdnParser class]);
         self.mockTimer = mock([NSTimer class]);
+        self.iteration = 0;
     }
     return self;
 }
@@ -33,6 +38,25 @@
 
 - (NSTimer *) createNonRepeatingScheduledTimerWithInterval:(NSTimeInterval) interval {
     return self.mockTimer;
+}
+
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource {
+    if (!self.delegate) {
+        [self parse:[self getNextParser:parser] currentResource:resource];
+        self.iteration ++;
+        return;
+    }
+    
+    NSData *data = [self.delegate getDataForIteration:self.iteration];
+    NSHTTPURLResponse *response = [self.delegate getResponseForIteration:self.iteration];
+    NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:nil];
+    
+    self.iteration ++;
+    if (!newResource) {
+        [self parse:[self getNextParser:parser] currentResource:resource];
+    } else {
+        [self parse:parser currentResource:newResource];
+    }
 }
 
 @end

@@ -10,9 +10,7 @@
 #import "YBCdnParser.h"
 
 @class YBPlugin;
-
-NS_ASSUME_NONNULL_BEGIN;
-
+@protocol YBResourceParser;
 /**
  * Parses resource urls to get transportstreams and CDN-related info.
  */
@@ -79,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN;
  */
 - (nullable NSString *) getNodeTypeString;
 
+-(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource;
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource;
+-(id<YBResourceParser> _Nullable)getNextParser:(id<YBResourceParser>)parser;
 @end
-
-
-NS_ASSUME_NONNULL_END;

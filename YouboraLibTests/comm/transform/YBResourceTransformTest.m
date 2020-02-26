@@ -20,9 +20,17 @@
 #import <OCMockito/OCMockito.h>
 #import "YouboraLib/YouboraLib-Swift.h"
 
-@interface YBResourceTransformTest : XCTestCase
+typedef enum {
+    dashFlow,
+    hlsFlow,
+    locationFlow,
+    fullFlow
+} FlowType;
+
+@interface YBResourceTransformTest : XCTestCase <YBTestableResourceTransformProtocol>
 
 @property(nonatomic, strong) YBPlugin * mockPlugin;
+@property(nonatomic) FlowType currentFlow;
 
 @end
 
@@ -30,13 +38,11 @@
 
 - (void)setUp {
     [super setUp];
-    
     self.mockPlugin = mock([YBPlugin class]);
-    
 }
 
 - (void)testDefaultValues {
-    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin getOriginalResource] parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin isParseResource] parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
     
     // Assert default values
     XCTAssertNil([resourceTransform getCdnName]);
@@ -46,16 +52,57 @@
     XCTAssertNil([resourceTransform getResource]);
 }
 
+-(void)testLocationFlow {
+    self.currentFlow = locationFlow;
+    NSString *expectedFinalResource = @"http://example1.com";
+    
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:true parsingCdn:true plugin:self.mockPlugin];
+    
+    resourceTransform.delegate = self;
+    
+    [resourceTransform begin:@"http://example.com"];
+    
+    XCTAssertTrue([[resourceTransform getResource] isEqualToString:expectedFinalResource]);
+}
+
+-(void)testDashFlow {
+    self.currentFlow = dashFlow;
+    NSString *expectedFinalResource = @"https://boltrljDRMTest1-a.akamaihd.net/media/v1/dash/live/cenc/6028583040001/f39ee0f0-72de-479d-9609-2bf6ea95b427/fed9a7f1-499a-469d-bacd-f25a94eac116/";
+    
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:true parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    
+    resourceTransform.delegate = self;
+    
+    [resourceTransform begin:@"http://example.com"];
+    
+    XCTAssertTrue([[resourceTransform getResource] isEqualToString:expectedFinalResource]);
+}
+
+-(void)testHlsFlow {
+    self.currentFlow = hlsFlow;
+    NSString *expectedFinalResource = @"http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/0640/06400.ts";
+    
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:true parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    
+    resourceTransform.delegate = self;
+    
+    [resourceTransform begin:@"http://example.com"];
+    
+    XCTAssertTrue([[resourceTransform getResource] isEqualToString:expectedFinalResource]);
+}
+
 - (void)testFullFlow {
+    self.currentFlow = fullFlow;
     
     // Mocks
-    [given([self.mockPlugin isParseHls]) willReturnBool:YES];
+    [given([self.mockPlugin isParseResource]) willReturnBool:YES];
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:YES];
     [given([self.mockPlugin getParseCdnNodeList]) willReturn:@[@"cdn1", @"cdn2"]];
     [given([self.mockPlugin getParseCdnNameHeader]) willReturn:@"header-name"];
     
     // Resource transform to test
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.getOriginalResource parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.isParseResource parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    resourceTransform.delegate = self;
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
@@ -69,13 +116,11 @@
     
     XCTAssertTrue([resourceTransform isBlocking:nil]);
     
-    //[verify(resourceTransform.mockHlsParser) parse:@"resource" parentResource:nil];
-    
     // Capture callback
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
     
     // Resource must now have been updated
-    XCTAssertEqualObjects(@"resource", [resourceTransform getResource]);
+    XCTAssertTrue([[resourceTransform getResource] isEqualToString:@"parsed-resource"]);
     
     // Mock cdn values
     stubProperty(mockCdnParser2, cdnName, @"parsedCdnName");
@@ -90,7 +135,7 @@
     
     // Invoke callback. As this cdn won't return any info (all nil), the second cdn will be used
     [cdnDelegate cdnTransformDone:mockCdnParser1];
-
+    
     // Capture callback for mockCdnParser2
     [verify(mockCdnParser2) addCdnTransformDelegate:(id)captor];
     
@@ -105,7 +150,7 @@
     XCTAssertEqualObjects(@"parsedNodeHost", [resourceTransform getNodeHost]);
     XCTAssertEqualObjects(@"1", [resourceTransform getNodeType]);
     XCTAssertEqualObjects(@"HIT", [resourceTransform getNodeTypeString]);
-    XCTAssertEqualObjects(@"parsed-resource", [resourceTransform getResource]);
+    XCTAssertTrue([[resourceTransform getResource] isEqualToString:@"parsed-resource"]);
     
     // Check parse start request
     YBRequest * mockRequest = mock([YBRequest class]);
@@ -131,34 +176,34 @@
     XCTAssertEqualObjects(@"parsedNodeHost", lastSent[@"nodeHost"]);
     XCTAssertEqualObjects(@"1", lastSent[@"nodeType"]);
     XCTAssertEqualObjects(@"HIT", lastSent[@"nodeTypeString"]);
-    
 }
 
 - (void)testNotingEnabled {
     [given([self.mockPlugin isParseHls]) willReturnBool:NO];
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:NO];
     
-    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin getOriginalResource] parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:false parsingCdn:false plugin:self.mockPlugin];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
     [resourceTransform begin:@"resource"];
-
+    
     XCTAssertFalse([resourceTransform isBlocking:nil]);
 }
 
 - (void)testStopOnTimeout {
     // Mocks
-    [given([self.mockPlugin isParseHls]) willReturnBool:YES];
+    [given([self.mockPlugin isParseResource]) willReturnBool:YES];
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:YES];
+    [given([self.mockPlugin getParseCdnNodeList]) willReturn:@[@"cdn1", @"cdn2"]];
     
     // Resource transform to test
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.getOriginalResource parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:[self.mockPlugin isParseResource] parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
     [resourceTransform begin:@"resource"];
-
+    
     XCTAssertTrue([resourceTransform isBlocking:nil]);
     
     // Mock timeout
@@ -168,6 +213,111 @@
 
 // Keep compiler happy
 - (void) parseTimeout:(NSTimer *) timer {
+}
+
+- (NSData * _Nullable)getDataForIteration:(NSInteger)iteration {
+    switch (self.currentFlow) {
+        case dashFlow:
+            return [self getDashFlowData:iteration];
+        case hlsFlow:
+            return [self getHlsFlowData:iteration];
+        default:
+            return nil;
+    }
+}
+
+- (NSHTTPURLResponse * _Nullable)getResponseForIteration:(NSInteger)iteration {
+    switch (self.currentFlow) {
+        case dashFlow:
+            return [self getDashFlowResponseForIteration:iteration];
+        case hlsFlow:
+            return [self getHlsFlowResponseForIteration:iteration];
+        case locationFlow:
+            return [self getLocationFlowResponseForIteration:iteration];
+        case fullFlow:
+            return [self getFullFlowResponseForIteration:iteration];
+        default:
+            return nil;
+    }
+}
+
+#pragma mark Full flow Section
+- (NSHTTPURLResponse * _Nullable)getFullFlowResponseForIteration:(NSInteger)iteration {
+    if (iteration == 0) {
+        return [[NSHTTPURLResponse alloc] initWithURL:@"" statusCode:200 HTTPVersion:nil headerFields:@{@"Location":@"parsed-resource"}];
+    }
+    
+    return [[NSHTTPURLResponse alloc] initWithURL:@"" statusCode:200 HTTPVersion:nil headerFields:nil];
+}
+
+#pragma mark Location Section
+
+- (NSHTTPURLResponse * _Nullable)getLocationFlowResponseForIteration:(NSInteger)iteration {
+    if (iteration == 0) {
+        return [[NSHTTPURLResponse alloc] initWithURL:@"" statusCode:200 HTTPVersion:nil headerFields:@{@"Location":@"http://example1.com"}];
+    }
+    
+    return [[NSHTTPURLResponse alloc] initWithURL:@"" statusCode:200 HTTPVersion:nil headerFields:nil];
+}
+
+#pragma mark Hls Section
+
+-(NSData* _Nullable)getHlsFlowData:(NSInteger)iteration {
+    if (iteration == 2) {
+        NSString *stringToReturn = @"\
+        #EXTM3U\n\
+        #EXT-X-STREAM-INF:PROGRAM-ID=1, BANDWIDTH=688301\n\
+        http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/0640_vod.m3u8\n\
+        #EXT-X-STREAM-INF:PROGRAM-ID=1, BANDWIDTH=165135\n\
+        http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/0150_vod.m3u8\n";
+        
+        return [stringToReturn dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    if (iteration == 3) {
+        NSString *stringToReturn = @"\
+        #EXTM3U\n\
+        #EXT-X-TARGETDURATION:10\n\
+        #EXT-X-MEDIA-SEQUENCE:0\n\
+        #EXTINF:10,\n\
+        0640/06400.ts\n\
+        #EXTINF:10,\n\
+        0640/06401.ts\n";
+        return [stringToReturn dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    return nil;
+}
+
+- (NSHTTPURLResponse * _Nullable)getHlsFlowResponseForIteration:(NSInteger)iteration {
+    if (iteration == 0) {
+        return [[NSHTTPURLResponse alloc] initWithURL:@"" statusCode:200 HTTPVersion:nil headerFields:@{@"Location":@"http://example.m3u8"}];
+    }
+    
+    return [[NSHTTPURLResponse alloc] initWithURL:@"" statusCode:200 HTTPVersion:nil headerFields:nil];
+}
+
+#pragma mark Dash Section
+-(NSData* _Nullable)getDashFlowData:(NSInteger)iteration {
+    NSBundle *bundle = [NSBundle bundleForClass:self.classForCoder];
+    
+    if (iteration == 2) {
+        return [NSData dataWithContentsOfFile:[bundle pathForResource:@"dashResponse" ofType:@"xml"]];
+    }
+    
+    if (iteration == 3) {
+        return [NSData dataWithContentsOfFile:[bundle pathForResource:@"dashCallbackResponse" ofType:@"xml"]];
+    }
+    
+    return nil;
+}
+
+- (NSHTTPURLResponse * _Nullable)getDashFlowResponseForIteration:(NSInteger)iteration {
+    if (iteration == 0) {
+        return [[NSHTTPURLResponse alloc] initWithURL:@"" statusCode:200 HTTPVersion:nil headerFields:@{@"Location":@"http://example.mpd"}];
+    }
+    
+    return [[NSHTTPURLResponse alloc] initWithURL:@"" statusCode:200 HTTPVersion:nil headerFields:nil];
 }
 
 @end

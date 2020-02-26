@@ -73,12 +73,6 @@
 		06B08712240565360076F7ED /* YBDashParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0870C240565360076F7ED /* YBDashParserTest.swift */; };
 		06B08714240565700076F7ED /* YBDashParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0870C240565360076F7ED /* YBDashParserTest.swift */; };
 		06B08715240565720076F7ED /* YBDashParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0870C240565360076F7ED /* YBDashParserTest.swift */; };
-		06B08721240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		06B08722240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		06B08723240574320076F7ED /* YBRecursiveResourceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		06B08724240574320076F7ED /* YBRecursiveResourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B08720240574320076F7ED /* YBRecursiveResourceParser.m */; };
-		06B08725240574320076F7ED /* YBRecursiveResourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B08720240574320076F7ED /* YBRecursiveResourceParser.m */; };
-		06B08726240574320076F7ED /* YBRecursiveResourceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B08720240574320076F7ED /* YBRecursiveResourceParser.m */; };
 		06C14F8A23D8AD7D00E7525B /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
 		06C14F8B23D8AD7E00E7525B /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
 		06C14F8C23D8AD7E00E7525B /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
@@ -412,8 +406,6 @@
 		06A0DB8D24053A40002B689B /* YBHlsParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YBHlsParserTest.swift; path = comm/transform/resourceparse/YBHlsParserTest.swift; sourceTree = "<group>"; };
 		06B08705240563D70076F7ED /* YBDashParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBDashParser.swift; sourceTree = "<group>"; };
 		06B0870C240565360076F7ED /* YBDashParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YBDashParserTest.swift; path = comm/transform/resourceparse/YBDashParserTest.swift; sourceTree = "<group>"; };
-		06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBRecursiveResourceParser.h; sourceTree = "<group>"; };
-		06B08720240574320076F7ED /* YBRecursiveResourceParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBRecursiveResourceParser.m; sourceTree = "<group>"; };
 		06CF6160238D4048000B4FAE /* dashResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = dashResponse.xml; path = comm/transform/resourceparse/dashResponse.xml; sourceTree = "<group>"; };
 		06CF6161238D4048000B4FAE /* dashCallbackResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = dashCallbackResponse.xml; path = comm/transform/resourceparse/dashCallbackResponse.xml; sourceTree = "<group>"; };
 		1F811A27ADFE1085023FC9B5 /* Pods-YouboraLibTests iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLibTests iOS.debug.xcconfig"; path = "Target Support Files/Pods-YouboraLibTests iOS/Pods-YouboraLibTests iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -619,8 +611,6 @@
 				06A0DB70240527A7002B689B /* YBLocationParser.swift */,
 				06A0DB7F24053720002B689B /* YBHlsParser.swift */,
 				06B08705240563D70076F7ED /* YBDashParser.swift */,
-				06B0871F240574320076F7ED /* YBRecursiveResourceParser.h */,
-				06B08720240574320076F7ED /* YBRecursiveResourceParser.m */,
 			);
 			name = resourceparser;
 			path = transform/resourceparser;
@@ -1045,7 +1035,6 @@
 				4E9C7BC01E8E6D8B00E10631 /* YBCdnParser.h in Headers */,
 				CDFEAF1C2100E0C600C59B67 /* YBInfinity.h in Headers */,
 				CDFEAF0C20FF5A2F00C59B67 /* YBTimestampLastSentTransform.h in Headers */,
-				06B08721240574320076F7ED /* YBRecursiveResourceParser.h in Headers */,
 				CDFEAF1320FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */,
 				CD9373842104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				4E7CBCBF1E82D78800FF7D7A /* YBFastDataConfig.h in Headers */,
@@ -1084,7 +1073,6 @@
 				4E4956191E9F4F2600FF6280 /* YBLog.h in Headers */,
 				CDFEAF1D2100E0C600C59B67 /* YBInfinity.h in Headers */,
 				CDFEAF0D20FF5A2F00C59B67 /* YBTimestampLastSentTransform.h in Headers */,
-				06B08722240574320076F7ED /* YBRecursiveResourceParser.h in Headers */,
 				CDFEAF1420FF6F7400C59B67 /* YBInfinityLocalManager.h in Headers */,
 				CD9373852104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				CDEB0D532011EE0600B297B7 /* YBEvent.h in Headers */,
@@ -1123,7 +1111,6 @@
 				CD52378E228DA2F50013BA16 /* YBViewTransform.h in Headers */,
 				CD523786228DA2F50013BA16 /* YBFlowTransform.h in Headers */,
 				CD523779228DA2E10013BA16 /* YBPlayerAdapter.h in Headers */,
-				06B08723240574320076F7ED /* YBRecursiveResourceParser.h in Headers */,
 				CD523783228DA2F00013BA16 /* YBRequest.h in Headers */,
 				CD523785228DA2F50013BA16 /* YBTransformSubclass.h in Headers */,
 				CD5237AE228DA31C0013BA16 /* YBEvent.h in Headers */,
@@ -1605,7 +1592,6 @@
 				4E5E53601E7C4C3C00966C7B /* YBOptions.m in Sources */,
 				4E7CBCB31E826C6F00FF7D7A /* YBPlugin.m in Sources */,
 				06B08706240563D70076F7ED /* YBDashParser.swift in Sources */,
-				06B08724240574320076F7ED /* YBRecursiveResourceParser.m in Sources */,
 				CDFEAF1520FF6F7400C59B67 /* YBInfinityLocalManager.m in Sources */,
 				CDFEAF1E2100E0C600C59B67 /* YBInfinity.m in Sources */,
 				CDBE2A52200F5E310034A660 /* YBOfflineTransform.m in Sources */,
@@ -1702,7 +1688,6 @@
 				4E4956201E9F4F5300FF6280 /* YBParsableResponseHeader.m in Sources */,
 				4E4956211E9F4F5300FF6280 /* YBCdnParser.m in Sources */,
 				06B08708240563D70076F7ED /* YBDashParser.swift in Sources */,
-				06B08725240574320076F7ED /* YBRecursiveResourceParser.m in Sources */,
 				0601DCF823D763F600128F32 /* YBYouboraUtils.swift in Sources */,
 				4E4956231E9F4F5300FF6280 /* YBFlowTransform.m in Sources */,
 				4E4956241E9F4F5300FF6280 /* YBNqs6Transform.m in Sources */,
@@ -1799,7 +1784,6 @@
 				CD5237B1228DA3200013BA16 /* YBEventDAO.m in Sources */,
 				CD523780228DA2E70013BA16 /* YBInfinityFlags.m in Sources */,
 				06B0870A240563D70076F7ED /* YBDashParser.swift in Sources */,
-				06B08726240574320076F7ED /* YBRecursiveResourceParser.m in Sources */,
 				CD5237AF228DA31C0013BA16 /* YBEvent.m in Sources */,
 				CD523791228DA2F50013BA16 /* YBFastDataConfig.m in Sources */,
 				0627CD0723D86DE000E5D937 /* YBSwiftTimer.swift in Sources */,
