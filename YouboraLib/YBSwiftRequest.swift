@@ -38,7 +38,7 @@ public typealias SwiftRequestSuccessBlock = (_ data: Data?, _ response: URLRespo
 */
 public typealias SwiftRequestErrorBlock = (_ error: Error?) -> Void
 
-@objcMembers open class YBRequest {
+@objcMembers open class YBSwiftRequest {
 
     var host: String?
     var service: String?
@@ -220,7 +220,7 @@ public typealias SwiftRequestErrorBlock = (_ error: Error?) -> Void
 
     // MARK: Private methods
 
-    private func createRequest(_ url: URL) -> URLRequest {
+    internal func createRequest(_ url: URL) -> URLRequest {
         return URLRequest(url: url)
     }
 
@@ -277,7 +277,7 @@ public typealias SwiftRequestErrorBlock = (_ error: Error?) -> Void
     }
 
     private func didSucceed(_ data: Data?, _ response: URLResponse?) {
-        YBRequest.everySuccessListenerList.forEach({ item in
+        YBSwiftRequest.everySuccessListenerList.forEach({ item in
             item(data, response, self.listenerParams)
         })
 
@@ -287,7 +287,7 @@ public typealias SwiftRequestErrorBlock = (_ error: Error?) -> Void
     }
 
     private func didFail(_ error: Error) {
-        YBRequest.everyErrorListenerList.forEach({ item in
+        YBSwiftRequest.everyErrorListenerList.forEach({ item in
             item(error)
         })
 
