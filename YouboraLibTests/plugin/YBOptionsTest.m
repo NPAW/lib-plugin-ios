@@ -21,6 +21,26 @@
     XCTAssertEqualObjects(@"a-fds.youborafds01.com", options.host);
 }
 
+-(void)testParser {
+    YBOptions * options = [YBOptions new];
+    options.parseHls = true;
+    
+    XCTAssertEqual(options.parseResource, true);
+    
+    options.parseResource = false;
+    
+    XCTAssertEqual(options.parseResource, false);
+    
+    options.parseHls = false;
+    options.parseLocationHeader = true;
+    options.parseDash = false;
+    
+    XCTAssertEqual(options.parseResource, true);
+    options.parseResource = false;
+    options.parseResource = true;
+    XCTAssertEqual(options.parseResource, true);
+}
+
 - (void)testCoding {
     YBOptions * opt = [YBOptions new];
     

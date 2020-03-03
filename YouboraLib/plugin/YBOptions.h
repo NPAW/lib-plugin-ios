@@ -217,21 +217,21 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST;
  * It might slow performance down.
  * Default: false
  */
-@property(nonatomic, assign) bool parseHls DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
+@property(nonatomic, assign, setter=setResourceParseJoin:) bool parseHls DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
 
 /**
  * If true the plugin will look for the location and segment values inside dash manifest to retrieve the actual resource
  * It might slow performance down.
  * Default: false
  */
-@property(nonatomic, assign) bool parseDash DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
+@property(nonatomic, assign, setter=setResourceParseJoin:) bool parseDash DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
 
 /**
  * If true the plugin will parse the resource to try and find out the real given resource instead of the API url
  * It might slow performance down.
  * Default: false
  */
-@property(nonatomic, assign) bool parseLocationHeader DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
+@property(nonatomic, assign, setter=setResourceParseJoin:) bool parseLocationHeader DEPRECATED_MSG_ATTRIBUTE("Use parseResource instead.");
 
 /**
  * If defined, resource parse will try to fetch the CDN code from the custom header defined

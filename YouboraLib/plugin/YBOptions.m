@@ -175,12 +175,6 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.parseHls = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_HLS] isEqualToValue:@YES];
         self.parseLocationHeader = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_LOCATION_HEADER] isEqualToValue:@YES];
         
-        // if all false then false otherwise if at least one is true then true
-        // TODO: Remove when clean deprecated parsers
-        if (!self.parseResource) {
-            self.parseResource = self.parseDash || self.parseHls || self.parseLocationHeader;
-        }
-        
         self.parseCdnNode = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE] isEqualToValue:@YES];
         self.parseCdnNameHeader = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
         self.parseCdnNodeList = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
@@ -686,6 +680,12 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.pendingMetadata forKey:YBOPTIONS_KEY_PENDING_METADATA];
     [dict setValue:self.sessionMetrics forKey:YBOPTIONS_KEY_SESSION_METRICS];
     return [[NSDictionary alloc] initWithDictionary:dict];
+}
+
+- (void) setResourceParseJoin:(bool)parse {
+    if (!self.parseResource && parse) {
+        self.parseResource = parse;
+    }
 }
 
 - (void) setContentTitle2:(NSString *)contentTitle2 {
