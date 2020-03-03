@@ -55,14 +55,14 @@
     return self;
 }
 
-- (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn plugin:(YBPlugin*)plugin {
+- (instancetype)initWithPlugin:(YBPlugin*)plugin {
     self = [self init];
     
     self.isBusy = false;
     
     self.plugin = plugin;
     
-    if (parseResource) {
+    if (self.plugin.isParseResource) {
         self.parsers = @[
             [[YBLocationParser alloc] init],
             [[YBHlsParser alloc] init],

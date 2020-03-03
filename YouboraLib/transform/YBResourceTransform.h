@@ -30,10 +30,9 @@
 /// ---------------------------------
 /**
  * Initializer
- * @param parseResource boolean option to check if this should parse resource or not
- * @param parseCdn boolean option to check if this should parse the cdn or not
+ * @param plugin Plugin to check all the info
  */
-- (instancetype)initParsingResource:(Boolean)parseResource parsingCdn:(Boolean)parseCdn plugin:(YBPlugin*)plugin;
+- (instancetype)initWithPlugin:(YBPlugin*)plugin;
 
 /// ---------------------------------
 /// @name Public methods
