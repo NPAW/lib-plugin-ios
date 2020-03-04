@@ -408,9 +408,9 @@
 }
 
 - (void)testTransactionCode {
-    stubProperty(self.mockOptions, contentTransactionCode, @"transactionCode");
+    stubProperty(self.mockOptions, contentTransactionCode, YBConstantsRequest.transactionCode);
     
-    XCTAssertEqualObjects(@"transactionCode", [self.p getTransactionCode]);
+    XCTAssertEqualObjects(YBConstantsRequest.transactionCode, [self.p getTransactionCode]);
     
     stubProperty(self.mockOptions, contentTransactionCode, nil);
     
@@ -457,7 +457,7 @@
 - (void)testPluginVersion {
     [given([self.mockAdapter getVersion]) willReturn:nil];
     
-    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
+    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-adapterless-ios"], [self.p getPluginVersion]);
     
     [given([self.mockAdapter getVersion]) willReturn:[YBConstants.youboraLibVersion stringByAppendingString:@"-CustomPlugin"]];
     
@@ -465,7 +465,7 @@
     
     [self.p removeAdapter];
     
-    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-adapterless"], [self.p getPluginVersion]);
+    XCTAssertEqualObjects([YBConstants.youboraLibVersion stringByAppendingString:@"-adapterless-ios"], [self.p getPluginVersion]);
 }
 
 - (void)testCustomDimensions {
@@ -953,8 +953,8 @@
 
 - (void)testIsp {
     XCTAssertNil([self.p getIsp]);
-    stubProperty(self.mockOptions, networkIsp, @"ISP");
-    XCTAssertEqualObjects(@"ISP", [self.p getIsp]);
+    stubProperty(self.mockOptions, networkIsp, YBConstantsRequest.isp);
+    XCTAssertEqualObjects(YBConstantsRequest.isp, [self.p getIsp]);
 }
 
 - (void)testConnectionType {
@@ -977,20 +977,20 @@
 
 - (void)testAccountCode {
     XCTAssertNil([self.p getAccountCode]);
-    stubProperty(self.mockOptions, accountCode, @"accountcode");
-    XCTAssertEqualObjects(@"accountcode", [self.p getAccountCode]);
+    stubProperty(self.mockOptions, accountCode, YBConstantsRequest.accountCode);
+    XCTAssertEqualObjects(YBConstantsRequest.accountCode, [self.p getAccountCode]);
 }
 
 - (void)testUsername {
     XCTAssertNil([self.p getUsername]);
-    stubProperty(self.mockOptions, username, @"username");
-    XCTAssertEqualObjects(@"username", [self.p getUsername]);
+    stubProperty(self.mockOptions, username, YBConstantsRequest.username);
+    XCTAssertEqualObjects(YBConstantsRequest.username, [self.p getUsername]);
 }
 
 - (void)testNodeHost {
     XCTAssertNil([self.p getIp]);
-    [given([self.p.mockResourceTransform getNodeHost]) willReturn:@"nodeHost"];
-    XCTAssertEqualObjects(@"nodeHost", [self.p getNodeHost]);
+    [given([self.p.mockResourceTransform getNodeHost]) willReturn:YBConstantsRequest.nodeHost];
+    XCTAssertEqualObjects(YBConstantsRequest.nodeHost, [self.p getNodeHost]);
 }
 
 - (void)testNodeType {
@@ -1030,8 +1030,8 @@
 
 - (void) testUserEmail {
     XCTAssertNil([self.p getUserEmail]);
-    stubProperty(self.mockOptions, userEmail, @"email");
-    XCTAssertEqualObjects(@"email", [self.p getUserEmail]);
+    stubProperty(self.mockOptions, userEmail, YBConstantsRequest.email);
+    XCTAssertEqualObjects(YBConstantsRequest.email, [self.p getUserEmail]);
 }
 
 - (void) testAnonymoususer {
@@ -1095,7 +1095,7 @@
     XCTAssertEqualObjects(@"VoD", [self.p getContentPlaybackType]);
     
     stubProperty(self.mockOptions, contentIsLive, @YES);
-    XCTAssertEqualObjects(@"Live", [self.p getContentPlaybackType]);
+    XCTAssertEqualObjects(YBConstantsRequest.live, [self.p getContentPlaybackType]);
     
     stubProperty(self.mockOptions, contentPlaybackType, @"content type");
     XCTAssertEqualObjects(@"content type", [self.p getContentPlaybackType]);
@@ -1200,7 +1200,7 @@
         return [invocation.mkt_arguments[0] mutableCopy];
     }];
     
-    [given([self.p getTitle]) willReturn:@"title"];
+    [given([self.p getTitle]) willReturn:YBConstantsRequest.title];
     [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@(288)];
@@ -1567,7 +1567,7 @@
     
     XCTAssertEqual(0, callbackTimes);
     
-    [given([self.p getTitle]) willReturn:@"title"];
+    [given([self.p getTitle]) willReturn:YBConstantsRequest.title];
     [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@30];
@@ -1866,7 +1866,7 @@
     
     NSDictionary * params = @{@"key":@"value"};
     
-    [given([self.p getTitle]) willReturn:@"title"];
+    [given([self.p getTitle]) willReturn:YBConstantsRequest.title];
     [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@(288)];
@@ -1944,7 +1944,7 @@
     [verify(self.p.mockRequestBuilder) fetchParams:anything() paramList:(id)captor onlyDifferent:false];
     
     NSArray * params = captor.value;
-    XCTAssertTrue([params containsObject:@"pauseDuration"]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.pauseDuration]);
 }
 
 - (void)testPingBuffering {
@@ -1957,7 +1957,7 @@
     
     NSArray * params = captor.value;
     [self verifyBasicParamsPing:params];
-    XCTAssertTrue([params containsObject:@"bufferDuration"]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.bufferDuration]);
 }
 
 - (void)testPingSeek {
@@ -1970,7 +1970,7 @@
     
     NSArray * params = captor.value;
     [self verifyBasicParamsPing:params];
-    XCTAssertTrue([params containsObject:@"seekDuration"]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.seekDuration]);
 }
 
 - (void)testAds {
@@ -1985,9 +1985,9 @@
     [verify(self.p.mockRequestBuilder) fetchParams:anything() paramList:(id)captor onlyDifferent:false];
     NSArray * params = captor.value;
     [self verifyBasicParamsPing:params];
-    XCTAssertTrue([params containsObject:@"adBitrate"]);
-    XCTAssertTrue([params containsObject:@"adPlayhead"]);
-    XCTAssertTrue([params containsObject:@"adBufferDuration"]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.adBitrate]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.adPlayhead]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.adBufferDuration]);
 }
 
 -(void)testVideoCodec {
@@ -2037,9 +2037,9 @@
 
 
 - (void) verifyBasicParamsPing:(NSArray *) params {
-    XCTAssertTrue([params containsObject:@"bitrate"]);
-    XCTAssertTrue([params containsObject:@"throughput"]);
-    XCTAssertTrue([params containsObject:@"fps"]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.bitrate]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.throughput]);
+    XCTAssertTrue([params containsObject:YBConstantsRequest.fps]);
 }
 
 @end

@@ -41,66 +41,156 @@ static NSArray<NSString *> * youboraPingEntities;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             
-            NSArray * startParams = @[@"accountCode", @"username", @"rendition", @"title",
-                                      @"title2", @"live", @"mediaDuration", @"mediaResource", @"parsedResource", @"transactionCode", @"properties",
-                                      @"cdn", @"playerVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
-                                      @"param7", @"param8", @"param9", @"param10", @"param11", @"param12", @"param13", @"param14",
-                                      @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"pluginVersion",
-                                      @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode", @"preloadDuration",@"player",
-                                      @"deviceInfo", @"userType", @"streamingProtocol", @"experiments", @"obfuscateIp", @"householdId", @"navContext", @"anonymousUser",
-                                      @"smartswitchConfigCode", @"smartswitchGroupCode", @"smartswitchContractCode", @"nodeHost", @"nodeType", @"appName", @"appReleaseVersion",
-                                      @"email", @"package", @"saga", @"tvshow", @"season", @"titleEpisode", @"channel", @"contentId", @"imdbID", @"gracenoteID", @"contentType",
-                                      @"genre", @"contentLanguage", @"subtitles", @"contractedResolution", @"cost", @"price", @"playbackType", @"drm",
-                                      @"videoCodec", @"audioCodec", @"codecSettings", @"codecProfile", @"containerFormat", @"adsExpected", @"deviceUUID",@"p2pEnabled"];
+            NSArray * startParams = @[
+                YBConstantsRequest.accountCode,
+                YBConstantsRequest.username,
+                YBConstantsRequest.rendition,
+                YBConstantsRequest.title,
+                YBConstantsRequest.title2,
+                YBConstantsRequest.live,
+                YBConstantsRequest.mediaDuration,
+                YBConstantsRequest.mediaResource,
+                YBConstantsRequest.parsedResource,
+                YBConstantsRequest.transactionCode,
+                YBConstantsRequest.properties,
+                YBConstantsRequest.cdn,
+                YBConstantsRequest.playerVersion,
+                YBConstantsRequest.param1,
+                YBConstantsRequest.param2,
+                YBConstantsRequest.param3,
+                YBConstantsRequest.param4,
+                YBConstantsRequest.param5,
+                YBConstantsRequest.param6,
+                YBConstantsRequest.param7,
+                YBConstantsRequest.param8,
+                YBConstantsRequest.param9,
+                YBConstantsRequest.param10,
+                YBConstantsRequest.param11,
+                YBConstantsRequest.param12,
+                YBConstantsRequest.param13,
+                YBConstantsRequest.param14,
+                YBConstantsRequest.param15,
+                YBConstantsRequest.param16,
+                YBConstantsRequest.param17,
+                YBConstantsRequest.param18,
+                YBConstantsRequest.param19,
+                YBConstantsRequest.param20,
+                YBConstantsRequest.pluginVersion,
+                YBConstantsRequest.pluginInfo,
+                YBConstantsRequest.isp,
+                YBConstantsRequest.connectionType,
+                YBConstantsRequest.ip,
+                YBConstantsRequest.deviceCode,
+                YBConstantsRequest.preloadDuration,
+                YBConstantsRequest.player,
+                YBConstantsRequest.deviceInfo,
+                YBConstantsRequest.userType,
+                YBConstantsRequest.streamingProtocol,
+                YBConstantsRequest.experiments,
+                YBConstantsRequest.obfuscateIp,
+                YBConstantsRequest.householdId,
+                YBConstantsRequest.navContext,
+                YBConstantsRequest.anonymousUser,
+                YBConstantsRequest.smartswitchConfigCode,
+                YBConstantsRequest.smartswitchGroupCode,
+                YBConstantsRequest.smartswitchContractCode,
+                YBConstantsRequest.nodeHost,
+                YBConstantsRequest.nodeType,
+                YBConstantsRequest.appName,
+                YBConstantsRequest.appReleaseVersion,
+                YBConstantsRequest.email,
+                YBConstantsRequest.package,
+                YBConstantsRequest.saga,
+                YBConstantsRequest.tvshow,
+                YBConstantsRequest.season,
+                YBConstantsRequest.titleEpisode,
+                YBConstantsRequest.channel,
+                YBConstantsRequest.contentId,
+                YBConstantsRequest.imdbID,
+                YBConstantsRequest.gracenoteID,
+                YBConstantsRequest.contentType,
+                YBConstantsRequest.genre,
+                YBConstantsRequest.contentLanguage,
+                YBConstantsRequest.subtitles,
+                YBConstantsRequest.contractedResolution,
+                YBConstantsRequest.cost,
+                YBConstantsRequest.price,
+                YBConstantsRequest.playbackType,
+                YBConstantsRequest.drm,
+                YBConstantsRequest.videoCodec,
+                YBConstantsRequest.audioCodec,
+                YBConstantsRequest.codecSettings,
+                YBConstantsRequest.codecProfile,
+                YBConstantsRequest.containerFormat,
+                YBConstantsRequest.adsExpected, YBConstantsRequest.deviceUUID,YBConstantsRequest.p2pEnabled];
             
-            NSArray * adStartParams = @[@"playhead", @"adTitle", @"position", @"adDuration", @"adResource", @"adCampaign",
-                                        @"adPlayerVersion", @"adProperties", @"adAdapterVersion", @"extraparam1",
-                                        @"extraparam2", @"extraparam3", @"extraparam4", @"extraparam5", @"extraparam6",
-                                        @"extraparam7", @"extraparam8", @"extraparam9", @"extraparam10", @"skippable", @"breakNumber", @"adCreativeId", @"adProvider"];
+            NSArray * adStartParams = @[
+                YBConstantsRequest.playhead,
+                YBConstantsRequest.adTitle,
+                YBConstantsRequest.position, YBConstantsRequest.adDuration,
+                YBConstantsRequest.adResource, YBConstantsRequest.adCampaign,
+                YBConstantsRequest.adPlayerVersion,
+                YBConstantsRequest.adProperties,
+                YBConstantsRequest.adAdapterVersion,
+                YBConstantsRequest.extraparam1,
+                YBConstantsRequest.extraparam2,
+                YBConstantsRequest.extraparam3,
+                YBConstantsRequest.extraparam4,
+                YBConstantsRequest.extraparam5,
+                YBConstantsRequest.extraparam6,
+                YBConstantsRequest.extraparam7,
+                YBConstantsRequest.extraparam8,
+                YBConstantsRequest.extraparam9,
+                YBConstantsRequest.extraparam10,
+                YBConstantsRequest.skippable,
+                YBConstantsRequest.breakNumber,
+                YBConstantsRequest.adCreativeId,
+                YBConstantsRequest.adProvider
+            ];
             
             youboraRequestParams = @{
-                       YBConstantsYouboraService.data:  @[@"system", @"pluginVersion", @"username", @"isInfinity"],
+                       YBConstantsYouboraService.data:  @[YBConstantsRequest.system, YBConstantsRequest.pluginVersion, YBConstantsRequest.username, YBConstantsRequest.isInfinity],
                        YBConstantsYouboraService.sInit:  startParams,
                        YBConstantsYouboraService.start: startParams,
-                       YBConstantsYouboraService.join:  @[@"joinDuration", @"playhead"],
-                       YBConstantsYouboraService.pause: @[@"playhead"],
-                       YBConstantsYouboraService.resume: @[@"pauseDuration", @"playhead"],
-                       YBConstantsYouboraService.seek: @[@"seekDuration", @"playhead"],
-                       YBConstantsYouboraService.buffer: @[@"bufferDuration", @"playhead"],
-                       YBConstantsYouboraService.stop: @[@"bitrate", @"playhead"],
+                       YBConstantsYouboraService.join:  @[YBConstantsRequest.joinDuration, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.pause: @[YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.resume: @[YBConstantsRequest.pauseDuration, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.seek: @[YBConstantsRequest.seekDuration, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.buffer: @[YBConstantsRequest.bufferDuration, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.stop: @[YBConstantsRequest.bitrate, YBConstantsRequest.playhead],
                        YBConstantsYouboraService.adInit: adStartParams,
                        YBConstantsYouboraService.adStart: adStartParams,
-                       YBConstantsYouboraService.adJoin: @[@"position", @"adJoinDuration", @"adPlayhead", @"playhead"],
-                       YBConstantsYouboraService.adPause: @[@"position", @"adPlayhead", @"playhead", @"breakNumber"],
-                       YBConstantsYouboraService.adResume: @[@"position", @"adPlayhead", @"adPauseDuration", @"playhead", @"breakNumber"],
-                       YBConstantsYouboraService.adBuffer: @[@"position", @"adPlayhead", @"adBufferDuration", @"playhead"],
-                       YBConstantsYouboraService.adStop: @[@"position", @"adPlayhead", @"adBitrate", @"adTotalDuration", @"playhead", @"breakNumber"],
-                       YBConstantsYouboraService.click: @[@"position", @"adPlayhead", @"adUrl", @"playhead"],
-                       YBConstantsYouboraService.adError: [adStartParams arrayByAddingObjectsFromArray:@[@"adTotalDuration",@"adPlayhead"]],
-                       YBConstantsYouboraService.adManifest: @[@"givenBreaks", @"expectedBreaks", @"expectedPattern", @"breaksTime"],
-                       YBConstantsYouboraService.adBreakStart: @[@"position", @"givenAds", @"expectedAds"],
-                       YBConstantsYouboraService.adBreakStop: @[@"position", @"breakNumber"],
-                       YBConstantsYouboraService.adQuartile: @[@"position", @"adViewedDuration", @"adViewability"],
-                       YBConstantsYouboraService.ping: @[@"droppedFrames", @"playrate", @"latency", @"packetLoss", @"packetSent", @"metrics"],
-                       YBConstantsYouboraService.error: [startParams arrayByAddingObject:@"player"],
+                       YBConstantsYouboraService.adJoin: @[YBConstantsRequest.position, YBConstantsRequest.adJoinDuration, YBConstantsRequest.adPlayhead, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.adPause: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
+                       YBConstantsYouboraService.adResume: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adPauseDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
+                       YBConstantsYouboraService.adBuffer: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBufferDuration, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.adStop: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBitrate, YBConstantsRequest.adTotalDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
+                       YBConstantsYouboraService.click: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adUrl, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.adError: [adStartParams arrayByAddingObjectsFromArray:@[YBConstantsRequest.adTotalDuration,YBConstantsRequest.adPlayhead]],
+                       YBConstantsYouboraService.adManifest: @[YBConstantsRequest.givenBreaks, YBConstantsRequest.expectedBreaks, YBConstantsRequest.expectedPattern, YBConstantsRequest.breaksTime],
+                       YBConstantsYouboraService.adBreakStart: @[YBConstantsRequest.position, YBConstantsRequest.givenAds, YBConstantsRequest.expectedAds],
+                       YBConstantsYouboraService.adBreakStop: @[YBConstantsRequest.position, YBConstantsRequest.breakNumber],
+                       YBConstantsYouboraService.adQuartile: @[YBConstantsRequest.position, YBConstantsRequest.adViewedDuration, YBConstantsRequest.adViewability],
+                       YBConstantsYouboraService.ping: @[YBConstantsRequest.droppedFrames, YBConstantsRequest.playrate, YBConstantsRequest.latency, YBConstantsRequest.packetLoss, YBConstantsRequest.packetSent, YBConstantsRequest.metrics],
+                       YBConstantsYouboraService.error: [startParams arrayByAddingObject:YBConstantsRequest.player],
                        
                        //Infinity
-                       YBConstantsYouboraInfinity.sessionStart: @[@"accountCode", @"username", @"navContext", @"language", @"pluginInfo", @"appName", @"appReleaseVersion", @"param1",                               @"param2", @"param3", @"param4", @"param5", @"param6", @"param7", @"param8", @"param9", @"param10", @"param11",
-                                                     @"param12", @"param13", @"param14", @"param15", @"param16", @"param17", @"param18", @"param19", @"param20", @"deviceUUID"],
-                       YBConstantsYouboraInfinity.sessionStop: @[@"accountCode"],
-                       YBConstantsYouboraInfinity.sessionNav: @[@"username", @"navContext"],
-                       YBConstantsYouboraInfinity.sessionBeat: @[@"sessionMetrics"],
-                       YBConstantsYouboraInfinity.sessionEvent: @[@"navContext"],
+                       YBConstantsYouboraInfinity.sessionStart: @[YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1,                               YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,
+                                                     YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.deviceUUID],
+                       YBConstantsYouboraInfinity.sessionStop: @[YBConstantsRequest.accountCode],
+                       YBConstantsYouboraInfinity.sessionNav: @[YBConstantsRequest.username, YBConstantsRequest.navContext],
+                       YBConstantsYouboraInfinity.sessionBeat: @[YBConstantsRequest.sessionMetrics],
+                       YBConstantsYouboraInfinity.sessionEvent: @[YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.videoEvent: @[]
             };
             
-            youboraRequestParamsDifferent = @{YBConstantsYouboraService.join:     @[@"title", @"title2", @"live", @"mediaDuration", @"mediaResource"],
-                                YBConstantsYouboraService.adJoin:   @[@"adTitle", @"adDuration", @"adResource"]};
+            youboraRequestParamsDifferent = @{YBConstantsYouboraService.join:     @[YBConstantsRequest.title, YBConstantsRequest.title2, YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource],
+                                YBConstantsYouboraService.adJoin:   @[YBConstantsRequest.adTitle, YBConstantsRequest.adDuration, YBConstantsRequest.adResource]};
             
-            youboraPingEntities = @[@"rendition", @"title", @"title2",
-                             @"live", @"mediaDuration", @"mediaResource", @"param1", @"param2", @"param3", @"param4",
-                             @"param5", @"param6", @"param7", @"param8", @"param9", @"param10", @"connectionType",
-                             @"deviceCode", @"ip", @"username", @"cdn", @"nodeHost", @"nodeType", @"nodeTypeString"];
+            youboraPingEntities = @[YBConstantsRequest.rendition, YBConstantsRequest.title, YBConstantsRequest.title2,
+                             YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4,
+                             YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.connectionType,
+                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.username, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString];
         });
     }
     return self;
@@ -153,10 +243,10 @@ static NSArray<NSString *> * youboraPingEntities;
 }
 
 - (NSString *) getNewAdNumber {
-    NSString * sAdNumber = self.lastSent[@"adNumber"];
+    NSString * sAdNumber = self.lastSent[YBConstantsRequest.adNumber];
     
     if (sAdNumber != nil) {
-        NSString * position = self.lastSent[@"position"];
+        NSString * position = self.lastSent[YBConstantsRequest.position];
         if (position != nil && [position isEqualToString:[self.plugin getAdPosition]]) {
             // Increment
             @try {
@@ -174,13 +264,13 @@ static NSArray<NSString *> * youboraPingEntities;
         sAdNumber = @"1";
     }
     
-    self.lastSent[@"adNumber"] = sAdNumber;
+    self.lastSent[YBConstantsRequest.adNumber] = sAdNumber;
     
     return sAdNumber;
 }
 
 - (NSString *) getNewAdBreakNumber {
-    NSString * sAdBreakNumber = self.lastSent[@"breakNumber"];
+    NSString * sAdBreakNumber = self.lastSent[YBConstantsRequest.breakNumber];
     
     if (sAdBreakNumber != nil) {
         @try {
@@ -193,7 +283,7 @@ static NSArray<NSString *> * youboraPingEntities;
         sAdBreakNumber = @"1";
     }
     
-    self.lastSent[@"breakNumber"] = sAdBreakNumber;
+    self.lastSent[YBConstantsRequest.breakNumber] = sAdBreakNumber;
     
     return sAdBreakNumber;
 }
@@ -216,196 +306,196 @@ static NSArray<NSString *> * youboraPingEntities;
     
     NSString * value = nil;
     
-    if ([param isEqualToString:@"playhead"]){
+    if ([param isEqualToString:YBConstantsRequest.playhead]){
         value = [self.plugin getPlayhead].stringValue;
-    } else if ([param isEqualToString:@"playrate"]){
+    } else if ([param isEqualToString:YBConstantsRequest.playrate]){
         value = [self.plugin getPlayrate].stringValue;
-    } else if ([param isEqualToString:@"fps"]){
+    } else if ([param isEqualToString:YBConstantsRequest.fps]){
         value = [self.plugin getFramesPerSecond].stringValue;
-    } else if ([param isEqualToString:@"droppedFrames"]){
+    } else if ([param isEqualToString:YBConstantsRequest.droppedFrames]){
         value = [self.plugin getDroppedFrames].stringValue;
-    } else if ([param isEqualToString:@"mediaDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.mediaDuration]){
         value = [self.plugin getDuration].stringValue;
-    } else if ([param isEqualToString:@"bitrate"]){
+    } else if ([param isEqualToString:YBConstantsRequest.bitrate]){
         value = [self.plugin getBitrate].stringValue;
-    } else if ([param isEqualToString:@"throughput"]){
+    } else if ([param isEqualToString:YBConstantsRequest.throughput]){
         value = [self.plugin getThroughput].stringValue;
-    } else if ([param isEqualToString:@"rendition"]){
+    } else if ([param isEqualToString:YBConstantsRequest.rendition]){
         value = [self.plugin getRendition];
-    } else if ([param isEqualToString:@"title"]){
+    } else if ([param isEqualToString:YBConstantsRequest.title]){
         value = [self.plugin getTitle];
-    } else if ([param isEqualToString:@"title2"]){
+    } else if ([param isEqualToString:YBConstantsRequest.title2]){
         value = [self.plugin getProgram];
-    } else if ([param isEqualToString:@"streamingProtocol"]){
+    } else if ([param isEqualToString:YBConstantsRequest.streamingProtocol]){
         value = [self.plugin getStreamingProtocol];
-    } else if ([param isEqualToString:@"live"]){
+    } else if ([param isEqualToString:YBConstantsRequest.live]){
         NSValue * live = [self.plugin getIsLive];
         if (live != nil) {
             value = [live isEqual:@YES] ? @"true" : @"false";
         }
-    } else if ([param isEqualToString:@"mediaResource"]){
+    } else if ([param isEqualToString:YBConstantsRequest.mediaResource]){
         value = [self.plugin getOriginalResource];
         [YBLog debug:@"original resource: %@", [self.plugin getOriginalResource]];
         if (!value) {
             value = @"unknown";
         }
-    } else if ([param isEqualToString:@"parsedResource"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.parsedResource]) {
         value = [self.plugin getParsedResource];
-    } else if ([param isEqualToString:@"transactionCode"]){
+    } else if ([param isEqualToString:YBConstantsRequest.transactionCode]){
         value = [self.plugin getTransactionCode];
-    } else if ([param isEqualToString:@"properties"]){
+    } else if ([param isEqualToString:YBConstantsRequest.properties]){
         value = [self.plugin getContentMetadata];
-    } else if ([param isEqualToString:@"playerVersion"]){
+    } else if ([param isEqualToString:YBConstantsRequest.playerVersion]){
         value = [self.plugin getPlayerVersion];
-    } else if ([param isEqualToString:@"player"]){
+    } else if ([param isEqualToString:YBConstantsRequest.player]){
         value = [self.plugin getPlayerName];
-    } else if ([param isEqualToString:@"cdn"]){
+    } else if ([param isEqualToString:YBConstantsRequest.cdn]){
         value = [self.plugin getCdn];
-    } else if ([param isEqualToString:@"pluginVersion"]){
+    } else if ([param isEqualToString:YBConstantsRequest.pluginVersion]){
         value = [self.plugin getPluginVersion];
-    } else if ([param isEqualToString:@"param1"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param1]){
         value = [self.plugin getContentCustomDimension1];
-    } else if ([param isEqualToString:@"param2"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param2]){
         value = [self.plugin getContentCustomDimension2];
-    } else if ([param isEqualToString:@"param3"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param3]){
         value = [self.plugin getContentCustomDimension3];
-    } else if ([param isEqualToString:@"param4"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param4]){
         value = [self.plugin getContentCustomDimension4];
-    } else if ([param isEqualToString:@"param5"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param5]){
         value = [self.plugin getContentCustomDimension5];
-    } else if ([param isEqualToString:@"param6"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param6]){
         value = [self.plugin getContentCustomDimension6];
-    } else if ([param isEqualToString:@"param7"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param7]){
         value = [self.plugin getContentCustomDimension7];
-    } else if ([param isEqualToString:@"param8"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param8]){
         value = [self.plugin getContentCustomDimension8];
-    } else if ([param isEqualToString:@"param9"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param9]){
         value = [self.plugin getContentCustomDimension9];
-    } else if ([param isEqualToString:@"param10"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param10]){
         value = [self.plugin getContentCustomDimension10];
-    } else if ([param isEqualToString:@"param11"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param11]){
         value = [self.plugin getContentCustomDimension11];
-    } else if ([param isEqualToString:@"param12"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param12]){
         value = [self.plugin getContentCustomDimension12];
-    } else if ([param isEqualToString:@"param13"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param13]){
         value = [self.plugin getContentCustomDimension13];
-    } else if ([param isEqualToString:@"param14"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param14]){
         value = [self.plugin getContentCustomDimension14];
-    } else if ([param isEqualToString:@"param15"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param15]){
         value = [self.plugin getContentCustomDimension15];
-    } else if ([param isEqualToString:@"param16"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param16]){
         value = [self.plugin getContentCustomDimension16];
-    } else if ([param isEqualToString:@"param17"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param17]){
         value = [self.plugin getContentCustomDimension17];
-    } else if ([param isEqualToString:@"param18"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param18]){
         value = [self.plugin getContentCustomDimension18];
-    } else if ([param isEqualToString:@"param19"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param19]){
         value = [self.plugin getContentCustomDimension19];
-    } else if ([param isEqualToString:@"param20"]){
+    } else if ([param isEqualToString:YBConstantsRequest.param20]){
         value = [self.plugin getContentCustomDimension20];
-    } else if ([param isEqualToString:@"extraparam1"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam1]){
         value = [self.plugin getAdCustomDimension1];
-    } else if ([param isEqualToString:@"extraparam2"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam2]){
         value = [self.plugin getAdCustomDimension2];
-    } else if ([param isEqualToString:@"extraparam3"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam3]){
         value = [self.plugin getAdCustomDimension3];
-    } else if ([param isEqualToString:@"extraparam4"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam4]){
         value = [self.plugin getAdCustomDimension4];
-    } else if ([param isEqualToString:@"extraparam5"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam5]){
         value = [self.plugin getAdCustomDimension5];
-    } else if ([param isEqualToString:@"extraparam6"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam6]){
         value = [self.plugin getAdCustomDimension6];
-    } else if ([param isEqualToString:@"extraparam7"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam7]){
         value = [self.plugin getAdCustomDimension7];
-    } else if ([param isEqualToString:@"extraparam8"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam8]){
         value = [self.plugin getAdCustomDimension8];
-    } else if ([param isEqualToString:@"extraparam9"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam9]){
         value = [self.plugin getAdCustomDimension9];
-    } else if ([param isEqualToString:@"extraparam10"]){
+    } else if ([param isEqualToString:YBConstantsRequest.extraparam10]){
         value = [self.plugin getAdCustomDimension10];
-    } else if ([param isEqualToString:@"position"]){
+    } else if ([param isEqualToString:YBConstantsRequest.position]){
         value = [self.plugin getAdPosition];
-    } else if ([param isEqualToString:@"adPlayhead"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adPlayhead]){
         value = [self.plugin getAdPlayhead].stringValue;
-    } else if ([param isEqualToString:@"adDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adDuration]){
         value = [self.plugin getAdDuration].stringValue;
-    } else if ([param isEqualToString:@"adBitrate"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adBitrate]){
         value = [self.plugin getAdBitrate].stringValue;
-    } else if ([param isEqualToString:@"adTitle"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adTitle]){
         value = [self.plugin getAdTitle];
-    } else if ([param isEqualToString:@"adCampaign"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adCampaign]){
         value = [self.plugin getAdCampaign];
-    } else if ([param isEqualToString:@"adResource"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adResource]){
         value = [self.plugin getAdResource];
-    } else if ([param isEqualToString:@"adPlayerVersion"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adPlayerVersion]){
         value = [self.plugin getAdPlayerVersion];
-    } else if ([param isEqualToString:@"adProperties"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adProperties]){
         value = [self.plugin getAdMetadata];
-    } else if ([param isEqualToString:@"adAdapterVersion"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adAdapterVersion]){
         value = [self.plugin getAdAdapterVersion];
-    } else if ([param isEqualToString:@"pluginInfo"]){
+    } else if ([param isEqualToString:YBConstantsRequest.pluginInfo]){
         value = [self.plugin getPluginInfo];
-    } else if ([param isEqualToString:@"isp"]){
+    } else if ([param isEqualToString:YBConstantsRequest.isp]){
         value = [self.plugin getIsp];
-    } else if ([param isEqualToString:@"connectionType"]){
+    } else if ([param isEqualToString:YBConstantsRequest.connectionType]){
         value = [self.plugin getConnectionType];
-    } else if ([param isEqualToString:@"ip"]){
+    } else if ([param isEqualToString:YBConstantsRequest.ip]){
         value = [self.plugin getIp];
-    } else if ([param isEqualToString:@"deviceCode"]){
+    } else if ([param isEqualToString:YBConstantsRequest.deviceCode]){
         value = [self.plugin getDeviceCode];
-    } else if ([param isEqualToString:@"system"]){
+    } else if ([param isEqualToString:YBConstantsRequest.system]){
         value = [self.plugin getAccountCode];
-    } else if ([param isEqualToString:@"accountCode"]){
+    } else if ([param isEqualToString:YBConstantsRequest.accountCode]){
         value = [self.plugin getAccountCode];
-    } else if ([param isEqualToString:@"username"]){
+    } else if ([param isEqualToString:YBConstantsRequest.username]){
         value = [self.plugin getUsername];
-    }else if ([param isEqualToString:@"userType"]){
+    }else if ([param isEqualToString:YBConstantsRequest.userType]){
         value = [self.plugin getUserType];
-    } else if ([param isEqualToString:@"preloadDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.preloadDuration]){
         long long duration = [self.plugin getPreloadDuration];
         if (duration >= 0) value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"joinDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.joinDuration]){
         long long duration = [self.plugin getJoinDuration];
         if (duration >= 0) value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"bufferDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.bufferDuration]){
         long long duration = [self.plugin getBufferDuration];
         if (duration >= 0) value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"seekDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.seekDuration]){
         long long duration = [self.plugin getSeekDuration];
         if (duration >= 0) value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"pauseDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.pauseDuration]){
         long long duration = [self.plugin getPauseDuration];
         if (duration < 0) duration = 0;
         value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"adJoinDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adJoinDuration]){
         long long duration = [self.plugin getAdJoinDuration];
         if (duration >= 0) value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"adBufferDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adBufferDuration]){
         long long duration = [self.plugin getAdBufferDuration];
         if (duration >= 0) value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"adPauseDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adPauseDuration]){
         long long duration = [self.plugin getAdPauseDuration];
         if (duration >= 0) value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"adTotalDuration"]){
+    } else if ([param isEqualToString:YBConstantsRequest.adTotalDuration]){
         long long duration = [self.plugin getAdTotalDuration];
         if (duration >= 0) value = @(duration).stringValue;
-    } else if ([param isEqualToString:@"nodeHost"]){
+    } else if ([param isEqualToString:YBConstantsRequest.nodeHost]){
         value = [self.plugin getNodeHost];
-    } else if ([param isEqualToString:@"nodeType"]){
+    } else if ([param isEqualToString:YBConstantsRequest.nodeType]){
         value = [self.plugin getNodeType];
-    } else if ([param isEqualToString:@"nodeTypeString"]){
+    } else if ([param isEqualToString:YBConstantsRequest.nodeTypeString]){
         value = [self.plugin getNodeTypeString];
-    } else if ([param isEqualToString:@"deviceInfo"]){
+    } else if ([param isEqualToString:YBConstantsRequest.deviceInfo]){
         value = [self.plugin getDeviceInfoString];
-    } else if ([param isEqualToString:@"householdId"]){
+    } else if ([param isEqualToString:YBConstantsRequest.householdId]){
         value = [self.plugin getHouseholdId];
-    }  else if ([param isEqualToString:@"p2pDownloadedTraffic"]){
+    }  else if ([param isEqualToString:YBConstantsRequest.p2pDownloadedTraffic]){
         value = [[self.plugin getP2PTraffic] stringValue];
-    }  else if ([param isEqualToString:@"cdnDownloadedTraffic"]){
+    }  else if ([param isEqualToString:YBConstantsRequest.cdnDownloadedTraffic]){
         value = [[self.plugin getCdnTraffic] stringValue];
-    }  else if ([param isEqualToString:@"uploadTraffic"]){
+    }  else if ([param isEqualToString:YBConstantsRequest.uploadTraffic]){
         value = [[self.plugin getUploadTraffic] stringValue];
-    }  else if ([param isEqualToString:@"experiments"]){
+    }  else if ([param isEqualToString:YBConstantsRequest.experiments]){
         NSArray *experimentsArray = [self.plugin getExperimentIds];
         if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){
             value = nil;
@@ -413,125 +503,125 @@ static NSArray<NSString *> * youboraPingEntities;
             NSString *experimentsString = [experimentsArray componentsJoinedByString:@"\",\""];
             value = [NSString stringWithFormat:@"[\"%@\"]",experimentsString];
         }
-    } else if ([param isEqualToString:@"latency"]){
+    } else if ([param isEqualToString:YBConstantsRequest.latency]){
         value = [[self.plugin getLatency] stringValue];
-    } else if ([param isEqualToString:@"packetLoss"]){
+    } else if ([param isEqualToString:YBConstantsRequest.packetLoss]){
         value = [[self.plugin getPacketLost] stringValue];
-    } else if ([param isEqualToString:@"packetSent"]){
+    } else if ([param isEqualToString:YBConstantsRequest.packetSent]){
         value = [[self.plugin getPacketSent] stringValue];
-    } else if ([param isEqualToString:@"obfuscateIp"]){
+    } else if ([param isEqualToString:YBConstantsRequest.obfuscateIp]){
         NSValue * obfuscate = [self.plugin getNetworkObfuscateIp];
         if (obfuscate != nil) {
             value = [obfuscate isEqual:@YES] ? @"true" : @"false";
         }
-    } else if ([param isEqualToString:@"navContext"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.navContext]) {
         value = [self.plugin getInfinity].navContext;
-    } else if ([param isEqualToString:@"sessions"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.sessions]) {
         value = [YBYouboraUtils stringifyList:[self.plugin getActiveSessions]];
-    } else if ([param isEqualToString:@"anonymousUser"]){
+    } else if ([param isEqualToString:YBConstantsRequest.anonymousUser]){
         value = [self.plugin getAnonymousUser];
-    } else if ([param isEqualToString:@"isInfinity"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.isInfinity]) {
         NSValue * isInfinity = [self.plugin getIsInfinity];
         if (isInfinity != nil) {
             value = [isInfinity isEqual:@YES] ? @"true" : @"false";
         }
-    } else if ([param isEqualToString:@"smartswitchConfigCode"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.smartswitchConfigCode]) {
         value = [self.plugin getSmartSwitchConfigCode];
-    } else if ([param isEqualToString:@"smartswitchGroupCode"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.smartswitchGroupCode]) {
         value = [self.plugin getSmartSwitchGroupCode];
-    } else if ([param isEqualToString:@"smartswitchContractCode"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.smartswitchContractCode]) {
         value = [self.plugin getSmartSwitchContractCode];
-    } else if ([param isEqualToString:@"appName"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.appName]) {
         value = [self.plugin getAppName];
-    } else if ([param isEqualToString:@"appReleaseVersion"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.appReleaseVersion]) {
         value = [self.plugin getAppReleaseVersion];
-    } else if ([param isEqualToString:@"deviceUUID"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.deviceUUID]) {
         value = [self.plugin getDeviceUUID];
-    } else if ([param isEqualToString:@"email"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.email]) {
         value = [self.plugin getUserEmail];
-    } else if ([param isEqualToString:@"package"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.package]) {
         value = [self.plugin getContentPackage];
-    } else if ([param isEqualToString:@"saga"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.saga]) {
         value = [self.plugin getContentSaga];
-    } else if ([param isEqualToString:@"tvshow"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.tvshow]) {
         value = [self.plugin getContentTvShow];
-    } else if ([param isEqualToString:@"season"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.season]) {
         value = [self.plugin getContentSeason];
-    } else if ([param isEqualToString:@"titleEpisode"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.titleEpisode]) {
         value = [self.plugin getContentEpisodeTitle];
-    } else if ([param isEqualToString:@"channel"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.channel]) {
         value = [self.plugin getContentChannel];
-    } else if ([param isEqualToString:@"contentId"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.contentId]) {
         value = [self.plugin getContentId];
-    } else if ([param isEqualToString:@"imdbID"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.imdbID]) {
         value = [self.plugin getContentImdbId];
-    } else if ([param isEqualToString:@"gracenoteID"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.gracenoteID]) {
         value = [self.plugin getContentGracenoteId];
-    } else if ([param isEqualToString:@"contentType"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.contentType]) {
         value = [self.plugin getContentType];
-    } else if ([param isEqualToString:@"genre"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.genre]) {
         value = [self.plugin getContentGenre];
-    } else if ([param isEqualToString:@"contentLanguage"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.contentLanguage]) {
         value = [self.plugin getContentLanguage];
-    } else if ([param isEqualToString:@"subtitles"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.subtitles]) {
         value = [self.plugin getContentSubtitles];
-    } else if ([param isEqualToString:@"contractedResolution"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.contractedResolution]) {
         value = [self.plugin getContentContractedResolution];
-    } else if ([param isEqualToString:@"cost"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.cost]) {
         value = [self.plugin getContentCost];
-    } else if ([param isEqualToString:@"price"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.price]) {
         value = [self.plugin getContentPrice];
-    } else if ([param isEqualToString:@"playbackType"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.playbackType]) {
         value = [self.plugin getContentPlaybackType];
-    } else if ([param isEqualToString:@"drm"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.drm]) {
         value = [self.plugin getContentDrm];
-    } else if ([param isEqualToString:@"videoCodec"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.videoCodec]) {
         value = [self.plugin getContentEncodingVideoCodec];
-    } else if ([param isEqualToString:@"audioCodec"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.audioCodec]) {
         value = [self.plugin getContentEncodingAudioCodec];
-    } else if ([param isEqualToString:@"codecSettings"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.codecSettings]) {
         value = [self.plugin getContentEncodingCodecSettings];
-    } else if ([param isEqualToString:@"codecProfile"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.codecProfile]) {
         value = [self.plugin getContentEncodingCodecProfile];
-    } else if ([param isEqualToString:@"containerFormat"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.containerFormat]) {
         value = [self.plugin getContentEncodingContainerFormat];
-    } else if ([param isEqualToString:@"givenBreaks"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.givenBreaks]) {
         value = [self.plugin getAdGivenBreaks];
-    } else if ([param isEqualToString:@"expectedBreaks"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.expectedBreaks]) {
         value = [self.plugin getAdExpectedBreaks];
-    } else if ([param isEqualToString:@"expectedPattern"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.expectedPattern]) {
         value = [self.plugin getAdExpectedPattern];
-    } else if ([param isEqualToString:@"breaksTime"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.breaksTime]) {
         value = [self.plugin getAdBreaksTime];
-    } else if ([param isEqualToString:@"givenAds"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.givenAds]) {
         value = [self.plugin getAdGivenAds];
-    } else if ([param isEqualToString:@"expectedAds"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.expectedAds]) {
         value = [self.plugin getExpectedAds];
-    } else if ([param isEqualToString:@"adsExpected"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.adsExpected]) {
         NSValue * expected = [self.plugin getAdsExpected];
         if (expected != nil) {
             value = [expected isEqual:@YES] ? @"true" : @"false";
         }
-    } else if ([param isEqualToString:@"skippable"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.skippable]) {
         NSValue * skippable = [self.plugin isAdSkippable];
         if (skippable != nil) {
             value = [skippable isEqual:@YES] ? @"true" : @"false";
         }
-    } else if ([param isEqualToString:@"breakNumber"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.breakNumber]) {
         value = [self.plugin getAdBreakNumber];
-    } else if ([param isEqualToString: @"adViewedDuration"]) {
+    } else if ([param isEqualToString: YBConstantsRequest.adViewedDuration]) {
         value = [self.plugin getAdViewedDuration];
-    } else if ([param isEqualToString:@"adViewability"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.adViewability]) {
         value = [self.plugin getAdViewability];
-    } else if ([param isEqualToString:@"adCreativeId"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.adCreativeId]) {
         value = [self.plugin getAdCreativeId];
-    } else if ([param isEqualToString:@"adProvider"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.adProvider]) {
         value = [self.plugin getAdProvider];
-    } else if ([param isEqualToString:@"sessionMetrics"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.sessionMetrics]) {
         value = [self.plugin getSessionMetrics];
-    } else if ([param isEqualToString:@"metrics"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.metrics]) {
         value = [self.plugin getVideoMetrics];
-    } else if ([param isEqualToString:@"p2pEnabled"]) {
+    } else if ([param isEqualToString:YBConstantsRequest.p2pEnabled]) {
         value = [[self.plugin getIsP2PEnabled] isEqualToValue:@YES] ? @"true" : @"false";
     }
     

@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "YBOptions.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBOptionsTest : XCTestCase
 
@@ -194,26 +195,26 @@
     opt.httpSecure = true;
     opt.host = @"host";
     opt.accountCode = @"code";
-    opt.username = @"username";
+    opt.username = YBConstantsRequest.username;
     opt.parseHls = true;
     opt.parseCdnNameHeader = @"nameheader";
     opt.parseCdnNode = true;
     opt.parseCdnNodeList = [@[@"1", @"2", @"3"] mutableCopy];
     opt.networkIP = @"1.2.3.4";
-    opt.networkIsp = @"isp";
-    opt.networkConnectionType = @"connectiontype";
+    opt.networkIsp = YBConstantsRequest.isp;
+    opt.networkConnectionType = YBConstantsRequest.connectionType;
     opt.userObfuscateIp = @NO;
-    opt.deviceCode = @"devicecode";
+    opt.deviceCode = YBConstantsRequest.deviceCode;
     opt.contentResource = @"resource";
     opt.contentIsLive = @YES;
-    opt.contentTitle = @"title";
+    opt.contentTitle = YBConstantsRequest.title;
     opt.program = @"program";
     opt.contentDuration = @42;
-    opt.contentTransactionCode = @"transactioncode";
+    opt.contentTransactionCode = YBConstantsRequest.transactionCode;
     opt.contentBitrate = @4;
     opt.contentThroughput = @5;
     opt.contentRendition = @"rend";
-    opt.contentCdn = @"cdn";
+    opt.contentCdn = YBConstantsRequest.cdn;
     opt.contentFps = @12;
     opt.contentMetadata = @{@"metakey":@"metavalue"};
     opt.adMetadata = @{@"admetakey":@"admetavalue"};

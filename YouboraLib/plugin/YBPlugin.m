@@ -760,7 +760,7 @@
                 val = @"Offline";
             } else {
                 if ([self getIsLive] != nil) {
-                    val = [[self getIsLive] isEqualToValue:@YES] ? @"Live" : @"VoD";
+                    val = [[self getIsLive] isEqualToValue:@YES] ? YBConstantsRequest.live : @"VoD";
                 }
             }
         } @catch (NSException *exception) {
@@ -899,7 +899,7 @@
 - (NSString *) getPluginVersion {
     NSString * ver = [self getAdapterVersion];
     if (ver == nil) {
-        ver = [YBConstants.youboraLibVersion stringByAppendingString:@"-adapterless"];
+        ver = [YBConstants.youboraLibVersion stringByAppendingString:@"-adapterless-ios"];
     }
     
     return ver;
@@ -1471,7 +1471,7 @@
 }
 
 - (NSString *) getAdBreakNumber {
-   return self.requestBuilder.lastSent[@"breakNumber"];
+   return self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
 }
 
 - (NSString *) getAdBreakPosition {
@@ -2847,9 +2847,9 @@
 - (void) sendInit:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.sInit];
     [self sendWithCallbacks:self.willSendInitListeners service:YBConstantsYouboraService.sInit andParams:mutParams];
-    NSString * titleOrResource = mutParams[@"title"];
+    NSString * titleOrResource = mutParams[YBConstantsRequest.title];
     if (titleOrResource == nil) {
-        titleOrResource = mutParams[@"mediaResource"];
+        titleOrResource = mutParams[YBConstantsRequest.mediaResource];
     }
     [YBLog notice:@"%@ %@", YBConstantsYouboraService.sInit, titleOrResource];
 }
@@ -2857,9 +2857,9 @@
 - (void) sendStart:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.start];
     [self sendWithCallbacks:self.willSendStartListeners service:YBConstantsYouboraService.start andParams:mutParams];
-    NSString * titleOrResource = mutParams[@"title"];
+    NSString * titleOrResource = mutParams[YBConstantsRequest.title];
     if (titleOrResource == nil) {
-        titleOrResource = mutParams[@"mediaResource"];
+        titleOrResource = mutParams[YBConstantsRequest.mediaResource];
     }
     [YBLog notice:@"%@ %@", YBConstantsYouboraService.start, titleOrResource];
     self.isStarted = true;
@@ -2868,31 +2868,31 @@
 - (void) sendJoin:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.join];
     [self sendWithCallbacks:self.willSendJoinListeners service:YBConstantsYouboraService.join andParams:mutParams];
-    [YBLog notice:@"%@ %@ ms", YBConstantsYouboraService.join, mutParams[@"joinDuration"]];
+    [YBLog notice:@"%@ %@ ms", YBConstantsYouboraService.join, mutParams[YBConstantsRequest.joinDuration]];
 }
 
 - (void) sendPause:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.pause];
     [self sendWithCallbacks:self.willSendPauseListeners service:YBConstantsYouboraService.pause andParams:mutParams];
-    [YBLog notice:@"%@ %@ s", YBConstantsYouboraService.pause, mutParams[@"playhead"]];
+    [YBLog notice:@"%@ %@ s", YBConstantsYouboraService.pause, mutParams[YBConstantsRequest.playhead]];
 }
 
 - (void) sendResume:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.resume];
     [self sendWithCallbacks:self.willSendResumeListeners service:YBConstantsYouboraService.resume andParams:mutParams];
-    [YBLog notice:@"%@ %@ ms", YBConstantsYouboraService.resume, mutParams[@"pauseDuration"]];
+    [YBLog notice:@"%@ %@ ms", YBConstantsYouboraService.resume, mutParams[YBConstantsRequest.pauseDuration]];
 }
 
 - (void) sendSeekEnd:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.seek];
     [self sendWithCallbacks:self.willSendSeekListeners service:YBConstantsYouboraService.seek andParams:mutParams];
-    [YBLog notice:@"%@ to %@ in %@ ms", YBConstantsYouboraService.seek, mutParams[@"playhead"], mutParams[@"seekDuration"]];
+    [YBLog notice:@"%@ to %@ in %@ ms", YBConstantsYouboraService.seek, mutParams[YBConstantsRequest.playhead], mutParams[YBConstantsRequest.seekDuration]];
 }
 
 - (void) sendBufferEmd:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.buffer];
     [self sendWithCallbacks:self.willSendBufferListeners service:YBConstantsYouboraService.buffer andParams:mutParams];
-    [YBLog notice:@"%@ %@ ms", YBConstantsYouboraService.buffer, mutParams[@"bufferDuration"]];
+    [YBLog notice:@"%@ %@ ms", YBConstantsYouboraService.buffer, mutParams[YBConstantsRequest.bufferDuration]];
 }
 
 - (void) sendError:(NSDictionary<NSString *, NSString *> *) params {
@@ -2917,83 +2917,83 @@
 - (void) sendStop:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: YBConstantsYouboraService.stop];
     [self sendWithCallbacks:self.willSendStopListeners service:YBConstantsYouboraService.stop andParams:mutParams];
-    [YBLog notice:@"%@ at %@", YBConstantsYouboraService.stop, mutParams[@"playhead"]];
+    [YBLog notice:@"%@ at %@", YBConstantsYouboraService.stop, mutParams[YBConstantsRequest.playhead]];
 }
     
 - (void) sendAdInit:(NSDictionary<NSString *, NSString *> *) params {
     NSString* realNumber = [self.requestBuilder getNewAdNumber];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adInit];
-    mutParams[@"adNumber"] = realNumber;
+    mutParams[YBConstantsRequest.adNumber] = realNumber;
     //Required params
-    mutParams[@"adDuration"] = @"0";
-    mutParams[@"adPlayhead"] = @"0";
+    mutParams[YBConstantsRequest.adDuration] = @"0";
+    mutParams[YBConstantsRequest.adPlayhead] = @"0";
     if (self.adsAdapter != nil) {
         self.adsAdapter.flags.adInitiated = true;
     }
     [self sendWithCallbacks:self.willSendAdInitListeners service:YBConstantsYouboraService.adInit andParams:mutParams];
-    [YBLog notice:@"%@ %@%@ at %@s", YBConstantsYouboraService.adInit, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
+    [YBLog notice:@"%@ %@%@ at %@s", YBConstantsYouboraService.adInit, mutParams[@"adPosition"], mutParams[YBConstantsRequest.adNumber], mutParams[YBConstantsRequest.playhead]];
 }
 
 - (void) sendAdStart:(NSDictionary<NSString *, NSString *> *) params {
     [self startPings];
-    NSString* realNumber = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
+    NSString* realNumber = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[YBConstantsRequest.adNumber] : [self.requestBuilder getNewAdNumber];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adStart];
-    //mutParams[@"adNumber"] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
-    mutParams[@"adNumber"] = realNumber;
+    //mutParams[YBConstantsRequest.adNumber] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[YBConstantsRequest.adNumber] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
+    mutParams[YBConstantsRequest.adNumber] = realNumber;
     [self sendWithCallbacks:self.willSendAdStartListeners service:YBConstantsYouboraService.adStart andParams:mutParams];
-    [YBLog notice:@"%@ %@%@ at %@s", YBConstantsYouboraService.adStart, mutParams[@"adPosition"], mutParams[@"adNumber"], mutParams[@"playhead"]];
+    [YBLog notice:@"%@ %@%@ at %@s", YBConstantsYouboraService.adStart, mutParams[@"adPosition"], mutParams[YBConstantsRequest.adNumber], mutParams[YBConstantsRequest.playhead]];
     self.isAdStarted = true;
 }
 
 - (void) sendAdJoin:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adJoin];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
-    mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
+    mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
+    mutParams[YBConstantsRequest.breakNumber] = self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
     [self sendWithCallbacks:self.willSendAdJoinListeners service:YBConstantsYouboraService.adJoin andParams:mutParams];
-    [YBLog notice:@"%@ %@ms", YBConstantsYouboraService.adJoin, mutParams[@"adJoinDuration"]];
+    [YBLog notice:@"%@ %@ms", YBConstantsYouboraService.adJoin, mutParams[YBConstantsRequest.adJoinDuration]];
 }
 
 - (void) sendAdPause:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adPause];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
     [self sendWithCallbacks:self.willSendAdPauseListeners service:YBConstantsYouboraService.adPause andParams:mutParams];
-    [YBLog notice:@"%@ at %@s", YBConstantsYouboraService.adPause, mutParams[@"adPlayhead"]];
+    [YBLog notice:@"%@ at %@s", YBConstantsYouboraService.adPause, mutParams[YBConstantsRequest.adPlayhead]];
 }
 
 - (void) sendAdResume:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adResume];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
     [self sendWithCallbacks:self.willSendAdResumeListeners service:YBConstantsYouboraService.adResume andParams:mutParams];
-    [YBLog notice:@"%@ %@ms", YBConstantsYouboraService.adResume, mutParams[@"adPauseDuration"]];
+    [YBLog notice:@"%@ %@ms", YBConstantsYouboraService.adResume, mutParams[YBConstantsRequest.adPauseDuration]];
 }
 
 - (void) sendAdBufferEnd:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adBuffer];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
     [self sendWithCallbacks:self.willSendAdBufferListeners service:YBConstantsYouboraService.adBuffer andParams:mutParams];
-    [YBLog notice:@"%@ %@ms", YBConstantsYouboraService.adBuffer, mutParams[@"adBufferDuration"]];
+    [YBLog notice:@"%@ %@ms", YBConstantsYouboraService.adBuffer, mutParams[YBConstantsRequest.adBufferDuration]];
 }
 
 - (void) sendAdStop:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adStop];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
     [self sendWithCallbacks:self.willSendAdStopListeners service:YBConstantsYouboraService.adStop andParams:mutParams];
-    [YBLog notice:@"%@ %@ms", YBConstantsYouboraService.adStop, mutParams[@"adTotalDuration"]];
+    [YBLog notice:@"%@ %@ms", YBConstantsYouboraService.adStop, mutParams[YBConstantsRequest.adTotalDuration]];
     self.isAdStarted = false;
 }
 
 - (void) sendClick:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.click];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
-    mutParams[@"breakNumber"] = self.requestBuilder.lastSent[@"breakNumber"];
+    mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
+    mutParams[YBConstantsRequest.breakNumber] = self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
     [self sendWithCallbacks:self.willSendClickListeners service:YBConstantsYouboraService.click andParams:mutParams];
-    [YBLog notice:@"%@ %@ s", YBConstantsYouboraService.click, mutParams[@"playhead"]];
+    [YBLog notice:@"%@ %@ s", YBConstantsYouboraService.click, mutParams[YBConstantsRequest.playhead]];
 }
 
 - (void) sendAdError:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adError];
-    NSString* realNumber = self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started ? self.requestBuilder.lastSent[@"adNumber"] : [self.requestBuilder getNewAdNumber];
-    mutParams[@"adNumber"] = realNumber;
+    NSString* realNumber = self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started ? self.requestBuilder.lastSent[YBConstantsRequest.adNumber] : [self.requestBuilder getNewAdNumber];
+    mutParams[YBConstantsRequest.adNumber] = realNumber;
     [self sendWithCallbacks:self.willSendAdErrorListeners service:YBConstantsYouboraService.adError andParams:mutParams];
     [YBLog notice:@"%@ %@ s", YBConstantsYouboraService.adError, mutParams[@"errorCode"]];
 
@@ -3011,7 +3011,7 @@
 
 - (void) sendAdBreakStart:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adBreakStart];
-    mutParams[@"breakNumber"] = [self.requestBuilder getNewAdBreakNumber];
+    mutParams[YBConstantsRequest.breakNumber] = [self.requestBuilder getNewAdBreakNumber];
     [self sendWithCallbacks:self.willSendAdBreakStartListeners service:YBConstantsYouboraService.adBreakStart andParams:mutParams];
     [YBLog notice:YBConstantsYouboraService.adBreakStart];
 }
@@ -3024,7 +3024,7 @@
 
 - (void) sendAdQuartile:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: YBConstantsYouboraService.adQuartile];
-    mutParams[@"adNumber"] = self.requestBuilder.lastSent[@"adNumber"];
+    mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
     [self sendWithCallbacks:self.willSendAdQuartileListeners service: YBConstantsYouboraService.adQuartile andParams:mutParams];
     [YBLog notice: YBConstantsYouboraService.adQuartile];
 }
@@ -3081,7 +3081,7 @@
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     params[@"diffTime"] = @(diffTime).stringValue;
     NSMutableArray<NSString *> * paramList = [NSMutableArray array];
-    [paramList addObject:@"sessions"];
+    [paramList addObject:YBConstantsRequest.sessions];
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
     
     [self sendWithCallbacks:self.willSendSessionBeatListeners service:YBConstantsYouboraInfinity.sessionBeat andParams:params];
@@ -3113,54 +3113,54 @@
     if (self.adapter != nil) {
         
         if (self.adapter.flags.paused) {
-            [paramList addObject:@"pauseDuration"];
+            [paramList addObject:YBConstantsRequest.pauseDuration];
         } else {
-            [paramList addObject:@"bitrate"];
-            [paramList addObject:@"throughput"];
-            [paramList addObject:@"fps"];
+            [paramList addObject:YBConstantsRequest.bitrate];
+            [paramList addObject:YBConstantsRequest.throughput];
+            [paramList addObject:YBConstantsRequest.fps];
             
             if (self.adsAdapter != nil && self.adsAdapter.flags.started) {
-                [paramList addObject:@"adBitrate"];
+                [paramList addObject:YBConstantsRequest.adBitrate];
             }
         }
         
         if (self.adapter.flags.joined) {
-            [paramList addObject:@"playhead"];
+            [paramList addObject:YBConstantsRequest.playhead];
         }
         
         if (self.adapter.flags.buffering) {
-            [paramList addObject:@"bufferDuration"];
+            [paramList addObject:YBConstantsRequest.bufferDuration];
         }
         
         if (self.adapter.flags.seeking) {
-            [paramList addObject:@"seekDuration"];
+            [paramList addObject:YBConstantsRequest.seekDuration];
         }
         
         if ([self.adapter getIsP2PEnabled] != nil && [[self.adapter getIsP2PEnabled] isEqualToValue:@YES]) {
-            [paramList addObject:@"p2pDownloadedTraffic"];
-            [paramList addObject:@"cdnDownloadedTraffic"];
-            [paramList addObject:@"uploadTraffic"];
+            [paramList addObject:YBConstantsRequest.p2pDownloadedTraffic];
+            [paramList addObject:YBConstantsRequest.cdnDownloadedTraffic];
+            [paramList addObject:YBConstantsRequest.uploadTraffic];
         }
     }
     
     if (self.adsAdapter != nil) {
         if(self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started){
-            [paramList removeObject:@"pauseDuration"];
+            [paramList removeObject:YBConstantsRequest.pauseDuration];
         }
         if (self.adsAdapter.flags.started) {
-            [paramList addObject:@"adPlayhead"];
-            [paramList addObject:@"playhead"];
+            [paramList addObject:YBConstantsRequest.adPlayhead];
+            [paramList addObject:YBConstantsRequest.playhead];
         }
         
         if (self.adsAdapter.flags.buffering) {
-            [paramList addObject:@"adBufferDuration"];
+            [paramList addObject:YBConstantsRequest.adBufferDuration];
         }
         
         if (self.adsAdapter.flags.paused) {
-            [paramList addObject:@"adPauseDuration"];
+            [paramList addObject:YBConstantsRequest.adPauseDuration];
         }
         
-        [paramList addObject:@"playhead"];
+        [paramList addObject:YBConstantsRequest.playhead];
     }
     
     params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];

@@ -24,7 +24,7 @@
 @implementation YBPlayerAdapterTest
 
 - (void)testRegisterUnregister {
-    YBTestablePlayerAdapter * adapter = [[YBTestablePlayerAdapter alloc] initWithPlayer:@"Player"];
+    YBTestablePlayerAdapter * adapter = [[YBTestablePlayerAdapter alloc] initWithPlayer:YBConstantsRequest.player];
     
     XCTAssertEqual(1, adapter.registeredTimes);
     XCTAssertEqual(0, adapter.unregisteredTimes);
@@ -38,7 +38,7 @@
 
 - (void)testDispose {
     
-    YBTestablePlayerAdapter * adapter = [[YBTestablePlayerAdapter alloc] initWithPlayer:@"Player"];
+    YBTestablePlayerAdapter * adapter = [[YBTestablePlayerAdapter alloc] initWithPlayer:YBConstantsRequest.player];
 
     YBPlayheadMonitor * mockMonitor = adapter.mockMonitor;
     
@@ -54,7 +54,7 @@
 }
 
 - (void)testSettersGetters {
-    YBTestablePlayerAdapter * adapter = [[YBTestablePlayerAdapter alloc] initWithPlayer:@"Player"];
+    YBTestablePlayerAdapter * adapter = [[YBTestablePlayerAdapter alloc] initWithPlayer:YBConstantsRequest.player];
 
     // Plugin
     YBPlugin * mockPlugin = mock([YBPlugin class]);
@@ -368,8 +368,8 @@
     
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
     [verifyCount(mockDelegate, times(1)) youboraAdapterEventClick:(id) captor fromAdapter:adapter];
-    XCTAssertTrue(captor.value[@"adUrl"] != nil);
-    NSString *adUrl = [captor.value objectForKey:@"adUrl"];
+    XCTAssertTrue(captor.value[YBConstantsRequest.adUrl] != nil);
+    NSString *adUrl = [captor.value objectForKey:YBConstantsRequest.adUrl];
     XCTAssertTrue([adUrl isEqualToString:@"fake"]);
     
 }
@@ -385,7 +385,7 @@
     
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
     [verifyCount(mockDelegate, times(1)) youboraAdapterEventClick:(id) captor fromAdapter:adapter];
-    XCTAssertTrue(captor.value[@"adUrl"] == nil);
+    XCTAssertTrue(captor.value[YBConstantsRequest.adUrl] == nil);
 }
 
 - (void) testFireSkip {

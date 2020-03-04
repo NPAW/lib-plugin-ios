@@ -29,10 +29,10 @@ static NSRegularExpression * regexPattern;
 #pragma mark - Public methods
 - (void)parse:(YBRequest *)request {
     if (request != nil) {
-        [YBNqs6Transform cloneParam:@"accountCode" intoParam:@"system" forRequest:request];
-        [YBNqs6Transform cloneParam:@"transactionCode" intoParam:@"transcode" forRequest:request];
-        [YBNqs6Transform cloneParam:@"username" intoParam:@"user" forRequest:request];
-        [YBNqs6Transform cloneParam:@"mediaResource" intoParam:@"resource" forRequest:request];
+        [YBNqs6Transform cloneParam:YBConstantsRequest.accountCode intoParam:YBConstantsRequest.system forRequest:request];
+        [YBNqs6Transform cloneParam:YBConstantsRequest.transactionCode intoParam:@"transcode" forRequest:request];
+        [YBNqs6Transform cloneParam:YBConstantsRequest.username intoParam:@"user" forRequest:request];
+        [YBNqs6Transform cloneParam:YBConstantsRequest.mediaResource intoParam:@"resource" forRequest:request];
         [YBNqs6Transform cloneParam:@"errorMsg" intoParam:@"msg" forRequest:request];
         
         NSString * service = request.service;
@@ -42,7 +42,7 @@ static NSRegularExpression * regexPattern;
         }
         
         if ([service isEqualToString: YBConstantsYouboraService.join]) {
-            [YBNqs6Transform cloneParam:@"playhead" intoParam:@"time" forRequest:request];
+            [YBNqs6Transform cloneParam:YBConstantsRequest.playhead intoParam:@"time" forRequest:request];
         }
         
         if ([service isEqualToString: YBConstantsYouboraService.ping]) {
@@ -74,17 +74,17 @@ static NSRegularExpression * regexPattern;
                 }
             }
         } else if ([service isEqualToString: YBConstantsYouboraService.buffer]) {
-            [YBNqs6Transform cloneParam:@"bufferDuration" intoParam:@"duration" forRequest:request];
+            [YBNqs6Transform cloneParam:YBConstantsRequest.bufferDuration intoParam:@"duration" forRequest:request];
             
         } else if ([service isEqualToString: YBConstantsYouboraService.seek]) {
-            [YBNqs6Transform cloneParam:@"seekDuration" intoParam:@"duration" forRequest:request];
+            [YBNqs6Transform cloneParam:YBConstantsRequest.seekDuration intoParam:@"duration" forRequest:request];
             
         } else if ([service isEqualToString: YBConstantsYouboraService.start]) {
-            [YBNqs6Transform cloneParam:@"mediaDuration" intoParam:@"duration" forRequest:request];
+            [YBNqs6Transform cloneParam:YBConstantsRequest.mediaDuration intoParam:@"duration" forRequest:request];
             
         } else if ([service isEqualToString: YBConstantsYouboraService.join]) {
-            [YBNqs6Transform cloneParam:@"joinDuration" intoParam:@"time" forRequest:request];
-            [YBNqs6Transform cloneParam:@"playhead" intoParam:@"eventTime" forRequest:request];
+            [YBNqs6Transform cloneParam:YBConstantsRequest.joinDuration intoParam:@"time" forRequest:request];
+            [YBNqs6Transform cloneParam:YBConstantsRequest.playhead intoParam:@"eventTime" forRequest:request];
         }
     }
 }

@@ -185,26 +185,26 @@
         /*NSString * resource = [self getResource];
          
          
-         [request setParam:resource forKey:@"mediaResource"];
-         lastSent[@"mediaResource"] = resource;*/
+         [request setParam:resource forKey:YBConstantsRequest.mediaResource];
+         lastSent[YBConstantsRequest.mediaResource] = resource;*/
         
         if (self.cdnEnabled) {
-            NSString * cdn = request.params[@"cdn"];
+            NSString * cdn = request.params[YBConstantsRequest.cdn];
             if (cdn == nil) {
                 cdn = [self getCdnName];
-                [request setParam:cdn forKey:@"cdn"];
+                [request setParam:cdn forKey:YBConstantsRequest.cdn];
             }
             
-            lastSent[@"cdn"] = cdn;
+            lastSent[YBConstantsRequest.cdn] = cdn;
             
-            [request setParam:[self getNodeHost] forKey:@"nodeHost"];
-            lastSent[@"nodeHost"] = [self getNodeHost];
+            [request setParam:[self getNodeHost] forKey:YBConstantsRequest.nodeHost];
+            lastSent[YBConstantsRequest.nodeHost] = [self getNodeHost];
             
-            [request setParam:[self getNodeType] forKey:@"nodeType"];
-            lastSent[@"nodeType"] = [self getNodeType];
+            [request setParam:[self getNodeType] forKey:YBConstantsRequest.nodeType];
+            lastSent[YBConstantsRequest.nodeType] = [self getNodeType];
             
-            [request setParam:[self getNodeTypeString] forKey:@"nodeTypeString"];
-            lastSent[@"nodeTypeString"] = [self getNodeTypeString];
+            [request setParam:[self getNodeTypeString] forKey:YBConstantsRequest.nodeTypeString];
+            lastSent[YBConstantsRequest.nodeTypeString] = [self getNodeTypeString];
         }
     }
 }

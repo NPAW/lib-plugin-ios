@@ -53,7 +53,7 @@
     stubProperty(mockRequest, service, YBConstantsYouboraService.start);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    params[@"mediaDuration"] = @"1";
+    params[YBConstantsRequest.mediaDuration] = @"1";
     
     stubProperty(mockRequest, params, params);
     
@@ -66,8 +66,8 @@
     stubProperty(mockRequest, service, YBConstantsYouboraService.join);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    params[@"joinDuration"] = @"1";
-    params[@"playhead"] = @"2";
+    params[YBConstantsRequest.joinDuration] = @"1";
+    params[YBConstantsRequest.playhead] = @"2";
     
     stubProperty(mockRequest, params, params);
     
@@ -82,7 +82,7 @@
     stubProperty(mockRequest, service, YBConstantsYouboraService.seek);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    params[@"seekDuration"] = @"1";
+    params[YBConstantsRequest.seekDuration] = @"1";
     
     stubProperty(mockRequest, params, params);
     
@@ -96,7 +96,7 @@
     stubProperty(mockRequest, service, YBConstantsYouboraService.buffer);
     
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
-    params[@"bufferDuration"] = @"1";
+    params[YBConstantsRequest.bufferDuration] = @"1";
     
     stubProperty(mockRequest, params, params);
     

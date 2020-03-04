@@ -166,17 +166,17 @@ typedef enum {
     [resourceTransform parse:mockRequest];
     
     //We don't modify the mediaResource anymore, any mod is done on the parsedResource
-    //[verifyCount(mockRequest, times(1)) setParam:@"parsed-resource" forKey:@"mediaResource"];
-    [verifyCount(mockRequest, times(1)) setParam:@"parsedCdnName" forKey:@"cdn"];
-    [verifyCount(mockRequest, times(1)) setParam:@"parsedNodeHost" forKey:@"nodeHost"];
-    [verifyCount(mockRequest, times(1)) setParam:@"1" forKey:@"nodeType"];
-    [verifyCount(mockRequest, times(1)) setParam:@"HIT" forKey:@"nodeTypeString"];
+    //[verifyCount(mockRequest, times(1)) setParam:@"parsed-resource" forKey:YBConstantsRequest.mediaResource];
+    [verifyCount(mockRequest, times(1)) setParam:@"parsedCdnName" forKey:YBConstantsRequest.cdn];
+    [verifyCount(mockRequest, times(1)) setParam:@"parsedNodeHost" forKey:YBConstantsRequest.nodeHost];
+    [verifyCount(mockRequest, times(1)) setParam:@"1" forKey:YBConstantsRequest.nodeType];
+    [verifyCount(mockRequest, times(1)) setParam:@"HIT" forKey:YBConstantsRequest.nodeTypeString];
     
-    XCTAssertEqualObjects(nil, lastSent[@"mediaResource"]);
-    XCTAssertEqualObjects(@"parsedCdnName", lastSent[@"cdn"]);
-    XCTAssertEqualObjects(@"parsedNodeHost", lastSent[@"nodeHost"]);
-    XCTAssertEqualObjects(@"1", lastSent[@"nodeType"]);
-    XCTAssertEqualObjects(@"HIT", lastSent[@"nodeTypeString"]);
+    XCTAssertEqualObjects(nil, lastSent[YBConstantsRequest.mediaResource]);
+    XCTAssertEqualObjects(@"parsedCdnName", lastSent[YBConstantsRequest.cdn]);
+    XCTAssertEqualObjects(@"parsedNodeHost", lastSent[YBConstantsRequest.nodeHost]);
+    XCTAssertEqualObjects(@"1", lastSent[YBConstantsRequest.nodeType]);
+    XCTAssertEqualObjects(@"HIT", lastSent[YBConstantsRequest.nodeTypeString]);
 }
 
 - (void)testNotingEnabled {
