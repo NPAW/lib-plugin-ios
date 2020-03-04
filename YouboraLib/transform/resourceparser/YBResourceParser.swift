@@ -18,9 +18,10 @@ import Foundation
     Receive a resource and check if it is compatible with the parser case yes save it
 
     - Parameter resource: String with the resource to check compatibility
+    - Parameter manifest: Data data from the request
     - Returns: Boolean indicating if this resource is compatible or not with parser
     */
-    @objc func isSatisfied(resource: String?) -> Bool
+    @objc func isSatisfied(resource: String?, manifest: Data?) -> Bool
     
     /**
     Return the url or the resource that needs to be parsed. Generally called to do the url request

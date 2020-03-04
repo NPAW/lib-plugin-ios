@@ -11,7 +11,7 @@ import Foundation
 @objcMembers public class YBLocationParser: NSObject, YBResourceParser {
     var resource: String?
     
-    public func isSatisfied(resource: String?) -> Bool {
+    public func isSatisfied(resource: String?, manifest: Data?) -> Bool {
         guard let resource = resource,
             resource != "" else {
                 return false

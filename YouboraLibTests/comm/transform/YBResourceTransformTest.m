@@ -39,10 +39,11 @@ typedef enum {
 - (void)setUp {
     [super setUp];
     self.mockPlugin = mock([YBPlugin class]);
+    [given([self.mockPlugin isParseResource]) willReturnBool:TRUE];
 }
 
 - (void)testDefaultValues {
-    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:[self.mockPlugin isParseResource] parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initWithPlugin: self.mockPlugin];
     
     // Assert default values
     XCTAssertNil([resourceTransform getCdnName]);
@@ -56,7 +57,7 @@ typedef enum {
     self.currentFlow = locationFlow;
     NSString *expectedFinalResource = @"http://example1.com";
     
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:true parsingCdn:true plugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
     
     resourceTransform.delegate = self;
     
@@ -69,7 +70,7 @@ typedef enum {
     self.currentFlow = dashFlow;
     NSString *expectedFinalResource = @"https://boltrljDRMTest1-a.akamaihd.net/media/v1/dash/live/cenc/6028583040001/f39ee0f0-72de-479d-9609-2bf6ea95b427/fed9a7f1-499a-469d-bacd-f25a94eac116/";
     
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:true parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
     
     resourceTransform.delegate = self;
     
@@ -82,7 +83,7 @@ typedef enum {
     self.currentFlow = hlsFlow;
     NSString *expectedFinalResource = @"http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/0640/06400.ts";
     
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:true parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
     
     resourceTransform.delegate = self;
     
@@ -101,7 +102,7 @@ typedef enum {
     [given([self.mockPlugin getParseCdnNameHeader]) willReturn:@"header-name"];
     
     // Resource transform to test
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:self.mockPlugin.isParseResource parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
     resourceTransform.delegate = self;
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
@@ -179,10 +180,11 @@ typedef enum {
 }
 
 - (void)testNotingEnabled {
+    [given([self.mockPlugin isParseResource]) willReturnBool:NO];
     [given([self.mockPlugin isParseHls]) willReturnBool:NO];
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:NO];
     
-    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initParsingResource:false parsingCdn:false plugin:self.mockPlugin];
+    YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initWithPlugin: self.mockPlugin];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
@@ -198,7 +200,7 @@ typedef enum {
     [given([self.mockPlugin getParseCdnNodeList]) willReturn:@[@"cdn1", @"cdn2"]];
     
     // Resource transform to test
-    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initParsingResource:[self.mockPlugin isParseResource] parsingCdn:[self.mockPlugin isParseCdnNode] plugin:self.mockPlugin];
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin:self.mockPlugin];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
@@ -222,7 +224,7 @@ typedef enum {
         case hlsFlow:
             return [self getHlsFlowData:iteration];
         default:
-            return nil;
+            return [[NSString stringWithFormat:@""] dataUsingEncoding:NSUTF8StringEncoding];
     }
 }
 

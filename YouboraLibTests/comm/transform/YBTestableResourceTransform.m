@@ -49,13 +49,20 @@
     
     NSData *data = [self.delegate getDataForIteration:self.iteration];
     NSHTTPURLResponse *response = [self.delegate getResponseForIteration:self.iteration];
-    NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:nil];
     
-    self.iteration ++;
-    if (!newResource) {
+    if (![parser isSatisfiedWithResource:resource manifest:data]) {
+        self.iteration ++;
         [self parse:[self getNextParser:parser] currentResource:resource];
     } else {
-        [self parse:parser currentResource:newResource];
+        NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:nil];
+        
+        if (!newResource) {
+             self.iteration ++;
+            [self parse:[self getNextParser:parser] currentResource:resource];
+        } else {
+             self.iteration ++;
+            [self parse:parser currentResource:newResource];
+        }
     }
 }
 

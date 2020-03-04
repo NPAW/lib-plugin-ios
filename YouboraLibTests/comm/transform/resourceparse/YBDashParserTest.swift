@@ -11,9 +11,9 @@ import XCTest
 class YBDashParserTest: XCTestCase {
     
     let invalidResources = [
-        "https://abc.com",
-        "https://abc",
-        "ajhbfsdjhbfjdh"
+        "dasd",
+        "",
+        "@sssxmdp"
     ]
     
     let validResource = "https://abc.mpd"
@@ -24,31 +24,46 @@ class YBDashParserTest: XCTestCase {
 
     func testResourceCondition() {
         let parser = YBDashParser()
-        XCTAssertFalse(parser.isSatisfied(resource: nil))
+        XCTAssertFalse(parser.isSatisfied(resource: nil, manifest: nil))
         
         for invalidResource in self.invalidResources {
-             XCTAssertFalse(parser.isSatisfied(resource: invalidResource))
+             XCTAssertFalse(parser.isSatisfied(resource: invalidResource, manifest: nil))
         }
-
-        XCTAssertTrue(parser.isSatisfied(resource: validResource))
+        
+        let testBundle = Bundle(for: self.classForCoder)
+        
+        let locationXmlPath = testBundle.path(forResource: "dashResponse", ofType: "xml")!
+        
+        do {
+            let xmlData = try Data(contentsOf: URL(fileURLWithPath: locationXmlPath, isDirectory: false), options: [])
+             XCTAssertTrue(parser.isSatisfied(resource: validResource, manifest: xmlData))
+        } catch {}
     }
     
     func testGetRequestResource() {
         let parser = YBDashParser()
-
-        _ = parser.isSatisfied(resource: nil)
-        XCTAssertNil(parser.getRequestSource())
-
-        _ = parser.isSatisfied(resource: "")
-        XCTAssertNil(parser.getRequestSource())
         
-        for invalidResource in self.invalidResources {
-            _ = parser.isSatisfied(resource: invalidResource)
+        let testBundle = Bundle(for: self.classForCoder)
+        
+        let locationXmlPath = testBundle.path(forResource: "dashResponse", ofType: "xml")!
+        
+        do {
+            let xmlData = try Data(contentsOf: URL(fileURLWithPath: locationXmlPath, isDirectory: false), options: [])
+            
+            _ = parser.isSatisfied(resource: nil, manifest: xmlData)
             XCTAssertNil(parser.getRequestSource())
-        }
-        
-        _ = parser.isSatisfied(resource: validResource)
-        XCTAssertTrue(parser.getRequestSource() == validResource)
+
+            _ = parser.isSatisfied(resource: "", manifest: "".data(using: .utf8))
+            XCTAssertNil(parser.getRequestSource())
+            
+            for invalidResource in self.invalidResources {
+                _ = parser.isSatisfied(resource: invalidResource, manifest: invalidResource.data(using: .utf8))
+                XCTAssertNil(parser.getRequestSource())
+            }
+            
+            _ = parser.isSatisfied(resource: validResource, manifest: xmlData)
+            XCTAssertTrue(parser.getRequestSource() == validResource)
+        } catch {}
     }
     
     func testDashParse() {

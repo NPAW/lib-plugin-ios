@@ -19,25 +19,25 @@ import XCTest
 
     func testResourceCondition() {
         let parser = YBLocationParser()
-        XCTAssertFalse(parser.isSatisfied(resource: nil))
+        XCTAssertFalse(parser.isSatisfied(resource: nil, manifest: "".data(using: .utf8)))
         let invalidResource = ""
 
-        XCTAssertFalse(parser.isSatisfied(resource: invalidResource))
+        XCTAssertFalse(parser.isSatisfied(resource: invalidResource, manifest: "".data(using: .utf8) ))
 
         let validResource = "https://abc.com"
-        XCTAssertTrue(parser.isSatisfied(resource: validResource))
+        XCTAssertTrue(parser.isSatisfied(resource: validResource, manifest: "".data(using: .utf8)))
     }
 
     func testGetRequestResource() {
         let parser = YBLocationParser()
 
-        _ = parser.isSatisfied(resource: nil)
+        _ = parser.isSatisfied(resource: nil, manifest: "".data(using: .utf8))
         XCTAssertNil(parser.getRequestSource())
 
-        _ = parser.isSatisfied(resource: "")
+        _ = parser.isSatisfied(resource: "", manifest: "".data(using: .utf8))
         XCTAssertNil(parser.getRequestSource())
         
-        _ = parser.isSatisfied(resource: validResource)
+        _ = parser.isSatisfied(resource: validResource, manifest: "".data(using: .utf8))
         XCTAssertTrue(parser.getRequestSource() == validResource)
     }
 

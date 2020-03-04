@@ -144,24 +144,23 @@
         return;
     }
     
-    if (![parser isSatisfiedWithResource:resource]) {
-        [self parse:[self getNextParser:parser] currentResource:resource];
-    } else {
-        [self requestAndParse:parser currentResource:resource];
-    }
-    
+    [self requestAndParse:parser currentResource:resource];
 }
 
 -(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource {
     YBRequest *request = [[YBRequest alloc] initWithHost:[parser getRequestSource] andService:nil];
     
     [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *,id> * _Nullable listenerParams) {
-        NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams];
-        
-        if (!newResource) {
+        if (![parser isSatisfiedWithResource:resource manifest:data]) {
             [self parse:[self getNextParser:parser] currentResource:resource];
         } else {
-            [self parse:parser currentResource:newResource];
+            NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams];
+            
+            if (!newResource) {
+                [self parse:[self getNextParser:parser] currentResource:resource];
+            } else {
+                [self parse:parser currentResource:newResource];
+            }
         }
     }];
     

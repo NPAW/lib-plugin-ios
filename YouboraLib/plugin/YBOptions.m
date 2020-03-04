@@ -27,7 +27,7 @@ NSString * const YBOPTIONS_KEY_SS_CONFIG_CODE = @"smartswitch.configCode";
 NSString * const YBOPTIONS_KEY_SS_GROUP_CODE = @"smartswitch.groupCode";
 NSString * const YBOPTIONS_KEY_SS_CONTRACT_CODE = @"smartswitch.contractCode";
 
-NSString * const YBOPTIONS_KEY_PARSE_RESOURCE = @"parse.Resource";
+NSString * const YBOPTIONS_KEY_PARSE_RESOURCE = @"parse.resource";
 NSString * const YBOPTIONS_KEY_PARSE_HLS = @"parse.Hls";
 NSString * const YBOPTIONS_KEY_PARSE_DASH = @"parse.Dash";
 NSString * const YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER = @"parse.CdnNameHeader";

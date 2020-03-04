@@ -11,20 +11,19 @@ import Foundation
 @objcMembers public class YBDashParser: NSObject, YBResourceParser {
     var resource: String?
     
-    public func isSatisfied(resource: String?) -> Bool {
-        guard let resource = resource,
-            resource != "" else {
+    public func isSatisfied(resource: String?, manifest: Data?) -> Bool {
+        guard
+            let dataManifest = manifest,
+            let manifest = String(data: dataManifest, encoding: .utf8),
+            let resource = resource, resource != "" else {
                 return false
         }
         
-        //Check if is a video resource is based on the regular expression
+        let valid = manifest.contains("<MPD")
         
-        if URL(fileURLWithPath: resource).pathExtension != "mpd" {
-            return false
-        }
+        if valid { self.resource = resource }
         
-        self.resource = resource
-        return true
+        return valid
     }
     
     public func getRequestSource() -> String? {

@@ -10,25 +10,19 @@ import Foundation
 @objcMembers public class YBHlsParser: NSObject, YBResourceParser {
     var resource: String?
     
-    public func isSatisfied(resource: String?) -> Bool {
-        guard let resource = resource,
-            resource != "" else {
+    public func isSatisfied(resource: String?, manifest: Data?) -> Bool {
+        guard
+            let dataManifest = manifest,
+            let manifest = String(data: dataManifest, encoding: .utf8),
+            let resource = resource, resource != "" else {
                 return false
         }
         
-        //Check if is a video resource is based on the regular expression
-        do {
-            let regex = try NSRegularExpression(pattern: "(\\S*?(\\.m3u8|\\.m3u)(?:\\?\\S*|\\R|$))")
-            
-            if regex.firstMatch(in: resource, options: [], range: NSRange(location: 0, length: resource.count)) == nil {
-                return false
-            }
-        } catch {
-            return false
-        }
+        let valid = manifest.contains("#EXTM3U")
         
-        self.resource = resource
-        return true
+        if valid { self.resource = resource }
+        
+        return valid
     }
     
     public func getRequestSource() -> String? {
