@@ -54,7 +54,7 @@
     XCTAssertNotNil(jsonDict[@"brand"]);
     XCTAssertNotNil(jsonDict[@"model"]);
     XCTAssertNil(jsonDict[@"deviceType"]);
-    XCTAssertNil(jsonDict[@"deviceCode"]);
+    XCTAssertNil(jsonDict[YBConstantsRequest.deviceCode]);
     XCTAssertNil(jsonDict[@"osName"]);
     XCTAssertNotNil(jsonDict[@"osVersion"]);
     XCTAssertNotNil(jsonDict[@"browserName"]);
@@ -71,7 +71,7 @@
     XCTAssertTrue([@"brand" isEqual: jsonDict[@"brand"]]);
     XCTAssertTrue([@"model" isEqual: jsonDict[@"model"]]);
     XCTAssertTrue([@"type" isEqual: jsonDict[@"deviceType"]]);
-    XCTAssertTrue([@"code" isEqual: jsonDict[@"deviceCode"]]);
+    XCTAssertTrue([@"code" isEqual: jsonDict[YBConstantsRequest.deviceCode]]);
     XCTAssertTrue([@"osName" isEqual:jsonDict[@"osName"]]);
     XCTAssertTrue([@"osVersion" isEqual:jsonDict[@"osVersion"]]);
     XCTAssertTrue([@"browser name" isEqual:jsonDict[@"browserName"]]);

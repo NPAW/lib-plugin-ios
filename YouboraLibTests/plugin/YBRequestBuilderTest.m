@@ -30,17 +30,17 @@ static NSArray * ALL_PARAMS;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        ALL_PARAMS = @[@"playhead", @"playrate", @"fps", @"droppedFrames",
-                       @"mediaDuration", @"bitrate", @"throughput", @"rendition", @"title", @"title2", @"live",
-                       @"mediaResource", @"transactionCode", @"properties", @"playerVersion", @"player", @"cdn",
-                       @"pluginVersion", @"param1", @"param2", @"param3", @"param4", @"param5", @"param6",
-                       @"param7", @"param8", @"param9", @"param10", @"position", @"adPlayhead", @"adDuration",
-                       @"adBitrate", @"adTitle", @"adResource", @"adPlayerVersion", @"adProperties",
-                       @"adAdapterVersion", @"pluginInfo", @"isp", @"connectionType", @"ip", @"deviceCode",
-                       @"system", @"accountCode", @"username", @"preloadDuration", @"joinDuration",
-                       @"bufferDuration", @"seekDuration", @"pauseDuration", @"adJoinDuration",
-                       @"adBufferDuration", @"adPauseDuration", @"adTotalDuration", @"nodeHost", @"nodeType",
-                       @"nodeTypeString", @"metrics", @"sessionMetrics", @"adCreativeId", @"adProvider"];
+        ALL_PARAMS = @[YBConstantsRequest.playhead, YBConstantsRequest.playrate, YBConstantsRequest.fps, YBConstantsRequest.droppedFrames,
+                       YBConstantsRequest.mediaDuration, YBConstantsRequest.bitrate, YBConstantsRequest.throughput, YBConstantsRequest.rendition, YBConstantsRequest.title, YBConstantsRequest.title2, YBConstantsRequest.live,
+                       YBConstantsRequest.mediaResource, YBConstantsRequest.transactionCode, YBConstantsRequest.properties, YBConstantsRequest.playerVersion, YBConstantsRequest.player, YBConstantsRequest.cdn,
+                       YBConstantsRequest.pluginVersion, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6,
+                       YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adDuration,
+                       YBConstantsRequest.adBitrate, YBConstantsRequest.adTitle, YBConstantsRequest.adResource, YBConstantsRequest.adPlayerVersion, YBConstantsRequest.adProperties,
+                       YBConstantsRequest.adAdapterVersion, YBConstantsRequest.pluginInfo, YBConstantsRequest.isp, YBConstantsRequest.connectionType, YBConstantsRequest.ip, YBConstantsRequest.deviceCode,
+                       YBConstantsRequest.system, YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.preloadDuration, YBConstantsRequest.joinDuration,
+                       YBConstantsRequest.bufferDuration, YBConstantsRequest.seekDuration, YBConstantsRequest.pauseDuration, YBConstantsRequest.adJoinDuration,
+                       YBConstantsRequest.adBufferDuration, YBConstantsRequest.adPauseDuration, YBConstantsRequest.adTotalDuration, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType,
+                       YBConstantsRequest.nodeTypeString, YBConstantsRequest.metrics, YBConstantsRequest.sessionMetrics, YBConstantsRequest.adCreativeId, YBConstantsRequest.adProvider];
     });
 
     self.mockPlugin = mock([YBPlugin class]);
@@ -112,73 +112,73 @@ static NSArray * ALL_PARAMS;
 - (void)testBuildParams {
     NSDictionary * params = [self.builder buildParams:nil forService: YBConstantsYouboraService.join];
     
-    XCTAssertEqualObjects(@"12", params[@"joinDuration"]);
+    XCTAssertEqualObjects(@"12", params[YBConstantsRequest.joinDuration]);
 }
 
 - (void)testParamsFetchedFromPlugin {
     NSDictionary * params = [self.builder fetchParams:nil paramList:ALL_PARAMS onlyDifferent:false];
     
-    XCTAssertEqualObjects(@"1", params[@"playhead"]);
-    XCTAssertEqualObjects(@"2", params[@"playrate"]);
-    XCTAssertEqualObjects(@"3", params[@"fps"]);
-    XCTAssertEqualObjects(@"4", params[@"droppedFrames"]);
-    XCTAssertEqualObjects(@"5", params[@"mediaDuration"]);
-    XCTAssertEqualObjects(@"6", params[@"bitrate"]);
-    XCTAssertEqualObjects(@"7", params[@"throughput"]);
-    XCTAssertEqualObjects(@"a", params[@"rendition"]);
-    XCTAssertEqualObjects(@"b", params[@"title"]);
-    XCTAssertEqualObjects(@"c", params[@"title2"]);
-    XCTAssertEqualObjects(@"true", params[@"live"]);
-    XCTAssertEqualObjects(@"d", params[@"mediaResource"]);
-    XCTAssertEqualObjects(@"e", params[@"transactionCode"]);
-    XCTAssertEqualObjects(@"f", params[@"properties"]);
-    XCTAssertEqualObjects(@"g", params[@"playerVersion"]);
-    XCTAssertEqualObjects(@"h", params[@"player"]);
-    XCTAssertEqualObjects(@"i", params[@"cdn"]);
-    XCTAssertEqualObjects(@"j", params[@"pluginVersion"]);
-    XCTAssertEqualObjects(@"j", params[@"param1"]);
-    XCTAssertEqualObjects(@"l", params[@"param2"]);
-    XCTAssertEqualObjects(@"m", params[@"param3"]);
-    XCTAssertEqualObjects(@"n", params[@"param4"]);
-    XCTAssertEqualObjects(@"o", params[@"param5"]);
-    XCTAssertEqualObjects(@"p", params[@"param6"]);
-    XCTAssertEqualObjects(@"q", params[@"param7"]);
-    XCTAssertEqualObjects(@"r", params[@"param8"]);
-    XCTAssertEqualObjects(@"s", params[@"param9"]);
-    XCTAssertEqualObjects(@"t", params[@"param10"]);
-    XCTAssertEqualObjects(@"u", params[@"position"]);
-    XCTAssertEqualObjects(@"8", params[@"adPlayhead"]);
-    XCTAssertEqualObjects(@"9", params[@"adDuration"]);
-    XCTAssertEqualObjects(@"10", params[@"adBitrate"]);
-    XCTAssertEqualObjects(@"w", params[@"adTitle"]);
-    XCTAssertEqualObjects(@"x", params[@"adResource"]);
-    XCTAssertEqualObjects(@"y", params[@"adPlayerVersion"]);
-    XCTAssertEqualObjects(@"z", params[@"adProperties"]);
-    XCTAssertEqualObjects(@"aa", params[@"adAdapterVersion"]);
-    XCTAssertEqualObjects(@"ab", params[@"pluginInfo"]);
-    XCTAssertEqualObjects(@"ac", params[@"isp"]);
-    XCTAssertEqualObjects(@"ad", params[@"connectionType"]);
-    XCTAssertEqualObjects(@"ae", params[@"ip"]);
-    XCTAssertEqualObjects(@"af", params[@"deviceCode"]);
-    XCTAssertEqualObjects(@"agah", params[@"system"]);
-    XCTAssertEqualObjects(@"agah", params[@"accountCode"]);
-    XCTAssertEqualObjects(@"ai", params[@"username"]);
-    XCTAssertEqualObjects(@"11", params[@"preloadDuration"]);
-    XCTAssertEqualObjects(@"12", params[@"joinDuration"]);
-    XCTAssertEqualObjects(@"13", params[@"bufferDuration"]);
-    XCTAssertEqualObjects(@"14", params[@"seekDuration"]);
-    XCTAssertEqualObjects(@"15", params[@"pauseDuration"]);
-    XCTAssertEqualObjects(@"16", params[@"adJoinDuration"]);
-    XCTAssertEqualObjects(@"17", params[@"adBufferDuration"]);
-    XCTAssertEqualObjects(@"18", params[@"adPauseDuration"]);
-    XCTAssertEqualObjects(@"19", params[@"adTotalDuration"]);
-    XCTAssertEqualObjects(@"aj", params[@"nodeHost"]);
-    XCTAssertEqualObjects(@"ak", params[@"nodeType"]);
-    XCTAssertEqualObjects(@"al", params[@"nodeTypeString"]);
-    XCTAssertEqualObjects(@"am", params[@"adProvider"]);
-    XCTAssertEqualObjects(@"an", params[@"adCreativeId"]);
-    XCTAssertEqualObjects(@"{\"key\":\"value\"}", params[@"metrics"]);
-    XCTAssertEqualObjects(@"{\"value\":\"key\"}", params[@"sessionMetrics"]);
+    XCTAssertEqualObjects(@"1", params[YBConstantsRequest.playhead]);
+    XCTAssertEqualObjects(@"2", params[YBConstantsRequest.playrate]);
+    XCTAssertEqualObjects(@"3", params[YBConstantsRequest.fps]);
+    XCTAssertEqualObjects(@"4", params[YBConstantsRequest.droppedFrames]);
+    XCTAssertEqualObjects(@"5", params[YBConstantsRequest.mediaDuration]);
+    XCTAssertEqualObjects(@"6", params[YBConstantsRequest.bitrate]);
+    XCTAssertEqualObjects(@"7", params[YBConstantsRequest.throughput]);
+    XCTAssertEqualObjects(@"a", params[YBConstantsRequest.rendition]);
+    XCTAssertEqualObjects(@"b", params[YBConstantsRequest.title]);
+    XCTAssertEqualObjects(@"c", params[YBConstantsRequest.title2]);
+    XCTAssertEqualObjects(@"true", params[YBConstantsRequest.live]);
+    XCTAssertEqualObjects(@"d", params[YBConstantsRequest.mediaResource]);
+    XCTAssertEqualObjects(@"e", params[YBConstantsRequest.transactionCode]);
+    XCTAssertEqualObjects(@"f", params[YBConstantsRequest.properties]);
+    XCTAssertEqualObjects(@"g", params[YBConstantsRequest.playerVersion]);
+    XCTAssertEqualObjects(@"h", params[YBConstantsRequest.player]);
+    XCTAssertEqualObjects(@"i", params[YBConstantsRequest.cdn]);
+    XCTAssertEqualObjects(@"j", params[YBConstantsRequest.pluginVersion]);
+    XCTAssertEqualObjects(@"j", params[YBConstantsRequest.param1]);
+    XCTAssertEqualObjects(@"l", params[YBConstantsRequest.param2]);
+    XCTAssertEqualObjects(@"m", params[YBConstantsRequest.param3]);
+    XCTAssertEqualObjects(@"n", params[YBConstantsRequest.param4]);
+    XCTAssertEqualObjects(@"o", params[YBConstantsRequest.param5]);
+    XCTAssertEqualObjects(@"p", params[YBConstantsRequest.param6]);
+    XCTAssertEqualObjects(@"q", params[YBConstantsRequest.param7]);
+    XCTAssertEqualObjects(@"r", params[YBConstantsRequest.param8]);
+    XCTAssertEqualObjects(@"s", params[YBConstantsRequest.param9]);
+    XCTAssertEqualObjects(@"t", params[YBConstantsRequest.param10]);
+    XCTAssertEqualObjects(@"u", params[YBConstantsRequest.position]);
+    XCTAssertEqualObjects(@"8", params[YBConstantsRequest.adPlayhead]);
+    XCTAssertEqualObjects(@"9", params[YBConstantsRequest.adDuration]);
+    XCTAssertEqualObjects(@"10", params[YBConstantsRequest.adBitrate]);
+    XCTAssertEqualObjects(@"w", params[YBConstantsRequest.adTitle]);
+    XCTAssertEqualObjects(@"x", params[YBConstantsRequest.adResource]);
+    XCTAssertEqualObjects(@"y", params[YBConstantsRequest.adPlayerVersion]);
+    XCTAssertEqualObjects(@"z", params[YBConstantsRequest.adProperties]);
+    XCTAssertEqualObjects(@"aa", params[YBConstantsRequest.adAdapterVersion]);
+    XCTAssertEqualObjects(@"ab", params[YBConstantsRequest.pluginInfo]);
+    XCTAssertEqualObjects(@"ac", params[YBConstantsRequest.isp]);
+    XCTAssertEqualObjects(@"ad", params[YBConstantsRequest.connectionType]);
+    XCTAssertEqualObjects(@"ae", params[YBConstantsRequest.ip]);
+    XCTAssertEqualObjects(@"af", params[YBConstantsRequest.deviceCode]);
+    XCTAssertEqualObjects(@"agah", params[YBConstantsRequest.system]);
+    XCTAssertEqualObjects(@"agah", params[YBConstantsRequest.accountCode]);
+    XCTAssertEqualObjects(@"ai", params[YBConstantsRequest.username]);
+    XCTAssertEqualObjects(@"11", params[YBConstantsRequest.preloadDuration]);
+    XCTAssertEqualObjects(@"12", params[YBConstantsRequest.joinDuration]);
+    XCTAssertEqualObjects(@"13", params[YBConstantsRequest.bufferDuration]);
+    XCTAssertEqualObjects(@"14", params[YBConstantsRequest.seekDuration]);
+    XCTAssertEqualObjects(@"15", params[YBConstantsRequest.pauseDuration]);
+    XCTAssertEqualObjects(@"16", params[YBConstantsRequest.adJoinDuration]);
+    XCTAssertEqualObjects(@"17", params[YBConstantsRequest.adBufferDuration]);
+    XCTAssertEqualObjects(@"18", params[YBConstantsRequest.adPauseDuration]);
+    XCTAssertEqualObjects(@"19", params[YBConstantsRequest.adTotalDuration]);
+    XCTAssertEqualObjects(@"aj", params[YBConstantsRequest.nodeHost]);
+    XCTAssertEqualObjects(@"ak", params[YBConstantsRequest.nodeType]);
+    XCTAssertEqualObjects(@"al", params[YBConstantsRequest.nodeTypeString]);
+    XCTAssertEqualObjects(@"am", params[YBConstantsRequest.adProvider]);
+    XCTAssertEqualObjects(@"an", params[YBConstantsRequest.adCreativeId]);
+    XCTAssertEqualObjects(@"{\"key\":\"value\"}", params[YBConstantsRequest.metrics]);
+    XCTAssertEqualObjects(@"{\"value\":\"key\"}", params[YBConstantsRequest.sessionMetrics]);
     
 }
 
@@ -189,7 +189,7 @@ static NSArray * ALL_PARAMS;
     for (int i = 1; i <= 10; i++) {
         NSLog(@"i: %@", @(i));
         XCTAssertEqualObjects(@(i).stringValue, [self.builder getNewAdNumber]);
-        [self.builder fetchParams:nil paramList:@[@"position"] onlyDifferent:false];
+        [self.builder fetchParams:nil paramList:@[YBConstantsRequest.position] onlyDifferent:false];
     }
     
     // Midrolls
@@ -197,7 +197,7 @@ static NSArray * ALL_PARAMS;
 
     for (int i = 1; i <= 10; i++) {
         XCTAssertEqualObjects(@(i).stringValue, [self.builder getNewAdNumber]);
-        [self.builder fetchParams:nil paramList:@[@"position"] onlyDifferent:false];
+        [self.builder fetchParams:nil paramList:@[YBConstantsRequest.position] onlyDifferent:false];
     }
 
     // Postrolls
@@ -205,20 +205,20 @@ static NSArray * ALL_PARAMS;
     
     for (int i = 1; i <= 10; i++) {
         XCTAssertEqualObjects(@(i).stringValue, [self.builder getNewAdNumber]);
-        [self.builder fetchParams:nil paramList:@[@"position"] onlyDifferent:false];
+        [self.builder fetchParams:nil paramList:@[YBConstantsRequest.position] onlyDifferent:false];
     }
 }
 
 - (void)testInformedParamsAreNotOverwritten {
-    NSDictionary * params = @{@"playhead":@"informedPlayhead",
-                              @"playrate":@"informedPlayrate",
-                              @"nodeTypeString":@"informedNodeTypeString"};
+    NSDictionary * params = @{YBConstantsRequest.playhead:@"informedPlayhead",
+                              YBConstantsRequest.playrate:@"informedPlayrate",
+                              YBConstantsRequest.nodeTypeString:@"informedNodeTypeString"};
     
     params = [self.builder fetchParams:params paramList:ALL_PARAMS onlyDifferent:false];
     
-    XCTAssertEqualObjects(@"informedPlayhead", params[@"playhead"]);
-    XCTAssertEqualObjects(@"informedPlayrate", params[@"playrate"]);
-    XCTAssertEqualObjects(@"informedNodeTypeString", params[@"nodeTypeString"]);
+    XCTAssertEqualObjects(@"informedPlayhead", params[YBConstantsRequest.playhead]);
+    XCTAssertEqualObjects(@"informedPlayrate", params[YBConstantsRequest.playrate]);
+    XCTAssertEqualObjects(@"informedNodeTypeString", params[YBConstantsRequest.nodeTypeString]);
 }
 
 - (void)testChangedEntities {
@@ -235,8 +235,8 @@ static NSArray * ALL_PARAMS;
     
     XCTAssertEqual(2, params.count);
     
-    XCTAssertEqualObjects(@"newResource", params[@"mediaResource"]);
-    XCTAssertEqualObjects(@"234", params[@"mediaDuration"]);
+    XCTAssertEqualObjects(@"newResource", params[YBConstantsRequest.mediaResource]);
+    XCTAssertEqualObjects(@"234", params[YBConstantsRequest.mediaDuration]);
 }
 
 @end

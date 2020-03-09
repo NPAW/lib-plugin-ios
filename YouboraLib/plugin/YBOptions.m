@@ -8,6 +8,7 @@
 
 #import "YBOptions.h"
 #import "YBCdnParser.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 NSString * const YBOPTIONS_KEY_ENABLED = @"enabled";
 NSString * const YBOPTIONS_KEY_HTTP_SECURE = @"httpSecure";

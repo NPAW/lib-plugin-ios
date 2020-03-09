@@ -45,7 +45,7 @@
         YBRequestBuilder * builder = plugin.requestBuilder;
         self.params = [builder buildParams:self.params forService:service];
         if (self.params != nil) {
-            if ([@"nicetest" isEqualToString:self.params[@"system"]]) {
+            if ([@"nicetest" isEqualToString:self.params[YBConstantsRequest.system]]) {
                 // "nicetest" is the default accountCode.
                 // If dound here, it's very likely that the customer has forgotten to set it.
                 [YBLog error:@"No accountCode has been set. Pleas set your accountCode in plugin's options."];
@@ -111,7 +111,7 @@
     }
     
     if (self.plugin.options.accountCode != nil) {
-        params[@"accountCode"] = self.plugin.options.accountCode;
+        params[YBConstantsRequest.accountCode] = self.plugin.options.accountCode;
     }
     
     // Request-specific transforms

@@ -479,7 +479,7 @@
                     params = [[NSDictionary alloc] init];
                 }
                 NSMutableDictionary *mutableParams = [[NSMutableDictionary alloc] initWithDictionary:params];
-                mutableParams[@"pauseDuration"] = [NSString stringWithFormat:@"%lld",[self.chronos.pause getDeltaTime]];
+                mutableParams[YBConstantsRequest.pauseDuration] = [NSString stringWithFormat:@"%lld",[self.chronos.pause getDeltaTime]];
                 params = [[NSDictionary alloc] initWithDictionary:mutableParams];
             }
         }
@@ -564,7 +564,7 @@
 - (void) fireClickWithAdUrl:(NSString*)adUrl{
     NSMutableDictionary<NSString *,NSString *>* params = [[NSMutableDictionary alloc] init];
     if(adUrl != nil){
-        params[@"adUrl"] = adUrl;
+        params[YBConstantsRequest.adUrl] = adUrl;
     }
     [self fireClick:params];
 }

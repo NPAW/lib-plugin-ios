@@ -12,6 +12,7 @@
 
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
+#import "YouboraLib/YouboraLib-Swift.h"
 
 typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error);
 
@@ -37,7 +38,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     
     XCTAssertEqualObjects(@"http://host.com/service", [r getUrl].absoluteString);
     
-    r.params = [@{@"param1":@"value1",@"param2":@"2",@"param3":@"23.5",@"json":@"{\"jsonkey\":\"jsonvalue\",\"jsonkey2\":\"jsonvalue2\"}"} mutableCopy];
+    r.params = [@{YBConstantsRequest.param1:@"value1",YBConstantsRequest.param2:@"2",YBConstantsRequest.param3:@"23.5",@"json":@"{\"jsonkey\":\"jsonvalue\",\"jsonkey2\":\"jsonvalue2\"}"} mutableCopy];
     
     // Decode
     NSString * url = [[r getUrl].absoluteString stringByRemovingPercentEncoding];
@@ -192,8 +193,8 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     req.method = YouboraHTTPMethodDelete;
     req.maxRetries = 10;
     req.retryInterval = 10000;
-    req.params = [@{@"param1":@"value1", @"param2":@"value2", @"param3":@"value3"} mutableCopy];
-    [req setParam:@"value4" forKey:@"param4"];
+    req.params = [@{YBConstantsRequest.param1:@"value1", YBConstantsRequest.param2:@"value2", YBConstantsRequest.param3:@"value3"} mutableCopy];
+    [req setParam:@"value4" forKey:YBConstantsRequest.param4];
     req.requestHeaders = @{@"header1":@"valueheader1", @"header2":@"valueheader2"};
     
     // Check new values
@@ -205,10 +206,10 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     
     NSDictionary * params = req.params;
     XCTAssertEqual(4, params.count);
-    XCTAssertEqualObjects(@"value1", params[@"param1"]);
-    XCTAssertEqualObjects(@"value2", params[@"param2"]);
-    XCTAssertEqualObjects(@"value3", params[@"param3"]);
-    XCTAssertEqualObjects(@"value4", params[@"param4"]);
+    XCTAssertEqualObjects(@"value1", params[YBConstantsRequest.param1]);
+    XCTAssertEqualObjects(@"value2", params[YBConstantsRequest.param2]);
+    XCTAssertEqualObjects(@"value3", params[YBConstantsRequest.param3]);
+    XCTAssertEqualObjects(@"value4", params[YBConstantsRequest.param4]);
     
     NSDictionary * reqHeaders = req.requestHeaders;
     XCTAssertEqualObjects(@"valueheader1", reqHeaders[@"header1"]);
