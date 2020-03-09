@@ -27,6 +27,7 @@ NSString * const YBOPTIONS_KEY_SS_CONFIG_CODE = @"smartswitch.configCode";
 NSString * const YBOPTIONS_KEY_SS_GROUP_CODE = @"smartswitch.groupCode";
 NSString * const YBOPTIONS_KEY_SS_CONTRACT_CODE = @"smartswitch.contractCode";
 
+NSString * const YBOPTIONS_KEY_PARSE_RESOURCE = @"parse.resource";
 NSString * const YBOPTIONS_KEY_PARSE_HLS = @"parse.Hls";
 NSString * const YBOPTIONS_KEY_PARSE_DASH = @"parse.Dash";
 NSString * const YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER = @"parse.CdnNameHeader";
@@ -168,12 +169,15 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.username = [decoder decodeObjectForKey:YBOPTIONS_KEY_USERNAME];
         self.userType = [decoder decodeObjectForKey:YBOPTIONS_KEY_USER_TYPE];
         self.userEmail = [decoder decodeObjectForKey:YBOPTIONS_KEY_USER_EMAIL];
-        self.parseHls = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_HLS] isEqualToValue:@YES];
+        self.parseResource = [decoder decodeBoolForKey:YBOPTIONS_KEY_PARSE_RESOURCE];
+        
         self.parseDash = [decoder decodeBoolForKey:YBOPTIONS_KEY_PARSE_DASH];
-        self.parseCdnNameHeader = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
-        self.parseCdnNode = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE] isEqualToValue:@YES];
-        self.parseCdnNodeList = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
+        self.parseHls = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_HLS] isEqualToValue:@YES];
         self.parseLocationHeader = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_LOCATION_HEADER] isEqualToValue:@YES];
+        
+        self.parseCdnNode = [[decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE] isEqualToValue:@YES];
+        self.parseCdnNameHeader = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
+        self.parseCdnNodeList = [decoder decodeObjectForKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
         self.experimentIds = [decoder decodeObjectForKey:YBOPTIONS_KEY_EXPERIMENT_IDS];
         self.networkIP = [decoder decodeObjectForKey:YBOPTIONS_KEY_NETWORK_IP];
         self.networkIsp = [decoder decodeObjectForKey:YBOPTIONS_KEY_NETWORK_ISP];
@@ -291,12 +295,15 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:self.username forKey:YBOPTIONS_KEY_USERNAME];
     [coder encodeObject:self.userType forKey:YBOPTIONS_KEY_USER_TYPE];
     [coder encodeObject:self.userEmail forKey:YBOPTIONS_KEY_USER_EMAIL];
-    [coder encodeObject:@(self.parseHls) forKey:YBOPTIONS_KEY_PARSE_HLS];
+    
+    [coder encodeBool:self.parseResource forKey:YBOPTIONS_KEY_PARSE_RESOURCE];
     [coder encodeBool:self.parseDash forKey:YBOPTIONS_KEY_PARSE_DASH];
-    [coder encodeObject:self.parseCdnNameHeader forKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
+    [coder encodeObject:@(self.parseHls) forKey:YBOPTIONS_KEY_PARSE_HLS];
     [coder encodeObject:@(self.parseCdnNode) forKey:YBOPTIONS_KEY_PARSE_CDN_NODE];
-    [coder encodeObject:self.parseCdnNodeList forKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
     [coder encodeObject:@(self.parseLocationHeader) forKey:YBOPTIONS_KEY_PARSE_LOCATION_HEADER];
+    
+    [coder encodeObject:self.parseCdnNameHeader forKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
+    [coder encodeObject:self.parseCdnNodeList forKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
     [coder encodeObject:self.experimentIds forKey:YBOPTIONS_KEY_EXPERIMENT_IDS];
     [coder encodeObject:self.networkIP forKey:YBOPTIONS_KEY_NETWORK_IP];
     [coder encodeObject:self.networkIsp forKey:YBOPTIONS_KEY_NETWORK_ISP];
@@ -415,12 +422,14 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.userEmail = nil;
     self.anonymousUser = nil;
     
+    self.parseResource = false;
     self.parseHls = false;
     self.parseDash = false;
-    self.parseLocationHeader = false;
-    self.parseCdnNameHeader = @"x-cdn-forward";
     self.parseCdnNode = false;
     self.parseLocationHeader = false;
+    
+    self.parseCdnNameHeader = @"x-cdn-forward";
+    
     // TODO: Node list YBConstants
     self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, YouboraCDNNameAmazon,nil];
     
@@ -555,11 +564,15 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.username forKey:YBOPTIONS_KEY_USERNAME];
     [dict setValue:self.userType forKey:YBOPTIONS_KEY_USER_TYPE];
     [dict setValue:self.userEmail forKey:YBOPTIONS_KEY_USER_EMAIL];
+    
+    [dict setValue:@(self.parseResource) forKey:YBOPTIONS_KEY_PARSE_RESOURCE];
+    [dict setValue:@(self.parseDash) forKey:YBOPTIONS_KEY_PARSE_DASH];
     [dict setValue:@(self.parseHls) forKey:YBOPTIONS_KEY_PARSE_HLS];
-    [dict setValue:self.parseCdnNameHeader forKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
     [dict setValue:@(self.parseCdnNode) forKey:YBOPTIONS_KEY_PARSE_CDN_NODE];
-    [dict setValue:self.parseCdnNodeList forKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
     [dict setValue:@(self.parseLocationHeader) forKey:YBOPTIONS_KEY_PARSE_LOCATION_HEADER];
+    
+    [dict setValue:self.parseCdnNameHeader forKey:YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER];
+    [dict setValue:self.parseCdnNodeList forKey:YBOPTIONS_KEY_PARSE_CDN_NODE_LIST];
     [dict setValue:self.experimentIds forKey:YBOPTIONS_KEY_EXPERIMENT_IDS];
     [dict setValue:self.networkIP forKey:YBOPTIONS_KEY_NETWORK_IP];
     [dict setValue:self.networkIsp forKey:YBOPTIONS_KEY_NETWORK_ISP];
@@ -667,6 +680,12 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.pendingMetadata forKey:YBOPTIONS_KEY_PENDING_METADATA];
     [dict setValue:self.sessionMetrics forKey:YBOPTIONS_KEY_SESSION_METRICS];
     return [[NSDictionary alloc] initWithDictionary:dict];
+}
+
+- (void) setResourceParseJoin:(bool)parse {
+    if (!self.parseResource && parse) {
+        self.parseResource = parse;
+    }
 }
 
 - (void) setContentTitle2:(NSString *)contentTitle2 {

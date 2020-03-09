@@ -7,8 +7,12 @@
 //
 
 #import "YBTestableResourceTransform.h"
-
 #import <OCMockito/OCMockito.h>
+#import "YouboraLib/YouboraLib-Swift.h"
+
+@interface YBTestableResourceTransform()
+
+@end
 
 @implementation YBTestableResourceTransform
 
@@ -16,15 +20,11 @@
 {
     self = [super init];
     if (self) {
-        self.mockHlsParser = mock([YBHlsParser class]);
         self.mockCdnParser = mock([YBCdnParser class]);
         self.mockTimer = mock([NSTimer class]);
+        self.iteration = 0;
     }
     return self;
-}
-
-- (YBHlsParser *) createHlsParser {
-    return self.mockHlsParser;
 }
 
 - (YBCdnParser *) createCdnParser:(NSString *) cdn {
@@ -38,6 +38,32 @@
 
 - (NSTimer *) createNonRepeatingScheduledTimerWithInterval:(NSTimeInterval) interval {
     return self.mockTimer;
+}
+
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource {
+    if (!self.delegate) {
+        [self parse:[self getNextParser:parser] currentResource:resource];
+        self.iteration ++;
+        return;
+    }
+    
+    NSData *data = [self.delegate getDataForIteration:self.iteration];
+    NSHTTPURLResponse *response = [self.delegate getResponseForIteration:self.iteration];
+    
+    if (![parser isSatisfiedWithResource:resource manifest:data]) {
+        self.iteration ++;
+        [self parse:[self getNextParser:parser] currentResource:resource];
+    } else {
+        NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:nil];
+        
+        if (!newResource) {
+             self.iteration ++;
+            [self parse:[self getNextParser:parser] currentResource:resource];
+        } else {
+             self.iteration ++;
+            [self parse:parser currentResource:newResource];
+        }
+    }
 }
 
 @end

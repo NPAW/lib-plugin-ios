@@ -8,12 +8,22 @@
 
 #import "YBResourceTransform.h"
 
+@protocol YBTestableResourceTransformProtocol
+
+-(NSData* _Nullable)getDataForIteration:(NSInteger)iteration;
+-(NSHTTPURLResponse* _Nullable)getResponseForIteration:(NSInteger)iteration;
+
+@end
+
 @interface YBTestableResourceTransform : YBResourceTransform
 
+@property NSInteger iteration;
+
 @property(nonatomic, strong) NSDictionary<NSString *, YBCdnParser *> * mockCdnParsers;
-@property(nonatomic, strong) YBHlsParser * mockHlsParser;
 @property(nonatomic, strong) YBCdnParser * mockCdnParser;
 @property(nonatomic, strong) NSString * lastCreatedCdnParser;
 @property(nonatomic, strong) NSTimer * mockTimer;
+
+@property(nonatomic, weak) id<YBTestableResourceTransformProtocol> delegate;
 
 @end

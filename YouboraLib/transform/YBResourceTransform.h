@@ -7,19 +7,14 @@
 //
 
 #import "YBTransformSubclass.h"
-#import "YBHlsParser.h"
 #import "YBCdnParser.h"
-#import "YBDashParser.h"
-#import "YBLocationHeaderParser.h"
 
 @class YBPlugin;
-
-NS_ASSUME_NONNULL_BEGIN;
-
+@protocol YBResourceParser;
 /**
  * Parses resource urls to get transportstreams and CDN-related info.
  */
-@interface YBResourceTransform : YBTransform<HlsTransformDoneDelegate, CdnTransformDoneDelegate, LocationHeaderTransformDoneDelegate, DashTransformDoneDelegate>
+@interface YBResourceTransform : YBTransform
 
 /// ---------------------------------
 /// @name Public properties
@@ -35,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN;
 /// ---------------------------------
 /**
  * Initializer
- * @param plugin the plugin this ResourceTransform will use to get the info it needs
+ * @param plugin Plugin to check all the info
  */
--(instancetype) initWithPlugin:(YBPlugin *) plugin;
+- (instancetype)initWithPlugin:(YBPlugin*)plugin;
 
 /// ---------------------------------
 /// @name Public methods
@@ -81,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN;
  */
 - (nullable NSString *) getNodeTypeString;
 
+-(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource;
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource;
+-(id<YBResourceParser> _Nullable)getNextParser:(id<YBResourceParser>)parser;
 @end
-
-
-NS_ASSUME_NONNULL_END;

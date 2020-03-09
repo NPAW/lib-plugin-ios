@@ -201,6 +201,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getHost;
 
 /**
+* Returns the parse Resource flag
+* @return the parse Resource flag
+*/
+-(bool) isParseResource;
+
+/**
  * Returns the parse HLS flag
  * @return the parse HLS flag
  */

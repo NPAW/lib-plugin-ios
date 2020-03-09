@@ -440,6 +440,10 @@
     return [YBYouboraUtils addProtocol:[YBYouboraUtils stripProtocol:self.options.host] https:self.options.httpSecure];
 }
 
+-(bool) isParseResource {
+    return self.options.parseResource;
+}
+
 - (bool) isParseHls {
     return self.options.parseHls;
 }
