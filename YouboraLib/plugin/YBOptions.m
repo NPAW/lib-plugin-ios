@@ -188,6 +188,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.deviceCode = [decoder decodeObjectForKey:[YBOptionKeys deviceCode]];
         self.forceInit = [[decoder decodeObjectForKey:[YBOptionKeys forceInit]] isEqualToValue:@YES];
         self.deviceModel = [decoder decodeObjectForKey:[YBOptionKeys deviceModel]];
+        self.deviceName = [decoder decodeObjectForKey:[YBOptionKeys deviceName]];
         self.deviceBrand = [decoder decodeObjectForKey:[YBOptionKeys deviceBrand]];
         self.deviceType = [decoder decodeObjectForKey:[YBOptionKeys deviceType]];
         self.deviceOsName = [decoder decodeObjectForKey:[YBOptionKeys deviceOsNme]];
