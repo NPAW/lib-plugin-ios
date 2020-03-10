@@ -40,7 +40,6 @@ extern NSString * const YBOPTIONS_KEY_SS_CONFIG_CODE  __deprecated_msg("Use YBOp
 extern NSString * const YBOPTIONS_KEY_SS_GROUP_CODE  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * const YBOPTIONS_KEY_SS_CONTRACT_CODE  __deprecated_msg("Use YBOptionKeys instead");
 
-extern NSString * const YBOPTIONS_KEY_PARSE_RESOURCE  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * const YBOPTIONS_KEY_PARSE_HLS  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NAME_HEADER  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * const YBOPTIONS_KEY_PARSE_CDN_NODE  __deprecated_msg("Use YBOptionKeys instead");

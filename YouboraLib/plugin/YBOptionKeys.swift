@@ -139,7 +139,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.appName: .string,
         YBOptionKeys.appReleaseVersion: .string,
         YBOptionKeys.waitMetadata: .bool,
-        YBOptionKeys.pendingMetadata: .unknown,
+        YBOptionKeys.pendingMetadata: .unknown
     ]
 }
 
