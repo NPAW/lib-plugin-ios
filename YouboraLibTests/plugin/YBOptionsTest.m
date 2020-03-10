@@ -42,6 +42,56 @@
     XCTAssertEqual(options.parseResource, true);
 }
 
+- (void) fillOptions:(YBOptions *) opt {
+    opt.enabled = false;
+    opt.httpSecure = true;
+    opt.host = @"host";
+    opt.accountCode = @"code";
+    opt.username = YBConstantsRequest.username;
+    opt.parseHls = true;
+    opt.parseCdnNameHeader = @"nameheader";
+    opt.parseCdnNode = true;
+    opt.parseCdnNodeList = [@[@"1", @"2", @"3"] mutableCopy];
+    opt.networkIP = @"1.2.3.4";
+    opt.networkIsp = YBConstantsRequest.isp;
+    opt.networkConnectionType = YBConstantsRequest.connectionType;
+    opt.userObfuscateIp = @NO;
+    opt.deviceCode = YBConstantsRequest.deviceCode;
+    opt.contentResource = @"resource";
+    opt.contentIsLive = @YES;
+    opt.contentTitle = YBConstantsRequest.title;
+    opt.program = @"program";
+    opt.contentDuration = @42;
+    opt.contentTransactionCode = YBConstantsRequest.transactionCode;
+    opt.contentBitrate = @4;
+    opt.contentThroughput = @5;
+    opt.contentRendition = @"rend";
+    opt.contentCdn = YBConstantsRequest.cdn;
+    opt.contentFps = @12;
+    opt.contentMetadata = @{@"metakey":@"metavalue"};
+    opt.adMetadata = @{@"admetakey":@"admetavalue"};
+    opt.contentCustomDimension1 = @"extra1";
+    opt.contentCustomDimension2 = @"extra2";
+    opt.contentCustomDimension3 = @"extra3";
+    opt.contentCustomDimension4 = @"extra4";
+    opt.contentCustomDimension5 = @"extra5";
+    opt.contentCustomDimension6 = @"extra6";
+    opt.contentCustomDimension7 = @"extra7";
+    opt.contentCustomDimension8 = @"extra8";
+    opt.contentCustomDimension9 = @"extra9";
+    opt.contentCustomDimension10 = @"extra10";
+    opt.contentCustomDimension11 = @"extra11";
+    opt.contentCustomDimension12 = @"extra12";
+    opt.contentCustomDimension13 = @"extra13";
+    opt.contentCustomDimension14 = @"extra14";
+    opt.contentCustomDimension15 = @"extra15";
+    opt.contentCustomDimension16 = @"extra16";
+    opt.contentCustomDimension17 = @"extra17";
+    opt.contentCustomDimension18 = @"extra18";
+    opt.contentCustomDimension19 = @"extra19";
+    opt.contentCustomDimension20 = @"extra20";
+}
+
 - (void)testCoding {
     YBOptions * opt = [YBOptions new];
     
@@ -187,57 +237,7 @@
     
     NSDictionary * dict = [opt toDictionary];
     
-    XCTAssertEqualObjects(dict[YBOPTIONS_KEY_HOST], opt.host);
-}
-
-- (void) fillOptions:(YBOptions *) opt {
-    opt.enabled = false;
-    opt.httpSecure = true;
-    opt.host = @"host";
-    opt.accountCode = @"code";
-    opt.username = YBConstantsRequest.username;
-    opt.parseHls = true;
-    opt.parseCdnNameHeader = @"nameheader";
-    opt.parseCdnNode = true;
-    opt.parseCdnNodeList = [@[@"1", @"2", @"3"] mutableCopy];
-    opt.networkIP = @"1.2.3.4";
-    opt.networkIsp = YBConstantsRequest.isp;
-    opt.networkConnectionType = YBConstantsRequest.connectionType;
-    opt.userObfuscateIp = @NO;
-    opt.deviceCode = YBConstantsRequest.deviceCode;
-    opt.contentResource = @"resource";
-    opt.contentIsLive = @YES;
-    opt.contentTitle = YBConstantsRequest.title;
-    opt.program = @"program";
-    opt.contentDuration = @42;
-    opt.contentTransactionCode = YBConstantsRequest.transactionCode;
-    opt.contentBitrate = @4;
-    opt.contentThroughput = @5;
-    opt.contentRendition = @"rend";
-    opt.contentCdn = YBConstantsRequest.cdn;
-    opt.contentFps = @12;
-    opt.contentMetadata = @{@"metakey":@"metavalue"};
-    opt.adMetadata = @{@"admetakey":@"admetavalue"};
-    opt.contentCustomDimension1 = @"extra1";
-    opt.contentCustomDimension2 = @"extra2";
-    opt.contentCustomDimension3 = @"extra3";
-    opt.contentCustomDimension4 = @"extra4";
-    opt.contentCustomDimension5 = @"extra5";
-    opt.contentCustomDimension6 = @"extra6";
-    opt.contentCustomDimension7 = @"extra7";
-    opt.contentCustomDimension8 = @"extra8";
-    opt.contentCustomDimension9 = @"extra9";
-    opt.contentCustomDimension10 = @"extra10";
-    opt.contentCustomDimension11 = @"extra11";
-    opt.contentCustomDimension12 = @"extra12";
-    opt.contentCustomDimension13 = @"extra13";
-    opt.contentCustomDimension14 = @"extra14";
-    opt.contentCustomDimension15 = @"extra15";
-    opt.contentCustomDimension16 = @"extra16";
-    opt.contentCustomDimension17 = @"extra17";
-    opt.contentCustomDimension18 = @"extra18";
-    opt.contentCustomDimension19 = @"extra19";
-    opt.contentCustomDimension20 = @"extra20";
+    XCTAssertEqualObjects(dict[YBOptionKeys.host], opt.host);
 }
 
 @end

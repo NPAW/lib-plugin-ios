@@ -785,9 +785,9 @@
 
 -(void)testGetExpectedAds {
     stubProperty(self.mockOptions, adExpectedPattern, (@{
-        YBOPTIONS_AD_POSITION_PRE : @[@1],
-        YBOPTIONS_AD_POSITION_MID : @[@3,@5],
-        YBOPTIONS_AD_POSITION_POST : @[@2]
+        YBOptionKeys.adPositionPre : @[@1],
+        YBOptionKeys.adPositionMid : @[@3,@5],
+        YBOptionKeys.adPositionPost : @[@2]
     }));
     
     self.p.adsAdapter = self.mockAdAdapter;
