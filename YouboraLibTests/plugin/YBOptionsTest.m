@@ -42,6 +42,139 @@
     XCTAssertEqual(options.parseResource, true);
 }
 
+- (void) fillOptions:(YBOptions *) opt {
+    opt.enabled = false;
+    opt.httpSecure = true;
+    opt.host = @"host";
+    opt.accountCode = @"code";
+    opt.username = YBConstantsRequest.username;
+    opt.parseResource = true;
+    opt.parseLocationHeader = true;
+    opt.parseHls = true;
+    opt.parseDash = true;
+    opt.parseCdnNameHeader = @"nameheader";
+    opt.parseCdnNode = true;
+    opt.parseCdnNodeList = [@[@"1", @"2", @"3"] mutableCopy];
+    opt.networkIP = @"1.2.3.4";
+    opt.networkIsp = YBConstantsRequest.isp;
+    opt.networkConnectionType = YBConstantsRequest.connectionType;
+    opt.userObfuscateIp = @NO;
+    opt.deviceCode = YBConstantsRequest.deviceCode;
+    opt.contentResource = @"resource";
+    opt.contentIsLive = @YES;
+    opt.contentTitle = YBConstantsRequest.title;
+    opt.program = @"program";
+    opt.contentDuration = @42;
+    opt.contentTransactionCode = YBConstantsRequest.transactionCode;
+    opt.contentBitrate = @4;
+    opt.contentThroughput = @5;
+    opt.contentRendition = @"rend";
+    opt.contentCdn = YBConstantsRequest.cdn;
+    opt.contentFps = @12;
+    opt.contentMetadata = @{@"metakey":@"metavalue"};
+    opt.adMetadata = @{@"admetakey":@"admetavalue"};
+    opt.contentCustomDimension1 = @"extra1";
+    opt.contentCustomDimension2 = @"extra2";
+    opt.contentCustomDimension3 = @"extra3";
+    opt.contentCustomDimension4 = @"extra4";
+    opt.contentCustomDimension5 = @"extra5";
+    opt.contentCustomDimension6 = @"extra6";
+    opt.contentCustomDimension7 = @"extra7";
+    opt.contentCustomDimension8 = @"extra8";
+    opt.contentCustomDimension9 = @"extra9";
+    opt.contentCustomDimension10 = @"extra10";
+    opt.contentCustomDimension11 = @"extra11";
+    opt.contentCustomDimension12 = @"extra12";
+    opt.contentCustomDimension13 = @"extra13";
+    opt.contentCustomDimension14 = @"extra14";
+    opt.contentCustomDimension15 = @"extra15";
+    opt.contentCustomDimension16 = @"extra16";
+    opt.contentCustomDimension17 = @"extra17";
+    opt.contentCustomDimension18 = @"extra18";
+    opt.contentCustomDimension19 = @"extra19";
+    opt.contentCustomDimension20 = @"extra20";
+    opt.anonymousUser = @"anonymousUser";
+    opt.offline = true;
+    opt.isInfinity = @(true);
+    opt.autoDetectBackground = true;
+    opt.forceInit = true;
+    opt.userType = @"userType";
+    opt.userEmail = @"userEmail";
+    opt.experimentIds = @[@"one",@"two"];
+    opt.smartswitchConfigCode = @"smartswitchConfigCode";
+    opt.smartswitchGroupCode = @"smartswitchGroupCode";
+    opt.smartswitchContractCode = @"smartswitchContractCode";
+    opt.deviceModel = @"deviceModel";
+    opt.deviceBrand = @"deviceBrand";
+    opt.deviceType = @"deviceType";
+    opt.deviceName = @"deviceName";
+    opt.deviceOsName = @"deviceOsNme";
+    opt.deviceOsVersion = @"deviceOsVersion";
+    opt.deviceIsAnonymous = true;
+    opt.contentTitle = @"contentTitle";
+    opt.contentStreamingProtocol = @"contentStreamingProtocol";
+    opt.contentMetrics = @{@"contentMetrics":@"contentMetrics"};
+    opt.contentIsLiveNoSeek = @(true);
+    opt.contentPackage = @"contentPackage";
+    opt.contentSaga = @"contentSaga";
+    opt.contentTvShow = @"contentTvShow";
+    opt.contentSeason = @"contentSeason";
+    opt.contentEpisodeTitle = @"contentEpisodeTitle";
+    opt.contentChannel = @"contentChannel";
+    opt.contentId = @"contentId";
+    opt.contentImdbId = @"contentImdbId";
+    opt.contentGracenoteId = @"contentGracenoteId";
+    opt.contentType = @"contentType";
+    opt.contentGenre = @"contentGenre";
+    opt.contentLanguage = @"contentLanguage";
+    opt.contentSubtitles = @"contentSubtitles";
+    opt.contentContractedResolution = @"contentContractedResolution";
+    opt.contentCost = @"contentCost";
+    opt.contentPrice = @"contentPrice";
+    opt.contentPlaybackType = @"contentPlaybackType";
+    opt.contentDrm = @"contentDrm";
+    opt.contentEncodingVideoCodec = @"contentEncodingVideoCodec";
+    opt.contentEncodingAudioCodec = @"contentEncodingAudioCodec";
+    opt.contentEncodingCodecSettings = @{@"contentEncodingCodecSettings":@"contentEncodingCodecSettings"};
+    opt.contentEncodingCodecProfile = @"contentEncodingCodecProfile";
+    opt.contentEncodingContainerFormat = @"contentEncodingContainerFormat";
+    opt.appName = @"appName";
+    opt.sessionMetrics = @{
+        @"metric1":@"value1",
+        @"metric2":@"value2",
+    };
+    opt.pendingMetadata = @[@"value1",@"value2"];
+    opt.waitForMetadata = true;
+    opt.adCustomDimension1 = @"adCustomDimension1";
+    opt.adCustomDimension2 = @"adCustomDimension2";
+    opt.adCustomDimension3 = @"adCustomDimension3";
+    opt.adCustomDimension4 = @"adCustomDimension4";
+    opt.adCustomDimension5 = @"adCustomDimension5";
+    opt.adCustomDimension6 = @"adCustomDimension6";
+    opt.adCustomDimension7 = @"adCustomDimension7";
+    opt.adCustomDimension8 = @"adCustomDimension8";
+    opt.adCustomDimension9 = @"adCustomDimension9";
+    opt.adCustomDimension10 = @"adCustomDimension10";
+    opt.appReleaseVersion = @"appReleaseVersion";
+    opt.adProvider = @"adProvider";
+    opt.adCreativeId = @"adCreativeId";
+    opt.adGivenAds = [NSNumber numberWithInt:2];
+    opt.adBreaksTime = @[@"Value1",@"Value2"];
+    opt.adResource = @"adResource";
+    opt.adTitle = @"adTitle";
+    opt.adCampaign = @"adCampaign";
+    opt.adGivenBreaks = [NSNumber numberWithInt:2];
+    opt.adExpectedBreaks = [NSNumber numberWithInt:3];
+    opt.adExpectedPattern = @{
+        YBOptionKeys.adPositionMid: @[
+                [NSNumber numberWithInt:2],
+                [NSNumber numberWithInt:3]
+        ]
+    };
+    opt.adsAfterStop = [NSNumber numberWithInt:2];
+}
+
+
 - (void)testCoding {
     YBOptions * opt = [YBOptions new];
     
@@ -62,7 +195,10 @@
     XCTAssertEqualObjects(opt.host, opt2.host);
     XCTAssertEqualObjects(opt.accountCode, opt2.accountCode);
     XCTAssertEqualObjects(opt.username, opt2.username);
+    XCTAssertEqual(opt.parseResource, opt2.parseResource);
+    XCTAssertEqual(opt.parseLocationHeader, opt2.parseLocationHeader);
     XCTAssertEqual(opt.parseHls, opt2.parseHls);
+    XCTAssertEqual(opt.parseDash, opt2.parseDash);
     XCTAssertEqualObjects(opt.parseCdnNameHeader, opt2.parseCdnNameHeader);
     XCTAssertEqual(opt.parseCdnNode, opt2.parseCdnNode);
     XCTAssertEqualObjects(opt.parseCdnNodeList, opt2.parseCdnNodeList);
@@ -105,6 +241,78 @@
     XCTAssertEqualObjects(opt.contentCustomDimension18, opt2.contentCustomDimension18);
     XCTAssertEqualObjects(opt.contentCustomDimension19, opt2.contentCustomDimension19);
     XCTAssertEqualObjects(opt.contentCustomDimension20, opt2.contentCustomDimension20);
+    XCTAssertEqualObjects(opt.adCustomDimension1, opt2.adCustomDimension1);
+    XCTAssertEqualObjects(opt.adCustomDimension2, opt2.adCustomDimension2);
+    XCTAssertEqualObjects(opt.adCustomDimension3, opt2.adCustomDimension3);
+    XCTAssertEqualObjects(opt.adCustomDimension4, opt2.adCustomDimension4);
+    XCTAssertEqualObjects(opt.adCustomDimension5, opt2.adCustomDimension5);
+    XCTAssertEqualObjects(opt.adCustomDimension6, opt2.adCustomDimension6);
+    XCTAssertEqualObjects(opt.adCustomDimension7, opt2.adCustomDimension7);
+    XCTAssertEqualObjects(opt.adCustomDimension8, opt2.adCustomDimension8);
+    XCTAssertEqualObjects(opt.adCustomDimension9, opt2.adCustomDimension9);
+    XCTAssertEqualObjects(opt.adCustomDimension10, opt2.adCustomDimension10);
+    XCTAssertEqualObjects(opt.userObfuscateIp, opt2.userObfuscateIp);
+    XCTAssertEqualObjects(opt.anonymousUser, opt2.anonymousUser);
+    XCTAssertEqual(opt.offline, opt2.offline);
+    XCTAssertEqualObjects(opt.isInfinity, opt2.isInfinity);
+    XCTAssertEqual(opt.autoDetectBackground, opt2.autoDetectBackground);
+    XCTAssertEqual(opt.forceInit, opt2.forceInit);
+    XCTAssertEqualObjects(opt.userType, opt2.userType);
+    XCTAssertEqualObjects(opt.userEmail, opt2.userEmail);
+    XCTAssertEqualObjects(opt.experimentIds, opt2.experimentIds);
+    XCTAssertEqualObjects(opt.smartswitchConfigCode, opt2.smartswitchConfigCode);
+    XCTAssertEqualObjects(opt.smartswitchGroupCode, opt2.smartswitchGroupCode);
+    XCTAssertEqualObjects(opt.smartswitchContractCode, opt2.smartswitchContractCode);
+    XCTAssertEqualObjects(opt.deviceModel, opt2.deviceModel);
+    XCTAssertEqualObjects(opt.deviceBrand, opt2.deviceBrand);
+    XCTAssertEqualObjects(opt.deviceType, opt2.deviceType);
+    XCTAssertEqualObjects(opt.deviceName, opt2.deviceName);
+    XCTAssertEqualObjects(opt.deviceOsName, opt2.deviceOsName);
+    XCTAssertEqualObjects(opt.deviceOsVersion, opt2.deviceOsVersion);
+    XCTAssertEqual(opt.deviceIsAnonymous, opt2.deviceIsAnonymous);
+    XCTAssertEqualObjects(opt.contentTitle, opt2.contentTitle);
+    XCTAssertEqualObjects(opt.contentStreamingProtocol, opt2.contentStreamingProtocol);
+    XCTAssertEqualObjects(opt.contentMetrics, opt2.contentMetrics);
+    XCTAssertEqualObjects(opt.contentIsLiveNoSeek, opt2.contentIsLiveNoSeek);
+    XCTAssertEqualObjects(opt.contentPackage, opt2.contentPackage);
+    XCTAssertEqualObjects(opt.contentSaga, opt2.contentSaga);
+    XCTAssertEqualObjects(opt.contentTvShow, opt2.contentTvShow);
+    XCTAssertEqualObjects(opt.contentSeason, opt2.contentSeason);
+    XCTAssertEqualObjects(opt.contentEpisodeTitle, opt2.contentEpisodeTitle);
+    XCTAssertEqualObjects(opt.contentChannel, opt2.contentChannel);
+    XCTAssertEqualObjects(opt.contentId, opt2.contentId);
+    XCTAssertEqualObjects(opt.contentImdbId, opt2.contentImdbId);
+    XCTAssertEqualObjects(opt.contentGracenoteId, opt2.contentGracenoteId);
+    XCTAssertEqualObjects(opt.contentType, opt2.contentType);
+    XCTAssertEqualObjects(opt.contentGenre, opt2.contentGenre);
+    XCTAssertEqualObjects(opt.contentLanguage, opt2.contentLanguage);
+    XCTAssertEqualObjects(opt.contentSubtitles, opt2.contentSubtitles);
+    XCTAssertEqualObjects(opt.contentContractedResolution, opt2.contentContractedResolution);
+    XCTAssertEqualObjects(opt.contentCost, opt2.contentCost);
+    XCTAssertEqualObjects(opt.contentPrice, opt2.contentPrice);
+    XCTAssertEqualObjects(opt.contentPlaybackType, opt2.contentPlaybackType);
+    XCTAssertEqualObjects(opt.contentDrm, opt2.contentDrm);
+    XCTAssertEqualObjects(opt.contentEncodingVideoCodec, opt2.contentEncodingVideoCodec);
+    XCTAssertEqualObjects(opt.contentEncodingAudioCodec, opt2.contentEncodingAudioCodec);
+    XCTAssertEqualObjects(opt.contentEncodingCodecSettings, opt2.contentEncodingCodecSettings);
+    XCTAssertEqualObjects(opt.contentEncodingCodecProfile, opt2.contentEncodingCodecProfile);
+    XCTAssertEqualObjects(opt.contentEncodingContainerFormat, opt2.contentEncodingContainerFormat);
+    XCTAssertEqualObjects(opt.appName, opt2.appName);
+    XCTAssertEqualObjects(opt.sessionMetrics, opt2.sessionMetrics);
+    XCTAssertEqualObjects(opt.pendingMetadata, opt2.pendingMetadata);
+    XCTAssertEqual(opt.waitForMetadata, opt2.waitForMetadata);
+    XCTAssertEqualObjects(opt.appReleaseVersion, opt2.appReleaseVersion);
+    XCTAssertEqualObjects(opt.adProvider, opt2.adProvider);
+    XCTAssertEqualObjects(opt.adCreativeId, opt2.adCreativeId);
+    XCTAssertEqualObjects(opt.adGivenAds, opt2.adGivenAds);
+    XCTAssertEqualObjects(opt.adBreaksTime, opt2.adBreaksTime);
+    XCTAssertEqualObjects(opt.adResource, opt2.adResource);
+    XCTAssertEqualObjects(opt.adTitle, opt2.adTitle);
+    XCTAssertEqualObjects(opt.adCampaign, opt2.adCampaign);
+    XCTAssertEqualObjects(opt.adGivenBreaks, opt2.adGivenBreaks);
+    XCTAssertEqualObjects(opt.adExpectedBreaks, opt2.adExpectedBreaks);
+    XCTAssertEqualObjects(opt.adExpectedPattern, opt2.adExpectedPattern);
+    XCTAssertEqualObjects(opt.adsAfterStop, opt2.adsAfterStop);
 }
 
 - (void) testDeprecations {
@@ -187,57 +395,7 @@
     
     NSDictionary * dict = [opt toDictionary];
     
-    XCTAssertEqualObjects(dict[YBOPTIONS_KEY_HOST], opt.host);
-}
-
-- (void) fillOptions:(YBOptions *) opt {
-    opt.enabled = false;
-    opt.httpSecure = true;
-    opt.host = @"host";
-    opt.accountCode = @"code";
-    opt.username = YBConstantsRequest.username;
-    opt.parseHls = true;
-    opt.parseCdnNameHeader = @"nameheader";
-    opt.parseCdnNode = true;
-    opt.parseCdnNodeList = [@[@"1", @"2", @"3"] mutableCopy];
-    opt.networkIP = @"1.2.3.4";
-    opt.networkIsp = YBConstantsRequest.isp;
-    opt.networkConnectionType = YBConstantsRequest.connectionType;
-    opt.userObfuscateIp = @NO;
-    opt.deviceCode = YBConstantsRequest.deviceCode;
-    opt.contentResource = @"resource";
-    opt.contentIsLive = @YES;
-    opt.contentTitle = YBConstantsRequest.title;
-    opt.program = @"program";
-    opt.contentDuration = @42;
-    opt.contentTransactionCode = YBConstantsRequest.transactionCode;
-    opt.contentBitrate = @4;
-    opt.contentThroughput = @5;
-    opt.contentRendition = @"rend";
-    opt.contentCdn = YBConstantsRequest.cdn;
-    opt.contentFps = @12;
-    opt.contentMetadata = @{@"metakey":@"metavalue"};
-    opt.adMetadata = @{@"admetakey":@"admetavalue"};
-    opt.contentCustomDimension1 = @"extra1";
-    opt.contentCustomDimension2 = @"extra2";
-    opt.contentCustomDimension3 = @"extra3";
-    opt.contentCustomDimension4 = @"extra4";
-    opt.contentCustomDimension5 = @"extra5";
-    opt.contentCustomDimension6 = @"extra6";
-    opt.contentCustomDimension7 = @"extra7";
-    opt.contentCustomDimension8 = @"extra8";
-    opt.contentCustomDimension9 = @"extra9";
-    opt.contentCustomDimension10 = @"extra10";
-    opt.contentCustomDimension11 = @"extra11";
-    opt.contentCustomDimension12 = @"extra12";
-    opt.contentCustomDimension13 = @"extra13";
-    opt.contentCustomDimension14 = @"extra14";
-    opt.contentCustomDimension15 = @"extra15";
-    opt.contentCustomDimension16 = @"extra16";
-    opt.contentCustomDimension17 = @"extra17";
-    opt.contentCustomDimension18 = @"extra18";
-    opt.contentCustomDimension19 = @"extra19";
-    opt.contentCustomDimension20 = @"extra20";
+    XCTAssertEqualObjects(dict[YBOptionKeys.host], opt.host);
 }
 
 @end

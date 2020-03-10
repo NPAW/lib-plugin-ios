@@ -1,10 +1,14 @@
 ## [6.5.18]
+###Added
+- YBOptionUtilsKeys to easly share new props with config utils
 ###Changed
 - Replace adPosition & breakPosition for position on requests
 - Unify resource parsers into one option
 - Move request parameters to the constants properties
+- YBOption properties to YBOptionKeys class 
 ###Deprecated
 - Old parsers, since now they represent only one parser 
+- Old props in the YBOptions class
 ## [6.5.17] - 2020-02-06
 ###Changed
 - macOS deployment target to 10.10
