@@ -2,7 +2,9 @@
 ###Changed
 - Replace adPosition & breakPosition for position on requests
 - Unify resource parsers into one option
-- Move request parameters to the constants properties 
+- Move request parameters to the constants properties
+###Deprecated
+- Old parsers, since now they represent only one parser 
 ## [6.5.17] - 2020-02-06
 ###Changed
 - macOS deployment target to 10.10
