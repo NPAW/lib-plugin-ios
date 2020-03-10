@@ -374,7 +374,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:@(self.autoDetectBackground) forKey:YBOptionKeys.background];
     [coder encodeObject:@(self.offline) forKey:YBOptionKeys.offline];
     [coder encodeObject:self.anonymousUser forKey:YBOptionKeys.anonymousUser];
-    [coder encodeObject:self.isInfinity forKey: YBOptionKeys.isInfinity] ];
+    [coder encodeObject:self.isInfinity forKey: YBOptionKeys.isInfinity];
     [coder encodeObject:self.smartswitchConfigCode forKey:YBOptionKeys.ssConfigCode];
     [coder encodeObject:self.smartswitchGroupCode forKey:YBOptionKeys.ssGroupCode];
     [coder encodeObject:self.smartswitchContractCode forKey:YBOptionKeys.ssContractCode];
