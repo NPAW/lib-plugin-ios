@@ -18,255 +18,258 @@ public enum OptionKeyType {
     case depretacted
 }
 
+// Struct to be used in ConfigUtils in order to auto load new keys insert in the plugin
 public struct YBOptionUtilsKeys {
-    static let keys: [String: OptionKeyType] = [
-        YBOptionKeys.enabled: .bool,
-        YBOptionKeys.httpSecure: .bool,
-        YBOptionKeys.host: .string,
-        YBOptionKeys.accountCode: .string,
-        YBOptionKeys.username: .string,
-        YBOptionKeys.userType: .string,
-        YBOptionKeys.userEmail: .string,
-        YBOptionKeys.parseResource: .bool,
-        YBOptionKeys.parseHls: .depretacted,
-        YBOptionKeys.parseDash: .depretacted,
-        YBOptionKeys.parseLocationHeader: .depretacted,
-        YBOptionKeys.parseCdnNameHeader: .string,
-        YBOptionKeys.parseCdnNode: .bool,
-        YBOptionKeys.parseCdnNodeList: .unknown,
-        YBOptionKeys.experimentIds: .unknown,
-        YBOptionKeys.networkIP: .string,
-        YBOptionKeys.networkIsp: .string,
-        YBOptionKeys.networkConnectionType: .string,
-        YBOptionKeys.userObfuscateIp: .valueBool,
-        YBOptionKeys.forceInit: .bool,
-        YBOptionKeys.deviceCode: .depretacted,
-        YBOptionKeys.deviceModel: .string,
-        YBOptionKeys.deviceBrand: .string,
-        YBOptionKeys.deviceType: .string,
-        YBOptionKeys.deviceName: .string,
-        YBOptionKeys.deviceOsNme: .string,
-        YBOptionKeys.deviceOsVersion: .string,
-        YBOptionKeys.deviceIsAnonymous: .bool,
-        YBOptionKeys.contentResource: .string,
-        YBOptionKeys.contentIsLive: .valueBool,
-        YBOptionKeys.contentTitle: .string,
-        YBOptionKeys.contentProgram: .string,
-        YBOptionKeys.contentDuration: .number,
-        YBOptionKeys.contentTransactionCode: .string,
-        YBOptionKeys.contentBitrate: .number,
-        YBOptionKeys.contentStreamingProtocol: .string,
-        YBOptionKeys.contentThroughput: .number,
-        YBOptionKeys.contentRendition: .string,
-        YBOptionKeys.contentCdn: .string,
-        YBOptionKeys.contentFps: .number,
-        YBOptionKeys.contentMetadata: .unknown,
-        YBOptionKeys.contentMetrics: .unknown,
-        YBOptionKeys.sessionMetrics: .unknown,
-        YBOptionKeys.contentIsLiveNoSeek: .valueBool,
-        YBOptionKeys.contentPackage: .string,
-        YBOptionKeys.contentSaga: .string,
-        YBOptionKeys.contentTvShow: .string,
-        YBOptionKeys.contentSeason: .string,
-        YBOptionKeys.contentEpisodeTitle: .string,
-        YBOptionKeys.contentChannel: .string,
-        YBOptionKeys.contentId: .string,
-        YBOptionKeys.contentImdbId: .string,
-        YBOptionKeys.contentGracenoteId: .string,
-        YBOptionKeys.contentType: .string,
-        YBOptionKeys.contentGenre: .string,
-        YBOptionKeys.contentLanguage: .string,
-        YBOptionKeys.contentSubtitles: .string,
-        YBOptionKeys.contentContractedResolution: .string,
-        YBOptionKeys.contentCost: .string,
-        YBOptionKeys.contentPrice: .string,
-        YBOptionKeys.contentPlaybackType: .string,
-        YBOptionKeys.contentDrm: .string,
-        YBOptionKeys.contentEncodingVideoCodec: .string,
-        YBOptionKeys.contentEncodingAudioCodec: .string,
-        YBOptionKeys.contentEncodingCodecSettings: .unknown,
-        YBOptionKeys.contentEncodingCodecProfile: .string,
-        YBOptionKeys.contentEncodingContainerFormat: .string,
-        YBOptionKeys.adMetadata: .unknown,
-        YBOptionKeys.adAfterStop: .number,
-        YBOptionKeys.adCampaign: .string,
-        YBOptionKeys.adTitle: .string,
-        YBOptionKeys.adResource: .string,
-        YBOptionKeys.adGivenBreaks: .number,
-        YBOptionKeys.adExpectedBreaks: .number,
-        YBOptionKeys.adExpectedPattern: .unknown,
-        YBOptionKeys.adBreaksTime: .unknown,
-        YBOptionKeys.adGivenAds: .number,
-        YBOptionKeys.adCreativeId: .string,
-        YBOptionKeys.adProvider: .string,
-        YBOptionKeys.background: .bool,
-        YBOptionKeys.offline: .bool,
-        YBOptionKeys.anonymousUser: .string,
-        YBOptionKeys.isInfinity: .valueBool,
-        YBOptionKeys.ssConfigCode: .string,
-        YBOptionKeys.ssGroupCode: .string,
-        YBOptionKeys.ssContractCode: .string,
-        YBOptionKeys.contentCustomDimension1: .string,
-        YBOptionKeys.contentCustomDimension2: .string,
-        YBOptionKeys.contentCustomDimension3: .string,
-        YBOptionKeys.contentCustomDimension4: .string,
-        YBOptionKeys.contentCustomDimension5: .string,
-        YBOptionKeys.contentCustomDimension6: .string,
-        YBOptionKeys.contentCustomDimension7: .string,
-        YBOptionKeys.contentCustomDimension8: .string,
-        YBOptionKeys.contentCustomDimension9: .string,
-        YBOptionKeys.contentCustomDimension10: .string,
-        YBOptionKeys.contentCustomDimension11: .string,
-        YBOptionKeys.contentCustomDimension12: .string,
-        YBOptionKeys.contentCustomDimension13: .string,
-        YBOptionKeys.contentCustomDimension14: .string,
-        YBOptionKeys.contentCustomDimension15: .string,
-        YBOptionKeys.contentCustomDimension16: .string,
-        YBOptionKeys.contentCustomDimension17: .string,
-        YBOptionKeys.contentCustomDimension18: .string,
-        YBOptionKeys.contentCustomDimension19: .string,
-        YBOptionKeys.contentCustomDimension20: .string,
-        YBOptionKeys.adCustomDimension1: .string,
-        YBOptionKeys.adCustomDimension2: .string,
-        YBOptionKeys.adCustomDimension3: .string,
-        YBOptionKeys.adCustomDimension4: .string,
-        YBOptionKeys.adCustomDimension5: .string,
-        YBOptionKeys.adCustomDimension6: .string,
-        YBOptionKeys.adCustomDimension7: .string,
-        YBOptionKeys.adCustomDimension8: .string,
-        YBOptionKeys.adCustomDimension9: .string,
-        YBOptionKeys.adCustomDimension10: .string,
-        YBOptionKeys.appName: .string,
-        YBOptionKeys.appReleaseVersion: .string,
-        YBOptionKeys.waitMetadata: .bool,
-        YBOptionKeys.pendingMetadata: .unknown
+    /// Dictionary with all keys, and for each key the type and the name of the prop in the YBOptions
+    /// Basically [keyIdentifier: [propType:propNameInOptions]]
+    public static let keys: [String: (OptionKeyType, String)] = [
+        YBOptionKeys.enabled: (.bool, "enabled"),
+        YBOptionKeys.httpSecure: (.bool, "httpSecure"),
+        YBOptionKeys.host: (.string, "host"),
+        YBOptionKeys.accountCode: (.string, "accountCode"),
+        YBOptionKeys.username: (.string, "username"),
+        YBOptionKeys.userType: (.string, "userType"),
+        YBOptionKeys.userEmail: (.string, "userEmail"),
+        YBOptionKeys.parseResource: (.bool, "parseResource"),
+        YBOptionKeys.parseHls: (.depretacted, "parseHls"),
+        YBOptionKeys.parseDash: (.depretacted, "parseDash"),
+        YBOptionKeys.parseLocationHeader: (.depretacted, "parseLocationHeader"),
+        YBOptionKeys.parseCdnNameHeader: (.string, "parseCdnNameHeader"),
+        YBOptionKeys.parseCdnNode: (.bool, "parseCdnNode"),
+        YBOptionKeys.parseCdnNodeList: (.unknown, "parseCdnNodeList"),
+        YBOptionKeys.experimentIds: (.unknown, "experimentIds"),
+        YBOptionKeys.networkIP: (.string, "networkIP"),
+        YBOptionKeys.networkIsp: (.string, "networkIsp"),
+        YBOptionKeys.networkConnectionType: (.string, "networkConnectionType"),
+        YBOptionKeys.userObfuscateIp: (.valueBool, "networkObfuscateIp"),
+        YBOptionKeys.forceInit: (.bool, "forceInit"),
+        YBOptionKeys.deviceCode: (.string, "deviceCode"),
+        YBOptionKeys.deviceModel: (.string, "deviceModel"),
+        YBOptionKeys.deviceBrand: (.string, "deviceBrand"),
+        YBOptionKeys.deviceType: (.string, "deviceType"),
+        YBOptionKeys.deviceName: (.string, "deviceName"),
+        YBOptionKeys.deviceOsNme: (.string, "deviceOsName"),
+        YBOptionKeys.deviceOsVersion: (.string, "deviceOsVersion"),
+        YBOptionKeys.deviceIsAnonymous: (.bool, "deviceIsAnonymous"),
+        YBOptionKeys.contentResource: (.string, "contentResource"),
+        YBOptionKeys.contentIsLive: (.valueBool, "contentIsLive"),
+        YBOptionKeys.contentTitle: (.string, "contentTitle"),
+        YBOptionKeys.contentProgram: (.string, "program"),
+        YBOptionKeys.contentDuration: (.number, "contentDuration"),
+        YBOptionKeys.contentTransactionCode: (.string, "contentTransactionCode"),
+        YBOptionKeys.contentBitrate: (.number, "contentBitrate"),
+        YBOptionKeys.contentStreamingProtocol: (.string, "contentStreamingProtocol"),
+        YBOptionKeys.contentThroughput: (.number, "contentThroughput"),
+        YBOptionKeys.contentRendition: (.string, "contentRendition"),
+        YBOptionKeys.contentCdn: (.string, "contentCdn"),
+        YBOptionKeys.contentFps: (.number, "contentFps"),
+        YBOptionKeys.contentMetadata: (.unknown, "contentMetadata"),
+        YBOptionKeys.contentMetrics: (.unknown, "contentMetrics"),
+        YBOptionKeys.sessionMetrics: (.unknown, "sessionMetrics"),
+        YBOptionKeys.contentIsLiveNoSeek: (.valueBool, "contentIsLiveNoSeek"),
+        YBOptionKeys.contentPackage: (.string, "contentPackage"),
+        YBOptionKeys.contentSaga: (.string, "contentSaga"),
+        YBOptionKeys.contentTvShow: (.string, "contentTvShow"),
+        YBOptionKeys.contentSeason: (.string, "contentSeason"),
+        YBOptionKeys.contentEpisodeTitle: (.string, "contentEpisodeTitle"),
+        YBOptionKeys.contentChannel: (.string, "contentChannel"),
+        YBOptionKeys.contentId: (.string, "contentId"),
+        YBOptionKeys.contentImdbId: (.string, "contentImdbId"),
+        YBOptionKeys.contentGracenoteId: (.string, "contentGracenoteId"),
+        YBOptionKeys.contentType: (.string, "contentType"),
+        YBOptionKeys.contentGenre: (.string, "contentGenre"),
+        YBOptionKeys.contentLanguage: (.string, "contentLanguage"),
+        YBOptionKeys.contentSubtitles: (.string, "contentSubtitles"),
+        YBOptionKeys.contentContractedResolution: (.string, "contentContractedResolution"),
+        YBOptionKeys.contentCost: (.string, "contentCost"),
+        YBOptionKeys.contentPrice: (.string, "contentPrice"),
+        YBOptionKeys.contentPlaybackType: (.string, "contentPlaybackType"),
+        YBOptionKeys.contentDrm: (.string, "contentDrm"),
+        YBOptionKeys.contentEncodingVideoCodec: (.string, "contentEncodingVideoCodec"),
+        YBOptionKeys.contentEncodingAudioCodec: (.string, "contentEncodingAudioCodec"),
+        YBOptionKeys.contentEncodingCodecSettings: (.unknown, "contentEncodingCodecSettings"),
+        YBOptionKeys.contentEncodingCodecProfile: (.string, "contentEncodingCodecProfile"),
+        YBOptionKeys.contentEncodingContainerFormat: (.string, "contentEncodingContainerFormat"),
+        YBOptionKeys.adMetadata: (.unknown, "adMetadata"),
+        YBOptionKeys.adAfterStop: (.number, "adsAfterStop"),
+        YBOptionKeys.adCampaign: (.string, "adCampaign"),
+        YBOptionKeys.adTitle: (.string, "adTitle"),
+        YBOptionKeys.adResource: (.string, "adResource"),
+        YBOptionKeys.adGivenBreaks: (.number, "adGivenBreaks"),
+        YBOptionKeys.adExpectedBreaks: (.number, "adExpectedBreaks"),
+        YBOptionKeys.adExpectedPattern: (.unknown, "adExpectedPattern"),
+        YBOptionKeys.adBreaksTime: (.unknown, "adBreaksTime"),
+        YBOptionKeys.adGivenAds: (.number, "adGivenAds"),
+        YBOptionKeys.adCreativeId: (.string, "adCreativeId"),
+        YBOptionKeys.adProvider: (.string, "adProvider"),
+        YBOptionKeys.background: (.bool, "autoDetectBackground"),
+        YBOptionKeys.offline: (.bool, "offline"),
+        YBOptionKeys.anonymousUser: (.string, "anonymousUser"),
+        YBOptionKeys.isInfinity: (.valueBool, "isInfinity"),
+        YBOptionKeys.ssConfigCode: (.string, "smartswitchConfigCode"),
+        YBOptionKeys.ssGroupCode: (.string, "smartswitchGroupCode"),
+        YBOptionKeys.ssContractCode: (.string, "smartswitchContractCode"),
+        YBOptionKeys.contentCustomDimension1: (.string, "contentCustomDimension1"),
+        YBOptionKeys.contentCustomDimension2: (.string, "contentCustomDimension2"),
+        YBOptionKeys.contentCustomDimension3: (.string, "contentCustomDimension3"),
+        YBOptionKeys.contentCustomDimension4: (.string, "contentCustomDimension4"),
+        YBOptionKeys.contentCustomDimension5: (.string, "contentCustomDimension5"),
+        YBOptionKeys.contentCustomDimension6: (.string, "contentCustomDimension6"),
+        YBOptionKeys.contentCustomDimension7: (.string, "contentCustomDimension7"),
+        YBOptionKeys.contentCustomDimension8: (.string, "contentCustomDimension8"),
+        YBOptionKeys.contentCustomDimension9: (.string, "contentCustomDimension9"),
+        YBOptionKeys.contentCustomDimension10: (.string, "contentCustomDimension10"),
+        YBOptionKeys.contentCustomDimension11: (.string, "contentCustomDimension11"),
+        YBOptionKeys.contentCustomDimension12: (.string, "contentCustomDimension12"),
+        YBOptionKeys.contentCustomDimension13: (.string, "contentCustomDimension13"),
+        YBOptionKeys.contentCustomDimension14: (.string, "contentCustomDimension14"),
+        YBOptionKeys.contentCustomDimension15: (.string, "contentCustomDimension15"),
+        YBOptionKeys.contentCustomDimension16: (.string, "contentCustomDimension16"),
+        YBOptionKeys.contentCustomDimension17: (.string, "contentCustomDimension17"),
+        YBOptionKeys.contentCustomDimension18: (.string, "contentCustomDimension18"),
+        YBOptionKeys.contentCustomDimension19: (.string, "contentCustomDimension19"),
+        YBOptionKeys.contentCustomDimension20: (.string, "contentCustomDimension20"),
+        YBOptionKeys.adCustomDimension1: (.string, "adCustomDimension1"),
+        YBOptionKeys.adCustomDimension2: (.string, "adCustomDimension2"),
+        YBOptionKeys.adCustomDimension3: (.string, "adCustomDimension3"),
+        YBOptionKeys.adCustomDimension4: (.string, "adCustomDimension4"),
+        YBOptionKeys.adCustomDimension5: (.string, "adCustomDimension5"),
+        YBOptionKeys.adCustomDimension6: (.string, "adCustomDimension6"),
+        YBOptionKeys.adCustomDimension7: (.string, "adCustomDimension7"),
+        YBOptionKeys.adCustomDimension8: (.string, "adCustomDimension8"),
+        YBOptionKeys.adCustomDimension9: (.string, "adCustomDimension9"),
+        YBOptionKeys.adCustomDimension10: (.string, "adCustomDimension10"),
+        YBOptionKeys.appName: (.string, "appName"),
+        YBOptionKeys.appReleaseVersion: (.string, "appReleaseVersion"),
+        YBOptionKeys.waitMetadata: (.bool, "waitForMetadata"),
+        YBOptionKeys.pendingMetadata: (.unknown, "pendingMetadata")
     ]
 }
 
 @objcMembers public class YBOptionKeys: NSObject {
-    static let enabled = "enabled"
-    static let httpSecure = "httpSecure"
-    static let host = "host"
-    static let accountCode = "config.accountCode"
-    static let username = "username"
-    static let anonymousUser = "anonymousUser"
-    static let offline = "offline"
-    static let isInfinity = "isInfinity"
-    static let background = "autoDetectBackground"
-    static let autoStart = "autoStart"
-    static let forceInit = "forceInit"
-    static let userType = "userType"
-    static let userEmail = "user.email"
-    static let experimentIds = "experiments"
-    static let ssConfigCode = "smartswitch.configCode"
-    static let ssGroupCode = "smartswitch.groupCode"
-    static let ssContractCode = "smartswitch.contractCode"
-    static let parseResource = "parse.resource"
-    static let parseHls = "parse.Hls"
-    static let parseDash = "parse.Dash"
-    static let parseCdnNameHeader = "parse.CdnNameHeader"
-    static let parseCdnNode = "parse.CdnNode"
-    static let parseCdnNodeList = "parse.CdnNodeList"
-    static let parseLocationHeader = "parse.LocationHeader"
-    static let networkIP = "network.IP"
-    static let networkIsp = "network.Isp"
-    static let networkConnectionType = "network.connectionType"
-    static let userObfuscateIp = "user.ObfuscateIp"
-    static let deviceCode = "device.code"
-    static let deviceModel = "device.model"
-    static let deviceBrand = "device.brand"
-    static let deviceType = "device.type"
-    static let deviceName = "device.name"
-    static let deviceOsNme = "device.osNme"
-    static let deviceOsVersion = "device.osVersion"
-    static let deviceIsAnonymous = "device.isAnonymous"
-    static let contentResource = "content.resource"
-    static let contentIsLive = "content.isLive"
-    static let contentTitle = "content.title"
-    static let contentProgram = "content.program"
-    static let contentDuration = "content.duration"
-    static let contentTransactionCode = "content.transactionCode"
-    static let contentBitrate = "content.bitrate"
-    static let contentThroughput = "content.throughput"
-    static let contentRendition = "content.rendition"
-    static let contentCdn = "content.cdn"
-    static let contentFps = "content.fps"
-    static let contentStreamingProtocol = "content.streamingProtocol"
-    static let contentMetadata = "content.metadata"
-    static let contentMetrics = "content.metrics"
-    static let contentIsLiveNoSeek = "content.isLiveNoSeek"
-    static let contentPackage = "content.package"
-    static let contentSaga = "content.saga"
-    static let contentTvShow = "content.tvShow"
-    static let contentSeason = "content.season"
-    static let contentEpisodeTitle = "content.episodeTitle"
-    static let contentChannel = "content.Channel"
-    static let contentId = "content.id"
-    static let contentImdbId = "content.imdbId"
-    static let contentGracenoteId = "content.gracenoteId"
-    static let contentType = "content.type"
-    static let contentGenre = "content.genre"
-    static let contentLanguage = "content.language"
-    static let contentSubtitles = "content.subtitles"
-    static let contentContractedResolution = "content.contractedResolution"
-    static let contentCost = "content.cost"
-    static let contentPrice = "content.price"
-    static let contentPlaybackType = "content.playbackType"
-    static let contentDrm = "content.drm"
-    static let contentEncodingVideoCodec = "content.encoding.videoCodec"
-    static let contentEncodingAudioCodec = "content.encoding.audioCodec"
-    static let contentEncodingCodecSettings = "content.encoding.codecSettings"
-    static let contentEncodingCodecProfile = "content.encoding.codecProfile"
-    static let contentEncodingContainerFormat = "content.encoding.containerFormat"
-    static let adMetadata = "ad.metadata"
-    static let adIgnore = "ad.ignore"
-    static let adAfterStop = "ad.afterStop"
-    static let adCampaign = "ad.campaign"
-    static let adTitle = "ad.title"
-    static let adResource = "ad.resource"
-    static let adGivenBreaks = "ad.givenBreaks"
-    static let adExpectedBreaks = "ad.expectedBreaks"
-    static let adExpectedPattern = "ad.expectedPattern"
-    static let adBreaksTime = "ad.breaksTime"
-    static let adGivenAds = "ad.givenAds"
-    static let adCreativeId = "ad.creativeId"
-    static let adProvider = "ad.provider"
-    static let contentCustomDimension1 = "contentCustom.dimension.1"
-    static let contentCustomDimension2 = "contentCustom.dimension.2"
-    static let contentCustomDimension3 = "contentCustom.dimension.3"
-    static let contentCustomDimension4 = "contentCustom.dimension.4"
-    static let contentCustomDimension5 = "contentCustom.dimension.5"
-    static let contentCustomDimension6 = "contentCustom.dimension.6"
-    static let contentCustomDimension7 = "contentCustom.dimension.7"
-    static let contentCustomDimension8 = "contentCustom.dimension.8"
-    static let contentCustomDimension9 = "contentCustom.dimension.9"
-    static let contentCustomDimension10 = "contentCustom.dimension.10"
-    static let contentCustomDimension11 = "contentCustom.dimension.11"
-    static let contentCustomDimension12 = "contentCustom.dimension.12"
-    static let contentCustomDimension13 = "contentCustom.dimension.13"
-    static let contentCustomDimension14 = "contentCustom.dimension.14"
-    static let contentCustomDimension15 = "contentCustom.dimension.15"
-    static let contentCustomDimension16 = "contentCustom.dimension.16"
-    static let contentCustomDimension17 = "contentCustom.dimension.17"
-    static let contentCustomDimension18 = "contentCustom.dimension.18"
-    static let contentCustomDimension19 = "contentCustom.dimension.19"
-    static let contentCustomDimension20 = "contentCustom.dimension.20"
-    static let adCustomDimension1 = "ad.custom.dimension.1"
-    static let adCustomDimension2 = "ad.custom.dimension.2"
-    static let adCustomDimension3 = "ad.custom.dimension.3"
-    static let adCustomDimension4 = "ad.custom.dimension.4"
-    static let adCustomDimension5 = "ad.custom.dimension.5"
-    static let adCustomDimension6 = "ad.custom.dimension.6"
-    static let adCustomDimension7 = "ad.custom.dimension.7"
-    static let adCustomDimension8 = "ad.custom.dimension.8"
-    static let adCustomDimension9 = "ad.custom.dimension.9"
-    static let adCustomDimension10 = "ad.custom.dimension.10"
-    static let appName = "app.name"
-    static let appReleaseVersion = "app.release.version"
-    static let waitMetadata = "waitForMetadata"
-    static let pendingMetadata = "pendingMetadata"
-    static let sessionMetrics = "session.metrics"
-    static let adPositionPre = "pre"
-    static let adPositionMid = "mid"
-    static let adPositionPost = "post"
+    public static let enabled = "enabled"
+    public static let httpSecure = "httpSecure"
+    public static let host = "host"
+    public static let accountCode = "config.accountCode"
+    public static let username = "username"
+    public static let anonymousUser = "anonymousUser"
+    public static let offline = "offline"
+    public static let isInfinity = "isInfinity"
+    public static let background = "autoDetectBackground"
+    public static let autoStart = "autoStart"
+    public static let forceInit = "forceInit"
+    public static let userType = "userType"
+    public static let userEmail = "user.email"
+    public static let experimentIds = "experiments"
+    public static let ssConfigCode = "smartswitch.configCode"
+    public static let ssGroupCode = "smartswitch.groupCode"
+    public static let ssContractCode = "smartswitch.contractCode"
+    public static let parseResource = "parse.resource"
+    public static let parseHls = "parse.Hls"
+    public static let parseDash = "parse.Dash"
+    public static let parseCdnNameHeader = "parse.CdnNameHeader"
+    public static let parseCdnNode = "parse.CdnNode"
+    public static let parseCdnNodeList = "parse.CdnNodeList"
+    public static let parseLocationHeader = "parse.LocationHeader"
+    public static let networkIP = "network.IP"
+    public static let networkIsp = "network.Isp"
+    public static let networkConnectionType = "network.connectionType"
+    public static let userObfuscateIp = "user.ObfuscateIp"
+    public static let deviceCode = "device.code"
+    public static let deviceModel = "device.model"
+    public static let deviceBrand = "device.brand"
+    public static let deviceType = "device.type"
+    public static let deviceName = "device.name"
+    public static let deviceOsNme = "device.osNme"
+    public static let deviceOsVersion = "device.osVersion"
+    public static let deviceIsAnonymous = "device.isAnonymous"
+    public static let contentResource = "content.resource"
+    public static let contentIsLive = "content.isLive"
+    public static let contentTitle = "content.title"
+    public static let contentProgram = "content.program"
+    public static let contentDuration = "content.duration"
+    public static let contentTransactionCode = "content.transactionCode"
+    public static let contentBitrate = "content.bitrate"
+    public static let contentThroughput = "content.throughput"
+    public static let contentRendition = "content.rendition"
+    public static let contentCdn = "content.cdn"
+    public static let contentFps = "content.fps"
+    public static let contentStreamingProtocol = "content.streamingProtocol"
+    public static let contentMetadata = "content.metadata"
+    public static let contentMetrics = "content.metrics"
+    public static let contentIsLiveNoSeek = "content.isLiveNoSeek"
+    public static let contentPackage = "content.package"
+    public static let contentSaga = "content.saga"
+    public static let contentTvShow = "content.tvShow"
+    public static let contentSeason = "content.season"
+    public static let contentEpisodeTitle = "content.episodeTitle"
+    public static let contentChannel = "content.Channel"
+    public static let contentId = "content.id"
+    public static let contentImdbId = "content.imdbId"
+    public static let contentGracenoteId = "content.gracenoteId"
+    public static let contentType = "content.type"
+    public static let contentGenre = "content.genre"
+    public static let contentLanguage = "content.language"
+    public static let contentSubtitles = "content.subtitles"
+    public static let contentContractedResolution = "content.contractedResolution"
+    public static let contentCost = "content.cost"
+    public static let contentPrice = "content.price"
+    public static let contentPlaybackType = "content.playbackType"
+    public static let contentDrm = "content.drm"
+    public static let contentEncodingVideoCodec = "content.encoding.videoCodec"
+    public static let contentEncodingAudioCodec = "content.encoding.audioCodec"
+    public static let contentEncodingCodecSettings = "content.encoding.codecSettings"
+    public static let contentEncodingCodecProfile = "content.encoding.codecProfile"
+    public static let contentEncodingContainerFormat = "content.encoding.containerFormat"
+    public static let adMetadata = "ad.metadata"
+    public static let adIgnore = "ad.ignore"
+    public static let adAfterStop = "ad.afterStop"
+    public static let adCampaign = "ad.campaign"
+    public static let adTitle = "ad.title"
+    public static let adResource = "ad.resource"
+    public static let adGivenBreaks = "ad.givenBreaks"
+    public static let adExpectedBreaks = "ad.expectedBreaks"
+    public static let adExpectedPattern = "ad.expectedPattern"
+    public static let adBreaksTime = "ad.breaksTime"
+    public static let adGivenAds = "ad.givenAds"
+    public static let adCreativeId = "ad.creativeId"
+    public static let adProvider = "ad.provider"
+    public static let contentCustomDimension1 = "contentCustom.dimension.1"
+    public static let contentCustomDimension2 = "contentCustom.dimension.2"
+    public static let contentCustomDimension3 = "contentCustom.dimension.3"
+    public static let contentCustomDimension4 = "contentCustom.dimension.4"
+    public static let contentCustomDimension5 = "contentCustom.dimension.5"
+    public static let contentCustomDimension6 = "contentCustom.dimension.6"
+    public static let contentCustomDimension7 = "contentCustom.dimension.7"
+    public static let contentCustomDimension8 = "contentCustom.dimension.8"
+    public static let contentCustomDimension9 = "contentCustom.dimension.9"
+    public static let contentCustomDimension10 = "contentCustom.dimension.10"
+    public static let contentCustomDimension11 = "contentCustom.dimension.11"
+    public static let contentCustomDimension12 = "contentCustom.dimension.12"
+    public static let contentCustomDimension13 = "contentCustom.dimension.13"
+    public static let contentCustomDimension14 = "contentCustom.dimension.14"
+    public static let contentCustomDimension15 = "contentCustom.dimension.15"
+    public static let contentCustomDimension16 = "contentCustom.dimension.16"
+    public static let contentCustomDimension17 = "contentCustom.dimension.17"
+    public static let contentCustomDimension18 = "contentCustom.dimension.18"
+    public static let contentCustomDimension19 = "contentCustom.dimension.19"
+    public static let contentCustomDimension20 = "contentCustom.dimension.20"
+    public static let adCustomDimension1 = "ad.custom.dimension.1"
+    public static let adCustomDimension2 = "ad.custom.dimension.2"
+    public static let adCustomDimension3 = "ad.custom.dimension.3"
+    public static let adCustomDimension4 = "ad.custom.dimension.4"
+    public static let adCustomDimension5 = "ad.custom.dimension.5"
+    public static let adCustomDimension6 = "ad.custom.dimension.6"
+    public static let adCustomDimension7 = "ad.custom.dimension.7"
+    public static let adCustomDimension8 = "ad.custom.dimension.8"
+    public static let adCustomDimension9 = "ad.custom.dimension.9"
+    public static let adCustomDimension10 = "ad.custom.dimension.10"
+    public static let appName = "app.name"
+    public static let appReleaseVersion = "app.release.version"
+    public static let waitMetadata = "waitForMetadata"
+    public static let pendingMetadata = "pendingMetadata"
+    public static let sessionMetrics = "session.metrics"
+    public static let adPositionPre = "pre"
+    public static let adPositionMid = "mid"
+    public static let adPositionPost = "post"
 }
