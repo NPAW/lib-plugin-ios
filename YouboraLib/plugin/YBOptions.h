@@ -1049,12 +1049,29 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
 @property(nonatomic, strong) NSString * appReleaseVersion;
 
 /**
- * Wait metadata flag
+ * Enabling this option enables the posibility of getting the /start request later on the view,
+ * making the flow go as follows: /init is sent when the player starts to load content,
+ * then when the playback starts /joinTime event will be sent, but with the difference of no /start
+ * request, instead it will be delayed until all the option keys from <b>pendingMetadata</b>
+ * are not <b>null</b>, this is very important, since an empty string is considered a not null
+ * and therefore is a valid value.
  */
 @property(nonatomic, assign) BOOL waitForMetadata;
 
 /**
- * Which parameters will make the start to be delayed
+ * Set option keys you want to wait for metadata, in order to work <b>waitForMetadata</b>
+ * must be set to true.
+ * You need to create an <b>NSArray</b> with all the options you want to make the start be hold on.
+ * You can find all the keys with the following format:  YBOPTIONS_KEY_{OPTION_NAME} where option
+ * name is the same one as the option itself.
+ *
+ * Find below an example:
+ *
+ * NSArray *array = @[YBOPTIONS_KEY_CONTENT_TITLE, YBOPTIONS_KEY_CONTENT_CUSTOM_DIMENSION_1]
+ * options.pendingMetadata = array
+ *
+ * The code above prevent the /start request unless <b>contentTItle</b> and <b>contentCustomDimension1</b>
+ * stop being nil (you can set a non nil value to any property when information is available).
  */
 @property(nonatomic, strong) NSArray<NSString *> * pendingMetadata;
 
