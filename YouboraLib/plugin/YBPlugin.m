@@ -160,6 +160,7 @@
         self.requestBuilder = [self createRequestBuilder];
         self.resourceTransform = [self createResourceTransform];
         [self initViewTransform];
+        [self initInfinity];
         
         self.lastServiceSent = nil;
         
@@ -433,6 +434,10 @@
     [self.viewTransform addTransformDoneListener:self];
     
     [self.viewTransform begin];
+}
+
+- (void) initInfinity {
+    [[self getInfinity] beginWithScreenName: @"Splash screen"];
 }
 
 // ------ INFO GETTERS ------
