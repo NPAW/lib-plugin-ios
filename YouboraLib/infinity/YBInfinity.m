@@ -80,7 +80,7 @@
         values = @{};
     }
     
-    if ([eventName length]) {
+    if (eventName == nil || eventName.length == 0) {
         eventName = @"Unknown";
     }
     
