@@ -6,8 +6,6 @@
 //  Copyright © 2020 NPAW. All rights reserved.
 //
 
-import UIKit
-
 // Enum to be used config utils in order to know the type of the prop
 public enum OptionKeyType {
     case number
