@@ -1382,7 +1382,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		4E8A63721EA8A4EF008C6759 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1788,7 +1788,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.5.17;
+				YOUBORALIB_VERSION_SETTING = 6.5.18;
 			};
 			name = Debug;
 		};
@@ -1843,7 +1843,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.5.17;
+				YOUBORALIB_VERSION_SETTING = 6.5.18;
 			};
 			name = Release;
 		};

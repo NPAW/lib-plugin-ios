@@ -1,4 +1,4 @@
-## [6.5.18]
+## [6.5.18] - 2020-04-06
 ###Added
 - YBOptionUtilsKeys to easly share new props with config utils
 ###Changed
