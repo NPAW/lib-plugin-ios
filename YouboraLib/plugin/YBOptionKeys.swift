@@ -6,6 +6,8 @@
 //  Copyright © 2020 NPAW. All rights reserved.
 //
 
+import Foundation
+
 // Enum to be used config utils in order to know the type of the prop
 public enum OptionKeyType {
     case number
