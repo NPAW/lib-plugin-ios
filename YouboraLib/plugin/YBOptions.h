@@ -371,7 +371,7 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
 /**
  * Flag that indicates if the plugin should send total bytes or not
  */
-@property bool sendTotalBytes;
+@property Boolean sendTotalBytes;
 
 
 /**

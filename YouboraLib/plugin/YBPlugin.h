@@ -288,10 +288,16 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (NSNumber *) getBitrate;
 
 /**
+ * Returns the total bytes download so far reproducing the video
+ * @return number with total bytes (long)
+ */
+- (NSNumber *) getTotalBytes;
+
+/**
  * Flag indicating if total bytes should be send or not
  * @return flag true/false to send total bytes
  */
-- (Boolean *) isToSendTotalBytes;
+- (Boolean) isToSendTotalBytes;
 
 /**
  * Returns the content's throughput in bits per second

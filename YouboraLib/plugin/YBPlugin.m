@@ -556,7 +556,22 @@
     return [YBYouboraUtils parseNumber:val orDefault:@(-1)];
 }
 
-- (Boolean *) isToSendTotalBytes {
+- (NSNumber *) getTotalBytes {
+    NSNumber *val;
+    
+    if (val == nil && self.adapter != nil) {
+        @try {
+            val = [self.adapter getTotalBytes];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getBitrate"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@(-1)];
+}
+
+- (Boolean) isToSendTotalBytes {
     return self.options.sendTotalBytes;
 }
 
