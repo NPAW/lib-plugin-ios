@@ -116,6 +116,10 @@
     return nil;
 }
 
+- (NSNumber *) getTotalBytes {
+    return nil;
+}
+
 - (NSNumber *)getThroughput {
     return nil;
 }

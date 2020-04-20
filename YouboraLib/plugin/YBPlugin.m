@@ -556,6 +556,10 @@
     return [YBYouboraUtils parseNumber:val orDefault:@(-1)];
 }
 
+- (Boolean *) isToSendTotalBytes {
+    return self.options.sendTotalBytes;
+}
+
 - (NSNumber *) getThroughput {
     NSNumber * val = self.options.contentThroughput;
     if (val == nil && self.adapter != nil) {

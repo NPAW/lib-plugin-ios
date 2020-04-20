@@ -142,7 +142,8 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.appName: (.string, "appName"),
         YBOptionKeys.appReleaseVersion: (.string, "appReleaseVersion"),
         YBOptionKeys.waitMetadata: (.bool, "waitForMetadata"),
-        YBOptionKeys.pendingMetadata: (.unknown, "pendingMetadata")
+        YBOptionKeys.pendingMetadata: (.unknown, "pendingMetadata"),
+        YBOptionKeys.sendTotalBytes: (.bool, "sendTotalBytes")
     ]
 }
 
@@ -272,4 +273,5 @@ public struct YBOptionUtilsKeys {
     public static let adPositionPre = "pre"
     public static let adPositionMid = "mid"
     public static let adPositionPost = "post"
+    public static let sendTotalBytes = "sendTotalBytes"
 }

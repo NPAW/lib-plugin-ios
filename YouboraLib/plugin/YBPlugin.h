@@ -230,6 +230,8 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  */
 - (bool) isParseCdnNode;
 
+
+
 /**
  * Returns the list of Cdn names that are enabled for the <YBResourceTransform>.
  * @return the cdn list
@@ -284,6 +286,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @return the content's bitrate
  */
 - (NSNumber *) getBitrate;
+
+/**
+ * Flag indicating if total bytes should be send or not
+ * @return flag true/false to send total bytes
+ */
+- (Boolean *) isToSendTotalBytes;
 
 /**
  * Returns the content's throughput in bits per second

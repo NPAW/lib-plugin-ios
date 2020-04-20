@@ -369,6 +369,12 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
 @property(nonatomic, strong) NSNumber * contentBitrate; // long
 
 /**
+ * Flag that indicates if the plugin should send total bytes or not
+ */
+@property bool sendTotalBytes;
+
+
+/**
  * Streaming protocol of the content, you can use any of these YBConstants:
  STREAM_PROTOCOL_HDS
  STREAM_PROTOCOL_HLS
