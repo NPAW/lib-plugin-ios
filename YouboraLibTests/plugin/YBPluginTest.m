@@ -291,6 +291,21 @@
     XCTAssertEqualObjects(@1000000, [self.p getBitrate]);
 }
 
+- (void)testTotalBytes {
+    NSNumber *totalBytes = [NSNumber numberWithInt:1000];
+    XCTAssertNil([self.p getTotalBytes]);
+    
+    [given([self.mockAdapter getTotalBytes]) willReturn:totalBytes];
+    XCTAssertNil([self.p getTotalBytes]);
+    
+    stubProperty(self.mockOptions, sendTotalBytes, [NSNumber numberWithBool:true]);
+    
+    XCTAssertEqualObjects(totalBytes, [self.p getTotalBytes]);
+    
+    stubProperty(self.mockOptions, sendTotalBytes, [NSNumber numberWithBool:false]);
+    XCTAssertNil([self.p getTotalBytes]);
+}
+
 - (void)testThroughput {
     [given([self.mockAdapter getThroughput]) willReturn:@1000000];
     XCTAssertEqualObjects(@1000000, [self.p getThroughput]);

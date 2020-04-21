@@ -556,6 +556,29 @@
     return [YBYouboraUtils parseNumber:val orDefault:@(-1)];
 }
 
+- (NSNumber *) getTotalBytes {
+    NSNumber *val;
+    
+    if (val == nil && self.adapter != nil) {
+        @try {
+            val = [self.adapter getTotalBytes];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling getBitrate"];
+            [YBLog logException:exception];
+        }
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@(-1)];
+}
+
+- (Boolean) isToSendTotalBytes {
+    NSNumber *sendTotalBytes = self.options.sendTotalBytes;
+    
+    if (!sendTotalBytes) { return  false; }
+    
+    return [sendTotalBytes isEqualToNumber: [NSNumber numberWithBool:true]];
+}
+
 - (NSNumber *) getThroughput {
     NSNumber * val = self.options.contentThroughput;
     if (val == nil && self.adapter != nil) {
@@ -3135,6 +3158,10 @@
     NSMutableArray<NSString *> * paramList = [NSMutableArray array];
     
     if (self.adapter != nil) {
+        
+        if (self.isToSendTotalBytes) {
+            [paramList addObject:YBConstantsRequest.totalBytes];
+        }
         
         if (self.adapter.flags.paused) {
             [paramList addObject:YBConstantsRequest.pauseDuration];
