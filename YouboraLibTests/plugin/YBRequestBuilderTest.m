@@ -40,7 +40,7 @@ static NSArray * ALL_PARAMS;
                        YBConstantsRequest.system, YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.preloadDuration, YBConstantsRequest.joinDuration,
                        YBConstantsRequest.bufferDuration, YBConstantsRequest.seekDuration, YBConstantsRequest.pauseDuration, YBConstantsRequest.adJoinDuration,
                        YBConstantsRequest.adBufferDuration, YBConstantsRequest.adPauseDuration, YBConstantsRequest.adTotalDuration, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType,
-                       YBConstantsRequest.nodeTypeString, YBConstantsRequest.metrics, YBConstantsRequest.sessionMetrics, YBConstantsRequest.adCreativeId, YBConstantsRequest.adProvider];
+                       YBConstantsRequest.nodeTypeString, YBConstantsRequest.metrics, YBConstantsRequest.sessionMetrics, YBConstantsRequest.adCreativeId, YBConstantsRequest.adProvider, YBConstantsRequest.parentId];
     });
 
     self.mockPlugin = mock([YBPlugin class]);
@@ -107,6 +107,7 @@ static NSArray * ALL_PARAMS;
     [given([self.mockPlugin getAdCreativeId]) willReturn:@"an"];
     [given([self.mockPlugin getVideoMetrics]) willReturn:@"{\"key\":\"value\"}"];
     [given([self.mockPlugin getSessionMetrics]) willReturn:@"{\"value\":\"key\"}"];
+    [given([self.mockPlugin getParentId]) willReturn:@"ao"];
 }
 
 - (void)testBuildParams {
@@ -179,7 +180,7 @@ static NSArray * ALL_PARAMS;
     XCTAssertEqualObjects(@"an", params[YBConstantsRequest.adCreativeId]);
     XCTAssertEqualObjects(@"{\"key\":\"value\"}", params[YBConstantsRequest.metrics]);
     XCTAssertEqualObjects(@"{\"value\":\"key\"}", params[YBConstantsRequest.sessionMetrics]);
-    
+    XCTAssertEqualObjects(@"ao", params[YBConstantsRequest.parentId]);
 }
 
 - (void)testAdNumber {

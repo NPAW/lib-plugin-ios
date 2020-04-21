@@ -1380,6 +1380,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (NSMutableArray *) getActiveSessions;
 
 /**
+ * Returns current active session case sessions actived
+ * @return current session
+ */
+- (nullable NSString *) getParentId;
+
+/**
  * Get Device info String
  */
 - (NSString*) getDeviceInfoString;

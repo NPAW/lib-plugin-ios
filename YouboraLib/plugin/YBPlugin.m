@@ -1759,6 +1759,14 @@
     return self.options.isInfinity;
 }
 
+- (NSString *) getParentId {
+    if ([self.options.isInfinity isEqualToValue:@YES]) {
+        return [[self getInfinity] getActivedSession];
+    }
+    
+    return nil;
+}
+
 - (NSString *) getSmartSwitchConfigCode {
     return self.options.smartswitchConfigCode;
 }
