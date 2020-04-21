@@ -276,4 +276,8 @@
     }
 }
 
+-(NSString *)getCurrentViewCode {
+    return self.viewCode;
+}
+
 @end

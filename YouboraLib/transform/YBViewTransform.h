@@ -70,6 +70,12 @@ NS_ASSUME_NONNULL_BEGIN;
  */
 - (NSString *) getViewCodeTimeStamp;
 
+/**
+ * Method to return current view code
+ */
+
+-(NSString *)getCurrentViewCode;
+
 @end
 
 NS_ASSUME_NONNULL_END;

@@ -156,6 +156,7 @@ import Foundation
     static public let sessions = "sessions"
     static public let uploadTraffic = "uploadTraffic"
     static public let adBufferDuration = "adBufferDuration"
+    static public let parentId = "parentId"
 }
 
 // YBConstants with stream protocols

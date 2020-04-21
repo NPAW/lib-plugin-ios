@@ -122,13 +122,19 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.codecSettings,
                 YBConstantsRequest.codecProfile,
                 YBConstantsRequest.containerFormat,
-                YBConstantsRequest.adsExpected, YBConstantsRequest.deviceUUID,YBConstantsRequest.p2pEnabled];
+                YBConstantsRequest.adsExpected,
+                YBConstantsRequest.deviceUUID,
+                YBConstantsRequest.p2pEnabled,
+                YBConstantsRequest.parentId
+            ];
             
             NSArray * adStartParams = @[
                 YBConstantsRequest.playhead,
                 YBConstantsRequest.adTitle,
-                YBConstantsRequest.position, YBConstantsRequest.adDuration,
-                YBConstantsRequest.adResource, YBConstantsRequest.adCampaign,
+                YBConstantsRequest.position,
+                YBConstantsRequest.adDuration,
+                YBConstantsRequest.adResource,
+                YBConstantsRequest.adCampaign,
                 YBConstantsRequest.adPlayerVersion,
                 YBConstantsRequest.adProperties,
                 YBConstantsRequest.adAdapterVersion,
@@ -149,8 +155,13 @@ static NSArray<NSString *> * youboraPingEntities;
             ];
             
             youboraRequestParams = @{
-                       YBConstantsYouboraService.data:  @[YBConstantsRequest.system, YBConstantsRequest.pluginVersion, YBConstantsRequest.username, YBConstantsRequest.isInfinity],
-                       YBConstantsYouboraService.sInit:  startParams,
+                       YBConstantsYouboraService.data:  @[
+                               YBConstantsRequest.system,
+                               YBConstantsRequest.pluginVersion,
+                               YBConstantsRequest.username,
+                               YBConstantsRequest.isInfinity
+                       ],
+                       YBConstantsYouboraService.sInit: startParams,
                        YBConstantsYouboraService.start: startParams,
                        YBConstantsYouboraService.join:  @[YBConstantsRequest.joinDuration, YBConstantsRequest.playhead],
                        YBConstantsYouboraService.pause: @[YBConstantsRequest.playhead],
@@ -160,12 +171,22 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.stop: @[YBConstantsRequest.bitrate, YBConstantsRequest.playhead],
                        YBConstantsYouboraService.adInit: adStartParams,
                        YBConstantsYouboraService.adStart: adStartParams,
-                       YBConstantsYouboraService.adJoin: @[YBConstantsRequest.position, YBConstantsRequest.adJoinDuration, YBConstantsRequest.adPlayhead, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.adJoin: @[
+                               YBConstantsRequest.position,
+                               YBConstantsRequest.adJoinDuration,
+                               YBConstantsRequest.adPlayhead,
+                               YBConstantsRequest.playhead
+                       ],
                        YBConstantsYouboraService.adPause: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.adResume: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adPauseDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.adBuffer: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBufferDuration, YBConstantsRequest.playhead],
                        YBConstantsYouboraService.adStop: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBitrate, YBConstantsRequest.adTotalDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
-                       YBConstantsYouboraService.click: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adUrl, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.click: @[
+                               YBConstantsRequest.position,
+                               YBConstantsRequest.adPlayhead,
+                               YBConstantsRequest.adUrl,
+                               YBConstantsRequest.playhead
+                       ],
                        YBConstantsYouboraService.adError: [adStartParams arrayByAddingObjectsFromArray:@[YBConstantsRequest.adTotalDuration,YBConstantsRequest.adPlayhead]],
                        YBConstantsYouboraService.adManifest: @[YBConstantsRequest.givenBreaks, YBConstantsRequest.expectedBreaks, YBConstantsRequest.expectedPattern, YBConstantsRequest.breaksTime],
                        YBConstantsYouboraService.adBreakStart: @[YBConstantsRequest.position, YBConstantsRequest.givenAds, YBConstantsRequest.expectedAds],
@@ -623,6 +644,11 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getVideoMetrics];
     } else if ([param isEqualToString:YBConstantsRequest.p2pEnabled]) {
         value = [[self.plugin getIsP2PEnabled] isEqualToValue:@YES] ? @"true" : @"false";
+    } else  if ([param isEqualToString:YBConstantsRequest.parentId]) {
+        if ([self.plugin.getIsInfinity isEqualToValue:@YES]) {
+            value = [[self.plugin getInfinity] getActivedSession];
+        }
+        
     }
     
     return value;
