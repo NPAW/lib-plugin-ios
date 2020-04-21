@@ -1070,6 +1070,22 @@
     XCTAssertEqualObjects(@YES, [self.p getIsInfinity]);
 }
 
+- (void) testParentId {
+    XCTAssertNil([self.p getIsInfinity]);
+    stubProperty(self.mockOptions, isInfinity, @YES);
+    YBInfinity *infinity = [self.p getInfinity];
+    
+    NSString* testSession = @"TestSession";
+    
+    [given([infinity getActivedSession]) willReturn:testSession];
+    
+    XCTAssertTrue([[infinity getActivedSession] isEqualToString:[self.p getParentId]]);
+    
+    stubProperty(self.mockOptions, isInfinity, @NO);
+    
+    XCTAssertNil([self.p getParentId]);
+}
+
 - (void) testGetSmartSwitchConfigCode {
     XCTAssertNil([self.p getSmartSwitchConfigCode]);
     stubProperty(self.mockOptions, smartswitchConfigCode, @"config");

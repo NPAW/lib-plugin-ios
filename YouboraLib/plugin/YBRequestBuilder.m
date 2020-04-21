@@ -645,10 +645,7 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:YBConstantsRequest.p2pEnabled]) {
         value = [[self.plugin getIsP2PEnabled] isEqualToValue:@YES] ? @"true" : @"false";
     } else  if ([param isEqualToString:YBConstantsRequest.parentId]) {
-        if ([self.plugin.getIsInfinity isEqualToValue:@YES]) {
-            value = [[self.plugin getInfinity] getActivedSession];
-        }
-        
+       value = [self.plugin getParentId];
     }
     
     return value;
