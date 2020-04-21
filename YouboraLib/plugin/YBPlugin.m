@@ -543,6 +543,8 @@
 }
 
 - (NSNumber *) getBitrate {
+    if (self.adapter.flags.paused) { return nil; }
+    
     NSNumber * val = self.options.contentBitrate;
     if (val == nil && self.adapter != nil) {
         @try {
@@ -557,6 +559,8 @@
 }
 
 - (NSNumber *) getTotalBytes {
+    if (![self isToSendTotalBytes]) { return nil; }
+    
     NSNumber *val;
     
     if (val == nil && self.adapter != nil) {
@@ -572,7 +576,11 @@
 }
 
 - (Boolean) isToSendTotalBytes {
-    return self.options.sendTotalBytes;
+    NSNumber *sendTotalBytes = self.options.sendTotalBytes;
+    
+    if (!sendTotalBytes) { return  false; }
+    
+    return [sendTotalBytes isEqualToNumber: [NSNumber numberWithBool:true]];
 }
 
 - (NSNumber *) getThroughput {
