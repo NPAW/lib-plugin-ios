@@ -557,8 +557,6 @@
 }
 
 - (NSNumber *) getTotalBytes {
-    if (![self isToSendTotalBytes]) { return nil; }
-    
     NSNumber *val;
     
     if (val == nil && self.adapter != nil) {
@@ -3144,6 +3142,10 @@
     NSMutableArray<NSString *> * paramList = [NSMutableArray array];
     
     if (self.adapter != nil) {
+        
+        if (self.isToSendTotalBytes) {
+            [paramList addObject:YBConstantsRequest.totalBytes];
+        }
         
         if (self.adapter.flags.paused) {
             [paramList addObject:YBConstantsRequest.pauseDuration];

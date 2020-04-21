@@ -202,8 +202,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.latency,
                                YBConstantsRequest.packetLoss,
                                YBConstantsRequest.packetSent,
-                               YBConstantsRequest.metrics,
-                               YBConstantsRequest.totalBytes
+                               YBConstantsRequest.metrics
                        ],
                        YBConstantsYouboraService.error: [startParams arrayByAddingObject:YBConstantsRequest.player],
                        
