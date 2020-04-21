@@ -166,6 +166,12 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  */
 - (nullable NSNumber *) getBitrate;
 
+/** Override to return current total bytes
+ *
+ * @return the total of bytes that were downloaded so far
+ */
+- (nullable NSNumber *) getTotalBytes;
+
 /** Override to return user bandwidth throughput
  *
  * @return the current throughput in bits per second

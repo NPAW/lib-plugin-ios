@@ -168,7 +168,11 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.resume: @[YBConstantsRequest.pauseDuration, YBConstantsRequest.playhead],
                        YBConstantsYouboraService.seek: @[YBConstantsRequest.seekDuration, YBConstantsRequest.playhead],
                        YBConstantsYouboraService.buffer: @[YBConstantsRequest.bufferDuration, YBConstantsRequest.playhead],
-                       YBConstantsYouboraService.stop: @[YBConstantsRequest.bitrate, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.stop: @[
+                               YBConstantsRequest.bitrate,
+                               YBConstantsRequest.playhead,
+                               YBConstantsRequest.totalBytes
+                       ],
                        YBConstantsYouboraService.adInit: adStartParams,
                        YBConstantsYouboraService.adStart: adStartParams,
                        YBConstantsYouboraService.adJoin: @[
@@ -192,7 +196,14 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.adBreakStart: @[YBConstantsRequest.position, YBConstantsRequest.givenAds, YBConstantsRequest.expectedAds],
                        YBConstantsYouboraService.adBreakStop: @[YBConstantsRequest.position, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.adQuartile: @[YBConstantsRequest.position, YBConstantsRequest.adViewedDuration, YBConstantsRequest.adViewability],
-                       YBConstantsYouboraService.ping: @[YBConstantsRequest.droppedFrames, YBConstantsRequest.playrate, YBConstantsRequest.latency, YBConstantsRequest.packetLoss, YBConstantsRequest.packetSent, YBConstantsRequest.metrics],
+                       YBConstantsYouboraService.ping: @[
+                               YBConstantsRequest.droppedFrames,
+                               YBConstantsRequest.playrate,
+                               YBConstantsRequest.latency,
+                               YBConstantsRequest.packetLoss,
+                               YBConstantsRequest.packetSent,
+                               YBConstantsRequest.metrics
+                       ],
                        YBConstantsYouboraService.error: [startParams arrayByAddingObject:YBConstantsRequest.player],
                        
                        //Infinity
@@ -338,7 +349,15 @@ static NSArray<NSString *> * youboraPingEntities;
     } else if ([param isEqualToString:YBConstantsRequest.mediaDuration]){
         value = [self.plugin getDuration].stringValue;
     } else if ([param isEqualToString:YBConstantsRequest.bitrate]){
-        value = [self.plugin getBitrate].stringValue;
+        NSNumber *tmpValue = [self.plugin getBitrate];
+        if (tmpValue) {
+            value = tmpValue.stringValue;
+        }
+    } else if ([param isEqualToString:YBConstantsRequest.totalBytes]){
+        NSNumber *tmpValue = [self.plugin getTotalBytes];
+        if (tmpValue) {
+            value = tmpValue.stringValue;
+        }
     } else if ([param isEqualToString:YBConstantsRequest.throughput]){
         value = [self.plugin getThroughput].stringValue;
     } else if ([param isEqualToString:YBConstantsRequest.rendition]){

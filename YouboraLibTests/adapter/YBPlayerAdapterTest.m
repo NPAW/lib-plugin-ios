@@ -84,6 +84,7 @@
     XCTAssertNil([adapter getDroppedFrames]);
     XCTAssertNil([adapter getDuration]);
     XCTAssertNil([adapter getBitrate]);
+    XCTAssertNil([adapter getTotalBytes]);
     XCTAssertNil([adapter getThroughput]);
     XCTAssertNil([adapter getRendition]);
     XCTAssertNil([adapter getTitle]);
