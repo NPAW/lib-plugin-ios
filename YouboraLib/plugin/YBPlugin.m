@@ -543,8 +543,6 @@
 }
 
 - (NSNumber *) getBitrate {
-    if (self.adapter.flags.paused) { return nil; }
-    
     NSNumber * val = self.options.contentBitrate;
     if (val == nil && self.adapter != nil) {
         @try {
