@@ -44,6 +44,11 @@
 
 - (void) removeYouboraInfinityDelegate:(nullable id<YBInfinityDelegate>)delegate;
 
+/*
+ * Method to return the actived session
+ */
+-(NSString* _Nonnull) getActivedSession;
+
 @end
 
 @protocol YBInfinityDelegate
