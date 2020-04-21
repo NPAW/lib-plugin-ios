@@ -1,3 +1,6 @@
+## [6.5.19] - 
+###Added
+- ParentId on start, init and error requests
 ## [6.5.18] - 2020-04-06
 ###Added
 - YBOptionUtilsKeys to easly share new props with config utils
