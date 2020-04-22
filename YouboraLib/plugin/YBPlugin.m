@@ -1802,7 +1802,7 @@
 }
 
 - (NSString *) getVideoMetrics {
-    NSString * metrics = [YBYouboraUtils stringifyDictionary:self.options.contentMetrics];
+    NSString * metrics = [YBYouboraUtils stringifyDictionary:[self formatMetricsDict:self.options.contentMetrics]];
     
     if ((metrics == nil || metrics.length == 0) && self.adapter != nil) {
         @try {
@@ -1813,6 +1813,22 @@
         }
     }
     return metrics;
+}
+
+- (NSDictionary *) formatMetricsDict: (nullable NSDictionary *) origDict {
+    if (origDict != nil) {
+        NSMutableDictionary *mutableDict = [NSMutableDictionary new];
+        for(id key in origDict) {
+            id value = origDict[key];
+            NSMutableDictionary *valueDict = [NSMutableDictionary new];
+            if (value != nil/* && [value isKindOfClass:[NSNumber class]]*/) {
+                valueDict[@"value"] = value;
+            }
+            mutableDict[key] = valueDict;
+        }
+        return mutableDict;
+    }
+    return nil;
 }
 
 - (NSString *) getSessionMetrics {

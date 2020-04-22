@@ -1023,7 +1023,7 @@
 - (void)testContentMetrics {
     XCTAssertNil([self.p getVideoMetrics]);
     stubProperty(self.mockOptions, contentMetrics, @{@"key": @"value"});
-    XCTAssertEqualObjects(@"{\"key\":\"value\"}", [self.p getVideoMetrics]);
+    XCTAssertEqualObjects(@"{\"key\":{\"value\":\"value\"}}", [self.p getVideoMetrics]);
     
     stubProperty(self.mockOptions, contentMetrics, nil);
     

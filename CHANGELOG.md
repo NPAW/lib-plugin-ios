@@ -2,6 +2,9 @@
 ###Added
 - ParentId on start, init and error requests
 - Track total downloaded bytes 
+### Fixed
+- Fix metrics format
+
 ## [6.5.18] - 2020-04-06
 ###Added
 - YBOptionUtilsKeys to easly share new props with config utils
@@ -13,17 +16,21 @@
 ###Deprecated
 - Old parsers, since now they represent only one parser 
 - Old props in the YBOptions class
+
 ## [6.5.17] - 2020-02-06
 ###Changed
 - macOS deployment target to 10.10
+
 ## [6.5.16] - 2020-02-03
 ###Added
 - Support to send audio and video codecs by the adapters
+
 ## [6.5.15] - 2020-01-29
 ###Added
 - Add classes (YBTimer, YBUtils, YBDeviceInfo, YBConstants and YBChrono) to swift
 ###Removed
 - Add classes (YBTimer, YBUtils, YBDeviceInfo, YBConstants and YBChrono) to Obj-c
+
 ## [6.5.14] - 2020-01-27
 ###Fixed
 - Infinity sends propper codes for all cases now
