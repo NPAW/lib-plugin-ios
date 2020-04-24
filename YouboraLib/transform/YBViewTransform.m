@@ -80,15 +80,20 @@
 
 - (void)parse:(nullable YBRequest *)request {
     NSMutableDictionary<NSString *, NSString *> * params = request.params;
-    NSString * service = request.service;
-    BOOL isInfinityRequest = service == YBConstantsYouboraInfinity.sessionStart || service == YBConstantsYouboraInfinity.sessionBeat || service == YBConstantsYouboraInfinity.sessionNav || service == YBConstantsYouboraInfinity.sessionStop || service == YBConstantsYouboraInfinity.sessionEvent;
+    BOOL isInfinityRequest = [self compareRequestService:request.service andServices:@[
+        YBConstantsYouboraInfinity.sessionStart,
+        YBConstantsYouboraInfinity.sessionBeat,
+        YBConstantsYouboraInfinity.sessionBeat,
+        YBConstantsYouboraInfinity.sessionStop,
+        YBConstantsYouboraInfinity.sessionEvent
+    ]];
     
     if (request.host == nil || request.host.length == 0) {
         request.host = self.fastDataConfig.host;
     }
     
     if (!isInfinityRequest && params[@"code"] == nil) {
-        if(request.service == YBConstantsYouboraService.offline){
+        if([self compareRequestService: request.service andService: YBConstantsYouboraService.offline]) {
             [self nextView];
         }
         params[@"code"] = self.viewCode;
@@ -97,7 +102,7 @@
     if (params[@"sessionRoot"] == nil) {
         
         NSString * code = self.viewCode;
-        if (([self.plugin getInfinity] != nil && [self.plugin getInfinity].flags.started) || service == YBConstantsYouboraInfinity.sessionStop) {
+        if (([self.plugin getInfinity] != nil && [self.plugin getInfinity].flags.started) || [self compareRequestService: request.service andService: YBConstantsYouboraInfinity.sessionStop]) {
             code = self.fastDataConfig.code;
         }
         
@@ -116,8 +121,12 @@
     
     // Request-specific transforms
     
-    if (service == YBConstantsYouboraService.ping ||
-        service == YBConstantsYouboraService.start) {
+    Boolean pingOrStart = [self compareRequestService:request.service andServices:@[
+        YBConstantsYouboraService.ping,
+        YBConstantsYouboraService.start
+    ]];
+    
+    if (pingOrStart) {
         
         if (params[@"pingTime"] == nil) {
             params[@"pingTime"] = self.fastDataConfig.pingTime.stringValue;
@@ -127,19 +136,22 @@
             params[@"sessionParent"] = self.fastDataConfig.code;
         }
     }
-    if (service == YBConstantsYouboraService.offline) {
+    if ([self compareRequestService:request.service andService:YBConstantsYouboraService.offline]) {
         request.body = [self addCodeToEvents:request.body];
     }
-    if (service == YBConstantsYouboraInfinity.sessionStart) {
+    if ([self compareRequestService:request.service andService:YBConstantsYouboraInfinity.sessionStart]) {
         if (params[@"beatTime"] == nil) {
             params[@"beatTime"] = self.fastDataConfig.beatTime.stringValue;
         }
     }
     
-    if ((service == YBConstantsYouboraService.start
-         || service == YBConstantsYouboraService.sInit
-         || service == YBConstantsYouboraInfinity.sessionStart)
-        && self.fastDataConfig.youboraId != nil) {
+    Boolean isStart = [self compareRequestService:request.service andServices:@[
+           YBConstantsYouboraService.start,
+           YBConstantsYouboraService.sInit,
+           YBConstantsYouboraInfinity.sessionStart
+       ]];
+    
+    if (isStart && self.fastDataConfig.youboraId != nil) {
         params[@"youboraId"] = self.fastDataConfig.youboraId;
     }
     
@@ -278,6 +290,20 @@
 
 -(NSString *)getCurrentViewCode {
     return self.viewCode;
+}
+
+-(Boolean)compareRequestService:(NSString*)requestService andServices:(NSArray<NSString*>*)services {
+    for (NSString* service in services) {
+        if ([self compareRequestService:requestService andService:service]) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+-(Boolean)compareRequestService:(NSString*)requestService andService:(NSString*)service {
+    return [[requestService lowercaseString] isEqualToString:[service lowercaseString]];
 }
 
 @end
