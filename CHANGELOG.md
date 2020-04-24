@@ -1,4 +1,6 @@
 ## [6.5.20] - 
+### Added
+- Auto init before and send an error 
 ### Fixed
 - Fix services comparation to send sessionId
 - Check condition to send parentId

@@ -627,7 +627,7 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
 /**
  * Flag if Infinity is going to be used
  */
-@property(nonatomic, strong) NSValue * isInfinity;
+@property(nonatomic, strong) NSValue * isInfinity __deprecated_msg("This property will be removed in future releases");
 
 /**
  * Config code for smartswitch
