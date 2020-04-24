@@ -256,7 +256,6 @@
 }
 
 - (YBInfinity *) getInfinity {
-    
     if (!self.infinity) {
         self.infinity = [[YBInfinity alloc] init];
         [self.infinity addYouboraInfinityDelegate:self];
@@ -1766,11 +1765,9 @@
 }
 
 - (NSString *) getParentId {
-    if ([self.options.isInfinity isEqualToValue:@YES]) {
-        return [[self getInfinity] getActivedSession];
-    }
+    if (![self getInfinity].flags.started) { return nil; }
     
-    return nil;
+    return [[self getInfinity] getActivedSession];
 }
 
 - (NSString *) getSmartSwitchConfigCode {
