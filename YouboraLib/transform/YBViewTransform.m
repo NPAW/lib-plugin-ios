@@ -83,7 +83,7 @@
     BOOL isInfinityRequest = [self compareRequestService:request.service andServices:@[
         YBConstantsYouboraInfinity.sessionStart,
         YBConstantsYouboraInfinity.sessionBeat,
-        YBConstantsYouboraInfinity.sessionBeat,
+        YBConstantsYouboraInfinity.sessionNav,
         YBConstantsYouboraInfinity.sessionStop,
         YBConstantsYouboraInfinity.sessionEvent
     ]];
