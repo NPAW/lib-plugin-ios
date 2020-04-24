@@ -26,6 +26,7 @@
 #import "YBFastDataConfig.h"
 #import "YBFlowTransform.h"
 #import "YBPlayheadMonitor.h"
+#import "YBInfinityFlags.h"
 
 
 #import "YouboraLib/YouboraLib-Swift.h"
@@ -1086,17 +1087,19 @@
 }
 
 - (void) testParentId {
-    XCTAssertNil([self.p getIsInfinity]);
-    stubProperty(self.mockOptions, isInfinity, @YES);
+    
+    YBInfinityFlags *flags = [[YBInfinityFlags alloc] init];
+    [self.p getInfinity].flags = flags;
+    
     YBInfinity *infinity = [self.p getInfinity];
     
-    NSString* testSession = @"TestSession";
-    
-    [given([infinity getActivedSession]) willReturn:testSession];
+    [given([infinity getActivedSession]) willReturn:@"testId"];
+ 
+    flags.started = true;
     
     XCTAssertTrue([[infinity getActivedSession] isEqualToString:[self.p getParentId]]);
     
-    stubProperty(self.mockOptions, isInfinity, @NO);
+    flags.started = false;
     
     XCTAssertNil([self.p getParentId]);
 }

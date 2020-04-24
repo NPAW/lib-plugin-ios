@@ -1,10 +1,15 @@
-## [6.5.19] - 
-###Added
+## [6.5.20] - 
+### Fixed
+- Fix services comparation to send sessionId
+- Check condition to send parentId
+### Deprecated
+- isInfinity options flag 
+## [6.5.19] - 2020-04-22
+### Added
 - ParentId on start, init and error requests
 - Track total downloaded bytes 
 ### Fixed
 - Fix metrics format
-
 ## [6.5.18] - 2020-04-06
 ###Added
 - YBOptionUtilsKeys to easly share new props with config utils
