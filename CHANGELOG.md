@@ -1,4 +1,4 @@
-## [6.5.20] - 
+## [6.5.20] - 2020-04-27
 ### Fixed
 - Fix services comparation to send sessionId
 - Check condition to send parentId
