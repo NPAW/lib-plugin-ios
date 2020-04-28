@@ -293,11 +293,7 @@
 }
 
 -(NSString *)getSessionRoot {
-    if (([self.plugin getInfinity] != nil && [self.plugin getInfinity].flags.started)) {
-        return self.fastDataConfig.code;
-    }
-    
-    return self.viewCode;
+    return self.fastDataConfig.code;
 }
 
 -(Boolean)compareRequestService:(NSString*)requestService andServices:(NSArray<NSString*>*)services {
