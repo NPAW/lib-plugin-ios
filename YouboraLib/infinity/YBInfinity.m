@@ -145,8 +145,8 @@
     }
 }
 
--(NSString* _Nonnull) getActivedSession {
-    return [self.viewTransform getCurrentViewCode];
+-(NSString* _Nonnull) getSessionRoot {
+    return [self.viewTransform getSessionRoot];
 }
 
 @end

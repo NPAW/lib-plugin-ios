@@ -76,6 +76,11 @@ NS_ASSUME_NONNULL_BEGIN;
 
 -(NSString *)getCurrentViewCode;
 
+/**
+* Method to return session root
+*/
+-(NSString *)getSessionRoot;
+
 @end
 
 NS_ASSUME_NONNULL_END;

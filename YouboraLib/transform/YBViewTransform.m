@@ -292,6 +292,10 @@
     return self.viewCode;
 }
 
+-(NSString *)getSessionRoot {
+    return self.fastDataConfig.code;
+}
+
 -(Boolean)compareRequestService:(NSString*)requestService andServices:(NSArray<NSString*>*)services {
     for (NSString* service in services) {
         if ([self compareRequestService:requestService andService:service]) {

@@ -526,6 +526,7 @@
 }
 
 - (void)fireError:(NSDictionary<NSString *,NSString *> *)params {
+    [self.plugin fireInit];
     params = [YBYouboraUtils buildErrorParams:[params mutableCopy]];
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
         [delegate youboraAdapterEventError:params fromAdapter:self];

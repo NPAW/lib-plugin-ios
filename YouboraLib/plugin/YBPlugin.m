@@ -1767,7 +1767,7 @@
 - (NSString *) getParentId {
     if (![self getInfinity].flags.started) { return nil; }
     
-    return [[self getInfinity] getActivedSession];
+    return [[self getInfinity] getSessionRoot];
 }
 
 - (NSString *) getSmartSwitchConfigCode {
