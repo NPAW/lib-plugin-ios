@@ -1,6 +1,8 @@
-## [6.5.21] - 
+## [6.5.21] - 2020-04-28
 ### Added
 - Auto init before and send an error 
+### Fixed
+- parentId to match with sessionRoot
 ## [6.5.20] - 2020-04-27
 ### Fixed
 - Fix services comparation to send sessionId
@@ -14,29 +16,29 @@
 ### Fixed
 - Fix metrics format
 ## [6.5.18] - 2020-04-06
-###Added
+### Added
 - YBOptionUtilsKeys to easly share new props with config utils
-###Changed
+### Changed
 - Replace adPosition & breakPosition for position on requests
 - Unify resource parsers into one option
 - Move request parameters to the constants properties
 - YBOption properties to YBOptionKeys class 
-###Deprecated
+### Deprecated
 - Old parsers, since now they represent only one parser 
 - Old props in the YBOptions class
 
 ## [6.5.17] - 2020-02-06
-###Changed
+### Changed
 - macOS deployment target to 10.10
 
 ## [6.5.16] - 2020-02-03
-###Added
+### Added
 - Support to send audio and video codecs by the adapters
 
 ## [6.5.15] - 2020-01-29
-###Added
+### Added
 - Add classes (YBTimer, YBUtils, YBDeviceInfo, YBConstants and YBChrono) to swift
-###Removed
+### Removed
 - Add classes (YBTimer, YBUtils, YBDeviceInfo, YBConstants and YBChrono) to Obj-c
 
 ## [6.5.14] - 2020-01-27

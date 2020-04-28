@@ -1093,11 +1093,11 @@
     
     YBInfinity *infinity = [self.p getInfinity];
     
-    [given([infinity getActivedSession]) willReturn:@"testId"];
+    [given([infinity getSessionRoot]) willReturn:@"testId"];
  
     flags.started = true;
     
-    XCTAssertTrue([[infinity getActivedSession] isEqualToString:[self.p getParentId]]);
+    XCTAssertTrue([[infinity getSessionRoot] isEqualToString:[self.p getParentId]]);
     
     flags.started = false;
     
