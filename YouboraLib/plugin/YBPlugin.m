@@ -393,7 +393,8 @@
                         return;
                     }
                     //YBEvent *event = events[0];
-                    [self sendOfflineEventsWithEventsString:[self generateOfflineJsonStringWithEvents:events] andOfflineId:((YBEvent *)events[0]).offlineId];
+                    [self sendOfflineEventsWithEventsString:[self generateOfflineJsonStringWithEvents:events]
+                                               andOfflineId: [NSNumber numberWithInt:((YBEvent *)events[0]).offlineId]];
                 }];
             }
         }];

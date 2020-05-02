@@ -7,7 +7,6 @@
 //
 
 #import "YBEventDAO.h"
-#import "YBAppDatabase.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 #import "YBLog.h"
 
@@ -23,7 +22,7 @@
 
 - (void) insertNewEvent: (YBEvent*) event{
     @try {
-        [[YBAppDatabase sharedInstance] insertEvent:event];
+        [YBAppDatabase.shared insertEvent:event];
     } @catch(NSException *exception){
          [YBLog logException:exception];
     }
@@ -31,7 +30,7 @@
 
 - (NSArray<YBEvent*>*) allEvents{
     @try {
-        return [[YBAppDatabase sharedInstance] allEvents];
+        return [YBAppDatabase.shared allEvents];
     } @catch(NSException *exception){
         [YBLog logException:exception];
     }
@@ -40,7 +39,7 @@
 
 - (NSNumber*) lastOfflineId{
     @try {
-        return [[YBAppDatabase sharedInstance] lastId];
+        return [NSNumber numberWithInteger: [YBAppDatabase.shared lastId]];
     } @catch(NSException *exception){
         [YBLog logException:exception];
     }
@@ -49,7 +48,7 @@
 
 - (NSArray<YBEvent*>*) eventWithOfflineId: (NSNumber*) offlineId{
     @try {
-        return [[YBAppDatabase sharedInstance] eventsWithOfflineId:offlineId];
+        return [YBAppDatabase.shared eventsWithOfflineId:[offlineId intValue]];
     } @catch(NSException *exception){
         [YBLog logException:exception];
     }
@@ -58,7 +57,7 @@
 
 - (NSNumber*) firstOfflineId{
     @try {
-        return [[YBAppDatabase sharedInstance] firstId];
+        return [NSNumber numberWithInteger:[YBAppDatabase.shared firstId]];
     } @catch(NSException *exception){
         [YBLog logException:exception];
     }
@@ -67,7 +66,7 @@
 
 - (void) deleteEventsWithOfflineId: (NSNumber*) offlideId{
     @try {
-        [[YBAppDatabase sharedInstance] removeEventsWithId:offlideId];
+        [YBAppDatabase.shared removeEventsWithEventId: [offlideId intValue]];
     } @catch(NSException *exception){
         [YBLog logException:exception];
     }

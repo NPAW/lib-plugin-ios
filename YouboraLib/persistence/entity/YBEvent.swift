@@ -9,8 +9,15 @@
 import Foundation
 
 @objcMembers class YBEvent: NSObject {
-    var id: NSNumber?
-    var jsonEvents: String?
-    var dateUpdate: NSNumber?
-    var offlineId: NSNumber?
+    let id: Int
+    let jsonEvents: String
+    let dateUpdate: Double
+    let offlineId: Int
+    
+    init(id: Int, jsonEvents: String, dateUpdate: Double, offlineId: Int) {
+        self.id = id
+        self.jsonEvents = jsonEvents
+        self.dateUpdate = dateUpdate
+        self.offlineId = offlineId
+    }
 }

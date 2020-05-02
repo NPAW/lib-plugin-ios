@@ -7,7 +7,6 @@
 //
 
 #import "YBEventDataSource.h"
-#import "YBAppDatabase.h"
 #import "YBEventDAO.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 

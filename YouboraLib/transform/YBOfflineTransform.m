@@ -71,9 +71,11 @@
                 if(jsonEvents != nil){
                     [YBLog debug:@"Saving offline event: %@",jsonEvents];
                     
-                    YBEvent* event = [YBEvent new];
-                    event.jsonEvents = jsonEvents;
-                    event.offlineId = [NSNumber numberWithInt:offlineIdInt];
+                    YBEvent* event = [[YBEvent alloc]
+                                      initWithId:0
+                                      jsonEvents:jsonEvents
+                                      dateUpdate:0
+                                      offlineId:offlineIdInt];
                     
                     if ([service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]) {
                         [self.dataSource putNewEvent:event completion:^(void) {
