@@ -8,8 +8,8 @@
 
 #import "YBEventDataSource.h"
 #import "YBAppDatabase.h"
-#import "YBEvent.h"
 #import "YBEventDAO.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBEventDataSource()
 

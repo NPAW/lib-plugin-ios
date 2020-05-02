@@ -7,11 +7,9 @@
 //
 
 #import "YBAppDatabase.h"
-#import "YBEventQueries.h"
-#import "YBEvent.h"
 #import "YBLog.h"
-
 #import <sqlite3.h>
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBAppDatabase()
 
@@ -56,7 +54,7 @@
  
     if(sqlite3_open_v2([writableDBPath UTF8String], &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX|SQLITE_OPEN_CREATE, NULL) == SQLITE_OK)
     {
-        sqlite3_exec(database, [YouboraEventCreateTable UTF8String], NULL, NULL, NULL);
+        sqlite3_exec(database, [YBEventQueries.createTable UTF8String], NULL, NULL, NULL);
         sqlite3_close_v2(database);
     }
     return success;
@@ -76,7 +74,7 @@
         NSString * timestamp = [NSString stringWithFormat:@"%.0f", round(CFAbsoluteTimeGetCurrent()*1000)];
         
         // preparing a query compiles the query so it can be re-used.
-        sqlite3_prepare_v2(database, [YouboraEventCreate UTF8String], -1, &statement, NULL);
+        sqlite3_prepare_v2(database, [YBEventQueries.create UTF8String], -1, &statement, NULL);
         sqlite3_bind_text(statement, 1, [event.jsonEvents UTF8String], -1, SQLITE_STATIC);
         sqlite3_bind_double(statement, 2, [timestamp doubleValue]);
         sqlite3_bind_int64(statement, 3, [event.offlineId intValue]);
@@ -104,7 +102,7 @@
     
     if([self openDB])
     {
-        const char *sqlStatement = [YouboraEventGetAll UTF8String];
+        const char *sqlStatement = [YBEventQueries.getAll UTF8String];
         
         sqlite3_stmt *compiledStatement;
         NSInteger result = sqlite3_prepare_v2(database,sqlStatement, -1, &compiledStatement, NULL);
@@ -115,7 +113,7 @@
             while (sqlite3_step(compiledStatement) == SQLITE_ROW)
             {
                 event = [[YBEvent alloc] init];
-                event.id = sqlite3_column_int(compiledStatement, 0);
+                event.id = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, 0)];
                 event.jsonEvents = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(compiledStatement, 1)];
                 event.dateUpdate = [NSNumber numberWithDouble:sqlite3_column_double(compiledStatement, 2)];
                 event.offlineId = [NSNumber numberWithDouble:sqlite3_column_int(compiledStatement, 3)];
@@ -138,7 +136,7 @@
 
 - (NSNumber*) lastId{
     if([self openDB]){
-        const char *sqlStatement = [YouboraEventGetLastId UTF8String];
+        const char *sqlStatement = [YBEventQueries.getLastId UTF8String];
         
         sqlite3_stmt *compiledStatement;
         NSInteger result = sqlite3_prepare_v2(database,sqlStatement, -1, &compiledStatement, NULL);
@@ -167,7 +165,7 @@
     
     if([self openDB])
     {
-        const char *sqlStatement = [[NSString stringWithFormat:YouboraEventGetByOfflineId,[offlineId stringValue]] UTF8String];
+        const char *sqlStatement = [[NSString stringWithFormat: YBEventQueries.getByOfflineId, [offlineId stringValue]] UTF8String];
         
         sqlite3_stmt *compiledStatement;
         NSInteger result = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL);
@@ -178,7 +176,7 @@
             while (sqlite3_step(compiledStatement) == SQLITE_ROW)
             {
                 event = [[YBEvent alloc] init];
-                event.id = sqlite3_column_int(compiledStatement, 0);
+                event.id = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, 0)];
                 event.jsonEvents = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(compiledStatement, 1)];
                 event.dateUpdate = [NSNumber numberWithDouble:sqlite3_column_double(compiledStatement, 2)];
                 event.offlineId = [NSNumber numberWithDouble:sqlite3_column_int(compiledStatement, 3)];
@@ -201,7 +199,7 @@
 
 - (NSNumber*) firstId{
     if([self openDB]){
-        const char *sqlStatement = [YouboraEventGetFirstId UTF8String];
+        const char *sqlStatement = [YBEventQueries.getFirstId UTF8String];
         
         sqlite3_stmt *compiledStatement;
         NSInteger result = sqlite3_prepare_v2(database,sqlStatement, -1, &compiledStatement, NULL);
@@ -226,7 +224,7 @@
         sqlite3_stmt    *statement;
         
         // preparing a query compiles the query so it can be re-used.
-        sqlite3_prepare_v2(database, [[NSString stringWithFormat:YouboraEventDeleteEventsByOfflineId, [offlineId stringValue]] UTF8String], -1, &statement, NULL);
+        sqlite3_prepare_v2(database, [[NSString stringWithFormat: YBEventQueries.deleteEventsByOfflineId, [offlineId stringValue]] UTF8String], -1, &statement, NULL);
         
         // process result
         if (sqlite3_step(statement) != SQLITE_DONE)

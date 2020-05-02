@@ -10,7 +10,6 @@
 #import "YBEventDataSource.h"
 #import "YBRequest.h"
 #import "YBLog.h"
-#import "YBEvent.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBOfflineTransform()
@@ -72,9 +71,10 @@
                 if(jsonEvents != nil){
                     [YBLog debug:@"Saving offline event: %@",jsonEvents];
                     
-                    YBEvent* event = [[YBEvent alloc] init];
+                    YBEvent* event = [YBEvent new];
                     event.jsonEvents = jsonEvents;
                     event.offlineId = [NSNumber numberWithInt:offlineIdInt];
+                    
                     if ([service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]) {
                         [self.dataSource putNewEvent:event completion:^(void) {
                             self.startSaved = true;

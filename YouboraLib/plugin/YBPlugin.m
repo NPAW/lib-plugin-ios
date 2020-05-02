@@ -23,7 +23,6 @@
 #import "YBPlayheadMonitor.h"
 #import "YBOfflineTransform.h"
 #import "YBEventDataSource.h"
-#import "YBEvent.h"
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"

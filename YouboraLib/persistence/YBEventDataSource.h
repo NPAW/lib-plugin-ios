@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @class YBEvent;
 
 @interface YBEventDataSource : NSObject
