@@ -7,12 +7,9 @@
 //
 
 #import "YBTimestampLastSentTransform.h"
-
-#import "YBInfinityLocalManager.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBTimestampLastSentTransform()
-
-@property(nonatomic, strong) YBInfinityLocalManager * infinityManager;
 
 @end
 
@@ -22,13 +19,12 @@
 {
     self = [super init];
     if (self) {
-        self.infinityManager = [[YBInfinityLocalManager alloc] init];
         [self done];
     }
     return self;
 }
 
 - (void) parse:(YBRequest *)request {
-    [self.infinityManager saveLastActiveDate];
+    [YBInfinityLocalManager saveLastActiveDate];
 }
 @end

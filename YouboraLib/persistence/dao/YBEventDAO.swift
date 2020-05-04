@@ -17,7 +17,7 @@ import Foundation
         }
     }
     
-    func allEvents() -> Array<YBEvent> {
+    func allEvents() -> [YBEvent] {
         do {
            return try YBAppDatabase.shared.allEvents()
         } catch {
@@ -44,7 +44,7 @@ import Foundation
         return 0
     }
     
-    func events(offlineId: Int) -> Array<YBEvent> {
+    func events(offlineId: Int) -> [YBEvent] {
         do {
            return try YBAppDatabase.shared.eventsWith(offlineId: offlineId)
         } catch {

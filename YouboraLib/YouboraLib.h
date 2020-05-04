@@ -42,5 +42,4 @@ FOUNDATION_EXPORT const unsigned char YouboraLibVersionString[];
 
 #import <YouboraLib/YBInfinity.h>
 #import <YouboraLib/YBInfinityFlags.h>
-#import <YouboraLib/YBInfinityLocalManager.h>
 #import <YouboraLib/YBTimestampLastSentTransform.h>

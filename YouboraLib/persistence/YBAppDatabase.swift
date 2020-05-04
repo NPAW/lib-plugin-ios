@@ -16,7 +16,6 @@ import SQLite3
     
     static let shared = YBAppDatabase(dbFilename: "youbora-offline.db")
     
-    
     init(dbFilename: String) {
         self.filename = dbFilename
         self.isDbOpened = false
@@ -26,7 +25,7 @@ import SQLite3
         
     }
     
-    private func createDatabase(filename: String) -> Bool {
+    @discardableResult private func createDatabase(filename: String) -> Bool {
         let writableDBPath = self.writableDBPath(dbName: filename)
         
         if FileManager.default.fileExists(atPath: writableDBPath) {
@@ -38,7 +37,7 @@ import SQLite3
                 return false
         }
         
-        if sqlite3_open_v2(uft8DBpath, &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX|SQLITE_OPEN_CREATE , nil) == SQLITE_OK {
+        if sqlite3_open_v2(uft8DBpath, &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX|SQLITE_OPEN_CREATE, nil) == SQLITE_OK {
             sqlite3_exec(database, createCommand, nil, nil, nil)
             sqlite3_close_v2(database)
         }
@@ -46,13 +45,13 @@ import SQLite3
         return false
     }
     
-    private func writableDBPath(dbName :String) -> String {
+    private func writableDBPath(dbName: String) -> String {
         let pahts = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = pahts[0]
         return documentsDirectory+"/"+dbName
     }
     
-    func insertEvent(_ event: YBEvent) throws -> NSNumber {
+    @discardableResult func insertEvent(_ event: YBEvent) throws -> NSNumber {
         if self.openDB() {
             var statement: OpaquePointer?
             let timestamp = String(format: "%.0f", round(CFAbsoluteTimeGetCurrent()*1000))
@@ -67,10 +66,8 @@ import SQLite3
                 
                 if let timestampDouble = Double(timestamp) {
                     sqlite3_bind_double(statement, 2, timestampDouble)
-                    sqlite3_bind_int64(statement, 3, sqlite3_int64(event.id));
+                    sqlite3_bind_int64(statement, 3, sqlite3_int64(event.id))
                 }
-                
-                
             }
             // process result
             if sqlite3_step(statement) != SQLITE_DONE {
@@ -88,8 +85,8 @@ import SQLite3
         return NSNumber(value: -1)
     }
     
-    func allEvents() throws -> Array<YBEvent> {
-        var events:Array<YBEvent> = []
+    func allEvents() throws -> [YBEvent] {
+        var events: [YBEvent] = []
         
         if self.openDB() {
             guard let sqlStatement = self.toUtf8(string: YBEventQueries.getAll) else {
@@ -98,7 +95,7 @@ import SQLite3
             
             var compiledStatement: OpaquePointer?
             
-            let result = sqlite3_prepare_v2(database,sqlStatement, -1, &compiledStatement, nil)
+            let result = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, nil)
             
             if result == SQLITE_OK {
                 while sqlite3_step(compiledStatement) == SQLITE_ROW {
@@ -131,7 +128,7 @@ import SQLite3
             }
             
             var compiledStatement: OpaquePointer?
-            let result = sqlite3_prepare_v2(database,sqlStatement, -1, &compiledStatement, nil)
+            let result = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, nil)
             
             if result == SQLITE_OK {
                 while sqlite3_step(compiledStatement) == SQLITE_ROW {
@@ -157,7 +154,7 @@ import SQLite3
             }
             
             var compiledStatement: OpaquePointer?
-            let result = sqlite3_prepare_v2(database,sqlStatement, -1, &compiledStatement, nil)
+            let result = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, nil)
             
             if result == SQLITE_OK {
                 while sqlite3_step(compiledStatement) == SQLITE_ROW {
@@ -175,8 +172,8 @@ import SQLite3
         return 0
     }
     
-    func eventsWith(offlineId: Int) throws -> Array<YBEvent> {
-        var events:Array<YBEvent> = []
+    func eventsWith(offlineId: Int) throws -> [YBEvent] {
+        var events: [YBEvent] = []
         
         if self.openDB() {
             guard let sqlStatement = self.toUtf8(string: String(format: YBEventQueries.getByOfflineId, offlineId)) else {
@@ -185,7 +182,7 @@ import SQLite3
             
             var compiledStatement: OpaquePointer?
             
-            let result = sqlite3_prepare_v2(database,sqlStatement, -1, &compiledStatement, nil)
+            let result = sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, nil)
             
             if result == SQLITE_OK {
                 sqlite3_bind_int(compiledStatement, 0, Int32(offlineId))

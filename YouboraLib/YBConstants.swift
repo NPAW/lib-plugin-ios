@@ -258,6 +258,10 @@ import Foundation
 
         return version
     }
+    
+    static public let preferencesSessionIdKey = "session_id"
+    static public let preferencesContextKey = "context_id"
+    static public let preferencesLastActiveKey = "last_active_id"
 
     // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
     // Map with ios version and names
