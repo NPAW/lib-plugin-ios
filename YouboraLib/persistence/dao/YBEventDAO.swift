@@ -9,6 +9,10 @@
 import Foundation
 
 @objcMembers class YBEventDAO: NSObject {
+    func closureTest(closure: () -> Void) {
+        closure()
+    }
+    
     func insertNewEvent(_ event: YBEvent) {
         do {
            try YBAppDatabase.shared.insertEvent(event)
