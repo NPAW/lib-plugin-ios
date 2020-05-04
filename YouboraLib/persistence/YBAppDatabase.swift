@@ -52,20 +52,20 @@ import SQLite3
         return documentsDirectory+"/"+dbName
     }
     
-    func insertEvent(_ event: YBEvent) -> NSNumber {
+    func insertEvent(_ event: YBEvent) throws -> NSNumber {
         if self.openDB() {
             var statement: OpaquePointer?
             let timestamp = String(format: "%.0f", round(CFAbsoluteTimeGetCurrent()*1000))
             
             // preparing a query compiles the query so it can be re-used.
             if let createQuery = self.toUtf8(string: YBEventQueries.create),
-                let jsonEvents = self.toUtf8(string: event.jsonEvents){
+                let jsonEvents = self.toUtf8(string: event.jsonEvents) {
                 sqlite3_prepare_v2(database, createQuery, -1, &statement, nil)
                 
                 let SQLITE_STATIC = unsafeBitCast(0, to: sqlite3_destructor_type.self)
                 sqlite3_bind_text(statement, 1, jsonEvents, -1, SQLITE_STATIC)
                 
-                if let timestampDouble = Double(timestamp){
+                if let timestampDouble = Double(timestamp) {
                     sqlite3_bind_double(statement, 2, timestampDouble)
                     sqlite3_bind_int64(statement, 3, sqlite3_int64(event.id));
                 }
@@ -78,7 +78,7 @@ import SQLite3
             }
             
             let lastId = sqlite3_last_insert_rowid(database)
-            sqlite3_finalize(statement);
+            sqlite3_finalize(statement)
             self.closeDB()
             
             return NSNumber(value: lastId)
@@ -88,7 +88,7 @@ import SQLite3
         return NSNumber(value: -1)
     }
     
-    func allEvents() -> Array<YBEvent> {
+    func allEvents() throws -> Array<YBEvent> {
         var events:Array<YBEvent> = []
         
         if self.openDB() {
@@ -124,7 +124,7 @@ import SQLite3
         return events
     }
     
-    func firstId() -> Int {
+    func firstId() throws -> Int {
         if self.openDB() {
             guard let sqlStatement = self.toUtf8(string: YBEventQueries.getFirstId) else {
                 return 0
@@ -150,7 +150,7 @@ import SQLite3
         return 0
     }
     
-    func lastId() -> Int {
+    func lastId() throws -> Int {
         if self.openDB() {
             guard let sqlStatement = self.toUtf8(string: YBEventQueries.getLastId) else {
                 return 0
@@ -175,7 +175,7 @@ import SQLite3
         return 0
     }
     
-    func eventsWith(offlineId: Int) -> Array<YBEvent> {
+    func eventsWith(offlineId: Int) throws -> Array<YBEvent> {
         var events:Array<YBEvent> = []
         
         if self.openDB() {
@@ -213,7 +213,7 @@ import SQLite3
         return events
     }
     
-    func removeEventsWith(eventId: Int) {
+    func removeEventsWith(eventId: Int) throws {
         if self.openDB() {
             var statement: OpaquePointer?
             

@@ -7,7 +7,6 @@
 //
 
 #import "YBEventDataSource.h"
-#import "YBEventDAO.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBEventDataSource()
@@ -52,7 +51,7 @@
 - (void) lastIdWithCompletion: (void (^)(NSNumber*))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
-            NSNumber* offlineId  = [self.eventDAO lastOfflineId];
+            NSNumber* offlineId  = [NSNumber numberWithInteger: [self.eventDAO lastOfflineId]];
             if(querySuccessBlock != nil){
                 querySuccessBlock(offlineId);
             }
@@ -63,7 +62,7 @@
 - (void) eventsWithOfflineId: (NSNumber*) offlineId completion: (void (^)(NSArray*))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
-            NSArray* events = [self.eventDAO eventWithOfflineId:offlineId];
+            NSArray* events = [self.eventDAO eventsWithOfflineId:[offlineId intValue]];
             if(querySuccessBlock != nil){
                 querySuccessBlock(events);
             }
@@ -74,7 +73,7 @@
 - (void) firstIdWithCompletion: (void (^)(NSNumber*))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
-            NSNumber* offlineId = [self.eventDAO firstOfflineId];
+            NSNumber* offlineId = [NSNumber numberWithInteger: [self.eventDAO firstOfflineId]];
             if(querySuccessBlock != nil){
                 querySuccessBlock(offlineId);
             }
@@ -85,7 +84,7 @@
 - (void) deleteEventsWithOfflineId: (NSNumber*) offlindeId completion: (void (^)(void))querySuccessBlock{
     dispatch_async(dispatch_queue_create("background", 0), ^{
         @autoreleasepool {
-            [self.eventDAO deleteEventsWithOfflineId:offlindeId];
+            [self.eventDAO deleteEventsWithOfflineId: [offlindeId intValue]];
             if(querySuccessBlock != nil){
                 querySuccessBlock();
             }
