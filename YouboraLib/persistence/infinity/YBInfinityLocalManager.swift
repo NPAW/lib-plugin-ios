@@ -56,4 +56,14 @@ import Foundation
     static func getLastActive() -> NSNumber? {
         return UserDefaults.standard.value(forKey: YBConstants.preferencesLastActiveKey) as? NSNumber
     }
+    
+    /**
+    * Method that will clean all data in the user defaults realtive with
+    * infinity local manager
+    */
+    static func cleanLocalManager() {
+        UserDefaults.standard.removeObject(forKey: YBConstants.preferencesSessionIdKey)
+        UserDefaults.standard.removeObject(forKey: YBConstants.preferencesContextKey)
+        UserDefaults.standard.removeObject(forKey: YBConstants.preferencesLastActiveKey)
+    }
 }
