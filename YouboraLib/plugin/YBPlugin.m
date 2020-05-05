@@ -52,7 +52,7 @@
 @property(nonatomic, assign) bool isAdStarted;
 @property(nonatomic, strong) YBChrono * preloadChrono;
 @property(nonatomic, strong) YBChrono * iinitChrono;
-
+@property(nonatomic, strong) YBChrono * backgroundInfinity;
 @property(nonatomic, strong) NSString * lastServiceSent;
 
 // Infinity initial variables
@@ -2415,13 +2415,9 @@
 }
 
 - (BOOL) isSessionExpired {
-    bool val = false;
+    int64_t timeInBackground = self.backgroundInfinity.stopTime - self.backgroundInfinity.startTime;
     
-    if (self.viewTransform.fastDataConfig.expirationTime && self.infinity && [self.infinity getLastSent]) {
-        val = ([self.infinity getLastSent].longLongValue + self.viewTransform.fastDataConfig.expirationTime.longLongValue * 1000) < [[[YBChrono alloc] init] now];
-    }
-    
-    return val;
+    return (timeInBackground/1000) >= self.viewTransform.fastDataConfig.expirationTime.longLongValue;
 }
 
 - (YBCommunication *) createCommunication {
@@ -2600,20 +2596,23 @@
         }
         /*if(self.adapter != nil){
             [self.adapter fireStop];
-        }*/
+         }*/
     }
-    if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
-        if ([self getInfinity].flags.started) {
-            long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
-            [self sendBeat:time];
-            [self stopBeats];
-        }
+    
+    if ([self getInfinity].flags.started) {
+        long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
+        
+        [self sendBeat:time];
+        [self stopBeats];
+        self.backgroundInfinity = [YBChrono new];
+        [self.backgroundInfinity start];
     }
 }
 
 - (void) eventListenerDidReceiveToFore: (NSNotification*)uselessNotification {
-    if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
-        if ([self getInfinity].flags.started && ![self isSessionExpired]) {
+    if (self.options != nil && self.backgroundInfinity) {
+        [self.backgroundInfinity stop];
+        if (![self isSessionExpired]) {
             long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
             [self sendBeat:time];
             [self startBeats];
@@ -2626,8 +2625,10 @@
             [self getInfinity].viewTransform = self.viewTransform;
             [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions];
         }
+        self.backgroundInfinity = nil;
     }
 }
+
 // Listener methods
 - (void) startListener:(NSDictionary<NSString *, NSString *> *) params {
     if ((!self.isInitiated && !self.isStarted) || [YBConstantsYouboraService.error isEqualToString:self.lastServiceSent]) {

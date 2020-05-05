@@ -1,3 +1,6 @@
+## [6.5.22] - 
+### Fixed
+- creation of a new session after 4 minutes in background 
 ## [6.5.21] - 2020-04-28
 ### Added
 - Auto init before and send an error 
