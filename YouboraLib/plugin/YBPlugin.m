@@ -119,7 +119,6 @@
             options = [YBOptions new];
         };
         
-        self.isBackgroundAdded = false;
         self.isInitiated = false;
         self.isPreloading = false;
         self.isStarted = false;
