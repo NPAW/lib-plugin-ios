@@ -119,6 +119,7 @@
             options = [YBOptions new];
         };
         
+        self.isBackgroundAdded = false;
         self.isInitiated = false;
         self.isPreloading = false;
         self.isStarted = false;
@@ -163,10 +164,15 @@
         
         self.lastServiceSent = nil;
         
-        [self registerLifeCycleEvents];
+        [self registerToBackgroundNotifications];
     }
     return self;
 }
+
+-(void)stopPlugin {
+    [self unregisterBackgroundNotifications];
+}
+
 
 #pragma mark - Public methods
 - (void)setAdapter:(YBPlayerAdapter *)adapter {
@@ -176,18 +182,6 @@
         _adapter = adapter;
         adapter.plugin = self;
         [adapter addYouboraAdapterDelegate:self];
-        
-        /*if(self.options.autoDetectBackground){
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(eventListenerDidReceivetoBack:)
-                                                         name:UIApplicationDidEnterBackgroundNotification
-                                                       object:nil];
-        
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(eventListenerDidReceiveToFore:)
-                                                         name:UIApplicationDidBecomeActiveNotification
-                                                       object:nil];
-        }*/
     }else{
         [YBLog error:@"Adapter is null in setAdapter"];
     }
@@ -207,12 +201,6 @@
         [self.adapter removeYouboraAdapterDelegate:self];
         
         _adapter = nil;
-        
-        //if(self.options.autoDetectBackground){
-        #if TARGET_OS_IPHONE==1
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-        #endif
-        //}
     }
     
     if(shouldStopPings && self.adsAdapter == nil){
@@ -2575,7 +2563,29 @@
     [deviceInfo setDeviceOsVersion:self.options.deviceOsVersion];
     
     return [deviceInfo mapToJSONString];
-    
+}
+
+- (void)registerToBackgroundNotifications {
+    #if TARGET_OS_IPHONE==1
+    if (self.options.autoDetectBackground) {
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(eventListenerDidReceivetoBack:)
+                                                     name: UIApplicationDidEnterBackgroundNotification
+                                                   object: nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(eventListenerDidReceiveToFore:)
+                                                     name: UIApplicationWillEnterForegroundNotification
+                                                   object: nil];
+    }
+    #endif
+}
+
+-(void)unregisterBackgroundNotifications {
+    #if TARGET_OS_IPHONE==1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    #endif
 }
 
 - (void) eventListenerDidReceivetoBack: (NSNotification*)uselessNotification {
@@ -3397,25 +3407,6 @@
                              @"name" : eventName
                              };
     [self sendSessionEvent:params];
-}
-
-- (void) registerLifeCycleEvents {
-    
-    #if TARGET_OS_IPHONE==1
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(eventListenerDidReceivetoBack:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(eventListenerDidReceiveToFore:)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
-    #endif
 }
 
 - (BOOL) isExtraMetadataReady {

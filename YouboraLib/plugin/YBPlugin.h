@@ -76,6 +76,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 /// ---------------------------------
 
 /**
+* Method to remove all the data that's attached with the plugin and stop all the services
+* Should be called when there's no more session or video to be played
+*/
+-(void)stopPlugin;
+
+/**
  * Sets an adapter for video content.
  *
  * @param adapter The adapter to set
