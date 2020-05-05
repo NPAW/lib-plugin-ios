@@ -10,7 +10,7 @@ import Foundation
 import SQLite3
 
 @objcMembers class YBAppDatabase: NSObject {
-    private let filename: String
+    let filename: String
     private var isDbOpened: Bool
     private var database: OpaquePointer?
     
@@ -25,11 +25,23 @@ import SQLite3
         
     }
     
-    @discardableResult private func createDatabase(filename: String) -> Bool {
+    @discardableResult func createDatabase(filename: String) -> Bool {
         let writableDBPath = self.writableDBPath(dbName: filename)
         
         if FileManager.default.fileExists(atPath: writableDBPath) {
             return true
+        }
+        
+        if let range = writableDBPath.range(of: filename) {
+            let path = writableDBPath.replacingCharacters(in: range, with: "")
+            do {
+                try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+                if !FileManager.default.createFile(atPath: writableDBPath, contents: nil, attributes: nil) {
+                    return  false
+                }
+            } catch {
+                return false
+            }
         }
         
         guard let uft8DBpath = self.toUtf8(string: writableDBPath) ,
@@ -37,28 +49,35 @@ import SQLite3
                 return false
         }
         
-        if sqlite3_open_v2(uft8DBpath, &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX|SQLITE_OPEN_CREATE, nil) == SQLITE_OK {
-            sqlite3_exec(database, createCommand, nil, nil, nil)
-            sqlite3_close_v2(database)
-        }
+        let result = sqlite3_open_v2(uft8DBpath, &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX|SQLITE_OPEN_CREATE, nil)
         
-        return false
+        if result == SQLITE_OK {
+            sqlite3_exec(database, createCommand, nil, nil, nil)
+            if #available(iOS 8.2, *) {
+                sqlite3_close_v2(database)
+            } else {
+                sqlite3_close(database)
+            }
+            return true
+        } else {
+            return false
+        }
     }
     
-    private func writableDBPath(dbName: String) -> String {
+    func writableDBPath(dbName: String) -> String {
         let pahts = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = pahts[0]
         return documentsDirectory+"/"+dbName
     }
     
-    @discardableResult func insertEvent(_ event: YBEvent) throws -> NSNumber {
+    @discardableResult func insertEvent(_ id: Int, jsonEvents: String) throws -> Int {
         if self.openDB() {
             var statement: OpaquePointer?
             let timestamp = String(format: "%.0f", round(CFAbsoluteTimeGetCurrent()*1000))
             
             // preparing a query compiles the query so it can be re-used.
             if let createQuery = self.toUtf8(string: YBEventQueries.create),
-                let jsonEvents = self.toUtf8(string: event.jsonEvents) {
+                let jsonEvents = self.toUtf8(string: jsonEvents) {
                 sqlite3_prepare_v2(database, createQuery, -1, &statement, nil)
                 
                 let SQLITE_STATIC = unsafeBitCast(0, to: sqlite3_destructor_type.self)
@@ -66,7 +85,7 @@ import SQLite3
                 
                 if let timestampDouble = Double(timestamp) {
                     sqlite3_bind_double(statement, 2, timestampDouble)
-                    sqlite3_bind_int64(statement, 3, sqlite3_int64(event.id))
+                    sqlite3_bind_int64(statement, 3, sqlite3_int64(id))
                 }
             }
             // process result
@@ -78,11 +97,11 @@ import SQLite3
             sqlite3_finalize(statement)
             self.closeDB()
             
-            return NSNumber(value: lastId)
+            return Int(lastId)
         }
         
         self.closeDB()
-        return NSNumber(value: -1)
+        return -1
     }
     
     func allEvents() throws -> [YBEvent] {

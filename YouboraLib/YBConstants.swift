@@ -249,15 +249,7 @@ import Foundation
     static public let successListenerOfflineId = "offline_id"
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     // Lib version
-    static public var youboraLibVersion: String {
-        guard let path = Bundle(for: self).url(forResource: "Info", withExtension: "plist"),
-            let values = NSDictionary(contentsOf: path),
-            let version = values["CFBundleShortVersionString"] as? String else {
-                return ""
-        }
-
-        return version
-    }
+    static public var youboraLibVersion = "6.5.21"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"

@@ -9,52 +9,10 @@
 import Foundation
 
 @objcMembers class YBEventDAO: NSObject {
-    func closureTest(closure: () -> Void) {
-        closure()
-    }
-    
-    func insertNewEvent(_ event: YBEvent) {
-        do {
-           try YBAppDatabase.shared.insertEvent(event)
-        } catch {
-            YBSwiftLog.error(error.localizedDescription)
-        }
-    }
-    
-    func allEvents() -> [YBEvent] {
-        do {
-           return try YBAppDatabase.shared.allEvents()
-        } catch {
-            YBSwiftLog.error(error.localizedDescription)
-        }
-        return []
-    }
-    
-    func lastOfflineId() -> Int {
-        do {
-           return try YBAppDatabase.shared.lastId()
-        } catch {
-            YBSwiftLog.error(error.localizedDescription)
-        }
-        return 0
-    }
-    
-    func firstOfflineId() -> Int {
-        do {
-           return try YBAppDatabase.shared.firstId()
-        } catch {
-            YBSwiftLog.error(error.localizedDescription)
-        }
-        return 0
-    }
+
     
     func events(offlineId: Int) -> [YBEvent] {
-        do {
-           return try YBAppDatabase.shared.eventsWith(offlineId: offlineId)
-        } catch {
-            YBSwiftLog.error(error.localizedDescription)
-        }
-        return []
+        
     }
     
     func deleteEvents(offlineId: Int) {
