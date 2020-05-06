@@ -171,10 +171,6 @@
     return self;
 }
 
--(void)stopPlugin {
-    [self unregisterBackgroundNotifications];
-}
-
 
 #pragma mark - Public methods
 - (void)setAdapter:(YBPlayerAdapter *)adapter {
@@ -2612,9 +2608,6 @@
         } else if (self.adapter != nil && self.adapter.flags.started) {
             [self.adapter fireStop];
         }
-        /*if(self.adapter != nil){
-            [self.adapter fireStop];
-         }*/
     }
     
     if ([self getInfinity].flags.started) {
