@@ -50,7 +50,7 @@
 @property(nonatomic, assign) bool isAdStarted;
 @property(nonatomic, strong) YBChrono * preloadChrono;
 @property(nonatomic, strong) YBChrono * iinitChrono;
-
+@property(nonatomic, strong) YBChrono * backgroundInfinity;
 @property(nonatomic, strong) NSString * lastServiceSent;
 
 // Infinity initial variables
@@ -100,6 +100,8 @@
 //Infinity
 @property(nonatomic, strong) YBInfinity * infinity;
 
+// Flag that will help management of the backgroundNotifications
+@property Boolean isBackgroundListenerRegistered;
 @end
 
 @implementation YBPlugin
@@ -116,6 +118,7 @@
             [YBLog warn:@"Options is nil"];
             options = [YBOptions new];
         };
+        self.isBackgroundListenerRegistered = false;
         
         self.isInitiated = false;
         self.isPreloading = false;
@@ -161,10 +164,11 @@
         
         self.lastServiceSent = nil;
         
-        [self registerLifeCycleEvents];
+        [self registerToBackgroundNotifications];
     }
     return self;
 }
+
 
 #pragma mark - Public methods
 - (void)setAdapter:(YBPlayerAdapter *)adapter {
@@ -174,18 +178,7 @@
         _adapter = adapter;
         adapter.plugin = self;
         [adapter addYouboraAdapterDelegate:self];
-        
-        /*if(self.options.autoDetectBackground){
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(eventListenerDidReceivetoBack:)
-                                                         name:UIApplicationDidEnterBackgroundNotification
-                                                       object:nil];
-        
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(eventListenerDidReceiveToFore:)
-                                                         name:UIApplicationDidBecomeActiveNotification
-                                                       object:nil];
-        }*/
+        [self registerToBackgroundNotifications];
     }else{
         [YBLog error:@"Adapter is null in setAdapter"];
     }
@@ -205,12 +198,7 @@
         [self.adapter removeYouboraAdapterDelegate:self];
         
         _adapter = nil;
-        
-        //if(self.options.autoDetectBackground){
-        #if TARGET_OS_IPHONE==1
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-        #endif
-        //}
+        [self unregisterBackgroundNotifications];
     }
     
     if(shouldStopPings && self.adsAdapter == nil){
@@ -2413,13 +2401,9 @@
 }
 
 - (BOOL) isSessionExpired {
-    bool val = false;
+    int64_t timeInBackground = self.backgroundInfinity.stopTime - self.backgroundInfinity.startTime;
     
-    if (self.viewTransform.fastDataConfig.expirationTime && self.infinity && [self.infinity getLastSent]) {
-        val = ([self.infinity getLastSent].longLongValue + self.viewTransform.fastDataConfig.expirationTime.longLongValue * 1000) < [[[YBChrono alloc] init] now];
-    }
-    
-    return val;
+    return (timeInBackground/1000) >= self.viewTransform.fastDataConfig.expirationTime.longLongValue;
 }
 
 - (YBCommunication *) createCommunication {
@@ -2577,7 +2561,33 @@
     [deviceInfo setDeviceOsVersion:self.options.deviceOsVersion];
     
     return [deviceInfo mapToJSONString];
-    
+}
+
+- (void)registerToBackgroundNotifications {
+    #if TARGET_OS_IPHONE==1
+    if (self.options.autoDetectBackground && !self.isBackgroundListenerRegistered) {
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(eventListenerDidReceivetoBack:)
+                                                     name: UIApplicationDidEnterBackgroundNotification
+                                                   object: nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(eventListenerDidReceiveToFore:)
+                                                     name: UIApplicationWillEnterForegroundNotification
+                                                   object: nil];
+        self.isBackgroundListenerRegistered = true;
+    }
+    #endif
+}
+
+-(void)unregisterBackgroundNotifications {
+    #if TARGET_OS_IPHONE==1
+    if (![self getInfinity].flags.started) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+        self.isBackgroundListenerRegistered = false;
+    }
+    #endif
 }
 
 - (void) eventListenerDidReceivetoBack: (NSNotification*)uselessNotification {
@@ -2596,22 +2606,22 @@
         } else if (self.adapter != nil && self.adapter.flags.started) {
             [self.adapter fireStop];
         }
-        /*if(self.adapter != nil){
-            [self.adapter fireStop];
-        }*/
     }
-    if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
-        if ([self getInfinity].flags.started) {
-            long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
-            [self sendBeat:time];
-            [self stopBeats];
-        }
+    
+    if ([self getInfinity].flags.started) {
+        long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
+        
+        [self sendBeat:time];
+        [self stopBeats];
+        self.backgroundInfinity = [YBChrono new];
+        [self.backgroundInfinity start];
     }
 }
 
 - (void) eventListenerDidReceiveToFore: (NSNotification*)uselessNotification {
-    if (self.options != nil && self.options.isInfinity != nil && [self.options.isInfinity isEqualToValue:@YES]) {
-        if ([self getInfinity].flags.started && ![self isSessionExpired]) {
+    if (self.options != nil && self.backgroundInfinity) {
+        [self.backgroundInfinity stop];
+        if (![self isSessionExpired]) {
             long long time = [[[YBChrono alloc] init] now] - self.beatTimer.chrono.startTime;
             [self sendBeat:time];
             [self startBeats];
@@ -2624,8 +2634,10 @@
             [self getInfinity].viewTransform = self.viewTransform;
             [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions];
         }
+        self.backgroundInfinity = nil;
     }
 }
+
 // Listener methods
 - (void) startListener:(NSDictionary<NSString *, NSString *> *) params {
     if ((!self.isInitiated && !self.isStarted) || [YBConstantsYouboraService.error isEqualToString:self.lastServiceSent]) {
@@ -3394,25 +3406,6 @@
                              @"name" : eventName
                              };
     [self sendSessionEvent:params];
-}
-
-- (void) registerLifeCycleEvents {
-    
-    #if TARGET_OS_IPHONE==1
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(eventListenerDidReceivetoBack:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(eventListenerDidReceiveToFore:)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
-    #endif
 }
 
 - (BOOL) isExtraMetadataReady {

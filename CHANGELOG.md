@@ -1,3 +1,11 @@
+## [6.5.23] - 2020-05-06
+### Added
+- Method to stop the plugin when no more plugin is needed
+### Fixed
+- Stop Ad and video when it goes to background
+## [6.5.22] - 2020-05-05
+### Fixed
+- creation of a new session after 4 minutes in background 
 ## [6.5.21] - 2020-04-28
 ### Added
 - Auto init before and send an error 
