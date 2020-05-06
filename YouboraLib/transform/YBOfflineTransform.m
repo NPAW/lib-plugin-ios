@@ -69,24 +69,17 @@
                 
                 if(jsonEvents != nil){
                     [YBLog debug:@"Saving offline event: %@",jsonEvents];
-                    
-                    YBEvent* event = [[YBEvent alloc]
-                                      initWithId:0
-                                      jsonEvents:jsonEvents
-                                      dateUpdate:0
-                                      offlineId:offlineIdInt];
-                    
                     if ([service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]) {
-                        [self.dataSource putNewEvent:event completion:^(void) {
+                        [self.dataSource putNewEventWithOfflineId:offlineIdInt jsonEvents:jsonEvents completion:^{
                             self.startSaved = true;
                             [self processQueue];
                         }];
                     } else if ([service isEqualToString:[YBConstantsYouboraService.stop substringFromIndex:1]]) {
-                        [self.dataSource putNewEvent:event completion:^(void) {
-                            self.startSaved = false;
+                        [self.dataSource putNewEventWithOfflineId:offlineIdInt jsonEvents:jsonEvents completion:^{
+                                                   self.startSaved = false;
                         }];
                     } else {
-                        [self.dataSource putNewEvent:event completion:nil];
+                        [self.dataSource putNewEventWithOfflineId:offlineIdInt jsonEvents:jsonEvents completion:nil];
                     }
                     
                 }

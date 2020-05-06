@@ -9,21 +9,16 @@
 import Foundation
 
 @objcMembers class YBEventDataSource: NSObject {
-    let eventDAO: YBEventDAO
     
-    override init() {
-        self.eventDAO = YBEventDAO()
-    }
-    
-    func putNewEvent(_ id: Int, jsonEvents: String, completion: (() -> Void)? ) {
+    func putNewEvent(offlineId: Int, jsonEvents: String, completion: (() -> Void)? ) {
         DispatchQueue.global(qos: .background).async {
             autoreleasepool {
-               do {
-                   try YBAppDatabase.shared.insertEvent(id, jsonEvents: jsonEvents)
+                do {
+                    try YBAppDatabase.shared.insertEvent(offlineId: offlineId, jsonEvents: jsonEvents)
                 } catch {
                     YBSwiftLog.error(error.localizedDescription)
                 }
-                 completion?()
+                completion?()
             }
         }
     }
@@ -43,18 +38,18 @@ import Foundation
     }
     
     func firstId(completion: @escaping (Int) -> Void) {
-         DispatchQueue.global(qos: .background).async {
-             autoreleasepool {
-                 do {
-                     completion(try YBAppDatabase.shared.firstId())
-                     return
-                 } catch {
-                     YBSwiftLog.error(error.localizedDescription)
-                 }
-                 completion(0)
-             }
-         }
-     }
+        DispatchQueue.global(qos: .background).async {
+            autoreleasepool {
+                do {
+                    completion(try YBAppDatabase.shared.firstId())
+                    return
+                } catch {
+                    YBSwiftLog.error(error.localizedDescription)
+                }
+                completion(0)
+            }
+        }
+    }
     
     func lastId(completion: @escaping (Int) -> Void) {
         DispatchQueue.global(qos: .background).async {
@@ -65,7 +60,6 @@ import Foundation
                 } catch {
                     YBSwiftLog.error(error.localizedDescription)
                 }
-                
                 completion(0)
             }
         }
@@ -87,8 +81,12 @@ import Foundation
     
     func deleteEvents(offlineId: Int, completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .background).async {
-            autoreleasepool {
-                self.eventDAO.deleteEvents(offlineId: offlineId)
+            autoreleasepool {                do {
+                try YBAppDatabase.shared.removeEventsWith(eventId: offlineId)
+                
+            } catch {
+                YBSwiftLog.error(error.localizedDescription)
+                }
                 completion()
             }
         }

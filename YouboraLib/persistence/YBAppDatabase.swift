@@ -27,6 +27,8 @@ import SQLite3
     
     @discardableResult func createDatabase(filename: String) -> Bool {
         let writableDBPath = self.writableDBPath(dbName: filename)
+        self.database = nil
+        self.isDbOpened = false
         
         if FileManager.default.fileExists(atPath: writableDBPath) {
             return true
@@ -70,7 +72,7 @@ import SQLite3
         return documentsDirectory+"/"+dbName
     }
     
-    @discardableResult func insertEvent(_ id: Int, jsonEvents: String) throws -> Int {
+    @discardableResult func insertEvent(offlineId: Int, jsonEvents: String) throws -> Int {
         if self.openDB() {
             var statement: OpaquePointer?
             let timestamp = String(format: "%.0f", round(CFAbsoluteTimeGetCurrent()*1000))
@@ -85,7 +87,7 @@ import SQLite3
                 
                 if let timestampDouble = Double(timestamp) {
                     sqlite3_bind_double(statement, 2, timestampDouble)
-                    sqlite3_bind_int64(statement, 3, sqlite3_int64(id))
+                    sqlite3_bind_int64(statement, 3, sqlite3_int64(offlineId))
                 }
             }
             // process result
@@ -263,8 +265,12 @@ import SQLite3
         sqlite3_initialize()
         
         if !self.isDbOpened {
-            if let filenameUtf8 = self.toUtf8(string: self.filename),
-                sqlite3_open_v2(filenameUtf8, &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, nil) == SQLITE_OK {
+            guard let path = self.toUtf8(string:self.writableDBPath(dbName: self.filename)) else {
+                return self.isDbOpened
+            }
+            
+            let result = sqlite3_open_v2(path, &database, SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, nil)
+            if result == SQLITE_OK {
                 self.isDbOpened = true
             } else {
                 YBSwiftLog.error("SQLite database error: %s", sqlite3_errmsg(database))

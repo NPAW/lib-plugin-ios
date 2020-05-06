@@ -73,7 +73,6 @@
 		06783BC7245DA66600EC0855 /* YBEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06783BC6245DA66600EC0855 /* YBEvent.swift */; };
 		06783BC9245DA9E500EC0855 /* YBEventQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06783BC8245DA9E500EC0855 /* YBEventQueries.swift */; };
 		06783BCB245DABEB00EC0855 /* YBAppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06783BCA245DABEB00EC0855 /* YBAppDatabase.swift */; };
-		06783BCD245FF71D00EC0855 /* YBEventDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06783BCC245FF71D00EC0855 /* YBEventDAO.swift */; };
 		06783BCF245FFC5100EC0855 /* YBInfinityLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06783BCE245FFC5100EC0855 /* YBInfinityLocalManager.swift */; };
 		06783BD12460012F00EC0855 /* YBEventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06783BD02460012F00EC0855 /* YBEventDataSource.swift */; };
 		069FD67A23D202A5004A0726 /* YBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstants.swift */; };
@@ -404,7 +403,6 @@
 		06783BC6245DA66600EC0855 /* YBEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBEvent.swift; sourceTree = "<group>"; };
 		06783BC8245DA9E500EC0855 /* YBEventQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBEventQueries.swift; sourceTree = "<group>"; };
 		06783BCA245DABEB00EC0855 /* YBAppDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBAppDatabase.swift; sourceTree = "<group>"; };
-		06783BCC245FF71D00EC0855 /* YBEventDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBEventDAO.swift; sourceTree = "<group>"; };
 		06783BCE245FFC5100EC0855 /* YBInfinityLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBInfinityLocalManager.swift; sourceTree = "<group>"; };
 		06783BD02460012F00EC0855 /* YBEventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBEventDataSource.swift; sourceTree = "<group>"; };
 		069FD67923D202A5004A0726 /* YBConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YBConstants.swift; path = YouboraLib/YBConstants.swift; sourceTree = SOURCE_ROOT; };
@@ -946,19 +944,10 @@
 				CDFEAF1020FF5B4700C59B67 /* infinity */,
 				CD414478200E2AD100783B65 /* queries */,
 				CD93549F2006849F003A0797 /* entity */,
-				CD93549E20068499003A0797 /* dao */,
 				06783BCA245DABEB00EC0855 /* YBAppDatabase.swift */,
 				06783BD02460012F00EC0855 /* YBEventDataSource.swift */,
 			);
 			path = persistence;
-			sourceTree = "<group>";
-		};
-		CD93549E20068499003A0797 /* dao */ = {
-			isa = PBXGroup;
-			children = (
-				06783BCC245FF71D00EC0855 /* YBEventDAO.swift */,
-			);
-			path = dao;
 			sourceTree = "<group>";
 		};
 		CD93549F2006849F003A0797 /* entity */ = {
@@ -1600,7 +1589,6 @@
 				4E9C7BC11E8E6D8B00E10631 /* YBCdnParser.m in Sources */,
 				CD9373862104ECBC00C75E3A /* YBInfinityFlags.m in Sources */,
 				06783BC7245DA66600EC0855 /* YBEvent.swift in Sources */,
-				06783BCD245FF71D00EC0855 /* YBEventDAO.swift in Sources */,
 				CD9113792382B5DC00D54E38 /* YBSwiftLog.swift in Sources */,
 				4E7CBCBC1E82D64400FF7D7A /* YBViewTransform.m in Sources */,
 				CDA9FD832231F01E00CD72E5 /* YBChrono.swift in Sources */,
