@@ -103,7 +103,7 @@
 @property(nonatomic, strong) YBInfinity * infinity;
 
 // Flag that will help management of the backgroundNotifications
-@property Boolean isBackgroundListenerRegistered
+@property Boolean isBackgroundListenerRegistered;
 @end
 
 @implementation YBPlugin
