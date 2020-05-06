@@ -102,6 +102,8 @@
 //Infinity
 @property(nonatomic, strong) YBInfinity * infinity;
 
+// Flag that will help management of the backgroundNotifications
+@property Boolean isBackgroundListenerRegistered
 @end
 
 @implementation YBPlugin
@@ -118,6 +120,7 @@
             [YBLog warn:@"Options is nil"];
             options = [YBOptions new];
         };
+        self.isBackgroundListenerRegistered = false;
         
         self.isInitiated = false;
         self.isPreloading = false;
@@ -181,6 +184,7 @@
         _adapter = adapter;
         adapter.plugin = self;
         [adapter addYouboraAdapterDelegate:self];
+        [self registerToBackgroundNotifications];
     }else{
         [YBLog error:@"Adapter is null in setAdapter"];
     }
@@ -200,6 +204,7 @@
         [self.adapter removeYouboraAdapterDelegate:self];
         
         _adapter = nil;
+        [self unregisterBackgroundNotifications];
     }
     
     if(shouldStopPings && self.adsAdapter == nil){
@@ -2566,7 +2571,7 @@
 
 - (void)registerToBackgroundNotifications {
     #if TARGET_OS_IPHONE==1
-    if (self.options.autoDetectBackground) {
+    if (self.options.autoDetectBackground && !self.isBackgroundListenerRegistered) {
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(eventListenerDidReceivetoBack:)
                                                      name: UIApplicationDidEnterBackgroundNotification
@@ -2576,14 +2581,18 @@
                                                  selector: @selector(eventListenerDidReceiveToFore:)
                                                      name: UIApplicationWillEnterForegroundNotification
                                                    object: nil];
+        self.isBackgroundListenerRegistered = true;
     }
     #endif
 }
 
 -(void)unregisterBackgroundNotifications {
     #if TARGET_OS_IPHONE==1
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    if (![self getInfinity].flags.started) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+        self.isBackgroundListenerRegistered = false;
+    }
     #endif
 }
 
