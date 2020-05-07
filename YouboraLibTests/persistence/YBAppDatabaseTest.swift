@@ -22,6 +22,7 @@ class YBAppDatabaseTest: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: dbPath))
         XCTAssertTrue(YBAppDatabase.shared.createDatabase(filename: YBAppDatabase.shared.filename))
         XCTAssertTrue(FileManager.default.fileExists(atPath: dbPath))
+        XCTAssertTrue(YBAppDatabase.shared.createDatabase(filename: YBAppDatabase.shared.filename))
     }
     
     func testInsert() {
