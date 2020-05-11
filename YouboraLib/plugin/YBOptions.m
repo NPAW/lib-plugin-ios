@@ -10,6 +10,12 @@
 #import "YBCdnParser.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
+@interface YBOptions()
+
+@property (nonatomic, strong) NSString * internalContentStreamingProtocol;
+@property (nonatomic, strong) NSString * internalContentTransportFormat;
+
+@end
 
 @implementation YBOptions
 
@@ -838,10 +844,14 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     
     for (NSString *allowedStreamingProtocol in allowedProtocols) {
         if ([[allowedStreamingProtocol lowercaseString] isEqualToString:[streamingProtocol lowercaseString]]) {
-            self.contentStreamingProtocol = streamingProtocol;
+            self.internalContentStreamingProtocol = streamingProtocol;
             return;
         }
     }
+}
+
+-(NSString*)contentStreamingProtocol {
+    return self.internalContentStreamingProtocol;
 }
 
 -(void)setContentTransportFormat:(NSString*)transportFormat {
@@ -852,9 +862,13 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     
     for (NSString *allowedFormat in allowedFormats) {
         if ([[allowedFormat lowercaseString] isEqualToString:[transportFormat lowercaseString]]) {
-            self.contentTransportFormat = transportFormat;
+            self.internalContentTransportFormat = transportFormat;
             return;
         }
     }
+}
+
+-(NSString*)contentTransportFormat {
+    return self.internalContentTransportFormat;
 }
 @end

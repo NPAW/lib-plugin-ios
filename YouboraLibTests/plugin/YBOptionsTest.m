@@ -42,6 +42,43 @@
     XCTAssertEqual(options.parseResource, true);
 }
 
+-(void)testInvalidContentStreamingProtocol {
+    YBOptions * options = [YBOptions new];
+    XCTAssertNil(options.contentStreamingProtocol);
+    
+    options.contentStreamingProtocol = @"test";
+    
+    XCTAssertNil(options.contentStreamingProtocol);
+}
+
+-(void)testValidContentStreamingProtocol {
+    YBOptions * options = [YBOptions new];
+    XCTAssertNil(options.contentStreamingProtocol);
+    
+    options.contentStreamingProtocol = YBConstantsStreamProtocol.dash;
+    
+    XCTAssertTrue([options.contentStreamingProtocol isEqualToString:YBConstantsStreamProtocol.dash]);
+}
+
+-(void)testInvalidContentTransportFormat {
+    YBOptions * options = [YBOptions new];
+    XCTAssertNil(options.contentTransportFormat);
+    
+    options.contentTransportFormat = @"test";
+    
+    XCTAssertNil(options.contentTransportFormat);
+}
+
+-(void)testValidContentTransportFormat {
+    YBOptions * options = [YBOptions new];
+    XCTAssertNil(options.contentTransportFormat);
+    
+    options.contentTransportFormat = YBConstantsTransportFormat.hlsFmp4;
+    
+    XCTAssertTrue([options.contentTransportFormat isEqualToString:YBConstantsTransportFormat.hlsFmp4]);
+}
+
+
 - (void) fillOptions:(YBOptions *) opt {
     opt.enabled = false;
     opt.httpSecure = true;
@@ -112,7 +149,7 @@
     opt.deviceOsVersion = @"deviceOsVersion";
     opt.deviceIsAnonymous = true;
     opt.contentTitle = @"contentTitle";
-    opt.contentStreamingProtocol = @"contentStreamingProtocol";
+    opt.contentStreamingProtocol = YBConstantsStreamProtocol.dash;
     opt.contentMetrics = @{@"contentMetrics":@"contentMetrics"};
     opt.contentIsLiveNoSeek = @(true);
     opt.contentPackage = @"contentPackage";

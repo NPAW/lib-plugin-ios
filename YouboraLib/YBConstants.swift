@@ -161,7 +161,6 @@ import Foundation
     static public let totalBytes = "totalBytes"
 }
 
-
 // YBConstants with stream protocols
 @objcMembers open class YBConstantsStreamProtocol: NSObject {
     static public let hds = "HDS"
