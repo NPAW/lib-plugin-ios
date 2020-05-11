@@ -693,6 +693,13 @@
     if (self.options.contentTransportFormat != nil) {
          return [self.options.contentTransportFormat uppercaseString];
     }
+    
+    NSString *autoDectectedTransportFormat = [self.resourceTransform getTransportFormat];
+    
+    if (autoDectectedTransportFormat) {
+        return [autoDectectedTransportFormat uppercaseString];
+    }
+    
     return nil;
 }
 
@@ -2552,7 +2559,7 @@
         NSString * res = [self getResource];
         
         if (res) {
-            [self.resourceTransform begin:res];
+            [self.resourceTransform begin:res userDefinedTransportFormat:self.options.contentTransportFormat];
         }
     }
 }

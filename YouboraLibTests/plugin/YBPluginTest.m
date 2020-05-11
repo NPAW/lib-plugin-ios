@@ -637,6 +637,14 @@
     XCTAssertEqualObjects(YBConstantsStreamProtocol.hls, [self.p getStreamingProtocol]);
 }
 
+- (void) testGetTransportFormat {
+    XCTAssertNil([self.p getTransportFormat]);
+    
+    stubProperty(self.mockOptions, contentTransportFormat, YBConstantsTransportFormat.hlsFmp4);
+    
+    XCTAssertEqualObjects(YBConstantsTransportFormat.hlsFmp4, [self.p getStreamingProtocol]);
+}
+
 - (void) testDeprecatedExtraParams {
     stubProperty(self.mockOptions, extraparam1, @"1");
     stubProperty(self.mockOptions, extraparam2, @"2");
