@@ -89,4 +89,27 @@ class YBDashParserTest: XCTestCase {
             
         } catch {}
     }
+    
+    func testTransportFormat() {
+        let testBundle = Bundle(for: self.classForCoder)
+        let parser = YBDashParser()
+        
+        let locationXmlPath = testBundle.path(forResource: "dashResponse", ofType: "xml")!
+        let finalResourceXmlPath = testBundle.path(forResource: "dashCallbackResponse", ofType: "xml")!
+
+        do {
+            var xmlData = try Data(contentsOf: URL(fileURLWithPath: locationXmlPath, isDirectory: false), options: [])
+            
+            var tranportFormat = parser.parseTransportFormat(data: xmlData, response: nil, listenerParents: nil, userDefinedTransportFormat: nil)
+            
+            xmlData = try Data(contentsOf: URL(fileURLWithPath: finalResourceXmlPath, isDirectory: false), options: [])
+            
+            tranportFormat = parser.parseTransportFormat(data: xmlData, response: nil, listenerParents: nil, userDefinedTransportFormat: nil)
+            XCTAssertEqual(tranportFormat, YBConstantsTransportFormat.hlsFmp4)
+            
+            tranportFormat = parser.parseTransportFormat(data: xmlData, response: nil, listenerParents: nil, userDefinedTransportFormat: "")
+            XCTAssertNil(tranportFormat)
+            
+        } catch {}
+    }
 }
