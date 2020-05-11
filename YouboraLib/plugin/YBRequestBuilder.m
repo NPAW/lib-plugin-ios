@@ -86,6 +86,7 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.deviceInfo,
                 YBConstantsRequest.userType,
                 YBConstantsRequest.streamingProtocol,
+                YBConstantsRequest.transportFormat,
                 YBConstantsRequest.experiments,
                 YBConstantsRequest.obfuscateIp,
                 YBConstantsRequest.householdId,
@@ -369,6 +370,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getProgram];
     } else if ([param isEqualToString:YBConstantsRequest.streamingProtocol]){
         value = [self.plugin getStreamingProtocol];
+    } else if ([param isEqualToString:YBConstantsRequest.transportFormat]){
+        value = [self.plugin getTransportFormat];
     } else if ([param isEqualToString:YBConstantsRequest.live]){
         NSValue * live = [self.plugin getIsLive];
         if (live != nil) {

@@ -28,7 +28,6 @@
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
 #import "YBTimestampLastSentTransform.h"
-
 #import "YouboraLib/YouboraLib-Swift.h"
 
 #if TARGET_OS_IPHONE==1
@@ -690,6 +689,12 @@
     return nil;
 }
 
+- (NSString *)getTransportFormat {
+    if (self.options.contentTransportFormat != nil) {
+         return [self.options.contentTransportFormat uppercaseString];
+    }
+    return nil;
+}
 
 - (NSString *)getTransactionCode {
     return self.options.contentTransactionCode;
