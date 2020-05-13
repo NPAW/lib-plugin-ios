@@ -1,4 +1,9 @@
 ## [6.5.24] - 
+### Added
+- Transport format
+- Auto detection case transport format or streaming protocol not defined
+### Changed
+- Streaming protocol only accepts YBConstantsStreamProtocol values
 ### Fixed
 - Memory leaks caused by unreleased delegates 
 ## [6.5.23] - 2020-05-06
