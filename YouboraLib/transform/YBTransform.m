@@ -19,7 +19,7 @@
  * List of listeners that will be notified once the Transform is done, if it's asynchronous or
  * it has to wait for something to happen.
  */
-@property (nonatomic, strong) NSMutableArray<id<YBTransformDoneListener>> * listeners;
+@property (nonatomic, weak) id<YBTransformDoneListener> listener;
 
 @end
 
@@ -30,7 +30,6 @@
 {
     self = [super init];
     if (self) {
-        self.listeners = [NSMutableArray arrayWithCapacity:1];
         self.isBusy = true;
         self.sendRequest = true;
     }
@@ -40,13 +39,13 @@
 #pragma mark - Public methods
 - (void)addTransformDoneListener:(id<YBTransformDoneListener>)listener {
     if (listener != nil) {
-        [self.listeners addObject:listener];
+        self.listener = listener;
     }
 }
 
 - (void) removeTransformDoneListener:(id<YBTransformDoneListener>)listener {
-    if (listener != nil) {
-        [self.listeners removeObject:listener];
+    if (listener == self.listener) {
+        self.listener = nil;
     }
 }
 
@@ -68,8 +67,8 @@
 #pragma mark - "Protected" methods
 - (void) done {
     self.isBusy = false;
-    for (id<YBTransformDoneListener> listener in self.listeners) {
-        [listener transformDone:self];
+    if (self.listener) {
+        [self.listener transformDone:self];
     }
 }
 
