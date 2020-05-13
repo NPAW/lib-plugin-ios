@@ -56,6 +56,7 @@ import Foundation
     static public let deviceInfo = "deviceInfo"
     static public let userType = "userType"
     static public let streamingProtocol = "streamingProtocol"
+    static public let transportFormat = "transportFormat"
     static public let experiments = "experiments"
     static public let obfuscateIp = "obfuscateIp"
     static public let householdId = "householdId"
@@ -169,6 +170,10 @@ import Foundation
     static public let rtmp = "RTMP"
     static public let rtp = "RTP"
     static public let rtsp = "RTSP"
+}
+
+// YBConstants with transport format
+@objcMembers open class YBConstantsTransportFormat: NSObject {
     static public let hlsTs = "HLS-TS"
     static public let hlsFmp4 = "HLS-FMP4"
 }

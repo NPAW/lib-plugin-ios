@@ -42,4 +42,16 @@ import Foundation
     - Returns: String nil case no new resource found or invalid data or a new resource case any new was found
     */
     @objc func parseResource(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?) -> String?
+    
+    /**
+       Receive all the data from a normal network request and try to parse this to get transport format, it will check
+        if the transport format was already defined by the user and case it didn't it'll try to auto detect it
+        
+        - Parameter data: Data coming from the network request
+        - Parameter response: HTTPURLResponse coming from the network request
+        - Parameter listenerParents: Dictionary with listenerParents coming from the network request
+        - Parameter userDefinedTransportFormat: String with transport format defined by the user
+       - Returns: String nil case user already defined the transport format or transport format in the manifest
+       */
+       @objc func parseTransportFormat(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?, userDefinedTransportFormat: String?) -> String?
 }

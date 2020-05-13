@@ -7,6 +7,13 @@
 //
 import Foundation
 
+fileprivate struct ParseResponse {
+    let resource: String
+    let dataString: String
+    let match: NSTextCheckingResult
+    let regexText: String
+}
+
 @objcMembers public class YBHlsParser: NSObject, YBResourceParser {
     var resource: String?
     
@@ -29,7 +36,7 @@ import Foundation
         return self.resource
     }
     
-    public func parseResource(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?) -> String? {
+    private func obtainInfo(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?) -> ParseResponse? {
         guard let data = data,
             let resultData = String(data: data, encoding: .utf8),
             let resource = self.resource else {
@@ -38,8 +45,9 @@ import Foundation
         
         do {
             // Expression to accept all media formats
-            let regex = try NSRegularExpression(pattern: "(\\S*?(\\.m3u8|\\.m3u|\\.ts|\\.mp4)(?:\\?\\S*|\\R|$))")
+            let regex = try NSRegularExpression(pattern: "(\\S*?(\\.m3u8|\\.m3u|\\.ts|\\.mp4|\\.m4s)(?:\\?\\S*|\\R|$))")
             var regexText = resultData
+            
             
             var tmpMatch = regex.firstMatch(in: resultData, options: [], range: NSRange(location: 0, length: resultData.count))
             
@@ -56,30 +64,53 @@ import Foundation
                 }
             }
             
-            guard let match = tmpMatch ,
-                let resRange = Range(match.range(at: 1), in: regexText),
-                let extRange = Range(match.range(at: 2), in: regexText) else {
-                    
-                // didn't found any compatible resource so returns nil
+            if let match = tmpMatch {
+                return ParseResponse(resource: resource, dataString: resultData, match: match, regexText: regexText)
+            } else {
                 return nil
             }
             
-            var res = String(resultData[resRange]).trimmingCharacters(in: CharacterSet.newlines).trimmingCharacters(in: CharacterSet.whitespaces)
-            let ext = String(resultData[extRange])
-            
-            if res.isEmpty || ext.isEmpty { return nil }
-            
-            // Get the base path from the resource and add it top the final resource
-            if !res.lowercased().hasPrefix("http") {
-                if let basePathRange = resource.range(of: "/", options: .backwards) {
-                    let basePath = String(resource[..<basePathRange.upperBound])
-                    res = basePath+res
-                }
-            }
-            
-            return res
         } catch {
             return nil
         }
+    }
+    public func parseResource(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?) -> String? {
+        
+        guard let info = self.obtainInfo(data: data, response: response, listenerParents: listenerParents),
+            let resRange = Range(info.match.range(at: 1), in: info.regexText),
+            let extRange = Range(info.match.range(at: 2), in: info.regexText) else {
+                
+                // didn't found any compatible resource so returns nil
+                return nil
+        }
+        
+        var res = String(info.dataString[resRange]).trimmingCharacters(in: CharacterSet.newlines).trimmingCharacters(in: CharacterSet.whitespaces)
+        let ext = String(info.dataString[extRange])
+        
+        if res.isEmpty || ext.isEmpty { return nil }
+        
+        // Get the base path from the resource and add it top the final resource
+        if !res.lowercased().hasPrefix("http") {
+            if let basePathRange = info.resource.range(of: "/", options: .backwards) {
+                let basePath = String(info.resource[..<basePathRange.upperBound])
+                res = basePath+res
+            }
+        }
+        
+        return res
+    }
+    
+    public func parseTransportFormat(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?, userDefinedTransportFormat: String?) -> String? {
+        if userDefinedTransportFormat != nil {
+            return nil
+        }
+        
+        guard let info = self.obtainInfo(data: data, response: response, listenerParents: listenerParents),
+            let extRange = Range(info.match.range(at: 2), in: info.regexText) else {
+                // didn't found any compatible resource so returns nil
+                return nil
+        }
+        
+        return YBResourceParserUtil.translateTransportResource(transportResource: String(info.dataString[extRange]))
     }
 }

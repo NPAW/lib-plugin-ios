@@ -510,6 +510,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getStreamingProtocol;
 
 /**
+ * Returns the content transport format
+ * @return the content transport format
+ */
+- (nullable NSString *) getTransportFormat;
+
+/**
  * Returns the version of the player that is used to play the content
  * @return the player version
  */

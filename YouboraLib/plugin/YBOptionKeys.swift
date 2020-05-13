@@ -59,6 +59,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.contentTransactionCode: (.string, "contentTransactionCode"),
         YBOptionKeys.contentBitrate: (.number, "contentBitrate"),
         YBOptionKeys.contentStreamingProtocol: (.string, "contentStreamingProtocol"),
+        YBOptionKeys.contentTransportFormat: (.string, "contentTransportFormat"),
         YBOptionKeys.contentThroughput: (.number, "contentThroughput"),
         YBOptionKeys.contentRendition: (.string, "contentRendition"),
         YBOptionKeys.contentCdn: (.string, "contentCdn"),
@@ -196,6 +197,7 @@ public struct YBOptionUtilsKeys {
     public static let contentCdn = "content.cdn"
     public static let contentFps = "content.fps"
     public static let contentStreamingProtocol = "content.streamingProtocol"
+    public static let contentTransportFormat = "content.transportFormat"
     public static let contentMetadata = "content.metadata"
     public static let contentMetrics = "content.metrics"
     public static let contentIsLiveNoSeek = "content.isLiveNoSeek"

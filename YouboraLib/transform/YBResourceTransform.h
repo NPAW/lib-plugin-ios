@@ -43,7 +43,7 @@
  * if ended it will restart.
  * @param originalResource the original resource
  */
-- (void) begin:(NSString *) originalResource;
+- (void) begin:(NSString *) originalResource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat;
 
 /**
  * Get the resource. If the transform is done, the real (parsed) resource will be returned
@@ -51,6 +51,13 @@
  * @return the initial or parsed resource
  */
 - (NSString *) getResource;
+
+/**
+* Check if user didn't define a transport format and if there's a valid transport format
+* returns it
+* @return transport format present in manifest or nil
+*/
+- (nullable NSString*) getTransportFormat;
 
 /**
  * Get CDN name
@@ -76,7 +83,7 @@
  */
 - (nullable NSString *) getNodeTypeString;
 
--(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource;
--(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource;
+-(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat;
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat;
 -(id<YBResourceParser> _Nullable)getNextParser:(id<YBResourceParser>)parser;
 @end
