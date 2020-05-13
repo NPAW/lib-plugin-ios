@@ -1,3 +1,6 @@
+## [6.5.24] - 
+### Fixed
+- Memory leaks caused by unreleased delegates 
 ## [6.5.23] - 2020-05-06
 ### Added
 - Method to stop the plugin when no more plugin is needed

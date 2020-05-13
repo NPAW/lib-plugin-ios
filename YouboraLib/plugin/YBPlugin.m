@@ -245,7 +245,7 @@
 - (YBInfinity *) getInfinity {
     if (!self.infinity) {
         self.infinity = [[YBInfinity alloc] init];
-        [self.infinity addYouboraInfinityDelegate:self];
+        self.infinity.delegate = self;
         self.infinity.viewTransform = self.viewTransform;
     }
     
