@@ -151,7 +151,7 @@
 }
 
 -(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
-    YBRequest *request = [[YBRequest alloc] initWithHost:[parser getRequestSource] andService:nil];
+    YBRequest *request = [[YBRequest alloc] initWithHost:resource andService:nil];
     
     [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *,id> * _Nullable listenerParams) {
         if (![parser isSatisfiedWithResource:resource manifest:data]) {
@@ -175,6 +175,8 @@
     [request addRequestErrorListener:^(NSError * _Nullable error) {
         [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
     }];
+    
+    [request send];
 }
 
 -(id<YBResourceParser> _Nullable)getNextParser:(id<YBResourceParser>)parser {
