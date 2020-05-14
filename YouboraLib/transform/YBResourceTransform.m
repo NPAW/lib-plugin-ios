@@ -293,7 +293,7 @@
     return [YBCdnParser createWithName:cdn];
 }
 
-- (NSString *)getTransportFormat {
+- (NSString *)getTransportFormat {
     return self.transportFormat;
 }
 

@@ -43,7 +43,7 @@ import Foundation
         return location
     }
     
-    public func parseTransportFormat(data: Data?, response: HTTPURLResponse?, listenerParents: [String : AnyObject]?, userDefinedTransportFormat: String?) -> String? {
+    public func parseTransportFormat(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?, userDefinedTransportFormat: String?) -> String? {
         if userDefinedTransportFormat != nil {
             return nil
         }
@@ -77,7 +77,7 @@ import Foundation
         return nil
     }
     
-    private func getMimeType(xml:String) -> String? {
+    private func getMimeType(xml: String) -> String? {
         let mimeTypePattern = "<AdaptationSet.+mimeType=\"video/(.+?)\".+>"
         
         return self.getExpression(pattern: mimeTypePattern, xml: xml)

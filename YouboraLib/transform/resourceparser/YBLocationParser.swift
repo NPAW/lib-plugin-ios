@@ -32,7 +32,7 @@ import Foundation
         return response.allHeaderFields["Location"] as? String
     }
     
-    public func parseTransportFormat(data: Data?, response: HTTPURLResponse?, listenerParents: [String : AnyObject]?, userDefinedTransportFormat: String?) -> String? {
+    public func parseTransportFormat(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?, userDefinedTransportFormat: String?) -> String? {
         return nil
     }
 }
