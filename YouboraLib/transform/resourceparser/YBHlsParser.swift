@@ -7,7 +7,7 @@
 //
 import Foundation
 
-fileprivate struct ParseResponse {
+private struct ParseResponse {
     let resource: String
     let dataString: String
     let match: NSTextCheckingResult
@@ -47,7 +47,6 @@ fileprivate struct ParseResponse {
             // Expression to accept all media formats
             let regex = try NSRegularExpression(pattern: "(\\S*?(\\.m3u8|\\.m3u|\\.ts|\\.mp4|\\.m4s)(?:\\?\\S*|\\R|$))")
             var regexText = resultData
-            
             
             var tmpMatch = regex.firstMatch(in: resultData, options: [], range: NSRange(location: 0, length: resultData.count))
             

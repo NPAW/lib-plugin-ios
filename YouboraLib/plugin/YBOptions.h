@@ -372,7 +372,7 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
 /**
  * Flag that indicates if the plugin should send total bytes or not
  */
-@property NSNumber* _Nullable sendTotalBytes;
+@property NSNumber* sendTotalBytes;
 
 
 /**
@@ -385,14 +385,14 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
  YBConstantsStreamProtocol.rtp
  YBConstantsStreamProtocol.rtsp
  */
-@property (nonatomic, strong ,setter=setContentStreamingProtocol:) NSString* _Nullable contentStreamingProtocol;
+@property (nonatomic, strong ,setter=setContentStreamingProtocol:) NSString*  contentStreamingProtocol;
 
 /**
 * Transport format of the content, you can use any of these YBConstantsTransportFormat:
 YBConstantsTransportFormat.hlsTs
 YBConstantsTransportFormat.hlsFmp4
 */
-@property(nonatomic, strong, setter=setContentTransportFormat:) NSString * _Nullable contentTransportFormat;
+@property(nonatomic, strong, setter=setContentTransportFormat:) NSString* contentTransportFormat;
 
 /**
  * Throughput of the client bandwidth in bits per second.

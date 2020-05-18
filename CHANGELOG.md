@@ -6,6 +6,7 @@
 - Streaming protocol only accepts YBConstantsStreamProtocol values
 ### Fixed
 - Memory leaks caused by unreleased delegates 
+- Warning caused by code indentation and nullability conditions
 ## [6.5.23] - 2020-05-06
 ### Added
 - Method to stop the plugin when no more plugin is needed
