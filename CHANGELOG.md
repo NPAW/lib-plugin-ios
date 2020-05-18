@@ -1,3 +1,6 @@
+## [6.5.25] -
+### Added
+- Get url to be parsed as a resource by the plugin
 ## [6.5.24] - 2020-05-18
 ### Added
 - Transport format
