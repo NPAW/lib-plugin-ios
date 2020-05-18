@@ -1,4 +1,4 @@
-## [6.5.24] - 
+## [6.5.24] - 2020-05-18
 ### Added
 - Transport format
 - Auto detection case transport format or streaming protocol not defined
