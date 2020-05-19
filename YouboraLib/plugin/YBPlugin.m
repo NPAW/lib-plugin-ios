@@ -2556,7 +2556,15 @@
 
 - (void) startResourceParsing {
     if (!self.resourceTransform.isBusy && !self.resourceTransform.isFinished) {
-        NSString * res = [self getResource];
+        NSString *adapterUrl;
+        
+        if (self.adapter) {
+            adapterUrl = [self.adapter getURLToParse];
+        }
+        
+        NSString *res = [YBResourceParserUtil
+                         mergeWithResourseUrl:[self getOriginalResource]
+                         adapterUrl:adapterUrl];
         
         if (res) {
             [self.resourceTransform begin:res userDefinedTransportFormat:self.options.contentTransportFormat];

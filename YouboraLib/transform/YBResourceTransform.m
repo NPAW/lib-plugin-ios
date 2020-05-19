@@ -112,6 +112,13 @@
 
 - (void)begin:(NSString *)originalResource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
     if (!self.isBusy) {
+        
+        if ([YBResourceParserUtil isFinalURLWithResourceUrl:originalResource]) {
+            self.currentResource = originalResource;
+            [self done];
+            return;
+        }
+        
         self.transportFormat = nil;
         self.isBusy = true;
         self.isFinished = false;
