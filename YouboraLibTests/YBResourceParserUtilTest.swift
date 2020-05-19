@@ -37,6 +37,6 @@ class YBResourceParserUtilTest: XCTestCase {
         XCTAssertNil(YBResourceParserUtil.translateTransportResource(transportResource: "testResource.xpto"))
         
         XCTAssertEqual(YBConstantsTransportFormat.hlsFmp4, YBResourceParserUtil.translateTransportResource(transportResource: "testResource.mp4"))
-        XCTAssertEqual(YBConstantsTransportFormat.hlsTs, YBResourceParserUtil.translateTransportResource(transportResource: "testResource.ts"))
+        XCTAssertEqual(YBConstantsTransportFormat.hlsTs, YBResourceParserUtil.translateTransportResource(transportResource: "testResource.mp4"))
     }
 }
