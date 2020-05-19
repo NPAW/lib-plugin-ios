@@ -9,10 +9,19 @@
 import XCTest
 
 class YBResourceParserUtilTest: XCTestCase {
+    
     func testMerge() {
         XCTAssertNil(YBResourceParserUtil.merge(resourseUrl: nil, adapterUrl: nil))
         
-        let resourceUrl = "test"
+        let resourceUrl = "testResource"
         XCTAssertEqual(resourceUrl, YBResourceParserUtil.merge(resourseUrl: resourceUrl, adapterUrl: nil))
+        
+        let adapterUrl = "testAdapter"
+        XCTAssertEqual(adapterUrl, YBResourceParserUtil.merge(resourseUrl: nil, adapterUrl: adapterUrl))
+        
+        XCTAssertEqual(adapterUrl, YBResourceParserUtil.merge(resourseUrl: resourceUrl, adapterUrl: adapterUrl))
+        
     }
+    
+    
 }
