@@ -17,8 +17,9 @@ import Foundation
         return adapterUrl
     }
     
-    static func isFinalURL(resourceUrl: String) -> Bool {
-        guard let resource = URL(string: resourceUrl) else {
+    static func isFinalURL(resourceUrl: String?) -> Bool {
+        guard let url = resourceUrl,
+            let resource = URL(string: url) else {
             return false
         }
         
