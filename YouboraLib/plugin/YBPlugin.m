@@ -320,9 +320,6 @@
     [self sendError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
 }
 - (void) fireFatalErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata andException:(nullable NSException*) exception{
-    
-    if (![self.errorHandler isNewErrorWithMessage:msg code:code]) { return; }
-    
     if(self.adapter != nil){
         if(exception != nil){
             [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata andException:exception];

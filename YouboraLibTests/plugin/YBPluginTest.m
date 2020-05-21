@@ -1773,7 +1773,7 @@
     
     [self.p fireErrorWithParams:nil];
     [self.p fireErrorWithMessage:@"" code:@"" andErrorMetadata:@""];
-    [self.p fireFatalErrorWithMessage:@"" code:@"" andErrorMetadata:@"" andException:nil];
+    [self.p fireFatalErrorWithMessage:@"message" code:@"code" andErrorMetadata:@"" andException:nil];
     [verifyCount(self.p.mockRequest, times(3)) setService:YBConstantsYouboraService.error];
 }
 
