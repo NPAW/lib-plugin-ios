@@ -101,6 +101,9 @@
 //Infinity
 @property(nonatomic, strong) YBInfinity * infinity;
 
+// Property that gonna prevent the same error to be sent in less than x seconds
+@property(nonatomic, strong) YBErrorHandler *errorHandler;
+
 // Flag that will help management of the backgroundNotifications
 @property Boolean isBackgroundListenerRegistered;
 @end
@@ -120,7 +123,7 @@
             options = [YBOptions new];
         };
         self.isBackgroundListenerRegistered = false;
-        
+        self.errorHandler = [[YBErrorHandler alloc] initWithSecondsToClean:5];
         self.isInitiated = false;
         self.isPreloading = false;
         self.isStarted = false;
@@ -304,13 +307,22 @@
 }
 
 - (void) fireErrorWithParams:(NSDictionary<NSString *, NSString *> *) params {
+    NSString *msg = params[YBConstantsErrorParams.message];
+    NSString *code = params[YBConstantsErrorParams.code];
+    if (![self.errorHandler isNewErrorWithMessage:msg code:code]) { return; }
+    
     [self sendError:[YBYouboraUtils buildErrorParams:params]];
 }
 
 - (void) fireErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata {
+    if (![self.errorHandler isNewErrorWithMessage:msg code:code]) { return; }
+    
     [self sendError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
 }
 - (void) fireFatalErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata andException:(nullable NSException*) exception{
+    
+    if (![self.errorHandler isNewErrorWithMessage:msg code:code]) { return; }
+    
     if(self.adapter != nil){
         if(exception != nil){
             [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata andException:exception];
@@ -2477,51 +2489,9 @@
         self.lastServiceSent = r.service;
         
         [self.comm sendRequest:r withCallback:successListener andListenerParams:successListenerParams];
-        
-        /*if([service isEqualToString:YouboraServiceOffline]){
-            __block YBEventDataSource* dataSource = [[YBEventDataSource alloc] init];
-            r.method = YouboraHTTPMethodPost;
-            
-            YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response,  NSDictionary<NSString *, id>* listenerParams) {
-                [dataSource deleteEventsWithOfflineId:offlineId completion:^{
-                    [YBLog debug:@"Offline events deleted"];
-                }];
-            };
-            NSNumber* blockOfflineId = params[@"offlineId"] == nil ? @-1 : @([params[@"offlineId"] intValue]);
-            [r.params removeObjectForKey:@"offlineId"];
-            [self.comm sendRequest:r withCallback:successListener];
-        }else{
-            [self.comm sendRequest:r withCallback:nil];
-        }*/
     }
     
 }
-
-/*- (void) sendInfinityWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params {
-    
-    params = [self.requestBuilder buildParams:params forService:service];
-    
-    if (callbacks != nil) {
-        for (YBWillSendRequestBlock block in callbacks) {
-            @try {
-                block(service, self, params);
-            } @catch (NSException *exception) {
-                [YBLog error:@"Exception while calling willSendRequest"];
-                [YBLog logException:exception];
-            }
-        }
-    }
-    
-    if ([self getInfinity].communication != nil && params != nil && self.options.enabled) {
-        YBRequest * r = [self createRequestWithHost:nil andService:service];
-        r.params = params;
-        
-        self.lastServiceSent = r.service;
-        
-        [[self getInfinity].communication sendRequest:r withCallback:nil andListenerParams:nil];
-    }
-    
-}*/
 
 - (NSString *) jsonFromDictionary: (NSDictionary*) dictionary{
     NSError *error;

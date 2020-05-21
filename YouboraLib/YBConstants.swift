@@ -248,6 +248,18 @@ import Foundation
     static public let videoEvent = "/infinity/video/event"
 }
 
+// Infinity service YBConstants
+@objcMembers open class YBConstantsErrorParams: NSObject {
+    /** Key to save code in error parameters **/
+    static public let code = "errorCode"
+    /** Key to save message in error parameters **/
+    static public let message = "errorMsg"
+    /** Key to save metadata in error parameters **/
+    static public let metadata = "errorMetadata"
+    /** Key to save the level in error parameters **/
+    static public let level = "errorLevel"
+}
+
 // Generic YBConstants
 @objcMembers open class YBConstants: NSObject {
     /** Key for request success param */

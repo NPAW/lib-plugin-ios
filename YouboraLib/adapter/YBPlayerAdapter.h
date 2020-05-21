@@ -581,7 +581,7 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
 /**
  * Sends a non-fatal error (with level = "error").
  * @param msg Error message (should be unique for the code)
- * @param code Error code reported
+ * @param code Error code reported (works as identifier as well)
  * @param errorMetadata Extra error info, if available.
  */
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata;
@@ -590,7 +590,7 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  * Sends a non-fatal error (with level = "error"). It's empty by default, every adapter
  * can override it
  * @param msg Error message (should be unique for the code)
- * @param code Error code reported
+ * @param code Error code reported (works as identifier as well)
  * @param errorMetadata Extra error info, if available.
  * @param exception Exception type crom player
  */
@@ -607,7 +607,7 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  * Sends a fatal error.
  * This method will also send a stop after the error.
  * @param msg Error message (should be unique for the code)
- * @param code Error code reported
+ * @param code Error code reported (works as identifier as well)
  * @param errorMetadata Extra error info, if available.
  */
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata;
@@ -617,7 +617,7 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  * can override it.
  * This method will also send a stop after the error.
  * @param msg Error message (should be unique for the code)
- * @param code Error code reported
+ * @param code Error code reported (works as identifier as well)
  * @param errorMetadata Extra error info, if available.
  * @param exception Exception type crom player
  */
