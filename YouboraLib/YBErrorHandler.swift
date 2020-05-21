@@ -12,7 +12,7 @@ import Foundation
 * An utility class that will prevent an error to be
 * sent more than once in each x seconds
 */
-@objcMembers internal class YBErrorHandler: NSObject {
+@objcMembers public class YBErrorHandler: NSObject {
     var message: String?
     var code: String?
     
@@ -28,7 +28,7 @@ import Foundation
      - Parameter secondsToClean: number of seconds to reset settings and send error again
      - Returns: an instance of YBErrorHandler
     */
-    init(secondsToClean: Int) {
+    public init(secondsToClean: Int) {
         self.secondsToClean = secondsToClean
     }
     
@@ -40,7 +40,7 @@ import Foundation
      - Parameter code: code of the error to be sent
      - Returns: true case error is new or false case is the same error
     */
-    func isNewError(message: String?, code: String?) -> Bool {
+    public func isNewError(message: String?, code: String?) -> Bool {
         if self.timerToClean == nil {
             self.initNewError(message: message, code: code)
             return true
