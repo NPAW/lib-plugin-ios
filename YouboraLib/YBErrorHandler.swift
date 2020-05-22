@@ -41,12 +41,7 @@ import Foundation
      - Returns: true case error is new or false case is the same error
     */
     public func isNewError(message: String?, code: String?) -> Bool {
-        if self.timerToClean == nil {
-            self.initNewError(message: message, code: code)
-            return true
-        }
-        
-        if message != self.message || code != self.code {
+        if self.timerToClean == nil || (message != self.message || code != self.code) {
             self.initNewError(message: message, code: code)
             return true
         }
