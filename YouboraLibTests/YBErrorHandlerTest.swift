@@ -43,6 +43,7 @@ class YBErrorHandlerTest: XCTestCase {
         
         errorHandler.cleanError = {
             expectation.fulfill()
+            errorHandler.cleanError = nil
         }
         
         waitForExpectations(timeout: 2, handler: nil)
@@ -62,6 +63,7 @@ class YBErrorHandlerTest: XCTestCase {
         let expectation = self.expectation(description: "Cleaning")
         errorHandler.cleanError = {
             expectation.fulfill()
+            errorHandler.cleanError = nil
         }
         waitForExpectations(timeout: 2, handler: nil)
         
