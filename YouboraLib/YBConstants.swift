@@ -248,13 +248,25 @@ import Foundation
     static public let videoEvent = "/infinity/video/event"
 }
 
+// Infinity service YBConstants
+@objcMembers open class YBConstantsErrorParams: NSObject {
+    /** Key to save code in error parameters **/
+    static public let code = "errorCode"
+    /** Key to save message in error parameters **/
+    static public let message = "errorMsg"
+    /** Key to save metadata in error parameters **/
+    static public let metadata = "errorMetadata"
+    /** Key to save the level in error parameters **/
+    static public let level = "errorLevel"
+}
+
 // Generic YBConstants
 @objcMembers open class YBConstants: NSObject {
     /** Key for request success param */
     static public let successListenerOfflineId = "offline_id"
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     // Lib version
-    static public var youboraLibVersion = "6.5.24"
+    static public var youboraLibVersion = "6.5.25"
 
     // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
     // Map with ios version and names
