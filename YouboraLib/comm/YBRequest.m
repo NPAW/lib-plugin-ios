@@ -160,7 +160,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
                 return;
             }
             
-            if(response != nil) {
+            if(response != nil && [response isKindOfClass:[NSHTTPURLResponse class]]) {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                 [YBLog debug:[NSString stringWithFormat:@"Response code for: %@ %ld",weakSelf.service, (long)httpResponse.statusCode]];
             }
