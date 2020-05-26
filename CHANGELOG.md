@@ -1,4 +1,4 @@
-## [6.5.25] - 
+## [6.5.25] - 2020-05-26
 ### Fixed
 - Don't allow the plugin to send the same error in less than 5 secs 
 - Don't parse cdn case cdn is disabled
