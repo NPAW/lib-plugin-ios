@@ -1,6 +1,8 @@
 ## [6.5.25] - 
 ### Fixed
 - Don't allow the plugin to send the same error in less than 5 secs 
+- Don't parse cdn case cdn is disabled
+- Wrong cast done in YBRequest on iOS 13.4 and higher
 ## [6.5.24] - 2020-05-18
 ### Added
 - Transport format
