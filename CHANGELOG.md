@@ -1,6 +1,7 @@
 ## [6.5.25] - 
 ### Fixed
 - Don't allow the plugin to send the same error in less than 5 secs 
+- Don't parse cdn case cdn is disabled
 ## [6.5.24] - 2020-05-18
 ### Added
 - Transport format

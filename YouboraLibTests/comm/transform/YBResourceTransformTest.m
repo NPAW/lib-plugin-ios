@@ -213,6 +213,7 @@ typedef enum {
     [given([self.mockPlugin isParseResource]) willReturnBool:NO];
     [given([self.mockPlugin isParseHls]) willReturnBool:NO];
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:NO];
+    [given([self.mockPlugin getParseCdnNodeList]) willReturn:@[@"Akamai", @"Cloudfront", @"Level3", @"Fastly", @"Highwinds"]];
     
     YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initWithPlugin: self.mockPlugin];
     

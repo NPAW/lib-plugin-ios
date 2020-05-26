@@ -222,7 +222,7 @@
 #pragma mark - Private methods
 
 - (void) parseCdn {
-    if (self.cdnList.count != 0) {
+    if (self.cdnList.count > 0 && self.cdnEnabled) {
         NSString * cdn = self.cdnList.firstObject;
         [self.cdnList removeObjectAtIndex:0];
         
