@@ -1,3 +1,6 @@
+## [6.5.26] - 
+### Fixed
+- Issue with diff time in session beat after a session nav
 ## [6.5.25] - 2020-05-26
 ### Fixed
 - Don't allow the plugin to send the same error in less than 5 secs 
