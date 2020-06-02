@@ -1,4 +1,4 @@
-## [6.5.26] - 
+## [6.5.26] - 2020-06-02
 ### Fixed
 - Issue with diff time in session beat after a session nav
 ## [6.5.25] - 2020-05-26
