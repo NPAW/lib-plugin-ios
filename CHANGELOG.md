@@ -1,3 +1,6 @@
+## [6.5.27] - 2020-06-08
+### Added
+- The subtitles option to entities in pings
 ## [6.5.26] - 2020-06-02
 ### Fixed
 - Issue with diff time in session beat after a session nav
