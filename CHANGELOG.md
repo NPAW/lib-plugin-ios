@@ -1,4 +1,4 @@
-## [6.5.27] - 
+## [6.5.27] - 2020-06-08
 ### Added
 - The subtitles option to entities in pings
 ## [6.5.26] - 2020-06-02
