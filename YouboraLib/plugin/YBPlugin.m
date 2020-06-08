@@ -428,6 +428,7 @@
     [self.viewTransform addTransformDoneListener:self];
     
     [self.viewTransform begin];
+    
 }
 
 // ------ INFO GETTERS ------
@@ -2505,7 +2506,7 @@
 }
 
 - (void) initComm {
-    if (self.comm == nil) {
+    //if (self.comm == nil) {
         self.comm = [self createCommunication];
         [self.comm addTransform:[self createFlowTransform]];
         [self.comm addTransform:[self createLastSentTransform]]; //Mostly used for Infinity, but may be interesting to use it along other requests
@@ -2518,7 +2519,7 @@
         } else {
             [self.comm addTransform:self.viewTransform];
         }
-    }
+    //}
 }
 
 - (void) startResourceParsing {
@@ -3079,6 +3080,7 @@
     [self sendWithCallbacks:self.willSendSessionStopListeners service:YBConstantsYouboraInfinity.sessionStop andParams:mutParams];
     [self stopBeats];
     [YBLog notice:YBConstantsYouboraInfinity.sessionStop];
+    [self initViewTransform];
 }
 
 - (void) sendSessionNav:(NSDictionary<NSString *, NSString *> *) params{
