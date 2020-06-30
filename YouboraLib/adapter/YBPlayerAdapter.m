@@ -262,6 +262,10 @@
     return nil;
 }
 
+-(nullable NSString*)getURLToParse {
+    return nil;
+}
+
 // Fire methods
     
 - (void)fireAdInit {
