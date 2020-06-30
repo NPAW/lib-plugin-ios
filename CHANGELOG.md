@@ -1,6 +1,19 @@
-## [6.5.25] -
+## [6.5.28] - 
 ### Added
 - Get url to be parsed as a resource by the plugin
+## [6.5.27] - 2020-06-08
+### Added
+- The subtitles option to entities in pings
+### Fixed
+- FastData was not being called on session stop
+## [6.5.26] - 2020-06-02
+### Fixed
+- Issue with diff time in session beat after a session nav
+## [6.5.25] - 2020-05-26
+### Fixed
+- Don't allow the plugin to send the same error in less than 5 secs 
+- Don't parse cdn case cdn is disabled
+- Wrong cast done in YBRequest on iOS 13.4 and higher
 ## [6.5.24] - 2020-05-18
 ### Added
 - Transport format

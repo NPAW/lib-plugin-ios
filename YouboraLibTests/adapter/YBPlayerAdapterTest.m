@@ -278,7 +278,7 @@
 
     // Fatal error
     captor = [HCArgumentCaptor new];
-    [adapter fireFatalError:nil];
+    [adapter fireFatalErrorWithMessage:@"Message" code:@"Code" andMetadata:nil];
     [verifyCount(mockDelegate, times(1)) youboraAdapterEventError:(id) captor fromAdapter:adapter];
     
     [verifyCount(mockDelegate, times(1)) youboraAdapterEventStop:anything() fromAdapter:adapter];
