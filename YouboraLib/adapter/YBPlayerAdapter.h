@@ -398,6 +398,15 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
 */
 - (nullable NSString *) getVideoCodec;
 
+/**
+* Override to return the url from the player (final or not)
+* This will allow the plugin to parse the manifest faster and reduce the amount
+* of calls to get the manifest
+ 
+* @return string with parsed url (final or not)
+*/
+- (nullable NSString *) getURLToParse;
+
 /// ---------------------------------
 /// @name Flow methods
 /// ---------------------------------

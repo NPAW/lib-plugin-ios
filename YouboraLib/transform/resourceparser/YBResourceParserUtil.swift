@@ -8,7 +8,28 @@
 
 import Foundation
 
-internal struct YBResourceParserUtil {
+@objcMembers internal class YBResourceParserUtil: NSObject {
+    static func merge(resourseUrl: String?, adapterUrl: String?) -> String? {
+        guard let adapterUrl = adapterUrl else {
+            return resourseUrl
+        }
+        
+        return adapterUrl
+    }
+    
+    static func isFinalURL(resourceUrl: String?) -> Bool {
+        guard let url = resourceUrl,
+            let resource = URL(string: url) else {
+            return false
+        }
+        
+        let finalResourceExtensions = ["mp4", "ts", "m4s"]
+        
+        let pathExtension = resource.pathExtension
+        
+        return finalResourceExtensions.contains(resource.pathExtension)
+    }
+    
     static func translateTransportResource(transportResource: String) -> String? {
         if transportResource.contains("mp4") || transportResource.contains("m4s") {
             return YBConstantsTransportFormat.hlsFmp4

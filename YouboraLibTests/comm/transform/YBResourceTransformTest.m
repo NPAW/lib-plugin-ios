@@ -53,6 +53,21 @@ typedef enum {
     XCTAssertNil([resourceTransform getResource]);
 }
 
+-(void)testFinalLocationFlow {
+    NSString *expectedFinalResource = @"http://www.example1.com/file.mp4";
+    
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
+    
+    resourceTransform.delegate = self;
+    
+    [resourceTransform begin:expectedFinalResource userDefinedTransportFormat:nil];
+    
+    NSString *transformedResource = [resourceTransform getResource];
+    
+    
+    XCTAssertTrue([transformedResource isEqualToString:expectedFinalResource]);
+}
+
 -(void)testLocationFlow {
     self.currentFlow = locationFlow;
     NSString *expectedFinalResource = @"http://example1.com";
