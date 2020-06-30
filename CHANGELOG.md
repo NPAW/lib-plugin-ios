@@ -1,4 +1,4 @@
-## [6.5.28] - 
+## [6.5.28] - 2020-06-30
 ### Added
 - Get url to be parsed as a resource by the plugin
 ## [6.5.27] - 2020-06-08
