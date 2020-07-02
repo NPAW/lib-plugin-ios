@@ -79,6 +79,29 @@ import XCTest
         XCTAssertTrue(parsedResource == expectedFinalResourceUrl)
     }
     
+    func testHostFinalResource() {
+        let resourceUrl = "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8"
+        
+        let expectedFinalResourceUrl = "http://qthttp.apple.com.edgesuite.net/0640/06400.ts"
+        
+        let responseString = """
+            #EXTM3U\n\
+            #EXT-X-TARGETDURATION:10\n\
+            #EXT-X-MEDIA-SEQUENCE:0\n\
+            #EXTINF:10,\n\
+            /0640/06400.ts\n\
+            #EXTINF:10,\n\
+            /0640/06401.ts\n
+        """
+        
+        let parser = YBHlsParser()
+        _ = parser.isSatisfied(resource: resourceUrl, manifest: responseString.data(using: .utf8))
+        
+        let parsedResource = parser.parseResource(data: responseString.data(using: .utf8), response: nil, listenerParents: nil)
+        
+        XCTAssertTrue(parsedResource == expectedFinalResourceUrl)
+    }
+    
     func testTransportFormat() {
         let resourceUrl = "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8"
         

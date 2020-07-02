@@ -266,7 +266,7 @@ import Foundation
     static public let successListenerOfflineId = "offline_id"
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     // Lib version
-    static public var youboraLibVersion = "6.5.28"
+    static public var youboraLibVersion = "6.5.29"
 
     // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
     // Map with ios version and names

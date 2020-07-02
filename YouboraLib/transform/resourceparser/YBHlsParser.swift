@@ -79,7 +79,7 @@ private struct ParseResponse {
             let resRange = Range(info.match.range(at: 1), in: info.regexText),
             let extRange = Range(info.match.range(at: 2), in: info.regexText) else {
                 
-                // didn't found any compatible resource so returns nil
+                // didn't find any compatible resource so returns nil
                 return nil
         }
         
@@ -87,6 +87,22 @@ private struct ParseResponse {
         let ext = String(info.dataString[extRange])
         
         if res.isEmpty || ext.isEmpty { return nil }
+        
+        // Resource needs to use the host url
+        if res.prefix(1) == "/" {
+           // Use the base path from the resource
+            guard let resource = resource,
+                let url = URL(string: resource),
+                let basePath = url.host,
+                let scheme = url.scheme else {
+                return nil
+            }
+            
+            res = scheme+"://"+basePath+res
+            
+            return res
+
+        }
         
         // Get the base path from the resource and add it top the final resource
         if !res.lowercased().hasPrefix("http") {
