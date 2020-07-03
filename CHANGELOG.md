@@ -1,3 +1,6 @@
+## [6.5.29] - 
+### Changed
+- Change presistence data to Swift
 ## [6.5.28] - 2020-06-30
 ### Added
 - Get url to be parsed as a resource by the plugin
