@@ -8,7 +8,6 @@
 
 #import "YBInfinity.h"
 
-#import "YBInfinityLocalManager.h"
 #import "YBInfinityFlags.h"
 #import "YBLog.h"
 #import "YBCommunication.h"
@@ -26,7 +25,6 @@
 - (id)init {
     if (self = [super init]) {
         self.flags = [[YBInfinityFlags alloc] init];
-        self.infinityStorage = [[YBInfinityLocalManager alloc] init];
     }
     return self;
 }
@@ -100,12 +98,12 @@
 }
 
 - (void) generateNewContext {
-    [self.infinityStorage saveContextWithContext:[YBYouboraUtils getAppName]];
+    [YBInfinityLocalManager saveContextWithContext:[YBYouboraUtils getAppName]];
     self.navContext = [YBYouboraUtils getAppName];
 }
 
 - (NSNumber *) getLastSent {
-    return [self.infinityStorage getLastActive];
+    return [YBInfinityLocalManager getLastActive];
 }
 
 -(NSString* _Nonnull) getSessionRoot {

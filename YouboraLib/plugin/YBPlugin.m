@@ -22,8 +22,6 @@
 #import "YBFlowTransform.h"
 #import "YBPlayheadMonitor.h"
 #import "YBOfflineTransform.h"
-#import "YBEventDataSource.h"
-#import "YBEvent.h"
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
@@ -373,16 +371,15 @@
     /*self.comm = [self createCommunication];
      [self.comm addTransform:self.viewTransform];*/
     
-    YBEventDataSource *dataSource = [[YBEventDataSource alloc] init];
+    YBEventDataSource *dataSource = [YBEventDataSource new];
     [dataSource allEventsWithCompletion:^(NSArray* events){
         if(events != nil && events.count == 0){
             [YBLog debug:@"No offline events, skipping..."];
             return;
         }
-        [dataSource lastIdWithCompletion:^(NSNumber * offlineId){
-            int lastId = [offlineId intValue];
-            for(int k = lastId ; k >= 0  ; k--){
-                [dataSource eventsWithOfflineId:[NSNumber numberWithInt:k] completion:^(NSArray * events){
+        [dataSource lastIdWithCompletion:^(NSInteger lastId){
+            for(NSInteger k = lastId ; k >= 0  ; k--){
+                [dataSource eventsWithOfflineId: k completion:^(NSArray * events){
                     if(events == nil){
                         return;
                     }
@@ -390,7 +387,8 @@
                         return;
                     }
                     //YBEvent *event = events[0];
-                    [self sendOfflineEventsWithEventsString:[self generateOfflineJsonStringWithEvents:events] andOfflineId:((YBEvent *)events[0]).offlineId];
+                    [self sendOfflineEventsWithEventsString:[self generateOfflineJsonStringWithEvents:events]
+                                               andOfflineId: [NSNumber numberWithInteger:((YBEvent *)events[0]).offlineId]];
                 }];
             }
         }];
@@ -411,8 +409,8 @@
     NSMutableDictionary<NSString*, id> *listenerParams = [[NSMutableDictionary alloc] init];
     [listenerParams setValue:offlineId forKey: YBConstants.successListenerOfflineId];
     YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response,  NSDictionary<NSString *, id>* listenerParams) {
-        __block YBEventDataSource* dataSource = [[YBEventDataSource alloc] init];
-        [dataSource deleteEventsWithOfflineId:offlineId completion:^{
+        __block YBEventDataSource* dataSource = [YBEventDataSource new];
+        [dataSource deleteEventsWithOfflineId:[offlineId integerValue] completion:^{
             [YBLog debug:@"Offline events deleted"];
         }];
     };

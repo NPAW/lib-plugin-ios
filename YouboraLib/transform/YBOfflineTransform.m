@@ -7,10 +7,8 @@
 //
 
 #import "YBOfflineTransform.h"
-#import "YBEventDataSource.h"
 #import "YBRequest.h"
 #import "YBLog.h"
-#import "YBEvent.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBOfflineTransform()
@@ -48,7 +46,7 @@
 }
 
 - (void) saveEventWithParams:(NSMutableDictionary*) params andService:(NSString *) service{
-    self.dataSource = [[YBEventDataSource alloc] init];
+    self.dataSource = [YBEventDataSource new];
     
     //Skip if init
     if([service isEqualToString: [YBConstantsYouboraService.sInit substringFromIndex:1]]){
@@ -59,8 +57,8 @@
     params[@"unixtime"] = [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils unixTimeNow]];
     
     if (self.startSaved || [service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]) {
-        [self.dataSource lastIdWithCompletion:^(NSNumber* offlineId){
-            __block int offlineIdInt = [offlineId intValue];
+        [self.dataSource lastIdWithCompletion:^(NSInteger offlineId){
+            __block NSInteger offlineIdInt = offlineId;
             [self.dataSource allEventsWithCompletion:^(NSArray * events) {
                 int eventsCount = (int)[events count];
                 if(eventsCount != 0 && [service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]){
@@ -71,21 +69,17 @@
                 
                 if(jsonEvents != nil){
                     [YBLog debug:@"Saving offline event: %@",jsonEvents];
-                    
-                    YBEvent* event = [[YBEvent alloc] init];
-                    event.jsonEvents = jsonEvents;
-                    event.offlineId = [NSNumber numberWithInt:offlineIdInt];
                     if ([service isEqualToString:[YBConstantsYouboraService.start substringFromIndex:1]]) {
-                        [self.dataSource putNewEvent:event completion:^(void) {
+                        [self.dataSource putNewEventWithOfflineId:offlineIdInt jsonEvents:jsonEvents completion:^{
                             self.startSaved = true;
                             [self processQueue];
                         }];
                     } else if ([service isEqualToString:[YBConstantsYouboraService.stop substringFromIndex:1]]) {
-                        [self.dataSource putNewEvent:event completion:^(void) {
-                            self.startSaved = false;
+                        [self.dataSource putNewEventWithOfflineId:offlineIdInt jsonEvents:jsonEvents completion:^{
+                                                   self.startSaved = false;
                         }];
                     } else {
-                        [self.dataSource putNewEvent:event completion:nil];
+                        [self.dataSource putNewEventWithOfflineId:offlineIdInt jsonEvents:jsonEvents completion:nil];
                     }
                     
                 }
