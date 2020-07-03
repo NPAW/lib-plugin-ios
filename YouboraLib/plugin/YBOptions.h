@@ -15,6 +15,7 @@
  *
  * The only <b>required</b> option is the <accountCode>.
  */
+
 @interface YBOptions : NSObject<NSCoding>
 
 /// ---------------------------------
@@ -371,22 +372,27 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
 /**
  * Flag that indicates if the plugin should send total bytes or not
  */
-@property NSNumber* _Nullable sendTotalBytes;
+@property NSNumber* sendTotalBytes;
 
 
 /**
- * Streaming protocol of the content, you can use any of these YBConstants:
- STREAM_PROTOCOL_HDS
- STREAM_PROTOCOL_HLS
- STREAM_PROTOCOL_MSS
- STREAM_PROTOCOL_DASH
- STREAM_PROTOCOL_RTMP
- STREAM_PROTOCOL_RTP
- STREAM_PROTOCOL_RTSP
- STREAM_PROTOCOL_HLS_TS
- STREAM_PROTOCOL_HLS_FMP4
+ * Streaming protocol of the content, you can use any of these YBConstantsStreamProtocol:
+ YBConstantsStreamProtocol.hds
+ YBConstantsStreamProtocol.hls
+ YBConstantsStreamProtocol.mss
+ YBConstantsStreamProtocol.dash
+ YBConstantsStreamProtocol.rtmp
+ YBConstantsStreamProtocol.rtp
+ YBConstantsStreamProtocol.rtsp
  */
-@property(nonatomic, strong) NSString * contentStreamingProtocol;
+@property (nonatomic, strong ,setter=setContentStreamingProtocol:) NSString*  contentStreamingProtocol;
+
+/**
+* Transport format of the content, you can use any of these YBConstantsTransportFormat:
+YBConstantsTransportFormat.hlsTs
+YBConstantsTransportFormat.hlsFmp4
+*/
+@property(nonatomic, strong, setter=setContentTransportFormat:) NSString* contentTransportFormat;
 
 /**
  * Throughput of the client bandwidth in bits per second.

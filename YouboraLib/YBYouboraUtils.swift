@@ -57,7 +57,7 @@ import Foundation
     * @return Built params
     */
     static public func buildErrorParams(_ params: [String: String]?) -> [String: String] {
-        let key = "errorLevel"
+        let key = YBConstantsErrorParams.level
         let value = ""
 
         guard var noNilParams = params else {
@@ -87,15 +87,15 @@ import Foundation
         let finalCode = code != nil && code!.count > 0 ? code : msg
         let finalMessage = msg != nil && msg!.count > 0 ? msg : code
 
-        params["errorCode"] = finalCode != nil ? finalCode : "PLAY_FAILURE"
-        params["errorMsg"] = finalMessage != nil ? finalMessage : "PLAY_FAILURE"
+        params[YBConstantsErrorParams.code] = finalCode != nil ? finalCode : "PLAY_FAILURE"
+        params[YBConstantsErrorParams.message] = finalMessage != nil ? finalMessage : "PLAY_FAILURE"
 
         if let errorMetadata = metadata, errorMetadata.count > 0 {
-            params["errorMetadata"] = errorMetadata
+            params[YBConstantsErrorParams.metadata] = errorMetadata
         }
 
         if let level = level, level.count > 0 {
-            params["errorLevel"] = level
+            params[YBConstantsErrorParams.level] = level
         }
 
         return params

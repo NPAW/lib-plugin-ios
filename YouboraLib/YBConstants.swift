@@ -56,6 +56,7 @@ import Foundation
     static public let deviceInfo = "deviceInfo"
     static public let userType = "userType"
     static public let streamingProtocol = "streamingProtocol"
+    static public let transportFormat = "transportFormat"
     static public let experiments = "experiments"
     static public let obfuscateIp = "obfuscateIp"
     static public let householdId = "householdId"
@@ -169,6 +170,10 @@ import Foundation
     static public let rtmp = "RTMP"
     static public let rtp = "RTP"
     static public let rtsp = "RTSP"
+}
+
+// YBConstants with transport format
+@objcMembers open class YBConstantsTransportFormat: NSObject {
     static public let hlsTs = "HLS-TS"
     static public let hlsFmp4 = "HLS-FMP4"
 }
@@ -243,13 +248,25 @@ import Foundation
     static public let videoEvent = "/infinity/video/event"
 }
 
+// Infinity service YBConstants
+@objcMembers open class YBConstantsErrorParams: NSObject {
+    /** Key to save code in error parameters **/
+    static public let code = "errorCode"
+    /** Key to save message in error parameters **/
+    static public let message = "errorMsg"
+    /** Key to save metadata in error parameters **/
+    static public let metadata = "errorMetadata"
+    /** Key to save the level in error parameters **/
+    static public let level = "errorLevel"
+}
+
 // Generic YBConstants
 @objcMembers open class YBConstants: NSObject {
     /** Key for request success param */
     static public let successListenerOfflineId = "offline_id"
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     // Lib version
-    static public var youboraLibVersion = "6.5.21"
+    static public var youboraLibVersion = "6.5.28"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"

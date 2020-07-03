@@ -39,7 +39,7 @@
     
     id<YBInfinityDelegate> mockDelegate = mockProtocol(@protocol(YBInfinityDelegate));
     
-    [[plugin getInfinity] addYouboraInfinityDelegate:mockDelegate];
+    [plugin getInfinity].delegate = mockDelegate;
     
     XCTAssertFalse([plugin getInfinity].flags.started);
     
@@ -55,7 +55,7 @@
     
     id<YBInfinityDelegate> mockDelegate = mockProtocol(@protocol(YBInfinityDelegate));
     
-    [[plugin getInfinity] addYouboraInfinityDelegate:mockDelegate];
+    [plugin getInfinity].delegate = mockDelegate;
     
     XCTAssertFalse([plugin getInfinity].flags.started);
     
@@ -82,7 +82,7 @@
     
     id<YBInfinityDelegate> mockDelegate = mockProtocol(@protocol(YBInfinityDelegate));
     
-    [[plugin getInfinity] addYouboraInfinityDelegate:mockDelegate];
+    [plugin getInfinity].delegate = mockDelegate;
     
     XCTAssertFalse([plugin getInfinity].flags.started);
     
@@ -109,7 +109,7 @@
     YBPlugin *plugin = [[YBPlugin alloc] initWithOptions:nil];
     id<YBInfinityDelegate> mockDelegate = mockProtocol(@protocol(YBInfinityDelegate));
     
-    [[plugin getInfinity] addYouboraInfinityDelegate:mockDelegate];
+    [plugin getInfinity].delegate = mockDelegate;
     
     [[plugin getInfinity] beginWithScreenName:@"Unknown"];
     
@@ -138,7 +138,7 @@
     YBPlugin *plugin = [[YBPlugin alloc] initWithOptions:nil];
     id<YBInfinityDelegate> mockDelegate = mockProtocol(@protocol(YBInfinityDelegate));
     
-    [[plugin getInfinity] addYouboraInfinityDelegate:mockDelegate];
+    [plugin getInfinity].delegate = mockDelegate;
     
     [[plugin getInfinity] beginWithScreenName:@"Unknown"];
     

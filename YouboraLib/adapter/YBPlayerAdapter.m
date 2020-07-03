@@ -21,6 +21,9 @@
 // Delegates list
 @property (nonatomic, strong) NSMutableArray<id<YBPlayerAdapterEventDelegate>> * eventDelegates;
 
+// Property that gonna prevent the same error to be sent in less than x seconds
+@property(nonatomic, strong) YBErrorHandler *errorHandler;
+
 @end
 
 @implementation YBPlayerAdapter
@@ -34,6 +37,7 @@
         self.player = nil;
         self.flags = [YBPlaybackFlags new];
         self.chronos = [YBPlaybackChronos new];
+        self.errorHandler = [[YBErrorHandler alloc] initWithSecondsToClean:5];
         
         if ([YBLog isAtLeastLevel:YBLogLevelNotice]) {
             [YBLog notice:@"Adapter %@ with lib %@ is ready.", [self getVersion], YBConstants.youboraLibVersion];
@@ -258,6 +262,10 @@
     return nil;
 }
 
+-(nullable NSString*)getURLToParse {
+    return nil;
+}
+
 // Fire methods
     
 - (void)fireAdInit {
@@ -286,8 +294,6 @@
 - (void)fireStart:(nullable NSDictionary<NSString *,NSString *> *)params {
     if (!self.flags.started || (self.plugin != nil && !self.plugin.isStarted)) {
         self.flags.started = true;
-        
-        
         
         if(!self.flags.adInitiated){
             [self.chronos.join start];
@@ -526,7 +532,15 @@
 }
 
 - (void)fireError:(NSDictionary<NSString *,NSString *> *)params {
-    [self.plugin fireInit];
+    NSString *message = params[YBConstantsErrorParams.message];
+    NSString *code = params[YBConstantsErrorParams.code];
+    
+    if (![self.errorHandler isNewErrorWithMessage:message code:code]) {
+        return;
+    }
+    
+    [self fireStart];
+    self.flags.started = true;
     params = [YBYouboraUtils buildErrorParams:[params mutableCopy]];
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
         [delegate youboraAdapterEventError:params fromAdapter:self];

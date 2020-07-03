@@ -20,6 +20,8 @@
 @property(nonatomic, strong, nullable) NSString * navContext;
 @property(nonatomic, strong, nullable) NSMutableArray<NSString *> * activeSessions;
 
+@property(nonatomic, weak, nullable) id<YBInfinityDelegate> delegate;
+
 - (void) beginWithScreenName:(nonnull NSString *)screenName;
 
 - (void) beginWithScreenName:(nonnull NSString *)screenName andDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions;
@@ -35,14 +37,6 @@
 - (void) end:(nullable NSDictionary<NSString *, NSString *> *)params;
 
 - (nullable NSNumber *)getLastSent;
-
-/*- (void) addActiveSession:(nullable NSString *)sessionId;
-
-- (void) removeActiveSession:(nullable NSString *)sessionId;*/
-
-- (void) addYouboraInfinityDelegate:(nullable id<YBInfinityDelegate>)delegate;
-
-- (void) removeYouboraInfinityDelegate:(nullable id<YBInfinityDelegate>)delegate;
 
 /*
  * Method to return the session root

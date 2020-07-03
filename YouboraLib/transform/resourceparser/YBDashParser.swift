@@ -43,6 +43,20 @@ import Foundation
         return location
     }
     
+    public func parseTransportFormat(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?, userDefinedTransportFormat: String?) -> String? {
+        if userDefinedTransportFormat != nil {
+            return nil
+        }
+        
+        guard let data = data,
+            let resultData = String(data: data, encoding: .utf8),
+            let mimeType = self.getMimeType(xml: resultData) else {
+                return nil
+        }
+        
+        return YBResourceParserUtil.translateTransportResource(transportResource: mimeType)
+    }
+    
     private func getLocation(xml: String) -> String? {
         return self.getExpression(pattern: "<Location>\n{0,1}(.*)\n{0,1}</Location>", xml: xml)
     }
@@ -61,6 +75,12 @@ import Foundation
         }
         
         return nil
+    }
+    
+    private func getMimeType(xml: String) -> String? {
+        let mimeTypePattern = "<AdaptationSet.+mimeType=\"video/(.+?)\".+>"
+        
+        return self.getExpression(pattern: mimeTypePattern, xml: xml)
     }
     
     private func getExpression(pattern: String, xml: String) -> String? {

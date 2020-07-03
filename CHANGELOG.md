@@ -1,3 +1,28 @@
+## [6.5.28] - 2020-06-30
+### Added
+- Get url to be parsed as a resource by the plugin
+## [6.5.27] - 2020-06-08
+### Added
+- The subtitles option to entities in pings
+### Fixed
+- FastData was not being called on session stop
+## [6.5.26] - 2020-06-02
+### Fixed
+- Issue with diff time in session beat after a session nav
+## [6.5.25] - 2020-05-26
+### Fixed
+- Don't allow the plugin to send the same error in less than 5 secs 
+- Don't parse cdn case cdn is disabled
+- Wrong cast done in YBRequest on iOS 13.4 and higher
+## [6.5.24] - 2020-05-18
+### Added
+- Transport format
+- Auto detection case transport format or streaming protocol not defined
+### Changed
+- Streaming protocol only accepts YBConstantsStreamProtocol values
+### Fixed
+- Memory leaks caused by unreleased delegates 
+- Warning caused by code indentation and nullability conditions
 ## [6.5.23] - 2020-05-06
 ### Added
 - Method to stop the plugin when no more plugin is needed

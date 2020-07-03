@@ -637,6 +637,14 @@
     XCTAssertEqualObjects(YBConstantsStreamProtocol.hls, [self.p getStreamingProtocol]);
 }
 
+- (void) testGetTransportFormat {
+    XCTAssertNil([self.p getTransportFormat]);
+    
+    stubProperty(self.mockOptions, contentTransportFormat, YBConstantsTransportFormat.hlsFmp4);
+    
+    XCTAssertEqualObjects(YBConstantsTransportFormat.hlsFmp4, [self.p getTransportFormat]);
+}
+
 - (void) testDeprecatedExtraParams {
     stubProperty(self.mockOptions, extraparam1, @"1");
     stubProperty(self.mockOptions, extraparam2, @"2");
@@ -1765,7 +1773,7 @@
     
     [self.p fireErrorWithParams:nil];
     [self.p fireErrorWithMessage:@"" code:@"" andErrorMetadata:@""];
-    [self.p fireFatalErrorWithMessage:@"" code:@"" andErrorMetadata:@"" andException:nil];
+    [self.p fireFatalErrorWithMessage:@"message" code:@"code" andErrorMetadata:@"" andException:nil];
     [verifyCount(self.p.mockRequest, times(3)) setService:YBConstantsYouboraService.error];
 }
 

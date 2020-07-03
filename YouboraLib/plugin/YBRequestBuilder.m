@@ -86,6 +86,7 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.deviceInfo,
                 YBConstantsRequest.userType,
                 YBConstantsRequest.streamingProtocol,
+                YBConstantsRequest.transportFormat,
                 YBConstantsRequest.experiments,
                 YBConstantsRequest.obfuscateIp,
                 YBConstantsRequest.householdId,
@@ -223,7 +224,7 @@ static NSArray<NSString *> * youboraPingEntities;
             youboraPingEntities = @[YBConstantsRequest.rendition, YBConstantsRequest.title, YBConstantsRequest.title2,
                              YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4,
                              YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.connectionType,
-                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.username, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString];
+                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.username, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString,YBConstantsRequest.subtitles];
         });
     }
     return self;
@@ -369,6 +370,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getProgram];
     } else if ([param isEqualToString:YBConstantsRequest.streamingProtocol]){
         value = [self.plugin getStreamingProtocol];
+    } else if ([param isEqualToString:YBConstantsRequest.transportFormat]){
+        value = [self.plugin getTransportFormat];
     } else if ([param isEqualToString:YBConstantsRequest.live]){
         NSValue * live = [self.plugin getIsLive];
         if (live != nil) {

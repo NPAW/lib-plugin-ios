@@ -40,6 +40,8 @@
 
 @property(nonatomic, assign, readwrite) bool isFinished;
 
+@property(nonatomic, strong) NSString *transportFormat;
+
 @end
 
 @implementation YBResourceTransform
@@ -108,8 +110,16 @@
     return self.cdnNodeTypeString;
 }
 
-- (void)begin:(NSString *)originalResource {
+- (void)begin:(NSString *)originalResource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
     if (!self.isBusy) {
+        
+        if ([YBResourceParserUtil isFinalURLWithResourceUrl:originalResource]) {
+            self.currentResource = originalResource;
+            [self done];
+            return;
+        }
+        
+        self.transportFormat = nil;
         self.isBusy = true;
         self.isFinished = false;
         
@@ -128,15 +138,15 @@
         [self setTimeout];
         
         if(self.parsers.count > 0) {
-            [self parse:self.parsers.firstObject currentResource:originalResource];
+            [self parse:self.parsers.firstObject currentResource:originalResource userDefinedTransportFormat:definedTransportFormat];
         } else {
-            [self parse:nil currentResource:originalResource];
+            [self parse:nil currentResource:originalResource userDefinedTransportFormat:definedTransportFormat];
         }
         
     }
 }
 
--(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource {
+-(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
     //No more parsers available try to parse cdn then
     if (!parser) {
         self.currentResource = resource;
@@ -144,29 +154,36 @@
         return;
     }
     
-    [self requestAndParse:parser currentResource:resource];
+    [self requestAndParse:parser currentResource:resource userDefinedTransportFormat:definedTransportFormat];
 }
 
--(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource {
-    YBRequest *request = [[YBRequest alloc] initWithHost:[parser getRequestSource] andService:nil];
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
+    YBRequest *request = [[YBRequest alloc] initWithHost:resource andService:nil];
     
     [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *,id> * _Nullable listenerParams) {
         if (![parser isSatisfiedWithResource:resource manifest:data]) {
-            [self parse:[self getNextParser:parser] currentResource:resource];
+            [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
         } else {
             NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams];
+            NSString *transportFormat = [parser parseTransportFormatWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams userDefinedTransportFormat: definedTransportFormat];
+            
+            if (transportFormat) {
+                self.transportFormat = transportFormat;
+            }
             
             if (!newResource) {
-                [self parse:[self getNextParser:parser] currentResource:resource];
+                [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
             } else {
-                [self parse:parser currentResource:newResource];
+                [self parse:parser currentResource:newResource userDefinedTransportFormat:definedTransportFormat];
             }
         }
     }];
     
     [request addRequestErrorListener:^(NSError * _Nullable error) {
-        [self parse:[self getNextParser:parser] currentResource:resource];
+        [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
     }];
+    
+    [request send];
 }
 
 -(id<YBResourceParser> _Nullable)getNextParser:(id<YBResourceParser>)parser {
@@ -212,7 +229,7 @@
 #pragma mark - Private methods
 
 - (void) parseCdn {
-    if (self.cdnList.count != 0) {
+    if (self.cdnList.count > 0 && self.cdnEnabled) {
         NSString * cdn = self.cdnList.firstObject;
         [self.cdnList removeObjectAtIndex:0];
         
@@ -281,6 +298,10 @@
 
 - (YBCdnParser *) createCdnParser:(NSString *) cdn {
     return [YBCdnParser createWithName:cdn];
+}
+
+- (NSString *)getTransportFormat {
+    return self.transportFormat;
 }
 
 @end

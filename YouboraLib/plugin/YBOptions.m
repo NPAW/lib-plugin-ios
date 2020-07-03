@@ -10,6 +10,12 @@
 #import "YBCdnParser.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
+@interface YBOptions()
+
+@property (nonatomic, strong) NSString * internalContentStreamingProtocol;
+@property (nonatomic, strong) NSString * internalContentTransportFormat;
+
+@end
 
 @implementation YBOptions
 
@@ -200,6 +206,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.contentDuration = [decoder decodeObjectForKey:YBOptionKeys.contentDuration];
         self.contentTransactionCode = [decoder decodeObjectForKey:YBOptionKeys.contentTransactionCode];
         self.contentStreamingProtocol = [decoder decodeObjectForKey:YBOptionKeys.contentStreamingProtocol];
+        self.contentTransportFormat = [decoder decodeObjectForKey:YBOptionKeys.contentTransportFormat];
         self.contentBitrate = [decoder decodeObjectForKey:YBOptionKeys.contentBitrate];
         self.sendTotalBytes = [decoder decodeObjectForKey: YBOptionKeys.sendTotalBytes];
         self.contentThroughput = [decoder decodeObjectForKey:YBOptionKeys.contentThroughput];
@@ -322,6 +329,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:self.deviceOsVersion forKey:YBOptionKeys.deviceOsVersion];
     [coder encodeObject:@(self.deviceIsAnonymous) forKey:YBOptionKeys.deviceIsAnonymous];
     [coder encodeObject:self.contentStreamingProtocol forKey:YBOptionKeys.contentStreamingProtocol];
+    [coder encodeObject:self.contentTransportFormat forKey:YBOptionKeys.contentTransportFormat];
     [coder encodeObject:self.contentResource forKey:YBOptionKeys.contentResource];
     [coder encodeObject:self.contentIsLive forKey:YBOptionKeys.contentIsLive];
     [coder encodeObject:self.contentTitle forKey:YBOptionKeys.contentTitle];
@@ -593,6 +601,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.deviceOsVersion forKey:YBOptionKeys.deviceOsVersion];
     [dict setValue:@(self.deviceIsAnonymous) forKey:YBOptionKeys.deviceIsAnonymous];
     [dict setValue:self.contentStreamingProtocol forKey:YBOptionKeys.contentStreamingProtocol];
+    [dict setValue:self.contentTransportFormat forKey:YBOptionKeys.contentTransportFormat];
     [dict setValue:self.contentResource forKey:YBOptionKeys.contentResource];
     [dict setValue:self.contentIsLive forKey:YBOptionKeys.contentIsLive];
     [dict setValue:self.contentTitle forKey:YBOptionKeys.contentTitle];
@@ -822,4 +831,44 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.userObfuscateIp = networkObfuscateIp;
 }
 
+-(void)setContentStreamingProtocol:(NSString*)streamingProtocol {
+    NSArray <NSString*> *allowedProtocols = @[
+        YBConstantsStreamProtocol.dash,
+        YBConstantsStreamProtocol.hds,
+        YBConstantsStreamProtocol.hls,
+        YBConstantsStreamProtocol.mss,
+        YBConstantsStreamProtocol.rtmp,
+        YBConstantsStreamProtocol.rtp,
+        YBConstantsStreamProtocol.rtsp
+    ];
+    
+    for (NSString *allowedStreamingProtocol in allowedProtocols) {
+        if ([[allowedStreamingProtocol lowercaseString] isEqualToString:[streamingProtocol lowercaseString]]) {
+            self.internalContentStreamingProtocol = streamingProtocol;
+            return;
+        }
+    }
+}
+
+-(NSString*)contentStreamingProtocol {
+    return self.internalContentStreamingProtocol;
+}
+
+-(void)setContentTransportFormat:(NSString*)transportFormat {
+    NSArray <NSString*> *allowedFormats= @[
+        YBConstantsTransportFormat.hlsFmp4,
+        YBConstantsTransportFormat.hlsTs
+    ];
+    
+    for (NSString *allowedFormat in allowedFormats) {
+        if ([[allowedFormat lowercaseString] isEqualToString:[transportFormat lowercaseString]]) {
+            self.internalContentTransportFormat = transportFormat;
+            return;
+        }
+    }
+}
+
+-(NSString*)contentTransportFormat {
+    return self.internalContentTransportFormat;
+}
 @end

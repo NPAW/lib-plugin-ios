@@ -12,6 +12,8 @@
 
 @interface YBTestableResourceTransform()
 
+@property NSString *transportFormat;
+
 @end
 
 @implementation YBTestableResourceTransform
@@ -40,9 +42,9 @@
     return self.mockTimer;
 }
 
--(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource {
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
     if (!self.delegate) {
-        [self parse:[self getNextParser:parser] currentResource:resource];
+        [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
         self.iteration ++;
         return;
     }
@@ -52,16 +54,20 @@
     
     if (![parser isSatisfiedWithResource:resource manifest:data]) {
         self.iteration ++;
-        [self parse:[self getNextParser:parser] currentResource:resource];
+        [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
     } else {
         NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:nil];
+        NSString *transportFormat = [parser parseTransportFormatWithData:data response:(NSHTTPURLResponse*)response listenerParents:nil userDefinedTransportFormat: definedTransportFormat];
         
+        if (transportFormat) {
+            self.transportFormat = transportFormat;
+        }
         if (!newResource) {
              self.iteration ++;
-            [self parse:[self getNextParser:parser] currentResource:resource];
+            [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
         } else {
              self.iteration ++;
-            [self parse:parser currentResource:newResource];
+            [self parse:parser currentResource:newResource userDefinedTransportFormat:definedTransportFormat];
         }
     }
 }

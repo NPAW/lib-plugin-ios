@@ -53,6 +53,21 @@ typedef enum {
     XCTAssertNil([resourceTransform getResource]);
 }
 
+-(void)testFinalLocationFlow {
+    NSString *expectedFinalResource = @"http://www.example1.com/file.mp4";
+    
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
+    
+    resourceTransform.delegate = self;
+    
+    [resourceTransform begin:expectedFinalResource userDefinedTransportFormat:nil];
+    
+    NSString *transformedResource = [resourceTransform getResource];
+    
+    
+    XCTAssertTrue([transformedResource isEqualToString:expectedFinalResource]);
+}
+
 -(void)testLocationFlow {
     self.currentFlow = locationFlow;
     NSString *expectedFinalResource = @"http://example1.com";
@@ -61,12 +76,12 @@ typedef enum {
     
     resourceTransform.delegate = self;
     
-    [resourceTransform begin:@"http://example.com"];
+    [resourceTransform begin:@"http://example.com" userDefinedTransportFormat:nil];
     
     XCTAssertTrue([[resourceTransform getResource] isEqualToString:expectedFinalResource]);
 }
 
--(void)testDashFlow {
+-(void)testDashFlowNoDefinedTransport {
     self.currentFlow = dashFlow;
     NSString *expectedFinalResource = @"https://boltrljDRMTest1-a.akamaihd.net/media/v1/dash/live/cenc/6028583040001/f39ee0f0-72de-479d-9609-2bf6ea95b427/fed9a7f1-499a-469d-bacd-f25a94eac116/";
     
@@ -74,12 +89,27 @@ typedef enum {
     
     resourceTransform.delegate = self;
     
-    [resourceTransform begin:@"http://example.com"];
+    [resourceTransform begin:@"http://example.com" userDefinedTransportFormat:nil];
     
     XCTAssertTrue([[resourceTransform getResource] isEqualToString:expectedFinalResource]);
+    XCTAssertTrue([[resourceTransform getTransportFormat] isEqualToString:YBConstantsTransportFormat.hlsFmp4]);
 }
 
--(void)testHlsFlow {
+-(void)testDashFlowDefinedTransport {
+    self.currentFlow = dashFlow;
+    NSString *expectedFinalResource = @"https://boltrljDRMTest1-a.akamaihd.net/media/v1/dash/live/cenc/6028583040001/f39ee0f0-72de-479d-9609-2bf6ea95b427/fed9a7f1-499a-469d-bacd-f25a94eac116/";
+    
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
+    
+    resourceTransform.delegate = self;
+    
+    [resourceTransform begin:@"http://example.com" userDefinedTransportFormat:YBConstantsTransportFormat.hlsFmp4];
+    
+    XCTAssertTrue([[resourceTransform getResource] isEqualToString:expectedFinalResource]);
+    XCTAssertNil([resourceTransform getTransportFormat]);
+}
+
+-(void)testHlsFlowNoDefinedTransport {
     self.currentFlow = hlsFlow;
     NSString *expectedFinalResource = @"http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/0640/06400.ts";
     
@@ -87,9 +117,24 @@ typedef enum {
     
     resourceTransform.delegate = self;
     
-    [resourceTransform begin:@"http://example.com"];
+    [resourceTransform begin:@"http://example.com" userDefinedTransportFormat:nil];
     
     XCTAssertTrue([[resourceTransform getResource] isEqualToString:expectedFinalResource]);
+    XCTAssertTrue([[resourceTransform getTransportFormat] isEqualToString:YBConstantsTransportFormat.hlsTs]);
+}
+
+-(void)testHlsFlowDefinedTransport {
+    self.currentFlow = hlsFlow;
+    NSString *expectedFinalResource = @"http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/0640/06400.ts";
+    
+    YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
+    
+    resourceTransform.delegate = self;
+    
+    [resourceTransform begin:@"http://example.com" userDefinedTransportFormat:YBConstantsTransportFormat.hlsTs];
+    
+    XCTAssertTrue([[resourceTransform getResource] isEqualToString:expectedFinalResource]);
+    XCTAssertNil([resourceTransform getTransportFormat] );
 }
 
 - (void)testFullFlow {
@@ -113,7 +158,7 @@ typedef enum {
     resourceTransform.mockCdnParsers = @{@"cdn1":mockCdnParser1, @"cdn2":mockCdnParser2};
     
     // Begin, this should start hls parsing
-    [resourceTransform begin:@"resource"];
+    [resourceTransform begin:@"resource" userDefinedTransportFormat:nil];
     
     XCTAssertTrue([resourceTransform isBlocking:nil]);
     
@@ -183,12 +228,13 @@ typedef enum {
     [given([self.mockPlugin isParseResource]) willReturnBool:NO];
     [given([self.mockPlugin isParseHls]) willReturnBool:NO];
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:NO];
+    [given([self.mockPlugin getParseCdnNodeList]) willReturn:@[@"Akamai", @"Cloudfront", @"Level3", @"Fastly", @"Highwinds"]];
     
     YBResourceTransform * resourceTransform = [[YBResourceTransform alloc] initWithPlugin: self.mockPlugin];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
-    [resourceTransform begin:@"resource"];
+    [resourceTransform begin:@"resource" userDefinedTransportFormat:nil];
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
 }
@@ -204,7 +250,7 @@ typedef enum {
     
     XCTAssertFalse([resourceTransform isBlocking:nil]);
     
-    [resourceTransform begin:@"resource"];
+    [resourceTransform begin:@"resource" userDefinedTransportFormat:nil];
     
     XCTAssertTrue([resourceTransform isBlocking:nil]);
     

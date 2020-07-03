@@ -32,7 +32,7 @@
  * Initializer
  * @param plugin Plugin to check all the info
  */
-- (instancetype)initWithPlugin:(YBPlugin*)plugin;
+- (instancetype _Nonnull )initWithPlugin:(YBPlugin*_Nonnull)plugin;
 
 /// ---------------------------------
 /// @name Public methods
@@ -43,14 +43,21 @@
  * if ended it will restart.
  * @param originalResource the original resource
  */
-- (void) begin:(NSString *) originalResource;
+- (void) begin:(NSString *_Nullable) originalResource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat;
 
 /**
  * Get the resource. If the transform is done, the real (parsed) resource will be returned
  * Otherwise the initial one is returned.
  * @return the initial or parsed resource
  */
-- (NSString *) getResource;
+- (NSString * _Nullable) getResource;
+
+/**
+* Check if user didn't define a transport format and if there's a valid transport format
+* returns it
+* @return transport format present in manifest or nil
+*/
+- (nullable NSString*) getTransportFormat;
 
 /**
  * Get CDN name
@@ -76,7 +83,7 @@
  */
 - (nullable NSString *) getNodeTypeString;
 
--(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource;
--(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource;
--(id<YBResourceParser> _Nullable)getNextParser:(id<YBResourceParser>)parser;
+-(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString* _Nullable)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat;
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString* _Nullable)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat;
+-(id<YBResourceParser> _Nullable)getNextParser:(id<YBResourceParser> _Nullable)parser;
 @end
