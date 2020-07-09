@@ -7,7 +7,7 @@
 //
 
 #import "YBCdnConfig.h"
-#import "YBRequest.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @implementation YBCdnConfig
 
@@ -19,7 +19,7 @@
         self.code = code;
         self.parsers = [NSMutableArray array];
         self.requestHeaders = [NSMutableDictionary dictionary];
-        self.requestMethod = YouboraHTTPMethodHead;
+        self.requestMethod = YouboraHTTPMethod.head;
         self.typeParser = nil;
     }
     return self;

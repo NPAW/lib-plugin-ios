@@ -9,7 +9,6 @@
 #import "YBResourceTransform.h"
 
 #import "YBPlugin.h"
-#import "YBRequest.h"
 #import "YBRequestBuilder.h"
 #import "YBCdnParser.h"
 #import "YBCdnConfig.h"
@@ -158,9 +157,9 @@
 }
 
 -(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
-    YBRequest *request = [[YBRequest alloc] initWithHost:resource andService:nil];
+    YBRequest *request = [[YBRequest alloc] initWithHost:resource service:nil];
     
-    [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *,id> * _Nullable listenerParams) {
+    [request addRequestSuccessListener:[[YBRequestSuccess alloc] initWithClosure:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *,id> * _Nullable listenerParams) {
         if (![parser isSatisfiedWithResource:resource manifest:data]) {
             [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
         } else {
@@ -177,11 +176,11 @@
                 [self parse:parser currentResource:newResource userDefinedTransportFormat:definedTransportFormat];
             }
         }
-    }];
+    }]];
     
-    [request addRequestErrorListener:^(NSError * _Nullable error) {
+    [request addRequestErrorListener: [[YBRequestError alloc] initWithClosure:^(NSError * _Nullable error) {
         [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
-    }];
+    }]];
     
     [request send];
 }
@@ -209,18 +208,18 @@
             NSString * cdn = request.params[YBConstantsRequest.cdn];
             if (cdn == nil) {
                 cdn = [self getCdnName];
-                [request setParam:cdn forKey:YBConstantsRequest.cdn];
+                request.params[YBConstantsRequest.cdn] = cdn;
             }
             
             lastSent[YBConstantsRequest.cdn] = cdn;
             
-            [request setParam:[self getNodeHost] forKey:YBConstantsRequest.nodeHost];
+            request.params[YBConstantsRequest.nodeHost] = [self getNodeHost];
             lastSent[YBConstantsRequest.nodeHost] = [self getNodeHost];
             
-            [request setParam:[self getNodeType] forKey:YBConstantsRequest.nodeType];
+            request.params[YBConstantsRequest.nodeType] = [self getNodeType];
             lastSent[YBConstantsRequest.nodeType] = [self getNodeType];
             
-            [request setParam:[self getNodeTypeString] forKey:YBConstantsRequest.nodeTypeString];
+            request.params[YBConstantsRequest.nodeTypeString] = [self getNodeTypeString];
             lastSent[YBConstantsRequest.nodeTypeString] = [self getNodeTypeString];
         }
     }

@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "YBRequest.h"
 #import "YBTransform.h"
+
+@class YBRequestSuccess;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param request the request to add to the queue
  * @param callback if not null, added as a success listener to the Request
  */
-- (void) sendRequest:(YBRequest *) request withCallback:(nullable YBRequestSuccessBlock) callback;
+- (void) sendRequest:(YBRequest *) request withCallback:(nullable YBRequestSuccess*) callback;
 
 /**
  * Adds the <YBRequest> to the queue. Doing this will process the pending requests.
@@ -36,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param callback if not null, added as a success listener to the Request
  * @param listenerParams params to return in case of request success
  */
-- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccessBlock)callback andListenerParams:(nullable NSDictionary*) listenerParams;
+- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccess*)callback andListenerParams:(nullable NSDictionary*) listenerParams;
 
 /**
  * Add a <Transform> to the transforms list

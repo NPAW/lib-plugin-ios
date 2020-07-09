@@ -7,7 +7,6 @@
 //
 
 #import "YBNqs6Transform.h"
-#import "YBRequest.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 #define YB_REG_EXP_ENTITY_TYPE_AND_VALUE @"\"(.+?)\":\"?(.+?)\"?[,}]"

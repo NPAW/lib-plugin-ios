@@ -7,10 +7,10 @@
 //
 
 #import "YBCdnParser.h"
-#import "YBRequest.h"
 #import "YBParsableResponseHeader.h"
 #import "YBCdnConfig.h"
 #import "YBLog.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 NSString * const YouboraCDNNameLevel3 =     @"Level3";
 NSString * const YouboraCDNNameCloudfront = @"Cloudfront";
@@ -100,19 +100,21 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
     r.maxRetries = 0;
     
     __weak typeof(self) weakSelf = self;
-
-    [r addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString*, id>* _Nullable listenerParams) {
+    
+    [r addRequestSuccessListener: [[YBRequestSuccess alloc] initWithClosure:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString*, id>* _Nullable listenerParams) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *) response;
         NSDictionary * responseHeaders = httpResponse.allHeaderFields;
         strongSelf.responses[strongSelf.cdnConfig.requestHeaders] = responseHeaders;
         [strongSelf parseResponse:responseHeaders];
         
-    }];
+    }]];
     
-    [r addRequestErrorListener:^(NSError * _Nullable error) {
+    
+    
+    [r addRequestErrorListener:[[YBRequestError alloc] initWithClosure:^(NSError * _Nullable error) {
         [weakSelf done];
-    }];
+    }]];
     
     [r send];
 }
@@ -201,7 +203,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
 }
 
 - (YBRequest *) createRequestWithHost:(nullable NSString *) host andService:(nullable NSString *) service {
-    return [[YBRequest alloc] initWithHost:host andService:service];
+    return [[YBRequest alloc] initWithHost:host service:service];
 }
 
 #pragma mark - Static
@@ -292,7 +294,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         cdnConfig = [[YBCdnConfig alloc] initWithCode:@"AKAMAI"];
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementTypeAndHost headerName:@"X-Cache" andRegexPattern:@"(.+)\\sfrom (.+?(?=.deploy.akamaitechnologies))"]];
         cdnConfig.requestHeaders = [[NSMutableDictionary alloc] initWithDictionary:@{@"Pragma": @"akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id,akamai-x-get-nonces,akamai-x-get-client-ip,akamai-x-feo-trace"}];
-        cdnConfig.requestMethod = YouboraHTTPMethodGet;
+        cdnConfig.requestMethod = YouboraHTTPMethod.get;
         cdnConfig.typeParser = ^YBCdnType(NSString * type) {
             
             if ([@"TCP_HIT" isEqualToString:type]) {

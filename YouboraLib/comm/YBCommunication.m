@@ -8,8 +8,9 @@
 
 #import "YBCommunication.h"
 #import "YBLog.h"
-#import "YBRequest.h"
 #import "YBTransform.h"
+
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBCommunication()
 
@@ -36,11 +37,11 @@
 }
 
 #pragma mark - Public methods
-- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccessBlock)callback{
+- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccess*)callback{
     [self sendRequest:request withCallback:callback andListenerParams:nil];
 }
 
-- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccessBlock)callback andListenerParams:(nullable NSDictionary*) listenerParams{
+- (void)sendRequest:(YBRequest *)request withCallback:(nullable YBRequestSuccess*)callback andListenerParams:(nullable NSDictionary*) listenerParams{
     if (request != nil) {
         if (callback != nil) {
             if(listenerParams != nil){

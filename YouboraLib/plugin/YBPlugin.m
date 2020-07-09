@@ -14,7 +14,6 @@
 #import "YBViewTransform.h"
 #import "YBResourceTransform.h"
 #import "YBPlayerAdapter.h"
-#import "YBRequest.h"
 #import "YBCommunication.h"
 #import "YBTimer.h"
 #import "YBPlaybackChronos.h"
@@ -408,13 +407,14 @@
 - (void) sendOfflineEventsWithEventsString:(NSString *)events andOfflineId:(NSNumber *)offlineId{
     NSMutableDictionary<NSString*, id> *listenerParams = [[NSMutableDictionary alloc] init];
     [listenerParams setValue:offlineId forKey: YBConstants.successListenerOfflineId];
-    YBRequestSuccessBlock successListener = ^(NSData * data, NSURLResponse * response,  NSDictionary<NSString *, id>* listenerParams) {
+    YBRequestSuccess* successListener = [[YBRequestSuccess alloc] initWithClosure:^(NSData * data, NSURLResponse * response,  NSDictionary<NSString *, id>* listenerParams) {
         __block YBEventDataSource* dataSource = [YBEventDataSource new];
         [dataSource deleteEventsWithOfflineId:[offlineId integerValue] completion:^{
             [YBLog debug:@"Offline events deleted"];
         }];
-    };
-    [self sendWithCallbacks:nil service: YBConstantsYouboraService.offline andParams:nil andMethod:YouboraHTTPMethodPost andBody:events withSuccessListener:successListener andSuccessListenerParams:listenerParams];
+    }];
+    
+    [self sendWithCallbacks:nil service: YBConstantsYouboraService.offline andParams:nil andMethod:YouboraHTTPMethod.post andBody:events withSuccessListener:successListener andSuccessListenerParams:listenerParams];
     /*NSMutableDictionary<NSString*, NSString*> *params = [[NSMutableDictionary alloc] init];
      params[@"events"] = events;
      params[@"offlineId"] = [offlineId stringValue];
@@ -2419,7 +2419,7 @@
 }
 
 - (YBRequest *) createRequestWithHost:(NSString *)host andService:(NSString *)service {
-    return [[YBRequest alloc] initWithHost:host andService:service];
+    return [[YBRequest alloc] initWithHost:host service:service];
 }
 
 - (BOOL) isSessionExpired {
@@ -2457,11 +2457,11 @@
 }
 
 - (void) sendWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params {
-    [self sendWithCallbacks:callbacks service:service andParams:params andMethod:YouboraHTTPMethodGet andBody:nil withSuccessListener:nil andSuccessListenerParams:nil];
+    [self sendWithCallbacks:callbacks service:service andParams:params andMethod:YouboraHTTPMethod.get andBody:nil withSuccessListener:nil andSuccessListenerParams:nil];
     
 }
 
-- (void) sendWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params andMethod:(NSString*) method andBody:(NSString*) body withSuccessListener:(YBRequestSuccessBlock) successListener andSuccessListenerParams:(NSMutableDictionary<NSString *, id> *) successListenerParams{
+- (void) sendWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params andMethod:(NSString*) method andBody:(NSString*) body withSuccessListener:(YBRequestSuccess*) successListener andSuccessListenerParams:(NSMutableDictionary<NSString *, id> *) successListenerParams{
     
     params = [self.requestBuilder buildParams:params forService:service];
     

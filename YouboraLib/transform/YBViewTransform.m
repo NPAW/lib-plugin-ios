@@ -11,7 +11,6 @@
 #import "YBPlugin.h"
 #import "YBFastDataConfig.h"
 #import "YBLog.h"
-#import "YBRequest.h"
 #import "YBRequestBuilder.h"
 #import "YBOptions.h"
 #import "YBInfinityFlags.h"
@@ -79,7 +78,7 @@
 }
 
 - (void)parse:(nullable YBRequest *)request {
-    NSMutableDictionary<NSString *, NSString *> * params = request.params;
+    NSMutableDictionary<NSString *, NSString *> * params = [[NSMutableDictionary alloc] initWithDictionary:request.params];
     BOOL isInfinityRequest = [self compareRequestService:request.service andServices:@[
         YBConstantsYouboraInfinity.sessionStart,
         YBConstantsYouboraInfinity.sessionBeat,
@@ -174,7 +173,8 @@
 - (void) requestData {
     
     __weak typeof(self) weakSelf = self;
-    [self.request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString*, id>* _Nullable listenerParams) {
+    
+    [self.request addRequestSuccessListener:[[YBRequestSuccess alloc] initWithClosure:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString*, id>* _Nullable listenerParams) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
         if (strongSelf == nil) {
@@ -246,11 +246,13 @@
             return;
         }
         
-    }];
+    }]];
     
-    [self.request addRequestErrorListener:^(NSError * _Nullable error) {
+    
+    
+    [self.request addRequestErrorListener: [[YBRequestError alloc] initWithClosure:^(NSError * _Nullable error) {
         [YBLog error:@"Fastdata request failed."];
-    }];
+    }]];
     
     [self.request send];
 }
@@ -260,7 +262,7 @@
 }
 
 - (YBRequest *) createRequestWithHost:(NSString *) host andService:(NSString *) service {
-    return [[YBRequest alloc] initWithHost:host andService:service];
+    return [[YBRequest alloc] initWithHost:host service:service];
 }
 
 /*
