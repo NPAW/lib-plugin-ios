@@ -265,8 +265,9 @@ import Foundation
     /** Key for request success param */
     static public let successListenerOfflineId = "offline_id"
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
+    
     // Lib version
-    static public var youboraLibVersion = "6.5.28"
+    static public var youboraLibVersion = "6.5.29"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"
