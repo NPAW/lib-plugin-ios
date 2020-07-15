@@ -12,6 +12,16 @@
 		0601DCEF23D59A0300128F32 /* YBRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2817111E85121A00F450C1 /* YBRequestBuilder.m */; };
 		0601DCF723D701CA00128F32 /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
 		0601DCF823D763F600128F32 /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
+		061C212A24B76A0D002604C3 /* YBRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B5AAE24AF556300705212 /* YBRequest.swift */; };
+		061C212B24B76A0E002604C3 /* YBRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B5AAE24AF556300705212 /* YBRequest.swift */; };
+		061C212C24B76A0E002604C3 /* YBRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B5AAE24AF556300705212 /* YBRequest.swift */; };
+		061C212D24B76A0F002604C3 /* YBRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B5AAE24AF556300705212 /* YBRequest.swift */; };
+		061C212F24B76C2C002604C3 /* YBTestableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C212E24B76C2C002604C3 /* YBTestableRequest.swift */; };
+		061C213024B76C2C002604C3 /* YBTestableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C212E24B76C2C002604C3 /* YBTestableRequest.swift */; };
+		061C213124B76C2C002604C3 /* YBTestableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C212E24B76C2C002604C3 /* YBTestableRequest.swift */; };
+		061C213224B77E46002604C3 /* YBTestableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C212E24B76C2C002604C3 /* YBTestableRequest.swift */; };
+		061C213324B77E46002604C3 /* YBTestableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C212E24B76C2C002604C3 /* YBTestableRequest.swift */; };
+		061C213424B77E47002604C3 /* YBTestableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C212E24B76C2C002604C3 /* YBTestableRequest.swift */; };
 		0627CCA223D842E300E5D937 /* YBDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CCA123D842E300E5D937 /* YBDeviceInfo.swift */; };
 		0627CCA323D842E300E5D937 /* YBDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CCA123D842E300E5D937 /* YBDeviceInfo.swift */; };
 		0627CCA423D842E300E5D937 /* YBDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CCA123D842E300E5D937 /* YBDeviceInfo.swift */; };
@@ -44,7 +54,6 @@
 		062F75A7241794D800E61430 /* YBOptionKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062F75A2241794D800E61430 /* YBOptionKeys.swift */; };
 		066B5AAF24AF556300705212 /* YBRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B5AAE24AF556300705212 /* YBRequest.swift */; };
 		066B5AB024AF556300705212 /* YBRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B5AAE24AF556300705212 /* YBRequest.swift */; };
-		066B5AB124AF556300705212 /* YBRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B5AAE24AF556300705212 /* YBRequest.swift */; };
 		066DB31A24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
 		066DB31B24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
 		066DB31C24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
@@ -196,7 +205,6 @@
 		4E5E11BA1E7841C00097FA21 /* YouboraLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E5E11B01E7841C00097FA21 /* YouboraLib.framework */; };
 		4E5E11C11E7841C00097FA21 /* YouboraLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5E11B31E7841C00097FA21 /* YouboraLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E5E53581E7AFE9A00966C7B /* YBRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53571E7AFE9A00966C7B /* YBRequestTest.m */; };
-		4E5E535C1E7BEEF600966C7B /* YBTestableRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E535B1E7BEEF600966C7B /* YBTestableRequest.m */; };
 		4E5E535F1E7C4C3C00966C7B /* YBOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E5E535D1E7C4C3C00966C7B /* YBOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E5E53601E7C4C3C00966C7B /* YBOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E535E1E7C4C3C00966C7B /* YBOptions.m */; };
 		4E5E53631E7C4CA800966C7B /* YBOptionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53621E7C4CA800966C7B /* YBOptionsTest.m */; };
@@ -257,7 +265,6 @@
 		4EA274F21EA758E700D5329C /* YBTestableResourceTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC631E95478600E07785 /* YBTestableResourceTransform.m */; };
 		4EA274F31EA758E700D5329C /* YBCommunicationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53821E8015D100966C7B /* YBCommunicationTest.m */; };
 		4EA274F41EA758E700D5329C /* YBRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53571E7AFE9A00966C7B /* YBRequestTest.m */; };
-		4EA274F51EA758E700D5329C /* YBTestableRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E535B1E7BEEF600966C7B /* YBTestableRequest.m */; };
 		4EA274F61EA758E700D5329C /* YBOptionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53621E7C4CA800966C7B /* YBOptionsTest.m */; };
 		4EA274F71EA758E700D5329C /* YBTestablePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D1D1E8A729100946EC5 /* YBTestablePlugin.m */; };
 		4EA274F81EA758E700D5329C /* YBPluginTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D161E8A70F000946EC5 /* YBPluginTest.m */; };
@@ -361,7 +368,6 @@
 		CDBA730F23337B65008716B5 /* YBTestableResourceTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFCC631E95478600E07785 /* YBTestableResourceTransform.m */; };
 		CDBA731023337B65008716B5 /* YBCommunicationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53821E8015D100966C7B /* YBCommunicationTest.m */; };
 		CDBA731123337B65008716B5 /* YBRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53571E7AFE9A00966C7B /* YBRequestTest.m */; };
-		CDBA731323337B65008716B5 /* YBTestableRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E535B1E7BEEF600966C7B /* YBTestableRequest.m */; };
 		CDBA731423337B65008716B5 /* YBOptionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E53621E7C4CA800966C7B /* YBOptionsTest.m */; };
 		CDBA731623337B65008716B5 /* YBTestablePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D1D1E8A729100946EC5 /* YBTestablePlugin.m */; };
 		CDBA731723337B65008716B5 /* YBPluginTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC2D161E8A70F000946EC5 /* YBPluginTest.m */; };
@@ -414,6 +420,7 @@
 
 /* Begin PBXFileReference section */
 		0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBYouboraUtils.swift; sourceTree = "<group>"; };
+		061C212E24B76C2C002604C3 /* YBTestableRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBTestableRequest.swift; sourceTree = "<group>"; };
 		0627CCA123D842E300E5D937 /* YBDeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBDeviceInfo.swift; sourceTree = "<group>"; };
 		0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBSwiftTimer.swift; sourceTree = "<group>"; };
 		0627CD0823D88F0900E5D937 /* YBTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBTimer.h; sourceTree = "<group>"; };
@@ -458,8 +465,6 @@
 		4E5E11B91E7841C00097FA21 /* YouboraLibTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "YouboraLibTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E5E11C01E7841C00097FA21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E5E53571E7AFE9A00966C7B /* YBRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBRequestTest.m; path = comm/YBRequestTest.m; sourceTree = "<group>"; };
-		4E5E535A1E7BEEF600966C7B /* YBTestableRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBTestableRequest.h; sourceTree = "<group>"; };
-		4E5E535B1E7BEEF600966C7B /* YBTestableRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBTestableRequest.m; sourceTree = "<group>"; };
 		4E5E535D1E7C4C3C00966C7B /* YBOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBOptions.h; path = plugin/YBOptions.h; sourceTree = "<group>"; };
 		4E5E535E1E7C4C3C00966C7B /* YBOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBOptions.m; path = plugin/YBOptions.m; sourceTree = "<group>"; };
 		4E5E53621E7C4CA800966C7B /* YBOptionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBOptionsTest.m; path = plugin/YBOptionsTest.m; sourceTree = "<group>"; };
@@ -727,8 +732,7 @@
 				4E5E53721E7FD62700966C7B /* transform */,
 				4E5E53821E8015D100966C7B /* YBCommunicationTest.m */,
 				4E5E53571E7AFE9A00966C7B /* YBRequestTest.m */,
-				4E5E535A1E7BEEF600966C7B /* YBTestableRequest.h */,
-				4E5E535B1E7BEEF600966C7B /* YBTestableRequest.m */,
+				061C212E24B76C2C002604C3 /* YBTestableRequest.swift */,
 			);
 			name = comm;
 			sourceTree = "<group>";
@@ -1420,6 +1424,7 @@
 			files = (
 				4E5E53811E7FF33E00966C7B /* YBCommunication.m in Sources */,
 				4E2817131E85121A00F450C1 /* YBRequestBuilder.m in Sources */,
+				061C213224B77E46002604C3 /* YBTestableRequest.swift in Sources */,
 				4E5E538B1E8029B300966C7B /* YBPlaybackChronos.m in Sources */,
 				062F75A3241794D800E61430 /* YBOptionKeys.swift in Sources */,
 				4EF293871E7A92E7008B0A99 /* YBLog.m in Sources */,
@@ -1506,7 +1511,6 @@
 				0601DCED23D59A0100128F32 /* YBRequestBuilder.m in Sources */,
 				4E5E53AA1E8182F000966C7B /* YBTestablePlayerAdapter.m in Sources */,
 				4E9C7BA01E8D514200E10631 /* YBRequestBuilderTest.m in Sources */,
-				4E5E535C1E7BEEF600966C7B /* YBTestableRequest.m in Sources */,
 				4EAC2D171E8A70F000946EC5 /* YBPluginTest.m in Sources */,
 				0671AF1224615CB5000294E8 /* YBInfinityLocalManagerTest.swift in Sources */,
 				4E5E538E1E802E8000966C7B /* YBPlaybackChronosTest.m in Sources */,
@@ -1519,8 +1523,10 @@
 				4EF293811E7A88F4008B0A99 /* YBTimerTest.m in Sources */,
 				4ECFCC611E95449600E07785 /* YBResourceTransformTest.m in Sources */,
 				0627CD1623D8928700E5D937 /* YBSwiftTimerTest.swift in Sources */,
+				061C212A24B76A0D002604C3 /* YBRequest.swift in Sources */,
 				0627CD2223D89D5E00E5D937 /* YBSwiftLog.swift in Sources */,
 				4E5E53951E80323800966C7B /* YBPlaybackFlagsTest.m in Sources */,
+				061C212F24B76C2C002604C3 /* YBTestableRequest.swift in Sources */,
 				06ACE16C24699AEE0037D766 /* YBResourceParserUtil.swift in Sources */,
 				4E7CBCB51E82921A00FF7D7A /* YBPlayheadMonitorTest.m in Sources */,
 				4EAC2D1E1E8A729100946EC5 /* YBTestablePlugin.m in Sources */,
@@ -1569,6 +1575,7 @@
 				066B5AB024AF556300705212 /* YBRequest.swift in Sources */,
 				CD91137A2382B5DC00D54E38 /* YBSwiftLog.swift in Sources */,
 				CDA9FD842231F02500CD72E5 /* YBChrono.swift in Sources */,
+				061C213324B77E46002604C3 /* YBTestableRequest.swift in Sources */,
 				4E4956311E9F4F5300FF6280 /* YBLog.m in Sources */,
 				06C39197247683480085E036 /* YBErrorHandler.swift in Sources */,
 				CD60B25C2360678A008231FF /* YBPlaybackFlags.swift in Sources */,
@@ -1617,10 +1624,11 @@
 				4EA274F21EA758E700D5329C /* YBTestableResourceTransform.m in Sources */,
 				4EA274F31EA758E700D5329C /* YBCommunicationTest.m in Sources */,
 				4EA274F41EA758E700D5329C /* YBRequestTest.m in Sources */,
-				4EA274F51EA758E700D5329C /* YBTestableRequest.m in Sources */,
 				0671AF1324615CB5000294E8 /* YBInfinityLocalManagerTest.swift in Sources */,
 				0627CD2523D89DA400E5D937 /* YBSwiftTimer.swift in Sources */,
 				4EA274F61EA758E700D5329C /* YBOptionsTest.m in Sources */,
+				061C213024B76C2C002604C3 /* YBTestableRequest.swift in Sources */,
+				061C212B24B76A0E002604C3 /* YBRequest.swift in Sources */,
 				4EA274F71EA758E700D5329C /* YBTestablePlugin.m in Sources */,
 				4EA274F81EA758E700D5329C /* YBPluginTest.m in Sources */,
 				06C695F124740A4B00F4BD24 /* YBResourceParserUtilTest.swift in Sources */,
@@ -1661,6 +1669,7 @@
 				CD5237A5228DA3090013BA16 /* YBRequestBuilder.m in Sources */,
 				0627CD0F23D88F0900E5D937 /* YBTimer.m in Sources */,
 				0671AF1824615CF2000294E8 /* YBInfinityLocalManager.swift in Sources */,
+				061C212C24B76A0E002604C3 /* YBRequest.swift in Sources */,
 				06A0DB73240527A7002B689B /* YBLocationParser.swift in Sources */,
 				06A0DB8424053720002B689B /* YBHlsParser.swift in Sources */,
 				CD52378D228DA2F50013BA16 /* YBTransform.m in Sources */,
@@ -1677,9 +1686,9 @@
 				CD52377C228DA2E10013BA16 /* YBPlayheadMonitor.m in Sources */,
 				CD52378B228DA2F50013BA16 /* YBResourceTransform.m in Sources */,
 				CD5237B2228DA3260013BA16 /* YBChrono.swift in Sources */,
-				066B5AB124AF556300705212 /* YBRequest.swift in Sources */,
 				CD91137B2382B5DC00D54E38 /* YBSwiftLog.swift in Sources */,
 				CD523776228DA2E10013BA16 /* YBPlaybackChronos.m in Sources */,
+				061C213424B77E47002604C3 /* YBTestableRequest.swift in Sources */,
 				CD52377E228DA2E70013BA16 /* YBInfinity.m in Sources */,
 				06C39199247683480085E036 /* YBErrorHandler.swift in Sources */,
 				CD60B25D2360678A008231FF /* YBPlaybackFlags.swift in Sources */,
@@ -1712,6 +1721,7 @@
 				CDBA730823337B65008716B5 /* YBNqs6TransformTest.m in Sources */,
 				0671AF1424615CB5000294E8 /* YBInfinityLocalManagerTest.swift in Sources */,
 				06A0DB8C24053A01002B689B /* YBLocationParserTest.swift in Sources */,
+				061C212D24B76A0F002604C3 /* YBRequest.swift in Sources */,
 				06B0870B240563D70076F7ED /* YBDashParser.swift in Sources */,
 				06C14F8C23D8AD7E00E7525B /* YBYouboraUtils.swift in Sources */,
 				CDBA730923337B65008716B5 /* YBTransformTest.m in Sources */,
@@ -1729,13 +1739,13 @@
 				06C3919E24768D690085E036 /* YBErrorHandlerTest.swift in Sources */,
 				CDBA731023337B65008716B5 /* YBCommunicationTest.m in Sources */,
 				CDBA731123337B65008716B5 /* YBRequestTest.m in Sources */,
-				CDBA731323337B65008716B5 /* YBTestableRequest.m in Sources */,
 				CDBA731423337B65008716B5 /* YBOptionsTest.m in Sources */,
 				066DB31C24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */,
 				0627CD2723D89DA500E5D937 /* YBSwiftTimer.swift in Sources */,
 				CDBA731623337B65008716B5 /* YBTestablePlugin.m in Sources */,
 				CDBA731723337B65008716B5 /* YBPluginTest.m in Sources */,
 				CDBA731823337B65008716B5 /* YBRequestBuilderTest.m in Sources */,
+				061C213124B76C2C002604C3 /* YBTestableRequest.swift in Sources */,
 				CDBA731923337B65008716B5 /* YBTimerTest.m in Sources */,
 				0627CD1823D8928800E5D937 /* YBSwiftTimerTest.swift in Sources */,
 				0627CD2423D89D5F00E5D937 /* YBSwiftLog.swift in Sources */,

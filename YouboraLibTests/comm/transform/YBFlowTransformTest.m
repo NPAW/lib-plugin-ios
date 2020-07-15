@@ -9,8 +9,6 @@
 #import <XCTest/XCTest.h>
 #import "YBFlowTransform.h"
 
-#import "YBRequest.h"
-
 #import <OCMockito/OCMockito.h>
 #import "YouboraLib/YouboraLib-Swift.h"
 

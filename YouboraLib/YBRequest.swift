@@ -11,25 +11,28 @@ import Foundation
 import UIKit
 #endif
 
+typealias YBRequestSuccessClosure = (_ data: Data?, _ response: URLResponse?, _ listenerParams: NSMutableDictionary?) -> Void
+
 /**
-* Type of the success closure
-*
-*  - data: (Data *) the data as returned by the completionHandler.
-*  - response: (URLResponse *) the response as returned by the completionHandler.
-*/
+ * Type of the success closure
+ *
+ *  - data: (Data *) the data as returned by the completionHandler.
+ *  - response: (URLResponse *) the response as returned by the completionHandler.
+ */
+
 @objcMembers public class YBRequestSuccess: NSObject {
-    let closure: (_ data: Data, _ response: URLResponse, _ listenerParams: NSMutableDictionary) -> Void
+    let closure: YBRequestSuccessClosure
     
-    init(closure: @escaping (_ data: Data, _ response: URLResponse, _ listenerParams: NSMutableDictionary) -> Void) {
+    init(closure: @escaping YBRequestSuccessClosure) {
         self.closure = closure
     }
 }
 
 /**
-* Type of the error block
-*
-*  - error: (Error *) error as returned by the completionHandler.
-*/
+ * Type of the error block
+ *
+ *  - error: (Error *) error as returned by the completionHandler.
+ */
 @objcMembers public class YBRequestError: NSObject {
     let closure: (_ error: Error) -> Void
     
@@ -39,8 +42,8 @@ import UIKit
 }
 
 /**
-* Class with all the http methods used by Youbora
-*/
+ * Class with all the http methods used by Youbora
+ */
 @objcMembers class YouboraHTTPMethod: NSObject {
     static let get = "GET"
     static let post = "POST"
@@ -50,43 +53,43 @@ import UIKit
     static let trace = "TRACE"
 }
 
-@objcMembers class YBRequest: NSObject {
+@objcMembers public class YBRequest: NSObject {
     /// The host where the YBRequest is performed to
     var host: String
-
+    
     /// The service. This will be the "/something" part of the url.
     /// For instance the "/start" in "a-fds.youborafds01.com/start"
     var service: String?
-
+    
     /// NSDictionary with params to add to the http request
     var params: NSMutableDictionary?
-
+    
     /// NSDictionary with Request Headers to add to the http request
     var requestHeaders: [ String: String]?
-
+    
     /// The retry interval for this request. In milliseconds. The default value is 5000.
-    let retryInterval: UInt
-
+    var retryInterval: UInt
+    
     /// The number of retries for this request. The default value is 3.
     var maxRetries: UInt
-
+    
     /// Method of the HTTP request. Default is <YouboraHTTPMethodGet>
     var method: String
-
+    
     /// In case of wanting some params back. Default empty
     var listenerParams: NSMutableDictionary
-
+    
     /// Request body in case of being method POST
     var body: String
     
     /// Closure to indicate success request
-    fileprivate var successListenerList: [YBRequestSuccess?]
+    var successListenerList: [YBRequestSuccess?]
     
     /// Closure to indicate error on request
-    fileprivate var errorListenerList: [YBRequestError?]
+    var errorListenerList: [YBRequestError?]
     
-    fileprivate static var everySuccessListenerList: [YBRequestSuccess]?
-    fileprivate static var everyErrorListenerList: [YBRequestError]?
+    private static var everySuccessListenerList: [YBRequestSuccess]?
+    private static var everyErrorListenerList: [YBRequestError]?
     
     lazy var userAgent:String = {
         
@@ -95,34 +98,33 @@ import UIKit
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         let machine = machineMirror.children.reduce("") { identifier, element in
-          guard let value = element.value as? Int8, value != 0 else { return identifier }
-          return identifier + String(UnicodeScalar(UInt8(value)))
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
         }
-
+        
         var builtUserAgent: String?
         
         #if os(iOS)
         let device = UIDevice.current
-
+        
         if let object = Bundle.main.infoDictionary?["CFBundleName"],
             let object1 = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             builtUserAgent = "\(object)/\(object1)/\(device.model)/\(machine)/\(device.systemVersion)"
         }
         #else
-
+        
         var size = 0
         sysctlbyname("hw.model", nil, &size, nil, 0)
-        var modelName = [CChar](repeating: 0,  count: size)
+        var modelName = [CChar](repeating: 0, count: size)
         sysctlbyname("hw.model", &modelName, &size, nil, 0)
-
+        
         let machineName = String(cString: modelName)
-
+        
         if let object = Bundle.main.infoDictionary?["CFBundleName"],
             let object1 = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
             builtUserAgent = "\(object)/\(object1)/Mac/\(machineName)/\(ProcessInfo.processInfo.operatingSystemVersion)"
         }
-
-
+        
         #endif
         
         guard let tmpBuiltUserAgent = builtUserAgent else {
@@ -133,13 +135,13 @@ import UIKit
         
         CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false) // transform to latin chars
         CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false) // get rid of diacritical signs
-
+        
         return tmpBuiltUserAgent
     }()
     
     /// indicates the number of times that YBRequest tried to do a request
     var pendingAttemps: UInt
-
+    
     init(host: String, service: String?) {
         self.host = host
         self.service = service
@@ -154,17 +156,17 @@ import UIKit
     }
     
     /**
-    * Sends this Request over the network.
-    */
+     * Sends this Request over the network.
+     */
     public func send() {
         self.pendingAttemps = self.maxRetries+1
         self.sendRequest()
     }
     
     /**
-    * Builds the url. It consists of the following: <host> + <service> + query params
-    * @returns the full query url
-    */
+     * Builds the url. It consists of the following: <host> + <service> + query params
+     * @returns the full query url
+     */
     
     public func getUrl() -> URL? {
         var components = URLComponents(string: self.host)
@@ -195,7 +197,7 @@ import UIKit
      * @param key param key
      * @param value param value
      */
-    public func setParam(_ value: String, _ key: String) {
+    public func setParam(key: String, value: String) {
         if self.params == nil {
             self.params = [:]
         }
@@ -213,14 +215,19 @@ import UIKit
         return params?[key] as? String
     }
     
+    func createRequest(url: URL) -> NSMutableURLRequest? {
+        return NSMutableURLRequest(url: url)
+    }
+    
     private func sendRequest() {
-        guard let url = self.getUrl() else {
-                return
+        guard let url = self.getUrl(),
+            var mutableRequest = self.createRequest(url: url),
+            var request = mutableRequest as? URLRequest else {
+            return
         }
         
         self.pendingAttemps -= 1
         
-        var request = URLRequest(url: url)
         if YBSwiftLog.isAtLeastLevel(.verbose) {
             YBSwiftLog.requestLog("XHR Req: %@", url.absoluteString)
             if self.body != "" && self.method == YouboraHTTPMethod.post {
@@ -247,47 +254,60 @@ import UIKit
             }
             
             if let response = response as? HTTPURLResponse,
-                let service = strongSelf.service{
+                let service = strongSelf.service {
                 YBSwiftLog.debug("Response code for: %@ %ld", service, response.statusCode)
             }
             
             if let error = error {
                 self?.didFail(error: error)
             } else {
-                self?.didSucceed(data: data, response: response)
+                self?.didSucceed(data: data, response: response, params: nil)
             }
         }.resume()
     }
     
     /**
-    * Builds a string with the User-Agent header content.
-    *
-    * This method will also normalize the user agent string. With "normalize"
-    * we mean to convert the user-agent string to latin chars with no diacritic
-    * signs Normalization could be necessary when the app bundle has non-latin
-    * chars. It's been observed that, with Japanese characters, the User-Agent
-    * header was arriving empty to the backend
-    * @returns The User-Agent built string.
-    */
+     * Builds a string with the User-Agent header content.
+     *
+     * This method will also normalize the user agent string. With "normalize"
+     * we mean to convert the user-agent string to latin chars with no diacritic
+     * signs Normalization could be necessary when the app bundle has non-latin
+     * chars. It's been observed that, with Japanese characters, the User-Agent
+     * header was arriving empty to the backend
+     * @returns The User-Agent built string.
+     */
     
     private func getUserAgent() -> String {
         return self.userAgent
     }
     
-    private func didSucceed(data: Data?, response: URLResponse?) {
-        guard let data = data,
-            let response = response else {
-                return
+    func didSucceed(data: Data?, response: URLResponse?, params: NSMutableDictionary?) {
+        var paramsToSend = self.listenerParams
+        
+        if let params = params {
+            paramsToSend = params
         }
         
         for successListener in self.successListenerList {
-            successListener?.closure(data, response, self.listenerParams)
+            successListener?.closure(data, response, paramsToSend)
         }
+        
+        if let everySuccessListener = YBRequest.everySuccessListenerList {
+            for successListener in everySuccessListener {
+                successListener.closure(data, response, paramsToSend)
+            }
+        }  
     }
     
-    private func didFail(error: Error) {
+    func didFail(error: Error) {
         for errorListener in self.errorListenerList {
             errorListener?.closure(error)
+        }
+        
+        if let everyErrorListener = YBRequest.everyErrorListenerList {
+            for errorListener in everyErrorListener {
+                errorListener.closure(error)
+            }
         }
         
         if self.pendingAttemps > 0 {

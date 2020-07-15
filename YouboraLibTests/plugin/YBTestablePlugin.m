@@ -14,7 +14,6 @@
 #import "YBViewTransform.h"
 #import "YBResourceTransform.h"
 #import "YBPlayerAdapter.h"
-#import "YBRequest.h"
 #import "YBCommunication.h"
 #import "YBTimer.h"
 #import "YBPlaybackChronos.h"

@@ -8,8 +8,6 @@
 
 #import "YBTestableViewTransform.h"
 
-#import "YBRequest.h"
-
 #import <OCMockito/OCMockito.h>
 #import "YouboraLib/YouboraLib-Swift.h"
 
@@ -17,7 +15,7 @@
 
 - (YBRequest *) createRequestWithHost:(NSString *) host andService:(NSString *) service {
     if (self.mockRequest == nil) {
-        self.mockRequest = mock([YBRequest class]);
+        self.mockRequest = [[YBTestableRequest alloc] initWithHost:host service:service];
     }
     return self.mockRequest;
 }

@@ -8,11 +8,11 @@
 
 #import "YBViewTransform.h"
 
-@class YBRequest;
+@class YBTestableRequest;
 
 @interface YBTestableViewTransform : YBViewTransform
 
-@property(nonatomic, strong) YBRequest * mockRequest;
+@property(nonatomic, strong) YBTestableRequest * mockRequest;
 
 @property(nonatomic, strong) NSString * viewCodeTimestamp;
 

@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 
 #import "YBResourceTransform.h"
-#import "YBRequest.h"
 #import "YBCdnParser.h"
 #import "YBPlugin.h"
 #import "YBRequestBuilder.h"
@@ -212,10 +211,10 @@ typedef enum {
     
     //We don't modify the mediaResource anymore, any mod is done on the parsedResource
     //[verifyCount(mockRequest, times(1)) setParam:@"parsed-resource" forKey:YBConstantsRequest.mediaResource];
-    [verifyCount(mockRequest, times(1)) setParam:@"parsedCdnName" forKey:YBConstantsRequest.cdn];
-    [verifyCount(mockRequest, times(1)) setParam:@"parsedNodeHost" forKey:YBConstantsRequest.nodeHost];
-    [verifyCount(mockRequest, times(1)) setParam:@"1" forKey:YBConstantsRequest.nodeType];
-    [verifyCount(mockRequest, times(1)) setParam:@"HIT" forKey:YBConstantsRequest.nodeTypeString];
+    mockRequest.params[YBConstantsRequest.cdn] = @"parsedCdnName";
+    mockRequest.params[YBConstantsRequest.nodeHost] = @"parsedNodeHost";
+    mockRequest.params[YBConstantsRequest.nodeType] = @"1";
+    mockRequest.params[YBConstantsRequest.nodeTypeString] = @"HIT";
     
     XCTAssertEqualObjects(nil, lastSent[YBConstantsRequest.mediaResource]);
     XCTAssertEqualObjects(@"parsedCdnName", lastSent[YBConstantsRequest.cdn]);

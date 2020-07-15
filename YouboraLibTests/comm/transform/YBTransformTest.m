@@ -11,9 +11,8 @@
 #import "YBTransform.h"
 #import "YBTransformSubclass.h" // Category
 
-#import "YBRequest.h"
-
 #import <OCMockito/OCMockito.h>
+#import "YouboraLib/YouboraLib-Swift.h"
 
 // YBTransform Category for testing purposes
 @implementation YBTransform (YBTransformTestAdditions)

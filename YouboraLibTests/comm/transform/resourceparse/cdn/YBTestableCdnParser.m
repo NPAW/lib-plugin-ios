@@ -7,25 +7,16 @@
 //
 
 #import "YBTestableCdnParser.h"
-#import "YBRequest.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 #import <OCMockito/OCMockito.h>
 
 @implementation YBTestableCdnParser
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.mockRequest = mock([YBRequest class]);
-    }
-    return self;
-}
 
 - (YBRequest *) createRequestWithHost:(nullable NSString *) host andService:(nullable NSString *) service {
     
-    [self.mockRequest setHost:host];
-    [self.mockRequest setService:service];
+    self.mockRequest = [[YBTestableRequest alloc] initWithHost:host service:service];
     
     return self.mockRequest;
 }

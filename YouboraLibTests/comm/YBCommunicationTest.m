@@ -13,6 +13,7 @@
 
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBCommunicationTest : XCTestCase
 

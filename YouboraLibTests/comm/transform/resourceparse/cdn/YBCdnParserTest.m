@@ -13,7 +13,7 @@
 #import "YBCdnParser.h"
 #import "YBTestableCdnParser.h"
 #import "YBParsableResponseHeader.h"
-#import "YBRequest.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBCdnParserTest : XCTestCase<CdnTransformDoneDelegate>
 
@@ -73,20 +73,22 @@
     
     [parser parseWithUrl:@"resourceurl" andPreviousResponses:nil];
     
+    NSMutableDictionary *requestHeaders = [@{@"header-name":@"header-value"} mutableCopy];
     // Verify request fields are set
-    [((YBRequest *) verifyCount(parser.mockRequest, times(1))) setMethod:YouboraHTTPMethodHead];
-    [verifyCount(parser.mockRequest, times(1)) setRequestHeaders:[@{@"header-name":@"header-value"} mutableCopy]];
-    [verifyCount(parser.mockRequest, times(1)) setMaxRetries:0];
+    [parser.mockRequest setMethod: YouboraHTTPMethod.head];
+    [parser.mockRequest setRequestHeaders: requestHeaders];
+    [parser.mockRequest setMaxRetries: 0];
     
-    // Capture request callback
-    HCArgumentCaptor * captor = [HCArgumentCaptor new];
-    [verify(parser.mockRequest) addRequestSuccessListener:(id)captor];
+    XCTAssertEqual(parser.mockRequest.method, YouboraHTTPMethod.head);
+    XCTAssertEqualObjects(parser.mockRequest.requestHeaders, requestHeaders);
+    XCTAssertEqual(parser.mockRequest.maxRetries, 0);
+    
     
     // Mock response
     NSHTTPURLResponse * mockResponse = mock([NSHTTPURLResponse class]);
     stubProperty(mockResponse, allHeaderFields, @{@"X-Header":@"TCP_HAT from a(a/HOST_VALUE)"});
     
-    ((YBRequestSuccessBlock) captor.value)(mock([NSData class]), mockResponse, [[NSMutableDictionary alloc] init]);
+    [parser.mockRequest mockSucceedWithData:mock([NSData class]) response:mockResponse params:[[NSMutableDictionary alloc] init]];
     
     XCTAssertTrue(callbackInvoked);
     XCTAssertEqual(YBCdnTypeHit, parser.cdnNodeType);
@@ -110,9 +112,8 @@
     
     // Capture request callback
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
-    [verify(parser.mockRequest) addRequestErrorListener:(id)captor];
     
-    ((YBRequestErrorBlock) captor.value)(mock([NSError class]));
+    [parser.mockRequest mockFailWithError:mock([NSError class])];
     
     // Callback called
     XCTAssertTrue(callbackInvoked);
@@ -136,12 +137,8 @@
     
     [parser parseWithUrl:@"resourceurl" andPreviousResponses:nil];
     
-    // Capture request callback
-    HCArgumentCaptor * captor = [HCArgumentCaptor new];
-    [verify(parser.mockRequest) addRequestErrorListener:(id)captor];
     
-    // Callback
-    ((YBRequestErrorBlock) captor.value)(mock([NSError class]));
+    [parser.mockRequest mockFailWithError:mock([NSError class])];
     
     XCTAssertEqual(0, numberOfCallbacks);
     
@@ -149,14 +146,14 @@
     [parser addCdnTransformDelegate:self];
     
     // Callback
-    ((YBRequestErrorBlock) captor.value)(mock([NSError class]));
+    [parser.mockRequest mockFailWithError:mock([NSError class])];
     
     XCTAssertEqual(1, numberOfCallbacks);
     
     [parser removeCdnTransformDelegate:self];
     
     // Callback
-    ((YBRequestErrorBlock) captor.value)(mock([NSError class]));
+    [parser.mockRequest mockFailWithError:mock([NSError class])];
     
     XCTAssertEqual(1, numberOfCallbacks);
 }
@@ -184,15 +181,12 @@
 
     [parser parseWithUrl:@"resource" andPreviousResponses:nil];
     
-    // Capture request callback
-    HCArgumentCaptor * captor = [HCArgumentCaptor new];
-    [verify(parser.mockRequest) addRequestSuccessListener:(id)captor];
-    
     // Mock response
     NSHTTPURLResponse * mockResponse = mock([NSHTTPURLResponse class]);
     stubProperty(mockResponse, allHeaderFields, (@{@"Header-type":@"MISS", @"Header-host":@"cdn_host_value"}));
     
-    ((YBRequestSuccessBlock) captor.value)(mock([NSData class]), mockResponse, [[NSMutableDictionary alloc] init]);
+    
+    [parser.mockRequest mockSucceedWithData:mock([NSData class]) response:mockResponse params:mockResponse];
     
     XCTAssertEqual(YBCdnTypeMiss, parser.cdnNodeType);
     XCTAssertEqualObjects(@"MISS", parser.cdnNodeTypeString);

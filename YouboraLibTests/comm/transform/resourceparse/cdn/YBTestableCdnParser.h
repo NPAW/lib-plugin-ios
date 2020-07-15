@@ -7,10 +7,10 @@
 //
 
 #import "YBCdnParser.h"
-@class YBRequest;
+@class YBTestableRequest;
 
 @interface YBTestableCdnParser : YBCdnParser
 
-@property(nonatomic, strong) YBRequest * mockRequest;
+@property(nonatomic, strong) YBTestableRequest * mockRequest;
 
 @end

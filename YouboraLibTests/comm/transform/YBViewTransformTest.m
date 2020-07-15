@@ -11,7 +11,6 @@
 #import "YBTestableViewTransform.h"
 #import "YBPlugin.h"
 #import "YBViewTransform.h"
-#import "YBRequest.h"
 #import "YBLog.h"
 #import "YBRequestBuilder.h"
 #import "YBFastDataConfig.h"
@@ -61,59 +60,36 @@
 }
 
 - (void)testEmptyResponse {
-    HCArgumentCaptor * argumentCaptor = [HCArgumentCaptor new];
-    
     [self.viewTransform begin];
     
     // Capture callback
-    [verifyCount(self.viewTransform.mockRequest, times(1)) addRequestSuccessListener:(id) argumentCaptor];
-    YBRequestSuccessBlock successBlock = argumentCaptor.value;
-    
-    successBlock([@"" dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]),[[NSMutableDictionary alloc] init]);
+    [self.viewTransform.mockRequest mockSucceedWithData:[@"" dataUsingEncoding:NSUTF8StringEncoding] response:mock([NSURLResponse class]) params:[[NSMutableDictionary alloc] init]];
     
     [verifyCount(self.mockLogger, times(1)) logYouboraMessage:anything() withLogLevel:YBLogLevelError];
 }
 
 - (void)testNilResponse {
-    HCArgumentCaptor * argumentCaptor = [HCArgumentCaptor new];
-    
     [self.viewTransform begin];
     
-    // Capture callback
-    [verifyCount(self.viewTransform.mockRequest, times(1)) addRequestSuccessListener:(id) argumentCaptor];
-    YBRequestSuccessBlock successBlock = argumentCaptor.value;
-    
-    successBlock(nil, mock([NSURLResponse class]),[[NSMutableDictionary alloc] init]);
+    [self.viewTransform.mockRequest mockSucceedWithData:nil response:mock([NSURLResponse class]) params:[[NSMutableDictionary alloc] init]];
     
     [verifyCount(self.mockLogger, times(1)) logYouboraMessage:anything() withLogLevel:YBLogLevelError];
 }
 
 - (void)testErrorResponse {
-    HCArgumentCaptor * argumentCaptor = [HCArgumentCaptor new];
-    
     [self.viewTransform begin];
     
-    // Capture callback
-    [verifyCount(self.viewTransform.mockRequest, times(1)) addRequestErrorListener:(id) argumentCaptor];
-    YBRequestErrorBlock errorBlock = argumentCaptor.value;
-    
-    errorBlock(mock([NSError class]));
+    [self.viewTransform.mockRequest mockFailWithError:mock([NSError class])];
     
     [verifyCount(self.mockLogger, times(1)) logYouboraMessage:anything() withLogLevel:YBLogLevelError];
 }
 
 - (void)testRequestData {
-    HCArgumentCaptor * argumentCaptor = [HCArgumentCaptor new];
-    
     [self.viewTransform begin];
-    
-    // Capture callback
-    [verifyCount(self.viewTransform.mockRequest, times(1)) addRequestSuccessListener:(id) argumentCaptor];
-    YBRequestSuccessBlock successBlock = argumentCaptor.value;
     
     NSString * response = @"fjsonp({\"q\":{\"h\":\"debug-nqs-lw2.nice264.com\",\"t\":\"\",\"pt\":\"5\",\"c\":\"U_19487_4uv9wa43215qq55y\",\"tc\":\"\",\"b\":\"0\"}})";
     
-    successBlock([response dataUsingEncoding:NSUTF8StringEncoding], mock([NSURLResponse class]), [[NSMutableDictionary alloc] init]);
+    [self.viewTransform.mockRequest mockSucceedWithData:[response dataUsingEncoding:NSUTF8StringEncoding] response:mock([NSURLResponse class]) params:[[NSMutableDictionary alloc] init]];
     
     // Shouldn't block anymore
     XCTAssertFalse([self.viewTransform isBlocking:nil]);

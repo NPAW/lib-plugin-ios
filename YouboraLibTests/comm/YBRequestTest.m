@@ -7,8 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "YBRequest.h"
-#import "YBTestableRequest.h"
 
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
@@ -34,7 +32,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
 }
 
 - (void)testGetUrl {
-    YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
+    YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" service:@"/service"];
     
     XCTAssertEqualObjects(@"http://host.com/service", [r getUrl].absoluteString);
     
@@ -49,20 +47,19 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     XCTAssert([url containsString:@"json={"]);
     XCTAssert([url containsString:@"\"jsonkey\":\"jsonvalue\""]);
     XCTAssert([url containsString:@"\"jsonkey2\":\"jsonvalue2\""]);
-
+    
 }
 
 - (void) testRequestParams {
-    YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
-    [r setParam:@"value" forKey:@"key"];
+    YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" service:@"/service"];
+    [r setParamWithKey:@"key" value:@"value"];
     XCTAssertNotNil(r.params[@"key"]);
-    [r setParam:@"value2" forKey:@"key2"];
+    [r setParamWithKey:@"key2" value:@"value2"];
     XCTAssertNotNil(r.params[@"key2"]);
 }
 
 - (void)testSendSuccessRequest {
-    
-    YBTestableRequest * r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
+    YBTestableRequest *r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" service:@"/service"];
     r.mockRequest = mock([NSMutableURLRequest class]);
     
     NSString * headerName = @"headerName";
@@ -75,21 +72,21 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     __block int callbacks = 0;
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
+    YBRequestSuccess *requestSuccess = [[YBRequestSuccess alloc] initWithClosure:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
         XCTAssertEqualObjects(mockData, data);
         XCTAssertEqualObjects(response, mockResponse);
         callbacks++;
-    };
+    }];
     
-    YBRequestErrorBlock errorBlock = ^(NSError * _Nullable error) {
+    YBRequestError *requestError = [[YBRequestError alloc] initWithClosure:^(NSError * _Nullable error) {
         XCTFail(@"YBRequestErrorBlock called when it shouldn't have.");
-    };
+    }];
     
-    [r addRequestSuccessListener:successBlock];
-    [YBRequest addEveryRequestSuccessListener:successBlock];
+    [r addRequestSuccessListener:requestSuccess];
+    [YBRequest addEveryRequestSuccessListener:requestSuccess];
     
-    [r addRequestErrorListener:errorBlock];
-    [YBRequest addEveryRequestErrorListener:errorBlock];
+    [r addRequestErrorListener:requestError];
+    [YBRequest addEveryRequestErrorListener:requestError];
     
     // Mock session singleton
     __strong Class mockSessionClass = mockClass([NSURLSession class]);
@@ -106,7 +103,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     // Capture urlrequest and callback
     HCArgumentCaptor * urlCaptor = [HCArgumentCaptor new];
     HCArgumentCaptor * handlerCaptor = [HCArgumentCaptor new];
-
+    
     [verifyCount(mockSession, times(1)) dataTaskWithRequest:(id)urlCaptor completionHandler:(id)handlerCaptor];
     
     NSURLRequest * urlrequest = (NSURLRequest *) urlCaptor.value;
@@ -125,82 +122,63 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
 }
 
 - (void)testSendErrorRequest {
-    YBTestableRequest * r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
-    r.mockRequest = mock([NSMutableURLRequest class]);
+    YBTestableRequest * r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" service:@"/service"];
+    r.mockRequest = [[NSMutableURLRequest alloc] init];
     
     NSError * mockError = mock([NSError class]);
     __block int callbacks = 0;
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
+    YBRequestSuccess *requestSuccess = [[YBRequestSuccess alloc] initWithClosure:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
         XCTFail(@"YBRequestSuccessBlock called when it shouldn't have.");
-    };
+    }];
     
-    YBRequestErrorBlock errorBlock = ^(NSError * _Nullable error) {
+    YBRequestError *requestError = [[YBRequestError alloc] initWithClosure:^(NSError * _Nullable error) {
         XCTAssertEqualObjects(mockError, error);
         callbacks++;
-    };
+    }];
+    // Set callbacks
     
-    [r addRequestSuccessListener:successBlock];
-    [YBRequest addEveryRequestSuccessListener:successBlock];
+    [r addRequestSuccessListener:requestSuccess];
+    [YBRequest addEveryRequestSuccessListener:requestSuccess];
     
-    [r addRequestErrorListener:errorBlock];
-    [YBRequest addEveryRequestErrorListener:errorBlock];
-    
-    // Mock session singleton
-    __strong Class mockSessionClass = mockClass([NSURLSession class]);
-    NSURLSession * mockSession = mock([NSURLSession class]);
-    stubSingleton(mockSessionClass, sharedSession);
-    [given([NSURLSession sharedSession]) willReturn:mockSession];
+    [r addRequestErrorListener:requestError];
+    [YBRequest addEveryRequestErrorListener:requestError];
+
     
     // Send request
     [r send];
     
-    // Capture urlrequest and callback
-    HCArgumentCaptor * urlCaptor = [HCArgumentCaptor new];
-    HCArgumentCaptor * handlerCaptor = [HCArgumentCaptor new];
-    
-    [verifyCount(mockSession, times(1)) dataTaskWithRequest:(id)urlCaptor completionHandler:(id)handlerCaptor];
-    
-    NSURLRequest * urlrequest = (NSURLRequest *) urlCaptor.value;
-    DataTaskCompletionCallbackType callback = (DataTaskCompletionCallbackType) handlerCaptor.value;
-    
-    XCTAssertEqualObjects(r.mockRequest, urlrequest);
-    
-    // Simulate request response
-    callback(nil, nil, mockError);
+  
+    [r mockFailWithError:mockError];
     
     XCTAssertEqual(2, callbacks);
-    
-    // Stop mocking singleton
-    stopMocking(mockSessionClass);
-    mockSessionClass = nil;
 }
 
 - (void)testRequestFields {
-    YBRequest * req = [[YBRequest alloc] initWithHost:@"http://example.com" andService:@"/service"];
+    YBRequest * req = [[YBRequest alloc] initWithHost:@"http://example.com" service:@"/service"];
     
     // Check default values
     XCTAssertEqualObjects(req.host, @"http://example.com");
     XCTAssertEqualObjects(req.service, @"/service");
-    XCTAssertEqualObjects(req.method, YouboraHTTPMethodGet);
+    XCTAssertEqualObjects(req.method, YouboraHTTPMethod.get);
     XCTAssertEqualObjects(req.params, nil);
-    XCTAssertEqualObjects([req getParam:@"a"], nil);
+    XCTAssertEqualObjects(req.params[@"a"], nil);
     
     // Change properties
     req.host = @"http://abc.com";
     req.service = @"/anotherService";
-    req.method = YouboraHTTPMethodDelete;
+    req.method = YouboraHTTPMethod.delete;
     req.maxRetries = 10;
     req.retryInterval = 10000;
     req.params = [@{YBConstantsRequest.param1:@"value1", YBConstantsRequest.param2:@"value2", YBConstantsRequest.param3:@"value3"} mutableCopy];
-    [req setParam:@"value4" forKey:YBConstantsRequest.param4];
+    req.params[YBConstantsRequest.param4] = @"value4";
     req.requestHeaders = @{@"header1":@"valueheader1", @"header2":@"valueheader2"};
     
     // Check new values
     XCTAssertEqualObjects(req.host, @"http://abc.com");
     XCTAssertEqualObjects(req.service, @"/anotherService");
-    XCTAssertEqualObjects(req.method, YouboraHTTPMethodDelete);
+    XCTAssertEqualObjects(req.method, YouboraHTTPMethod.delete);
     XCTAssertEqual(req.maxRetries, 10);
     XCTAssertEqual(req.retryInterval, 10000);
     
@@ -215,7 +193,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     XCTAssertEqualObjects(@"valueheader1", reqHeaders[@"header1"]);
     XCTAssertEqualObjects(@"valueheader2", reqHeaders[@"header2"]);
     
-    XCTAssertNil([req getParam:@"unexisting_key"]);
+    XCTAssertNil(req.params[@"unexisting_key"]);
 }
 
 - (void)testAddRemoveListeners {
@@ -223,24 +201,24 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     __block int successCallbacks = 0;
     __block int errorCallbacks = 0;
     
-    YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
+    YBRequest * r = [[YBRequest alloc] initWithHost:@"http://host.com" service:@"/service"];
     
     // Set callbacks
-    YBRequestSuccessBlock successBlock1 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
+    YBRequestSuccess *successBlock1 = [[YBRequestSuccess alloc] initWithClosure:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
         successCallbacks++;
-    };
+    }];
     
-    YBRequestSuccessBlock successBlock2 = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
+    YBRequestSuccess *successBlock2 = [[YBRequestSuccess alloc] initWithClosure:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *, id> * _Nullable listenerParams) {
         XCTFail(@"Unregistered YBRequestSuccessBlock block called");
-    };
+    }];
     
-    YBRequestErrorBlock errorBlock1 = ^(NSError * _Nullable error) {
+    YBRequestError *errorBlock1 = [[YBRequestError alloc] initWithClosure:^(NSError * _Nullable error) {
         errorCallbacks++;
-    };
+    }];
     
-    YBRequestErrorBlock errorBlock2 = ^(NSError * _Nullable error) {
+    YBRequestError *errorBlock2 = [[YBRequestError alloc] initWithClosure:^(NSError * _Nullable error) {
         XCTFail(@"Unregistered YBRequestErrorBlock block called");
-    };
+    }];
     
     // Success listeners
     [r addRequestSuccessListener:successBlock1];
@@ -288,11 +266,11 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
 }
 
 - (void) testRequestBody {
-    YBTestableRequest * r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" andService:@"/service"];
-    r.mockRequest = mock([NSMutableURLRequest class]);
+    YBTestableRequest * r = [[YBTestableRequest alloc] initWithHost:@"http://host.com" service:@"/service"];
+    r.mockRequest = [[NSMutableURLRequest alloc] init];
     
     r.body = @"body";
-    r.method = YouboraHTTPMethodPost;
+    r.method = YouboraHTTPMethod.post;
     
     // Mock session singleton
     __strong Class mockSessionClass = mockClass([NSURLSession class]);
@@ -303,9 +281,7 @@ typedef void (^DataTaskCompletionCallbackType) (NSData * _Nullable data, NSURLRe
     // Send request
     [r send];
     
-    // Verify request body is not null
-    [verify(r.mockRequest) setHTTPBody:equalTo([r.body dataUsingEncoding:NSUTF8StringEncoding])];
-    
+    XCTAssertEqual(r.mockRequest.httpBody, [r.body dataUsingEncoding:NSUTF8StringEncoding]);
     
     // Stop mocking singleton
     stopMocking(mockSessionClass);
