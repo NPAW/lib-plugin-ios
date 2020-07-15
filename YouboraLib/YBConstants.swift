@@ -266,7 +266,6 @@ import Foundation
     static public let successListenerOfflineId = "offline_id"
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
-    
     // Lib version
     static public var youboraLibVersion = "6.5.29"
     
