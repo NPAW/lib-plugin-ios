@@ -37,14 +37,8 @@ FOUNDATION_EXPORT const unsigned char YouboraLibVersionString[];
 #import <YouboraLib/YBFastDataConfig.h>
 #import <YouboraLib/YBRequest.h>
 #import <YouboraLib/YBRequestBuilder.h>
-#import <YouboraLib/YBAppDatabase.h>
-#import <YouboraLib/YBEvent.h>
-#import <YouboraLib/YBEventDAO.h>
-#import <YouboraLib/YBEventDataSource.h>
-#import <YouboraLib/YBEventQueries.h>
 #import <YouboraLib/YBOfflineTransform.h>
 
 #import <YouboraLib/YBInfinity.h>
 #import <YouboraLib/YBInfinityFlags.h>
-#import <YouboraLib/YBInfinityLocalManager.h>
 #import <YouboraLib/YBTimestampLastSentTransform.h>

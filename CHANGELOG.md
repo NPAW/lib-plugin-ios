@@ -1,4 +1,6 @@
-## [6.5.29] 
+## [6.5.29] - 
+### Changed
+- Change presistence data to Swift
 ### Fixed
 - Fix problem with hls parser when the manifest is pointing to the host
 ## [6.5.28] - 2020-06-30

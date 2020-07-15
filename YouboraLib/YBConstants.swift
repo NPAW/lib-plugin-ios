@@ -265,8 +265,14 @@ import Foundation
     /** Key for request success param */
     static public let successListenerOfflineId = "offline_id"
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
+    
+    
     // Lib version
     static public var youboraLibVersion = "6.5.29"
+    
+    static public let preferencesSessionIdKey = "session_id"
+    static public let preferencesContextKey = "context_id"
+    static public let preferencesLastActiveKey = "last_active_id"
 
     // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
     // Map with ios version and names
