@@ -11,6 +11,7 @@
 #import "YBTestablePlayerAdapter.h"
 #import "YBPlayheadMonitor.h"
 #import "YBPlugin.h"
+#import "YBPlaybackFlags.h"
 
 #import "YouboraLib/YouboraLib-Swift.h"
 

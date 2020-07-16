@@ -13,6 +13,7 @@
 #import "YBLog.h"
 #import "YBPlugin.h"
 #import "YBOptions.h"
+#import "YBPlaybackFlags.h"
 
 #import "YouboraLib/YouboraLib-Swift.h"
 
