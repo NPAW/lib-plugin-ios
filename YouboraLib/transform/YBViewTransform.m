@@ -15,6 +15,7 @@
 #import "YBRequestBuilder.h"
 #import "YBOptions.h"
 #import "YBInfinityFlags.h"
+#import "YBYouboraUtils.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBViewTransform()
@@ -229,7 +230,7 @@
                 strongSelf.fastDataConfig = [YBFastDataConfig new];
             }
             strongSelf.fastDataConfig.code = code;
-            strongSelf.fastDataConfig.host = [YBYouboraUtils addProtocol:host https:(strongSelf.plugin.options.httpSecure)];
+            strongSelf.fastDataConfig.host = [YBYouboraUtils addProtocol:host andHttps:(strongSelf.plugin.options.httpSecure)];
             strongSelf.fastDataConfig.pingTime = @(pt.intValue);
             strongSelf.fastDataConfig.beatTime = bt.length > 0 ? @(bt.intValue) : @(30);
             strongSelf.fastDataConfig.expirationTime = exp.length > 0 ? @(exp.intValue) : @(300);

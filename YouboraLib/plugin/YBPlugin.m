@@ -27,6 +27,7 @@
 #import "YBInfinityFlags.h"
 #import "YBTimestampLastSentTransform.h"
 #import "YBPlaybackFlags.h"
+#import "YBYouboraUtils.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 #if TARGET_OS_IPHONE==1
@@ -432,7 +433,7 @@
 
 // ------ INFO GETTERS ------
 - (NSString *) getHost {
-    return [YBYouboraUtils addProtocol:[YBYouboraUtils stripProtocol:self.options.host] https:self.options.httpSecure];
+    return [YBYouboraUtils addProtocol:[YBYouboraUtils stripProtocol:self.options.host] andHttps:self.options.httpSecure];
 }
 
 -(bool) isParseResource {

@@ -14,7 +14,7 @@
 #import "YBPlugin.h"
 #import "YBOptions.h"
 #import "YBPlaybackFlags.h"
-
+#import "YBYouboraUtils.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBPlayerAdapter()
@@ -549,7 +549,7 @@
 }
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
-    [self fireError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
+    [self fireError: [YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
 }
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception{
@@ -569,6 +569,7 @@
 }
 
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
+    
     [self fireFatalError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     [self fireStop];
 }

@@ -9,6 +9,7 @@
 #import "YBOfflineTransform.h"
 #import "YBRequest.h"
 #import "YBLog.h"
+#import "YBYouboraUtils.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBOfflineTransform()

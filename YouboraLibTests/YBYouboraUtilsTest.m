@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YBYouboraUtils.h"
 
 @interface YBYouboraUtilsTest : XCTestCase
 
@@ -24,9 +25,9 @@
 }
 
 - (void)testAddProtocol {
-    XCTAssertEqualObjects(@"https://", [YBYouboraUtils addProtocol:nil https:true]);
-    XCTAssertEqualObjects(@"https://google.com", [YBYouboraUtils addProtocol:@"google.com" https:true]);
-    XCTAssertEqualObjects(@"http://google.com", [YBYouboraUtils addProtocol:@"google.com" https:false]);
+    XCTAssertEqualObjects(@"https://", [YBYouboraUtils addProtocol:nil andHttps:true]);
+    XCTAssertEqualObjects(@"https://google.com", [YBYouboraUtils addProtocol:@"google.com" andHttps:true]);
+    XCTAssertEqualObjects(@"http://google.com", [YBYouboraUtils addProtocol:@"google.com" andHttps:false]);
 }
 
 - (void)testRenditionString {
