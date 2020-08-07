@@ -9,6 +9,7 @@
 #import "YBYouboraUtils.h"
 #import "YBConstants.h"
 #import "YBLog.h"
+#import <YouboraLib/YouboraLib-Swift.h>
 
 @implementation YBYouboraUtils
 

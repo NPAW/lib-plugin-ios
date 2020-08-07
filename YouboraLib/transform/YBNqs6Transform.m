@@ -9,6 +9,7 @@
 #import "YBNqs6Transform.h"
 #import "YBRequest.h"
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YbConstants.h"
 
 #define YB_REG_EXP_ENTITY_TYPE_AND_VALUE @"\"(.+?)\":\"?(.+?)\"?[,}]"
 
@@ -29,9 +30,9 @@ static NSRegularExpression * regexPattern;
 #pragma mark - Public methods
 - (void)parse:(YBRequest *)request {
     if (request != nil) {
-        [YBNqs6Transform cloneParam:YBConstantsRequest.accountCode intoParam:YBConstantsRequest.system forRequest:request];
+        [YBNqs6Transform cloneParam:YB_REQUEST_ACCOUNT_CODE intoParam:YBConstantsRequest.system forRequest:request];
         [YBNqs6Transform cloneParam:YBConstantsRequest.transactionCode intoParam:@"transcode" forRequest:request];
-        [YBNqs6Transform cloneParam:YBConstantsRequest.username intoParam:@"user" forRequest:request];
+        [YBNqs6Transform cloneParam:YB_REQUEST_USERNAME intoParam:@"user" forRequest:request];
         [YBNqs6Transform cloneParam:YBConstantsRequest.mediaResource intoParam:@"resource" forRequest:request];
         [YBNqs6Transform cloneParam:@"errorMsg" intoParam:@"msg" forRequest:request];
         

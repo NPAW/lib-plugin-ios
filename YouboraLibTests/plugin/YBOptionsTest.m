@@ -84,7 +84,7 @@
     opt.httpSecure = true;
     opt.host = @"host";
     opt.accountCode = @"code";
-    opt.username = YBConstantsRequest.username;
+    opt.username = YB_REQUEST_USERNAME;
     opt.parseResource = true;
     opt.parseLocationHeader = true;
     opt.parseHls = true;
@@ -99,7 +99,7 @@
     opt.deviceCode = YBConstantsRequest.deviceCode;
     opt.contentResource = @"resource";
     opt.contentIsLive = @YES;
-    opt.contentTitle = YBConstantsRequest.title;
+    opt.contentTitle = YB_REQUEST_TITLE;
     opt.program = @"program";
     opt.contentDuration = @42;
     opt.contentTransactionCode = YBConstantsRequest.transactionCode;

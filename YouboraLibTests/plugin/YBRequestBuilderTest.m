@@ -11,6 +11,7 @@
 #import "YBRequestBuilder.h"
 #import "YBPlugin.h"
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YBConstants.h"
 
 #import <OCMockito/OCMockito.h>
 
@@ -31,13 +32,13 @@ static NSArray * ALL_PARAMS;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         ALL_PARAMS = @[YBConstantsRequest.playhead, YBConstantsRequest.playrate, YBConstantsRequest.fps, YBConstantsRequest.droppedFrames,
-                       YBConstantsRequest.mediaDuration, YBConstantsRequest.bitrate, YBConstantsRequest.throughput, YBConstantsRequest.rendition, YBConstantsRequest.title, YBConstantsRequest.title2, YBConstantsRequest.live,
+                       YBConstantsRequest.mediaDuration, YBConstantsRequest.bitrate, YBConstantsRequest.throughput, YB_REQUEST_RENDITION, YB_REQUEST_TITLE, YB_REQUEST_TITLE2, YB_REQUEST_LIVE,
                        YBConstantsRequest.mediaResource, YBConstantsRequest.transactionCode, YBConstantsRequest.properties, YBConstantsRequest.playerVersion, YBConstantsRequest.player, YBConstantsRequest.cdn,
                        YBConstantsRequest.pluginVersion, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6,
                        YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adDuration,
                        YBConstantsRequest.adBitrate, YBConstantsRequest.adTitle, YBConstantsRequest.adResource, YBConstantsRequest.adPlayerVersion, YBConstantsRequest.adProperties,
                        YBConstantsRequest.adAdapterVersion, YBConstantsRequest.pluginInfo, YBConstantsRequest.isp, YBConstantsRequest.connectionType, YBConstantsRequest.ip, YBConstantsRequest.deviceCode,
-                       YBConstantsRequest.system, YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.preloadDuration, YBConstantsRequest.joinDuration,
+                       YBConstantsRequest.system, YB_REQUEST_ACCOUNT_CODE, YB_REQUEST_USERNAME, YBConstantsRequest.preloadDuration, YBConstantsRequest.joinDuration,
                        YBConstantsRequest.bufferDuration, YBConstantsRequest.seekDuration, YBConstantsRequest.pauseDuration, YBConstantsRequest.adJoinDuration,
                        YBConstantsRequest.adBufferDuration, YBConstantsRequest.adPauseDuration, YBConstantsRequest.adTotalDuration, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType,
                        YBConstantsRequest.nodeTypeString, YBConstantsRequest.metrics, YBConstantsRequest.sessionMetrics, YBConstantsRequest.adCreativeId, YBConstantsRequest.adProvider, YBConstantsRequest.parentId, YBConstantsRequest.totalBytes];
@@ -127,10 +128,10 @@ static NSArray * ALL_PARAMS;
     XCTAssertEqualObjects(@"5", params[YBConstantsRequest.mediaDuration]);
     XCTAssertEqualObjects(@"6", params[YBConstantsRequest.bitrate]);
     XCTAssertEqualObjects(@"7", params[YBConstantsRequest.throughput]);
-    XCTAssertEqualObjects(@"a", params[YBConstantsRequest.rendition]);
-    XCTAssertEqualObjects(@"b", params[YBConstantsRequest.title]);
-    XCTAssertEqualObjects(@"c", params[YBConstantsRequest.title2]);
-    XCTAssertEqualObjects(@"true", params[YBConstantsRequest.live]);
+    XCTAssertEqualObjects(@"a", params[YB_REQUEST_RENDITION]);
+    XCTAssertEqualObjects(@"b", params[YB_REQUEST_TITLE]);
+    XCTAssertEqualObjects(@"c", params[YB_REQUEST_TITLE2]);
+    XCTAssertEqualObjects(@"true", params[YB_REQUEST_LIVE]);
     XCTAssertEqualObjects(@"d", params[YBConstantsRequest.mediaResource]);
     XCTAssertEqualObjects(@"e", params[YBConstantsRequest.transactionCode]);
     XCTAssertEqualObjects(@"f", params[YBConstantsRequest.properties]);
@@ -163,8 +164,8 @@ static NSArray * ALL_PARAMS;
     XCTAssertEqualObjects(@"ae", params[YBConstantsRequest.ip]);
     XCTAssertEqualObjects(@"af", params[YBConstantsRequest.deviceCode]);
     XCTAssertEqualObjects(@"agah", params[YBConstantsRequest.system]);
-    XCTAssertEqualObjects(@"agah", params[YBConstantsRequest.accountCode]);
-    XCTAssertEqualObjects(@"ai", params[YBConstantsRequest.username]);
+    XCTAssertEqualObjects(@"agah", params[YB_REQUEST_ACCOUNT_CODE]);
+    XCTAssertEqualObjects(@"ai", params[YB_REQUEST_USERNAME]);
     XCTAssertEqualObjects(@"11", params[YBConstantsRequest.preloadDuration]);
     XCTAssertEqualObjects(@"12", params[YBConstantsRequest.joinDuration]);
     XCTAssertEqualObjects(@"13", params[YBConstantsRequest.bufferDuration]);

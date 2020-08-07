@@ -12,12 +12,6 @@ import Foundation
 
 // YBConstants with request params
 @objcMembers open class YBConstantsRequest: NSObject {
-    static public let accountCode = "accountCode"
-    static public let username = "username"
-    static public let rendition = "rendition"
-    static public let title = "title"
-    static public let title2 = "title2"
-    static public let live = "live"
     static public let mediaDuration = "mediaDuration"
     static public let mediaResource = "mediaResource"
     static public let parsedResource = "parsedResource"

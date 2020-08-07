@@ -29,6 +29,7 @@
 #import "YBPlaybackFlags.h"
 #import "YBYouboraUtils.h"
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YBConstants.h"
 
 #if TARGET_OS_IPHONE==1
 #import <UIKit/UIKit.h>
@@ -794,7 +795,7 @@
                 val = @"Offline";
             } else {
                 if ([self getIsLive] != nil) {
-                    val = [[self getIsLive] isEqualToValue:@YES] ? YBConstantsRequest.live : @"VoD";
+                    val = [[self getIsLive] isEqualToValue:@YES] ? YB_REQUEST_LIVE : @"VoD";
                 }
             }
         } @catch (NSException *exception) {
@@ -2893,7 +2894,7 @@
 - (void) sendInit:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.sInit];
     [self sendWithCallbacks:self.willSendInitListeners service:YBConstantsYouboraService.sInit andParams:mutParams];
-    NSString * titleOrResource = mutParams[YBConstantsRequest.title];
+    NSString * titleOrResource = mutParams[YB_REQUEST_TITLE];
     if (titleOrResource == nil) {
         titleOrResource = mutParams[YBConstantsRequest.mediaResource];
     }
@@ -2903,7 +2904,7 @@
 - (void) sendStart:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.start];
     [self sendWithCallbacks:self.willSendStartListeners service:YBConstantsYouboraService.start andParams:mutParams];
-    NSString * titleOrResource = mutParams[YBConstantsRequest.title];
+    NSString * titleOrResource = mutParams[YB_REQUEST_TITLE];
     if (titleOrResource == nil) {
         titleOrResource = mutParams[YBConstantsRequest.mediaResource];
     }

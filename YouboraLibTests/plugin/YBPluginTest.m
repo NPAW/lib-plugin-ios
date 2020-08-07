@@ -1008,8 +1008,8 @@
 
 - (void)testUsername {
     XCTAssertNil([self.p getUsername]);
-    stubProperty(self.mockOptions, username, YBConstantsRequest.username);
-    XCTAssertEqualObjects(YBConstantsRequest.username, [self.p getUsername]);
+    stubProperty(self.mockOptions, username, YB_REQUEST_USERNAME);
+    XCTAssertEqualObjects(YB_REQUEST_USERNAME, [self.p getUsername]);
 }
 
 - (void)testNodeHost {
@@ -1138,7 +1138,7 @@
     XCTAssertEqualObjects(@"VoD", [self.p getContentPlaybackType]);
     
     stubProperty(self.mockOptions, contentIsLive, @YES);
-    XCTAssertEqualObjects(YBConstantsRequest.live, [self.p getContentPlaybackType]);
+    XCTAssertEqualObjects(YB_REQUEST_LIVE, [self.p getContentPlaybackType]);
     
     stubProperty(self.mockOptions, contentPlaybackType, @"content type");
     XCTAssertEqualObjects(@"content type", [self.p getContentPlaybackType]);
@@ -1243,7 +1243,7 @@
         return [invocation.mkt_arguments[0] mutableCopy];
     }];
     
-    [given([self.p getTitle]) willReturn:YBConstantsRequest.title];
+    [given([self.p getTitle]) willReturn:YB_REQUEST_TITLE];
     [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@(288)];
@@ -1610,7 +1610,7 @@
     
     XCTAssertEqual(0, callbackTimes);
     
-    [given([self.p getTitle]) willReturn:YBConstantsRequest.title];
+    [given([self.p getTitle]) willReturn:YB_REQUEST_TITLE];
     [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@30];
@@ -1909,7 +1909,7 @@
     
     NSDictionary * params = @{@"key":@"value"};
     
-    [given([self.p getTitle]) willReturn:YBConstantsRequest.title];
+    [given([self.p getTitle]) willReturn:YB_REQUEST_TITLE];
     [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@(288)];

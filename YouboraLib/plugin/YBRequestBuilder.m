@@ -12,6 +12,7 @@
 #import "YBInfinity.h"
 #import "YBYouboraUtils.h"
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YBConstants.h"
 
 @interface YBRequestBuilder()
 
@@ -43,12 +44,12 @@ static NSArray<NSString *> * youboraPingEntities;
         dispatch_once(&onceToken, ^{
             
             NSArray * startParams = @[
-                YBConstantsRequest.accountCode,
-                YBConstantsRequest.username,
-                YBConstantsRequest.rendition,
-                YBConstantsRequest.title,
-                YBConstantsRequest.title2,
-                YBConstantsRequest.live,
+                YB_REQUEST_ACCOUNT_CODE,
+                YB_REQUEST_USERNAME,
+                YB_REQUEST_RENDITION,
+                YB_REQUEST_TITLE,
+                YB_REQUEST_TITLE2,
+                YB_REQUEST_LIVE,
                 YBConstantsRequest.mediaDuration,
                 YBConstantsRequest.mediaResource,
                 YBConstantsRequest.parsedResource,
@@ -160,7 +161,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.data:  @[
                                YBConstantsRequest.system,
                                YBConstantsRequest.pluginVersion,
-                               YBConstantsRequest.username,
+                               YB_REQUEST_USERNAME,
                                YBConstantsRequest.isInfinity
                        ],
                        YBConstantsYouboraService.sInit: startParams,
@@ -210,22 +211,22 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.error: [startParams arrayByAddingObject:YBConstantsRequest.player],
                        
                        //Infinity
-                       YBConstantsYouboraInfinity.sessionStart: @[YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1,                               YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,
+                       YBConstantsYouboraInfinity.sessionStart: @[YB_REQUEST_ACCOUNT_CODE, YB_REQUEST_USERNAME, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1,                               YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,
                                                      YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.deviceUUID],
-                       YBConstantsYouboraInfinity.sessionStop: @[YBConstantsRequest.accountCode],
-                       YBConstantsYouboraInfinity.sessionNav: @[YBConstantsRequest.username, YBConstantsRequest.navContext],
+                       YBConstantsYouboraInfinity.sessionStop: @[YB_REQUEST_ACCOUNT_CODE],
+                       YBConstantsYouboraInfinity.sessionNav: @[YB_REQUEST_USERNAME, YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.sessionBeat: @[YBConstantsRequest.sessionMetrics],
                        YBConstantsYouboraInfinity.sessionEvent: @[YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.videoEvent: @[]
             };
             
-            youboraRequestParamsDifferent = @{YBConstantsYouboraService.join:     @[YBConstantsRequest.title, YBConstantsRequest.title2, YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource],
+            youboraRequestParamsDifferent = @{YBConstantsYouboraService.join:     @[YB_REQUEST_TITLE, YB_REQUEST_TITLE2, YB_REQUEST_LIVE, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource],
                                 YBConstantsYouboraService.adJoin:   @[YBConstantsRequest.adTitle, YBConstantsRequest.adDuration, YBConstantsRequest.adResource]};
             
-            youboraPingEntities = @[YBConstantsRequest.rendition, YBConstantsRequest.title, YBConstantsRequest.title2,
-                             YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4,
+            youboraPingEntities = @[YB_REQUEST_RENDITION, YB_REQUEST_TITLE, YB_REQUEST_TITLE2,
+                             YB_REQUEST_LIVE, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4,
                              YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.connectionType,
-                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.username, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString,YBConstantsRequest.subtitles];
+                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YB_REQUEST_USERNAME, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString,YBConstantsRequest.subtitles];
         });
     }
     return self;
@@ -363,17 +364,17 @@ static NSArray<NSString *> * youboraPingEntities;
         }
     } else if ([param isEqualToString:YBConstantsRequest.throughput]){
         value = [self.plugin getThroughput].stringValue;
-    } else if ([param isEqualToString:YBConstantsRequest.rendition]){
+    } else if ([param isEqualToString:YB_REQUEST_RENDITION]){
         value = [self.plugin getRendition];
-    } else if ([param isEqualToString:YBConstantsRequest.title]){
+    } else if ([param isEqualToString:YB_REQUEST_TITLE]){
         value = [self.plugin getTitle];
-    } else if ([param isEqualToString:YBConstantsRequest.title2]){
+    } else if ([param isEqualToString:YB_REQUEST_TITLE2]){
         value = [self.plugin getProgram];
     } else if ([param isEqualToString:YBConstantsRequest.streamingProtocol]){
         value = [self.plugin getStreamingProtocol];
     } else if ([param isEqualToString:YBConstantsRequest.transportFormat]){
         value = [self.plugin getTransportFormat];
-    } else if ([param isEqualToString:YBConstantsRequest.live]){
+    } else if ([param isEqualToString:YB_REQUEST_LIVE]){
         NSValue * live = [self.plugin getIsLive];
         if (live != nil) {
             value = [live isEqual:@YES] ? @"true" : @"false";
@@ -490,9 +491,9 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getDeviceCode];
     } else if ([param isEqualToString:YBConstantsRequest.system]){
         value = [self.plugin getAccountCode];
-    } else if ([param isEqualToString:YBConstantsRequest.accountCode]){
+    } else if ([param isEqualToString:YB_REQUEST_ACCOUNT_CODE]){
         value = [self.plugin getAccountCode];
-    } else if ([param isEqualToString:YBConstantsRequest.username]){
+    } else if ([param isEqualToString:YB_REQUEST_USERNAME]){
         value = [self.plugin getUsername];
     }else if ([param isEqualToString:YBConstantsRequest.userType]){
         value = [self.plugin getUserType];
