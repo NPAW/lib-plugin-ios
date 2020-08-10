@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objcMembers internal class YBResourceParserUtil: NSObject {
+@objcMembers public class YBResourceParserUtil: NSObject {
     static func merge(resourseUrl: String?, adapterUrl: String?) -> String? {
         guard let adapterUrl = adapterUrl else {
             return resourseUrl
