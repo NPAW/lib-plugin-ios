@@ -3216,8 +3216,6 @@
 }
 
 - (void) transformDone:(NSNotification *) notification {
-    YBTransform *transform = notification.object;
-    
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
     [self.beatTimer setInterval:self.viewTransform.fastDataConfig.beatTime.longValue * 1000];
 }
