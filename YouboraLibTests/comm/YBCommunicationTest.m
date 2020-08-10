@@ -10,6 +10,7 @@
 #import "YBCommunication.h"
 
 #import "YBTransform.h"
+#import "YBTestableTranform.h"
 
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
@@ -37,7 +38,7 @@
 
     [self.c addTransform:mockTransform];
     
-    [verifyCount(mockTransform, times(1)) addTransformDoneListener:is(self.c)];
+    [verifyCount(mockTransform, times(1)) addTranformDoneObserver:is(self.c) andSelector:@selector(transformDone:)];
 }
 
 - (void)testSendRequest {
@@ -88,37 +89,33 @@
     [self.c removeTransform:mock([YBTransform class])];
 }
 
+- (void) transformDone:(NSNotification *)notification {
+}
+
 - (void)testTransformCallback {
     
-    YBTransform * t = mock([YBTransform class]);
+    YBTestableTranform * t = [YBTestableTranform new];
     
-    [given([t isBlocking:anything()]) willReturn:@(true)];
-    
-    // Capture callback when set
-    HCArgumentCaptor * captor = [HCArgumentCaptor new];
+    XCTAssertTrue([t isBlocking:anything()]);
     
     [self.c addTransform:t]; // Callback set here
     
-    [verifyCount(t, never()) parse:anything()];
+    XCTAssertFalse([t parseCalled]);
     
     YBRequest * mockRequest = mock([YBRequest class]);
     
     [self.c sendRequest:mockRequest withCallback:nil];
     
-    [verifyCount(t, never()) parse:anything()];
+    XCTAssertFalse([t parseCalled]);
     
-    // Capture callback
-    [verify(t) addTransformDoneListener:(id) captor];
+    [t forceDone];
     
     // Transform done
-    [given([t isBlocking:anything()]) willReturn:@(false)];
-    id<YBTransformDoneListener> listener = (id<YBTransformDoneListener>) captor.value;
-    
-    [listener transformDone:t];
-    
+    XCTAssertFalse([t isBlocking:anything()]);
+
     // Transform done should trigger request processing and thus
     // the transforms parsing
-    [verifyCount(t, times(1)) parse:equalTo(mockRequest)];
+    XCTAssertTrue([t parseCalled]);
 }
 
 @end

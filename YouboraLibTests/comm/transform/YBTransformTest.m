@@ -22,7 +22,7 @@
 }
 @end
 
-@interface YBTransformTest : XCTestCase<YBTransformDoneListener>
+@interface YBTransformTest : XCTestCase
 
 @property (nonatomic, strong) YBTransform * t;
 
@@ -56,7 +56,7 @@
 }
 
 - (void)testListenerCalled {
-    [self.t addTransformDoneListener:self];
+    [self.t addTranformDoneObserver:self andSelector:@selector(transformDone:)];
     
     [self.t callDone];
     
@@ -64,17 +64,16 @@
 }
 
 - (void)testListenerNotCalledAfterRemoveListener {
-    [self.t addTransformDoneListener:self];
-    [self.t removeTransformDoneListener:self];
+    [self.t addTranformDoneObserver:self andSelector:@selector(transformDone:)];
+    [self.t removeTranformDoneObserver:self];
     
     [self.t callDone];
     
     XCTAssertNil(self.callbackTransform);
 }
 
-// TransformDoneListener protocol
-- (void) transformDone:(YBTransform *)transform {
-    self.callbackTransform = transform;
+- (void) transformDone:(NSNotification *)notification {
+    self.callbackTransform = notification.object;
 }
 
 

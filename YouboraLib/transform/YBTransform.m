@@ -8,19 +8,9 @@
 
 #import "YBTransform.h"
 #import "YBTransformSubclass.h"
+#import "YBConstants.h"
 
 @interface YBTransform()
-
-/// ---------------------------------
-/// @name Private properties
-/// ---------------------------------
-
-/**
- * List of listeners that will be notified once the Transform is done, if it's asynchronous or
- * it has to wait for something to happen.
- */
-@property (nonatomic, weak) id<YBTransformDoneListener> listener;
-
 @end
 
 @implementation YBTransform
@@ -37,17 +27,6 @@
 }
 
 #pragma mark - Public methods
-- (void)addTransformDoneListener:(id<YBTransformDoneListener>)listener {
-    if (listener != nil) {
-        self.listener = listener;
-    }
-}
-
-- (void) removeTransformDoneListener:(id<YBTransformDoneListener>)listener {
-    if (listener == self.listener) {
-        self.listener = nil;
-    }
-}
 
 - (bool)isBlocking:(nullable YBRequest *) request {
     return self.isBusy;
@@ -64,12 +43,27 @@
     return self.isBusy ? YBStateBlocked : YBStateNoBlocked;
 }
 
+-(void)addTranformDoneObserver:(id)observer andSelector:(SEL)selector {
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:selector name:[self getNotificationName] object: nil];
+}
+
+-(void)removeTranformDoneObserver:(id)observer {
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:[self getNotificationName] object:nil];
+}
+
+
 #pragma mark - "Protected" methods
+-(NSString*)getNotificationName {
+    return NOTIFICATION_NAME_TRANSFORM_DONE;
+}
+
 - (void) done {
     self.isBusy = false;
-    if (self.listener) {
-        [self.listener transformDone:self];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:[self getNotificationName] object:self];
+}
+
+-(void)forceDone {
+    [self done];
 }
 
 #pragma mark - Subclass methods

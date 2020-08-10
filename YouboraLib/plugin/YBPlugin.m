@@ -26,6 +26,7 @@
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
 #import "YBTimestampLastSentTransform.h"
+#import "YBConstants.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 #if TARGET_OS_IPHONE==1
@@ -423,8 +424,8 @@
 
 - (void) initViewTransform {
     self.viewTransform = [self createViewTransform];
-    [self.viewTransform addTransformDoneListener:self];
     
+    [self.viewTransform addTranformDoneObserver:self andSelector:@selector(transformDone:)];
     [self.viewTransform begin];
     
 }
@@ -2615,7 +2616,7 @@
             [self startBeats];
         } else {
             [[self getInfinity].flags reset];
-            [self.viewTransform removeTransformDoneListener:self];
+            [self.viewTransform removeTranformDoneObserver:self];
             [self.comm removeTransform:self.viewTransform];
             [self initViewTransform];
             [self.comm addTransform:self.viewTransform];
@@ -3214,8 +3215,9 @@
     [YBLog debug: @"%@ params: %@", YBConstantsYouboraService.ping, params.description];
 }
 
-#pragma mark - YBTransformDoneListener protocol
-- (void) transformDone:(YBTransform *) transform {
+- (void) transformDone:(NSNotification *) notification {
+    YBTransform *transform = notification.object;
+    
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
     [self.beatTimer setInterval:self.viewTransform.fastDataConfig.beatTime.longValue * 1000];
 }

@@ -16,6 +16,7 @@
 #import "YBOptions.h"
 #import "YBInfinityFlags.h"
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YBConstants.h"
 
 @interface YBViewTransform()
 
@@ -310,4 +311,7 @@
     return [[requestService lowercaseString] isEqualToString:[service lowercaseString]];
 }
 
+-(NSString*)getNotificationName {
+    return NOTIFICATION_NAME_VIEW_TRANSFORM_DONE;
+}
 @end
