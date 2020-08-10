@@ -1,4 +1,6 @@
 ## [6.5.29] - 
+### Added
+- Playhead in the erros params
 ### Changed
 - Change presistence data to Swift
 ### Fixed
