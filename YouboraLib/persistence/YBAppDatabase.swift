@@ -9,7 +9,7 @@
 import Foundation
 import SQLite3
 
-@objcMembers class YBAppDatabase: NSObject {
+@objcMembers public class YBAppDatabase: NSObject {
     let filename: String
     private var isDbOpened: Bool
     private var database: OpaquePointer?

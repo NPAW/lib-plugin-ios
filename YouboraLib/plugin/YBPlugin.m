@@ -27,6 +27,7 @@
 #import "YBInfinityFlags.h"
 #import "YBTimestampLastSentTransform.h"
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YBCdnSwitchParser.h"
 
 #if TARGET_OS_IPHONE==1
 #import <UIKit/UIKit.h>
@@ -36,6 +37,7 @@
 
 // Redefinition with readwrite access
 @property(nonatomic, strong, readwrite) YBResourceTransform * resourceTransform;
+@property(nonatomic, strong, readwrite) YBCdnSwitchParser * cdnSwitchParser;
 @property(nonatomic, strong, readwrite) YBViewTransform * viewTransform;
 @property(nonatomic, strong, readwrite) YBRequestBuilder * requestBuilder;
 @property(nonatomic, strong, readwrite) YBTimer * pingTimer;
@@ -162,6 +164,7 @@
         
         self.requestBuilder = [self createRequestBuilder];
         self.resourceTransform = [self createResourceTransform];
+        self.cdnSwitchParser = [self createCdnSwitchParser];
         [self initViewTransform];
         
         self.lastServiceSent = nil;
@@ -878,15 +881,17 @@
 }
 
 - (NSString *) getCdn {
-    NSString * cdn = nil;
+    NSString * cdn = [self.cdnSwitchParser getLastKnownCdn];
+    
+    if (cdn) { return cdn; }
+    
     if (![self.resourceTransform isBlocking:nil]) {
         cdn = [self.resourceTransform getCdnName];
     }
     
-    if (cdn == nil) {
-        cdn = self.options.contentCdn;
-    }
-    return cdn;
+    if (cdn) { return cdn; }
+    
+    return self.options.contentCdn;
 }
 
 - (NSNumber *)getLatency{
@@ -2410,6 +2415,15 @@
     return [[YBResourceTransform alloc] initWithPlugin:self];
 }
 
+-(YBCdnSwitchParser*) createCdnSwitchParser {
+    return [[YBCdnSwitchParser alloc] initWithIsCdnSwitchHeader:self.options.cdnSwitchHeader andCdnTTL:self.options.cdnTTL];
+}
+
+-(void)startCdnSwitch {
+    NSString *resource = [self getParsedResource] ? [self getParsedResource] : [self getOriginalResource];
+    [self.cdnSwitchParser start:resource];
+}
+
 - (YBViewTransform *) createViewTransform {
     return [[YBViewTransform alloc] initWithPlugin:self];
 }
@@ -2442,6 +2456,7 @@
 
 - (void) reset {
     [self stopPings];
+    [self.cdnSwitchParser invalidate];
     
     self.resourceTransform = [self createResourceTransform];
     self.isInitiated = false;
@@ -2534,6 +2549,12 @@
         
         if (res) {
             [self.resourceTransform begin:res userDefinedTransportFormat:self.options.contentTransportFormat];
+            
+            __weak __typeof__(self) weakSelf = self;
+            self.resourceTransform.tmpBlock = ^{
+                __typeof__(self) strongSelf = weakSelf;
+                [strongSelf startCdnSwitch];
+            };
         }
     }
 }
@@ -3216,6 +3237,9 @@
 
 #pragma mark - YBTransformDoneListener protocol
 - (void) transformDone:(YBTransform *) transform {
+    if (transform == self.resourceTransform) {
+        NSLog(@"Cenas");
+    }
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
     [self.beatTimer setInterval:self.viewTransform.fastDataConfig.beatTime.longValue * 1000];
 }

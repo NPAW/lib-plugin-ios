@@ -8,11 +8,11 @@
 
 import Foundation
 
-@objcMembers class YBEvent: NSObject {
-    let id: Int
-    let jsonEvents: String
-    let dateUpdate: Double
-    let offlineId: Int
+@objcMembers public class YBEvent: NSObject {
+    public let id: Int
+    public let jsonEvents: String
+    public let dateUpdate: Double
+    public let offlineId: Int
     
     init(id: Int, jsonEvents: String, dateUpdate: Double, offlineId: Int) {
         self.id = id

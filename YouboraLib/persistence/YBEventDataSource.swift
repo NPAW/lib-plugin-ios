@@ -8,9 +8,9 @@
 
 import Foundation
 
-@objcMembers class YBEventDataSource: NSObject {
+@objcMembers public class YBEventDataSource: NSObject {
     
-    func putNewEvent(offlineId: Int, jsonEvents: String, completion: (() -> Void)? ) {
+    public func putNewEvent(offlineId: Int, jsonEvents: String, completion: (() -> Void)? ) {
         DispatchQueue.global(qos: .background).async {
             autoreleasepool {
                 do {
@@ -23,7 +23,7 @@ import Foundation
         }
     }
     
-    func allEvents(completion: @escaping ([YBEvent]) -> Void) {
+    public func allEvents(completion: @escaping ([YBEvent]) -> Void) {
         DispatchQueue.global(qos: .background).async {
             autoreleasepool {
                 do {
@@ -37,7 +37,7 @@ import Foundation
         }
     }
     
-    func firstId(completion: @escaping (Int) -> Void) {
+    public func firstId(completion: @escaping (Int) -> Void) {
         DispatchQueue.global(qos: .background).async {
             autoreleasepool {
                 do {
@@ -51,7 +51,7 @@ import Foundation
         }
     }
     
-    func lastId(completion: @escaping (Int) -> Void) {
+    public func lastId(completion: @escaping (Int) -> Void) {
         DispatchQueue.global(qos: .background).async {
             autoreleasepool {
                 do {
@@ -65,7 +65,7 @@ import Foundation
         }
     }
     
-    func events(offlineId: Int, completion: @escaping ([YBEvent]) -> Void) {
+    public func events(offlineId: Int, completion: @escaping ([YBEvent]) -> Void) {
         DispatchQueue.global(qos: .background).async {
             autoreleasepool {
                 do {
@@ -79,7 +79,7 @@ import Foundation
         }
     }
     
-    func deleteEvents(offlineId: Int, completion: @escaping () -> Void) {
+    public func deleteEvents(offlineId: Int, completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .background).async {
             autoreleasepool {                do {
                 try YBAppDatabase.shared.removeEventsWith(eventId: offlineId)
