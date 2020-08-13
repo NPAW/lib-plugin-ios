@@ -1,4 +1,6 @@
 ## [6.5.29] - 
+### Added
+- Parse to search by new CDN changes
 ### Changed
 - Change presistence data to Swift
 ### Fixed
