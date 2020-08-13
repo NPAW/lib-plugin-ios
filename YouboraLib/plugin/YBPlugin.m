@@ -2549,12 +2549,6 @@
         
         if (res) {
             [self.resourceTransform begin:res userDefinedTransportFormat:self.options.contentTransportFormat];
-            
-            __weak __typeof__(self) weakSelf = self;
-            self.resourceTransform.tmpBlock = ^{
-                __typeof__(self) strongSelf = weakSelf;
-                [strongSelf startCdnSwitch];
-            };
         }
     }
 }
@@ -3238,7 +3232,7 @@
 #pragma mark - YBTransformDoneListener protocol
 - (void) transformDone:(YBTransform *) transform {
     if (transform == self.resourceTransform) {
-        NSLog(@"Cenas");
+        [self startCdnSwitch];
     }
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
     [self.beatTimer setInterval:self.viewTransform.fastDataConfig.beatTime.longValue * 1000];

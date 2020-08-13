@@ -9,18 +9,12 @@
 #import "YBTransformSubclass.h"
 #import "YBCdnParser.h"
 
-
-typedef void (^tmpResourceDone)(void);
-
 @class YBPlugin;
 @protocol YBResourceParser;
 /**
  * Parses resource urls to get transportstreams and CDN-related info.
  */
 @interface YBResourceTransform : YBTransform
-
-@property tmpResourceDone _Nullable tmpBlock;
-
 /// ---------------------------------
 /// @name Public properties
 /// ---------------------------------

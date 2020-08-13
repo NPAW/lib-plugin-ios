@@ -19,6 +19,10 @@ YBCdnSwitchParser *parser = [[YBCdnSwitchParser alloc] initWithIsCdnSwitchHeader
 */
 @interface YBCdnSwitchParser : NSObject
 
+
+@property (readonly) BOOL cdnSwitchHeader;
+@property (readonly) NSTimeInterval cdnTTL;
+
 /**
 Initialize of the class
 
@@ -49,4 +53,7 @@ Method to return the last cdn that was fetched from the resource
 Method to be called in the end of the adapter in order to release all the instances
 */
 -(void)invalidate;
+
+-(BOOL)isTimerRunning;
+-(BOOL)isQueueRuning;
 @end

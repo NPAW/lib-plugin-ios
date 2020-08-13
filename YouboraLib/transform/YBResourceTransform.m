@@ -289,9 +289,7 @@
 - (void)done {
     if (self.isFinished) { return; }
     self.isFinished = true;
-    if (self.tmpBlock) {
-        self.tmpBlock();
-    }
+    
     [super done];
 }
 

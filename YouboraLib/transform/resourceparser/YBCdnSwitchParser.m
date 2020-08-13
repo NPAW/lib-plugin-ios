@@ -17,7 +17,7 @@
 @property NSTimeInterval cdnTTL;
 
 @property NSString *lastCdnTracked;
-@property NSTimer *parserTimer;
+@property BOOL valid;
 @property NSOperationQueue *fetchCdnQueue;
 
 @end
@@ -30,7 +30,6 @@
     if (self) {
         self.cdnSwitchHeader = cdnSwitchHeader;
         self.cdnTTL = cdnTTL;
-        
     }
     
     return self;
@@ -44,15 +43,18 @@
     self.fetchCdnQueue = [NSOperationQueue new];
     self.fetchCdnQueue.name = @"fetchCdnQueue";
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.parserTimer = [NSTimer scheduledTimerWithTimeInterval:9.0 target:self selector:@selector(fetchNewCdn:) userInfo:@{@KEY_FOR_RESOURCE: resource} repeats:true];
-    });
+    self.valid = true;
+    
+    [self fetchNewCdn:resource];
 }
 
--(void)fetchNewCdn:(NSTimer*)timer {
-    NSString *resource = timer.userInfo[@KEY_FOR_RESOURCE];
+-(void)fetchNewCdn:(NSString*)resource {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, self.cdnTTL * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        if (self.valid) {
+            [self fetchNewCdn:resource];
+        }
+    });
     
-  
     NSOperation *backgroundOperation = [NSOperation new];
     backgroundOperation.qualityOfService = NSQualityOfServiceBackground;
     backgroundOperation.queuePriority = NSOperationQueuePriorityLow;
@@ -64,7 +66,11 @@
             NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *) response;
             NSDictionary * responseHeaders = httpResponse.allHeaderFields;
             
-            self.lastCdnTracked = responseHeaders[@CDN_HEADER];
+            NSString *newCdn = responseHeaders[@CDN_HEADER];
+            if (newCdn) {
+                self.lastCdnTracked = newCdn;
+            }
+            
         }];
         
         [request send];
@@ -81,15 +87,20 @@
     return self.lastCdnTracked;
 }
 
--(void)invalidate {
+-(BOOL)isTimerRunning {
+    return self.valid;
+}
+
+-(BOOL)isQueueRuning {
+    return self.fetchCdnQueue;
+}
+
+-(void)invalidate {
     if (self.fetchCdnQueue) {
         [self.fetchCdnQueue cancelAllOperations];
         self.fetchCdnQueue = nil;
     }
     
-    if (self.parserTimer) {
-        [self.parserTimer invalidate];
-        self.parserTimer = nil;
-    }
+    self.valid = false;
 }
 @end
