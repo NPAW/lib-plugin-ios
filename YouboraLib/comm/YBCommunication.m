@@ -10,6 +10,7 @@
 #import "YBLog.h"
 #import "YBRequest.h"
 #import "YBTransform.h"
+#import "YBConstants.h"
 
 @interface YBCommunication()
 
@@ -54,7 +55,7 @@
 
 - (void)addTransform:(YBTransform *)transform {
     if (transform != nil) {
-        [transform addTransformDoneListener:self];
+        [transform addTranformDoneObserver:self andSelector:@selector(transformDone:)];
         [self.transforms addObject:transform];
     } else {
         [YBLog warn:@"Transform is nil in addTransform"];
@@ -126,8 +127,7 @@
     return true;*/
 }
 
-#pragma mark - YBTransformDoneListener delegate
-- (void)transformDone:(YBTransform *)transform {
+- (void)transformDone:(NSNotification *)transform {
     [self processRequests];
 }
 

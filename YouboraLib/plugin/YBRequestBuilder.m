@@ -206,7 +206,11 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.metrics,
                                YBConstantsRequest.totalBytes
                        ],
-                       YBConstantsYouboraService.error: [startParams arrayByAddingObject:YBConstantsRequest.player],
+                       YBConstantsYouboraService.error: [
+                                                         startParams arrayByAddingObject:
+                                                         YBConstantsRequest.player,
+                                                         YBConstantsRequest.playhead
+                                                         ],
                        
                        //Infinity
                        YBConstantsYouboraInfinity.sessionStart: @[YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1,                               YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,

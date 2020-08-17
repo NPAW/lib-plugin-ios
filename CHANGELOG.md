@@ -1,8 +1,11 @@
 ## [6.5.29] - 
+### Added
+- Playhead in the erros params
 ### Changed
 - Change presistence data to Swift
 ### Fixed
 - Fix problem with hls parser when the manifest is pointing to the host
+- Fix diffTime to fit with pingTime
 ## [6.5.28] - 2020-06-30
 ### Added
 - Get url to be parsed as a resource by the plugin

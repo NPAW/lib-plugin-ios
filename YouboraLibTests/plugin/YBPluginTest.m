@@ -72,7 +72,7 @@
 }
 
 - (void)testInitOperations {
-    [verifyCount(self.p.mockViewTransform, times(1)) addTransformDoneListener:anything()];
+    [verifyCount(self.p.mockViewTransform, times(1)) addTranformDoneObserver:anything() andSelector:@selector(transformDone:)];
 
     [verifyCount(self.p.mockViewTransform, times(1)) begin];
     
@@ -2082,6 +2082,9 @@
     XCTAssertTrue([params containsObject:YBConstantsRequest.bitrate]);
     XCTAssertTrue([params containsObject:YBConstantsRequest.throughput]);
     XCTAssertTrue([params containsObject:YBConstantsRequest.fps]);
+}
+
+- (void) transformDone:(NSNotification *)notification {
 }
 
 @end
