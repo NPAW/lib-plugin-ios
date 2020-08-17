@@ -12,6 +12,8 @@
 		0601DCEF23D59A0300128F32 /* YBRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2817111E85121A00F450C1 /* YBRequestBuilder.m */; };
 		0601DCF723D701CA00128F32 /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
 		0601DCF823D763F600128F32 /* YBYouboraUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0601DCF623D701CA00128F32 /* YBYouboraUtils.swift */; };
+		06040C0924EA849F007739A4 /* YBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstants.swift */; };
+		06040C0A24EA84A1007739A4 /* YBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FD67923D202A5004A0726 /* YBConstants.swift */; };
 		0627CCA223D842E300E5D937 /* YBDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CCA123D842E300E5D937 /* YBDeviceInfo.swift */; };
 		0627CCA323D842E300E5D937 /* YBDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CCA123D842E300E5D937 /* YBDeviceInfo.swift */; };
 		0627CCA423D842E300E5D937 /* YBDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CCA123D842E300E5D937 /* YBDeviceInfo.swift */; };
@@ -1583,6 +1585,7 @@
 				0627CD0E23D88F0900E5D937 /* YBTimer.m in Sources */,
 				06A0DB8224053720002B689B /* YBHlsParser.swift in Sources */,
 				06A0DB72240527A7002B689B /* YBLocationParser.swift in Sources */,
+				06040C0924EA849F007739A4 /* YBConstants.swift in Sources */,
 				4E4956251E9F4F5300FF6280 /* YBResourceTransform.m in Sources */,
 				4E4956261E9F4F5300FF6280 /* YBTransform.m in Sources */,
 				4E4956271E9F4F5300FF6280 /* YBViewTransform.m in Sources */,
@@ -1696,6 +1699,7 @@
 				CD523784228DA2F00013BA16 /* YBRequest.m in Sources */,
 				06A0DB73240527A7002B689B /* YBLocationParser.swift in Sources */,
 				06A0DB8424053720002B689B /* YBHlsParser.swift in Sources */,
+				06040C0A24EA84A1007739A4 /* YBConstants.swift in Sources */,
 				CD52378D228DA2F50013BA16 /* YBTransform.m in Sources */,
 				0627CCA423D842E300E5D937 /* YBDeviceInfo.swift in Sources */,
 				CD52378F228DA2F50013BA16 /* YBViewTransform.m in Sources */,
