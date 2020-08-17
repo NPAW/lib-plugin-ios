@@ -207,9 +207,9 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.totalBytes
                        ],
                        YBConstantsYouboraService.error: [
-                                                         startParams arrayByAddingObject:
+                                                         startParams arrayByAddingObjectsFromArray:@[
                                                          YBConstantsRequest.player,
-                                                         YBConstantsRequest.playhead
+                                                         YBConstantsRequest.playhead]
                                                          ],
                        
                        //Infinity
