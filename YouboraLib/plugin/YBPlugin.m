@@ -3230,10 +3230,10 @@
     [YBLog debug: @"%@ params: %@", YBConstantsYouboraService.ping, params.description];
 }
 
-#pragma mark - YBTransformDoneListener protocol
+#pragma mark - Notification from transformer protocol
 
 - (void) transformDone:(NSNotification *) notification {
-  if (transform == self.resourceTransform) {
+    if (notification.object == self.resourceTransform) {
         [self startCdnSwitch];
     }
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
