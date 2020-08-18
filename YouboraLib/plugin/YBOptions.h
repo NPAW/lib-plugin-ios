@@ -253,6 +253,16 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
  */
 @property(nonatomic, strong) NSMutableArray<NSString *> * parseCdnNodeList;
 
+/*
+ Flag indicating if the cdn parser should search for new cdn
+ */
+@property(nonatomic) BOOL cdnSwitchHeader;
+
+/**
+ Interval of time to search for a new cdn
+*/
+@property(nonatomic) NSTimeInterval cdnTTL;
+
 /**
  * List of experiment ids to use with SmartUsers
  */

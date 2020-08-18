@@ -435,4 +435,18 @@
     XCTAssertEqualObjects(dict[YBOptionKeys.host], opt.host);
 }
 
+-(void)testSwitchCdn {
+    YBOptions * opt = [YBOptions new];
+    
+    // Test default values
+    XCTAssertFalse(opt.cdnSwitchHeader);
+    XCTAssertEqual(opt.cdnTTL, 60);
+    
+    opt.cdnSwitchHeader = YES;
+    opt.cdnTTL = 70;
+    
+    XCTAssertTrue(opt.cdnSwitchHeader);
+    XCTAssertEqual(opt.cdnTTL, 70);
+}
+
 @end

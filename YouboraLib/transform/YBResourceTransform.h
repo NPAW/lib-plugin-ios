@@ -15,7 +15,6 @@
  * Parses resource urls to get transportstreams and CDN-related info.
  */
 @interface YBResourceTransform : YBTransform
-
 /// ---------------------------------
 /// @name Public properties
 /// ---------------------------------
@@ -82,6 +81,7 @@
  * @return the CDN type string
  */
 - (nullable NSString *) getNodeTypeString;
+
 
 -(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString* _Nullable)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat;
 -(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString* _Nullable)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat;

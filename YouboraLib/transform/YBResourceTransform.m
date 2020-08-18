@@ -133,7 +133,6 @@
         if (self.cdnNameHeader != nil) {
             [YBCdnParser setBalancerHeaderName:self.cdnNameHeader];
         }
-
         
         [self setTimeout];
         
@@ -288,7 +287,9 @@
 }
 
 - (void)done {
+    if (self.isFinished) { return; }
     self.isFinished = true;
+    
     [super done];
 }
 

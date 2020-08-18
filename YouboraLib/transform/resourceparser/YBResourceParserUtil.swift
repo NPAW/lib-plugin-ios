@@ -25,8 +25,6 @@ import Foundation
         
         let finalResourceExtensions = ["mp4", "ts", "m4s"]
         
-        let pathExtension = resource.pathExtension
-        
         return finalResourceExtensions.contains(resource.pathExtension)
     }
     

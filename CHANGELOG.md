@@ -1,3 +1,6 @@
+## [6.5.30] - 2020-08-18
+### Added
+- Parse to search by new CDN changes
 ## [6.5.29] - 2020-08-17
 ### Added
 - Playhead in the erros params

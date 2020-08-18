@@ -144,7 +144,9 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.appReleaseVersion: (.string, "appReleaseVersion"),
         YBOptionKeys.waitMetadata: (.bool, "waitForMetadata"),
         YBOptionKeys.pendingMetadata: (.unknown, "pendingMetadata"),
-        YBOptionKeys.sendTotalBytes: (.bool, "sendTotalBytes")
+        YBOptionKeys.sendTotalBytes: (.bool, "sendTotalBytes"),
+        YBOptionKeys.cdnTTL: (.number, "cdnTTL"),
+        YBOptionKeys.cdnSwitchHeader: (.bool, "cdnSwitchHeader")
     ]
 }
 
@@ -276,4 +278,6 @@ public struct YBOptionUtilsKeys {
     public static let adPositionMid = "mid"
     public static let adPositionPost = "post"
     public static let sendTotalBytes = "sendTotalBytes"
+    public static let cdnTTL = "cdnTTL"
+    public static let cdnSwitchHeader = "cdnSwitchHeader"
 }
