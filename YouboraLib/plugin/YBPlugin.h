@@ -32,7 +32,7 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * This is the main class of video analytics. You may want one instance for each video you want
  * to track. Will need <YBPlayerAdapter>s for both content and ads, manage options and general flow.
  */
-@interface YBPlugin : NSObject<YBTransformDoneListener, YBPlayerAdapterEventDelegate, YBInfinityDelegate>
+@interface YBPlugin : NSObject<YBPlayerAdapterEventDelegate, YBInfinityDelegate>
 
 /// ---------------------------------
 /// @name Public properties

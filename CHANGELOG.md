@@ -1,10 +1,15 @@
-## [6.5.29] - 
+## [6.5.30] - 2020-08-18
 ### Added
 - Parse to search by new CDN changes
+## [6.5.29] - 2020-08-17
+### Added
+- Playhead in the erros params
 ### Changed
 - Change presistence data to Swift
 ### Fixed
 - Fix problem with hls parser when the manifest is pointing to the host
+- Fix diffTime to fit with pingTime
+- Public headers
 ## [6.5.28] - 2020-06-30
 ### Added
 - Get url to be parsed as a resource by the plugin

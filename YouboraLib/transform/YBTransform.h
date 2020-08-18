@@ -9,12 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class YBRequest;
-@protocol YBTransformDoneListener;
 
 NS_ASSUME_NONNULL_BEGIN
-
-/// Protocol forward declaration, defined at the end of the file
-@protocol YBTransformDoneListener;
 
 /**
  * Enum defining the transform states. This refers if a request should be send, blocked or stored
@@ -63,36 +59,13 @@ typedef NS_ENUM(NSUInteger, YBTransformState) {
  */
 - (bool) hasToSend: (nullable YBRequest *) request;
 
+-(void)addTranformDoneObserver:(id)observer andSelector:(SEL)selector;
+-(void)removeTranformDoneObserver:(id)observer;
+
+
 - (YBTransformState) getState;
 
-/**
- * Add a <YBTransformDoneListener>
- * @param listener the listener to add
- */
-- (void) addTransformDoneListener: (id<YBTransformDoneListener>) listener;
-
-/**
- * Remove a <YBTransformDoneListener>
- * @param listener the listener to remove
- */
-- (void) removeTransformDoneListener: (id<YBTransformDoneListener>) listener;
-
-@end
-
-/**
- * Protocol to notify observers that any asynchronous work done by this Transform has been
- * completed.
- */
-@protocol YBTransformDoneListener
-
-@required
-
-/**
- * Called when a Transform has finished its asynchronous work.
- * @param transform The Transform that has finished.
- */
-- (void) transformDone:(YBTransform *) transform;
-
+-(void)forceDone;
 @end
 
 NS_ASSUME_NONNULL_END

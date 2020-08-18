@@ -26,6 +26,7 @@
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
 #import "YBTimestampLastSentTransform.h"
+#import "YBConstants.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 #import "YBCdnSwitchParser.h"
 
@@ -426,8 +427,8 @@
 
 - (void) initViewTransform {
     self.viewTransform = [self createViewTransform];
-    [self.viewTransform addTransformDoneListener:self];
     
+    [self.viewTransform addTranformDoneObserver:self andSelector:@selector(transformDone:)];
     [self.viewTransform begin];
     
 }
@@ -2630,7 +2631,7 @@
             [self startBeats];
         } else {
             [[self getInfinity].flags reset];
-            [self.viewTransform removeTransformDoneListener:self];
+            [self.viewTransform removeTranformDoneObserver:self];
             [self.comm removeTransform:self.viewTransform];
             [self initViewTransform];
             [self.comm addTransform:self.viewTransform];
@@ -3230,8 +3231,9 @@
 }
 
 #pragma mark - YBTransformDoneListener protocol
-- (void) transformDone:(YBTransform *) transform {
-    if (transform == self.resourceTransform) {
+
+- (void) transformDone:(NSNotification *) notification {
+  if (transform == self.resourceTransform) {
         [self startCdnSwitch];
     }
     [self.pingTimer setInterval:self.viewTransform.fastDataConfig.pingTime.longValue * 1000];
