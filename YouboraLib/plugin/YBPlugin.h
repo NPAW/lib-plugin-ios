@@ -11,7 +11,7 @@
 #import "YBPlayerAdapter.h"
 #import "YBInfinity.h"
 
-@class YBRequestBuilder, YBOptions, YBResourceTransform, YBViewTransform, YBTimer, YBPlayerAdapter, YBCommunication, YBCdnSwitchParser;
+@class YBRequestBuilder, YBOptions, YBResourceTransform, YBViewTransform, YBTimer, YBPlayerAdapter, YBCommunication, YBCdnSwitchParser, YBFastDataConfig;
 
 @class YBPlugin;
 
@@ -69,6 +69,15 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * <setAdapter:>
  */
 - (instancetype) initWithOptions:(nullable YBOptions *) options andAdapter:(nullable YBPlayerAdapter *) adapter;
+
+/**
+ * Initializer
+ * @param options instance of <YBOptions>
+ * @param adapter instance of a <YBPlayerAdapter>. Can also be specified afterwards with
+ * @param fastConfig instance of a <YBFastDataConfig>.
+ * <setAdapter:>
+ */
+- (instancetype) initWithOptions:(nullable YBOptions *) options adapter:(nullable YBPlayerAdapter *) adapter andConfig:(nullable YBFastDataConfig*) fastConfig;
 
 - (instancetype) init NS_UNAVAILABLE;
 
