@@ -44,12 +44,6 @@
 		062F75A5241794D800E61430 /* YBOptionKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062F75A2241794D800E61430 /* YBOptionKeys.swift */; };
 		062F75A6241794D800E61430 /* YBOptionKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062F75A2241794D800E61430 /* YBOptionKeys.swift */; };
 		062F75A7241794D800E61430 /* YBOptionKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062F75A2241794D800E61430 /* YBOptionKeys.swift */; };
-		065D247B24E2CC3500D30141 /* YBCdnSwitchParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D247924E2CC3500D30141 /* YBCdnSwitchParser.h */; };
-		065D247C24E2CC3500D30141 /* YBCdnSwitchParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D247924E2CC3500D30141 /* YBCdnSwitchParser.h */; };
-		065D247D24E2CC3500D30141 /* YBCdnSwitchParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D247924E2CC3500D30141 /* YBCdnSwitchParser.h */; };
-		065D247E24E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
-		065D247F24E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
-		065D248024E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
 		065D246124DDA17400D30141 /* YBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D245F24DDA17400D30141 /* YBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		065D246224DDA17400D30141 /* YBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D245F24DDA17400D30141 /* YBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		065D246324DDA17400D30141 /* YBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D245F24DDA17400D30141 /* YBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -59,6 +53,12 @@
 		065D247224E16CC700D30141 /* YBTestableTranform.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D246B24E16CAF00D30141 /* YBTestableTranform.m */; };
 		065D247324E16CC700D30141 /* YBTestableTranform.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D246B24E16CAF00D30141 /* YBTestableTranform.m */; };
 		065D247424E16CC800D30141 /* YBTestableTranform.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D246B24E16CAF00D30141 /* YBTestableTranform.m */; };
+		065D247B24E2CC3500D30141 /* YBCdnSwitchParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D247924E2CC3500D30141 /* YBCdnSwitchParser.h */; };
+		065D247C24E2CC3500D30141 /* YBCdnSwitchParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D247924E2CC3500D30141 /* YBCdnSwitchParser.h */; };
+		065D247D24E2CC3500D30141 /* YBCdnSwitchParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 065D247924E2CC3500D30141 /* YBCdnSwitchParser.h */; };
+		065D247E24E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
+		065D247F24E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
+		065D248024E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
 		066DB31A24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
 		066DB31B24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
 		066DB31C24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
@@ -446,12 +446,12 @@
 		0627CD0923D88F0900E5D937 /* YBTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBTimer.m; sourceTree = "<group>"; };
 		0627CD1223D8928000E5D937 /* YBSwiftTimerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBSwiftTimerTest.swift; sourceTree = "<group>"; };
 		062F75A2241794D800E61430 /* YBOptionKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YBOptionKeys.swift; path = plugin/YBOptionKeys.swift; sourceTree = "<group>"; };
-		065D247924E2CC3500D30141 /* YBCdnSwitchParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBCdnSwitchParser.h; sourceTree = "<group>"; };
-		065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBCdnSwitchParser.m; sourceTree = "<group>"; };
 		065D245F24DDA17400D30141 /* YBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBConstants.h; sourceTree = "<group>"; };
 		065D246024DDA17400D30141 /* YBConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBConstants.m; sourceTree = "<group>"; };
 		065D246A24E16CAF00D30141 /* YBTestableTranform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBTestableTranform.h; sourceTree = "<group>"; };
 		065D246B24E16CAF00D30141 /* YBTestableTranform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBTestableTranform.m; sourceTree = "<group>"; };
+		065D247924E2CC3500D30141 /* YBCdnSwitchParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBCdnSwitchParser.h; sourceTree = "<group>"; };
+		065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBCdnSwitchParser.m; sourceTree = "<group>"; };
 		066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBAppDatabaseTest.swift; sourceTree = "<group>"; };
 		066DB3322463EDD1000E790B /* YBEventDataSourceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBEventDataSourceTest.swift; sourceTree = "<group>"; };
 		0671AF1124615CB5000294E8 /* YBInfinityLocalManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBInfinityLocalManagerTest.swift; sourceTree = "<group>"; };
@@ -1898,7 +1898,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.5.30;
+				YOUBORALIB_VERSION_SETTING = 6.5.31;
 			};
 			name = Debug;
 		};
@@ -1953,7 +1953,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.5.30;
+				YOUBORALIB_VERSION_SETTING = 6.5.31;
 			};
 			name = Release;
 		};

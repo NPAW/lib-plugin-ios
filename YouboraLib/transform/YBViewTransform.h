@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN;
  */
 -(void) begin;
 
+-(void)begin:(YBFastDataConfig*)dataConfig;
+
 /**
  * Increments the view counter and generates a new view code.
  * @return the new view code

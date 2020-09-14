@@ -117,6 +117,10 @@
 }
 
 - (instancetype) initWithOptions:(YBOptions *) options andAdapter:(YBPlayerAdapter *) adapter {
+    return [self initWithOptions:options adapter:adapter andConfig:nil];
+}
+
+- (instancetype) initWithOptions:(nullable YBOptions *) options adapter:(nullable YBPlayerAdapter *) adapter andConfig:(nullable YBFastDataConfig*) fastConfig {
     self = [super init];
     if (self) {
         if (options == nil) {
@@ -140,7 +144,7 @@
         __weak typeof(self) weakSelf = self;
         self.pingTimer = [self createTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             [weakSelf sendPing:diffTime];
-
+            
         } andInterval:5000];
         
         self.beatTimer = [self createBeatTimerWithCallback:^(YBTimer *timer, long long diffTime) {
@@ -149,11 +153,11 @@
         
         self.metadataTimer = [self createMetadataTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             if ([weakSelf isExtraMetadataReady]) {
-
+                
                 if (weakSelf.adsAdapter == nil) {
                     [weakSelf startListener:nil];
                 }
-
+                
                 if (weakSelf.adsAdapter != nil
                     && weakSelf.adsAdapter.flags.adBreakStarted
                     && ![[weakSelf getAdBreakPosition] isEqualToString:@"post"]) {
@@ -166,7 +170,7 @@
         self.requestBuilder = [self createRequestBuilder];
         self.resourceTransform = [self createResourceTransform];
         self.cdnSwitchParser = [self createCdnSwitchParser];
-        [self initViewTransform];
+        [self initViewTransform: fastConfig];
         
         self.lastServiceSent = nil;
         
@@ -175,8 +179,8 @@
     return self;
 }
 
+#pragma mark - Public method {
 
-#pragma mark - Public methods
 - (void)setAdapter:(YBPlayerAdapter *)adapter {
     [self removeAdapter: false];
     
@@ -425,11 +429,11 @@
      [self sendWithCallbacks:nil service:YouboraServiceOffline andParams:params];*/
 }
 
-- (void) initViewTransform {
+- (void) initViewTransform:(YBFastDataConfig*)fastConfig {
     self.viewTransform = [self createViewTransform];
     
     [self.viewTransform addTranformDoneObserver:self andSelector:@selector(transformDone:)];
-    [self.viewTransform begin];
+    [self.viewTransform begin: fastConfig];
     
 }
 
@@ -2633,7 +2637,7 @@
             [[self getInfinity].flags reset];
             [self.viewTransform removeTranformDoneObserver:self];
             [self.comm removeTransform:self.viewTransform];
-            [self initViewTransform];
+            [self initViewTransform: nil];
             [self.comm addTransform:self.viewTransform];
             [self getInfinity].viewTransform = self.viewTransform;
             [[self getInfinity] beginWithScreenName:self.startScreenName andDimensions:self.startDimensions];
@@ -3102,7 +3106,7 @@
     [self sendWithCallbacks:self.willSendSessionStopListeners service:YBConstantsYouboraInfinity.sessionStop andParams:mutParams];
     [self stopBeats];
     [YBLog notice:YBConstantsYouboraInfinity.sessionStop];
-    [self initViewTransform];
+    [self initViewTransform: nil];
 }
 
 - (void) sendSessionNav:(NSDictionary<NSString *, NSString *> *) params{

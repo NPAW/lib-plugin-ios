@@ -74,7 +74,7 @@
 - (void)testInitOperations {
     [verifyCount(self.p.mockViewTransform, times(1)) addTranformDoneObserver:anything() andSelector:@selector(transformDone:)];
 
-    [verifyCount(self.p.mockViewTransform, times(1)) begin];
+    [verifyCount(self.p.mockViewTransform, times(1)) begin: nil];
     
     [verifyCount(self.mockAdapter, times(1)) addYouboraAdapterDelegate:anything()];
 }

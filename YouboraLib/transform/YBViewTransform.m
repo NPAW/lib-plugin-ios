@@ -65,7 +65,10 @@
 
 #pragma mark - Public methods
 - (void) begin {
-    
+    [self begin: nil];
+}
+
+-(void)begin:(YBFastDataConfig*)dataConfig {
     if(self.plugin != nil && self.plugin.options != nil && self.plugin.options.offline){
         self.fastDataConfig.code = @"OFFLINE_MODE";
         self.fastDataConfig.host = @"OFFLINE_MODE";
@@ -73,6 +76,12 @@
         [self buildCode];
         [self done];
         [YBLog debug:@"Offline mode, skipping fastdata request..."];
+        return;
+    }
+    
+    if (dataConfig) {
+        self.fastDataConfig = dataConfig;
+        [self done];
         return;
     }
     
@@ -101,13 +110,7 @@
     }
     
     if (params[@"sessionRoot"] == nil) {
-        
-        NSString * code = self.viewCode;
-        if (([self.plugin getInfinity] != nil && [self.plugin getInfinity].flags.started) || [self compareRequestService: request.service andService: YBConstantsYouboraInfinity.sessionStop]) {
-            code = self.fastDataConfig.code;
-        }
-        
-        params[@"sessionRoot"] = code;
+        params[@"sessionRoot"] = self.fastDataConfig.code;
     }
     
     if (isInfinityRequest) {

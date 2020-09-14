@@ -1,3 +1,6 @@
+## [6.5.31] - 2020-09-14
+### Added
+- Send YBFastDataConfig via constructor
 ## [6.5.30] - 2020-08-18
 ### Added
 - Parse to search by new CDN changes
