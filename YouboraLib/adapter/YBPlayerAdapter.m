@@ -273,7 +273,6 @@
 }
 
 - (void)fireAdInit: (nullable NSDictionary<NSString *,NSString *> *)params {
-    
     if(!self.flags.adInitiated){
         self.flags.adInitiated = true;
         
