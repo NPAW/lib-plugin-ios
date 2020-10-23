@@ -645,50 +645,6 @@
     XCTAssertEqualObjects(YBConstantsTransportFormat.hlsFmp4, [self.p getTransportFormat]);
 }
 
-- (void) testDeprecatedExtraParams {
-    stubProperty(self.mockOptions, extraparam1, @"1");
-    stubProperty(self.mockOptions, extraparam2, @"2");
-    stubProperty(self.mockOptions, extraparam3, @"3");
-    stubProperty(self.mockOptions, extraparam4, @"4");
-    stubProperty(self.mockOptions, extraparam5, @"5");
-    stubProperty(self.mockOptions, extraparam6, @"6");
-    stubProperty(self.mockOptions, extraparam7, @"7");
-    stubProperty(self.mockOptions, extraparam8, @"8");
-    stubProperty(self.mockOptions, extraparam9, @"9");
-    stubProperty(self.mockOptions, extraparam10, @"10");
-    stubProperty(self.mockOptions, extraparam11, @"11");
-    stubProperty(self.mockOptions, extraparam12, @"12");
-    stubProperty(self.mockOptions, extraparam13, @"13");
-    stubProperty(self.mockOptions, extraparam14, @"14");
-    stubProperty(self.mockOptions, extraparam15, @"15");
-    stubProperty(self.mockOptions, extraparam16, @"16");
-    stubProperty(self.mockOptions, extraparam17, @"17");
-    stubProperty(self.mockOptions, extraparam18, @"18");
-    stubProperty(self.mockOptions, extraparam19, @"19");
-    stubProperty(self.mockOptions, extraparam20, @"20");
-    
-    XCTAssertEqual(@"1", [self.p getExtraparam1]);
-    XCTAssertEqual(@"2", [self.p getExtraparam2]);
-    XCTAssertEqual(@"3", [self.p getExtraparam3]);
-    XCTAssertEqual(@"4", [self.p getExtraparam4]);
-    XCTAssertEqual(@"5", [self.p getExtraparam5]);
-    XCTAssertEqual(@"6", [self.p getExtraparam6]);
-    XCTAssertEqual(@"7", [self.p getExtraparam7]);
-    XCTAssertEqual(@"8", [self.p getExtraparam8]);
-    XCTAssertEqual(@"9", [self.p getExtraparam9]);
-    XCTAssertEqual(@"10", [self.p getExtraparam10]);
-    XCTAssertEqual(@"11", [self.p getExtraparam11]);
-    XCTAssertEqual(@"12", [self.p getExtraparam12]);
-    XCTAssertEqual(@"13", [self.p getExtraparam13]);
-    XCTAssertEqual(@"14", [self.p getExtraparam14]);
-    XCTAssertEqual(@"15", [self.p getExtraparam15]);
-    XCTAssertEqual(@"16", [self.p getExtraparam16]);
-    XCTAssertEqual(@"17", [self.p getExtraparam17]);
-    XCTAssertEqual(@"18", [self.p getExtraparam18]);
-    XCTAssertEqual(@"19", [self.p getExtraparam19]);
-    XCTAssertEqual(@"20", [self.p getExtraparam20]);
-}
-
 - (void) testDeprecatedAdExtraParams {
     stubProperty(self.mockOptions, adExtraparam1, @"1");
     stubProperty(self.mockOptions, adExtraparam2, @"2");
@@ -809,9 +765,9 @@
 
 -(void)testGetExpectedAds {
     stubProperty(self.mockOptions, adExpectedPattern, (@{
-        YBOptionKeys.adPositionPre : @[@1],
-        YBOptionKeys.adPositionMid : @[@3,@5],
-        YBOptionKeys.adPositionPost : @[@2]
+        YBConstants.adPositionPre : @[@1],
+        YBConstants.adPositionMid : @[@3,@5],
+        YBConstants.adPositionPost : @[@2]
     }));
     
     self.p.adsAdapter = self.mockAdAdapter;

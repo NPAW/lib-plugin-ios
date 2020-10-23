@@ -576,11 +576,7 @@
 }
 
 - (Boolean) isToSendTotalBytes {
-    NSNumber *sendTotalBytes = self.options.sendTotalBytes;
-    
-    if (!sendTotalBytes) { return  false; }
-    
-    return [sendTotalBytes isEqualToNumber: [NSNumber numberWithBool:true]];
+    return self.options.sendTotalBytes;
 }
 
 - (NSNumber *) getThroughput {
@@ -960,86 +956,6 @@
     }
     
     return val;
-}
-
-- (NSString *) getExtraparam1 {
-    return self.options.extraparam1;
-}
-
-- (NSString *) getExtraparam2 {
-    return self.options.extraparam2;
-}
-
-- (NSString *) getExtraparam3 {
-    return self.options.extraparam3;
-}
-
-- (NSString *) getExtraparam4 {
-    return self.options.extraparam4;
-}
-
-- (NSString *) getExtraparam5 {
-    return self.options.extraparam5;
-}
-
-- (NSString *) getExtraparam6 {
-    return self.options.extraparam6;
-}
-
-- (NSString *) getExtraparam7 {
-    return self.options.extraparam7;
-}
-
-- (NSString *) getExtraparam8 {
-    return self.options.extraparam8;
-}
-
-- (NSString *) getExtraparam9 {
-    return self.options.extraparam9;
-}
-
-- (NSString *) getExtraparam10 {
-    return self.options.extraparam10;
-}
-
-- (NSString *) getExtraparam11 {
-    return self.options.extraparam11;
-}
-
-- (NSString *) getExtraparam12 {
-    return self.options.extraparam12;
-}
-
-- (NSString *) getExtraparam13 {
-    return self.options.extraparam13;
-}
-
-- (NSString *) getExtraparam14 {
-    return self.options.extraparam14;
-}
-
-- (NSString *) getExtraparam15 {
-    return self.options.extraparam15;
-}
-
-- (NSString *) getExtraparam16 {
-    return self.options.extraparam16;
-}
-
-- (NSString *) getExtraparam17 {
-    return self.options.extraparam17;
-}
-
-- (NSString *) getExtraparam18 {
-    return self.options.extraparam18;
-}
-
-- (NSString *) getExtraparam19 {
-    return self.options.extraparam19;
-}
-
-- (NSString *) getExtraparam20 {
-    return self.options.extraparam20;
 }
 
 - (NSString *) getAdExtraparam1 {
@@ -1452,9 +1368,9 @@
     NSNumber * val = self.options.adExpectedBreaks;
     
     if (val == nil && self.options.adExpectedPattern != nil) {
-        int totalBreaks = [self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionPre] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionPre] count]) : 0;
-        totalBreaks += [self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionMid] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionMid] count]) : 0;
-        totalBreaks += [self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionPost] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionPost] count]) : 0;
+        int totalBreaks = [self.options.adExpectedPattern objectForKey:YBConstants.adPositionPre] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBConstants.adPositionPre] count]) : 0;
+        totalBreaks += [self.options.adExpectedPattern objectForKey:YBConstants.adPositionMid] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBConstants.adPositionMid] count]) : 0;
+        totalBreaks += [self.options.adExpectedPattern objectForKey:YBConstants.adPositionPost] != nil ? ((int)[[self.options.adExpectedPattern objectForKey:YBConstants.adPositionPost] count]) : 0;
         
         val = [NSNumber numberWithInt:totalBreaks];
     } else if (self.adsAdapter != nil) {
@@ -1564,9 +1480,9 @@
     @try {
         if (self.adsAdapter != nil) {
             if (self.options.adExpectedPattern != nil && [self getAdPosition]) {
-                NSMutableArray * list = [NSMutableArray arrayWithArray:[self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionPre]];
-                [list addObjectsFromArray: [self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionMid]];
-                [list addObjectsFromArray: [self.options.adExpectedPattern objectForKey:YBOptionKeys.adPositionPost]];
+                NSMutableArray * list = [NSMutableArray arrayWithArray:[self.options.adExpectedPattern objectForKey:YBConstants.adPositionPre]];
+                [list addObjectsFromArray: [self.options.adExpectedPattern objectForKey:YBConstants.adPositionMid]];
+                [list addObjectsFromArray: [self.options.adExpectedPattern objectForKey:YBConstants.adPositionPost]];
                 if ([list count] > 0) {
                     int position = [[self.adsAdapter getAdBreakNumber] intValue] - 1;
                     if (position > [list count] - 1) {
@@ -1647,7 +1563,7 @@
     return self.options.networkConnectionType;
 }
 
-- (NSValue *) getNetworkObfuscateIp {
+- (BOOL) getNetworkObfuscateIp {
     return self.options.userObfuscateIp;
 }
 
@@ -1778,7 +1694,7 @@
     return [NSString stringWithFormat:@"%@-%@",languageCode, countryCode];
 }
 
-- (NSValue *) getIsInfinity {
+- (NSValue*) getIsInfinity {
     return self.options.isInfinity;
 }
 
@@ -3423,7 +3339,7 @@
 }
 
 - (BOOL) isExtraMetadataReady {
-    NSDictionary *dictOpts = [self.options toDictionary];
+    NSDictionary *dictOpts =  [YBOptionsFactory buildJsonWithOptions:self.options];
     
     if (self.options.pendingMetadata != nil && self.options.waitForMetadata) {
         NSMutableArray *pendingMetadataKeys = [[NSMutableArray alloc] initWithArray:self.options.pendingMetadata];

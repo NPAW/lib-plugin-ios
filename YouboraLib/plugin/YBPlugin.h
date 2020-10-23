@@ -1325,7 +1325,7 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * Returns if Infinity is enabled
  * @return if Infinity is enabled
  */
-- (NSValue *) getIsInfinity;
+- (NSValue*) getIsInfinity;
 
 /**
  * Returns SmartSwitch config code

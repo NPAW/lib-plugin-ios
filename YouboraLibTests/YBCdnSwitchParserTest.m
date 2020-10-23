@@ -8,12 +8,12 @@
 
 #import <XCTest/XCTest.h>
 #import "YBPlugin.h"
-#import "YBOptions.h"
 #import "YBCdnSwitchParser.h"
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import "YBTestableCdnSwitchParser.h"
 #import "YBRequest.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBCdnSwitchParserTest : XCTestCase
 

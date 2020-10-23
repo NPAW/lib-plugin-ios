@@ -136,7 +136,7 @@
             params[@"pingTime"] = self.fastDataConfig.pingTime.stringValue;
         }
         
-        if (params[@"sessionParent"] == nil && [self.plugin getIsInfinity] != nil && [[self.plugin getIsInfinity] isEqual:@YES]) {
+        if (params[@"sessionParent"] == nil && [self.plugin getIsInfinity]) {
             params[@"sessionParent"] = self.fastDataConfig.code;
         }
     }

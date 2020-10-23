@@ -272,6 +272,9 @@ import Foundation
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"
     static public let preferencesLastActiveKey = "last_active_id"
+    public static let adPositionPre = "pre"
+    public static let adPositionMid = "mid"
+    public static let adPositionPost = "post"
 
     // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
     // Map with ios version and names
@@ -323,3 +326,23 @@ import Foundation
         ]
     }
 }
+
+// Constants with default cdn name
+@objcMembers public class YBCdnName: NSObject {
+    public static let level3 = "Level3"
+    public static let cloudfront = "Cloudfront"
+    public static let akamai = "Akamai"
+    public static let highwinds = "Highwinds"
+    public static let fastly = "Fastly"
+    public static let balancer = "Balancer"
+    public static let telefonica = "Telefonica"
+    public static let amazon = "Amazon"
+}
+
+// MARK: Ad position YBConstants
+@available(*, deprecated, message: "This value will be removed in future release. Use YBAdPosition.pre instead")
+public let YBOPTIONS_AD_POSITION_PRE = "pre";
+@available(*, deprecated, message: "This value will be removed in future release. Use YBAdPosition.mid instead")
+public let YBOPTIONS_AD_POSITION_MID = "mid";
+@available(*, deprecated, message: "This value will be removed in future release. Use YBAdPosition.post instead")
+public let YBOPTIONS_AD_POSITION_POST = "post";
