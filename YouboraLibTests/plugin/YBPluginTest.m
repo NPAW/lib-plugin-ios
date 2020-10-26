@@ -607,6 +607,14 @@
     XCTAssertEqualObjects(@(0), [self.p getLatency]);
     
     [given([self.mockAdapter getLatency]) willReturn:@(1)];
+    stubProperty(self.mockOptions, contentIsLive, @(true));
+    
+    XCTAssertEqualObjects(@(1), [self.p getLatency]);
+    
+    stubProperty(self.mockOptions, contentIsLive, @(NO));
+    XCTAssertEqualObjects(@(0), [self.p getLatency]);
+    
+    stubProperty(self.mockOptions, contentIsLive, @(YES));
     
     XCTAssertEqualObjects(@(1), [self.p getLatency]);
 }
