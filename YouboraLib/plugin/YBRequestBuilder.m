@@ -41,7 +41,7 @@ static NSArray<NSString *> * youboraPingEntities;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             
-            NSArray * startParams = @[
+            NSMutableArray * startParams = @[
                 YBConstantsRequest.accountCode,
                 YBConstantsRequest.username,
                 YBConstantsRequest.rendition,
@@ -155,6 +155,9 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.adProvider
             ];
             
+            NSMutableArray *initParams = [[NSMutableArray alloc] initWithArray:startParams];
+            [initParams removeObject:YBConstantsRequest.rendition];
+            
             youboraRequestParams = @{
                        YBConstantsYouboraService.data:  @[
                                YBConstantsRequest.system,
@@ -162,7 +165,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.username,
                                YBConstantsRequest.isInfinity
                        ],
-                       YBConstantsYouboraService.sInit: startParams,
+                       YBConstantsYouboraService.sInit: initParams,
                        YBConstantsYouboraService.start: startParams,
                        YBConstantsYouboraService.join:  @[YBConstantsRequest.joinDuration, YBConstantsRequest.playhead],
                        YBConstantsYouboraService.pause: @[YBConstantsRequest.playhead],
