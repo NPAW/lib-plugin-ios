@@ -256,7 +256,7 @@ import Foundation
      * If the ip address should be abfuscated
      */
     @available(*, deprecated, message: "Use userObfuscateIp instead")
-    public var networkObfuscateIp: Bool {
+    public var networkObfuscateIp: NSNumber? {
         set { self.userObfuscateIp = newValue }
         get { return self.userObfuscateIp }
     }
@@ -264,7 +264,7 @@ import Foundation
     /**
      * If the ip address should be abfuscated
      */
-    public var userObfuscateIp: Bool = false
+    public var userObfuscateIp: NSNumber? = nil
     /**
      * User ID value inside your system for anon users
      */

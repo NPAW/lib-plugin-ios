@@ -1565,7 +1565,7 @@
     return self.options.networkConnectionType;
 }
 
-- (BOOL) getNetworkObfuscateIp {
+- (NSValue *) getNetworkObfuscateIp {
     return self.options.userObfuscateIp;
 }
 
@@ -3341,7 +3341,7 @@
 }
 
 - (BOOL) isExtraMetadataReady {
-    NSDictionary *dictOpts =  [YBOptionsFactory buildJsonWithOptions:self.options];
+    NSDictionary *dictOpts =  [YBOptionsFactory createJsonWithOptions: self.options];
     
     if (self.options.pendingMetadata != nil && self.options.waitForMetadata) {
         NSMutableArray *pendingMetadataKeys = [[NSMutableArray alloc] initWithArray:self.options.pendingMetadata];

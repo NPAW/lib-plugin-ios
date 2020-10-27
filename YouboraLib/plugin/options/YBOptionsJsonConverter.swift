@@ -9,23 +9,33 @@
 import UIKit
 
 protocol YBOptionsJsonConverterInterface {
-    static func buildFromJson(json: [String: Any]) -> YBOptions
-    static func updateOptions(json: [String: Any], options: YBOptions) -> YBOptions
-    static func convertToJson(options: YBOptions) -> [String: Any]
+    static func updateWithJson(json: [String: Any], options: YBOptions) -> YBOptions
+    static func convertOptions(options: YBOptions) -> [String: Any]
 }
 
+/// Class that will with the task to translate json data in options and the other way around
 @objcMembers class YBOptionsJsonConverter: NSObject, YBOptionsJsonConverterInterface {
     static var invalidKeys: [String] = []
     
-    static func buildFromJson(json: [String : Any]) -> YBOptions {
-        return self.convertFromJson(json: json, options: YBOptions())
+    /**
+     Method that will update options with the properties included on json
+     - Parameters:
+        - json: Dictionary with the values to be defined in options
+        - options: options to be update
+     - Returns: options passed by argument updated with the json values
+     */
+    static func updateWithJson(json: [String : Any], options: YBOptions) -> YBOptions {
+        return self.convertJson(json: json, options: options)
     }
     
-    static func updateOptions(json: [String : Any], options: YBOptions) -> YBOptions {
-        return self.convertFromJson(json: json, options: options)
-    }
-    
-    private static func convertFromJson(json: [String : Any], options: YBOptions) -> YBOptions {
+    /**
+     Method that will check all the options and update them case that value is available on json
+     - Parameters:
+        - json: Dictionary with the values to be defined in options
+        - options: options to be update
+     - Returns: options passed by argument updated with the json values
+     */
+    private static func convertJson(json: [String : Any], options: YBOptions) -> YBOptions {
         self.invalidKeys = []
         
         for keyValue in json.keys {
@@ -102,9 +112,17 @@ protocol YBOptionsJsonConverterInterface {
                 case .userEmail:
                     options.userEmail = YBOptionsValidator<String>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.userEmail)
                 case .networkObfuscateIp:
-                    options.networkObfuscateIp = YBOptionsValidator<Bool>.validateValue(values: json, key: keyValue, defaultValue: options.networkObfuscateIp)
+                    if let mainCast = YBOptionsValidator<Bool>.validateOptionalValue(values: json, key: keyValue, defaultValue: nil) {
+                        options.networkObfuscateIp = NSNumber(value: mainCast)
+                    } else {
+                        options.networkObfuscateIp = YBOptionsValidator<NSNumber>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.networkObfuscateIp)
+                    }
                 case .userObfuscateIp:
-                    options.userObfuscateIp = YBOptionsValidator<Bool>.validateValue(values: json, key: keyValue, defaultValue: options.userObfuscateIp)
+                    if let mainCast = YBOptionsValidator<Bool>.validateOptionalValue(values: json, key: keyValue, defaultValue: nil) {
+                        options.userObfuscateIp = NSNumber(value: mainCast)
+                    } else {
+                        options.userObfuscateIp = YBOptionsValidator<NSNumber>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.userObfuscateIp)
+                    }
                 case .anonymousUser:
                     options.anonymousUser = YBOptionsValidator<String>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.anonymousUser)
                 case .deviceCode:
@@ -375,7 +393,13 @@ protocol YBOptionsJsonConverterInterface {
         return options
     }
     
-    static func convertToJson(options: YBOptions) -> [String : Any] {
+    /**
+     This method translates all the available options in a json
+     - Parameters:
+        - options: options to be tranformed
+     - Returns: json format of the options sent by parameter
+     */
+    static func convertOptions(options: YBOptions) -> [String: Any] {
         var json: [String: Any] = [:]
         
         for property in YBOptionsKeys.Property.allCases {
@@ -540,73 +564,5 @@ protocol YBOptionsJsonConverterInterface {
             }
         }
         return json
-    }
-}
-
-/// Class used to valid values that come from the json, the validation will check if the value exists
-/// and if it contains a valid value format also it will set or not a default value depending on the validation result
-class YBOptionsValidator<T>: NSObject {
-    
-    // Type alias to help with testing
-    public typealias InvalidCompletion = () -> Void
-    
-    /**
-     Method to validate if a value for key is valid or not and print an invalid message case not
-     this method should only be called for non optional properties
-     - Parameters:
-     - values: Dictionary with all the values to be defined in options
-     - key: key of the value to be validated
-     - defaultValue: value to be returned case invalid or no result
-     - invalidCompletion: completion block to allow to know when invalid is called during the testing
-     - Returns: a valid result or default case value not founded or invalid
-     */
-    static public func validateValue(values: [String: Any?], key: String, defaultValue: T, invalidCompletion: InvalidCompletion? = nil) -> T {
-        let containsValue = values[key] != nil
-        
-        if !containsValue { return defaultValue }
-        
-        guard let validValue = values[key] as? T else {
-            printValueValidation(key: key, invalidCompletion: invalidCompletion)
-            return defaultValue
-        }
-        
-        return validValue
-    }
-    
-    /**
-     Method to validate if a value for key is valid or not and print an invalid message case not
-     this method should only be called for optional properties
-     - Parameters:
-     - values: Dictionary with all the values to be defined in options
-     - key: key of the value to be validated
-     - defaultValue: value to be returned case invalid
-     - invalidCompletion: completion block to allow to know when invalid is called during the testing
-     - Returns: a valid result case everything ok, nil case no value defined or defaultValue case invalid
-     */
-    static public func validateOptionalValue(values: [String: Any?], key: String, defaultValue: T?, invalidCompletion: InvalidCompletion? = nil) -> T? {
-        let containsValue = values[key] != nil
-        
-        if !containsValue { return nil }
-        
-        guard let validValue = values[key] as? T else {
-            printValueValidation(key: key, invalidCompletion: invalidCompletion)
-            return defaultValue
-        }
-        
-        return validValue
-    }
-    
-    /**
-     Method to print error message case something wrong with the validation
-     - Parameters:
-     - key: key where the invalid value was found
-     - invalidCompletion: completion block to allow to know when invalid is called during the testing
-     */
-    static public func printValueValidation(key: String, invalidCompletion: InvalidCompletion?) {
-        
-        if let invalidCompletion = invalidCompletion {
-            invalidCompletion()
-        }
-        YBSwiftLog.warn("invalid value for option %@", key)
     }
 }

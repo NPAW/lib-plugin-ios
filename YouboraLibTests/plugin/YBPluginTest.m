@@ -35,7 +35,7 @@
 
 @property(nonatomic, strong) YBPlayerAdapter * mockAdapter;
 @property(nonatomic, strong) YBPlayerAdapter *mockAdAdapter;
-@property(nonatomic, strong) YBOptions * mockOptions;
+@property(nonatomic, strong) YBOptions * options;
 
 @property(nonatomic, strong) YBTestablePlugin * p;
 
@@ -48,9 +48,9 @@
     
     self.mockAdapter = mock([YBPlayerAdapter class]);
     self.mockAdAdapter = mock([YBPlayerAdapter class]);
-    self.mockOptions = mock([YBOptions class]);
+    self.options = [YBOptionsFactory createOptions];
     
-    self.p = [[YBTestablePlugin alloc] initWithOptions:self.mockOptions andAdapter:self.mockAdapter];
+    self.p = [[YBTestablePlugin alloc] initWithOptions:self.options andAdapter:self.mockAdapter];
     
     // Adapters will use real flags and chronos
     YBPlaybackFlags * adapterFlags = [YBPlaybackFlags new];
@@ -80,9 +80,9 @@
 }
 
 - (void)testSetOptions {
-    stubProperty(self.mockOptions, accountCode, @"a");
+    self.options.accountCode = @"a"
     
-    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.options];
     
     XCTAssertEqualObjects(@"a", p.options.accountCode);
     
@@ -94,7 +94,7 @@
 
 - (void)testAddAndRemoveAdapters {
     
-    YBPlugin * plugin = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    YBPlugin * plugin = [[YBPlugin alloc] initWithOptions:self.options];
     
     YBPlayerAdapter * adapter = mock([YBPlayerAdapter class]);
     YBPlayerAdapter * adapter2 = mock([YBPlayerAdapter class]);
@@ -118,7 +118,7 @@
 }
 
 - (void)testAddAndRemoveAdsAdapters {
-    YBPlugin * plugin = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    YBPlugin * plugin = [[YBPlugin alloc] initWithOptions:self.options];
     
     YBPlayerAdapter * adapter = mock([YBPlayerAdapter class]);
     YBPlayerAdapter * adapter2 = mock([YBPlayerAdapter class]);
@@ -142,8 +142,8 @@
 }
 
 - (void)testAddInvalidAdAdapters {
-    YBPlugin * plugin = [[YBPlugin alloc] initWithOptions:self.mockOptions];
-    YBPlugin * plugin2 = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    YBPlugin * plugin = [[YBPlugin alloc] initWithOptions:self.options];
+    YBPlugin * plugin2 = [[YBPlugin alloc] initWithOptions:self.options];
     
     YBPlayerAdapter * adapter = [YBPlayerAdapter new];
     YBPlayerAdapter * adapter2 = [YBPlayerAdapter new];
@@ -161,10 +161,10 @@
 
 - (void)testEnableDisable {
     [self.p enable];
-    [verify(self.mockOptions) setEnabled:true];
+    XCTAssertTrue(self.options.enabled);
     
     [self.p disable];
-    [verify(self.mockOptions) setEnabled:false];
+    XCTAssertFalse(self.options.enabled);
 }
 
 - (void)testPreloads {
