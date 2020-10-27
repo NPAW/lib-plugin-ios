@@ -897,7 +897,9 @@
 
 - (NSNumber *)getLatency{
     NSNumber * val = nil;
-    if (self.adapter != nil) {
+    NSNumber *isLive = self.options.contentIsLive;
+    
+    if (self.adapter != nil && [isLive boolValue]) {
         @try {
             val = [self.adapter getLatency];
         } @catch (NSException *exception) {

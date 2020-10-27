@@ -1,3 +1,8 @@
+## [6.5.32] - 2020-10-26
+### Fixed
+- Move rendition from init to start
+### Changed
+- Send latency only when is live video
 ## [6.5.31] - 2020-09-14
 ### Added
 - Send YBFastDataConfig via constructor
