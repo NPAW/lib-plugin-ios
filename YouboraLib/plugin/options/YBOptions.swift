@@ -60,7 +60,7 @@ import Foundation
                 self.parseResource = newValue
             }
         }
-        get { self.parseResource}
+        get { return self.parseResource}
     }
 
     /**
@@ -75,7 +75,7 @@ import Foundation
                 self.parseResource = newValue
             }
         }
-        get { self.parseResource}
+        get { return self.parseResource}
     }
 
     /**
@@ -90,7 +90,7 @@ import Foundation
                 self.parseResource = newValue
             }
         }
-        get { self.parseResource}
+        get { return self.parseResource}
     }
     
     /**
@@ -898,7 +898,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension1 instead")
     public var adExtraparam1: String? {
         set {self.adCustomDimension1 = newValue}
-        get {self.adCustomDimension1}
+        get {return self.adCustomDimension1}
     }
 
     /**
@@ -907,7 +907,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension2 instead")
     public var adExtraparam2: String? {
         set {self.adCustomDimension2 = newValue}
-        get {self.adCustomDimension2}
+        get {return self.adCustomDimension2}
     }
 
     /**
@@ -916,7 +916,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension3 instead")
     public var adExtraparam3: String? {
         set {self.adCustomDimension3 = newValue}
-        get {self.adCustomDimension3}
+        get {return self.adCustomDimension3}
     }
 
     /**
@@ -925,7 +925,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension4 instead")
     public var adExtraparam4: String? {
         set {self.adCustomDimension4 = newValue}
-        get {self.adCustomDimension4}
+        get {return self.adCustomDimension4}
     }
 
     /**
@@ -934,7 +934,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension5 instead")
     public var adExtraparam5: String? {
         set {self.adCustomDimension5 = newValue}
-        get {self.adCustomDimension5}
+        get {return self.adCustomDimension5}
     }
 
     /**
@@ -943,7 +943,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension6 instead")
     public var adExtraparam6: String? {
         set {self.adCustomDimension6 = newValue}
-        get {self.adCustomDimension6}
+        get {return self.adCustomDimension6}
     }
 
     /**
@@ -952,7 +952,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension7 instead")
     public var adExtraparam7: String? {
         set {self.adCustomDimension7 = newValue}
-        get {self.adCustomDimension7}
+        get {return self.adCustomDimension7}
     }
 
     /**
@@ -961,7 +961,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension8 instead")
     public var adExtraparam8: String? {
         set {self.adCustomDimension8 = newValue}
-        get {self.adCustomDimension8}
+        get {return self.adCustomDimension8}
     }
 
     /**
@@ -970,7 +970,7 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension9 instead")
     public var adExtraparam9: String? {
         set {self.adCustomDimension9 = newValue}
-        get {self.adCustomDimension9}
+        get {return self.adCustomDimension9}
     }
 
     /**
@@ -979,6 +979,6 @@ import Foundation
     @available(*, deprecated, message: "Use adCustomDimension10 instead")
     public var adExtraparam10: String? {
         set {self.adCustomDimension10 = newValue}
-        get {self.adCustomDimension10}
+        get {return self.adCustomDimension10}
     }
 }
