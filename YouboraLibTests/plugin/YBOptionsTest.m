@@ -36,9 +36,13 @@
     options.parseDash = false;
     
     XCTAssertEqual(options.parseResource, true);
+    
     options.parseResource = false;
-    options.parseResource = true;
+    options.parseDash = true;
+    
     XCTAssertEqual(options.parseResource, true);
+    
+    
 }
 
 -(void)testInvalidContentStreamingProtocol {
