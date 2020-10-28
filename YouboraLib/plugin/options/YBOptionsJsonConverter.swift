@@ -24,7 +24,7 @@ protocol YBOptionsJsonConverterInterface {
         - options: options to be update
      - Returns: options passed by argument updated with the json values
      */
-    static func updateWithJson(json: [String : Any], options: YBOptions) -> YBOptions {
+    static func updateWithJson(json: [String: Any], options: YBOptions) -> YBOptions {
         return self.convertJson(json: json, options: options)
     }
     
@@ -35,7 +35,7 @@ protocol YBOptionsJsonConverterInterface {
         - options: options to be update
      - Returns: options passed by argument updated with the json values
      */
-    private static func convertJson(json: [String : Any], options: YBOptions) -> YBOptions {
+    private static func convertJson(json: [String: Any], options: YBOptions) -> YBOptions {
         self.invalidKeys = []
         
         for keyValue in json.keys {
@@ -78,9 +78,13 @@ protocol YBOptionsJsonConverterInterface {
                 case .forceInit:
                     options.forceInit = YBOptionsValidator<Bool>.validateValue(values: json, key: keyValue, defaultValue: options.forceInit)
                 case .sendTotalBytes:
-                    options.sendTotalBytes = YBOptionsValidator<Bool>.validateValue(values: json, key: keyValue, defaultValue: options.sendTotalBytes)
+                    if let mainCast = YBOptionsValidator<Bool>.validateOptionalValue(values: json, key: keyValue, defaultValue: nil) {
+                        options.sendTotalBytes = NSNumber(value: mainCast)
+                    } else {
+                        options.sendTotalBytes = YBOptionsValidator<NSNumber>.validateValue(values: json, key: keyValue, defaultValue: options.sendTotalBytes)
+                    }
                 case .sessionMetrics:
-                    options.sessionMetrics = YBOptionsValidator<[String: Any]>.validateValue(values: json, key: keyValue, defaultValue: options.sessionMetrics)
+                    options.sessionMetrics = YBOptionsValidator<[String: AnyHashable]>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.sessionMetrics)
                 case .autoDetectBackground:
                     options.autoDetectBackground = YBOptionsValidator<Bool>.validateValue(values: json, key: keyValue, defaultValue: options.autoDetectBackground)
                 case .offline:
@@ -177,11 +181,15 @@ protocol YBOptionsJsonConverterInterface {
                 case .contentFps:
                     options.contentFps = YBOptionsValidator<NSNumber>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.contentFps)
                 case .contentMetadata:
-                    options.contentMetadata = YBOptionsValidator<[String: Any]>.validateValue(values: json, key: keyValue, defaultValue: options.contentMetadata)
+                    options.contentMetadata = YBOptionsValidator<[String: AnyHashable]>.validateValue(values: json, key: keyValue, defaultValue: options.contentMetadata)
                 case .contentMetrics:
-                    options.contentMetrics = YBOptionsValidator<[String: Any]>.validateValue(values: json, key: keyValue, defaultValue: options.contentMetrics)
+                    options.contentMetrics = YBOptionsValidator<[String: AnyHashable]>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.contentMetrics)
                 case .contentIsLiveNoSeek:
-                    options.contentIsLiveNoSeek = YBOptionsValidator<Bool>.validateValue(values: json, key: keyValue, defaultValue: options.contentIsLiveNoSeek)
+                    if let mainCast = YBOptionsValidator<Bool>.validateOptionalValue(values: json, key: keyValue, defaultValue: nil) {
+                        options.contentIsLiveNoSeek = NSNumber(value: mainCast)
+                    } else {
+                        options.contentIsLiveNoSeek = YBOptionsValidator<NSNumber>.validateValue(values: json, key: keyValue, defaultValue: options.contentIsLiveNoSeek)
+                    }
                 case .contentPackage:
                     options.contentPackage = YBOptionsValidator<String>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.contentPackage)
                 case .contentSaga:
@@ -223,7 +231,7 @@ protocol YBOptionsJsonConverterInterface {
                 case .contentEncodingAudioCodec:
                     options.contentEncodingAudioCodec = YBOptionsValidator<String>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.contentEncodingAudioCodec)
                 case .contentEncodingCodecSettings:
-                    options.contentEncodingCodecSettings = YBOptionsValidator<[String : Any]>.validateValue(values: json, key: keyValue, defaultValue: options.contentEncodingCodecSettings)
+                    options.contentEncodingCodecSettings = YBOptionsValidator<[String : AnyHashable]>.validateValue(values: json, key: keyValue, defaultValue: options.contentEncodingCodecSettings)
                 case .contentEncodingCodecProfile:
                     options.contentEncodingCodecProfile = YBOptionsValidator<String>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.contentEncodingCodecProfile)
                 case .contentEncodingContainerFormat:
@@ -309,7 +317,7 @@ protocol YBOptionsJsonConverterInterface {
                 case .customDimension20:
                     options.customDimension20 = YBOptionsValidator<String>.validateOptionalValue(values: json, key: keyValue, defaultValue: options.customDimension20)
                 case .adMetadata:
-                    options.adMetadata = YBOptionsValidator<[String: Any]>.validateValue(values: json, key: keyValue, defaultValue: options.adMetadata)
+                    options.adMetadata = YBOptionsValidator<[String: AnyHashable]>.validateValue(values: json, key: keyValue, defaultValue: options.adMetadata)
                 case .adsAfterStop:
                     options.adsAfterStop = YBOptionsValidator<NSNumber>.validateValue(values: json, key: keyValue, defaultValue: options.adsAfterStop)
                 case .adCampaign:
@@ -379,13 +387,13 @@ protocol YBOptionsJsonConverterInterface {
         }
         
         if invalidKeys.count > 0 {
-            let invalidResult = invalidKeys.reduce("", { (accumulator, invalidKey) -> String in
+            let invalidResult = invalidKeys.reduce("") { (accumulator, invalidKey) -> String in
                 if accumulator.isEmpty {
                     return invalidKey
-                } else {
-                    return "\(accumulator), \(invalidKey)"
                 }
-            })
+                
+                return "\(accumulator), \(invalidKey)"
+            }
             
             YBSwiftLog.warn("the follow properties %@ don't exist ", invalidResult)
         }

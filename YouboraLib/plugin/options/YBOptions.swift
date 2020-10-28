@@ -127,7 +127,7 @@ import Foundation
     public var cdnSwitchHeader: Bool = false
     
     /**
-     NSNumbererval of time to search for a new cdn
+     TimeInterval of time to search for a new cdn
     */
     public var cdnTTL: TimeInterval = 60
     
@@ -139,17 +139,17 @@ import Foundation
     /**
      * IP of the viewer/user, e.g. "48.15.16.23".
      */
-    public var networkIP: String? = nil
+    public var networkIP: String?
     
     /**
      * Name of the NSNumberernet service provider of the viewer/user.
      */
-    public var networkIsp: String? = nil
+    public var networkIsp: String?
     
     /**
      * See a list of codes in <a href="http://mapi.youbora.com:8081/connectionTypes">http://mapi.youbora.com:8081/connectionTypes</a>.
      */
-    public var networkConnectionType: String? = nil
+    public var networkConnectionType: String?
 
     /**
      * Force init enabled
@@ -159,12 +159,12 @@ import Foundation
     /**
      * Flag that indicates if the plugin should send total bytes or not default false
      */
-    public var sendTotalBytes: Bool = false
+    public var sendTotalBytes: NSNumber = NSNumber(value: false)
     
     /**
      * Dictionary containing the session metrics.
      */
-    public var sessionMetrics: [String: Any] = [:]
+    public var sessionMetrics: [String: AnyHashable]?
     
     /**
      * If true the plugin will fireStop when going to background
@@ -181,32 +181,32 @@ import Foundation
      * Flag if Infinity is going to be used
      */
     @available(*, deprecated, message: "This property will be removed in future releases")
-    public var isInfinity: NSNumber? = nil
+    public var isInfinity: NSNumber?
     
     /**
      * Config code for smartswitch
      */
-    public var smartswitchConfigCode: String? = nil
+    public var smartswitchConfigCode: String?
 
     /**
      * Group code for smartswitch
      */
-    public var smartswitchGroupCode: String? = nil
+    public var smartswitchGroupCode: String?
 
     /**
      * Contract code for smartswitch
      */
-    public var smartswitchContractCode: String? = nil
+    public var smartswitchContractCode: String?
     
     /*
      * Name of the app
      */
-    public var appName: String? = nil
+    public var appName: String?
 
     /**
      * Release version of the app
      */
-    public var appReleaseVersion: String? = nil
+    public var appReleaseVersion: String?
 
     /**
      * Enabling this option enables the posibility of getting the /start request later on the view,
@@ -216,7 +216,7 @@ import Foundation
      * are not null, this is very important, since an empty string is considered a not null
      * and therefore is a valid value.
      */
-    public var waitForMetadata:Bool = false
+    public var waitForMetadata: Bool = false
 
     /**
      * Set option keys you want to wait for metadata, in order to work waitForMetadata
@@ -233,24 +233,24 @@ import Foundation
      * The code above prevent the /start request unless contentTItle and contentCustomDimension1
      * stop being nil (you can set a non nil value to any property when information is available).
      */
-    public var pendingMetadata: [String] = [];
+    public var pendingMetadata: [String] = []
     
     // MARK: User Options
     
     /**
      * User type value inside your system.
      */
-    public var username: String? = nil
+    public var username: String?
     
     /**
      * User ID value inside your system.
      */
-    public var userType: String? = nil
+    public var userType: String?
     
     /**
      * User email
      */
-    public var userEmail: String? = nil
+    public var userEmail: String?
     
     /**
      * If the ip address should be abfuscated
@@ -264,48 +264,48 @@ import Foundation
     /**
      * If the ip address should be abfuscated
      */
-    public var userObfuscateIp: NSNumber? = nil
+    public var userObfuscateIp: NSNumber?
     /**
      * User ID value inside your system for anon users
      */
-    public var anonymousUser: String? = nil
+    public var anonymousUser: String?
     
     // MARK: Device Options
     /**
      * Youbora's device code. If specified it will rewrite info gotten from user agent.
      * See a list of codes in <a href="http://mapi.youbora.com:8081/devices">http://mapi.youbora.com:8081/devices</a>.
      */
-    public var deviceCode: String? = nil
+    public var deviceCode: String?
     
     /**
     * What will be displayed as the device model on Youbora (provided by default with android.os.Build.MODEL if not set)
     */
-    public var deviceModel: String? = nil
+    public var deviceModel: String?
     
     /**
      * What will be displayed as the device brand on Youbora (provided by default with android.os.Build.BRAND if not set)
      */
-    public var deviceBrand: String? = nil
+    public var deviceBrand: String?
     
     /**
      * What will be displayed as the device type on Youbora (pc, smartphone, stb, tv, etc.)
      */
-    public var deviceType: String? = nil
+    public var deviceType: String?
 
     /**
      * What will be displayed as the device name on Youbora (pc, smartphone, stb, tv, etc.)
      */
-    public var deviceName: String? = nil
+    public var deviceName: String?
     
     /**
      * OS name that will be displayed on Youbora
      */
-    public var deviceOsName: String? = nil
+    public var deviceOsName: String?
     
     /**
      * OS version that will be displayed on Youbora (provided by default with android.os.Build.VERSION.RELEASE if not set)
      */
-    public var deviceOsVersion: String? = nil
+    public var deviceOsVersion: String?
     
     /**
      * Option to not send deviceUUID
@@ -317,44 +317,44 @@ import Foundation
     /**
      * URL/path of the current media resource.
      */
-    public var contentResource: String? = nil
+    public var contentResource: String?
     
     /**
      * true if the content is Live. false if VOD. Default: nil. If not nill this value will have more priority then
      * the value that comes from the adapter. Case nil the plugin will try to get this value from the adapter
      */
-    public var contentIsLive: NSNumber? = nil
+    public var contentIsLive: NSNumber?
     
     /**
      * Title of the media.
      */
-    public var contentTitle: String? = nil
+    public var contentTitle: String?
     
     /**
      * Secondary title of the media. This could be program name, season, episode, etc.
      */
     @available(*, deprecated, message: "This option will be removed on future releases. Use program instead")
-    public var contentTitle2: String? = nil
+    public var contentTitle2: String?
     
     /**
      * Program title of the media. This could be program name, season, episode, etc.
      */
-    public var program: String? = nil
+    public var program: String?
     
     /**
      * Duration of the media in seconds.
      */
-    public var contentDuration: NSNumber? = nil
+    public var contentDuration: NSNumber?
     
     /**
      * Custom unique code to identify the view.
      */
-    public var contentTransactionCode: String? = nil
+    public var contentTransactionCode: String?
     
     /**
      * Bitrate of the content in bits per second.
      */
-    public var contentBitrate: NSNumber? = nil
+    public var contentBitrate: NSNumber?
     
     /**
      * Streaming protocol of the content, you can use any of these YBConstantsStreamProtocol:
@@ -366,7 +366,7 @@ import Foundation
      YBConstantsStreamProtocol.rtp
      YBConstantsStreamProtocol.rtsp
      */
-    private var _contentStreamingProtocol: String? = nil
+    private var _contentStreamingProtocol: String?
     public var contentStreamingProtocol: String? {
         set {
             let allowedProtocols = [
@@ -392,7 +392,7 @@ import Foundation
     YBConstantsTransportFormat.hlsTs
     YBConstantsTransportFormat.hlsFmp4
     */
-    private var _contentTransportFormat: String? = nil
+    private var _contentTransportFormat: String?
     public var contentTransportFormat: String? {
         set {
             let allowedProtocols = [
@@ -411,432 +411,372 @@ import Foundation
     /**
      * Throughput of the client bandwidth in bits per second.
      */
-    public var contentThroughput: NSNumber? = nil
+    public var contentThroughput: NSNumber?
     
     /**
      * Name or value of the current rendition (quality) of the content.
      */
-    public var contentRendition: String? = nil
+    public var contentRendition: String?
     
     /**
      * Codename of the CDN where the content is streaming from.
      * See a list of codes in <a href="http://mapi.youbora.com:8081/cdns">http://mapi.youbora.com:8081/cdns</a>.
      */
-    public var contentCdn: String? = nil
+    public var contentCdn: String?
     
     /**
      * Frames per second of the media being played.
      */
-    public var contentFps: NSNumber? = nil
+    public var contentFps: NSNumber?
     
     /**
      * Dictionary containing mixed extra information about the content like: director, parental rating,
      * device info or the audio channels.
      */
-    public var contentMetadata: [String: Any] = [:]
+    public var contentMetadata: [String: AnyHashable] = [:]
     
     /**
      * Dictionary containing the content metrics.
      */
-    public var contentMetrics: [String: Any] = [:]
+    public var contentMetrics: [String: AnyHashable]?
     
     /**
      * Bool containing if seeks should be disabled for life content, only applies if content is live, if it's VOD it gets ignored
      */
-    public var contentIsLiveNoSeek: Bool = false
+    public var contentIsLiveNoSeek: NSNumber = NSNumber(value: false)
     
     /**
      * String containing the content package
      */
-    public var contentPackage: String? = nil
+    public var contentPackage: String?
     
     /**
      * String containing the content saga
      */
-    public var contentSaga: String? = nil
+    public var contentSaga: String?
     
     /**
      * String containing the content show
      */
-    public var contentTvShow: String? = nil
+    public var contentTvShow: String?
     
     /**
      * String containing the content season
      */
-    public var contentSeason: String? = nil
+    public var contentSeason: String?
     
     /**
      * String containing the content episode title
      */
-    public var contentEpisodeTitle: String? = nil
+    public var contentEpisodeTitle: String?
     
     /**
      * String containing the content channel
      */
-    public var contentChannel: String? = nil
+    public var contentChannel: String?
 
     /**
      * String containing the content id
      */
-    public var contentId: String? = nil
+    public var contentId: String?
     
     /**
      * String containing the content imdb id
      */
-    public var contentImdbId: String? = nil
+    public var contentImdbId: String?
     
     /**
      * NSString containing the content gracenote id
      */
-    public var contentGracenoteId: String? = nil
+    public var contentGracenoteId: String?
 
     /**
      * NSString containing the content type
      */
-    public var contentType: String? = nil
+    public var contentType: String?
 
     /**
      * NSString containing the content genre
      */
-    public var contentGenre: String? = nil
+    public var contentGenre: String?
 
     /**
      * NSString containing the content language
      */
-    public var contentLanguage: String? = nil
+    public var contentLanguage: String?
 
     /**
      * NSString containing the content subtitles
      */
-    public var contentSubtitles: String? = nil
+    public var contentSubtitles: String?
 
     /**
      * NSString containing the content contracted resolution
      */
-    public var contentContractedResolution: String? = nil
+    public var contentContractedResolution: String?
 
     /**
      * NSString containing the content cost
      */
-    public var contentCost: String? = nil
+    public var contentCost: String?
 
     /**
      * NSString containing the content price
      */
-    public var contentPrice: String? = nil
+    public var contentPrice: String?
 
     /**
      * NSString containing the content playback type
      */
-    public var contentPlaybackType: String? = nil
+    public var contentPlaybackType: String?
 
     /**
      * NSString containing the content drm
      */
-    public var contentDrm: String? = nil
+    public var contentDrm: String?
 
     /**
      * NSString containing the content encoding video codec
      */
-    public var contentEncodingVideoCodec: String? = nil
+    public var contentEncodingVideoCodec: String?
 
     /**
      * NSString containing the content encoding audio codec
      */
-    public var contentEncodingAudioCodec: String? = nil
+    public var contentEncodingAudioCodec: String?
 
     /**
      * NSString containing the content encoding codec settings
      */
-    public var contentEncodingCodecSettings: [String: Any] = [:]
+    public var contentEncodingCodecSettings: [String: AnyHashable] = [:]
 
     /**
      * NSString containing the content encoding codec profile
      */
-    public var contentEncodingCodecProfile: String? = nil
+    public var contentEncodingCodecProfile: String?
 
     /**
      * NSString containing the content encoding container format
      */
-    public var contentEncodingContainerFormat: String? = nil
+    public var contentEncodingContainerFormat: String?
     
     /**
      * Content custom dimension 1.
      */
-    public var contentCustomDimension1: String? = nil
+    public var contentCustomDimension1: String?
 
     /**
      * Content custom dimension 2.
      */
-    public var contentCustomDimension2: String? = nil
+    public var contentCustomDimension2: String?
 
     /**
      * Content custom dimension 3.
      */
-    public var contentCustomDimension3: String? = nil
+    public var contentCustomDimension3: String?
 
     /**
      * Content custom dimension 4.
      */
-    public var contentCustomDimension4: String? = nil
+    public var contentCustomDimension4: String?
 
     /**
      * Content custom dimension 5.
      */
-    public var contentCustomDimension5: String? = nil
+    public var contentCustomDimension5: String?
 
     /**
      * Content custom dimension 6.
      */
-    public var contentCustomDimension6: String? = nil
+    public var contentCustomDimension6: String?
 
     /**
      * Content custom dimension 7.
      */
-    public var contentCustomDimension7: String? = nil
+    public var contentCustomDimension7: String?
 
     /**
      * Content custom dimension 8.
      */
-    public var contentCustomDimension8: String? = nil
+    public var contentCustomDimension8: String?
 
     /**
      * Content custom dimension 9.
      */
-    public var contentCustomDimension9: String? = nil
+    public var contentCustomDimension9: String?
 
     /**
      * Content custom dimension 10.
      */
-    public var contentCustomDimension10: String? = nil
+    public var contentCustomDimension10: String?
 
     /**
      * Content custom dimension 11.
      */
-    public var contentCustomDimension11: String? = nil
+    public var contentCustomDimension11: String?
 
     /**
      * Content custom dimension 12.
      */
-    public var contentCustomDimension12: String? = nil
+    public var contentCustomDimension12: String?
 
     /**
      * Content custom dimension 13.
      */
-    public var contentCustomDimension13: String? = nil
+    public var contentCustomDimension13: String?
 
     /**
      * Content custom dimension 14.
      */
-    public var contentCustomDimension14: String? = nil
+    public var contentCustomDimension14: String?
 
     /**
      * Content custom dimension 15.
      */
-    public var contentCustomDimension15: String? = nil
+    public var contentCustomDimension15: String?
 
     /**
      * Content custom dimension 16.
      */
-    public var contentCustomDimension16: String? = nil
+    public var contentCustomDimension16: String?
 
     /**
      * Content custom dimension 17.
      */
-    public var contentCustomDimension17: String? = nil
+    public var contentCustomDimension17: String?
 
     /**
      * Content custom dimension 18.
      */
-    public var contentCustomDimension18: String? = nil
+    public var contentCustomDimension18: String?
 
     /**
      * Content custom dimension 19.
      */
-    public var contentCustomDimension19: String? = nil
+    public var contentCustomDimension19: String?
 
     /**
      * Content custom dimension 20.
      */
-    public var contentCustomDimension20: String? = nil
+    public var contentCustomDimension20: String?
     
     /**
      * Custom dimension 1.
      */
     @available(*, deprecated, message: "Use contentCustomDimension1 instead")
-    public var customDimension1: String? {
-        set{ self.contentCustomDimension1 = newValue}
-        get {self.contentCustomDimension1}
-    }
+    public var customDimension1: String?
     
     /**
      * Custom dimension 2.
      */
     @available(*, deprecated, message: "Use contentCustomDimension2 instead")
-    public var customDimension2: String? {
-        set{ self.contentCustomDimension2 = newValue}
-        get {self.contentCustomDimension2}
-    }
+    public var customDimension2: String?
     
     /**
      * Custom dimension 3.
      */
     @available(*, deprecated, message: "Use contentCustomDimension3 instead")
-    public var customDimension3: String? {
-        set{ self.contentCustomDimension3 = newValue}
-        get {self.contentCustomDimension3}
-    }
+    public var customDimension3: String?
     
     /**
      * Custom dimension 4.
      */
     @available(*, deprecated, message: "Use contentCustomDimension4 instead")
-    public var customDimension4 : String? {
-        set{ self.contentCustomDimension4 = newValue}
-        get {self.contentCustomDimension4}
-    }
+    public var customDimension4: String?
     
     /**
      * Custom dimension 5.
      */
     @available(*, deprecated, message: "Use contentCustomDimension5 instead")
-    public var customDimension5 : String? {
-        set{ self.contentCustomDimension5 = newValue}
-        get {self.contentCustomDimension5}
-    }
+    public var customDimension5: String?
     
     /**
      * Custom dimension 6.
      */
     @available(*, deprecated, message: "Use contentCustomDimension6 instead")
-    public var customDimension6 : String? {
-        set{ self.contentCustomDimension6 = newValue}
-        get {self.contentCustomDimension6}
-    }
+    public var customDimension6: String?
     /**
      * Custom dimension 7.
      */
     @available(*, deprecated, message: "Use contentCustomDimension7 instead")
-    public var customDimension7: String? {
-        set{ self.contentCustomDimension7 = newValue}
-        get {self.contentCustomDimension7}
-    }
+    public var customDimension7: String?
     
     /**
      * Custom dimension 8.
      */
     @available(*, deprecated, message: "Use contentCustomDimension8 instead")
-    public var customDimension8: String? {
-        set{ self.contentCustomDimension8 = newValue}
-        get {self.contentCustomDimension8}
-    }
+    public var customDimension8: String?
     
     /**
      * Custom dimension 9.
      */
     @available(*, deprecated, message: "Use contentCustomDimension9 instead")
-    public var customDimension9: String? {
-        set{ self.contentCustomDimension9 = newValue}
-        get {self.contentCustomDimension9}
-    }
+    public var customDimension9: String?
     
     /**
      * Custom dimension 10.
      */
     @available(*, deprecated, message: "Use contentCustomDimension10 instead")
-    public var customDimension10: String? {
-        set{ self.contentCustomDimension10 = newValue}
-        get {self.contentCustomDimension10}
-    }
+    public var customDimension10: String?
     /**
      * Custom dimension 11.
      */
     @available(*, deprecated, message: "Use contentCustomDimension11 instead")
-    public var customDimension11: String? {
-        set{ self.contentCustomDimension11 = newValue}
-        get {self.contentCustomDimension11}
-    }
+    public var customDimension11: String?
     
     /**
      * Custom dimension 12.
      */
     @available(*, deprecated, message: "Use contentCustomDimension12 instead")
-    public var customDimension12: String? {
-        set{ self.contentCustomDimension12 = newValue}
-        get {self.contentCustomDimension12}
-    }
+    public var customDimension12: String?
     
     /**
      * Custom dimension 13.
      */
     @available(*, deprecated, message: "Use contentCustomDimension13 instead")
-    public var customDimension13: String? {
-        set{ self.contentCustomDimension13 = newValue}
-        get {self.contentCustomDimension13}
-    }
+    public var customDimension13: String?
     
     /**
      * Custom dimension 14.
      */
     @available(*, deprecated, message: "Use contentCustomDimension14 instead")
-    public var customDimension14: String? {
-        set{ self.contentCustomDimension14 = newValue}
-        get {self.contentCustomDimension14}
-    }
+    public var customDimension14: String?
     
     /**
      * Custom dimension 15.
      */
     @available(*, deprecated, message: "Use contentCustomDimension15 instead")
-    public var customDimension15: String? {
-        set{ self.contentCustomDimension15 = newValue}
-        get {self.contentCustomDimension15}
-    }
+    public var customDimension15: String?
     
     /**
      * Custom dimension 16.
      */
     @available(*, deprecated, message: "Use contentCustomDimension16 instead")
-    public var customDimension16: String? {
-        set{ self.contentCustomDimension16 = newValue}
-        get {self.contentCustomDimension16}
-    }
+    public var customDimension16: String?
     
     /**
      * Custom dimension 17.
      */
     @available(*, deprecated, message: "Use contentCustomDimension17 instead")
-    public var customDimension17: String? {
-        set{ self.contentCustomDimension17 = newValue}
-        get {self.contentCustomDimension17}
-    }
+    public var customDimension17: String?
     
     /**
      * Custom dimension 18.
      */
     @available(*, deprecated, message: "Use contentCustomDimension18 instead")
-    public var customDimension18: String? {
-        set{ self.contentCustomDimension18 = newValue}
-        get {self.contentCustomDimension18}
-    }
+    public var customDimension18: String?
     
     /**
      * Custom dimension 19.
      */
     @available(*, deprecated, message: "Use contentCustomDimension19 instead")
-    public var customDimension19: String? {
-        set{ self.contentCustomDimension19 = newValue}
-        get {self.contentCustomDimension19}
-    }
+    public var customDimension19: String?
     
     /**
      * Custom dimension 20.
      */
     @available(*, deprecated, message: "Use contentCustomDimension20 instead")
-    public var customDimension20: String? {
-        set{ self.contentCustomDimension20 = newValue}
-        get {self.contentCustomDimension20}
-    }
+    public var customDimension20: String?
     
     // MARK: Ads Options
     
@@ -844,7 +784,7 @@ import Foundation
      * NSDictionary containing mixed extra information about the ads like: director, parental rating,
      * device info or the audio channels.
      */
-    public var adMetadata: [String: Any] = [:]
+    public var adMetadata: [String: AnyHashable] = [:]
 
     /**
      * Variable containing number of ads after stop
@@ -854,110 +794,110 @@ import Foundation
     /**
      * Variable containing ad campaign
      */
-    public var adCampaign: String? = nil
+    public var adCampaign: String?
 
     /**
      * Variable containing ad title
      */
-    public var adTitle: String? = nil
+    public var adTitle: String?
     /**
      * Variable containing ad resource
      */
-    public var adResource: String? = nil
+    public var adResource: String?
 
     /**
      * Variable containing how many ad breaks will be shown for the active view
      */
-    public var adGivenBreaks: NSNumber? = nil
+    public var adGivenBreaks: NSNumber?
 
     /**
      * Variable containing how many ad breaks should be shown for the active view
      */
-    public var adExpectedBreaks: NSNumber? = nil
+    public var adExpectedBreaks: NSNumber?
 
     /**
      * Variable containing how many ads will be shown for each break
      * Keys must be any of the following constants: YBAdPosition.pre, YBAdPosition.mid or YBAdPosition.post
      * Value must be an NSArray containing the number of ads per break (each break is an Array position)
      */
-    public var adExpectedPattern: [String: [NSNumber]]? = nil
+    public var adExpectedPattern: [String: [NSNumber]]?
 
     /**
      * Variable containing at which moment of the playback a break should be displayed
      */
-    public var adBreaksTime: [Any]? = nil;
+    public var adBreaksTime: [Any]?
 
     /**
      * Variable containing how many ads should be played for the current break
      */
-    public var adGivenAds: NSNumber? = nil;
+    public var adGivenAds: NSNumber?
 
     /**
      * Variable containing ad creativeId
      */
-    public var adCreativeId: String? = nil;
+    public var adCreativeId: String?
 
     /**
      * Variable containing ad provider
      */
-    public var adProvider: String? = nil;
+    public var adProvider: String?
     
     /**
      * Custom ad dimension 1.
      */
-    public var adCustomDimension1: String? = nil;
+    public var adCustomDimension1: String?
 
     /**
      * Custom ad dimension 2.
      */
-    public var adCustomDimension2: String? = nil;
+    public var adCustomDimension2: String?
 
     /**
      * Custom ad dimension 3.
      */
-    public var adCustomDimension3: String? = nil;
+    public var adCustomDimension3: String?
 
     /**
      * Custom ad dimension 4.
      */
-    public var adCustomDimension4: String? = nil;
+    public var adCustomDimension4: String?
 
     /**
      * Custom ad dimension 5.
      */
-    public var adCustomDimension5: String? = nil;
+    public var adCustomDimension5: String?
 
     /**
      * Custom ad dimension 6.
      */
-    public var adCustomDimension6: String? = nil;
+    public var adCustomDimension6: String?
 
     /**
      * Custom ad dimension 7.
      */
-    public var adCustomDimension7: String? = nil;
+    public var adCustomDimension7: String?
 
     /**
      * Custom ad dimension 8.
      */
-    public var adCustomDimension8: String? = nil;
+    public var adCustomDimension8: String?
 
     /**
      * Custom ad dimension 9.
      */
-    public var adCustomDimension9: String? = nil;
+    public var adCustomDimension9: String?
 
     /**
      * Custom ad dimension 10.
      */
-    public var adCustomDimension10: String? = nil;
+    public var adCustomDimension10: String?
 
     /**
      * Custom ad parameter 1.
      */
     @available(*, deprecated, message: "Use adCustomDimension1 instead")
     public var adExtraparam1: String? {
-        set{ self.adCustomDimension1 = newValue}
+        set {self.adCustomDimension1 = newValue}
         get {self.adCustomDimension1}
     }
 
@@ -966,7 +906,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension2 instead")
     public var adExtraparam2: String? {
-        set{ self.adCustomDimension2 = newValue}
+        set {self.adCustomDimension2 = newValue}
         get {self.adCustomDimension2}
     }
 
@@ -975,7 +915,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension3 instead")
     public var adExtraparam3: String? {
-        set{ self.adCustomDimension3 = newValue}
+        set {self.adCustomDimension3 = newValue}
         get {self.adCustomDimension3}
     }
 
@@ -984,7 +924,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension4 instead")
     public var adExtraparam4: String? {
-        set{ self.adCustomDimension4 = newValue}
+        set {self.adCustomDimension4 = newValue}
         get {self.adCustomDimension4}
     }
 
@@ -993,7 +933,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension5 instead")
     public var adExtraparam5: String? {
-        set{ self.adCustomDimension5 = newValue}
+        set {self.adCustomDimension5 = newValue}
         get {self.adCustomDimension5}
     }
 
@@ -1002,7 +942,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension6 instead")
     public var adExtraparam6: String? {
-        set{ self.adCustomDimension6 = newValue}
+        set {self.adCustomDimension6 = newValue}
         get {self.adCustomDimension6}
     }
 
@@ -1011,7 +951,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension7 instead")
     public var adExtraparam7: String? {
-        set{ self.adCustomDimension7 = newValue}
+        set {self.adCustomDimension7 = newValue}
         get {self.adCustomDimension7}
     }
 
@@ -1020,7 +960,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension8 instead")
     public var adExtraparam8: String? {
-        set{ self.adCustomDimension8 = newValue}
+        set {self.adCustomDimension8 = newValue}
         get {self.adCustomDimension8}
     }
 
@@ -1029,7 +969,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension9 instead")
     public var adExtraparam9: String? {
-        set{ self.adCustomDimension9 = newValue}
+        set {self.adCustomDimension9 = newValue}
         get {self.adCustomDimension9}
     }
 
@@ -1038,7 +978,7 @@ import Foundation
      */
     @available(*, deprecated, message: "Use adCustomDimension10 instead")
     public var adExtraparam10: String? {
-        set{ self.adCustomDimension10 = newValue}
+        set {self.adCustomDimension10 = newValue}
         get {self.adCustomDimension10}
     }
 }

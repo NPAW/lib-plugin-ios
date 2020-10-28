@@ -40,6 +40,9 @@
 		0627CD2523D89DA400E5D937 /* YBSwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */; };
 		0627CD2623D89DA500E5D937 /* YBSwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */; };
 		0627CD2723D89DA500E5D937 /* YBSwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627CD0423D86DE000E5D937 /* YBSwiftTimer.swift */; };
+		0638C89C25497D9300C091FA /* YBOptionsJsonConverterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0638C89B25497D9300C091FA /* YBOptionsJsonConverterTest.swift */; };
+		0638C89D25497D9300C091FA /* YBOptionsJsonConverterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0638C89B25497D9300C091FA /* YBOptionsJsonConverterTest.swift */; };
+		0638C89E25497D9300C091FA /* YBOptionsJsonConverterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0638C89B25497D9300C091FA /* YBOptionsJsonConverterTest.swift */; };
 		063BEA73254863E6002AD4A5 /* YBOptionsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063BEA72254863E6002AD4A5 /* YBOptionsValidator.swift */; };
 		063BEA74254863E6002AD4A5 /* YBOptionsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063BEA72254863E6002AD4A5 /* YBOptionsValidator.swift */; };
 		063BEA75254863E6002AD4A5 /* YBOptionsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063BEA72254863E6002AD4A5 /* YBOptionsValidator.swift */; };
@@ -480,6 +483,7 @@
 		0627CD0823D88F0900E5D937 /* YBTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBTimer.h; sourceTree = "<group>"; };
 		0627CD0923D88F0900E5D937 /* YBTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBTimer.m; sourceTree = "<group>"; };
 		0627CD1223D8928000E5D937 /* YBSwiftTimerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBSwiftTimerTest.swift; sourceTree = "<group>"; };
+		0638C89B25497D9300C091FA /* YBOptionsJsonConverterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBOptionsJsonConverterTest.swift; sourceTree = "<group>"; };
 		063BEA72254863E6002AD4A5 /* YBOptionsValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBOptionsValidator.swift; sourceTree = "<group>"; };
 		065D245F24DDA17400D30141 /* YBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBConstants.h; sourceTree = "<group>"; };
 		065D246024DDA17400D30141 /* YBConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBConstants.m; sourceTree = "<group>"; };
@@ -756,6 +760,7 @@
 			children = (
 				06DCC766253ED66D00DFB813 /* YBOptionsValidatorTest.swift */,
 				06CFF7962541E1CD00E4546A /* YBOptionsKeysTest.swift */,
+				0638C89B25497D9300C091FA /* YBOptionsJsonConverterTest.swift */,
 			);
 			name = options;
 			path = plugin/options;
@@ -1797,6 +1802,7 @@
 				0627CD1F23D8949400E5D937 /* YBChrono.swift in Sources */,
 				0601DCED23D59A0100128F32 /* YBRequestBuilder.m in Sources */,
 				4E5E53AA1E8182F000966C7B /* YBTestablePlayerAdapter.m in Sources */,
+				0638C89C25497D9300C091FA /* YBOptionsJsonConverterTest.swift in Sources */,
 				4E9C7BA01E8D514200E10631 /* YBRequestBuilderTest.m in Sources */,
 				06CFF7972541E1CD00E4546A /* YBOptionsKeysTest.swift in Sources */,
 				06DCC751253ED5EA00DFB813 /* YBOptions.swift in Sources */,
@@ -1933,6 +1939,7 @@
 				06CADBF124E3F1030085ED30 /* YBCdnSwitchParserTest.m in Sources */,
 				4EA274F81EA758E700D5329C /* YBPluginTest.m in Sources */,
 				06C695F124740A4B00F4BD24 /* YBResourceParserUtilTest.swift in Sources */,
+				0638C89D25497D9300C091FA /* YBOptionsJsonConverterTest.swift in Sources */,
 				06C3919D24768D690085E036 /* YBErrorHandlerTest.swift in Sources */,
 				4EA274F91EA758E700D5329C /* YBRequestBuilderTest.m in Sources */,
 				0627CD1723D8928800E5D937 /* YBSwiftTimerTest.swift in Sources */,
@@ -2060,6 +2067,7 @@
 				066DB31C24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */,
 				0627CD2723D89DA500E5D937 /* YBSwiftTimer.swift in Sources */,
 				CDBA731623337B65008716B5 /* YBTestablePlugin.m in Sources */,
+				0638C89E25497D9300C091FA /* YBOptionsJsonConverterTest.swift in Sources */,
 				06DCC74A253ED5DC00DFB813 /* YBOptionsFactory.swift in Sources */,
 				CDBA731723337B65008716B5 /* YBPluginTest.m in Sources */,
 				06DE986124E442CD00238F85 /* YBTestableCdnSwitchParser.m in Sources */,

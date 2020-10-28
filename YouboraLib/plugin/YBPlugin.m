@@ -576,7 +576,7 @@
 }
 
 - (Boolean) isToSendTotalBytes {
-    return self.options.sendTotalBytes;
+    return [self.options.sendTotalBytes boolValue];
 }
 
 - (NSNumber *) getThroughput {

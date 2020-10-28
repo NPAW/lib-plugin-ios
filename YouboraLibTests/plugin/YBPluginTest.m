@@ -35,7 +35,8 @@
 
 @property(nonatomic, strong) YBPlayerAdapter * mockAdapter;
 @property(nonatomic, strong) YBPlayerAdapter *mockAdAdapter;
-@property(nonatomic, strong) YBOptions * options;
+@property(nonatomic, strong) YBOptions *options;
+@property(nonatomic, strong) YBOptions *defaultOptions;
 
 @property(nonatomic, strong) YBTestablePlugin * p;
 
@@ -48,6 +49,7 @@
     
     self.mockAdapter = mock([YBPlayerAdapter class]);
     self.mockAdAdapter = mock([YBPlayerAdapter class]);
+    self.defaultOptions = [YBOptionsFactory createOptions];
     self.options = [YBOptionsFactory createOptions];
     
     self.p = [[YBTestablePlugin alloc] initWithOptions:self.options andAdapter:self.mockAdapter];
@@ -80,7 +82,7 @@
 }
 
 - (void)testSetOptions {
-    self.options.accountCode = @"a"
+    self.options.accountCode = @"a";
     
     YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.options];
     
@@ -179,40 +181,39 @@
 
 // Test get info
 - (void)testGetHost {
-    stubProperty(self.mockOptions, host, @"http://host.com");
-    stubProperty(self.mockOptions, httpSecure, @(true));
+    self.options.host = @"http://host.com";
+    self.options.httpSecure = true;
     
     XCTAssertEqualObjects(@"https://host.com", [self.p getHost]);
 }
 
 - (void)testParseHls {
-    stubProperty(self.mockOptions, parseCdnNode, @(true));
+    self.options.parseCdnNode = true;
     XCTAssertTrue([self.p isParseCdnNode]);
     
-    stubProperty(self.mockOptions, parseCdnNode, @(false));
+    self.options.parseCdnNode = false;
     XCTAssertFalse([self.p isParseCdnNode]);
 }
 
 - (void)testCdnNode {
-    stubProperty(self.mockOptions, parseHls, @(true));
+    self.options.parseHls = true;
     XCTAssertTrue([self.p isParseHls]);
     
-    stubProperty(self.mockOptions, parseHls, @(false));
+    self.options.parseResource = false;
     XCTAssertFalse([self.p isParseHls]);
 }
 
 - (void)testParseCdnNodeList {
-    NSArray * list = @[@"item1", @"item2", @"item3"];
+    NSArray *list = @[@"item1", @"item2", @"item3"];
     
-    stubProperty(self.mockOptions, parseCdnNodeList, nil);
-    XCTAssertNil(self.p.getParseCdnNodeList);
+    XCTAssertNotNil(self.p.getParseCdnNodeList);
     
-    stubProperty(self.mockOptions, parseCdnNodeList, list);
+    self.options.parseCdnNodeList = list;
     XCTAssertEqualObjects(list, self.p.getParseCdnNodeList);
 }
 
 - (void)testParseCdnNodeHeader {
-    stubProperty(self.mockOptions, parseCdnNameHeader, @"x-header");
+    self.options.parseCdnNameHeader = @"x-header";
     XCTAssertEqualObjects(@"x-header", [self.p getParseCdnNameHeader]);
 }
 
@@ -239,15 +240,15 @@
 }
 
 - (void)testFps {
-    stubProperty(self.mockOptions, contentFps, @25);
+    self.options.contentFps = @25;
     [given([self.mockAdapter getFramesPerSecond]) willReturn:@15];
     XCTAssertEqualObjects(@25, [self.p getFramesPerSecond]);
     
-    stubProperty(self.mockOptions, contentFps, nil);
+    self.options.contentFps = nil;
     [given([self.mockAdapter getFramesPerSecond]) willReturn:@15.5];
     XCTAssertEqualObjects(@15.5, [self.p getFramesPerSecond]);
     
-    stubProperty(self.mockOptions, contentFps, nil);
+    self.options.contentFps = nil;
     [given([self.mockAdapter getFramesPerSecond]) willReturn:nil];
     XCTAssertEqualObjects(nil, [self.p getFramesPerSecond]);
 }
@@ -271,7 +272,7 @@
     XCTAssertEqualObjects(@0, [self.p getDuration]);
     
     // Test options prevalence over adapter
-    stubProperty(self.mockOptions, contentDuration, @3);
+    self.options.contentDuration = @3;
     [given([self.mockAdapter getDuration]) willReturn:@2];
     XCTAssertEqualObjects(@3, [self.p getDuration]);
 }
@@ -287,7 +288,7 @@
     XCTAssertEqualObjects(@(-1), [self.p getBitrate]);
     
     // Test options prevalence over adapter
-    stubProperty(self.mockOptions, contentBitrate, @1000000);
+    self.options.contentBitrate = @1000000;
     [given([self.mockAdapter getBitrate]) willReturn:@2000000];
     XCTAssertEqualObjects(@1000000, [self.p getBitrate]);
 }
@@ -299,11 +300,10 @@
     [given([self.mockAdapter getTotalBytes]) willReturn:totalBytes];
     XCTAssertNil([self.p getTotalBytes]);
     
-    stubProperty(self.mockOptions, sendTotalBytes, [NSNumber numberWithBool:true]);
-    
+    self.options.sendTotalBytes = @(true);
     XCTAssertEqualObjects(totalBytes, [self.p getTotalBytes]);
     
-    stubProperty(self.mockOptions, sendTotalBytes, [NSNumber numberWithBool:false]);
+    self.options.sendTotalBytes = @(false);
     XCTAssertNil([self.p getTotalBytes]);
 }
 
@@ -315,7 +315,7 @@
     XCTAssertEqualObjects(@(-1), [self.p getThroughput]);
     
     // Options > adapter
-    stubProperty(self.mockOptions, contentThroughput, @2000000);
+    self.options.contentThroughput = @2000000;
     
     [given([self.mockAdapter getThroughput]) willReturn:@1000000];
     XCTAssertEqualObjects(@2000000, [self.p getThroughput]);
@@ -332,12 +332,12 @@
     XCTAssertEqualObjects(nil, [self.p getRendition]);
     
     // Options > adapter
-    stubProperty(self.mockOptions, contentRendition, @"2Mbps");
+    self.options.contentRendition = @"2Mbps";
     [given([self.mockAdapter getRendition]) willReturn:@"1Mbps"];
     XCTAssertEqualObjects(@"2Mbps", [self.p getRendition]);
     
     // unless its empty
-    stubProperty(self.mockOptions, contentRendition, @"");
+    self.options.contentRendition = @"";
     XCTAssertEqualObjects(@"1Mbps", [self.p getRendition]);
 }
 
@@ -352,12 +352,12 @@
     XCTAssertEqualObjects(nil, [self.p getTitle]);
     
     // Options > adapter
-    stubProperty(self.mockOptions, contentTitle, @"iron man");
+    self.options.contentTitle = @"iron man";
     [given([self.mockAdapter getTitle]) willReturn:@"batman"];
     XCTAssertEqualObjects(@"iron man", [self.p getTitle]);
     
     // unless empty
-    stubProperty(self.mockOptions, contentTitle, @"");
+    self.options.contentTitle = @"";
     XCTAssertEqualObjects(@"batman", [self.p getTitle]);
 }
 
@@ -372,17 +372,17 @@
     XCTAssertEqualObjects(nil, [self.p getProgram]);
     
     // Options > adapter
-    stubProperty(self.mockOptions, program, @"episode 2");
+    self.options.program = @"episode 2";
     [given([self.mockAdapter getProgram]) willReturn:@"episode 1"];
     XCTAssertEqualObjects(@"episode 2", [self.p getProgram]);
     
     // unless empty
-    stubProperty(self.mockOptions, program, @"");
+    self.options.program = @"";
     XCTAssertEqualObjects(@"episode 1", [self.p getProgram]);
 }
 
 - (void)testLive {
-    stubProperty(self.mockOptions, contentIsLive, nil);
+    self.options.contentIsLive = nil;
     
     [given([self.mockAdapter getIsLive]) willReturn:nil];
     XCTAssertNil([self.p getIsLive]);
@@ -394,17 +394,17 @@
     XCTAssertEqualObjects(@YES, [self.p getIsLive]);
     
     // Options > adapter
-    stubProperty(self.mockOptions, contentIsLive, @NO);
+    self.options.contentIsLive = @NO;
     XCTAssertEqualObjects(@NO, [self.p getIsLive]);
     
-    stubProperty(self.mockOptions, contentIsLive, @YES);
+    self.options.contentIsLive = @YES;
     [given([self.mockAdapter getIsLive]) willReturn:@NO];
     XCTAssertEqualObjects(@YES, [self.p getIsLive]);
 }
 
 - (void)testGetResource {
     [given([self.p.mockResourceTransform isBlocking:anything()]) willReturn:@YES];
-    stubProperty(self.mockOptions, contentResource, @"ResourceFromOptions");
+    self.options.contentResource = @"ResourceFromOptions";
     [given([self.p.mockResourceTransform getResource]) willReturn:@"ResourceFromTransform"];
     [given([self.mockAdapter getResource]) willReturn:@"ResourceFromAdapter"];
     
@@ -413,7 +413,7 @@
     [given([self.p.mockResourceTransform isBlocking:anything()]) willReturn:@NO];
     XCTAssertEqualObjects(@"ResourceFromTransform", [self.p getParsedResource]);
     
-    stubProperty(self.mockOptions, contentResource, nil);
+    self.options.contentResource = nil;
     [given([self.p.mockResourceTransform getResource]) willReturn:nil];
 
     XCTAssertEqualObjects(@"ResourceFromAdapter", [self.p getOriginalResource]);
@@ -424,11 +424,11 @@
 }
 
 - (void)testTransactionCode {
-    stubProperty(self.mockOptions, contentTransactionCode, YBConstantsRequest.transactionCode);
+    self.options.contentTransactionCode = YBConstantsRequest.transactionCode;
     
     XCTAssertEqualObjects(YBConstantsRequest.transactionCode, [self.p getTransactionCode]);
     
-    stubProperty(self.mockOptions, contentTransactionCode, nil);
+    self.options.contentTransactionCode = nil;
     
     XCTAssertNil([self.p getTransactionCode]);
 }
@@ -455,7 +455,7 @@
 
 - (void)testCdn {
     [given([self.p.mockResourceTransform isBlocking:anything()]) willReturn:@YES];
-    stubProperty(self.mockOptions, contentCdn, @"CdnFromOptions");
+    self.options.contentCdn = @"CdnFromOptions";
     [given([self.p.mockResourceTransform getCdnName]) willReturn:@"CdnFromTransform"];
 
     XCTAssertEqualObjects(@"CdnFromOptions", [self.p getCdn]);
@@ -466,7 +466,7 @@
     [given([self.p.mockResourceTransform getCdnName]) willReturn:nil];
     XCTAssertEqualObjects(@"CdnFromOptions", [self.p getCdn]);
     
-    stubProperty(self.mockOptions, contentCdn, nil);
+    self.options.contentCdn = nil;
     XCTAssertNil([self.p getCdn]);
 }
 
@@ -485,26 +485,26 @@
 }
 
 - (void)testCustomDimensions {
-    stubProperty(self.mockOptions, contentCustomDimension1, @"value-custom-dimension1");
-    stubProperty(self.mockOptions, contentCustomDimension2, @"value-custom-dimension2");
-    stubProperty(self.mockOptions, contentCustomDimension3, @"value-custom-dimension3");
-    stubProperty(self.mockOptions, contentCustomDimension4, @"value-custom-dimension4");
-    stubProperty(self.mockOptions, contentCustomDimension5, @"value-custom-dimension5");
-    stubProperty(self.mockOptions, contentCustomDimension6, @"value-custom-dimension6");
-    stubProperty(self.mockOptions, contentCustomDimension7, @"value-custom-dimension7");
-    stubProperty(self.mockOptions, contentCustomDimension8, @"value-custom-dimension8");
-    stubProperty(self.mockOptions, contentCustomDimension9, @"value-custom-dimension9");
-    stubProperty(self.mockOptions, contentCustomDimension10, @"value-custom-dimension10");
-    stubProperty(self.mockOptions, contentCustomDimension11, @"value-custom-dimension11");
-    stubProperty(self.mockOptions, contentCustomDimension12, @"value-custom-dimension12");
-    stubProperty(self.mockOptions, contentCustomDimension13, @"value-custom-dimension13");
-    stubProperty(self.mockOptions, contentCustomDimension14, @"value-custom-dimension14");
-    stubProperty(self.mockOptions, contentCustomDimension15, @"value-custom-dimension15");
-    stubProperty(self.mockOptions, contentCustomDimension16, @"value-custom-dimension16");
-    stubProperty(self.mockOptions, contentCustomDimension17, @"value-custom-dimension17");
-    stubProperty(self.mockOptions, contentCustomDimension18, @"value-custom-dimension18");
-    stubProperty(self.mockOptions, contentCustomDimension19, @"value-custom-dimension19");
-    stubProperty(self.mockOptions, contentCustomDimension20, @"value-custom-dimension20");
+    self.options.contentCustomDimension1 = @"value-custom-dimension1";
+    self.options.contentCustomDimension2 = @"value-custom-dimension2";
+    self.options.contentCustomDimension3 = @"value-custom-dimension3";
+    self.options.contentCustomDimension4 = @"value-custom-dimension4";
+    self.options.contentCustomDimension5 = @"value-custom-dimension5";
+    self.options.contentCustomDimension6 = @"value-custom-dimension6";
+    self.options.contentCustomDimension7 = @"value-custom-dimension7";
+    self.options.contentCustomDimension8 = @"value-custom-dimension8";
+    self.options.contentCustomDimension9 = @"value-custom-dimension9";
+    self.options.contentCustomDimension10 = @"value-custom-dimension10";
+    self.options.contentCustomDimension11 = @"value-custom-dimension11";
+    self.options.contentCustomDimension12 = @"value-custom-dimension12";
+    self.options.contentCustomDimension13 = @"value-custom-dimension13";
+    self.options.contentCustomDimension14 = @"value-custom-dimension14";
+    self.options.contentCustomDimension15 = @"value-custom-dimension15";
+    self.options.contentCustomDimension16 = @"value-custom-dimension16";
+    self.options.contentCustomDimension17 = @"value-custom-dimension17";
+    self.options.contentCustomDimension18 = @"value-custom-dimension18";
+    self.options.contentCustomDimension19 = @"value-custom-dimension19";
+    self.options.contentCustomDimension20 = @"value-custom-dimension20";
     
     XCTAssertEqualObjects(@"value-custom-dimension1", [self.p getContentCustomDimension1]);
     XCTAssertEqualObjects(@"value-custom-dimension2", [self.p getContentCustomDimension2]);
@@ -528,26 +528,26 @@
     XCTAssertEqualObjects(@"value-custom-dimension19", [self.p getContentCustomDimension19]);
     XCTAssertEqualObjects(@"value-custom-dimension20", [self.p getContentCustomDimension20]);
     
-    stubProperty(self.mockOptions, contentCustomDimension1, nil);
-    stubProperty(self.mockOptions, contentCustomDimension2, nil);
-    stubProperty(self.mockOptions, contentCustomDimension3, nil);
-    stubProperty(self.mockOptions, contentCustomDimension4, nil);
-    stubProperty(self.mockOptions, contentCustomDimension5, nil);
-    stubProperty(self.mockOptions, contentCustomDimension6, nil);
-    stubProperty(self.mockOptions, contentCustomDimension7, nil);
-    stubProperty(self.mockOptions, contentCustomDimension8, nil);
-    stubProperty(self.mockOptions, contentCustomDimension9, nil);
-    stubProperty(self.mockOptions, contentCustomDimension10, nil);
-    stubProperty(self.mockOptions, contentCustomDimension11, nil);
-    stubProperty(self.mockOptions, contentCustomDimension12, nil);
-    stubProperty(self.mockOptions, contentCustomDimension13, nil);
-    stubProperty(self.mockOptions, contentCustomDimension14, nil);
-    stubProperty(self.mockOptions, contentCustomDimension15, nil);
-    stubProperty(self.mockOptions, contentCustomDimension16, nil);
-    stubProperty(self.mockOptions, contentCustomDimension17, nil);
-    stubProperty(self.mockOptions, contentCustomDimension18, nil);
-    stubProperty(self.mockOptions, contentCustomDimension19, nil);
-    stubProperty(self.mockOptions, contentCustomDimension20, nil);
+    self.options.contentCustomDimension1 = nil;
+    self.options.contentCustomDimension2 = nil;
+    self.options.contentCustomDimension3 = nil;
+    self.options.contentCustomDimension4 = nil;
+    self.options.contentCustomDimension5 = nil;
+    self.options.contentCustomDimension6 = nil;
+    self.options.contentCustomDimension7 = nil;
+    self.options.contentCustomDimension8 = nil;
+    self.options.contentCustomDimension9 = nil;
+    self.options.contentCustomDimension10 = nil;
+    self.options.contentCustomDimension11 = nil;
+    self.options.contentCustomDimension12 = nil;
+    self.options.contentCustomDimension13 = nil;
+    self.options.contentCustomDimension14 = nil;
+    self.options.contentCustomDimension15 = nil;
+    self.options.contentCustomDimension16 = nil;
+    self.options.contentCustomDimension17 = nil;
+    self.options.contentCustomDimension18 = nil;
+    self.options.contentCustomDimension19 = nil;
+    self.options.contentCustomDimension20 = nil;
     
     XCTAssertNil([self.p getContentCustomDimension1]);
     XCTAssertNil([self.p getContentCustomDimension2]);
@@ -575,17 +575,17 @@
     
     XCTAssertFalse([self.p isParseLocationHeader]);
     
-    stubProperty(self.mockOptions, parseLocationHeader, @YES);
+    self.options.parseLocationHeader = true;
     
     XCTAssertTrue([self.p isParseLocationHeader]);
 }
 
 - (void)testGetExperiments {
     
-    XCTAssertNil([self.p getExperimentIds]);
+    XCTAssertTrue([self.p getExperimentIds].count == 0);
     NSArray *experiments = @[@"some-value", @"some-other-value"];
-    stubProperty(self.mockOptions, experimentIds, experiments);
     
+    self.options.experimentIds = experiments;
     XCTAssertTrue([[self.p getExperimentIds] count] == 2);
 }
 
@@ -597,7 +597,7 @@
     XCTAssertEqualObjects(@"something", [self.p getTitle2]);
     
     [given([self.mockAdapter getTitle2]) willReturn:nil];
-    stubProperty(self.mockOptions, contentTitle2, @"anything");
+    self.options.contentTitle2 = @"anything";
     
     XCTAssertEqualObjects(@"anything", [self.p getTitle2]);
 }
@@ -607,15 +607,14 @@
     XCTAssertEqualObjects(@(0), [self.p getLatency]);
     
     [given([self.mockAdapter getLatency]) willReturn:@(1)];
-    stubProperty(self.mockOptions, contentIsLive, @(true));
+    self.options.contentIsLive = @(true);
     
     XCTAssertEqualObjects(@(1), [self.p getLatency]);
     
-    stubProperty(self.mockOptions, contentIsLive, @(NO));
+    self.options.contentIsLive = @(NO);
     XCTAssertEqualObjects(@(0), [self.p getLatency]);
     
-    stubProperty(self.mockOptions, contentIsLive, @(YES));
-    
+    self.options.contentIsLive = @(YES);
     XCTAssertEqualObjects(@(1), [self.p getLatency]);
 }
 
@@ -640,7 +639,7 @@
 - (void) testGetStreamingProtocol {
     XCTAssertNil([self.p getStreamingProtocol]);
     
-    stubProperty(self.mockOptions, contentStreamingProtocol, YBConstantsStreamProtocol.hls);
+    self.options.contentStreamingProtocol = YBConstantsStreamProtocol.hls;
     
     XCTAssertEqualObjects(YBConstantsStreamProtocol.hls, [self.p getStreamingProtocol]);
 }
@@ -648,22 +647,22 @@
 - (void) testGetTransportFormat {
     XCTAssertNil([self.p getTransportFormat]);
     
-    stubProperty(self.mockOptions, contentTransportFormat, YBConstantsTransportFormat.hlsFmp4);
+    self.options.contentTransportFormat = YBConstantsTransportFormat.hlsFmp4;
     
     XCTAssertEqualObjects(YBConstantsTransportFormat.hlsFmp4, [self.p getTransportFormat]);
 }
 
 - (void) testDeprecatedAdExtraParams {
-    stubProperty(self.mockOptions, adExtraparam1, @"1");
-    stubProperty(self.mockOptions, adExtraparam2, @"2");
-    stubProperty(self.mockOptions, adExtraparam3, @"3");
-    stubProperty(self.mockOptions, adExtraparam4, @"4");
-    stubProperty(self.mockOptions, adExtraparam5, @"5");
-    stubProperty(self.mockOptions, adExtraparam6, @"6");
-    stubProperty(self.mockOptions, adExtraparam7, @"7");
-    stubProperty(self.mockOptions, adExtraparam8, @"8");
-    stubProperty(self.mockOptions, adExtraparam9, @"9");
-    stubProperty(self.mockOptions, adExtraparam10, @"10");
+    self.options.adExtraparam1 = @"1";
+    self.options.adExtraparam2 = @"2";
+    self.options.adExtraparam3 = @"3";
+    self.options.adExtraparam4 = @"4";
+    self.options.adExtraparam5 = @"5";
+    self.options.adExtraparam6 = @"6";
+    self.options.adExtraparam7 = @"7";
+    self.options.adExtraparam8 = @"8";
+    self.options.adExtraparam9 = @"9";
+    self.options.adExtraparam10 = @"10";
     
     XCTAssertEqual(@"1", [self.p getAdExtraparam1]);
     XCTAssertEqual(@"2", [self.p getAdExtraparam2]);
@@ -678,26 +677,26 @@
 }
 
 - (void) testDeprecatedContentDimensions {
-    stubProperty(self.mockOptions, customDimension1, @"1");
-    stubProperty(self.mockOptions, customDimension2, @"2");
-    stubProperty(self.mockOptions, customDimension3, @"3");
-    stubProperty(self.mockOptions, customDimension4, @"4");
-    stubProperty(self.mockOptions, customDimension5, @"5");
-    stubProperty(self.mockOptions, customDimension6, @"6");
-    stubProperty(self.mockOptions, customDimension7, @"7");
-    stubProperty(self.mockOptions, customDimension8, @"8");
-    stubProperty(self.mockOptions, customDimension9, @"9");
-    stubProperty(self.mockOptions, customDimension10, @"10");
-    stubProperty(self.mockOptions, customDimension11, @"11");
-    stubProperty(self.mockOptions, customDimension12, @"12");
-    stubProperty(self.mockOptions, customDimension13, @"13");
-    stubProperty(self.mockOptions, customDimension14, @"14");
-    stubProperty(self.mockOptions, customDimension15, @"15");
-    stubProperty(self.mockOptions, customDimension16, @"16");
-    stubProperty(self.mockOptions, customDimension17, @"17");
-    stubProperty(self.mockOptions, customDimension18, @"18");
-    stubProperty(self.mockOptions, customDimension19, @"19");
-    stubProperty(self.mockOptions, customDimension20, @"20");
+    self.options.customDimension1 = @"1";
+    self.options.customDimension2 = @"2";
+    self.options.customDimension3 = @"3";
+    self.options.customDimension4 = @"4";
+    self.options.customDimension5 = @"5";
+    self.options.customDimension6 = @"6";
+    self.options.customDimension7 = @"7";
+    self.options.customDimension8 = @"8";
+    self.options.customDimension9 = @"9";
+    self.options.customDimension10 = @"10";
+    self.options.customDimension11 = @"11";
+    self.options.customDimension12 = @"12";
+    self.options.customDimension13 = @"13";
+    self.options.customDimension14 = @"14";
+    self.options.customDimension15 = @"15";
+    self.options.customDimension16 = @"16";
+    self.options.customDimension17 = @"17";
+    self.options.customDimension18 = @"18";
+    self.options.customDimension19 = @"19";
+    self.options.customDimension20 = @"20";
     
     XCTAssertNil([self.p getCustomDimension1]);
     XCTAssertNil([self.p getCustomDimension2]);
@@ -772,11 +771,11 @@
 }
 
 -(void)testGetExpectedAds {
-    stubProperty(self.mockOptions, adExpectedPattern, (@{
+    self.options.adExpectedPattern = @{
         YBConstants.adPositionPre : @[@1],
         YBConstants.adPositionMid : @[@3,@5],
         YBConstants.adPositionPost : @[@2]
-    }));
+    };
     
     self.p.adsAdapter = self.mockAdAdapter;
     [given([self.mockAdAdapter getAdBreakNumber]) willReturnUnsignedLong:1];
@@ -798,16 +797,13 @@
 -(void)testInvalidGetExpectedAds {
     self.p.adsAdapter = self.mockAdAdapter;
     
-    stubProperty(self.mockOptions, adExpectedPattern, (@{
-                                                         @"INVALID" : @[@1],
-                                                         }));
+    self.options.adExpectedPattern = @{ @"INVALID" : @[@1]};
     
     self.p.adsAdapter = self.mockAdAdapter;
     [given([self.mockAdAdapter getAdBreakNumber]) willReturnUnsignedLong:1];
     
     XCTAssertNil([self.p getExpectedAds]);
-    
-    stubProperty(self.mockOptions, adExpectedPattern, nil);
+    self.options.adExpectedPattern = nil;
     
     XCTAssertNil([self.p getExpectedAds]);
 }
@@ -891,19 +887,20 @@
 - (void) testAdCampaign {
     XCTAssertNil([self.p getAdCampaign]);
     
-    stubProperty(self.mockOptions, adCampaign, @"campaign");
+    self.options.adCampaign = @"campaign";
     
     XCTAssertEqualObjects(@"campaign", [self.p getAdCampaign]);
 }
 
 - (void) testAdMetadata {
-    XCTAssertNil([self.p getAdMetadata]);
+    NSString *defaultString = [YBYouboraUtils stringifyDictionary:self.defaultOptions.adMetadata];
+    XCTAssertTrue([[self.p getAdMetadata] isEqualToString: defaultString]);
     
     NSDictionary *adMetadataDict = @{
                                  @"key" : @"value"
                                  };
     
-    stubProperty(self.mockOptions, adMetadata, adMetadataDict);
+    self.options.adMetadata = adMetadataDict;
     
     XCTAssertEqualObjects([YBYouboraUtils stringifyDictionary:adMetadataDict], [self.p getAdMetadata]);
 }
@@ -935,43 +932,43 @@
 
 - (void)testIp {
     XCTAssertNil([self.p getIp]);
-    stubProperty(self.mockOptions, networkIP, @"1.2.3.4");
+    self.options.networkIP = @"1.2.3.4";
     XCTAssertEqualObjects(@"1.2.3.4", [self.p getIp]);
 }
 
 - (void)testIsp {
     XCTAssertNil([self.p getIsp]);
-    stubProperty(self.mockOptions, networkIsp, YBConstantsRequest.isp);
+    self.options.networkIsp = YBConstantsRequest.isp;
     XCTAssertEqualObjects(YBConstantsRequest.isp, [self.p getIsp]);
 }
 
 - (void)testConnectionType {
     XCTAssertNil([self.p getConnectionType]);
-    stubProperty(self.mockOptions, networkConnectionType, @"DSL");
+    self.options.networkConnectionType = @"DSL";
     XCTAssertEqualObjects(@"DSL", [self.p getConnectionType]);
 }
 
 - (void) testObfuscateIp {
-    stubProperty(self.mockOptions, userObfuscateIp, @YES);
+    self.options.userObfuscateIp = @YES;
     
     XCTAssertTrue([self.p getNetworkObfuscateIp]);
 }
 
 - (void)testDeviceCode {
     XCTAssertNil([self.p getDeviceCode]);
-    stubProperty(self.mockOptions, deviceCode, @"42");
+    self.options.deviceCode = @"42";
     XCTAssertEqualObjects(@"42", [self.p getDeviceCode]);
 }
 
 - (void)testAccountCode {
-    XCTAssertNil([self.p getAccountCode]);
-    stubProperty(self.mockOptions, accountCode, YBConstantsRequest.accountCode);
+    XCTAssertTrue([[self.p getAccountCode] isEqualToString: self.defaultOptions.accountCode]);
+    self.options.accountCode = YBConstantsRequest.accountCode;
     XCTAssertEqualObjects(YBConstantsRequest.accountCode, [self.p getAccountCode]);
 }
 
 - (void)testUsername {
     XCTAssertNil([self.p getUsername]);
-    stubProperty(self.mockOptions, username, YBConstantsRequest.username);
+    self.options.username = YBConstantsRequest.username;
     XCTAssertEqualObjects(YBConstantsRequest.username, [self.p getUsername]);
 }
 
@@ -995,10 +992,10 @@
 
 - (void)testContentMetrics {
     XCTAssertNil([self.p getVideoMetrics]);
-    stubProperty(self.mockOptions, contentMetrics, @{@"key": @"value"});
+    self.options.contentMetrics = @{@"key": @"value"};
     XCTAssertEqualObjects(@"{\"key\":{\"value\":\"value\"}}", [self.p getVideoMetrics]);
     
-    stubProperty(self.mockOptions, contentMetrics, nil);
+    self.options.contentMetrics = nil;
     
     [given([self.mockAdapter getMetrics]) willReturn:@{@"key": @"value"}];
     XCTAssertEqualObjects(@"{\"key\":\"value\"}", [self.p getVideoMetrics]);
@@ -1006,25 +1003,27 @@
 
 - (void)testSessionMetrics {
     XCTAssertNil([self.p getSessionMetrics]);
-    stubProperty(self.mockOptions, sessionMetrics, @{@"key": @"value"});
+    
+    self.options.sessionMetrics = @{@"key": @"value"};
+    
     XCTAssertEqualObjects(@"{\"key\":\"value\"}", [self.p getSessionMetrics]);
 }
 
 - (void) testUserType {
     XCTAssertNil([self.p getUserType]);
-    stubProperty(self.mockOptions, userType, @"type");
+    self.options.userType = @"type";
     XCTAssertEqualObjects(@"type", [self.p getUserType]);
 }
 
 - (void) testUserEmail {
     XCTAssertNil([self.p getUserEmail]);
-    stubProperty(self.mockOptions, userEmail, YBConstantsRequest.email);
+    self.options.userEmail = YBConstantsRequest.email;
     XCTAssertEqualObjects(YBConstantsRequest.email, [self.p getUserEmail]);
 }
 
 - (void) testAnonymoususer {
     XCTAssertNil([self.p getAnonymousUser]);
-    stubProperty(self.mockOptions, anonymousUser, @"anon");
+    self.options.anonymousUser = @"anon";
     XCTAssertEqualObjects(@"anon", [self.p getAnonymousUser]);
 }
 
@@ -1054,7 +1053,7 @@
 
 - (void) testGetIsInfinity {
     XCTAssertNil([self.p getIsInfinity]);
-    stubProperty(self.mockOptions, isInfinity, @YES);
+    self.options.isInfinity = @YES;
     XCTAssertEqualObjects(@YES, [self.p getIsInfinity]);
 }
 
@@ -1078,32 +1077,31 @@
 
 - (void) testGetSmartSwitchConfigCode {
     XCTAssertNil([self.p getSmartSwitchConfigCode]);
-    stubProperty(self.mockOptions, smartswitchConfigCode, @"config");
+    self.options.smartswitchConfigCode = @"config";
     XCTAssertEqualObjects(@"config", [self.p getSmartSwitchConfigCode]);
 }
 
 - (void) testGetSmartSwitchGroupCode {
     XCTAssertNil([self.p getSmartSwitchGroupCode]);
-    stubProperty(self.mockOptions, smartswitchGroupCode, @"code");
+    self.options.smartswitchGroupCode = @"code";
     XCTAssertEqualObjects(@"code", [self.p getSmartSwitchGroupCode]);
 }
 
 - (void) testGetSmartSwitchContractCode {
     XCTAssertNil([self.p getSmartSwitchContractCode]);
-    stubProperty(self.mockOptions, smartswitchContractCode, @"contract");
+    self.options.smartswitchContractCode = @"contract";
     XCTAssertEqualObjects(@"contract", [self.p getSmartSwitchContractCode]);
 }
 
 - (void) testGetPlaybackType {
     XCTAssertNil([self.p getContentPlaybackType]);
-    
-    stubProperty(self.mockOptions, contentIsLive, @NO);
+    self.options.contentIsLive = @NO;
     XCTAssertEqualObjects(@"VoD", [self.p getContentPlaybackType]);
     
-    stubProperty(self.mockOptions, contentIsLive, @YES);
+    self.options.contentIsLive = @YES;
     XCTAssertEqualObjects(YBConstantsRequest.live, [self.p getContentPlaybackType]);
     
-    stubProperty(self.mockOptions, contentPlaybackType, @"content type");
+    self.options.contentPlaybackType = @"content type";
     XCTAssertEqualObjects(@"content type", [self.p getContentPlaybackType]);
 }
 
@@ -1487,6 +1485,8 @@
 - (void) testWillSendAdStartListener {
     static int callbackTimes;
     
+    self.p.options = mock([YBOptions class]);
+    
     [given([self.p getAdDuration]) willReturn:@10];
     [given([self.p getAdResource]) willReturn:@"a"];
     [given([self.p getAdTitle]) willReturn:@"b"];
@@ -1721,7 +1721,7 @@
 // Will send listeners
 
 - (void)testInit {
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
     
@@ -1731,7 +1731,7 @@
 }
 
 - (void)testError {
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     [self.p removeAdapter];
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
     
@@ -1742,7 +1742,7 @@
 }
 
 - (void)testStop {
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     [self.p removeAdapter];
     
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
@@ -1756,7 +1756,7 @@
 }
 
 - (void)testStopWithAdapter {
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
     
@@ -1771,12 +1771,12 @@
 }
 
 - (void)testOfflineEventsOfflineOption {
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     [self.p removeAdapter];
     
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
     
-    stubProperty(self.mockOptions, offline, @YES);
+    self.options.offline = @YES;
     
     [self.p fireOfflineEvents];
     XCTAssertNil(self.p.mockRequest);
@@ -1785,7 +1785,7 @@
 }
 
 - (void)testOfflineEventsInitiated {
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     [self.p removeAdapter];
     
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
@@ -1796,7 +1796,7 @@
 }
 
 - (void)testOfflineEventsAdapterNotNil {
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
     
@@ -1805,7 +1805,7 @@
 }
 
 - (void) testStopNotSentTwice {
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     [self.p removeAdapter];
     
     [given([self.p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:[@{@"key":@"value"} mutableCopy]];
@@ -1826,7 +1826,7 @@
 - (void) testStopCalledWithoutInit {
     static BOOL stopCalled = false;
     
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     [self.p removeAdapter];
     
     YBWillSendRequestBlock listener = ^(NSString * _Nonnull serviceName, YBPlugin * _Nonnull plugin, NSMutableDictionary * _Nonnull params) {
@@ -1840,7 +1840,7 @@
 }
 
 - (void) testStopWhenAdapterNotNull{
-    stubProperty(self.mockOptions, enabled, @YES);
+    self.options.enabled = @YES;
     //we don't want to mock adapter for this test
     [self.p setAdapter:[YBPlayerAdapter new]];
     id<YBPlayerAdapterEventDelegate> mockDelegate = mockProtocol(@protocol(YBPlayerAdapterEventDelegate));
@@ -1876,7 +1876,7 @@
     [given([self.p getOriginalResource]) willReturn:@"resource"];
     [given([self.p getIsLive]) willReturn:@NO];
     [given([self.p getDuration]) willReturn:@(288)];
-    stubProperty(self.mockOptions, forceInit, @(true));
+    self.options.forceInit = @(true);
     
     // Init
     [self.p addWillSendInitListener:listener];
@@ -1997,12 +1997,12 @@
 }
 
 -(void)testVideoCodec {
-    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.options];
     XCTAssertNil([p getContentEncodingVideoCodec]);
     
     NSString *testOptionsVideoCodec = @"OptionsVideoCodec";
     
-    stubProperty(self.mockOptions, contentEncodingVideoCodec,testOptionsVideoCodec);
+    self.options.contentEncodingVideoCodec = testOptionsVideoCodec;
     
     XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testOptionsVideoCodec]);
     
@@ -2013,19 +2013,19 @@
     
     XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testOptionsVideoCodec]);
     
-    stubProperty(self.mockOptions, contentEncodingVideoCodec,nil);
+    self.options.contentEncodingVideoCodec = nil;
     
     XCTAssertTrue([[p getContentEncodingVideoCodec] isEqualToString:testAdapterVideoCodec]);
     
 }
 
 -(void)testAudioCodec {
-    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.mockOptions];
+    YBPlugin * p = [[YBPlugin alloc] initWithOptions:self.options];
     XCTAssertNil([p getContentEncodingAudioCodec]);
     
     NSString *testOptionsAudioCodec = @"OptionsAudioCodec";
     
-    stubProperty(self.mockOptions, contentEncodingAudioCodec,testOptionsAudioCodec);
+    self.options.contentEncodingAudioCodec = testOptionsAudioCodec;
     
     XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testOptionsAudioCodec]);
     
@@ -2036,7 +2036,7 @@
     
     XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testOptionsAudioCodec]);
     
-    stubProperty(self.mockOptions, contentEncodingAudioCodec,nil);
+    self.options.contentEncodingAudioCodec = nil;
     
     XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testAdapterAudioCodec]);
 }
