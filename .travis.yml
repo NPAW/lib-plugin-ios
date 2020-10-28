@@ -20,7 +20,7 @@ stages:
   - name: podLint
     if: NOT branch =~ ^\d+\.\d+\.\d+$
   - name: test
-    if: branch = master OR branch =~ /^\d+\.\d+\.\d+$/
+    if: NOT branch =~ ^\d+\.\d+\.\d+$
   - name: carthage
     if: branch = master OR branch =~ /^\d+\.\d+\.\d+$/
   - name: deploy
