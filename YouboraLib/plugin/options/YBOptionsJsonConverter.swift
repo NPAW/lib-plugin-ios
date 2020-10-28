@@ -6,7 +6,7 @@
 //  Copyright © 2020 NPAW. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 protocol YBOptionsJsonConverterInterface {
     static func updateWithJson(json: [String: Any], options: YBOptions) -> YBOptions
