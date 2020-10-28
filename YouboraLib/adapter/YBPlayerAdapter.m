@@ -12,7 +12,6 @@
 #import "YBPlayheadMonitor.h"
 #import "YBLog.h"
 #import "YBPlugin.h"
-#import "YBOptions.h"
 
 #import "YouboraLib/YouboraLib-Swift.h"
 
