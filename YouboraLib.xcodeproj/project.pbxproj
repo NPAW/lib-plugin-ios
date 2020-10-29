@@ -67,6 +67,9 @@
 		065D247E24E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
 		065D247F24E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
 		065D248024E2CC3500D30141 /* YBCdnSwitchParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 065D247A24E2CC3500D30141 /* YBCdnSwitchParser.m */; };
+		06610E312549D1FA00E2D20C /* YBCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E537F1E7FF33E00966C7B /* YBCommunication.m */; };
+		06610E382549D1FB00E2D20C /* YBCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E537F1E7FF33E00966C7B /* YBCommunication.m */; };
+		06610E3F2549D1FB00E2D20C /* YBCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E537F1E7FF33E00966C7B /* YBCommunication.m */; };
 		066DB31A24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
 		066DB31B24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
 		066DB31C24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DB31924617F6A000E790B /* YBAppDatabaseTest.swift */; };
@@ -1787,6 +1790,7 @@
 				06DCC73C253ED5DA00DFB813 /* YBOptionsFactory.swift in Sources */,
 				0671AF2624615FF2000294E8 /* YBEventQueries.swift in Sources */,
 				06C39196247683480085E036 /* YBErrorHandler.swift in Sources */,
+				06610E312549D1FA00E2D20C /* YBCommunication.m in Sources */,
 				06DCC7A6253EE53900DFB813 /* YBOptionsKeys.swift in Sources */,
 				06A0DB7924052C72002B689B /* YBLocationParser.swift in Sources */,
 				066DB31A24617F6A000E790B /* YBAppDatabaseTest.swift in Sources */,
@@ -1881,6 +1885,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDD3882F2109C63F00C027FF /* YBInfinityTest.m in Sources */,
+				06610E382549D1FB00E2D20C /* YBCommunication.m in Sources */,
 				06CFF78D2541CC2E00E4546A /* YBOptionsJsonConverter.swift in Sources */,
 				4EA274E31EA758E700D5329C /* YBPlaybackChronosTest.m in Sources */,
 				4EA274E41EA758E700D5329C /* YBPlaybackFlagsTest.m in Sources */,
@@ -2009,6 +2014,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0671AF2E24616003000294E8 /* YBEvent.swift in Sources */,
+				06610E3F2549D1FB00E2D20C /* YBCommunication.m in Sources */,
 				06CFF78F2541CC2E00E4546A /* YBOptionsJsonConverter.swift in Sources */,
 				CDBA72F823337B65008716B5 /* YBInfinityTest.m in Sources */,
 				CDBA72F923337B65008716B5 /* YBPlaybackChronosTest.m in Sources */,

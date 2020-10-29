@@ -6,7 +6,7 @@ target 'YouboraLib iOS' do
   use_frameworks!
 
   # Pods for YouboraLib
-  platform :ios, '8.0'
+  platform :ios, '9.0'
 
   target 'YouboraLibTests iOS' do
     inherit! :search_paths
