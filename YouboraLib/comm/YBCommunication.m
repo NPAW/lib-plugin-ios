@@ -10,7 +10,7 @@
 #import "YBLog.h"
 #import "YBRequest.h"
 #import "YBTransform.h"
-#import "YBConstants.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBCommunication()
 

@@ -62,8 +62,12 @@ import Foundation
     * infinity local manager
     */
     public static func cleanLocalManager() {
-        UserDefaults.standard.removeObject(forKey: YBConstants.preferencesSessionIdKey)
-        UserDefaults.standard.removeObject(forKey: YBConstants.preferencesContextKey)
-        UserDefaults.standard.removeObject(forKey: YBConstants.preferencesLastActiveKey)
+        DispatchQueue.main.async {
+            UserDefaults.standard.removeObject(forKey: YBConstants.preferencesSessionIdKey)
+            UserDefaults.standard.removeObject(forKey: YBConstants.preferencesContextKey)
+            UserDefaults.standard.removeObject(forKey: YBConstants.preferencesLastActiveKey)
+            UserDefaults.standard.synchronize()
+        }
+        
     }
 }

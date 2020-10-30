@@ -341,8 +341,10 @@ import Foundation
 
 // MARK: Ad position YBConstants
 @available(*, deprecated, message: "This value will be removed in future release. Use YBAdPosition.pre instead")
-public let YBOPTIONS_AD_POSITION_PRE = "pre";
+public let YBOPTIONS_AD_POSITION_PRE = "pre"
 @available(*, deprecated, message: "This value will be removed in future release. Use YBAdPosition.mid instead")
-public let YBOPTIONS_AD_POSITION_MID = "mid";
+public let YBOPTIONS_AD_POSITION_MID = "mid"
 @available(*, deprecated, message: "This value will be removed in future release. Use YBAdPosition.post instead")
-public let YBOPTIONS_AD_POSITION_POST = "post";
+public let YBOPTIONS_AD_POSITION_POST = "post"
+public let NOTIFICATION_NAME_VIEW_TRANSFORM_DONE = "notificationViewTransformDone"
+public let NOTIFICATION_NAME_TRANSFORM_DONE = "notificationTransformDone"

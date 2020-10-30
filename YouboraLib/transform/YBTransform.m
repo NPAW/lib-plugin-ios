@@ -8,7 +8,7 @@
 
 #import "YBTransform.h"
 #import "YBTransformSubclass.h"
-#import "YBConstants.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 @interface YBTransform()
 @end
