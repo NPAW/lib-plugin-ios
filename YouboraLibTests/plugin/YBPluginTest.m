@@ -2085,6 +2085,127 @@
     XCTAssertTrue([[p getContentEncodingAudioCodec] isEqualToString:testAdapterAudioCodec]);
 }
 
+-(void)testNonFatalErrors {
+    YBOptions *options = [YBOptions new];
+    
+    NSString *message = @"message";
+    NSString *code = @"1";
+    
+    options.nonFatalErrors = @[@"1", @"2", @"3"];
+    
+    YBTestablePlugin * p = [[YBTestablePlugin alloc] initWithOptions: options];
+    
+    [given([p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:@{}];
+    
+    [p fireFatalErrorWithMessage:message code:code andErrorMetadata:@"" andException:nil];
+    
+    XCTAssertEqual(p.lastRegistedServices.count, 1);
+    XCTAssertEqual(p.lastRegistedServices[0], YBConstantsYouboraService.error);
+    
+    p.lastRegistedServices = nil;
+    
+    [given([p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:@{}];
+    // Change error otherwise it won't send a new error
+    // plugin prevents to send same error serveral times in a row
+    code = @"2";
+    [p fireErrorWithMessage:message code:code andErrorMetadata:nil];
+    
+    XCTAssertEqual(p.lastRegistedServices.count, 1);
+    XCTAssertEqual(p.lastRegistedServices[0], YBConstantsYouboraService.error);
+    
+    p.lastRegistedServices = nil;
+}
+
+-(void)testIgnoreErrors {
+    YBOptions *options = [YBOptions new];
+    
+    NSString *message = @"message";
+    NSString *code = @"1";
+    
+    options.ignoreErrors = @[@"1", @"2", @"3"];
+    
+    
+    YBTestablePlugin * p = [[YBTestablePlugin alloc] initWithOptions: options];
+    
+    [given([p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:@{}];
+    
+    [p fireFatalErrorWithMessage:message code:code andErrorMetadata:@"" andException:nil];
+    
+    XCTAssertEqual(p.lastRegistedServices.count, 0);
+    
+    code = @"2";
+    [p fireErrorWithMessage:message code:code andErrorMetadata:nil];
+    
+    XCTAssertEqual(p.lastRegistedServices.count, 0);
+}
+
+-(void)testFatalErrors {
+    YBOptions *options = [YBOptions new];
+    
+    NSString *message = @"message";
+    NSString *code = @"1";
+    
+    options.fatalErrors = @[@"1", @"2", @"3"];
+    
+    
+    YBTestablePlugin * p = [[YBTestablePlugin alloc] initWithOptions: options];
+    // force init so fire stop can be sent
+    [p fireInit];
+    
+    [given([p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:@{}];
+    
+    [p fireFatalErrorWithMessage:message code:code andErrorMetadata:@"" andException:nil];
+    
+    XCTAssertEqual(p.lastRegistedServices.count, 2);
+    XCTAssertTrue([p.lastRegistedServices[0] isEqualToString:YBConstantsYouboraService.error]);
+    XCTAssertTrue([p.lastRegistedServices[1] isEqualToString:YBConstantsYouboraService.stop]);
+    
+    // force init so fire stop can be sent
+    [p fireInit];
+    
+    // Change error otherwise it won't send a new error plugin prevents to send same error serveral times in a row
+    code = @"2";
+    // reset services to clean historic and start fetching after the fireError
+    p.lastRegistedServices = nil;
+    
+    [p fireErrorWithMessage:message code:code andErrorMetadata:nil];
+    
+    XCTAssertEqual(p.lastRegistedServices.count, 2);
+    XCTAssertTrue([p.lastRegistedServices[0] isEqualToString:YBConstantsYouboraService.error]);
+    XCTAssertTrue([p.lastRegistedServices[1] isEqualToString:YBConstantsYouboraService.stop]);
+}
+
+-(void)testNormalErrors {
+    YBOptions *options = [YBOptions new];
+    
+    NSString *message = @"message";
+    NSString *code = @"1";
+    
+    YBTestablePlugin * p = [[YBTestablePlugin alloc] initWithOptions: options];
+    // force init so fire stop can be sent
+    [p fireInit];
+    
+    [given([p.mockRequestBuilder buildParams:anything() forService:anything()]) willReturn:@{}];
+    
+    [p fireFatalErrorWithMessage:message code:code andErrorMetadata:@"" andException:nil];
+    
+    XCTAssertEqual(p.lastRegistedServices.count, 2);
+    XCTAssertTrue([p.lastRegistedServices[0] isEqualToString:YBConstantsYouboraService.error]);
+    XCTAssertTrue([p.lastRegistedServices[1] isEqualToString:YBConstantsYouboraService.stop]);
+    
+    // force init so fire stop can be sent
+    [p fireInit];
+    
+    // Change error otherwise it won't send a new error plugin prevents to send same error serveral times in a row
+    code = @"2";
+    // reset services to clean historic and start fetching after the fireError
+    p.lastRegistedServices = nil;
+    
+    [p fireErrorWithMessage:message code:code andErrorMetadata:nil];
+    
+    XCTAssertEqual(p.lastRegistedServices.count, 1);
+    XCTAssertTrue([p.lastRegistedServices[0] isEqualToString:YBConstantsYouboraService.error]);
+}
 
 - (void) verifyBasicParamsPing:(NSArray *) params {
     XCTAssertTrue([params containsObject:YBConstantsRequest.bitrate]);

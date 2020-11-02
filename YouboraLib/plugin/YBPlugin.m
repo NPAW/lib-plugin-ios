@@ -315,17 +315,34 @@
 - (void) fireErrorWithParams:(NSDictionary<NSString *, NSString *> *) params {
     NSString *msg = params[YBConstantsErrorParams.message];
     NSString *code = params[YBConstantsErrorParams.code];
+    
     if (![self.errorHandler isNewErrorWithMessage:msg code:code]) { return; }
     
     [self sendError:[YBYouboraUtils buildErrorParams:params]];
 }
 
 - (void) fireErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata {
+    // Ignore error because this error is on the list to be ignored
+    if ([YBYouboraUtils containsStringWithArray:self.options.ignoreErrors value:code]) {
+        return;
+    }
+    
     if (![self.errorHandler isNewErrorWithMessage:msg code:code]) { return; }
     
     [self sendError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@"error"]];
+    
+    // Fire stop case the error was found in the fatal errors
+    if ([YBYouboraUtils containsStringWithArray:self.options.fatalErrors value:code]) {
+        [self fireStop];
+    }
 }
+
 - (void) fireFatalErrorWithMessage:(NSString *) msg code:(NSString *) code andErrorMetadata:(NSString *) errorMetadata andException:(nullable NSException*) exception{
+    // Ignore error because this error is on the list to be ignored
+    if ([YBYouboraUtils containsStringWithArray:self.options.ignoreErrors value:code]) {
+        return;
+    }
+    
     if(self.adapter != nil){
         if(exception != nil){
             [self.adapter fireErrorWithMessage:msg code:code andMetadata:errorMetadata andException:exception];
@@ -335,7 +352,12 @@
     }else{
         [self fireErrorWithParams:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
     }
-    [self fireStop];
+    
+    // Don't send stop case non fatal
+    if (![YBYouboraUtils containsStringWithArray:self.options.nonFatalErrors value:code]) {
+        [self fireStop];
+    }
+    
 }
 
 - (void) fireStop {

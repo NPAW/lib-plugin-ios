@@ -199,4 +199,19 @@ import Foundation
     static public func getAppName() -> String? {
         return Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String
     }
+    
+    /**
+     Function to check if there's an array and case yes if this array contains a value
+
+     - Parameters:
+        - array: Array with values to be compared
+        - value: Value to check with the values on the array
+
+     - Returns: True case there's a value inside of the array that fits with the value, otherwise false
+     */
+    static public func containsString(array: [String]?, value: String) -> Bool {
+        guard let array = array else { return false }
+        
+        return array.contains(value)
+    }
 }

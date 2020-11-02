@@ -28,4 +28,5 @@
 @property(nonatomic, copy) TimerCallback timerCallback;
 @property(nonatomic, copy) TimerCallback beatTimerCallback;
 
+@property(nonatomic) NSMutableArray<NSString*> *lastRegistedServices;
 @end

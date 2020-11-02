@@ -1,3 +1,6 @@
+## [6.5.33] - 2020-11-02
+### Added
+- Options to define fatal, nonFatal and ignore errors
 ## [6.5.32] - 2020-10-26
 ### Fixed
 - Move rendition from init to start

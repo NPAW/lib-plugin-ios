@@ -75,6 +75,12 @@
 }
 
 - (YBRequest *) createRequestWithHost:(NSString *)host andService:(NSString *)service {
+    if (!self.lastRegistedServices) {
+        self.lastRegistedServices = [[NSMutableArray alloc] init];
+    }
+    
+    [self.lastRegistedServices addObject:service];
+    
     if (self.mockRequest == nil) {
         self.mockRequest = mock([YBRequest class]);
     }

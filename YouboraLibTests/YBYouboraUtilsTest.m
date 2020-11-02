@@ -179,4 +179,22 @@
     XCTAssertEqualObjects(appName, @"xctest");
 }
 
+- (void) testNoArray {
+    XCTAssertFalse([YBYouboraUtils containsStringWithArray:nil value:@"tmp"]);
+}
+
+- (void) testNoValue {
+    NSArray<NSString*> *array = @[@"tmp1", @"tmp2"];
+    NSString *value = @"tmp";
+    
+    XCTAssertFalse([YBYouboraUtils containsStringWithArray: array value: value]);
+}
+
+- (void) testValue {
+    NSArray<NSString*> *array = @[@"tmp1", @"tmp2", @"tmp"];
+    NSString *value = @"tmp";
+    
+    XCTAssertTrue([YBYouboraUtils containsStringWithArray: array value: value]);
+}
+
 @end
