@@ -275,7 +275,9 @@ import Foundation
     public static let adPositionPre = "pre"
     public static let adPositionMid = "mid"
     public static let adPositionPost = "post"
-
+    public static let notificationViewTransformDone = "notificationViewTransformDone"
+    public static let notificationTransformDone = "notificationTransformDone"
+    
     // Extracted from https://stackoverflow.com/a/20062141 , they keep it pretty up to date
     // Map with ios version and names
     static public var deviceModels: [String: String] {
@@ -346,5 +348,3 @@ public let YBOPTIONS_AD_POSITION_PRE = "pre"
 public let YBOPTIONS_AD_POSITION_MID = "mid"
 @available(*, deprecated, message: "This value will be removed in future release. Use YBAdPosition.post instead")
 public let YBOPTIONS_AD_POSITION_POST = "post"
-public let NOTIFICATION_NAME_VIEW_TRANSFORM_DONE = "notificationViewTransformDone"
-public let NOTIFICATION_NAME_TRANSFORM_DONE = "notificationTransformDone"

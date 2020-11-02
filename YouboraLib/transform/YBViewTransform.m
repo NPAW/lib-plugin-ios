@@ -313,6 +313,6 @@
 }
 
 -(NSString*)getNotificationName {
-    return NOTIFICATION_NAME_VIEW_TRANSFORM_DONE;
+    return YBConstants.notificationViewTransformDone;
 }
 @end

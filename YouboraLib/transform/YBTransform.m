@@ -54,7 +54,7 @@
 
 #pragma mark - "Protected" methods
 -(NSString*)getNotificationName {
-    return NOTIFICATION_NAME_TRANSFORM_DONE;
+    return YBConstants.notificationTransformDone;
 }
 
 - (void) done {
