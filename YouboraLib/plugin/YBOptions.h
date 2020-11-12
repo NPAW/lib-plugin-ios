@@ -1097,4 +1097,19 @@ YBConstantsTransportFormat.hlsFmp4
  */
 @property(nonatomic, strong) NSArray<NSString *> * pendingMetadata;
 
+/**
+ * If it has elements on it, all the errors matching this code will fire the stop event to end the view
+ */
+@property(nonatomic, strong) NSArray<NSString *> * fatalErrors;
+
+/**
+ * If it has elements on it, all the errors matching this code won't fire a stop event to end the view
+ */
+@property(nonatomic, strong) NSArray<NSString *> * nonFatalErrors;
+
+/**
+ * If it has elements on it, all the errors matching this code wont be reported
+ */
+@property(nonatomic, strong) NSArray<NSString *> * ignoreErrors;
+
 @end
