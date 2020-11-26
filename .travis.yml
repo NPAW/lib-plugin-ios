@@ -30,6 +30,9 @@ jobs:
     - &lint
       stage: swiftLint
       install: pod deintegrate
+      before_script: |
+        sed -i '' "s/SWIFT_TREAT_WARNINGS_AS_ERRORS = NO;/SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;/" *.xcodeproj/project.pbxproj
+        sed -i '' "s/GCC_TREAT_WARNINGS_AS_ERRORS = NO;/GCC_TREAT_WARNINGS_AS_ERRORS = YES;/" *.xcodeproj/project.pbxproj
       script:
         - xcodebuild build
       after_failure:
