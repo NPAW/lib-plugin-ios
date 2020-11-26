@@ -188,7 +188,7 @@ public struct YBOptionUtilsKeys {
     public static let deviceOsNme = "device.osNme"
     public static let deviceOsVersion = "device.osVersion"
     public static let deviceIsAnonymous = "device.isAnonymous"
-    public static let deviceUUID = "deviceUUID"
+    public static let deviceUUID = "device.uuid"
     public static let contentResource = "content.resource"
     public static let contentIsLive = "content.isLive"
     public static let contentTitle = "content.title"

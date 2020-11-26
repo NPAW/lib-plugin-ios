@@ -606,7 +606,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.deviceOsName forKey:YBOptionKeys.deviceOsNme];
     [dict setValue:self.deviceOsVersion forKey:YBOptionKeys.deviceOsVersion];
     [dict setValue:@(self.deviceIsAnonymous) forKey:YBOptionKeys.deviceIsAnonymous];
-    [dict setValue:self.deviceUUID forKey:YBOptionKeys.deviceUUID];
+    [dict setValue:self.deviceUUID forKey: YBOptionKeys.deviceUUID];
     [dict setValue:self.contentStreamingProtocol forKey:YBOptionKeys.contentStreamingProtocol];
     [dict setValue:self.contentTransportFormat forKey:YBOptionKeys.contentTransportFormat];
     [dict setValue:self.contentResource forKey:YBOptionKeys.contentResource];

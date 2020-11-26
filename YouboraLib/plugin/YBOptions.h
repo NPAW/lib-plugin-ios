@@ -342,7 +342,7 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
 /**
  * Option to send a custom deviceUUID
  */
-@property(nonatomic, assign, nullable) NSString* deviceUUID;
+@property(nonatomic, strong, nullable) NSString* deviceUUID;
 
 
 /**
