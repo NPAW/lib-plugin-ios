@@ -41,7 +41,7 @@ static NSArray<NSString *> * youboraPingEntities;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             
-            NSMutableArray * startParams = @[
+            NSMutableArray * startParams = [NSMutableArray arrayWithArray:@[
                 YBConstantsRequest.accountCode,
                 YBConstantsRequest.username,
                 YBConstantsRequest.rendition,
@@ -127,7 +127,7 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.deviceUUID,
                 YBConstantsRequest.p2pEnabled,
                 YBConstantsRequest.parentId
-            ];
+            ]];
             
             NSArray * adStartParams = @[
                 YBConstantsRequest.playhead,
