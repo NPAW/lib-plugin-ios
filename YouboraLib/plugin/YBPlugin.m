@@ -1833,6 +1833,12 @@
 }
 
 - (NSString *) getDeviceUUID {
+    
+    
+    // Device UUID was defined by the customer so it should be returned
+    if (self.options && !self.options.deviceIsAnonymous && self.options.deviceUUID) {
+        return self.options.deviceUUID;
+    }
 #if TARGET_OS_IPHONE==1
     if (UIDevice.currentDevice.identifierForVendor && !self.options.deviceIsAnonymous) {
         return UIDevice.currentDevice.identifierForVendor.UUIDString;

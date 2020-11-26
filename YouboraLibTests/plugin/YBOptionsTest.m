@@ -148,6 +148,7 @@
     opt.deviceOsName = @"deviceOsNme";
     opt.deviceOsVersion = @"deviceOsVersion";
     opt.deviceIsAnonymous = true;
+    opt.deviceUUID = @"deviceUUID";
     opt.contentTitle = @"contentTitle";
     opt.contentStreamingProtocol = YBConstantsStreamProtocol.dash;
     opt.contentMetrics = @{@"contentMetrics":@"contentMetrics"};
@@ -307,6 +308,7 @@
     XCTAssertEqualObjects(opt.deviceOsName, opt2.deviceOsName);
     XCTAssertEqualObjects(opt.deviceOsVersion, opt2.deviceOsVersion);
     XCTAssertEqual(opt.deviceIsAnonymous, opt2.deviceIsAnonymous);
+    XCTAssertEqualObjects(opt.deviceUUID, opt2.deviceUUID);
     XCTAssertEqualObjects(opt.contentTitle, opt2.contentTitle);
     XCTAssertEqualObjects(opt.contentStreamingProtocol, opt2.contentStreamingProtocol);
     XCTAssertEqualObjects(opt.contentMetrics, opt2.contentMetrics);

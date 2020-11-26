@@ -1,3 +1,6 @@
+## [6.5.34] - 2020-11-26
+### Added
+- Option to send a custom device UUID
 ## [6.5.33] - 2020-11-16
 ### Added
 - Options to define fatal, nonFatal and ignore errors

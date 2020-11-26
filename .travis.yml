@@ -31,7 +31,7 @@ jobs:
       stage: swiftLint
       install: pod deintegrate
       script:
-        - xcodebuild build
+        - xcodebuild build | xcpretty
       after_failure:
         - 'curl -X POST -H "Travis-Api-Version: 3" -H "Authorization: token $TRAVIS_API_TOKEN" https://api.travis-ci.com/build/$TRAVIS_BUILD_ID/cancel'
     - &pod
