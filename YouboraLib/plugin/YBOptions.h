@@ -340,6 +340,12 @@ extern NSString * const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptio
 @property(nonatomic, assign) BOOL deviceIsAnonymous;
 
 /**
+ * Option to send a custom deviceUUID
+ */
+@property(nonatomic, assign, nullable) NSString* deviceUUID;
+
+
+/**
  * URL/path of the current media resource.
  */
 @property(nonatomic, strong) NSString * contentResource;
