@@ -1,3 +1,6 @@
+## [6.5.35] - 2021-01-07
+### Added
+- Parameters included in sessionstart
 ## [6.5.34] - 2020-11-26
 ### Added
 - Option to send a custom device UUID
