@@ -159,6 +159,7 @@ import Foundation
     static public let adBufferDuration = "adBufferDuration"
     static public let parentId = "parentId"
     static public let totalBytes = "totalBytes"
+    static public let linkedViewId = "linkedViewId"
 }
 
 // YBConstants with stream protocols

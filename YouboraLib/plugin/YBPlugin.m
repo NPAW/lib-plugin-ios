@@ -1812,6 +1812,10 @@
     return [[self getInfinity] getSessionRoot];
 }
 
+- (NSString *) getLinkedViewId {
+    return self.options.linkedViewId;
+}
+
 - (NSString *) getSmartSwitchConfigCode {
     return self.options.smartswitchConfigCode;
 }

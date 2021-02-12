@@ -1054,6 +1054,12 @@
     XCTAssertEqualObjects(@"{\"key\":\"value\"}", [self.p getSessionMetrics]);
 }
 
+- (void)testLinkedViewId {
+    XCTAssertNil([self.p getLinkedViewId]);
+    stubProperty(self.mockOptions, linkedViewId, YBConstantsRequest.linkedViewId);
+    XCTAssertEqualObjects(YBConstantsRequest.linkedViewId, [self.p getLinkedViewId]);
+}
+
 - (void) testUserType {
     XCTAssertNil([self.p getUserType]);
     stubProperty(self.mockOptions, userType, @"type");

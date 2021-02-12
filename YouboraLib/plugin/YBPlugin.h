@@ -1402,6 +1402,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getParentId;
 
 /**
+ Returns linked view id string
+ @return linked view id
+ */
+- (NSString *) getLinkedViewId;
+
+/**
  * Get Device info String
  */
 - (NSString*) getDeviceInfoString;

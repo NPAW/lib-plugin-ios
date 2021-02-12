@@ -147,6 +147,7 @@ NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_10 = @"ad.custom.dimension.10
 NSString * const YBOPTIONS_KEY_APP_NAME = @"app.name";
 NSString * const YBOPTIONS_KEY_APP_RELEASE_VERSION = @"app.release.version";
 
+NSString * const YBOPTIONS_KEY_LINKED_VIEW_ID = @"linkedViewId";
 NSString * const YBOPTIONS_KEY_WAIT_METADATA = @"waitForMetadata";
 NSString * const YBOPTIONS_KEY_PENDING_METADATA = @"pendingMetadata";
 
@@ -291,6 +292,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.adCustomDimension10 = [decoder decodeObjectForKey:YBOptionKeys.adCustomDimension10];
         self.appName = [decoder decodeObjectForKey:YBOptionKeys.appName];
         self.appReleaseVersion = [decoder decodeObjectForKey:YBOptionKeys.appReleaseVersion];
+        self.linkedViewId = [decoder decodeObjectForKey:YBOptionKeys.linkedViewId];
         self.waitForMetadata = [[decoder decodeObjectForKey:YBOptionKeys.waitMetadata] isEqualToValue:@YES];
         self.pendingMetadata = [decoder decodeObjectForKey:YBOptionKeys.pendingMetadata];
         self.sessionMetrics = [decoder decodeObjectForKey:YBOptionKeys.sessionMetrics];
@@ -421,6 +423,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:self.adCustomDimension10 forKey:YBOptionKeys.adCustomDimension10];
     [coder encodeObject:self.appName forKey:YBOptionKeys.appName];
     [coder encodeObject:self.appReleaseVersion forKey:YBOptionKeys.appReleaseVersion];
+    [coder encodeObject:self.linkedViewId forKey:YBOptionKeys.linkedViewId];
     [coder encodeObject:@(self.waitForMetadata) forKey:YBOptionKeys.waitMetadata];
     [coder encodeObject:self.pendingMetadata forKey:YBOptionKeys.pendingMetadata];
     [coder encodeObject:self.sessionMetrics forKey:YBOptionKeys.sessionMetrics];
@@ -568,6 +571,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.appName = nil;
     self.appReleaseVersion = nil;
     
+    self.linkedViewId = nil;
     self.waitForMetadata = false;
     self.pendingMetadata = [[NSArray alloc] init];
     
@@ -698,6 +702,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.adCustomDimension10 forKey:YBOptionKeys.adCustomDimension10];
     [dict setValue:self.appName forKey:YBOptionKeys.appName];
     [dict setValue:self.appReleaseVersion forKey:YBOptionKeys.appReleaseVersion];
+    [dict setValue:self.linkedViewId forKey:YBOptionKeys.linkedViewId];
     [dict setValue:@(self.waitForMetadata) forKey:YBOptionKeys.waitMetadata];
     [dict setValue:self.pendingMetadata forKey:YBOptionKeys.pendingMetadata];
     [dict setValue:self.sessionMetrics forKey:YBOptionKeys.sessionMetrics];

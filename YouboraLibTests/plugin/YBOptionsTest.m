@@ -182,6 +182,7 @@
         @"metric2":@"value2",
     };
     opt.pendingMetadata = @[@"value1",@"value2"];
+    opt.linkedViewId = @"linkedViewId";
     opt.waitForMetadata = true;
     opt.adCustomDimension1 = @"adCustomDimension1";
     opt.adCustomDimension2 = @"adCustomDimension2";
@@ -339,6 +340,7 @@
     XCTAssertEqualObjects(opt.appName, opt2.appName);
     XCTAssertEqualObjects(opt.sessionMetrics, opt2.sessionMetrics);
     XCTAssertEqualObjects(opt.pendingMetadata, opt2.pendingMetadata);
+    XCTAssertEqualObjects(opt.linkedViewId, opt2.linkedViewId);
     XCTAssertEqual(opt.waitForMetadata, opt2.waitForMetadata);
     XCTAssertEqualObjects(opt.appReleaseVersion, opt2.appReleaseVersion);
     XCTAssertEqualObjects(opt.adProvider, opt2.adProvider);

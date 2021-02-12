@@ -143,6 +143,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.adCustomDimension10: (.string, "adCustomDimension10"),
         YBOptionKeys.appName: (.string, "appName"),
         YBOptionKeys.appReleaseVersion: (.string, "appReleaseVersion"),
+        YBOptionKeys.linkedViewId: (.string, "linkedViewId"),
         YBOptionKeys.waitMetadata: (.bool, "waitForMetadata"),
         YBOptionKeys.pendingMetadata: (.unknown, "pendingMetadata"),
         YBOptionKeys.sendTotalBytes: (.bool, "sendTotalBytes"),
@@ -273,6 +274,7 @@ public struct YBOptionUtilsKeys {
     public static let adCustomDimension10 = "ad.custom.dimension.10"
     public static let appName = "app.name"
     public static let appReleaseVersion = "app.release.version"
+    public static let linkedViewId = "linkedViewId"
     public static let waitMetadata = "waitForMetadata"
     public static let pendingMetadata = "pendingMetadata"
     public static let sessionMetrics = "session.metrics"
