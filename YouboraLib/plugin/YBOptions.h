@@ -152,6 +152,7 @@ extern NSString * const YBOPTIONS_KEY_AD_CUSTOM_DIMENSION_10 __deprecated_msg("U
 extern NSString * const YBOPTIONS_KEY_APP_NAME __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * const YBOPTIONS_KEY_APP_RELEASE_VERSION __deprecated_msg("Use YBOptionKeys instead");
 
+extern NSString * const YBOPTIONS_KEY_LINKED_VIEW_ID __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * const YBOPTIONS_KEY_WAIT_METADATA __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * const YBOPTIONS_KEY_PENDING_METADATA __deprecated_msg("Use YBOptionKeys instead");
 
@@ -1075,6 +1076,11 @@ YBConstantsTransportFormat.hlsFmp4
  * Release version of the app
  */
 @property(nonatomic, strong) NSString * appReleaseVersion;
+
+/**
+ * Option to send on start events to link views with previous session events
+ */
+@property (nonatomic, strong, nullable) NSString * linkedViewId;
 
 /**
  * Enabling this option enables the posibility of getting the /start request later on the view,

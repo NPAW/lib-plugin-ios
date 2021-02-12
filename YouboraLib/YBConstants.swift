@@ -159,6 +159,7 @@ import Foundation
     static public let adBufferDuration = "adBufferDuration"
     static public let parentId = "parentId"
     static public let totalBytes = "totalBytes"
+    static public let linkedViewId = "linkedViewId"
 }
 
 // YBConstants with stream protocols
@@ -267,7 +268,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.5.35"
+    static public var youboraLibVersion = "6.5.36"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"

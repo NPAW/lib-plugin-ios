@@ -126,7 +126,8 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.adsExpected,
                 YBConstantsRequest.deviceUUID,
                 YBConstantsRequest.p2pEnabled,
-                YBConstantsRequest.parentId
+                YBConstantsRequest.parentId,
+                YBConstantsRequest.linkedViewId
             ]];
             
             NSArray * adStartParams = @[
@@ -217,7 +218,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        
                        //Infinity
                        YBConstantsYouboraInfinity.sessionStart: @[YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1,                               YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,
-                                                     YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.deviceUUID, YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.isp, YBConstantsRequest.connectionType, YBConstantsRequest.userType, YBConstantsRequest.deviceInfo],
+                                                     YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.deviceUUID, YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.isp, YBConstantsRequest.connectionType, YBConstantsRequest.userType, YBConstantsRequest.deviceInfo, YBConstantsRequest.linkedViewId],
                        YBConstantsYouboraInfinity.sessionStop: @[YBConstantsRequest.accountCode],
                        YBConstantsYouboraInfinity.sessionNav: @[YBConstantsRequest.username, YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.sessionBeat: @[YBConstantsRequest.sessionMetrics],
@@ -676,7 +677,9 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [[self.plugin getIsP2PEnabled] isEqualToValue:@YES] ? @"true" : @"false";
     } else  if ([param isEqualToString:YBConstantsRequest.parentId]) {
        value = [self.plugin getParentId];
-    }
+    } else  if ([param isEqualToString:YBConstantsRequest.linkedViewId]) {
+        value = [self.plugin getLinkedViewId];
+     }
     
     return value;
 }

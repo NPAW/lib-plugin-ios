@@ -511,16 +511,19 @@
     [self fireStop: @{@"skipped" : @"true"}];
 }
 
-- (void) fireEventWithName:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values {
+- (void)fireEventWithName:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values topLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions {
     if (self.flags.started) {
         eventName = eventName == nil || [eventName isEqualToString:@""] ? @"" : eventName; //Empty string, will get ignored by the backend
         dimensions = dimensions == nil ? @{} : dimensions;
         values = values == nil ? @{} : values;
-        NSDictionary * params = @{
-                                  @"name" : eventName,
-                                  @"dimensions" : dimensions,
-                                  @"values" : values
-                                  };
+        topLevelDimensions = topLevelDimensions == nil ? @{} : topLevelDimensions;
+        
+        NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+        [params addEntriesFromDictionary:topLevelDimensions];
+        params[@"dimensions"] = dimensions;
+        params[@"values"] = values;
+        params[@"name"] = eventName;
+        
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventVideoEvent:params fromAdapter:self];
         }
