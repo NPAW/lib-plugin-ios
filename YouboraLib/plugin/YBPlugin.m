@@ -3442,17 +3442,14 @@
     [self sendSessionNav:params];
 }
 
-- (void) youboraInfinityEventEventWithDimensions: (NSDictionary<NSString *, NSString *> *) dimensions values: (NSDictionary<NSString *, NSNumber *> *) values andEventName: (NSString *) eventName {
-    NSString *stringyfiedDict = [YBYouboraUtils stringifyDictionary:dimensions];
+- (void)youboraInfinityEventEventWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values andEventName:(NSString *)eventName andTopLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions {
     
-    if (stringyfiedDict == nil)
-        stringyfiedDict = @"";
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params addEntriesFromDictionary:topLevelDimensions];
+    params[@"dimensions"] = [YBYouboraUtils stringifyDictionary:dimensions];
+    params[@"values"] = [YBYouboraUtils stringifyDictionary:values];
+    params[@"name"] = eventName;
     
-    NSDictionary *params = @{
-        @"dimensions" : [YBYouboraUtils stringifyDictionary:dimensions],
-        @"values" : [YBYouboraUtils stringifyDictionary:values],
-        @"name" : eventName
-    };
     [self sendSessionEvent:params];
 }
 

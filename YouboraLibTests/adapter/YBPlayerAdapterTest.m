@@ -256,7 +256,7 @@
     [adapter fireSeekEnd];
     [verify(mockDelegate) youboraAdapterEventSeekEnd:anything() fromAdapter:adapter];
     
-    [adapter fireEventWithName:@"name" dimensions:@{} values:@{}];
+    [adapter fireEventWithName:@"name" dimensions:@{} values:@{} topLevelDimensions:@{}];
     [verify(mockDelegate) youboraAdapterEventVideoEvent:anything() fromAdapter:adapter];
     
     [adapter fireStop];
@@ -428,12 +428,13 @@
     [adapter addYouboraAdapterDelegate:mockDelegate];
     
     [adapter fireStart];
-    [adapter fireEventWithName:@"name" dimensions:@{@"key" : @"value"} values:@{@"key" : @(1)}];
+    [adapter fireEventWithName:@"name" dimensions:@{@"key" : @"value"} values:@{@"key" : @(1)} topLevelDimensions:@{@"topDimKey" : @"value"}];
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
     [verifyCount(mockDelegate, times(1)) youboraAdapterEventVideoEvent:(id) captor fromAdapter:adapter];
     XCTAssertEqual(captor.value[@"name"], @"name");
     XCTAssertEqualObjects(captor.value[@"dimensions"], @{@"key" : @"value"});
     XCTAssertEqualObjects(captor.value[@"values"], @{@"key" : @(1)});
+    XCTAssertEqualObjects(captor.value[@"topDimKey"], @"value"); // As it is not inside a dictionary
 }
 
 - (void) testFireVideoEventWrongParams {
@@ -443,14 +444,15 @@
     [adapter addYouboraAdapterDelegate:mockDelegate];
     
     [adapter fireStart];
-    [adapter fireEventWithName:@"" dimensions:@{@"key" : @"value"} values:@{@"key" : @(1)}];
+    [adapter fireEventWithName:@"" dimensions:@{@"key" : @"value"} values:@{@"key" : @(1)} topLevelDimensions:@{@"topDimKey" : @"value"}];
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
     [verifyCount(mockDelegate, times(1)) youboraAdapterEventVideoEvent:(id) captor fromAdapter:adapter];
     XCTAssertEqualObjects(captor.value[@"name"], @"");
     XCTAssertEqualObjects(captor.value[@"dimensions"], @{@"key" : @"value"});
     XCTAssertEqualObjects(captor.value[@"values"], @{@"key" : @(1)});
-    
-    [adapter fireEventWithName:nil dimensions:nil values:nil];
+    XCTAssertEqualObjects(captor.value[@"topDimKey"], @"value"); // As it is not inside a dictionary
+
+    [adapter fireEventWithName:nil dimensions:nil values:nil topLevelDimensions:nil];
     captor = [HCArgumentCaptor new];
     [verifyCount(mockDelegate, times(1)) youboraAdapterEventVideoEvent:(id) captor fromAdapter:adapter];
     XCTAssertEqualObjects(captor.value[@"name"], @"");

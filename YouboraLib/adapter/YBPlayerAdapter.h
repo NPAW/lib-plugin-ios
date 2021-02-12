@@ -546,7 +546,8 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  * @param dimensions key value map with dimensions
  * @param values key value map with the event values
  */
-- (void) fireEventWithName:(nullable NSString *) eventName dimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values;
+- (void) fireEventWithName:(nullable NSString *) eventName dimensions:(nullable NSDictionary<NSString *, NSString *> *) dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *) values topLevelDimensions:(nullable NSDictionary<NSString *,NSString *> *)topLevelDimensions;
+
 
 /**
  * Shortcut for <fireStop:> with a param casted = true
