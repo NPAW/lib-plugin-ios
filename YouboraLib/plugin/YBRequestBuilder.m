@@ -176,7 +176,9 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.stop: @[
                                YBConstantsRequest.bitrate,
                                YBConstantsRequest.playhead,
-                               YBConstantsRequest.totalBytes
+                               YBConstantsRequest.totalBytes,
+                               YBConstantsRequest.pauseDuration,
+                               YBConstantsRequest.metrics
                        ],
                        YBConstantsYouboraService.adInit: adStartParams,
                        YBConstantsYouboraService.adStart: adStartParams,
