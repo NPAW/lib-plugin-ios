@@ -1,3 +1,8 @@
+## [6.5.37] - 2021-03-09
+### Added
+- Metrics on stop and pings entities
+- Session metrics on session stop
+
 ## [6.5.36] - 2021-02-12
 ### Added
 - Parameter 'linkedViewId' in fireStart
