@@ -1,3 +1,7 @@
+## [6.5.38] - 2021-03-24
+### Added
+-  .cmfv transform format
+
 ## [6.5.37] - 2021-03-09
 ### Added
 - Metrics on stop

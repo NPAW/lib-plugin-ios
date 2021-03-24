@@ -1,38 +1,38 @@
 Pod::Spec.new do |s|
 
-  s.name         = "YouboraLib"
-  s.version = '6.5.37'
+  s.name         = 'YouboraLib'
+  s.version = '6.5.38'
 
 
   # Metadata
-  s.summary      = "Library required by Youbora plugins"
+  s.summary      = 'Library required by Youbora plugins'
 
-  s.description  = "<<-DESC
+  s.description  = '<<-DESC
                     YouboraLib is a library created by Nice People at Work. It serves
                     as the shared logic for all Youbora plugins and it also allows you
                     to create your own plugins.
-                     DESC"
+                     DESC'
 
-  s.homepage     = "http://developer.nicepeopleatwork.com/"
+  s.homepage     = 'http://developer.nicepeopleatwork.com/'
 
-  s.license      = { :type => "MIT", :file => "LICENSE.md" }
+  s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
 
-  s.author       = { "Nice People at Work" => "support@nicepeopleatwork.com" }
+  s.author       = { 'Nice People at Work' => 'support@nicepeopleatwork.com' }
 
   # Platforms
-  s.ios.deployment_target = "9.0"
-  s.tvos.deployment_target = "9.0"
-  s.osx.deployment_target = "10.10"
+  s.ios.deployment_target = '9.0'
+  s.tvos.deployment_target = '9.0'
+  s.osx.deployment_target = '10.10'
 
   # Swift version
-  s.swift_version = "4.0", "4.1", "4.2", "4.3", "5.0", "5.1"
+  s.swift_version = '4.0', '4.1', '4.2', '4.3', '5.0', '5.1'
 
   # Source Location
-  s.source       = { :git => 'https://bitbucket.org/npaw/lib-plugin-ios.git', :tag => s.version}
+  s.source       = { :git => 'https://bitbucket.org/npaw/lib-plugin-ios.git', :tag => s.version }
 
   # Source files
   s.source_files  = 'YouboraLib/**/*.{swift,h,m}'
-  s.public_header_files = "YouboraLib/**/*.h"
+  s.public_header_files = 'YouboraLib/**/*.h'
 
   # Project settings
   s.requires_arc = true
