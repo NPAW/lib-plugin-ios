@@ -177,6 +177,7 @@ import Foundation
 @objcMembers open class YBConstantsTransportFormat: NSObject {
     static public let hlsTs = "HLS-TS"
     static public let hlsFmp4 = "HLS-FMP4"
+    static public let hlsCmfv = "HLS-CMF"
 }
 
 // Service YBConstants
@@ -268,7 +269,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.5.37"
+    static public var youboraLibVersion = "6.5.38"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"

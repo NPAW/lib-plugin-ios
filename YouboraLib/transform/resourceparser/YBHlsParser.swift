@@ -45,7 +45,7 @@ private struct ParseResponse {
         
         do {
             // Expression to accept all media formats
-            let regex = try NSRegularExpression(pattern: "(\\S*?(\\.m3u8|\\.m3u|\\.ts|\\.mp4|\\.m4s)(?:\\?\\S*|\\R|$))")
+            let regex = try NSRegularExpression(pattern: "(\\S*?(\\.m3u8|\\.m3u|\\.ts|\\.mp4|\\.m4s|\\.cmfv)(?:\\?\\S*|\\R|$))")
             var regexText = resultData
             
             var tmpMatch = regex.firstMatch(in: resultData, options: [], range: NSRange(location: 0, length: resultData.count))
