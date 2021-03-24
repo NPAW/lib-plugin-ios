@@ -406,8 +406,9 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 
 /**
 * Transport format of the content, you can use any of these YBConstantsTransportFormat:
-YBConstantsTransportFormat.hlsTs
-YBConstantsTransportFormat.hlsFmp4
+ YBConstantsTransportFormat.hlsTs
+ YBConstantsTransportFormat.hlsFmp4
+ YBConstantsTransportFormat.hlsCmfv
 */
 @property(nonatomic, strong, setter=setContentTransportFormat:) NSString* _Nullable contentTransportFormat;
 

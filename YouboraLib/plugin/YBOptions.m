@@ -869,7 +869,8 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
 -(void)setContentTransportFormat:(NSString*)transportFormat {
     NSArray <NSString*> *allowedFormats= @[
         YBConstantsTransportFormat.hlsFmp4,
-        YBConstantsTransportFormat.hlsTs
+        YBConstantsTransportFormat.hlsTs,
+        YBConstantsTransportFormat.hlsCmfv
     ];
     
     for (NSString *allowedFormat in allowedFormats) {

@@ -23,7 +23,7 @@ import Foundation
             return false
         }
         
-        let finalResourceExtensions = ["mp4", "ts", "m4s"]
+        let finalResourceExtensions = ["mp4", "ts", "m4s", "cmfv"]
         
         return finalResourceExtensions.contains(resource.pathExtension)
     }
@@ -35,6 +35,10 @@ import Foundation
         
         if transportResource.contains("ts") {
             return YBConstantsTransportFormat.hlsTs
+        }
+        
+        if transportResource.contains("cmfv") {
+            return YBConstantsTransportFormat.hlsCmfv
         }
         
         return nil
