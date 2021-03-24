@@ -177,7 +177,7 @@ import Foundation
 @objcMembers open class YBConstantsTransportFormat: NSObject {
     static public let hlsTs = "HLS-TS"
     static public let hlsFmp4 = "HLS-FMP4"
-    static public let hlsCmfv = "HLS-CMAF"
+    static public let hlsCmfv = "HLS-CMF"
 }
 
 // Service YBConstants
