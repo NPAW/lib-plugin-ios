@@ -1,3 +1,7 @@
+## [6.5.39] - 2021-04-07
+### Added
+-  'breakNumber' to ad requests
+
 ## [6.5.38] - 2021-03-24
 ### Added
 -  .cmfv transform format
