@@ -3020,10 +3020,9 @@
 
 - (void) sendAdInit:(NSDictionary<NSString *, NSString *> *) params {
     NSString* realNumber = [self.requestBuilder getNewAdNumber];
-    NSString* breakNumber = [self.requestBuilder getNewAdBreakNumber];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adInit];
     mutParams[YBConstantsRequest.adNumber] = realNumber;
-    mutParams[YBConstantsRequest.breakNumber] = breakNumber;
+    mutParams[YBConstantsRequest.breakNumber] = self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
     //Required params
     mutParams[YBConstantsRequest.adDuration] = @"0";
     mutParams[YBConstantsRequest.adPlayhead] = @"0";
@@ -3037,10 +3036,11 @@
 - (void) sendAdStart:(NSDictionary<NSString *, NSString *> *) params {
     [self startPings];
     NSString* realNumber = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[YBConstantsRequest.adNumber] : [self.requestBuilder getNewAdNumber];
+    NSString* breakNumber = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[YBConstantsRequest.breakNumber] : [self.requestBuilder getNewAdBreakNumber];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adStart];
     //mutParams[YBConstantsRequest.adNumber] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[YBConstantsRequest.adNumber] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
     mutParams[YBConstantsRequest.adNumber] = realNumber;
-    mutParams[YBConstantsRequest.breakNumber] = self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
+    mutParams[YBConstantsRequest.breakNumber] = breakNumber;
     [self sendWithCallbacks:self.willSendAdStartListeners service:YBConstantsYouboraService.adStart andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YBConstantsYouboraService.adStart, mutParams[@"adPosition"], mutParams[YBConstantsRequest.adNumber], mutParams[YBConstantsRequest.playhead]];
     self.isAdStarted = true;
