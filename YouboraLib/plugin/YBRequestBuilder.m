@@ -190,7 +190,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        ],
                        YBConstantsYouboraService.adPause: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.adResume: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adPauseDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
-                       YBConstantsYouboraService.adBuffer: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBufferDuration, YBConstantsRequest.playhead],
+                       YBConstantsYouboraService.adBuffer: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBufferDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.adStop: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBitrate, YBConstantsRequest.adTotalDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.click: @[
                                YBConstantsRequest.position,
@@ -202,7 +202,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.adManifest: @[YBConstantsRequest.givenBreaks, YBConstantsRequest.expectedBreaks, YBConstantsRequest.expectedPattern, YBConstantsRequest.breaksTime],
                        YBConstantsYouboraService.adBreakStart: @[YBConstantsRequest.position, YBConstantsRequest.givenAds, YBConstantsRequest.expectedAds],
                        YBConstantsYouboraService.adBreakStop: @[YBConstantsRequest.position, YBConstantsRequest.breakNumber],
-                       YBConstantsYouboraService.adQuartile: @[YBConstantsRequest.position, YBConstantsRequest.adViewedDuration, YBConstantsRequest.adViewability],
+                       YBConstantsYouboraService.adQuartile: @[YBConstantsRequest.position, YBConstantsRequest.adViewedDuration, YBConstantsRequest.adViewability, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.ping: @[
                                YBConstantsRequest.droppedFrames,
                                YBConstantsRequest.playrate,
