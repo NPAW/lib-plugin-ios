@@ -1549,6 +1549,7 @@
     if (self.adsAdapter != nil) {
         @try {
             val = [self.adsAdapter getAdViewedDuration] != nil ? [self.adsAdapter getAdViewedDuration] : [self.adsAdapter getPlayhead];
+            val = [NSNumber numberWithDouble:(val.doubleValue * 1000)];
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
             [YBLog logException:exception];
@@ -1562,6 +1563,7 @@
     if (self.adsAdapter != nil) {
         @try {
             val = [self.adsAdapter getAdViewability] != nil ? [self.adsAdapter getAdViewability] : [self.adsAdapter getPlayhead];
+            val = [NSNumber numberWithDouble:(val.doubleValue * 1000)];
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
             [YBLog logException:exception];

@@ -1,3 +1,7 @@
+## [6.5.40] - 2021-05-06
+### Changed
+-  'adViewability' and 'adViewedDuration' to milliseconds
+
 ## [6.5.39] - 2021-04-07
 ### Added
 -  'breakNumber' to ad requests
