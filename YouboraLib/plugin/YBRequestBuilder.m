@@ -140,6 +140,7 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.adPlayerVersion,
                 YBConstantsRequest.adProperties,
                 YBConstantsRequest.adAdapterVersion,
+                YBConstantsRequest.adInsertionType,
                 YBConstantsRequest.extraparam1,
                 YBConstantsRequest.extraparam2,
                 YBConstantsRequest.extraparam3,
@@ -200,7 +201,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        ],
                        YBConstantsYouboraService.adError: [adStartParams arrayByAddingObjectsFromArray:@[YBConstantsRequest.adTotalDuration,YBConstantsRequest.adPlayhead]],
                        YBConstantsYouboraService.adManifest: @[YBConstantsRequest.givenBreaks, YBConstantsRequest.expectedBreaks, YBConstantsRequest.expectedPattern, YBConstantsRequest.breaksTime],
-                       YBConstantsYouboraService.adBreakStart: @[YBConstantsRequest.position, YBConstantsRequest.givenAds, YBConstantsRequest.expectedAds],
+                       YBConstantsYouboraService.adBreakStart: @[YBConstantsRequest.position, YBConstantsRequest.givenAds, YBConstantsRequest.expectedAds, YBConstantsRequest.adInsertionType],
                        YBConstantsYouboraService.adBreakStop: @[YBConstantsRequest.position, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.adQuartile: @[YBConstantsRequest.position, YBConstantsRequest.adViewedDuration, YBConstantsRequest.adViewability, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.ping: @[
@@ -487,6 +488,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAdMetadata];
     } else if ([param isEqualToString:YBConstantsRequest.adAdapterVersion]){
         value = [self.plugin getAdAdapterVersion];
+    } else if ([param isEqualToString:YBConstantsRequest.adInsertionType]){
+        value = [self.plugin getAdInsertionType];
     } else if ([param isEqualToString:YBConstantsRequest.pluginInfo]){
         value = [self.plugin getPluginInfo];
     } else if ([param isEqualToString:YBConstantsRequest.isp]){

@@ -105,6 +105,7 @@ import Foundation
     static public let adPlayerVersion = "adPlayerVersion"
     static public let adProperties = "adProperties"
     static public let adAdapterVersion = "adAdapterVersion"
+    static public let adInsertionType = "adInsertionType"
     static public let extraparam1 = "extraparam1"
     static public let extraparam2 = "extraparam2"
     static public let extraparam3 = "extraparam3"
@@ -160,6 +161,12 @@ import Foundation
     static public let parentId = "parentId"
     static public let totalBytes = "totalBytes"
     static public let linkedViewId = "linkedViewId"
+}
+
+// YBConstants with ad insertion types
+@objcMembers open class YBConstantsAdInsertionType: NSObject {
+    static public let clientSide = "csai"
+    static public let serverSide = "ssai"
 }
 
 // YBConstants with stream protocols
