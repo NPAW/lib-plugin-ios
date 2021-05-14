@@ -1,3 +1,7 @@
+## [6.5.41] - 2021-05-14
+### Changed
+- Nil values of 'playhead' and 'mediaDuration' when content is live
+
 ## [6.5.40] - 2021-05-06
 ### Changed
 -  'adViewability' and 'adViewedDuration' to milliseconds

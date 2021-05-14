@@ -2532,6 +2532,11 @@
         }
     }
     
+    if ([[self getIsLive] isEqualToValue:@YES]) {
+        params[@"mediaDuration"] = nil;
+        params[@"playhead"] = nil;
+    }
+    
     if (self.comm != nil && params != nil && self.options.enabled) {
         YBRequest * r = [self createRequestWithHost:nil andService:service];
         r.params = params;
