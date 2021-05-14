@@ -1,4 +1,7 @@
 ## [6.5.41] - 2021-05-14
+### Added
+- New dimension for ads that defines its type of ad insertion
+
 ### Changed
 - Nil values of 'playhead' and 'mediaDuration' when content is live
 
