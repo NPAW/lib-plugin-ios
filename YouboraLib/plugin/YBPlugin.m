@@ -1454,6 +1454,19 @@
     return val;
 }
 
+- (NSString *) getAdInsertionType {
+    NSString * val = nil;
+    if (self.adsAdapter != nil) {
+        @try {
+            val = [self.adsAdapter getAdInsertionType];
+        } @catch (NSException *exception) {
+            [YBLog warn:@"An error occurred while calling ad getAdInsertionType"];
+            [YBLog logException:exception];
+        }
+    }
+    return val;
+}
+
 - (NSString *) getAdMetadata {
     return [YBYouboraUtils stringifyDictionary:self.options.adMetadata];
 }

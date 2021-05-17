@@ -385,6 +385,13 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
 - (nullable NSString *) getAdProvider;
 
 /**
+ * Override to return ad insertion typer
+ *
+ * @return string with ad insertion type
+ */
+- (nullable NSString *) getAdInsertionType;
+
+/**
 * Override to return audio codec
 *
 * @return string with audio codec

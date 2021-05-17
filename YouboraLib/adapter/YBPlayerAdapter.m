@@ -230,6 +230,10 @@
     return nil;
 }
 
+- (NSString *) getAdInsertionType {
+    return nil;
+}
+
 - (NSNumber *) getExpectedAds {
     return nil;
 }

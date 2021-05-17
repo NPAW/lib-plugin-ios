@@ -1133,6 +1133,11 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getAdGivenAds;
 
 /**
+ * Returns ad insertion type
+ */
+- (nullable NSString *) getAdInsertionType;
+
+/**
  * Returns current ad break playing
  */
 - (nullable NSString *) getAdBreakNumber;
