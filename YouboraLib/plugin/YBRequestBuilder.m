@@ -192,7 +192,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.adPause: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.adResume: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adPauseDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
                        YBConstantsYouboraService.adBuffer: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBufferDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
-                       YBConstantsYouboraService.adStop: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBitrate, YBConstantsRequest.adTotalDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
+                       YBConstantsYouboraService.adStop: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBitrate, YBConstantsRequest.adTotalDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber, YBConstantsRequest.adViewedDuration, YBConstantsRequest.adViewability],
                        YBConstantsYouboraService.click: @[
                                YBConstantsRequest.position,
                                YBConstantsRequest.adPlayhead,
