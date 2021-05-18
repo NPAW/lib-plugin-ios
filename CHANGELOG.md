@@ -1,3 +1,7 @@
+## [6.5.42] - 2021-05-17
+### Added
+-  'adViewability' and 'adViewedDuration' to adStop request
+
 ## [6.5.41] - 2021-05-14
 ### Added
 - New dimension for ads that defines its type of ad insertion
