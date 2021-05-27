@@ -1,3 +1,7 @@
+## [6.5.43] - 2021-05-27
+### Fixed
+-  Options to define fatal, non fatal and ignore errors 
+
 ## [6.5.42] - 2021-05-17
 ### Added
 -  'adViewability' and 'adViewedDuration' to adStop request
