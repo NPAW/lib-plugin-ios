@@ -542,7 +542,7 @@
     NSString *message = params[YBConstantsErrorParams.message];
     NSString *code = params[YBConstantsErrorParams.code];
     
-    if (![self.errorHandler isNewErrorWithMessage:message code:code]) {
+    if (![self.errorHandler isNewErrorWithMessage:message code:code] || [YBYouboraUtils containsStringWithArray:self.plugin.options.ignoreErrors value:code]) {
         return;
     }
     
@@ -552,14 +552,19 @@
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
         [delegate youboraAdapterEventError:params fromAdapter:self];
     }
+    
+    // Fire stop case the error was found in the fatal errors
+    if ([YBYouboraUtils containsStringWithArray:self.plugin.options.fatalErrors value:code]) {
+        [self fireStop];
+    }
 }
 
 - (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
     [self fireError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:nil]];
 }
 
-- (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception{
-    
+- (void) fireErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata andException:(nullable NSException *)exception {
+    [self fireErrorWithMessage:msg code:code andMetadata:errorMetadata];
 }
 
 - (void)fireFatalError:(NSDictionary<NSString *,NSString *> *)params {
@@ -569,18 +574,28 @@
     } else {
         mutParams = [NSMutableDictionary dictionary];
     }
+    
+    NSString *code = params[YBConstantsErrorParams.code];
+    
+    // Ignore error because this error is on the list to be ignored
+    if ([YBYouboraUtils containsStringWithArray:self.plugin.options.ignoreErrors value:code]) {
+        return;
+    }
+    
     //mutParams[@"errorLevel"] = @"fatal";
     [self fireError:mutParams];
-    [self fireStop];
+    
+    if (![YBYouboraUtils containsStringWithArray:self.plugin.options.nonFatalErrors value:code]) {
+        [self fireStop];
+    }
 }
 
 - (void) fireFatalErrorWithMessage:(nullable NSString *) msg code:(nullable NSString *) code andMetadata:(nullable NSString *) errorMetadata {
     [self fireFatalError:[YBYouboraUtils buildErrorParamsWithMessage:msg code:code metadata:errorMetadata andLevel:@""]];
-    [self fireStop];
 }
 
 - (void) fireFatalErrorWithMessage:(NSString *)msg code:(NSString *)code andMetadata:(NSString *)errorMetadata andException:(NSException *)exception{
-    
+    [self fireFatalErrorWithMessage:msg code:code andMetadata:errorMetadata];
 }
 
 - (void) fireClick{
