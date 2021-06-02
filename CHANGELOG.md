@@ -1,3 +1,7 @@
+## [6.5.44] - 2021-06-02
+### Added
+-  Method to handle fire stop when there are post-roll ads
+
 ## [6.5.43] - 2021-05-27
 ### Fixed
 -  Options to define fatal, non fatal and ignore errors 
