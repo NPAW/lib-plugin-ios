@@ -1727,6 +1727,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * @param listener to remove
  */
 - (void) removeWillSendVideoEventListener:(YBWillSendRequestBlock) listener;
+
+/**
+ * Check if there is no post-roll ad to send stop
+ */
+- (BOOL)isStopReady;
+
 @end
 
 NS_ASSUME_NONNULL_END;

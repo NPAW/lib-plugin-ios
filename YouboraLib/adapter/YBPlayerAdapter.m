@@ -479,34 +479,36 @@
 }
 
 - (void)fireStop:(NSDictionary<NSString *,NSString *> *)params {
-    if (self.flags.started || self.flags.adInitiated) {
-        if (self.monitor != nil) {
-            [self.monitor stop];
-        }
-        bool wasPaused = self.flags.paused;
-        [self.flags reset];
-        
-        if(self.plugin != nil){
-            //We inform of the pauseDuration here to save it before the reset
-            if([self.plugin getPauseDuration] > 0 && wasPaused){
-                if(params == nil){
-                    params = [[NSDictionary alloc] init];
-                }
-                NSMutableDictionary *mutableParams = [[NSMutableDictionary alloc] initWithDictionary:params];
-                mutableParams[YBConstantsRequest.pauseDuration] = [NSString stringWithFormat:@"%lld",[self.chronos.pause getDeltaTime]];
-                params = [[NSDictionary alloc] initWithDictionary:mutableParams];
+    if (self == self.plugin.adsAdapter || [self.plugin isStopReady]) {
+        if (self.flags.started || self.flags.adInitiated) {
+            if (self.monitor != nil) {
+                [self.monitor stop];
             }
-        }
-        
-        [self.chronos.total stop];
-        [self.chronos.join reset];
-        [self.chronos.pause reset];
-        [self.chronos.buffer reset];
-        [self.chronos.seek reset];
-        [self.chronos.adInit reset];
-        
-        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
-            [delegate youboraAdapterEventStop:params fromAdapter:self];
+            bool wasPaused = self.flags.paused;
+            [self.flags reset];
+            
+            if(self.plugin != nil){
+                //We inform of the pauseDuration here to save it before the reset
+                if([self.plugin getPauseDuration] > 0 && wasPaused){
+                    if(params == nil){
+                        params = [[NSDictionary alloc] init];
+                    }
+                    NSMutableDictionary *mutableParams = [[NSMutableDictionary alloc] initWithDictionary:params];
+                    mutableParams[YBConstantsRequest.pauseDuration] = [NSString stringWithFormat:@"%lld",[self.chronos.pause getDeltaTime]];
+                    params = [[NSDictionary alloc] initWithDictionary:mutableParams];
+                }
+            }
+            
+            [self.chronos.total stop];
+            [self.chronos.join reset];
+            [self.chronos.pause reset];
+            [self.chronos.buffer reset];
+            [self.chronos.seek reset];
+            [self.chronos.adInit reset];
+            
+            for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+                [delegate youboraAdapterEventStop:params fromAdapter:self];
+            }
         }
     }
 }

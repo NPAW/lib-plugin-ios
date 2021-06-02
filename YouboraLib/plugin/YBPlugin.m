@@ -50,6 +50,7 @@
 @property(nonatomic, assign) bool isInitiated;
 @property(nonatomic, assign) bool isPreloading;
 @property(nonatomic, assign) bool isAdStarted;
+@property(nonatomic, assign) int playedPostrolls;
 @property(nonatomic, strong) YBChrono * preloadChrono;
 @property(nonatomic, strong) YBChrono * iinitChrono;
 @property(nonatomic, strong) YBChrono * backgroundInfinity;
@@ -129,6 +130,7 @@
         };
         self.isBackgroundListenerRegistered = false;
         self.errorHandler = [[YBErrorHandler alloc] initWithSecondsToClean:5];
+        self.playedPostrolls = 0;
         self.isInitiated = false;
         self.isPreloading = false;
         self.isStarted = false;
@@ -2835,6 +2837,56 @@
     [self reset];
 }
 
+- (BOOL)isStopReady {
+    double lastMediaDuration = [self.requestBuilder.lastSent[YBConstantsRequest.mediaDuration] doubleValue];
+    // this solution is only for the case of:
+    if (!self.requestBuilder.lastSent[YBConstantsRequest.live] // VOD, live have no postrolls
+        && self.adsAdapter != nil // having ads adapter connected
+        && self.adapter != nil // playhead close to the end of the content (or 0 because is already restarted)
+        && (![self getPlayhead] || [self getPlayhead].doubleValue >= lastMediaDuration - 1)) {
+        int expectedPostrolls = 0;
+        NSDictionary * pat = self.options.adExpectedPattern;
+        NSArray *breaks = self.requestBuilder.lastSent[YBConstantsRequest.breaksTime];
+        if (!breaks) {
+            NSString *str = [self getAdBreaksTime];
+            NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"[] "];
+            breaks = [[[str componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""] componentsSeparatedByString:@","];
+        }
+        // We can get the expectedPostrolls from the expected pattern if it has postrolls defined
+        if (pat && [pat objectForKey:YBOptionKeys.adPositionPost] && [pat objectForKey:YBOptionKeys.adPositionPost][0]) {
+            expectedPostrolls = [[pat objectForKey:YBOptionKeys.adPositionPost][0] intValue];
+        }
+        // If not, while playing postrolls after adbreakstart we can get the givenAds
+        else if (breaks) {
+            NSString * position = self.requestBuilder.lastSent[YBConstantsRequest.position];
+            if (position != nil && [position isEqualToString:@"post"]) {
+                expectedPostrolls = [self.requestBuilder.lastSent[YBConstantsRequest.givenAds] intValue];
+            }
+            // Or before playing postrolls, at least, we can check using breaksTime (from adManifest event) if we expect at least 1 postroll
+            if (!expectedPostrolls && breaks) {
+                if (breaks.count > 0 && lastMediaDuration) { // If there is no duration probably is a live content, so no postrolls
+                    int lastTimePosition = [[breaks lastObject] intValue];
+                    if (lastTimePosition + 1 >= lastMediaDuration) {
+                        expectedPostrolls = 1;
+                    }
+                }
+                
+            }
+        }
+        // If none of the previous solutions found anything, we assume we have no postrolls
+        else {
+            return YES;
+        }
+        // Finally, if the number of played postrolls is the same (or more) than the expected, we can close the view
+        if (expectedPostrolls <= self.playedPostrolls) {
+            return YES;
+        }
+    } else {
+        return YES;
+    }
+    return NO;
+}
+
 // Ads
 - (void) adInitListener:(NSDictionary<NSString *, NSString *> *) params{
     if(self.adsAdapter != nil && self.adsAdapter != nil){
@@ -3357,7 +3409,20 @@
     if (adapter == self.adapter) {
         [self stopListener:params];
     } else if (adapter == self.adsAdapter) {
-        [self adStopListener:params];
+        // If its a stop for a postroll we check if we can detect if its the last one to call view stop
+        if ([self.requestBuilder.lastSent[YBConstantsRequest.position] isEqualToString:@"post"]) {
+            NSDictionary * pat = self.options.adExpectedPattern;
+            NSNumber * givenAds = self.requestBuilder.lastSent[YBConstantsRequest.givenAds];
+            ++self.playedPostrolls;
+            if ((givenAds && [givenAds intValue] <= self.playedPostrolls) // If we know the amount of postrolls and this was the last one
+                || (!givenAds && pat && [pat objectForKey:YBOptionKeys.adPositionPost] && [pat objectForKey:YBOptionKeys.adPositionPost][0] && [[pat objectForKey:YBOptionKeys.adPositionPost][0] intValue] <= self.playedPostrolls)) // Or if we have expected (and not given!) and this was the last expected one
+            {
+                [self adStopListener:params];
+                [self fireStop];
+            }
+        } else {
+            [self adStopListener:params];
+        }
     }
 }
 
