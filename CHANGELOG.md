@@ -1,4 +1,7 @@
 ## [6.5.44] - 2021-06-02
+### Fixed
+-  'adViewability' and 'adViewedDuration' methods
+
 ### Added
 -  Method to handle fire stop when there are post-roll ads
 

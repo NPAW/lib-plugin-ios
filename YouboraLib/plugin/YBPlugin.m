@@ -1563,8 +1563,16 @@
     NSNumber * val = nil;
     if (self.adsAdapter != nil) {
         @try {
-            val = [self.adsAdapter getAdViewedDuration] != nil ? [self.adsAdapter getAdViewedDuration] : [self.adsAdapter getPlayhead];
-            val = [NSNumber numberWithDouble:(val.doubleValue * 1000)];
+            double summatory = 0;
+            YBPlaybackChronos *chronos = [self.adsAdapter chronos];
+            if (!chronos.adViewedPeriods || !chronos.adViewedPeriods.count) {
+                summatory = [chronos.adViewability getDeltaTime:false];
+            } else {
+                for (NSNumber *period in self.adsAdapter.chronos.adViewedPeriods) {
+                    summatory = summatory * period.doubleValue;
+                }
+            }
+            val = [NSNumber numberWithDouble:(summatory)];
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
             [YBLog logException:exception];
@@ -1577,8 +1585,18 @@
     NSNumber * val = nil;
     if (self.adsAdapter != nil) {
         @try {
-            val = [self.adsAdapter getAdViewability] != nil ? [self.adsAdapter getAdViewability] : [self.adsAdapter getPlayhead];
-            val = [NSNumber numberWithDouble:(val.doubleValue * 1000)];
+            double biggestValue = 0;
+            YBPlaybackChronos *chronos = [self.adsAdapter chronos];
+            if (!chronos.adViewedPeriods || !chronos.adViewedPeriods.count) {
+                biggestValue = [chronos.adViewability getDeltaTime:false];
+            } else {
+                for (NSNumber *period in self.adsAdapter.chronos.adViewedPeriods) {
+                    if (period.doubleValue > biggestValue) {
+                        biggestValue = period.doubleValue;
+                    }
+                }
+            }
+            val = [NSNumber numberWithDouble:(biggestValue)];
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
             [YBLog logException:exception];
@@ -3155,6 +3173,8 @@
 
 - (void) sendAdStop:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adStop];
+    [self.adsAdapter.chronos.adViewedPeriods removeAllObjects];
+    [self.adsAdapter.chronos.adViewability reset];
     mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
     mutParams[YBConstantsRequest.breakNumber] = self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
     [self sendWithCallbacks:self.willSendAdStopListeners service:YBConstantsYouboraService.adStop andParams:mutParams];

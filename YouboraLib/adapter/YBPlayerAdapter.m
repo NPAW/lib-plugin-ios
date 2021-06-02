@@ -278,12 +278,13 @@
 
 - (void)fireAdInit: (nullable NSDictionary<NSString *,NSString *> *)params {
     
-    if(!self.flags.adInitiated){
+    if (!self.flags.adInitiated) {
         self.flags.adInitiated = true;
         
         [self.chronos.adInit start];
         [self.chronos.join start];
         [self.chronos.total start];
+        [self.chronos.adViewability start];
     }
     
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
@@ -325,6 +326,10 @@
         
         self.flags.joined = true;
         [self.chronos.join stop];
+        
+        if (self == self.plugin.adsAdapter) {
+            [self.chronos.adViewability start];
+        }
         
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventJoin:params fromAdapter:self];
@@ -505,6 +510,7 @@
             [self.chronos.buffer reset];
             [self.chronos.seek reset];
             [self.chronos.adInit reset];
+            [self.chronos.adViewedPeriods addObject:[NSNumber numberWithDouble:[self.chronos.adViewability stop]]];
             
             for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
                 [delegate youboraAdapterEventStop:params fromAdapter:self];
