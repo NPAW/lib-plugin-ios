@@ -42,10 +42,7 @@
 @property (nonatomic, strong) YBChrono * adInit;
 
 /** Chrono for the ad viewability */
-@property (nonatomic, strong) YBChrono * adViewability;
-
-/** Chrono for the ad viewability */
-@property (nonatomic, strong) NSMutableArray<NSNumber *> * adViewedPeriods;
+@property (nonatomic, strong) NSMutableArray<YBChrono *> * adViewedPeriods;
 
 /// ---------------------------------
 /// @name Public methods

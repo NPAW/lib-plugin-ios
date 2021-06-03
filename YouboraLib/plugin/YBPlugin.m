@@ -1563,16 +1563,11 @@
     NSNumber * val = nil;
     if (self.adsAdapter != nil) {
         @try {
-            double summatory = 0;
-            YBPlaybackChronos *chronos = [self.adsAdapter chronos];
-            if (!chronos.adViewedPeriods || !chronos.adViewedPeriods.count) {
-                summatory = [chronos.adViewability getDeltaTime:false];
-            } else {
-                for (NSNumber *period in self.adsAdapter.chronos.adViewedPeriods) {
-                    summatory = summatory * period.doubleValue;
-                }
+            long long summatory = 0;
+            for (YBChrono *chrono in self.adsAdapter.chronos.adViewedPeriods) {
+                summatory = summatory + [chrono getDeltaTime:false];
             }
-            val = [NSNumber numberWithDouble:(summatory)];
+            val = [NSNumber numberWithLongLong:summatory];
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
             [YBLog logException:exception];
@@ -1585,18 +1580,11 @@
     NSNumber * val = nil;
     if (self.adsAdapter != nil) {
         @try {
-            double biggestValue = 0;
-            YBPlaybackChronos *chronos = [self.adsAdapter chronos];
-            if (!chronos.adViewedPeriods || !chronos.adViewedPeriods.count) {
-                biggestValue = [chronos.adViewability getDeltaTime:false];
-            } else {
-                for (NSNumber *period in self.adsAdapter.chronos.adViewedPeriods) {
-                    if (period.doubleValue > biggestValue) {
-                        biggestValue = period.doubleValue;
-                    }
-                }
+            long long biggestValue = 0;
+            for (YBChrono *chrono in self.adsAdapter.chronos.adViewedPeriods) {
+                biggestValue = MAX([chrono getDeltaTime:false], biggestValue);
             }
-            val = [NSNumber numberWithDouble:(biggestValue)];
+            val = [NSNumber numberWithLongLong:(biggestValue)];
         } @catch (NSException *exception) {
             [YBLog warn:@"An error occurred while calling ad isAdSkippable"];
             [YBLog logException:exception];
@@ -2932,6 +2920,10 @@
         }
     }
     
+    if (self.adsAdapter != nil) {
+        self.adsAdapter.chronos.adViewedPeriods = [[NSMutableArray alloc] init];
+    }
+    
     [self.adsAdapter fireAdBreakStart];
     if ([self getAdDuration] != nil && [self getAdTitle] != nil && [self getAdResource] != nil
         && !self.adsAdapter.flags.adInitiated) {
@@ -2945,19 +2937,23 @@
     if (self.adsAdapter.flags.adInitiated && !self.isAdStarted) {
         [self sendAdStart:params];
     }
+    [self.adsAdapter startChronoView];
     [self sendAdJoin:params];
 }
 
 
 - (void) adPauseListener:(NSDictionary<NSString *, NSString *> *) params {
+    [self.adsAdapter stopChronoView];
     [self sendAdPause:params];
 }
 
 - (void) adResumeListener:(NSDictionary<NSString *, NSString *> *) params {
+    [self.adsAdapter startChronoView];
     [self sendAdResume:params];
 }
 
 - (void) adBufferBeginListener:(NSDictionary<NSString *, NSString *> *) params {
+    [self.adsAdapter stopChronoView];
     if (self.adsAdapter != nil && self.adsAdapter.flags.paused) {
         [self.adsAdapter.chronos.pause reset];
     }
@@ -2965,12 +2961,14 @@
 }
 
 - (void) adBufferEndListener:(NSDictionary<NSString *, NSString *> *) params {
+    [self.adsAdapter startChronoView];
     [self sendAdBufferEnd:params];
 }
 
 - (void) adStopListener:(NSDictionary<NSString *, NSString *> *) params {
-    // Remove time from joinDuration, "delaying" the start time
+    [self.adsAdapter stopChronoView];
     
+    // Remove time from joinDuration, "delaying" the start time
     if (!(self.adapter != nil && self.adapter.flags.joined) && self.adsAdapter != nil) {
         long long now = [[[YBChrono alloc] init] now];
         //YBChrono* realJoinChrono = self.isInitiated ? self.iinitChrono : self.adapter.chronos.join;
@@ -2995,6 +2993,7 @@
 }
 
 - (void) clickListener:(NSDictionary<NSString *, NSString *> *) params {
+    [self.adsAdapter stopChronoView];
     [self sendClick:params];
 }
 
@@ -3173,8 +3172,6 @@
 
 - (void) sendAdStop:(NSDictionary<NSString *, NSString *> *) params {
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adStop];
-    [self.adsAdapter.chronos.adViewedPeriods removeAllObjects];
-    [self.adsAdapter.chronos.adViewability reset];
     mutParams[YBConstantsRequest.adNumber] = self.requestBuilder.lastSent[YBConstantsRequest.adNumber];
     mutParams[YBConstantsRequest.breakNumber] = self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
     [self sendWithCallbacks:self.willSendAdStopListeners service:YBConstantsYouboraService.adStop andParams:mutParams];

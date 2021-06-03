@@ -29,7 +29,6 @@
     self.total = [YBChrono new];
     
     self.adInit = [YBChrono new];
-    self.adViewability = [YBChrono new];
 }
 
 @end

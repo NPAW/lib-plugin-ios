@@ -696,6 +696,16 @@ typedef NS_ENUM(NSUInteger, YBAdManifestError) {
  */
 - (void) removeYouboraAdapterDelegate:(id<YBPlayerAdapterEventDelegate>) delegate;
 
+/**
+ * Starts a new chrono for adViewedPeriods
+ */
+- (void) startChronoView;
+
+/**
+ * Stops the chrono for the last adViewedPeriod
+ */
+- (void) stopChronoView;
+
 @end
 
 /**

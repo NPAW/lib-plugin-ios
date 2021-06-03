@@ -284,7 +284,6 @@
         [self.chronos.adInit start];
         [self.chronos.join start];
         [self.chronos.total start];
-        [self.chronos.adViewability start];
     }
     
     for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
@@ -326,10 +325,6 @@
         
         self.flags.joined = true;
         [self.chronos.join stop];
-        
-        if (self == self.plugin.adsAdapter) {
-            [self.chronos.adViewability start];
-        }
         
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventJoin:params fromAdapter:self];
@@ -510,11 +505,12 @@
             [self.chronos.buffer reset];
             [self.chronos.seek reset];
             [self.chronos.adInit reset];
-            [self.chronos.adViewedPeriods addObject:[NSNumber numberWithDouble:[self.chronos.adViewability stop]]];
             
             for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
                 [delegate youboraAdapterEventStop:params fromAdapter:self];
             }
+            
+            [self.chronos.adViewedPeriods removeAllObjects];
         }
     }
 }
@@ -721,6 +717,25 @@
 - (void)removeYouboraAdapterDelegate:(id<YBPlayerAdapterEventDelegate>)delegate {
     if (delegate != nil && self.eventDelegates != nil) {
         [self.eventDelegates removeObject:delegate];
+    }
+}
+
+- (void) startChronoView {
+    if (self == self.plugin.adsAdapter) {
+        NSMutableArray<YBChrono *> *periods = self.chronos.adViewedPeriods;
+        if ((!periods || !periods.count) || [[periods lastObject] stopTime] != 0) {
+            [periods insertObject:[YBChrono new] atIndex:periods.count];
+            [[periods lastObject] start];
+        }
+    }
+}
+
+- (void) stopChronoView {
+    if (self == self.plugin.adsAdapter) {
+        NSMutableArray<YBChrono *> *periods = self.chronos.adViewedPeriods;
+        if ([periods firstObject] && periods.count > 0 && [[periods lastObject] stopTime] == 0) {
+            [[periods lastObject] stop];
+        }
     }
 }
 
