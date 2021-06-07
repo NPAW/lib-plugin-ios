@@ -3436,6 +3436,8 @@
             {
                 [self adStopListener:params];
                 [self fireStop];
+            } else {
+                [self adStopListener:params];
             }
         } else {
             [self adStopListener:params];
