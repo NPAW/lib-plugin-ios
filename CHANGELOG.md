@@ -1,3 +1,8 @@
+## [6.5.45] - 2021-06-07
+### Fixed
+-  Parse cdn for akamai now uses head instead of get request
+- adStop method with post-roll ads
+
 ## [6.5.44] - 2021-06-02
 ### Fixed
 -  'adViewability' and 'adViewedDuration' methods
