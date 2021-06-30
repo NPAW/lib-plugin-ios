@@ -38,7 +38,7 @@ private struct ParseResponse {
     
     private func obtainInfo(data: Data?, response: HTTPURLResponse?, listenerParents: [String: AnyObject]?) -> ParseResponse? {
         guard let data = data,
-            let resultData = String(data: data, encoding: .utf8),
+              let resultData = String(data: data, encoding: .utf8)?.replacingOccurrences(of: ",URI=", with: "\n").replacingOccurrences(of: "\"", with: ""),
             let resource = self.resource else {
                 return nil
         }
