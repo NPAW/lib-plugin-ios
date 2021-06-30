@@ -1,5 +1,6 @@
 ## [6.5.46] - 2021-06-30
 ### Added
+- Parser for hls manifests with multiple variables instead of only an url
 - `ObfuscateIP` parameter reported on session start
 - Case insensitive for akamai cdn type parser
 - Test for akamai cdn parse when using head instead of get request
