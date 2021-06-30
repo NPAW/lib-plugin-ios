@@ -347,6 +347,27 @@
     XCTAssertEqualObjects(@"AKAMAI", parser.cdnName);
 }
 
+- (void)testAkamai2 {
+    YBCdnParser * parser = [YBCdnParser createWithName:YouboraCDNNameAkamai];
+    
+    NSDictionary * request = @{@"Pragma":@"akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id,akamai-x-get-nonces,akamai-x-get-client-ip,akamai-x-feo-trace"};
+        
+    NSMutableDictionary * response = [[NSMutableDictionary alloc] init];
+    response[@"Akamai-Mon-Iucid-Del"] = @"1182835";
+    
+    response[@"Akamai-Cache-Status"] = @"Miss from child, Miss from parent";
+
+    NSDictionary * responses = @{request:response};
+    
+    [parser parseWithUrl:@"resource" andPreviousResponses:responses];
+    
+    // Check successful parsing
+    XCTAssertEqual(YBCdnTypeMiss, parser.cdnNodeType);
+    XCTAssertEqualObjects(@"1182835", parser.cdnNodeHost);
+    XCTAssertEqualObjects(@"Miss", parser.cdnNodeTypeString);
+    XCTAssertEqualObjects(@"AKAMAI", parser.cdnName);
+}
+
 - (void)testAmazon {
     YBCdnParser * parser = [YBCdnParser createWithName:YouboraCDNNameAmazon];
     
