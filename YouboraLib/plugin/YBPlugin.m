@@ -3461,7 +3461,7 @@
     if (adapter == self.adapter) {
         [self bufferBeginListener:params];
     } else if (adapter == self.adsAdapter) {
-        [self adBufferEndListener:params];
+        [self adBufferBeginListener:params];
     }
 }
 
