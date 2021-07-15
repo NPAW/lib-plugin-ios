@@ -1,3 +1,7 @@
+## [6.5.47] - 2021-07-15
+### Fixed
+- AdBufferUnderrun called when buffer ends instead of when buffer begins
+
 ## [6.5.46] - 2021-06-30
 ### Added
 - Parser for hls manifests with multiple variables instead of only an url
