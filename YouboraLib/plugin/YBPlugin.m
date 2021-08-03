@@ -2853,11 +2853,10 @@
         int expectedPostrolls = 0;
         NSDictionary * pat = self.options.adExpectedPattern;
         NSArray *breaks = self.requestBuilder.lastSent[YBConstantsRequest.breaksTime];
-        if (!breaks) {
-            NSString *str = [self getAdBreaksTime];
-            NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"[] "];
-            breaks = [[[str componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""] componentsSeparatedByString:@","];
-        }
+        NSString *str = [breaks description];
+        if (!breaks) { str = [self getAdBreaksTime]; }
+        NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"[] "];
+        breaks = [[[str componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""] componentsSeparatedByString:@","];
         // We can get the expectedPostrolls from the expected pattern if it has postrolls defined
         if (pat && [pat objectForKey:YBOptionKeys.adPositionPost] && [pat objectForKey:YBOptionKeys.adPositionPost][0]) {
             expectedPostrolls = [[pat objectForKey:YBOptionKeys.adPositionPost][0] intValue];

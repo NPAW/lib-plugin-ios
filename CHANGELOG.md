@@ -1,3 +1,7 @@
+## [6.5.48] - 2021-08-03
+### Fixed
+- Ad breaks parsing when calculating if should close view in a post-roll ad
+
 ## [6.5.47] - 2021-07-15
 ### Fixed
 - AdBufferUnderrun called when buffer ends instead of when buffer begins
