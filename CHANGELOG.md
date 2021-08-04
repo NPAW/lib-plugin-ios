@@ -1,3 +1,7 @@
+## [6.5.49] - 2021-08-04
+### Added
+- Additional case for `parseResource` when manifest is redirected and can't access to Location header
+
 ## [6.5.48] - 2021-08-03
 ### Fixed
 - Ad breaks parsing when calculating if should close view in a post-roll ad

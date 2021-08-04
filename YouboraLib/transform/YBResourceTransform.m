@@ -164,6 +164,11 @@
             [self parse:[self getNextParser:parser] currentResource:resource userDefinedTransportFormat:definedTransportFormat];
         } else {
             NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams];
+            
+            if (!newResource && response.URL.absoluteString != resource) {
+                newResource = response.URL.absoluteString;
+            }
+            
             NSString *transportFormat = [parser parseTransportFormatWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams userDefinedTransportFormat: definedTransportFormat];
             
             if (transportFormat) {
