@@ -1019,6 +1019,11 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, strong) NSString * _Nullable contentCustomDimension20;
 
 /**
+ * Custom dimensions object.
+ */
+@property(nonatomic, strong) NSDictionary * _Nullable contentCustomDimensions;
+
+/**
  * Custom ad dimension 1.
  */
 @property(nonatomic, strong) NSString * _Nullable adCustomDimension1;

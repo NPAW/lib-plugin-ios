@@ -45,6 +45,7 @@ import Foundation
     static public let param18 = "param18"
     static public let param19 = "param19"
     static public let param20 = "param20"
+    static public let dimensions = "dimensions"
     static public let pluginVersion = "pluginVersion"
     static public let pluginInfo = "pluginInfo"
     static public let isp = "isp"
@@ -276,7 +277,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.5.49"
+    static public var youboraLibVersion = "6.5.50"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"

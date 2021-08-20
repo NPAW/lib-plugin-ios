@@ -994,6 +994,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getContentCustomDimension20;
 
 /**
+ * Returns content's customDimensions
+ * @return customDimensions dictionary
+ */
+- (nullable NSString *) getCustomDimensions;
+
+/**
  * Returns content's adCustomDimension1
  * @return adCustomDimension1 value
  */

@@ -1,3 +1,7 @@
+## [6.5.50] - 2021-08-20
+### Added
+- New `contentCustomDimensions` option, as an alternative way to use custom dimensions like `contentCustomDimension1`
+
 ## [6.5.49] - 2021-08-04
 ### Added
 - Additional case for `parseResource` when manifest is redirected and can't access to Location header

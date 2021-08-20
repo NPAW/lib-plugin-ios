@@ -1268,6 +1268,10 @@
     return self.options.contentCustomDimension20;
 }
 
+- (NSString *)getCustomDimensions {
+    return [YBYouboraUtils stringifyDictionary:self.options.contentCustomDimensions];
+}
+
 - (NSString *) getAdCustomDimension1 {
     return self.options.adCustomDimension1;
 }

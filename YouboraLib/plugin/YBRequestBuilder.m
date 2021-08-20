@@ -75,6 +75,7 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.param18,
                 YBConstantsRequest.param19,
                 YBConstantsRequest.param20,
+                YBConstantsRequest.dimensions,
                 YBConstantsRequest.pluginVersion,
                 YBConstantsRequest.pluginInfo,
                 YBConstantsRequest.isp,
@@ -221,7 +222,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        
                        //Infinity
                        YBConstantsYouboraInfinity.sessionStart: @[YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1,                               YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,
-                                                     YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.deviceUUID, YBConstantsRequest.deviceCode,
+                                                     YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.dimensions, YBConstantsRequest.deviceUUID, YBConstantsRequest.deviceCode,
                                                          YBConstantsRequest.obfuscateIp,
                                                          YBConstantsRequest.ip,
                                                          YBConstantsRequest.isp,
@@ -455,6 +456,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getContentCustomDimension19];
     } else if ([param isEqualToString:YBConstantsRequest.param20]){
         value = [self.plugin getContentCustomDimension20];
+    } else if ([param isEqualToString:YBConstantsRequest.dimensions]) {
+        value = [self.plugin getCustomDimensions];
     } else if ([param isEqualToString:YBConstantsRequest.extraparam1]){
         value = [self.plugin getAdCustomDimension1];
     } else if ([param isEqualToString:YBConstantsRequest.extraparam2]){
