@@ -1,5 +1,6 @@
-## [6.5.50] - 2021-08-20
+## [6.6.0] - 2021-08-20
 ### Added
+- New `contentIsLiveNoMonitor` option and functionality
 - New `contentCustomDimensions` option, as an alternative way to use custom dimensions like `contentCustomDimension1`
 
 ## [6.5.49] - 2021-08-04
