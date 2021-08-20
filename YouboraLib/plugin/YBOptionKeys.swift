@@ -69,7 +69,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.contentMetrics: (.unknown, "contentMetrics"),
         YBOptionKeys.sessionMetrics: (.unknown, "sessionMetrics"),
         YBOptionKeys.contentIsLiveNoSeek: (.valueBool, "contentIsLiveNoSeek"),
-        YBOptionKeys.contentIsLiveNoSeek: (.valueBool, "contentIsLiveNoMonitor"),
+        YBOptionKeys.contentIsLiveNoMonitor: (.valueBool, "contentIsLiveNoMonitor"),
         YBOptionKeys.contentPackage: (.string, "contentPackage"),
         YBOptionKeys.contentSaga: (.string, "contentSaga"),
         YBOptionKeys.contentTvShow: (.string, "contentTvShow"),
