@@ -9,7 +9,8 @@
 #import "YBPlayheadMonitor.h"
 #import "YBPlayerAdapter.h"
 #import "YBTimer.h"
-
+#import "YBPlugin.h"
+#import "YBOptions.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 int const YouboraBufferTypeNone = 0;
@@ -63,7 +64,7 @@ double const YB_SEEK_THRESHOLD_RATIO = 2.0;
 
 #pragma mark - Public methods
 - (void) start {
-    if (self.timer != nil) {
+    if (self.timer != nil && [self canBeUsed]) {
         [self.timer start];
     }
 }
@@ -128,6 +129,13 @@ double const YB_SEEK_THRESHOLD_RATIO = 2.0;
 }
 
 #pragma mark - Private methods
+- (BOOL) canBeUsed {
+    if (self.adapter.plugin && [[self.adapter.plugin getIsLive] isEqualToValue:@YES]) {
+        return [self.adapter.plugin.options.contentIsLiveNoMonitor isEqualToValue:@NO];
+    }
+    return true;
+}
+
 - (YBChrono *) createChrono {
     return [YBChrono new];
 }

@@ -153,6 +153,7 @@
     opt.contentStreamingProtocol = YBConstantsStreamProtocol.dash;
     opt.contentMetrics = @{@"contentMetrics":@"contentMetrics"};
     opt.contentIsLiveNoSeek = @(true);
+    opt.contentIsLiveNoMonitor = @(true);
     opt.contentPackage = @"contentPackage";
     opt.contentSaga = @"contentSaga";
     opt.contentTvShow = @"contentTvShow";
@@ -314,6 +315,7 @@
     XCTAssertEqualObjects(opt.contentStreamingProtocol, opt2.contentStreamingProtocol);
     XCTAssertEqualObjects(opt.contentMetrics, opt2.contentMetrics);
     XCTAssertEqualObjects(opt.contentIsLiveNoSeek, opt2.contentIsLiveNoSeek);
+    XCTAssertEqualObjects(opt.contentIsLiveNoMonitor, opt2.contentIsLiveNoMonitor);
     XCTAssertEqualObjects(opt.contentPackage, opt2.contentPackage);
     XCTAssertEqualObjects(opt.contentSaga, opt2.contentSaga);
     XCTAssertEqualObjects(opt.contentTvShow, opt2.contentTvShow);
