@@ -45,6 +45,7 @@ import Foundation
     static public let param18 = "param18"
     static public let param19 = "param19"
     static public let param20 = "param20"
+    static public let dimensions = "dimensions"
     static public let pluginVersion = "pluginVersion"
     static public let pluginInfo = "pluginInfo"
     static public let isp = "isp"

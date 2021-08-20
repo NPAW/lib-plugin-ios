@@ -131,6 +131,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.contentCustomDimension18: (.string, "contentCustomDimension18"),
         YBOptionKeys.contentCustomDimension19: (.string, "contentCustomDimension19"),
         YBOptionKeys.contentCustomDimension20: (.string, "contentCustomDimension20"),
+        YBOptionKeys.contentCustomDimensions: (.string, "contentCustomDimensions"),
         YBOptionKeys.adCustomDimension1: (.string, "adCustomDimension1"),
         YBOptionKeys.adCustomDimension2: (.string, "adCustomDimension2"),
         YBOptionKeys.adCustomDimension3: (.string, "adCustomDimension3"),
@@ -262,6 +263,7 @@ public struct YBOptionUtilsKeys {
     public static let contentCustomDimension18 = "contentCustom.dimension.18"
     public static let contentCustomDimension19 = "contentCustom.dimension.19"
     public static let contentCustomDimension20 = "contentCustom.dimension.20"
+    public static let contentCustomDimensions = "contentCustom.dimensions"
     public static let adCustomDimension1 = "ad.custom.dimension.1"
     public static let adCustomDimension2 = "ad.custom.dimension.2"
     public static let adCustomDimension3 = "ad.custom.dimension.3"
