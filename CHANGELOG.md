@@ -1,3 +1,7 @@
+## [6.6.1] - 2021-09-13
+### Added
+- Edgecast cdn parse
+
 ## [6.6.0] - 2021-08-20
 ### Added
 - New `contentIsLiveNoMonitor` option and functionality
