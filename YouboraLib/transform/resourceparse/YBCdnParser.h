@@ -21,6 +21,7 @@ FOUNDATION_EXPORT NSString * const YouboraCDNNameFastly;
 FOUNDATION_EXPORT NSString * const YouboraCDNNameBalancer;
 FOUNDATION_EXPORT NSString * const YouboraCDNNameTelefonica;
 FOUNDATION_EXPORT NSString * const YouboraCDNNameAmazon;
+FOUNDATION_EXPORT NSString * const YouboraCDNNameEdgecast;
 
 /**
  * Class that asynchronously tries to get information about the CDN where a given resource is
