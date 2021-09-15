@@ -382,6 +382,20 @@
     XCTAssertEqualObjects(@"AMAZON", parser.cdnName);
 }
 
+- (void)testEdgecast {
+    YBCdnParser * parser = [YBCdnParser createWithName:YouboraCDNNameEdgecast];
+    
+    NSDictionary * responses = @{@{}:@{@"Server":@"ECAcc (mdr/67F3)\n",@"X-Cache":@"HIT"}};
+    
+    [parser parseWithUrl:@"resource" andPreviousResponses:responses];
+    
+    // Check successful parsing
+    XCTAssertEqual(YBCdnTypeHit, parser.cdnNodeType);
+    XCTAssertEqualObjects(@"mdr", parser.cdnNodeHost);
+    XCTAssertEqualObjects(@"HIT", parser.cdnNodeTypeString);
+    XCTAssertEqualObjects(@"EDGECAST", parser.cdnName);
+}
+
 #pragma mark - CdnTransformDoneDelegate
 - (void)cdnTransformDone:(YBCdnParser *)cdnParser {
     self.transformDoneBlock(cdnParser);
