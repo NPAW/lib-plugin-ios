@@ -1,3 +1,7 @@
+## [6.6.2] - 2021-09-23
+### Added
+- New `adBlockerDetected` option and functionality
+
 ## [6.6.1] - 2021-09-13
 ### Added
 - Edgecast cdn parse
