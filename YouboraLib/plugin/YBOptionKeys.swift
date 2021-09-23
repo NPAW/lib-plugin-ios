@@ -106,6 +106,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.adCreativeId: (.string, "adCreativeId"),
         YBOptionKeys.adProvider: (.string, "adProvider"),
         YBOptionKeys.background: (.bool, "autoDetectBackground"),
+        YBOptionKeys.adBlockerDetected: (.valueBool, "ad.blockerDetected"),
         YBOptionKeys.offline: (.bool, "offline"),
         YBOptionKeys.anonymousUser: (.string, "anonymousUser"),
         YBOptionKeys.isInfinity: (.valueBool, "isInfinity"),
@@ -164,6 +165,7 @@ public struct YBOptionUtilsKeys {
     public static let offline = "offline"
     public static let isInfinity = "isInfinity"
     public static let background = "autoDetectBackground"
+    public static let adBlockerDetected = "ad.blockerDetected"
     public static let autoStart = "autoStart"
     public static let forceInit = "forceInit"
     public static let userType = "userType"

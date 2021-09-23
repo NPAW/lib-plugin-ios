@@ -25,6 +25,7 @@ import Foundation
     static public let properties = "properties"
     static public let cdn = "cdn"
     static public let playerVersion = "playerVersion"
+    static public let adBlockerDetected = "adsBlocked"
     static public let param1 = "param1"
     static public let param2 = "param2"
     static public let param3 = "param3"
@@ -277,7 +278,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.6.1"
+    static public var youboraLibVersion = "6.6.2"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"

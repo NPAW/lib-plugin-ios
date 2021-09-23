@@ -645,6 +645,13 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, assign) bool autoDetectBackground;
 
 /**
+ * @YES if the current view/session could be affected by an ad blocker.
+ * @NO if there is no ad blocker.
+ * Default: nil.
+ */
+@property(nonatomic, strong) NSValue * _Nullable adBlockerDetected;
+
+/**
  * If true no request will we send and saved for later instead
  */
 @property(nonatomic, assign) bool offline;

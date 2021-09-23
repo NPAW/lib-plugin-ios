@@ -988,6 +988,10 @@
     return val;
 }
 
+- (NSValue *)getAdBlockerDetected {
+    return self.options.adBlockerDetected;
+}
+
 - (NSString *) getExtraparam1 {
     return self.options.extraparam1;
 }

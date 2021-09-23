@@ -574,6 +574,13 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getAdapterVersion;
 
 /**
+ * Returns if the current view/session could be affected by an ad blocker
+ * @return if there is an ad blocker.
+ */
+- (nullable NSValue *) getAdBlockerDetected;
+
+
+/**
  * Returns content's Extraparam1
  * @return extraparam 1 value
  */
