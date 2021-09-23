@@ -76,6 +76,7 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.param19,
                 YBConstantsRequest.param20,
                 YBConstantsRequest.dimensions,
+                YBConstantsRequest.adBlockerDetected,
                 YBConstantsRequest.pluginVersion,
                 YBConstantsRequest.pluginInfo,
                 YBConstantsRequest.isp,
@@ -155,7 +156,8 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.skippable,
                 YBConstantsRequest.breakNumber,
                 YBConstantsRequest.adCreativeId,
-                YBConstantsRequest.adProvider
+                YBConstantsRequest.adProvider,
+                YBConstantsRequest.adBlockerDetected
             ];
             
             NSMutableArray *initParams = [[NSMutableArray alloc] initWithArray:startParams];
@@ -229,7 +231,8 @@ static NSArray<NSString *> * youboraPingEntities;
                                                          YBConstantsRequest.connectionType,
                                                          YBConstantsRequest.userType,
                                                          YBConstantsRequest.deviceInfo,
-                                                         YBConstantsRequest.linkedViewId],
+                                                         YBConstantsRequest.linkedViewId,
+                                                         YBConstantsRequest.adBlockerDetected],
                        YBConstantsYouboraInfinity.sessionStop: @[YBConstantsRequest.accountCode, YBConstantsRequest.sessionMetrics],
                        YBConstantsYouboraInfinity.sessionNav: @[YBConstantsRequest.username, YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.sessionBeat: @[YBConstantsRequest.sessionMetrics],
@@ -694,7 +697,12 @@ static NSArray<NSString *> * youboraPingEntities;
        value = [self.plugin getParentId];
     } else  if ([param isEqualToString:YBConstantsRequest.linkedViewId]) {
         value = [self.plugin getLinkedViewId];
-     }
+     } else  if ([param isEqualToString:YBConstantsRequest.adBlockerDetected]) {
+         NSValue * detected = [self.plugin getAdBlockerDetected];
+         if (detected != nil) {
+             value = [detected isEqual:@YES] ? @"true" : @"false";
+         }
+      }
     
     return value;
 }

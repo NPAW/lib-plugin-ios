@@ -25,6 +25,7 @@ import Foundation
     static public let properties = "properties"
     static public let cdn = "cdn"
     static public let playerVersion = "playerVersion"
+    static public let adBlockerDetected = "adsBlocked"
     static public let param1 = "param1"
     static public let param2 = "param2"
     static public let param3 = "param3"
