@@ -202,7 +202,12 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.adUrl,
                                YBConstantsRequest.playhead
                        ],
-                       YBConstantsYouboraService.adError: [adStartParams arrayByAddingObjectsFromArray:@[YBConstantsRequest.adTotalDuration,YBConstantsRequest.adPlayhead]],
+                       YBConstantsYouboraService.adError: [
+                                                           adStartParams arrayByAddingObjectsFromArray:@[
+                                                               YBConstantsRequest.adTotalDuration,
+                                                               YBConstantsRequest.adPlayhead,
+                                                               YBConstantsRequest.player]
+                                                           ],
                        YBConstantsYouboraService.adManifest: @[YBConstantsRequest.givenBreaks, YBConstantsRequest.expectedBreaks, YBConstantsRequest.expectedPattern, YBConstantsRequest.breaksTime],
                        YBConstantsYouboraService.adBreakStart: @[YBConstantsRequest.position, YBConstantsRequest.givenAds, YBConstantsRequest.expectedAds, YBConstantsRequest.adInsertionType],
                        YBConstantsYouboraService.adBreakStop: @[YBConstantsRequest.position, YBConstantsRequest.breakNumber],
