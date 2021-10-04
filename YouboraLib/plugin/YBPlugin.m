@@ -700,6 +700,7 @@
     if (![self.resourceTransform isBlocking:nil]) {
         val = [self.resourceTransform getResource];
     }
+    val = [self.adapter getURLToParse] ? [self.adapter getURLToParse] : val;
     return [val isEqualToString:[self getOriginalResource]] ? nil : val;
 }
 
