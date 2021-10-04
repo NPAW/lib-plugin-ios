@@ -1,6 +1,7 @@
 ## [6.6.3] - 2021-10-04
 ### Added
 - Player name parameter on adError event
+- `firePause` and `fireResume` when ads start and end
 
 ## [6.6.2] - 2021-09-23
 ### Added

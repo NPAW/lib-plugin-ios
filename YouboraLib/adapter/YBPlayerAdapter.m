@@ -685,6 +685,9 @@
 - (void) fireAdBreakStart:(nullable NSDictionary<NSString *, NSString *> *) params {
     if (!self.flags.adBreakStarted) {
         self.flags.adBreakStarted = true;
+        if (self.plugin.adapter) {
+            [self.plugin.adapter firePause];
+        }
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventAdBreakStart:params fromAdapter:self];
         }
@@ -700,6 +703,9 @@
         self.flags.adBreakStarted = false;
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
             [delegate youboraAdapterEventAdBreakStop:params fromAdapter:self];
+        }
+        if (self.plugin.adapter) {
+            [self.plugin.adapter fireResume];
         }
     }
 }
