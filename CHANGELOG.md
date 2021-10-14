@@ -1,6 +1,6 @@
 ## [6.6.4] - 2021-10-14
 ### Changed
-- Options' namig to match with js plugin
+- Options' naming to match with js plugin
 
 ## [6.6.3] - 2021-10-04
 ### Added
