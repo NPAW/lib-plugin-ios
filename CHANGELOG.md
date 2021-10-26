@@ -1,4 +1,7 @@
-## [6.6.4] - 2021-10-14
+## [6.6.4] - 2021-10-26
+### Fixed
+- Request condition for parse manifest requests
+
 ### Changed
 - Options' naming to match with js plugin
 
