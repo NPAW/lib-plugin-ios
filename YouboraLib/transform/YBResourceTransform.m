@@ -165,7 +165,7 @@
         } else {
             NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams];
             
-            if (!newResource && response.URL.absoluteString != resource) {
+            if (!newResource && ![response.URL.absoluteString isEqualToString:resource]) {
                 newResource = response.URL.absoluteString;
             }
             
