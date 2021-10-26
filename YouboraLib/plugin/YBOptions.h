@@ -207,10 +207,10 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, strong) NSString * _Nullable userEmail;
 
 /**
-* If true the plugin will parse hls, cdn and location
-* It might slow performance down.
-* Default: false
-*/
+ * If true the plugin will parse hls, cdn and location
+ * It might slow performance down.
+ * Default: false
+ */
 @property(nonatomic, assign) bool parseResource;
 
 /**
@@ -387,6 +387,10 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, strong) NSNumber * _Nullable contentBitrate; // long
 
 /**
+ * Total downloaded bytes of the content.
+ */
+@property NSNumber* _Nullable contentTotalBytes;
+/**
  * Flag that indicates if the plugin should send total bytes or not
  */
 @property NSNumber* _Nullable sendTotalBytes;
@@ -427,6 +431,17 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
  * See a list of codes in <a href="http://mapi.youbora.com:8081/cdns">http://mapi.youbora.com:8081/cdns</a>.
  */
 @property(nonatomic, strong) NSString * _Nullable contentCdn;
+
+/**
+ * String with the CDN node id.
+ */
+@property(nonatomic, strong) NSString * _Nullable contentCdnNode;
+
+/**
+ * String with the CDN node content access type.
+ *  It defines if the content request hits the cache or not.
+ */
+@property(nonatomic, strong) NSString * _Nullable contentCdnType;
 
 /**
  * Frames per second of the media being played.

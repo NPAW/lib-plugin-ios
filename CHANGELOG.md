@@ -1,8 +1,13 @@
+## [6.6.4] - 2021-10-14
+### Changed
+- Options' naming to match with js plugin
+
 ## [6.6.3] - 2021-10-04
 ### Added
 - Player name parameter on adError event
 - `firePause` and `fireResume` when ads start and end
 - `URL` obtained directly from the player in `getURLToParse` reported as `parsedResource` if there is no response from the manifest parser feature or is disabled
+
 ## [6.6.2] - 2021-09-23
 ### Added
 - New `adBlockerDetected` option and functionality

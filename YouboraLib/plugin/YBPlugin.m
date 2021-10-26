@@ -585,8 +585,7 @@
 - (NSNumber *) getTotalBytes {
     if (![self isToSendTotalBytes]) { return nil;}
     
-    NSNumber *val;
-    
+    NSNumber * val = self.options.contentTotalBytes;
     if (val == nil && self.adapter != nil) {
         @try {
             val = [self.adapter getTotalBytes];
@@ -1732,11 +1731,19 @@
 }
 
 - (NSString *) getNodeHost {
-    return [self.resourceTransform getNodeHost];
+    NSString * nodeHost = self.options.contentCdnNode;
+    if (nodeHost == nil || [nodeHost length] == 0) {
+        nodeHost = [self.resourceTransform getNodeHost];
+    }
+    return nodeHost;
 }
 
 - (NSString *) getNodeType {
-    return [self.resourceTransform getNodeType];
+    NSString * nodeType = self.options.contentCdnType;
+    if (nodeType == nil || [nodeType length] == 0) {
+        nodeType = [self.resourceTransform getNodeType];
+    }
+    return nodeType;
 }
 
 - (NSString *) getNodeTypeString {
