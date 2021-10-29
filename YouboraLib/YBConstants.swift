@@ -97,6 +97,7 @@ import Foundation
     static public let containerFormat = "containerFormat"
     static public let adsExpected = "adsExpected"
     static public let deviceUUID = "deviceUUID"
+    static public let deviceEDID = "deviceEDID"
     static public let p2pEnabled = "p2pEnabled"
     static public let adTitle = "adTitle"
     static public let playhead = "playhead"

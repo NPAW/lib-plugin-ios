@@ -1891,6 +1891,10 @@
     return nil;
 }
 
+- (NSString *)getDeviceEDID {
+    return self.options.deviceEDID;
+}
+
 - (NSString *) getVideoMetrics {
     NSString * metrics = [YBYouboraUtils stringifyDictionary:[self formatMetricsDict:self.options.contentMetrics]];
     

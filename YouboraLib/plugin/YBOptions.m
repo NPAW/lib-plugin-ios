@@ -203,6 +203,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.deviceOsVersion = [decoder decodeObjectForKey:YBOptionKeys.deviceOsVersion];
         self.deviceIsAnonymous = [[decoder decodeObjectForKey:YBOptionKeys.deviceIsAnonymous] isEqualToValue:@YES];
         self.deviceUUID = [decoder decodeObjectForKey:YBOptionKeys.deviceUUID];
+        self.deviceEDID = [decoder decodeObjectForKey:YBOptionKeys.deviceEDID];
         self.contentResource = [decoder decodeObjectForKey:YBOptionKeys.contentResource];
         self.contentIsLive = [decoder decodeObjectForKey:YBOptionKeys.contentIsLive];
         self.contentTitle = [decoder decodeObjectForKey:YBOptionKeys.contentTitle];
@@ -342,6 +343,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:self.deviceOsVersion forKey:YBOptionKeys.deviceOsVersion];
     [coder encodeObject:@(self.deviceIsAnonymous) forKey:YBOptionKeys.deviceIsAnonymous];
     [coder encodeObject:self.deviceUUID forKey:YBOptionKeys.deviceUUID];
+    [coder encodeObject:self.deviceEDID forKey:YBOptionKeys.deviceEDID];
     [coder encodeObject:self.contentStreamingProtocol forKey:YBOptionKeys.contentStreamingProtocol];
     [coder encodeObject:self.contentTransportFormat forKey:YBOptionKeys.contentTransportFormat];
     [coder encodeObject:self.contentResource forKey:YBOptionKeys.contentResource];
@@ -485,8 +487,8 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.deviceOsVersion = nil;
     self.deviceIsAnonymous = false;
     self.deviceUUID = nil;
-    
-    
+    self.deviceEDID = nil;
+
     self.forceInit = false;
     
     self.contentStreamingProtocol = nil;
@@ -635,6 +637,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.deviceOsVersion forKey:YBOptionKeys.deviceOsVersion];
     [dict setValue:@(self.deviceIsAnonymous) forKey:YBOptionKeys.deviceIsAnonymous];
     [dict setValue:self.deviceUUID forKey: YBOptionKeys.deviceUUID];
+    [dict setValue:self.deviceEDID forKey: YBOptionKeys.deviceEDID];
     [dict setValue:self.contentStreamingProtocol forKey:YBOptionKeys.contentStreamingProtocol];
     [dict setValue:self.contentTransportFormat forKey:YBOptionKeys.contentTransportFormat];
     [dict setValue:self.contentResource forKey:YBOptionKeys.contentResource];
