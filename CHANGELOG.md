@@ -1,3 +1,7 @@
+## [6.6.5] - 2021-10-29
+### Added
+- New `device.EDID` option
+
 ## [6.6.4] - 2021-10-26
 ### Fixed
 - Request condition for parse manifest requests
