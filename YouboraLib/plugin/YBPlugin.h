@@ -1455,6 +1455,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getDeviceUUID;
 
 /**
+ * Retruns EDID
+ * @return Current EDID
+ */
+- (nullable NSString *) getDeviceEDID;
+
+/**
  * Returns the video metrics sent on the pings
  * @return content metrics
  */
