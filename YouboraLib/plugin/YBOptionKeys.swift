@@ -52,6 +52,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.deviceOsVersion: (.string, "deviceOsVersion"),
         YBOptionKeys.deviceIsAnonymous: (.bool, "deviceIsAnonymous"),
         YBOptionKeys.deviceUUID: (.string, "deviceUUID"),
+        YBOptionKeys.deviceEDID: (.string, "deviceEDID"),
         YBOptionKeys.contentResource: (.string, "contentResource"),
         YBOptionKeys.contentIsLive: (.valueBool, "contentIsLive"),
         YBOptionKeys.contentTitle: (.string, "contentTitle"),
@@ -194,6 +195,7 @@ public struct YBOptionUtilsKeys {
     public static let deviceOsVersion = "device.osVersion"
     public static let deviceIsAnonymous = "device.isAnonymous"
     public static let deviceUUID = "device.id"
+    public static let deviceEDID = "device.EDID"
     public static let contentResource = "content.resource"
     public static let contentIsLive = "content.isLive"
     public static let contentTitle = "content.title"

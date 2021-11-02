@@ -1,5 +1,6 @@
 ## [6.6.5] - 2021-11-02
 ### Added
+- New `device.EDID` option
 - New iPhone models for device info
 
 ## [6.6.4] - 2021-10-26
