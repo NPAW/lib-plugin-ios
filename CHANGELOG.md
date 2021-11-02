@@ -1,3 +1,7 @@
+## [6.6.5] - 2021-11-02
+### Added
+- New iPhone models for device info
+
 ## [6.6.4] - 2021-10-26
 ### Fixed
 - Request condition for parse manifest requests
