@@ -9,6 +9,7 @@
 #import "YBOptions.h"
 #import "YBCdnParser.h"
 #import "YouboraLib/YouboraLib-Swift.h"
+#import "YBLog.h"
 
 @interface YBOptions()
 
@@ -874,6 +875,16 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
 
 - (void) setNetworkObfuscateIp:(NSValue *)networkObfuscateIp {
     self.userObfuscateIp = networkObfuscateIp;
+}
+
+- (void)setDeviceEDID:(id)deviceEDID {
+    if ([deviceEDID isKindOfClass:[NSData class]]) {
+        _deviceEDID = [[NSString alloc] initWithData:deviceEDID encoding:NSUTF8StringEncoding];
+    } else if ([deviceEDID isKindOfClass:[NSString class]]) {
+        _deviceEDID = deviceEDID;
+    } else if (deviceEDID) {
+        [YBLog error:@"DeviceEDID value format is wrong. Please set this option as a String or Data."];
+    }
 }
 
 -(void)setContentStreamingProtocol:(NSString*)streamingProtocol {

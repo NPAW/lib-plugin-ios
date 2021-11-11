@@ -348,7 +348,7 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 /**
  * Option to send HDMI EDID value
  */
-@property(nonatomic, strong, nullable) NSString* deviceEDID;
+@property(nonatomic, strong, nullable) id deviceEDID;
 
 /**
  * URL/path of the current media resource.
