@@ -131,7 +131,10 @@ double const YB_SEEK_THRESHOLD_RATIO = 2.0;
 #pragma mark - Private methods
 - (BOOL) canBeUsed {
     if (self.adapter.plugin && [[self.adapter.plugin getIsLive] isEqualToValue:@YES]) {
-        return [self.adapter.plugin.options.contentIsLiveNoMonitor isEqualToValue:@NO];
+        NSValue * contentIsLiveNoMonitor = self.adapter.plugin.options.contentIsLiveNoMonitor;
+        if (contentIsLiveNoMonitor) {
+            return [contentIsLiveNoMonitor isEqualToValue:@NO];
+        }
     }
     return true;
 }

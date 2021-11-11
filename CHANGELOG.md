@@ -1,3 +1,10 @@
+## [6.6.6] - 2021-11-11
+### Changed
+- Input type of `device.EDID` option
+
+### Fixed
+- Verification of not nil `contentIsLiveNoMonitor` value
+
 ## [6.6.5] - 2021-11-02
 ### Added
 - New `device.EDID` option
