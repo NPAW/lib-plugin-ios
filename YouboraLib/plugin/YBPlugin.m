@@ -2573,8 +2573,8 @@
         }
     }
     
-    if ([[self getIsLive] isEqualToValue:@YES]) {
-        params[@"mediaDuration"] = nil;
+    if ([self getIsLive] && [[self getIsLive] isEqualToValue:@YES]) {
+        params[@"mediaDuration"] = self.options.contentDuration;
         params[@"playhead"] = nil;
     }
     
