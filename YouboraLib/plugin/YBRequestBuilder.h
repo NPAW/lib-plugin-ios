@@ -70,8 +70,15 @@ NS_ASSUME_NONNULL_BEGIN;
 /**
  Creates a breakNumber if it does not exist and stores it in lastSent. If it already exists,
  * it is incremented by 1.
+ * Also resets adNumberInBreak.
  */
 - (NSString *) getNewAdBreakNumber;
+
+
+/**
+ Creates an adNumberInBreak incrementing by 1.
+ */
+- (NSString *) getNewAdNumberInBreak;
 
 @end
 
