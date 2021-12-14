@@ -1156,6 +1156,11 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getAdBreakNumber;
 
 /**
+ * Returns current ad number in break
+ */
+- (nullable NSString *) getAdNumberInBreak;
+
+/**
  * Returns ad break position
  */
 - (NSString *) getAdBreakPosition;

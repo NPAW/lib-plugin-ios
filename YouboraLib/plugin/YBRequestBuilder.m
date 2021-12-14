@@ -191,17 +191,57 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.position,
                                YBConstantsRequest.adJoinDuration,
                                YBConstantsRequest.adPlayhead,
-                               YBConstantsRequest.playhead
+                               YBConstantsRequest.playhead,
+                               YBConstantsRequest.adNumber,
+                               YBConstantsRequest.adNumberInBreak,
+                               YBConstantsRequest.breakNumber
                        ],
-                       YBConstantsYouboraService.adPause: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
-                       YBConstantsYouboraService.adResume: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adPauseDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
-                       YBConstantsYouboraService.adBuffer: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBufferDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber],
-                       YBConstantsYouboraService.adStop: @[YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adBitrate, YBConstantsRequest.adTotalDuration, YBConstantsRequest.playhead, YBConstantsRequest.breakNumber, YBConstantsRequest.adViewedDuration, YBConstantsRequest.adViewability],
+                       YBConstantsYouboraService.adPause: @[
+                           YBConstantsRequest.position,
+                           YBConstantsRequest.adPlayhead,
+                           YBConstantsRequest.playhead,
+                           YBConstantsRequest.adNumber,
+                           YBConstantsRequest.adNumberInBreak,
+                           YBConstantsRequest.breakNumber
+                       ],
+                       YBConstantsYouboraService.adResume: @[
+                           YBConstantsRequest.position,
+                           YBConstantsRequest.adPlayhead,
+                           YBConstantsRequest.adPauseDuration,
+                           YBConstantsRequest.playhead,
+                           YBConstantsRequest.adNumber,
+                           YBConstantsRequest.adNumberInBreak,
+                           YBConstantsRequest.breakNumber
+                       ],
+                       YBConstantsYouboraService.adBuffer: @[
+                           YBConstantsRequest.position,
+                           YBConstantsRequest.adPlayhead,
+                           YBConstantsRequest.adBufferDuration,
+                           YBConstantsRequest.playhead,
+                           YBConstantsRequest.adNumber,
+                           YBConstantsRequest.adNumberInBreak,
+                           YBConstantsRequest.breakNumber
+                       ],
+                       YBConstantsYouboraService.adStop: @[
+                           YBConstantsRequest.position,
+                           YBConstantsRequest.adPlayhead,
+                           YBConstantsRequest.adBitrate,
+                           YBConstantsRequest.adTotalDuration,
+                           YBConstantsRequest.playhead,
+                           YBConstantsRequest.adViewedDuration,
+                           YBConstantsRequest.adViewability,
+                           YBConstantsRequest.adNumber,
+                           YBConstantsRequest.adNumberInBreak,
+                           YBConstantsRequest.breakNumber
+                       ],
                        YBConstantsYouboraService.click: @[
                                YBConstantsRequest.position,
                                YBConstantsRequest.adPlayhead,
                                YBConstantsRequest.adUrl,
-                               YBConstantsRequest.playhead
+                               YBConstantsRequest.playhead,
+                               YBConstantsRequest.adNumber,
+                               YBConstantsRequest.adNumberInBreak,
+                               YBConstantsRequest.breakNumber
                        ],
                        YBConstantsYouboraService.adError: [
                                                            adStartParams arrayByAddingObjectsFromArray:@[
@@ -212,7 +252,14 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraService.adManifest: @[YBConstantsRequest.givenBreaks, YBConstantsRequest.expectedBreaks, YBConstantsRequest.expectedPattern, YBConstantsRequest.breaksTime],
                        YBConstantsYouboraService.adBreakStart: @[YBConstantsRequest.position, YBConstantsRequest.givenAds, YBConstantsRequest.expectedAds, YBConstantsRequest.adInsertionType],
                        YBConstantsYouboraService.adBreakStop: @[YBConstantsRequest.position, YBConstantsRequest.breakNumber],
-                       YBConstantsYouboraService.adQuartile: @[YBConstantsRequest.position, YBConstantsRequest.adViewedDuration, YBConstantsRequest.adViewability, YBConstantsRequest.breakNumber],
+                       YBConstantsYouboraService.adQuartile: @[
+                           YBConstantsRequest.position,
+                           YBConstantsRequest.adViewedDuration,
+                           YBConstantsRequest.adViewability,
+                           YBConstantsRequest.adNumber,
+                           YBConstantsRequest.adNumberInBreak,
+                           YBConstantsRequest.breakNumber
+                       ],
                        YBConstantsYouboraService.ping: @[
                                YBConstantsRequest.droppedFrames,
                                YBConstantsRequest.playrate,
@@ -331,8 +378,29 @@ static NSArray<NSString *> * youboraPingEntities;
     return sAdNumber;
 }
 
+- (NSString *) getNewAdNumberInBreak {
+    NSString * sAdNumberInBreak = self.lastSent[YBConstantsRequest.adNumberInBreak];
+    
+    if (sAdNumberInBreak != nil) {
+        @try {
+            int num = sAdNumberInBreak.intValue;
+            sAdNumberInBreak = @(num + 1).stringValue;
+        } @catch (NSException *exception) {
+            [YBLog logException:exception]; // should never happen
+        }
+    } else {
+        sAdNumberInBreak = @"1";
+    }
+    
+    self.lastSent[YBConstantsRequest.adNumberInBreak] = sAdNumberInBreak;
+    
+    return sAdNumberInBreak;
+}
+
 - (NSString *) getNewAdBreakNumber {
     NSString * sAdBreakNumber = self.lastSent[YBConstantsRequest.breakNumber];
+    
+    self.lastSent[YBConstantsRequest.adNumberInBreak] = @"0";
     
     if (sAdBreakNumber != nil) {
         @try {
@@ -685,6 +753,8 @@ static NSArray<NSString *> * youboraPingEntities;
         if (skippable != nil) {
             value = [skippable isEqual:@YES] ? @"true" : @"false";
         }
+    } else if ([param isEqualToString:YBConstantsRequest.adNumberInBreak]) {
+        value = [self.plugin getAdNumberInBreak];
     } else if ([param isEqualToString:YBConstantsRequest.breakNumber]) {
         value = [self.plugin getAdBreakNumber];
     } else if ([param isEqualToString: YBConstantsRequest.adViewedDuration]) {

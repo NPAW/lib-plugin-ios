@@ -154,6 +154,7 @@ import Foundation
     static public let sessionMetrics = "sessionMetrics"
     static public let nodeTypeString = "nodeTypeString"
     static public let adNumber = "adNumber"
+    static public let adNumberInBreak = "adNumberInBreak"
     static public let fps = "fps"
     static public let throughput = "throughput"
     static public let p2pDownloadedTraffic = "p2pDownloadedTraffic"

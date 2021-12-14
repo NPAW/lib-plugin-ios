@@ -1563,6 +1563,10 @@
     return self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
 }
 
+- (NSString *) getAdNumberInBreak {
+    return self.requestBuilder.lastSent[YBConstantsRequest.adNumberInBreak];
+}
+
 - (NSString *) getAdBreakPosition {
     return [self getAdPosition];
 }
@@ -3135,6 +3139,7 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adInit];
     mutParams[YBConstantsRequest.adNumber] = realNumber;
     mutParams[YBConstantsRequest.breakNumber] = self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
+    mutParams[YBConstantsRequest.adNumberInBreak] = [self.requestBuilder getNewAdNumberInBreak];
     //Required params
     mutParams[YBConstantsRequest.adDuration] = @"0";
     mutParams[YBConstantsRequest.adPlayhead] = @"0";
@@ -3148,10 +3153,12 @@
 - (void) sendAdStart:(NSDictionary<NSString *, NSString *> *) params {
     [self startPings];
     NSString* realNumber = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[YBConstantsRequest.adNumber] : [self.requestBuilder getNewAdNumber];
+    NSString* realNumberInBreak = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[YBConstantsRequest.adNumberInBreak] : [self.requestBuilder getNewAdNumberInBreak];
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adStart];
     //mutParams[YBConstantsRequest.adNumber] = self.adsAdapter.flags.adInitiated ? self.requestBuilder.lastSent[YBConstantsRequest.adNumber] : [self.requestBuilder getNewAdNumber]; //[self.requestBuilder getNewAdNumber];
     mutParams[YBConstantsRequest.adNumber] = realNumber;
     mutParams[YBConstantsRequest.breakNumber] = self.requestBuilder.lastSent[YBConstantsRequest.breakNumber];
+    mutParams[YBConstantsRequest.adNumberInBreak] = realNumberInBreak;
     [self sendWithCallbacks:self.willSendAdStartListeners service:YBConstantsYouboraService.adStart andParams:mutParams];
     [YBLog notice:@"%@ %@%@ at %@s", YBConstantsYouboraService.adStart, mutParams[@"adPosition"], mutParams[YBConstantsRequest.adNumber], mutParams[YBConstantsRequest.playhead]];
     self.isAdStarted = true;
@@ -3210,6 +3217,7 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraService.adError];
     NSString* realNumber = self.adsAdapter.flags.adInitiated || self.adsAdapter.flags.started ? self.requestBuilder.lastSent[YBConstantsRequest.adNumber] : [self.requestBuilder getNewAdNumber];
     mutParams[YBConstantsRequest.adNumber] = realNumber;
+    mutParams[YBConstantsRequest.adNumberInBreak] = [self.requestBuilder getNewAdNumberInBreak];
     [self sendWithCallbacks:self.willSendAdErrorListeners service:YBConstantsYouboraService.adError andParams:mutParams];
     [YBLog notice:@"%@ %@ s", YBConstantsYouboraService.adError, mutParams[@"errorCode"]];
     
