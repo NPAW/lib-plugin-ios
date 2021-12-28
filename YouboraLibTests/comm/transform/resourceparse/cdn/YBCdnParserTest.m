@@ -396,6 +396,20 @@
     XCTAssertEqualObjects(@"EDGECAST", parser.cdnName);
 }
 
+- (void)testNosOtt {
+    YBCdnParser * parser = [YBCdnParser createWithName:YouboraCDNNameNosOtt];
+    
+    NSDictionary * responses = @{@{}:@{@"X-NOS-Server":@"es1ottlb\n",@"X-Cache":@"HIT"}};
+    
+    [parser parseWithUrl:@"resource" andPreviousResponses:responses];
+    
+    // Check successful parsing
+    XCTAssertEqual(YBCdnTypeHit, parser.cdnNodeType);
+    XCTAssertEqualObjects(@"es1ottlb", parser.cdnNodeHost);
+    XCTAssertEqualObjects(@"HIT", parser.cdnNodeTypeString);
+    XCTAssertEqualObjects(@"NOSOTT", parser.cdnName);
+}
+
 #pragma mark - CdnTransformDoneDelegate
 - (void)cdnTransformDone:(YBCdnParser *)cdnParser {
     self.transformDoneBlock(cdnParser);

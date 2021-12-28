@@ -21,6 +21,7 @@ NSString * const YouboraCDNNameBalancer =   @"Balancer";
 NSString * const YouboraCDNNameTelefonica = @"Telefonica";
 NSString * const YouboraCDNNameAmazon =     @"Amazon";
 NSString * const YouboraCDNNameEdgecast =   @"Edgecast";
+NSString * const YouboraCDNNameNosOtt =     @"NosOtt";
 
 @interface YBCdnParser()
 
@@ -382,6 +383,25 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         
         
         cdnDefinitions[YouboraCDNNameEdgecast] = cdnConfig;
+        
+        cdnConfig = [[YBCdnConfig alloc] initWithCode:@"NOSOTT"];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHost headerName:@"Server" andRegexPattern:@"(.+)"]];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementType headerName:@"X-Cache" andRegexPattern:@"(.*)"]];
+        cdnConfig.typeParser = ^YBCdnType(NSString * type) {
+            
+            if ([type.lowercaseString containsString:@"hit"]) {
+                return YBCdnTypeHit;
+            }
+            
+            if ([type.lowercaseString containsString:@"miss"]) {
+                return YBCdnTypeMiss;
+            }
+            
+            return YBCdnTypeUnknown;
+        };
+        
+        
+        cdnDefinitions[YouboraCDNNameNosOtt] = cdnConfig;
        
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:nil];
