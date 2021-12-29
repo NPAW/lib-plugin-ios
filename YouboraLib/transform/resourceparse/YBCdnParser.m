@@ -385,7 +385,7 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
         cdnDefinitions[YouboraCDNNameEdgecast] = cdnConfig;
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:@"NOSOTT"];
-        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHost headerName:@"Server" andRegexPattern:@"(.+)"]];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHost headerName:@"X-NOS-Server" andRegexPattern:@"(.+)"]];
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementType headerName:@"X-Cache" andRegexPattern:@"(.*)"]];
         cdnConfig.typeParser = ^YBCdnType(NSString * type) {
             
