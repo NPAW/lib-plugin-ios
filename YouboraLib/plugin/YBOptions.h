@@ -77,7 +77,6 @@ extern NSString * _Nullable const YBOPTIONS_KEY_CONTENT_METADATA __deprecated_ms
 extern NSString * _Nullable const YBOPTIONS_KEY_CONTENT_METRICS __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_CONTENT_IS_LIVE_NO_SEEK __deprecated_msg("Use YBOptionKeys instead");
 
-extern NSString * _Nullable const YBOPTIONS_KEY_CONTENT_PACKAGE __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_CONTENT_SAGA __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_CONTENT_TV_SHOW __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_CONTENT_SEASON __deprecated_msg("Use YBOptionKeys instead");
@@ -477,12 +476,6 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
  * NSValue containing if monitor should be disabled for life content, only applies if content is live, if it's VOD it gets ignored. Should be true if the player returns non consistent values for the playhead on live, so playhead monitor wont work to detect buffers and seeks.
  */
 @property(nonatomic, strong) NSValue * _Nullable contentIsLiveNoMonitor;
-
-
-/**
- * NSString containing the content package
- */
-@property(nonatomic, strong) NSString * _Nullable contentPackage;
 
 /**
  * NSString containing the content saga
