@@ -1,3 +1,7 @@
+## [6.6.8] - 2021-12-30
+### Fixed
+- Parsed resource logic
+
 ## [6.6.7] - 2021-12-07
 ### Added
 - Duration of the content can be reported if the content is live if it is set as an option, using `contentDuration`
