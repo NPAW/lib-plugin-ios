@@ -102,7 +102,6 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.appName,
                 YBConstantsRequest.appReleaseVersion,
                 YBConstantsRequest.email,
-                YBConstantsRequest.package,
                 YBConstantsRequest.saga,
                 YBConstantsRequest.tvshow,
                 YBConstantsRequest.season,
@@ -685,8 +684,6 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getDeviceEDID];
     } else if ([param isEqualToString:YBConstantsRequest.email]) {
         value = [self.plugin getUserEmail];
-    } else if ([param isEqualToString:YBConstantsRequest.package]) {
-        value = [self.plugin getContentPackage];
     } else if ([param isEqualToString:YBConstantsRequest.saga]) {
         value = [self.plugin getContentSaga];
     } else if ([param isEqualToString:YBConstantsRequest.tvshow]) {

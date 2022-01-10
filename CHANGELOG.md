@@ -1,6 +1,9 @@
-## [6.6.8] - 2021-12-29
+## [6.6.8] - 2022-01-10
 ### Added
 - NosOtt cdn parse
+
+### Removed
+- `contentPackage` option
 
 ## [6.6.7] - 2021-12-07
 ### Added
