@@ -165,6 +165,13 @@
         } else {
             NSString *newResource = [parser parseResourceWithData:data response:(NSHTTPURLResponse*)response listenerParents:listenerParams];
             
+            if (newResource) {
+                NSURL *url = [NSURL URLWithString:newResource];
+                if (!url || !url.scheme || !url.host) {
+                    newResource = nil;
+                }
+            }
+            
             if (!newResource && ![response.URL.absoluteString isEqualToString:resource]) {
                 newResource = response.URL.absoluteString;
             }

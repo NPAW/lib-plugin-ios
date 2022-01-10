@@ -2,6 +2,9 @@
 ### Added
 - NosOtt cdn parse
 
+### Fixed
+- Parsed resource logic
+
 ### Removed
 - `contentPackage` option
 
