@@ -1,4 +1,7 @@
-## [6.6.8] - 2021-01-10
+## [6.6.8] - 2022-01-10
+### Added
+- NosOtt cdn parse
+
 ### Fixed
 - Parsed resource logic
 
