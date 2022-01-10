@@ -72,7 +72,6 @@ import Foundation
     static public let appName = "appName"
     static public let appReleaseVersion = "appReleaseVersion"
     static public let email = "email"
-    static public let package = "package"
     static public let saga = "saga"
     static public let tvshow = "tvshow"
     static public let season = "season"
@@ -280,7 +279,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.6.7"
+    static public var youboraLibVersion = "6.6.8"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"
