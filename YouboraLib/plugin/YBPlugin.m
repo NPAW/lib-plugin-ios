@@ -27,7 +27,7 @@
 #import "YBInfinityFlags.h"
 #import "YBTimestampLastSentTransform.h"
 #import "YBConstants.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 #import "YBCdnSwitchParser.h"
 
 #if TARGET_OS_IPHONE==1

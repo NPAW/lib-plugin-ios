@@ -12,7 +12,7 @@
 #import "YBLog.h"
 #import "YBCommunication.h"
 #import "YBTimestampLastSentTransform.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 
 @interface YBInfinity()
 

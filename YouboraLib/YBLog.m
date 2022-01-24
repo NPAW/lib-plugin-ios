@@ -8,7 +8,7 @@
 
 #import "YBLog.h"
 
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 
 /// Current log level
 static YBLogLevel currentLogLevel = YBLogLevelError;

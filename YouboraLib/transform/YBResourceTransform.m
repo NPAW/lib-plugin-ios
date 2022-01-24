@@ -14,7 +14,7 @@
 #import "YBCdnParser.h"
 #import "YBCdnConfig.h"
 #import "YBLog.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 
 @interface YBResourceTransform() <CdnTransformDoneDelegate>
 

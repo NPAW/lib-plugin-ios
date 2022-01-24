@@ -9,7 +9,7 @@
 #import "YBTimer.h"
 #import "YBLog.h"
 
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 
 @interface YBTimer()
 

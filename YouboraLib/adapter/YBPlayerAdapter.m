@@ -14,7 +14,7 @@
 #import "YBPlugin.h"
 #import "YBOptions.h"
 
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 
 @interface YBPlayerAdapter()
 
