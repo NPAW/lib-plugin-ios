@@ -1,3 +1,7 @@
+## [6.6.9] - 2022-02-01
+### Fixed
+- Availability for using YouboraLib with no `use_frameworks!` on Podfile
+
 ## [6.6.8] - 2022-01-10
 ### Added
 - NosOtt cdn parse
