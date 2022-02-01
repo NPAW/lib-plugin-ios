@@ -8,7 +8,7 @@
 
 #import "YBOptions.h"
 #import "YBCdnParser.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 #import "YBLog.h"
 
 @interface YBOptions()

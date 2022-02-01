@@ -8,7 +8,7 @@
 
 #import "YBFlowTransform.h"
 #import "YBRequest.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 
 @implementation YBFlowTransform
 

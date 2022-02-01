@@ -15,7 +15,7 @@
 #import "YBRequestBuilder.h"
 #import "YBOptions.h"
 #import "YBInfinityFlags.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 #import "YBConstants.h"
 
 @interface YBViewTransform()

@@ -10,7 +10,7 @@
 #import "YBPlugin.h"
 #import "YBLog.h"
 #import "YBInfinity.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 
 @interface YBRequestBuilder()
 

@@ -412,6 +412,9 @@
 		CDFEAF1D2100E0C600C59B67 /* YBInfinity.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1A2100E0C600C59B67 /* YBInfinity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFEAF1E2100E0C600C59B67 /* YBInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF1B2100E0C600C59B67 /* YBInfinity.m */; };
 		CDFEAF1F2100E0C600C59B67 /* YBInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF1B2100E0C600C59B67 /* YBInfinity.m */; };
+		F22BBA3B27A408AD00623E91 /* YBSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = F22BBA3A27A408AD00623E91 /* YBSwift.h */; };
+		F22BBA3C27A408AD00623E91 /* YBSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = F22BBA3A27A408AD00623E91 /* YBSwift.h */; };
+		F22BBA3D27A408AD00623E91 /* YBSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = F22BBA3A27A408AD00623E91 /* YBSwift.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -588,6 +591,7 @@
 		CDFEAF0A20FF5A2F00C59B67 /* YBTimestampLastSentTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YBTimestampLastSentTransform.h; path = ../transform/infinity/YBTimestampLastSentTransform.h; sourceTree = "<group>"; };
 		CDFEAF1A2100E0C600C59B67 /* YBInfinity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBInfinity.h; sourceTree = "<group>"; };
 		CDFEAF1B2100E0C600C59B67 /* YBInfinity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBInfinity.m; sourceTree = "<group>"; };
+		F22BBA3A27A408AD00623E91 /* YBSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBSwift.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -713,6 +717,7 @@
 		4E5E11B21E7841C00097FA21 /* YouboraLib */ = {
 			isa = PBXGroup;
 			children = (
+				F22BBA3A27A408AD00623E91 /* YBSwift.h */,
 				CDFEAF1720FF862D00C59B67 /* infinity */,
 				4E5E11B31E7841C00097FA21 /* YouboraLib.h */,
 				4E5E11B41E7841C00097FA21 /* Info.plist */,
@@ -1056,6 +1061,7 @@
 				4E5E535F1E7C4C3C00966C7B /* YBOptions.h in Headers */,
 				065D246124DDA17400D30141 /* YBConstants.h in Headers */,
 				4E5E539C1E81316400966C7B /* YBPlayheadMonitor.h in Headers */,
+				F22BBA3B27A408AD00623E91 /* YBSwift.h in Headers */,
 				4E5B8F8F1E89717800171D47 /* YBNqs6Transform.h in Headers */,
 				4E9C7BB61E8E6D3B00E10631 /* YBCdnConfig.h in Headers */,
 				4E28171B1E85373F00F450C1 /* YBResourceTransform.h in Headers */,
@@ -1090,6 +1096,7 @@
 				4E4956061E9F4F2600FF6280 /* YBCdnConfig.h in Headers */,
 				065D246224DDA17400D30141 /* YBConstants.h in Headers */,
 				4E4956071E9F4F2600FF6280 /* YBParsableResponseHeader.h in Headers */,
+				F22BBA3C27A408AD00623E91 /* YBSwift.h in Headers */,
 				4E4956081E9F4F2600FF6280 /* YBCdnParser.h in Headers */,
 				4E49560A1E9F4F2600FF6280 /* YBTransformSubclass.h in Headers */,
 				4E49560B1E9F4F2600FF6280 /* YBFlowTransform.h in Headers */,
@@ -1124,6 +1131,7 @@
 				CD5237B7228DA3260013BA16 /* YBLog.h in Headers */,
 				065D246324DDA17400D30141 /* YBConstants.h in Headers */,
 				CD5237A0228DA3090013BA16 /* YBOptions.h in Headers */,
+				F22BBA3D27A408AD00623E91 /* YBSwift.h in Headers */,
 				CD52377D228DA2E70013BA16 /* YBInfinity.h in Headers */,
 				CD52378A228DA2F50013BA16 /* YBResourceTransform.h in Headers */,
 				CD52377F228DA2E70013BA16 /* YBInfinityFlags.h in Headers */,

@@ -11,7 +11,7 @@
 #import "YBTimer.h"
 #import "YBPlugin.h"
 #import "YBOptions.h"
-#import "YouboraLib/YouboraLib-Swift.h"
+#import "YBSwift.h"
 
 int const YouboraBufferTypeNone = 0;
 int const YouboraBufferTypeBuffer = 1;

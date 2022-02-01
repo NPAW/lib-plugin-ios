@@ -32,7 +32,9 @@ Pod::Spec.new do |s|
 
   # Source files
   s.source_files  = 'YouboraLib/**/*.{swift,h,m}'
-  s.public_header_files = 'YouboraLib/**/*.h'
+  # This header is only used to help with imports of the Swift interface header, it should not get into the umbrella.
+  # (All other headers are public by default.)
+  s.private_header_files = 'YouboraLib/**/YBSwift.h'
 
   # Project settings
   s.requires_arc = true
