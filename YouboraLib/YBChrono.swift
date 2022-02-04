@@ -21,6 +21,7 @@ import Foundation
     /// Start time
     @objc public var startTime: Int64 = 0
     @objc public var stopTime: Int64 = 0
+    @objc public var pauseTime: Int64 = 0
     @objc public var offset: Int64 = 0
 
     /// ---------------------------------
@@ -43,14 +44,19 @@ import Foundation
      * @return Time lapse in ms or -1 if start was not called.
      */
     @objc public func getDeltaTime(_ stop: Bool) -> Int64 {
-        if self.startTime <= 0 {
+        let now = YBChrono().now
+        if self.startTime == 0 {
             return -1
         }
-
-        if self.stopTime <= 0 {
-            return stop ? self.stop() : YBChrono().now - self.startTime + self.offset
+        
+        if stop && self.stopTime == 0 {
+            self.stop()
         }
-        return self.stopTime - self.startTime + self.offset
+        
+        let tempOffset = self.pauseTime != 0 ? now - self.pauseTime : 0
+        let tempStop = self.stopTime != 0 ? self.stopTime : now
+        
+        return self.offset - tempOffset + (tempStop - self.startTime)
     }
 
     /**
@@ -68,6 +74,22 @@ import Foundation
     @objc public func start() {
         self.startTime = YBChrono().now
         self.stopTime = 0
+        self.offset = 0
+    }
+    
+    /**
+     * Pauses timing
+     */
+    @objc public func pause() {
+        self.pauseTime = YBChrono().now
+    }
+    
+    /**
+     * Resumes timing
+     */
+    @objc public func resume() {
+        self.offset -= YBChrono().now - pauseTime
+        self.pauseTime = 0
     }
 
     /**
@@ -75,6 +97,9 @@ import Foundation
      * @returns the difference since it <start>ed
      */
     @objc @discardableResult public func stop() -> Int64 {
+        if pauseTime != 0 {
+            resume()
+        }
         self.stopTime = YBChrono().now
         return getDeltaTime(false)
     }
@@ -85,6 +110,7 @@ import Foundation
     @objc public func reset() {
         self.startTime = 0
         self.stopTime = 0
+        self.pauseTime = 0
         self.offset = 0
     }
 
@@ -92,6 +118,7 @@ import Foundation
         let c = YBChrono()
         c.startTime = self.startTime
         c.stopTime = self.stopTime
+        c.pauseTime = self.pauseTime
         c.offset = self.offset
         return c
     }

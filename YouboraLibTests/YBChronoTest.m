@@ -31,8 +31,35 @@
 - (void)testStop {
     [self.chrono start];
     
-    XCTAssertLessThan(-1, [self.chrono stop]);
-    XCTAssertLessThan(-1, [self.chrono getDeltaTime]);
+    long long stopDiff = [self.chrono stop];
+    
+    XCTAssertEqual(self.chrono.stopTime - self.chrono.startTime, stopDiff);
+    XCTAssertEqual([self.chrono getDeltaTime], stopDiff);
+    
+    self.chrono.pauseTime = 1;
+    [self.chrono stop];
+    
+    XCTAssertEqual(0, self.chrono.pauseTime);
+}
+
+- (void)testPause {
+    [self.chrono pause];
+    
+    XCTAssertTrue(self.chrono.pauseTime > 0);
+}
+
+- (void)testResume {
+    long long now = [[YBChrono new] now];
+    
+    [self.chrono resume];
+
+    XCTAssertEqual(self.chrono.offset, -now);
+
+    self.chrono.pauseTime = 1;
+    [self.chrono resume];
+    
+    XCTAssertTrue(self.chrono.offset < 0);
+    XCTAssertEqual(self.chrono.pauseTime, 0);
 }
 
 - (void)testGetDeltaTime {
@@ -45,6 +72,19 @@
     
     [self.chrono stop];
     XCTAssertNotEqual(-1, [self.chrono getDeltaTime]);
+}
+
+- (void)testGetDeltaTimeWithPause {
+    [self.chrono start];
+    
+    long long pauseTime = 1;
+    long long now = [[YBChrono new] now];
+    
+    [self.chrono stop];
+    self.chrono.pauseTime = pauseTime;
+    long long stopDiff = [self.chrono getDeltaTime:false];
+    
+    XCTAssertEqual((self.chrono.stopTime - self.chrono.startTime) - (now - pauseTime), stopDiff);
 }
 
 - (void)testStopBeforeStart {
