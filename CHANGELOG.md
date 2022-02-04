@@ -1,6 +1,7 @@
 ## [6.6.10] - 2022-02-04
 ### Added
 - `pause` and `resume` functions to `YBChrono`
+- New `authToken` and `authType` options
 
 ## [6.6.9] - 2022-02-01
 ### Fixed

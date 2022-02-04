@@ -190,6 +190,18 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
  */
 @property(nonatomic, strong) NSString * _Nullable accountCode;
 
+
+/**
+ * Optional auth token to validate all the requests
+*/
+@property(nonatomic, strong) NSString * _Nullable authToken;
+
+/**
+ * Optional auth type. Used if authToken is set.
+ * 'Bearer' by default.
+ */
+@property(nonatomic, strong) NSString * _Nullable authType;
+
 /**
  * User ID value inside your system.
  */

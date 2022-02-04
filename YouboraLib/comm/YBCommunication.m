@@ -11,6 +11,8 @@
 #import "YBRequest.h"
 #import "YBTransform.h"
 #import "YBConstants.h"
+#import "YBPlugin.h"
+#import "YBOptions.h"
 
 @interface YBCommunication()
 
@@ -20,19 +22,27 @@
 
 @property (nonatomic, strong) NSLock * requestsLock;
 
+@property(nonatomic, strong, nullable) YBPlugin * plugin;
+
 @end
 
 @implementation YBCommunication
 
 #pragma mark - Init
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
+        self.plugin = nil;
         self.transforms = [NSMutableArray array];
         self.requests = [NSMutableArray array];
         self.requestsLock = [[NSLock alloc] init];
     }
+    return self;
+}
+
+- (instancetype)initWithPlugin:(id)plugin {
+    self = [self init];
+    self.plugin = plugin;
     return self;
 }
 
@@ -70,6 +80,17 @@
 
 #pragma mark - Private methods
 - (void) registerRequest:(YBRequest *) request {
+    if (self.plugin) {
+        YBOptions * options = self.plugin.options;
+        if (options.authToken) {
+            if (request.requestHeaders == nil) {
+                request.requestHeaders = [NSMutableDictionary dictionaryWithObject:[NSString stringWithFormat:@"%@ %@",options.authType, options.authToken] forKey:@"Authorization"];
+            } else {
+                [request.requestHeaders setValue:[NSString stringWithFormat:@"%@ %@",options.authType, options.authToken] forKey:@"Authorization"];
+            }
+        }
+
+    }
     // Lock
     [self.requestsLock lock];
     [self.requests addObject:request];
