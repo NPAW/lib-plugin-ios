@@ -24,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// ---------------------------------
 
 /**
+ * Constructor.
+ * When overriding it, make sure to call super.
+ * @param plugin the plugin instance Communication will be bounded to.
+*/
+- (instancetype) initWithPlugin:(id) plugin;
+/**
  * Adds the <YBRequest> to the queue. Doing this will process the pending requests.
  * @param request the request to add to the queue
  * @param callback if not null, added as a success listener to the Request

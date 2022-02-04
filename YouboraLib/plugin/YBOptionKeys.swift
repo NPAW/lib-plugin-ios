@@ -27,6 +27,8 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.httpSecure: (.bool, "httpSecure"),
         YBOptionKeys.host: (.string, "host"),
         YBOptionKeys.accountCode: (.string, "accountCode"),
+        YBOptionKeys.authToken: (.string, "authToken"),
+        YBOptionKeys.authType: (.string, "authType"),
         YBOptionKeys.username: (.string, "username"),
         YBOptionKeys.userType: (.string, "userType"),
         YBOptionKeys.userEmail: (.string, "userEmail"),
@@ -160,6 +162,8 @@ public struct YBOptionUtilsKeys {
     public static let httpSecure = "httpSecure"
     public static let host = "host"
     public static let accountCode = "accountCode"
+    public static let authToken = "authToken"
+    public static let authType = "authType"
     public static let username = "username"
     public static let anonymousUser = "user.anonymousId"
     public static let offline = "offline"

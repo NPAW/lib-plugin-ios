@@ -2525,7 +2525,9 @@
 }
 
 - (YBCommunication *) createCommunication {
-    return [YBCommunication new];
+    YBCommunication * comm = [YBCommunication new];
+    comm = [comm initWithPlugin:self];
+    return comm;
 }
 
 - (YBFlowTransform *) createFlowTransform {
