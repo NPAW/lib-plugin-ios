@@ -17,7 +17,7 @@ import Foundation
     static public let rendition = "rendition"
     static public let title = "title"
     static public let title2 = "title2"
-    static public let live = "live"
+    static public let live = "Live"
     static public let mediaDuration = "mediaDuration"
     static public let mediaResource = "mediaResource"
     static public let parsedResource = "parsedResource"
