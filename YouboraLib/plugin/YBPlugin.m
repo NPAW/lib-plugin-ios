@@ -751,6 +751,10 @@
     return [YBYouboraUtils stringifyDictionary:self.options.contentMetadata];
 }
 
+- (NSString *) getContentPackage {
+    return self.options.contentPackage;
+}
+
 - (NSString *) getContentSaga {
     return self.options.contentSaga;
 }
