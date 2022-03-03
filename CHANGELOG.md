@@ -1,3 +1,7 @@
+## [6.6.11] - 2022-03-03
+### Added
+- `contentPackage` option
+
 ## [6.6.10] - 2022-02-04
 ### Added
 - `pause` and `resume` functions to `YBChrono`
