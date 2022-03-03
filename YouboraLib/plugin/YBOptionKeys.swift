@@ -73,6 +73,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.sessionMetrics: (.unknown, "sessionMetrics"),
         YBOptionKeys.contentIsLiveNoSeek: (.valueBool, "contentIsLiveNoSeek"),
         YBOptionKeys.contentIsLiveNoMonitor: (.valueBool, "contentIsLiveNoMonitor"),
+        YBOptionKeys.contentPackage: (.string, "contentPackage"),
         YBOptionKeys.contentSaga: (.string, "contentSaga"),
         YBOptionKeys.contentTvShow: (.string, "contentTvShow"),
         YBOptionKeys.contentSeason: (.string, "contentSeason"),
@@ -219,6 +220,7 @@ public struct YBOptionUtilsKeys {
     public static let contentMetrics = "content.metrics"
     public static let contentIsLiveNoSeek = "content.isLive.noSeek"
     public static let contentIsLiveNoMonitor = "content.isLive.noMonitor"
+    public static let contentPackage = "content.package"
     public static let contentSaga = "content.saga"
     public static let contentTvShow = "content.tvShow"
     public static let contentSeason = "content.season"

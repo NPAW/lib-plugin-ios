@@ -489,6 +489,12 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
  */
 @property(nonatomic, strong) NSValue * _Nullable contentIsLiveNoMonitor;
 
+
+/**
+ * NSString containing the content package
+ */
+@property(nonatomic, strong) NSString * _Nullable contentPackage;
+
 /**
  * NSString containing the content saga
  */

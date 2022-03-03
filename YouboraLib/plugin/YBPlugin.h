@@ -376,6 +376,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getContentMetadata;
 
 /**
+ * Returns the content package
+ * @return the content package
+ */
+- (nullable NSString *) getContentPackage;
+
+/**
  * Returns the content saga
  * @return the content saga
  */
