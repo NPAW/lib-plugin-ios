@@ -50,7 +50,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.deviceBrand: (.string, "deviceBrand"),
         YBOptionKeys.deviceType: (.string, "deviceType"),
         YBOptionKeys.deviceName: (.string, "deviceName"),
-        YBOptionKeys.deviceOsNme: (.string, "deviceOsName"),
+        YBOptionKeys.deviceOsName: (.string, "deviceOsName"),
         YBOptionKeys.deviceOsVersion: (.string, "deviceOsVersion"),
         YBOptionKeys.deviceIsAnonymous: (.bool, "deviceIsAnonymous"),
         YBOptionKeys.deviceUUID: (.string, "deviceUUID"),
@@ -195,7 +195,7 @@ public struct YBOptionUtilsKeys {
     public static let deviceBrand = "device.brand"
     public static let deviceType = "device.type"
     public static let deviceName = "device.name"
-    public static let deviceOsNme = "device.osNme"
+    public static let deviceOsName = "device.osName"
     public static let deviceOsVersion = "device.osVersion"
     public static let deviceIsAnonymous = "device.isAnonymous"
     public static let deviceUUID = "device.id"
