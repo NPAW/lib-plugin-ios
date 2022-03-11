@@ -1,3 +1,10 @@
+## [6.6.12] - 2022-03-11
+### Added
+- `householdId` in `YBOptionKeys`
+
+### Fixed
+- `deviceOsName` typo
+
 ## [6.6.11] - 2022-03-03
 ### Added
 - `contentPackage` option

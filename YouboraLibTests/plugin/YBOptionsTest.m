@@ -145,7 +145,7 @@
     opt.deviceBrand = @"deviceBrand";
     opt.deviceType = @"deviceType";
     opt.deviceName = @"deviceName";
-    opt.deviceOsName = @"deviceOsNme";
+    opt.deviceOsName = @"deviceOsName";
     opt.deviceOsVersion = @"deviceOsVersion";
     opt.deviceIsAnonymous = true;
     opt.deviceUUID = @"deviceUUID";
