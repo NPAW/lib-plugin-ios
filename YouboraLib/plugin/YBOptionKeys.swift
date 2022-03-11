@@ -44,13 +44,14 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.networkIsp: (.string, "networkIsp"),
         YBOptionKeys.networkConnectionType: (.string, "networkConnectionType"),
         YBOptionKeys.userObfuscateIp: (.valueBool, "networkObfuscateIp"),
+        YBOptionKeys.householdId: (.string, "householdId"),
         YBOptionKeys.forceInit: (.bool, "forceInit"),
         YBOptionKeys.deviceCode: (.string, "deviceCode"),
         YBOptionKeys.deviceModel: (.string, "deviceModel"),
         YBOptionKeys.deviceBrand: (.string, "deviceBrand"),
         YBOptionKeys.deviceType: (.string, "deviceType"),
         YBOptionKeys.deviceName: (.string, "deviceName"),
-        YBOptionKeys.deviceOsNme: (.string, "deviceOsName"),
+        YBOptionKeys.deviceOsName: (.string, "deviceOsName"),
         YBOptionKeys.deviceOsVersion: (.string, "deviceOsVersion"),
         YBOptionKeys.deviceIsAnonymous: (.bool, "deviceIsAnonymous"),
         YBOptionKeys.deviceUUID: (.string, "deviceUUID"),
@@ -190,12 +191,13 @@ public struct YBOptionUtilsKeys {
     public static let networkIsp = "network.isp"
     public static let networkConnectionType = "network.connectionType"
     public static let userObfuscateIp = "user.obfuscateIp"
+    public static let householdId = "householdId"
     public static let deviceCode = "device.code"
     public static let deviceModel = "device.model"
     public static let deviceBrand = "device.brand"
     public static let deviceType = "device.type"
     public static let deviceName = "device.name"
-    public static let deviceOsNme = "device.osNme"
+    public static let deviceOsName = "device.osName"
     public static let deviceOsVersion = "device.osVersion"
     public static let deviceIsAnonymous = "device.isAnonymous"
     public static let deviceUUID = "device.id"
