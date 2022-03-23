@@ -1,3 +1,7 @@
+## [6.6.13] - 2022-03-23
+### Added
+- 'contentLanguage' to ping request
+
 ## [6.6.12] - 2022-03-11
 ### Added
 - `householdId` in `YBOptionKeys`
