@@ -299,7 +299,8 @@ static NSArray<NSString *> * youboraPingEntities;
             youboraPingEntities = @[YBConstantsRequest.rendition, YBConstantsRequest.title, YBConstantsRequest.title2,
                              YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4,
                              YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.connectionType,
-                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.username, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString,YBConstantsRequest.subtitles];
+                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.username, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString,YBConstantsRequest.subtitles,
+                            YBConstantsRequest.contentLanguage];
         });
     }
     return self;
