@@ -371,9 +371,7 @@
 }
 
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params{
-    if(self.isInitiated){
-        [self stopListener:params];
-    }
+    [self stopListener:params];
 }
 
 - (void) fireOfflineEvents{
