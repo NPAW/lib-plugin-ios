@@ -2863,6 +2863,7 @@
 
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
     if (self.adsAdapter != nil && self.adsAdapter.flags.adBreakStarted) {
+        [self.adsAdapter fireStop];
         [self.adsAdapter fireAdBreakStop];
     }
     [self sendStop:params];
