@@ -1,6 +1,11 @@
+## [6.6.14] - 2022-04-07
+### Fixed
+- `adStop` and `adBreakStop` fired when content is changed during pre-rolls
+- Availability to fire stop without view initialization condition
+
 ## [6.6.13] - 2022-03-23
 ### Added
-- 'contentLanguage' to ping request
+- `contentLanguage` to ping request
 
 ## [6.6.12] - 2022-03-11
 ### Added
