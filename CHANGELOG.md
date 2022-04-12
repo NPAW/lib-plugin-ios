@@ -1,7 +1,11 @@
-## [6.6.14] - 2022-04-07
+## [6.6.15] - 2022-04-12
 ### Fixed
 - `adStop` and `adBreakStop` fired when content is changed during pre-rolls
 - Availability to fire stop without view initialization condition
+
+## [6.6.14] - 2022-04-12
+### Fixed
+- `live` parameter in start request
 
 ## [6.6.13] - 2022-03-23
 ### Added
