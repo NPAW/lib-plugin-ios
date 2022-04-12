@@ -1,3 +1,7 @@
+## [6.6.14] - 2022-04-12
+### Fixed
+- 'live' parameter in start request
+
 ## [6.6.13] - 2022-03-23
 ### Added
 - 'contentLanguage' to ping request
