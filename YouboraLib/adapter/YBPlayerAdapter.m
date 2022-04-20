@@ -480,7 +480,7 @@
 
 - (void)fireStop:(NSDictionary<NSString *,NSString *> *)params {
     if (self == self.plugin.adsAdapter || [self.plugin isStopReady]) {
-        if (self.flags.started || self.flags.adInitiated) {
+        if ((self.plugin.adsAdapter != nil && self != self.plugin.adsAdapter && self.plugin.adsAdapter.flags.adBreakStarted) || self.flags.started || self.flags.adInitiated) {
             if (self.monitor != nil) {
                 [self.monitor stop];
             }
