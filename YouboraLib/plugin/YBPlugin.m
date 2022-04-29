@@ -496,6 +496,10 @@
     return self.options.parseCdnNameHeader;
 }
 
+- (NSString *)getParseCdnNodeHeader {
+    return self.options.parseCdnNodeHeader;
+}
+
 - (NSNumber *) getPlayhead {
     NSNumber * ph = nil;
     if (self.adapter != nil) {

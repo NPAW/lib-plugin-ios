@@ -222,9 +222,10 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
     return cdnDefinitions;
 }
 
-+ (void)setBalancerHeaderName:(NSString *)cdnNameHeader {
++ (void)setBalancerHeaderName:(NSString *)cdnNameHeader andNodeHeader:(NSString *) cdnNodeHeader {
     [YBCdnParser createDefinitions];
-    cdnDefinitions[YouboraCDNNameBalancer].parsers.firstObject.headerName = cdnNameHeader;
+    cdnDefinitions[YouboraCDNNameBalancer].parsers[1].headerName = cdnNameHeader;
+    cdnDefinitions[YouboraCDNNameBalancer].parsers[0].headerName = cdnNodeHeader;
 }
 
 + (void)addCdn:(NSString *)cdnName withConfig:(YBCdnConfig *)cdnConfig {
@@ -405,8 +406,9 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
        
         
         cdnConfig = [[YBCdnConfig alloc] initWithCode:nil];
+        [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementHost headerName:nil andRegexPattern:@"(.+)"]];
         [cdnConfig.parsers addObject:[[YBParsableResponseHeader alloc] initWithElement:YBCdnHeaderElementName headerName:nil andRegexPattern:@"(.+)"]];
-        
+
         cdnDefinitions[YouboraCDNNameBalancer] = cdnConfig;
         
     });

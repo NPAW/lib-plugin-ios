@@ -252,6 +252,12 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, strong) NSString * _Nullable parseCdnNameHeader;
 
 /**
+ * If defined, resource parse will try to fetch the CDN node from the custom header defined
+ * by this property, e.g. "x-node"
+ */
+@property(nonatomic, strong) NSString * _Nullable parseCdnNodeHeader;
+
+/**
  * If true the plugin will query the CDN to retrieve the node name.
  * It might slow performance down.
  * Default: false
