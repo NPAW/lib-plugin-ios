@@ -145,7 +145,8 @@ typedef enum {
     [given([self.mockPlugin isParseCdnNode]) willReturnBool:YES];
     [given([self.mockPlugin getParseCdnNodeList]) willReturn:@[@"cdn1", @"cdn2"]];
     [given([self.mockPlugin getParseCdnNameHeader]) willReturn:@"header-name"];
-    
+    [given([self.mockPlugin getParseCdnNodeHeader]) willReturn:@"node-header"];
+
     // Resource transform to test
     YBTestableResourceTransform * resourceTransform = [[YBTestableResourceTransform alloc] initWithPlugin: self.mockPlugin];
     resourceTransform.delegate = self;

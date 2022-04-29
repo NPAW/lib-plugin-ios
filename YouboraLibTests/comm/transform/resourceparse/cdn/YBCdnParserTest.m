@@ -232,7 +232,7 @@
 }
 
 - (void)testCdnNameFromBalancer {
-    [YBCdnParser setBalancerHeaderName:@"cdn-name"];
+    [YBCdnParser setBalancerHeaderName:@"cdn-name" andNodeHeader:@""];
     
     NSString * cdnName = @"cdn-name-from-balancer";
     
@@ -243,6 +243,22 @@
     [cdnParser parseWithUrl:@"resource" andPreviousResponses:responses];
     
     XCTAssertEqualObjects(cdnName.uppercaseString, cdnParser.cdnName);
+}
+
+- (void)testCdnNameAndHostFromBalancer {
+    [YBCdnParser setBalancerHeaderName:@"cdn-name" andNodeHeader:@"cdn-host"];
+    
+    NSString * cdnName = @"cdn-name-from-balancer";
+    NSString * cdnNodeHost = @"cdn-host-from-balancer";
+
+    YBCdnParser * cdnParser = [YBCdnParser createWithName:YouboraCDNNameBalancer];
+    
+    NSDictionary * responses = @{@{}:@{@"cdn-name":[NSString stringWithFormat:@"%@\n", cdnName],@"cdn-host":cdnNodeHost}};
+
+    [cdnParser parseWithUrl:@"resource" andPreviousResponses:responses];
+    
+    XCTAssertEqualObjects(cdnName.uppercaseString, cdnParser.cdnName);
+    XCTAssertEqualObjects(cdnNodeHost, cdnParser.cdnNodeHost);
 }
 
 - (void)testHostAndType {

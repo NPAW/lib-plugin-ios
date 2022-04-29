@@ -211,9 +211,14 @@
     XCTAssertEqualObjects(list, self.p.getParseCdnNodeList);
 }
 
-- (void)testParseCdnNodeHeader {
+- (void)testParseCdnNameHeader {
     stubProperty(self.mockOptions, parseCdnNameHeader, @"x-header");
     XCTAssertEqualObjects(@"x-header", [self.p getParseCdnNameHeader]);
+}
+
+- (void)testParseCdnNodeHeader {
+    stubProperty(self.mockOptions, parseCdnNodeHeader, @"node-header");
+    XCTAssertEqualObjects(@"node-header", [self.p getParseCdnNodeHeader]);
 }
 
 - (void)testPlayhead {
