@@ -2,6 +2,9 @@
 ### Added
 - `parseCdnNodeHeader` option to parse from additional requests the host name providing content when using a custom balancer
 
+### Fixed
+- `parsedResource` param requests after `ResourceTransform` is done.
+
 ## [6.6.15] - 2022-04-12
 ### Fixed
 - `adStop` and `adBreakStop` fired when content is changed during pre-rolls
