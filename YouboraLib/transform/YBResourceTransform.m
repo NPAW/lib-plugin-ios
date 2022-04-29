@@ -217,6 +217,11 @@
          [request setParam:resource forKey:YBConstantsRequest.mediaResource];
          lastSent[YBConstantsRequest.mediaResource] = resource;*/
         
+        if (self.plugin.isParseResource && request.params[@"parsedResource"] == nil) {
+            [request setParam:[self getResource] forKey:YBConstantsRequest.parsedResource];
+            lastSent[YBConstantsRequest.parsedResource] = [self getResource];
+        }
+        
         if (self.cdnEnabled) {
             NSString * cdn = request.params[YBConstantsRequest.cdn];
             if (cdn == nil) {
