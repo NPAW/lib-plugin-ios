@@ -37,6 +37,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.parseDash: (.depretacted, "parseDash"),
         YBOptionKeys.parseLocationHeader: (.depretacted, "parseLocationHeader"),
         YBOptionKeys.parseCdnNameHeader: (.string, "parseCdnNameHeader"),
+        YBOptionKeys.parseCdnNodeHeader: (.string, "parseCdnNodeHeader"),
         YBOptionKeys.parseCdnNode: (.bool, "parseCdnNode"),
         YBOptionKeys.parseCdnNodeList: (.unknown, "parseCdnNodeList"),
         YBOptionKeys.experimentIds: (.unknown, "experimentIds"),
@@ -184,6 +185,7 @@ public struct YBOptionUtilsKeys {
     public static let parseHls = "parse.hls"
     public static let parseDash = "parse.dash"
     public static let parseCdnNameHeader = "parse.cdnNameHeader"
+    public static let parseCdnNodeHeader = "parse.cdnNodeHeader"
     public static let parseCdnNode = "parse.cdnNode"
     public static let parseCdnNodeList = "parse.cdnNode.list"
     public static let parseLocationHeader = "parse.locationHeader"

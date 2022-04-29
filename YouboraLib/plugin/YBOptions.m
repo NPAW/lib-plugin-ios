@@ -189,6 +189,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         
         self.parseCdnNode = [[decoder decodeObjectForKey:YBOptionKeys.parseCdnNode] isEqualToValue:@YES];
         self.parseCdnNameHeader = [decoder decodeObjectForKey:YBOptionKeys.parseCdnNameHeader];
+        self.parseCdnNodeHeader = [decoder decodeObjectForKey:YBOptionKeys.parseCdnNodeHeader];
         self.parseCdnNodeList = [decoder decodeObjectForKey:YBOptionKeys.parseCdnNodeList];
         self.experimentIds = [decoder decodeObjectForKey:YBOptionKeys.experimentIds];
         self.networkIP = [decoder decodeObjectForKey:YBOptionKeys.networkIP];
@@ -331,6 +332,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:@(self.parseLocationHeader) forKey:YBOptionKeys.parseLocationHeader];
     
     [coder encodeObject:self.parseCdnNameHeader forKey:YBOptionKeys.parseCdnNameHeader];
+    [coder encodeObject:self.parseCdnNodeHeader forKey:YBOptionKeys.parseCdnNodeHeader];
     [coder encodeObject:self.parseCdnNodeList forKey:YBOptionKeys.parseCdnNodeList];
     [coder encodeObject:self.experimentIds forKey:YBOptionKeys.experimentIds];
     [coder encodeObject:self.networkIP forKey:YBOptionKeys.networkIP];
@@ -470,7 +472,8 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.parseLocationHeader = false;
     
     self.parseCdnNameHeader = @"x-cdn-forward";
-    
+    self.parseCdnNodeHeader = @"";
+
     // TODO: Node list YBConstants
     self.parseCdnNodeList = [NSMutableArray arrayWithObjects:YouboraCDNNameAkamai, YouboraCDNNameCloudfront, YouboraCDNNameLevel3, YouboraCDNNameFastly, YouboraCDNNameHighwinds, YouboraCDNNameTelefonica, YouboraCDNNameAmazon, YouboraCDNNameEdgecast, YouboraCDNNameNosOtt, nil];
     
@@ -629,6 +632,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:@(self.parseLocationHeader) forKey:YBOptionKeys.parseLocationHeader];
     
     [dict setValue:self.parseCdnNameHeader forKey:YBOptionKeys.parseCdnNameHeader];
+    [dict setValue:self.parseCdnNodeHeader forKey:YBOptionKeys.parseCdnNodeHeader];
     [dict setValue:self.parseCdnNodeList forKey:YBOptionKeys.parseCdnNodeList];
     [dict setValue:self.experimentIds forKey:YBOptionKeys.experimentIds];
     [dict setValue:self.networkIP forKey:YBOptionKeys.networkIP];

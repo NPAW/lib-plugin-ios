@@ -150,8 +150,9 @@ FOUNDATION_EXPORT NSString * const YouboraCDNNameNosOtt;
  * as a shortcut to creating a new CDN definition.
  * This is usually used with DNS-based load balance services, such as Cedexis.
  * @param cdnNameHeader the header response name where to get the CDN name from.
+ * @param cdnNodeHeader the header response name where to get the host name from.
  */
-+ (void) setBalancerHeaderName:(NSString *) cdnNameHeader;
++ (void) setBalancerHeaderName:(NSString *) cdnNameHeader andNodeHeader:(NSString *) cdnNodeHeader;
 
 /**
  * Create one of the pre-defined CDN definitions.

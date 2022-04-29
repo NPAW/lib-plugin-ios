@@ -90,6 +90,7 @@
     opt.parseHls = true;
     opt.parseDash = true;
     opt.parseCdnNameHeader = @"nameheader";
+    opt.parseCdnNodeHeader = @"nodeheader";
     opt.parseCdnNode = true;
     opt.parseCdnNodeList = [@[@"1", @"2", @"3"] mutableCopy];
     opt.networkIP = @"1.2.3.4";
@@ -240,6 +241,7 @@
     XCTAssertEqual(opt.parseHls, opt2.parseHls);
     XCTAssertEqual(opt.parseDash, opt2.parseDash);
     XCTAssertEqualObjects(opt.parseCdnNameHeader, opt2.parseCdnNameHeader);
+    XCTAssertEqualObjects(opt.parseCdnNodeHeader, opt2.parseCdnNodeHeader);
     XCTAssertEqual(opt.parseCdnNode, opt2.parseCdnNode);
     XCTAssertEqualObjects(opt.parseCdnNodeList, opt2.parseCdnNodeList);
     XCTAssertEqualObjects(opt.networkIP, opt2.networkIP);

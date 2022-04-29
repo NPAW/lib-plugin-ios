@@ -26,6 +26,7 @@
 @property(nonatomic, assign) YBCdnType cdnNodeType;
 @property(nonatomic, strong) NSString * cdnNodeTypeString;
 @property(nonatomic, strong) NSString * cdnNameHeader;
+@property(nonatomic, strong) NSString * cdnNodeHeader;
 
 @property(nonatomic, strong) YBCdnParser * cdnParser;
 
@@ -131,7 +132,7 @@
         self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
         
         if (self.cdnNameHeader != nil) {
-            [YBCdnParser setBalancerHeaderName:self.cdnNameHeader];
+            [YBCdnParser setBalancerHeaderName:self.cdnNameHeader andNodeHeader:self.cdnNodeHeader];
         }
         
         [self setTimeout];

@@ -256,10 +256,17 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 
 /**
  * Returns the Cdn name header. This value is later passed to
- * the cdn parseras BalancerHeaderName
+ * the cdn parsers BalancerHeaderName
  * @return the cdn name header.
  */
 - (nullable NSString *) getParseCdnNameHeader;
+
+/**
+ * Returns the Cdn node header. This value is later passed to
+ * the cdn parsers BalancerHeaderName
+ * @return the cdn node header.
+ */
+- (nullable NSString *) getParseCdnNodeHeader;
 
 /**
  * Returns the content's playhead in seconds
