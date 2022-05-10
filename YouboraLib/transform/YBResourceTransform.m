@@ -130,6 +130,8 @@
         self.cdnNodeTypeString = nil;
         self.cdnEnabled = [self.plugin isParseCdnNode];
         self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
+        self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
+        self.cdnNodeHeader = [self.plugin getParseCdnNodeHeader];
         
         if (self.cdnNameHeader != nil) {
             [YBCdnParser setBalancerHeaderName:self.cdnNameHeader andNodeHeader:self.cdnNodeHeader];
