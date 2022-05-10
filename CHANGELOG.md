@@ -1,3 +1,7 @@
+## [6.6.17] - 2022-05-10
+### Fixed
+- `parseCdnNameHeader` and `parseCdnNodeHeader` getters in `YBResourceTransform`
+
 ## [6.6.16] - 2022-04-29
 ### Added
 - `parseCdnNodeHeader` option to parse from additional requests the host name providing content when using a custom balancer
