@@ -180,7 +180,8 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.userType = [decoder decodeObjectForKey:YBOptionKeys.userType];
         self.userEmail = [decoder decodeObjectForKey:YBOptionKeys.userEmail];
         self.parseResource = [decoder decodeBoolForKey:YBOptionKeys.parseResource];
-        
+        self.parseResourceAuth = [decoder decodeObjectForKey:YBOptionKeys.parseResourceAuth];
+
         self.cdnSwitchHeader = [decoder decodeBoolForKey:YBOptionKeys.cdnSwitchHeader];
         self.cdnTTL = [decoder decodeBoolForKey:YBOptionKeys.cdnTTL];
         self.parseDash = [decoder decodeBoolForKey:YBOptionKeys.parseDash];
@@ -324,6 +325,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:self.userEmail forKey:YBOptionKeys.userEmail];
     
     [coder encodeBool:self.parseResource forKey:YBOptionKeys.parseResource];
+    [coder encodeObject:self.parseResourceAuth forKey:YBOptionKeys.parseResourceAuth];
     [coder encodeBool:self.cdnSwitchHeader forKey:YBOptionKeys.cdnSwitchHeader];
     [coder encodeBool:self.cdnTTL forKey:YBOptionKeys.cdnTTL];
     [coder encodeBool:self.parseDash forKey:YBOptionKeys.parseDash];
@@ -466,6 +468,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.anonymousUser = nil;
     
     self.parseResource = false;
+    self.parseResourceAuth = nil;
     self.parseHls = false;
     self.parseDash = false;
     self.parseCdnNode = false;
@@ -624,6 +627,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.userEmail forKey:YBOptionKeys.userEmail];
     
     [dict setValue:@(self.parseResource) forKey:YBOptionKeys.parseResource];
+    [dict setValue:self.parseResourceAuth forKey:YBOptionKeys.parseResourceAuth];
     [dict setValue:@(self.cdnSwitchHeader) forKey:YBOptionKeys.cdnSwitchHeader];
     [dict setValue:@(self.cdnTTL) forKey:YBOptionKeys.cdnTTL];
     [dict setValue:@(self.parseDash) forKey:YBOptionKeys.parseDash];

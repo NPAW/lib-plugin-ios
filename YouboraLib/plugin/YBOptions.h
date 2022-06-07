@@ -225,6 +225,13 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, assign) bool parseResource;
 
 /**
+ * If parseResource is enabled, it adds extra headers to the request of the content.
+ * Use this if for example, the player needs to include authentication headers to
+ * request the content, so the plugin needs it to access to the manifest files too.
+ */
+@property(nonatomic, strong) NSDictionary<NSString *, NSString *> * _Nullable parseResourceAuth;
+
+/**
  * If true the plugin will parse HLS files to use the first .ts file found as resource.
  * It might slow performance down.
  * Default: false

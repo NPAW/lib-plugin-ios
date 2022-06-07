@@ -92,6 +92,16 @@ typedef void (^YBRequestErrorBlock) (NSError * _Nullable error);
  */
 - (instancetype) initWithHost:(nullable NSString *) host andService:(nullable NSString *) service;
 
+/**
+ * YBRequest will generate the URL call.
+ *
+ * @param host NSString with the URL of the request. Example: a-fds.youborafds01.com
+ * @param service NSString with the name of the service. Example: '/start'
+ * @param headers NSDictionary with the extra headers for the request.
+ * @returns An instance of YBRequest
+ */
+- (instancetype) initWithHost:(nullable NSString *) host service:(nullable NSString *) service andHeaders:(nullable NSDictionary<NSString *, NSString *> *) headers;
+
 /// ---------------------------------
 /// @name Public methods
 /// ---------------------------------

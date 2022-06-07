@@ -217,6 +217,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 -(bool) isParseResource;
 
 /**
+* Returns the parse Resource headers
+* @return the parse Resource headers
+*/
+- (NSDictionary<NSString *, NSString *> *) getParseResourceAuth;
+
+/**
  * Returns the parse HLS flag
  * @return the parse HLS flag
  */

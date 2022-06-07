@@ -60,9 +60,14 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
 }
 
 - (instancetype) initWithHost:(nullable NSString *) host andService:(nullable NSString *) service {
+    return [self initWithHost:host service:service andHeaders:nil];
+}
+
+- (instancetype) initWithHost:(nullable NSString *) host service:(nullable NSString *) service andHeaders:(nullable NSDictionary<NSString *, NSString *> *) headers {
     self = [self init];
     self.host = host;
     self.service = service;
+    self.requestHeaders = headers;
     return self;
 }
 
