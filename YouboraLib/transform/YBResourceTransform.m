@@ -15,6 +15,7 @@
 #import "YBCdnConfig.h"
 #import "YBLog.h"
 #import "YBSwift.h"
+#import "YBOptions.h"
 
 @interface YBResourceTransform() <CdnTransformDoneDelegate>
 
@@ -159,8 +160,14 @@
     [self requestAndParse:parser currentResource:resource userDefinedTransportFormat:definedTransportFormat];
 }
 
--(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
-    YBRequest *request = [[YBRequest alloc] initWithHost:resource andService:nil];
+-(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat {
+    YBRequest *request;
+    
+    if (self.plugin && [self.plugin getParseResourceAuth]) {
+        request = [[YBRequest alloc] initWithHost:resource service:nil andHeaders:[self.plugin getParseResourceAuth]];
+    } else {
+        request = [[YBRequest alloc] initWithHost:resource andService:nil];
+    }
     
     [request addRequestSuccessListener:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSDictionary<NSString *,id> * _Nullable listenerParams) {
         if (![parser isSatisfiedWithResource:resource manifest:data]) {

@@ -464,8 +464,12 @@
     return [YBYouboraUtils addProtocol:[YBYouboraUtils stripProtocol:self.options.host] https:self.options.httpSecure];
 }
 
--(bool) isParseResource {
+- (bool) isParseResource {
     return self.options.parseResource;
+}
+
+- (NSDictionary<NSString *, NSString *> *) getParseResourceAuth {
+    return self.options.parseResourceAuth;
 }
 
 - (bool) isParseHls {

@@ -33,6 +33,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.userType: (.string, "userType"),
         YBOptionKeys.userEmail: (.string, "userEmail"),
         YBOptionKeys.parseResource: (.bool, "parseResource"),
+        YBOptionKeys.parseResourceAuth: (.bool, "parseResourceAuth"),
         YBOptionKeys.parseHls: (.depretacted, "parseHls"),
         YBOptionKeys.parseDash: (.depretacted, "parseDash"),
         YBOptionKeys.parseLocationHeader: (.depretacted, "parseLocationHeader"),
@@ -182,6 +183,7 @@ public struct YBOptionUtilsKeys {
     public static let ssGroupCode = "smartswitch.groupCode"
     public static let ssContractCode = "smartswitch.contractCode"
     public static let parseResource = "parse.manifest"
+    public static let parseResourceAuth = "parse.manifest.auth"
     public static let parseHls = "parse.hls"
     public static let parseDash = "parse.dash"
     public static let parseCdnNameHeader = "parse.cdnNameHeader"

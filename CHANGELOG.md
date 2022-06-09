@@ -1,3 +1,7 @@
+## [6.6.18] - 2022-06-07
+### Added
+- `parseManifestAuth` option
+
 ## [6.6.17] - 2022-05-10
 ### Fixed
 - `parseCdnNameHeader` and `parseCdnNodeHeader` getters in `YBResourceTransform`
