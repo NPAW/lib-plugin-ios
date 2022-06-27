@@ -1,3 +1,10 @@
+## [6.6.19] - 2022-06-28
+### Added
+- `fireAdBreakStart` and `fireAdManifest` calls to adInit parameters
+
+### Changed
+- stop to be fired only once
+
 ## [6.6.18] - 2022-06-07
 ### Added
 - `parseManifestAuth` option
