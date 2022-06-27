@@ -2927,11 +2927,11 @@
 
 // Ads
 - (void) adInitListener:(NSDictionary<NSString *, NSString *> *) params{
-    if(self.adsAdapter != nil && self.adsAdapter != nil){
+    if (self.adsAdapter != nil && self.adsAdapter != nil) {
         [self.adapter fireSeekEnd];
         [self.adapter fireBufferEnd];
         
-        if(self.adapter.flags.paused){
+        if (self.adapter.flags.paused) {
             [self.adapter.chronos.pause reset];
         }
     }
