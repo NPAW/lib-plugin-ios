@@ -2935,6 +2935,12 @@
             [self.adapter.chronos.pause reset];
         }
     }
+    
+    if (self.adsAdapter != nil) {
+        [self.adsAdapter fireAdManifest:nil];
+        [self.adsAdapter fireAdBreakStart];
+    }
+    
     [self sendAdInit:params];
 }
 - (void) adStartListener:(NSDictionary<NSString *, NSString *> *) params {
