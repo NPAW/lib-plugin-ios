@@ -371,7 +371,10 @@
 }
 
 - (void) fireStop:(nullable NSDictionary<NSString *, NSString *> *) params{
-    [self stopListener:params];
+    if (self.isInitiated) {
+        [self stopListener:params];
+        self.isInitiated = false;
+    }
 }
 
 - (void) fireOfflineEvents{
@@ -2927,14 +2930,20 @@
 
 // Ads
 - (void) adInitListener:(NSDictionary<NSString *, NSString *> *) params{
-    if(self.adsAdapter != nil && self.adsAdapter != nil){
+    if (self.adsAdapter != nil && self.adsAdapter != nil) {
         [self.adapter fireSeekEnd];
         [self.adapter fireBufferEnd];
         
-        if(self.adapter.flags.paused){
+        if (self.adapter.flags.paused) {
             [self.adapter.chronos.pause reset];
         }
     }
+    
+    if (self.adsAdapter != nil) {
+        [self.adsAdapter fireAdManifest:nil];
+        [self.adsAdapter fireAdBreakStart];
+    }
+    
     [self sendAdInit:params];
 }
 - (void) adStartListener:(NSDictionary<NSString *, NSString *> *) params {
