@@ -705,6 +705,12 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, strong) NSString * _Nullable anonymousUser;
 
 /**
+ * Privacy protocol to be used, nil by default.
+ * Possible values are "optin" and "optout"
+ */
+@property(nonatomic, strong) NSString * _Nullable privacyProtocol;
+
+/**
  * Flag if Infinity is going to be used
  */
 @property(nonatomic, strong) NSValue * _Nullable isInfinity __deprecated_msg("This property will be removed in future releases");

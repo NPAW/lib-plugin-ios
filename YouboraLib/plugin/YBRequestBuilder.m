@@ -91,6 +91,7 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.transportFormat,
                 YBConstantsRequest.experiments,
                 YBConstantsRequest.obfuscateIp,
+                YBConstantsRequest.privacyProtocol,
                 YBConstantsRequest.householdId,
                 YBConstantsRequest.navContext,
                 YBConstantsRequest.anonymousUser,
@@ -279,6 +280,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraInfinity.sessionStart: @[YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1,                               YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,
                                                      YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.dimensions, YBConstantsRequest.deviceUUID, YBConstantsRequest.deviceEDID, YBConstantsRequest.deviceCode,
                                                          YBConstantsRequest.obfuscateIp,
+                                                         YBConstantsRequest.privacyProtocol,
                                                          YBConstantsRequest.ip,
                                                          YBConstantsRequest.isp,
                                                          YBConstantsRequest.connectionType,
@@ -659,6 +661,8 @@ static NSArray<NSString *> * youboraPingEntities;
         if (obfuscate != nil) {
             value = [obfuscate isEqual:@YES] ? @"true" : @"false";
         }
+    } else if ([param isEqualToString:YBConstantsRequest.privacyProtocol]){
+        value = [self.plugin getPrivacyProtocol];
     } else if ([param isEqualToString:YBConstantsRequest.navContext]) {
         value = [self.plugin getInfinity].navContext;
     } else if ([param isEqualToString:YBConstantsRequest.sessions]) {

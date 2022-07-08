@@ -64,6 +64,7 @@ import Foundation
     static public let householdId = "householdId"
     static public let navContext = "navContext"
     static public let anonymousUser = "anonymousUser"
+    static public let privacyProtocol = "privacyProtocol"
     static public let smartswitchConfigCode = "smartswitchConfigCode"
     static public let smartswitchGroupCode = "smartswitchGroupCode"
     static public let smartswitchContractCode = "smartswitchContractCode"

@@ -1279,6 +1279,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getAnonymousUser;
 
 /**
+ * Returns privacy protocol option
+ * @return the privacy protocol
+ */
+- (nullable NSString *) getPrivacyProtocol;
+
+/**
  * Get CDN node
  * @return the CDN node or nil if unknown
  */
