@@ -1,3 +1,7 @@
+## [6.6.20] - 2022-07-08
+### Added
+- `userPrivacyProtocol` option
+
 ## [6.6.19] - 2022-06-28
 ### Added
 - `fireAdBreakStart` and `fireAdManifest` calls to adInit parameters

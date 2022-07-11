@@ -115,6 +115,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.adBlockerDetected: (.valueBool, "ad.blockerDetected"),
         YBOptionKeys.offline: (.bool, "offline"),
         YBOptionKeys.anonymousUser: (.string, "anonymousUser"),
+        YBOptionKeys.privacyProtocol: (.string, "privacyProtocol"),
         YBOptionKeys.isInfinity: (.valueBool, "isInfinity"),
         YBOptionKeys.ssConfigCode: (.string, "smartswitchConfigCode"),
         YBOptionKeys.ssGroupCode: (.string, "smartswitchGroupCode"),
@@ -170,6 +171,7 @@ public struct YBOptionUtilsKeys {
     public static let authType = "authType"
     public static let username = "username"
     public static let anonymousUser = "user.anonymousId"
+    public static let privacyProtocol = "user.privacyProtocol"
     public static let offline = "offline"
     public static let isInfinity = "isInfinity"
     public static let background = "autoDetectBackground"

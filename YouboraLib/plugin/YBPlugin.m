@@ -1743,6 +1743,17 @@
     return self.options.anonymousUser;
 }
 
+- (NSString *)getPrivacyProtocol {
+    NSString * privacyProtocol = self.options.privacyProtocol;
+    if (privacyProtocol != nil) {
+        privacyProtocol = [privacyProtocol lowercaseString];
+        if ([privacyProtocol isEqualToString:@"optin"] || [privacyProtocol isEqualToString:@"optout"]) {
+            return privacyProtocol;
+        }
+    }
+    return nil;
+}
+
 - (NSString *) getNodeHost {
     NSString * nodeHost = self.options.contentCdnNode;
     if (nodeHost == nil || [nodeHost length] == 0) {

@@ -64,6 +64,7 @@ import Foundation
     static public let householdId = "householdId"
     static public let navContext = "navContext"
     static public let anonymousUser = "anonymousUser"
+    static public let privacyProtocol = "privacyProtocol"
     static public let smartswitchConfigCode = "smartswitchConfigCode"
     static public let smartswitchGroupCode = "smartswitchGroupCode"
     static public let smartswitchContractCode = "smartswitchContractCode"
@@ -280,7 +281,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.6.18"
+    static public var youboraLibVersion = "6.6.20"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"
