@@ -1,3 +1,7 @@
+## [6.6.21] - 2022-07-19
+### Added
+- New iPhone and iPad models for device info
+
 ## [6.6.20] - 2022-07-08
 ### Added
 - `userPrivacyProtocol` option

@@ -281,7 +281,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.6.20"
+    static public var youboraLibVersion = "6.6.21"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"
@@ -332,6 +332,7 @@ import Foundation
             "iPhone14,3": "iPhone 13 Pro Max",
             "iPhone14,4": "iPhone 13 Mini",
             "iPhone14,5": "iPhone 13",
+            "iPhone14,6": "iPhone SE 3rd Gen",
             "iPad4,1": "iPad Air",          // 5th Generation iPad (iPad Air) - Wifi
             "iPad4,2": "iPad Air",          // 5th Generation iPad (iPad Air) - Cellular
             "iPad4,4": "iPad Mini",         // (2nd Generation iPad Mini - Wifi)
@@ -341,8 +342,54 @@ import Foundation
             "iPad6,8": "iPad Pro (12.9\")", // iPad Pro 12.9 inches - (model A1652)
             "iPad6,3": "iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (model A1673)
             "iPad6,4": "iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (models A1674 and A1675)
-            "AppleTV5,3": "Apple TV 4G",       // AppleTV 4G
-            "AppleTV6,2": "Apple TV 4K"        // AppleTV 4K
+            "iPad6,7": "iPad Pro (12.9\")", // iPad Pro 12.9 inches - Wifi (model A1584)
+            "iPad6,8": "iPad Pro (12.9\")", // iPad Pro 12.9 inches - Cellular (model A1652)
+            "iPad6,11": "iPad 5th Gen", // 5th Generation iPad - Wifi (model A1822)
+            "iPad6,12": "iPad 5th Gen", // 5th Generation iPad - Cellular (model A1823)
+            "iPad7,1": "iPad Pro (12.9\") 2nd Gen", // iPad Pro 12.9 inches - Wifi (model A1670)
+            "iPad7,2": "iPad Pro (12.9\") 2nd Gen", // iPad Pro 12.9 inches - Cellular (models A1671 and A1821)
+            "iPad7,3": "iPad Pro (10.5\") 2nd Gen", // iPad Pro 10.5 inches - Wifi (model A1701)
+            "iPad7,4": "iPad Pro (10.5\") 2nd Gen", // iPad Pro 10.5 inches - Cellular (model A1709)
+            "iPad7,5": "iPad 6th Gen", // 6th Generation iPad - Wifi
+            "iPad7,6": "iPad 6th Gen", // 6th Generation iPad - Cellular
+            "iPad7,11": "iPad 7th Gen", // 7th Generation iPad - Wifi
+            "iPad7,12": "iPad 7th Gen", // 7th Generation iPad - Cellular
+            "iPad8,1": "iPad Pro (11\")", // iPad Pro 11 inches - Wifi
+            "iPad8,2": "iPad Pro (11\")", // iPad Pro 11 inches 1T - Wifi
+            "iPad8,3": "iPad Pro (11\")", // iPad Pro 11 inches - Cellular
+            "iPad8,4": "iPad Pro (11\")", // iPad Pro 11 inches 1T - Cellular
+            "iPad8,5": "iPad Pro (12.9\") 3rd Gen", // iPad Pro 12.9 inches - Wifi
+            "iPad8,6": "iPad Pro (12.9\") 3rd Gen", // iPad Pro 12.9 inches 1T - Wifi
+            "iPad8,7": "iPad Pro (12.9\") 3rd Gen", // iPad Pro 12.9 inches - Cellular
+            "iPad8,8": "iPad Pro (12.9\") 3rd Gen", // iPad Pro 12.9 inches 1T - Cellular
+            "iPad8,9": "iPad Pro (11\") 2nd Gen", // iPad Pro 11 inches - Wifi
+            "iPad8,10": "iPad Pro (11\") 2nd Gen", // iPad Pro 11 inches - Cellular
+            "iPad8,11": "iPad Pro (12.9\") 4th Gen", // iPad Pro 12.9 inches - Wifi
+            "iPad8,12": "iPad Pro (12.9\") 4th Gen", // iPad Pro 12.9 inches - Cellular
+            "iPad11,1": "iPad Mini 5th Gen", // 5th Generation iPad Mini - Wifi
+            "iPad11,2": "iPad Mini 5th Gen", // 5th Generation iPad Mini - Cellular
+            "iPad11,3": "iPad Air 3rd Gen", // 3rd Generation iPad Air - Wifi
+            "iPad11,4": "iPad Air 3rd Gen", // 3rd Generation iPad Air - Cellular
+            "iPad11,6": "iPad 8th Gen", // 8th Generation iPad - Wifi
+            "iPad11,7": "iPad 8th Gen", // 8th Generation iPad - Cellular
+            "iPad12,1": "iPad 9th Gen", // 9th Generation iPad - Wifi
+            "iPad12,2": "iPad 9th Gen", // 9th Generation iPad - Cellular
+            "iPad13,1": "iPad Air 4th Gen", // 4th Generation iPad Air - Wifi
+            "iPad13,2": "iPad Air 4th Gen", // 4th Generation iPad Air - Cellular
+            "iPad13,4": "iPad Pro (11\") 3rd Gen", // 3rd Pro 11 inches - Wifi
+            "iPad13,5": "iPad Pro (11\") 3rd Gen", // 3rd Pro 11 inches - Cellular
+            "iPad13,6": "iPad Pro (11\") 3rd Gen", // 3rd Pro 11 inches - Cellular
+            "iPad13,7": "iPad Pro (11\") 3rd Gen", // 3rd Pro 11 inches - Cellular
+            "iPad13,8": "iPad Pro (12.9\") 5th Gen", // iPad Pro 12.9 inches - Wifi
+            "iPad13,9": "iPad Pro (12.9\") 5th Gen", // iPad Pro 12.9 inches - Cellular
+            "iPad13,10": "iPad Pro (12.9\") 5th Gen", // iPad Pro 12.9 inches - Cellular
+            "iPad13,11": "iPad Pro (12.9\") 5th Gen", // iPad Pro 12.9 inches - Cellular
+            "iPad13,16": "iPad Air 5th Gen", // 5th Generation iPad Air - Wifi
+            "iPad13,17": "iPad Air 5th Gen", // 5th Generation iPad Air - Cellular
+            "iPad14,1": "iPad Mini 6th Gen", // 6th Generation iPad Mini - Wifi
+            "iPad14,2": "iPad Mini 6th Gen", // 6th Generation iPad Mini - Cellular
+            "AppleTV5,3": "Apple TV 4G", // AppleTV 4G
+            "AppleTV6,2": "Apple TV 4K" // AppleTV 4K
         ]
     }
 }
