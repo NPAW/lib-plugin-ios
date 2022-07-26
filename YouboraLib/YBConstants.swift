@@ -281,7 +281,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.6.21"
+    static public var youboraLibVersion = "6.6.22"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"
@@ -338,8 +338,6 @@ import Foundation
             "iPad4,4": "iPad Mini",         // (2nd Generation iPad Mini - Wifi)
             "iPad4,5": "iPad Mini",         // (2nd Generation iPad Mini - Cellular)
             "iPad4,7": "iPad Mini",         // (3rd Generation iPad Mini - Wifi (model A1599))
-            "iPad6,7": "iPad Pro (12.9\")", // iPad Pro 12.9 inches - (model A1584)
-            "iPad6,8": "iPad Pro (12.9\")", // iPad Pro 12.9 inches - (model A1652)
             "iPad6,3": "iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (model A1673)
             "iPad6,4": "iPad Pro (9.7\")",  // iPad Pro 9.7 inches - (models A1674 and A1675)
             "iPad6,7": "iPad Pro (12.9\")", // iPad Pro 12.9 inches - Wifi (model A1584)

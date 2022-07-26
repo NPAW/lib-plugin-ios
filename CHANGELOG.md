@@ -1,3 +1,7 @@
+## [6.6.22] - 2022-07-26
+### Fixed
+- Device info duplicates models
+
 ## [6.6.21] - 2022-07-19
 ### Added
 - New iPhone and iPad models for device info
