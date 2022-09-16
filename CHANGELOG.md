@@ -1,3 +1,7 @@
+## [6.6.23] - 2022-09-16
+### Added
+- New iPhone 14 device models
+
 ## [6.6.22] - 2022-07-26
 ### Fixed
 - Device info duplicates models
