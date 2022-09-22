@@ -94,7 +94,7 @@ static NSMutableArray<YBRequestErrorBlock> * everyErrorListenerList;
             NSString * value = self.params[key];
             if (value != nil) {
                 // Avoid sending null values
-                NSURLQueryItem * queryItem = [NSURLQueryItem queryItemWithName:key value:value];
+                NSURLQueryItem * queryItem = [NSURLQueryItem queryItemWithName:(NSString *)key value:(NSString *)value];
                 [queryItems addObject:queryItem];
             }
         }
