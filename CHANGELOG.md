@@ -1,3 +1,7 @@
+## [6.6.24] - 2022-09-27
+### Fixed
+- iOS 16 request non string exception in `getUrl` method
+
 ## [6.6.23] - 2022-09-16
 ### Added
 - New iPhone 14 device models
