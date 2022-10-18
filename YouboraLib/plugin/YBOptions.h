@@ -1178,6 +1178,12 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, strong) NSArray<NSString *> * _Nullable pendingMetadata;
 
 /**
+ * Support for the plugin to send requests via post message (with parameters in the body).
+ * Default: false
+ */
+@property(nonatomic, assign) bool enablePostRequest;
+
+/**
  * If it has elements on it, all the errors matching this code will fire the stop event to end the view
  */
 @property(nonatomic, strong) NSArray<NSString *> * _Nullable fatalErrors;

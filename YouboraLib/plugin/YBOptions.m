@@ -309,6 +309,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.linkedViewId = [decoder decodeObjectForKey:YBOptionKeys.linkedViewId];
         self.waitForMetadata = [[decoder decodeObjectForKey:YBOptionKeys.waitMetadata] isEqualToValue:@YES];
         self.pendingMetadata = [decoder decodeObjectForKey:YBOptionKeys.pendingMetadata];
+        self.enablePostRequest = [[decoder decodeObjectForKey:YBOptionKeys.enablePostRequest] isEqualToValue:@YES];
         self.sessionMetrics = [decoder decodeObjectForKey:YBOptionKeys.sessionMetrics];
     }
     return self;
@@ -454,6 +455,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:self.linkedViewId forKey:YBOptionKeys.linkedViewId];
     [coder encodeObject:@(self.waitForMetadata) forKey:YBOptionKeys.waitMetadata];
     [coder encodeObject:self.pendingMetadata forKey:YBOptionKeys.pendingMetadata];
+    [coder encodeObject:@(self.enablePostRequest) forKey:YBOptionKeys.enablePostRequest];
     [coder encodeObject:self.sessionMetrics forKey:YBOptionKeys.sessionMetrics];
 }
 
@@ -614,6 +616,8 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.waitForMetadata = false;
     self.pendingMetadata = [[NSArray alloc] init];
     
+    self.enablePostRequest = false;
+    
     self.sessionMetrics = [NSMutableDictionary dictionary];
 }
 
@@ -758,6 +762,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.linkedViewId forKey:YBOptionKeys.linkedViewId];
     [dict setValue:@(self.waitForMetadata) forKey:YBOptionKeys.waitMetadata];
     [dict setValue:self.pendingMetadata forKey:YBOptionKeys.pendingMetadata];
+    [dict setValue:@(self.enablePostRequest) forKey:YBOptionKeys.enablePostRequest];
     [dict setValue:self.sessionMetrics forKey:YBOptionKeys.sessionMetrics];
     return [[NSDictionary alloc] initWithDictionary:dict];
 }

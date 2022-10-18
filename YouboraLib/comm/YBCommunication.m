@@ -13,6 +13,7 @@
 #import "YBConstants.h"
 #import "YBPlugin.h"
 #import "YBOptions.h"
+#import "YBSwift.h"
 
 @interface YBCommunication()
 
@@ -108,11 +109,18 @@
         
         YBRequest * request = self.requests[i];
         YBTransformState transformState = [self transform:request];
-        if(transformState == YBStateOffline){
+        if (transformState == YBStateOffline) {
             [self.requests removeObjectAtIndex:i];
-        }else{
-            if(transformState == YBStateNoBlocked){
+        } else {
+            if (transformState == YBStateNoBlocked) {
                 [self.requests removeObjectAtIndex:i];
+                if (self.plugin) {
+                    YBOptions * options = self.plugin.options;
+                    if (options.enablePostRequest) {
+                        request.body = [YBYouboraUtils stringifyDictionary:request.params];
+                        request.params = [self getParamsForPostMessages:request.params];
+                    }
+                }
                 [request send];
             }
         }
@@ -123,6 +131,26 @@
     }
     [self.requestsLock unlock];
     // Unlock
+}
+
+- (NSMutableDictionary<NSString *, NSString *> *) getParamsForPostMessages: (NSDictionary<NSString *, NSString *> *) params {
+    NSMutableDictionary * mutParams = [NSMutableDictionary dictionary];
+    
+    // Get previous params
+    if (params[@"timemark"] != nil) {
+        mutParams[@"timemark"] = params[@"timemark"];
+    }
+    if (params[@"code"] != nil) {
+        mutParams[@"code"] = params[@"code"];
+    }
+    if (params[@"sessionRoot"] != nil) {
+        mutParams[@"sessionRoot"] = params[@"sessionRoot"];
+    }
+    if (params[@"sessionId"] != nil) {
+        mutParams[@"sessionId"] = params[@"sessionId"];
+    }
+    
+    return mutParams;
 }
 
 - (YBTransformState) transform: (YBRequest *) request {
