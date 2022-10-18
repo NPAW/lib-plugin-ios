@@ -116,7 +116,7 @@
                 [self.requests removeObjectAtIndex:i];
                 if (self.plugin) {
                     YBOptions * options = self.plugin.options;
-                    if (options.enablePostRequest) {
+                    if (options.enablePostRequest && request.body == nil) {
                         request.body = [YBYouboraUtils stringifyDictionary:request.params];
                         request.params = [self getParamsForPostMessages:request.params];
                     }
