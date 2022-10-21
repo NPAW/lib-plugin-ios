@@ -2580,7 +2580,7 @@
 }
 
 - (void) sendWithCallbacks:(NSArray<YBWillSendRequestBlock> *) callbacks service:(NSString *) service andParams:(NSMutableDictionary<NSString *, NSString *> *) params {
-    if (self.options.enablePostRequest) {
+    if (self.options.method == YBRequestMethodPOST) {
         [self sendWithCallbacks:callbacks service:service andParams:params andMethod:YouboraHTTPMethodPost andBody:nil withSuccessListener:nil andSuccessListenerParams:nil];
     } else {
         [self sendWithCallbacks:callbacks service:service andParams:params andMethod:YouboraHTTPMethodGet andBody:nil withSuccessListener:nil andSuccessListenerParams:nil];

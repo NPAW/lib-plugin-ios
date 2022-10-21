@@ -162,6 +162,19 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_PRE __deprecated_msg("Us
 extern NSString * _Nullable const YBOPTIONS_AD_POSITION_MID __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("Use YBOptionKeys instead");
 
+/**
+ * Enum defining the method used to send the requests.
+ * Options are GET or POST
+ */
+typedef NS_ENUM(NSUInteger, YBRequestMethod) {
+    /** GET method */
+    YBRequestMethodGET = 0,
+    /** POST method */
+    YBRequestMethodPOST = 1
+};
+#define YBRequestMethodString(value) (@{@(YBRequestMethodGET) : @"GET", @(YBRequestMethodPOST) : @"POST"} [@(value)])
+
+
 /// Public methods
 - (NSDictionary *_Nullable) toDictionary;
 
@@ -1178,10 +1191,10 @@ extern NSString * _Nullable const YBOPTIONS_AD_POSITION_POST __deprecated_msg("U
 @property(nonatomic, strong) NSArray<NSString *> * _Nullable pendingMetadata;
 
 /**
- * Support for the plugin to send requests via post message (with parameters in the body).
- * Default: false
+ * The method that will be used for plugin requests.
+ * Default: GET
  */
-@property(nonatomic, assign) bool enablePostRequest;
+@property(nonatomic, assign) YBRequestMethod method;
 
 /**
  * If it has elements on it, all the errors matching this code will fire the stop event to end the view
