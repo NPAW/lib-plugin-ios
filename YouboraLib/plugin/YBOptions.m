@@ -309,7 +309,11 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.linkedViewId = [decoder decodeObjectForKey:YBOptionKeys.linkedViewId];
         self.waitForMetadata = [[decoder decodeObjectForKey:YBOptionKeys.waitMetadata] isEqualToValue:@YES];
         self.pendingMetadata = [decoder decodeObjectForKey:YBOptionKeys.pendingMetadata];
-        self.method = [decoder decodeIntForKey:YBOptionKeys.method];
+        if ([[[decoder decodeObjectForKey:YBOptionKeys.method] lowercaseString] isEqual: @"post"]) {
+            self.method = YBRequestMethodPOST;
+        } else {
+            self.method = YBRequestMethodGET;
+        }
         self.sessionMetrics = [decoder decodeObjectForKey:YBOptionKeys.sessionMetrics];
     }
     return self;
