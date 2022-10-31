@@ -1,3 +1,7 @@
+## [6.6.25] - 2022-10-18
+### Added
+- Support to send requests with POST method and parameters on the request body
+
 ## [6.6.24] - 2022-09-27
 ### Fixed
 - iOS 16 request non string exception in `getUrl` method

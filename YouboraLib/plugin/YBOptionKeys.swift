@@ -156,6 +156,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.linkedViewId: (.string, "linkedViewId"),
         YBOptionKeys.waitMetadata: (.bool, "waitForMetadata"),
         YBOptionKeys.pendingMetadata: (.unknown, "pendingMetadata"),
+        YBOptionKeys.method: (.bool, "method"),
         YBOptionKeys.sendTotalBytes: (.bool, "sendTotalBytes"),
         YBOptionKeys.cdnTTL: (.number, "cdnTTL"),
         YBOptionKeys.cdnSwitchHeader: (.bool, "cdnSwitchHeader")
@@ -300,6 +301,7 @@ public struct YBOptionUtilsKeys {
     public static let linkedViewId = "linkedViewId"
     public static let waitMetadata = "waitForMetadata"
     public static let pendingMetadata = "pendingMetadata"
+    public static let method = "method"
     public static let sessionMetrics = "session.metrics"
     public static let adPositionPre = "pre"
     public static let adPositionMid = "mid"
