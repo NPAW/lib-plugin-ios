@@ -1,4 +1,8 @@
-## [6.6.25] - 2022-10-18
+## [6.6.26] - 2022-??-??
+### Added
+- New iPad and iPad Pro device models
+
+## [6.6.25] - 2022-10-31
 ### Added
 - Support to send requests with POST method and parameters on the request body
 
