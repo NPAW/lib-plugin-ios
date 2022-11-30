@@ -396,9 +396,14 @@ import Foundation
             "iPad14,4": "iPad Pro (11\") 4th Gen", // 4th Generation iPad Pro 11 inches - Cellular
             "iPad14,5": "iPad Pro (12.9\") 6th Gen", // 6th Generation iPad Pro 12.9 inches - Wifi
             "iPad14,6": "iPad Pro (12.9\") 6th Gen", // 6th Generation iPad Pro 12.9 inches - Cellular
-            "AppleTV5,3": "Apple TV 4G", // AppleTV 4G
+            "AppleTV1,1": "Apple TV", // AppleTV
+            "AppleTV2,1": "Apple TV 2G", // 2nd Generation AppleTV
+            "AppleTV3,1": "Apple TV 3G", // 3rd Generation AppleTV
+            "AppleTV3,2": "Apple TV 3G", // 3rd Generation AppleTV
+            "AppleTV5,3": "Apple TV 4G", // 4th Generation AppleTV
             "AppleTV6,2": "Apple TV 4K", // AppleTV 4K
-            "AppleTV11,1": "Apple TV 4K 2",
+            "AppleTV11,1": "Apple TV 4K (2nd Gen)", // 2nd Generation AppleTV 4k
+            "AppleTV14,1": "Apple TV 4K (3rd Gen)", // 3rd Generation AppleTV 4k
         ]
     }
 }

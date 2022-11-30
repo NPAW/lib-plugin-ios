@@ -1,6 +1,7 @@
-## [6.6.26] - 2022-??-??
+## [6.6.26] - 2022-11-30
 ### Added
 - New iPad and iPad Pro device models
+- AppleTV device models
 
 ## [6.6.25] - 2022-10-31
 ### Added
