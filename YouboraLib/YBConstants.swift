@@ -18,6 +18,7 @@ import Foundation
     static public let title = "title"
     static public let title2 = "title2"
     static public let live = "live"
+    static public let segmentDuration = "segmentDuration"
     static public let mediaDuration = "mediaDuration"
     static public let mediaResource = "mediaResource"
     static public let parsedResource = "parsedResource"
@@ -158,8 +159,10 @@ import Foundation
     static public let adNumberInBreak = "adNumberInBreak"
     static public let fps = "fps"
     static public let throughput = "throughput"
+    static public let details = "details"
     static public let p2pDownloadedTraffic = "p2pDownloadedTraffic"
     static public let cdnDownloadedTraffic = "cdnDownloadedTraffic"
+    static public let cdnBalancerResponseUUID = "cdnBalancerResponseUUID"
     static public let sessions = "sessions"
     static public let uploadTraffic = "uploadTraffic"
     static public let adBufferDuration = "adBufferDuration"
@@ -216,6 +219,8 @@ import Foundation
     static public let stop = "/stop"
     /** /ping service */
     static public let ping = "/ping"
+    /** /cdn ping service */
+    static public let cdnPing = "/cdn"
     /** /offlineEvents */
     static public let offline = "/offlineEvents"
     /** /adInit service */

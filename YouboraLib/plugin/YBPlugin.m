@@ -44,6 +44,7 @@
 @property(nonatomic, strong, readwrite) YBTimer * pingTimer;
 @property(nonatomic, strong, readwrite) YBTimer * beatTimer;
 @property(nonatomic, strong, readwrite) YBTimer * metadataTimer;
+@property(nonatomic, strong, readwrite) YBTimer * cdnTimer;
 @property(nonatomic, strong, readwrite) YBCommunication * comm;
 
 // Private properties
@@ -55,6 +56,7 @@
 @property(nonatomic, strong) YBChrono * iinitChrono;
 @property(nonatomic, strong) YBChrono * backgroundInfinity;
 @property(nonatomic, strong) NSString * lastServiceSent;
+@property(nonatomic, strong) YBCDNBalancerInfo * cdnBalancerInfo;
 
 // Infinity initial variables
 @property(nonatomic, strong) NSString * startScreenName;
@@ -71,6 +73,7 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendErrorListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendStopListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendPingListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendCdnPingListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendVideoEventListeners;
 
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdInitListeners;
@@ -138,6 +141,7 @@
         self.preloadChrono = [self createChrono];
         self.iinitChrono = [self createChrono];
         self.options = options;
+        self.cdnBalancerInfo = [YBCDNBalancerInfo new];
         
         if (adapter != nil) {
             self.adapter = adapter;
@@ -152,6 +156,10 @@
         self.beatTimer = [self createBeatTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             [weakSelf sendBeat:diffTime];
         } andInterval:30000];
+        
+        self.cdnTimer = [self createCdnTimerWithCallback:^(YBTimer *timer, long long diffTime) {
+            [weakSelf sendCdnPing];
+        } andInterval:5000];
         
         self.metadataTimer = [self createMetadataTimerWithCallback:^(YBTimer *timer, long long diffTime) {
             if ([weakSelf isExtraMetadataReady]) {
@@ -294,6 +302,7 @@
         [self.viewTransform nextView];
         [self initComm];
         [self startPings];
+        [self startCdnPings];
         [self startMetadataTimer];
         
         self.isInitiated = true;
@@ -1806,7 +1815,7 @@
 }
 
 - (NSNumber *) getCdnTraffic {
-    NSNumber * val = nil;
+    NSNumber * val = [self.cdnBalancerInfo getCdnTraffic];
     if (val == nil && self.adapter != nil) {
         @try {
             val = [self.adapter getCdnTraffic];
@@ -1819,8 +1828,20 @@
     return [YBYouboraUtils parseNumber:val orDefault:@0];
 }
 
+- (NSString *) getMultiCdnInfo {
+    return [self.cdnBalancerInfo getMultiCdnInfo];
+}
+
+- (NSDictionary *) getCdnPingInfo {
+    return [self.cdnBalancerInfo getCdnPingInfo];
+}
+
+- (NSString *) getBalancerResponseId {
+    return [self.cdnBalancerInfo getBalancerResponseId];
+ }
+
 - (NSNumber *) getP2PTraffic {
-    NSNumber * val = nil;
+    NSNumber * val = [self.cdnBalancerInfo getP2PTraffic];
     if (val == nil && self.adapter != nil) {
         @try {
             val = [self.adapter getP2PTraffic];
@@ -1834,7 +1855,7 @@
 }
 
 - (NSNumber *) getUploadTraffic {
-    NSNumber * val = nil;
+    NSNumber * val = [self.cdnBalancerInfo getUploadTraffic];
     if (val == nil && self.adapter != nil) {
         @try {
             val = [self.adapter getUploadTraffic];
@@ -1848,7 +1869,7 @@
 }
 
 - (NSValue *) getIsP2PEnabled {
-    NSValue * val = nil;
+    NSValue * val = [self.cdnBalancerInfo getIsP2PEnabled];
     if ((val == nil) && self.adapter != nil) {
         @try {
             val = [self.adapter getIsP2PEnabled];
@@ -2525,6 +2546,10 @@
     return [[YBTimer alloc] initWithCallback:callback andInterval:interval];
 }
 
+- (YBTimer *) createCdnTimerWithCallback:(TimerCallback)callback andInterval:(long) interval {
+    return [[YBTimer alloc] initWithCallback:callback andInterval:interval];
+}
+
 - (YBRequestBuilder *) createRequestBuilder {
     return [[YBRequestBuilder alloc] initWithPlugin:self];
 }
@@ -2576,6 +2601,7 @@
 
 - (void) reset {
     [self stopPings];
+    [self stopCdnPings];
     [self.cdnSwitchParser invalidate];
     
     self.resourceTransform = [self createResourceTransform];
@@ -2775,6 +2801,7 @@
         [self.viewTransform nextView];
         [self initComm];
         [self startPings];
+        [self startCdnPings];
     }
     
     [self startResourceParsing];
@@ -3357,6 +3384,42 @@
     
     [self sendWithCallbacks:self.willSendSessionBeatListeners service:YBConstantsYouboraInfinity.sessionBeat andParams:params];
     [YBLog debug: @"%@ params: %@", YBConstantsYouboraInfinity.sessionBeat, params.description];
+}
+
+// ------ CDN ------
+
+- (void) startCdnPings {
+    if (!self.cdnTimer.isRunning) {
+        [self.cdnTimer start];
+    }
+}
+
+- (void) stopCdnPings {
+    [self.cdnTimer stop];
+}
+
+- (void) sendCdnPing {
+    NSDictionary * cdnPingInfo = [self getCdnPingInfo];
+
+    if (cdnPingInfo != nil && cdnPingInfo.count > 0) {
+        NSMutableDictionary * params = [NSMutableDictionary dictionary];
+        
+        NSMutableArray<NSString *> * paramList = [NSMutableArray array];
+        [paramList addObject:YBConstantsRequest.accountCode];
+        
+        params = [self.requestBuilder fetchParams:params paramList:paramList onlyDifferent:false];
+        
+        NSString * profileName = [self.cdnBalancerInfo getProfileName];
+        if (profileName != nil) {
+            params[@"profileName"] = profileName;
+        }
+        params[@"details"] = [YBYouboraUtils stringifyDictionary:cdnPingInfo];
+        
+        [self sendWithCallbacks:self.willSendCdnPingListeners service: YBConstantsYouboraService.cdnPing andParams:params];
+        [YBLog debug: @"%@ params: %@", YBConstantsYouboraService.cdnPing, params.description];
+    }
+    
+    [self.cdnBalancerInfo updateBalancerStats];
 }
 
 // ------ PINGS ------

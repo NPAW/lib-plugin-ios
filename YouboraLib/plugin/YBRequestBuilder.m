@@ -132,7 +132,8 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.deviceEDID,
                 YBConstantsRequest.p2pEnabled,
                 YBConstantsRequest.parentId,
-                YBConstantsRequest.linkedViewId
+                YBConstantsRequest.linkedViewId,
+                YBConstantsRequest.cdnBalancerResponseUUID
             ]];
             
             NSArray * adStartParams = @[
@@ -270,6 +271,9 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.packetSent,
                                YBConstantsRequest.metrics,
                                YBConstantsRequest.totalBytes,
+                               YBConstantsRequest.cdnDownloadedTraffic,
+                               YBConstantsRequest.p2pDownloadedTraffic,
+                               YBConstantsRequest.uploadTraffic,
                                YBConstantsRequest.segmentDuration
                        ],
                        YBConstantsYouboraService.error: [
@@ -646,11 +650,15 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [[self.plugin getCdnTraffic] stringValue];
     }  else if ([param isEqualToString:YBConstantsRequest.uploadTraffic]){
         value = [[self.plugin getUploadTraffic] stringValue];
-    }  else if ([param isEqualToString:YBConstantsRequest.experiments]){
+    } else if ([param isEqualToString:YBConstantsRequest.details]) {
+        value = [YBYouboraUtils stringifyDictionary:[self.plugin getCdnPingInfo]];
+    } else if ([param isEqualToString:YBConstantsRequest.cdnBalancerResponseUUID]) {
+        value = [self.plugin getBalancerResponseId];
+    } else if ([param isEqualToString:YBConstantsRequest.experiments]) {
         NSArray *experimentsArray = [self.plugin getExperimentIds];
-        if(experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)){
+        if (experimentsArray == nil || (experimentsArray != nil && [experimentsArray count] == 0)) {
             value = nil;
-        }else{
+        } else {
             NSString *experimentsString = [experimentsArray componentsJoinedByString:@"\",\""];
             value = [NSString stringWithFormat:@"[\"%@\"]",experimentsString];
         }

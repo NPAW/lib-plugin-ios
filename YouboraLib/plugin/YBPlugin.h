@@ -1414,6 +1414,24 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (NSNumber *) getCdnTraffic;
 
 /**
+ * Get MultiCdnInfo String, available only for NPAW solution.
+ * @return The MultiCdnInfo in a String.
+ */
+- (NSString *) getMultiCdnInfo;
+
+/**
+ * Returns CDN info
+ * @return CDN info
+ */
+- (NSDictionary *) getCdnPingInfo;
+
+/**
+  * Get CDN balancer API response id, available only for NPAW solution.
+  * @return The balancer UUID.
+  */
+- (NSString *) getBalancerResponseId;
+
+/**
  * Returns P2P traffic
  * @return P2P traffic
  */
