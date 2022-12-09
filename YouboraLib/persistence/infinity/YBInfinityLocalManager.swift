@@ -58,6 +58,14 @@ import Foundation
     }
     
     /**
+    * Gets saved balancer stats on <NSUserDefaults>
+    * @return a dictionary with balancer data.
+    */
+    public static func getBalancerStats() -> [String : Any]? {
+        return UserDefaults.standard.dictionary(forKey: YBConstants.preferencesBalancerStatsKey)
+    }
+    
+    /**
     * Method that will clean all data in the user defaults realtive with
     * infinity local manager
     */
@@ -66,6 +74,7 @@ import Foundation
             UserDefaults.standard.removeObject(forKey: YBConstants.preferencesSessionIdKey)
             UserDefaults.standard.removeObject(forKey: YBConstants.preferencesContextKey)
             UserDefaults.standard.removeObject(forKey: YBConstants.preferencesLastActiveKey)
+            UserDefaults.standard.removeObject(forKey: YBConstants.preferencesBalancerStatsKey)
             UserDefaults.standard.synchronize()
         }
     }
