@@ -1,3 +1,8 @@
+## [6.7.0] - 2022-??-??
+### Added
+- Support for NPAW's CDN balancer, active switching and P2P client analytics reporting: `cdnBalancerResponseUUID`, `segmentDuration`, global CDN and P2P data, and specific CDN use stats
+- Cdn ping for balancer metadata
+
 ## [6.6.26] - 2022-11-30
 ### Added
 - New iPad and iPad Pro device models
