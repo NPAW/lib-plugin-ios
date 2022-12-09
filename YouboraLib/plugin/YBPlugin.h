@@ -1402,6 +1402,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (NSString *) getHouseholdId;
 
 /**
+ * Returns the content's segment duration in milliseconds
+ * @return the content's segment duration
+ */
+- (NSNumber *) getSegmentDuration;
+
+/**
  * Returns CDN traffic
  * @return CDN traffic
  */

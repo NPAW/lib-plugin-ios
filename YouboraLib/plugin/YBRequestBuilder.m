@@ -48,6 +48,7 @@ static NSArray<NSString *> * youboraPingEntities;
                 YBConstantsRequest.title,
                 YBConstantsRequest.title2,
                 YBConstantsRequest.live,
+                YBConstantsRequest.segmentDuration,
                 YBConstantsRequest.mediaDuration,
                 YBConstantsRequest.mediaResource,
                 YBConstantsRequest.parsedResource,
@@ -268,7 +269,8 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.packetLoss,
                                YBConstantsRequest.packetSent,
                                YBConstantsRequest.metrics,
-                               YBConstantsRequest.totalBytes
+                               YBConstantsRequest.totalBytes,
+                               YBConstantsRequest.segmentDuration
                        ],
                        YBConstantsYouboraService.error: [
                                                          startParams arrayByAddingObjectsFromArray:@[
@@ -447,6 +449,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getFramesPerSecond].stringValue;
     } else if ([param isEqualToString:YBConstantsRequest.droppedFrames]){
         value = [self.plugin getDroppedFrames].stringValue;
+    } else if ([param isEqualToString:YBConstantsRequest.segmentDuration]){
+        value = [self.plugin getSegmentDuration].stringValue;
     } else if ([param isEqualToString:YBConstantsRequest.mediaDuration]){
         value = [self.plugin getDuration].stringValue;
     } else if ([param isEqualToString:YBConstantsRequest.bitrate]){

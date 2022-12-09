@@ -1793,6 +1793,18 @@
     return val;
 }
 
+// ------ P2P and CDN network traffic information ------
+
+- (NSNumber *) getSegmentDuration {
+    NSNumber * val = self.options.contentSegmentDuration;
+
+    if (val == nil || [val integerValue] == 0) {
+        val = [self.cdnBalancerInfo getSegmentDuration];
+    }
+    
+    return [YBYouboraUtils parseNumber:val orDefault:@-1];
+}
+
 - (NSNumber *) getCdnTraffic {
     NSNumber * val = nil;
     if (val == nil && self.adapter != nil) {
