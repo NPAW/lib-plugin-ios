@@ -161,6 +161,19 @@ import Foundation
             return nil
         }
     }
+    
+    /**
+     * Returns a class object from the dictionary.
+     * If the class is nil, nil will be returned.
+     * @param dict NSDictionary to convert to Class
+     * @param object the Class which the dictionary should be converted
+     * @return The expected class
+     */
+    static public func dictionaryToObject<T:Decodable>(_ dict: [String : Any], object: T.Type) throws -> T {
+        let json = try JSONSerialization.data(withJSONObject: dict)
+        let decoder = JSONDecoder()
+        return try decoder.decode(object.self, from: json)
+    }
 
     /**
      * Returns number if it's not nil, infinity or NaN.
