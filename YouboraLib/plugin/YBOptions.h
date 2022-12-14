@@ -413,6 +413,11 @@ typedef NS_ENUM(NSUInteger, YBRequestMethod) {
 @property(nonatomic, strong) NSString * _Nullable program;
 
 /**
+ * Video segment length in <b>in milliseconds</b>.
+ */
+@property(nonatomic, strong) NSNumber * _Nullable contentSegmentDuration; // double
+
+/**
  * Duration of the media <b>in seconds</b>.
  */
 @property(nonatomic, strong) NSNumber * _Nullable contentDuration; // double

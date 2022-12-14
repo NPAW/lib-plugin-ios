@@ -214,6 +214,7 @@ public struct YBOptionUtilsKeys {
     public static let contentTitle = "content.title"
     public static let contentTotalBytes = "content.totalBytes"
     public static let contentProgram = "content.program"
+    public static let contentSegmentDuration = "content.segmentDuration"
     public static let contentDuration = "content.duration"
     public static let contentTransactionCode = "content.transactionCode"
     public static let contentBitrate = "content.bitrate"
