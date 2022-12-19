@@ -1,3 +1,7 @@
+## [6.7.1] - 2022-12-19
+### Added
+- Missing content custom dimensions on ping event
+
 ## [6.7.0] - 2022-12-14
 ### Added
 - Support for NPAW's CDN balancer, active switching and P2P client analytics reporting: `cdnBalancerResponseUUID`, `segmentDuration`, global CDN and P2P data, and specific CDN use stats
