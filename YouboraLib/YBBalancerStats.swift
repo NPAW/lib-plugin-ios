@@ -10,6 +10,7 @@ import Foundation
 
 @objc open class YBBalancerStats: NSObject, Codable {
     
+    var version: String? = nil
     var profileName: String? = nil
     internal var cdn: YBCDNStats? = nil
     internal var p2p: YBP2PStats? = nil
