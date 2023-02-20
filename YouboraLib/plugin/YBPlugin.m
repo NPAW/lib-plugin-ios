@@ -3413,6 +3413,10 @@
         if (profileName != nil) {
             params[@"profileName"] = profileName;
         }
+        NSString * version = [self.cdnBalancerInfo getBalancerVersion];
+        if (version != nil) {
+            params[@"v"] = version;
+        }
         params[@"details"] = [YBYouboraUtils stringifyDictionary:cdnPingInfo];
         
         [self sendWithCallbacks:self.willSendCdnPingListeners service: YBConstantsYouboraService.cdnPing andParams:params];

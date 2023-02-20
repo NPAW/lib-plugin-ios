@@ -66,6 +66,10 @@ import Foundation
         return balancerStats?.profileName
     }
     
+    public func getBalancerVersion() -> String? {
+        return balancerStats?.version
+    }
+    
     public func getCdnPingInfo() -> [String : Any]? {
         guard let balancerStats = balancerStats, let p2pStats = balancerStats.p2pStats, let cdnStats = balancerStats.cdnStats, let cdns = cdnStats.cdns else {
             return nil

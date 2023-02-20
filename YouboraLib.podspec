@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
                     to create your own plugins.
                      DESC'
 
-  s.homepage     = 'http://developer.nicepeopleatwork.com/'
+  s.homepage     = 'https://documentation.npaw.com/'
 
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
 
