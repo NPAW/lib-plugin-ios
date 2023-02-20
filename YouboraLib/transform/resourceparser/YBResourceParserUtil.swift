@@ -23,13 +23,13 @@ import Foundation
             return false
         }
         
-        let finalResourceExtensions = ["mp4", "ts", "m4s", "cmfv"]
+        let finalResourceExtensions = ["mp4", "ts", "m4s", "cmfv", "m4a"]
         
         return finalResourceExtensions.contains(resource.pathExtension)
     }
     
     public static func translateTransportResource(transportResource: String) -> String? {
-        if transportResource.contains("mp4") || transportResource.contains("m4s") {
+        if transportResource.contains("mp4") || transportResource.contains("m4s") || transportResource.contains("m4a") {
             return YBConstantsTransportFormat.hlsFmp4
         }
         

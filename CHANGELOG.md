@@ -1,6 +1,7 @@
 ## [6.7.2] - 2023-02-20
 ### Added
 - Balancer version on each cdn ping request
+- Support to parse m4a files
 
 ## [6.7.1] - 2022-12-19
 ### Added
