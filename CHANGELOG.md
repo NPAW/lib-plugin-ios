@@ -1,3 +1,7 @@
+## [6.7.2] - 2023-02-20
+### Added
+- Balancer version on each cdn ping request
+
 ## [6.7.1] - 2022-12-19
 ### Added
 - Missing content custom dimensions on ping event
