@@ -186,6 +186,11 @@ import Foundation
     static public let rtmp = "RTMP"
     static public let rtp = "RTP"
     static public let rtsp = "RTSP"
+    static public let multicast = "MULTICAST"
+    static public let dvb = "DVB"
+    static public let dvbc = "DVB-C"
+    static public let dvbt = "DVB-T"
+    static public let dvbt2 = "DVB-T2"
 }
 
 // YBConstants with transport format

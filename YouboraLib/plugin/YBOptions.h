@@ -451,6 +451,11 @@ typedef NS_ENUM(NSUInteger, YBRequestMethod) {
  YBConstantsStreamProtocol.rtmp
  YBConstantsStreamProtocol.rtp
  YBConstantsStreamProtocol.rtsp
+ YBConstantsStreamProtocol.multicast
+ YBConstantsStreamProtocol.dvb
+ YBConstantsStreamProtocol.dvbc
+ YBConstantsStreamProtocol.dvbt
+ YBConstantsStreamProtocol.dvbt2
  */
 @property (nonatomic, strong ,setter=setContentStreamingProtocol:) NSString* _Nullable  contentStreamingProtocol;
 
