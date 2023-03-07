@@ -927,7 +927,12 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         YBConstantsStreamProtocol.mss,
         YBConstantsStreamProtocol.rtmp,
         YBConstantsStreamProtocol.rtp,
-        YBConstantsStreamProtocol.rtsp
+        YBConstantsStreamProtocol.rtsp,
+        YBConstantsStreamProtocol.multicast,
+        YBConstantsStreamProtocol.dvb,
+        YBConstantsStreamProtocol.dvbc,
+        YBConstantsStreamProtocol.dvbt,
+        YBConstantsStreamProtocol.dvbt2,
     ];
     
     for (NSString *allowedStreamingProtocol in allowedProtocols) {

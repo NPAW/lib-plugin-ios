@@ -1,3 +1,7 @@
+## [6.7.3] - 2023-03-07
+### Added
+- Support for new streaming protocols: DVB-C, DVB-T, DVB-T2, MULTICAST
+
 ## [6.7.2] - 2023-02-20
 ### Added
 - Balancer version on each cdn ping request
