@@ -190,6 +190,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         
         self.parseCdnNode = [[decoder decodeObjectForKey:YBOptionKeys.parseCdnNode] isEqualToValue:@YES];
         self.parseCdnNameHeader = [decoder decodeObjectForKey:YBOptionKeys.parseCdnNameHeader];
+        self.parseCdnNameHeaderList = [decoder decodeObjectForKey:YBOptionKeys.parseCdnNameHeaderList];
         self.parseCdnNodeHeader = [decoder decodeObjectForKey:YBOptionKeys.parseCdnNodeHeader];
         self.parseCdnNodeList = [decoder decodeObjectForKey:YBOptionKeys.parseCdnNodeList];
         self.experimentIds = [decoder decodeObjectForKey:YBOptionKeys.experimentIds];
@@ -341,6 +342,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:@(self.parseLocationHeader) forKey:YBOptionKeys.parseLocationHeader];
     
     [coder encodeObject:self.parseCdnNameHeader forKey:YBOptionKeys.parseCdnNameHeader];
+    [coder encodeObject:self.parseCdnNameHeaderList forKey:YBOptionKeys.parseCdnNameHeaderList];
     [coder encodeObject:self.parseCdnNodeHeader forKey:YBOptionKeys.parseCdnNodeHeader];
     [coder encodeObject:self.parseCdnNodeList forKey:YBOptionKeys.parseCdnNodeList];
     [coder encodeObject:self.experimentIds forKey:YBOptionKeys.experimentIds];
@@ -486,6 +488,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.parseLocationHeader = false;
     
     self.parseCdnNameHeader = @"x-cdn-forward";
+    self.parseCdnNameHeaderList = [NSMutableArray arrayWithObjects:@"x-cdn-forward", nil];
     self.parseCdnNodeHeader = @"";
 
     // TODO: Node list YBConstants
@@ -650,6 +653,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:@(self.parseLocationHeader) forKey:YBOptionKeys.parseLocationHeader];
     
     [dict setValue:self.parseCdnNameHeader forKey:YBOptionKeys.parseCdnNameHeader];
+    [dict setValue:self.parseCdnNameHeaderList forKey:YBOptionKeys.parseCdnNameHeaderList];
     [dict setValue:self.parseCdnNodeHeader forKey:YBOptionKeys.parseCdnNodeHeader];
     [dict setValue:self.parseCdnNodeList forKey:YBOptionKeys.parseCdnNodeList];
     [dict setValue:self.experimentIds forKey:YBOptionKeys.experimentIds];
@@ -773,6 +777,10 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:YBRequestMethodString(self.method) forKey:YBOptionKeys.method];
     [dict setValue:self.sessionMetrics forKey:YBOptionKeys.sessionMetrics];
     return [[NSDictionary alloc] initWithDictionary:dict];
+}
+
+- (void)setParseCdnNameHeader:(NSString *)parseCdnNameHeader {
+    self.parseCdnNameHeaderList = [NSMutableArray arrayWithObjects:parseCdnNameHeader, nil];
 }
 
 - (void) setResourceParseJoin:(bool)parse {

@@ -26,7 +26,7 @@
 @property(nonatomic, strong) NSString * cdnNodeHost;
 @property(nonatomic, assign) YBCdnType cdnNodeType;
 @property(nonatomic, strong) NSString * cdnNodeTypeString;
-@property(nonatomic, strong) NSString * cdnNameHeader;
+@property(nonatomic, strong) NSMutableArray<NSString *> * cdnNameHeaders;
 @property(nonatomic, strong) NSString * cdnNodeHeader;
 
 @property(nonatomic, strong) YBCdnParser * cdnParser;
@@ -131,11 +131,11 @@
         self.cdnNodeTypeString = nil;
         self.cdnEnabled = [self.plugin isParseCdnNode];
         self.cdnList = [[self.plugin getParseCdnNodeList] mutableCopy];
-        self.cdnNameHeader = [self.plugin getParseCdnNameHeader];
+        self.cdnNameHeaders = [[self.plugin getParseCdnNameHeaderList] mutableCopy];
         self.cdnNodeHeader = [self.plugin getParseCdnNodeHeader];
         
-        if (self.cdnNameHeader != nil) {
-            [YBCdnParser setBalancerHeaderName:self.cdnNameHeader andNodeHeader:self.cdnNodeHeader];
+        if (self.cdnNameHeaders != nil && self.cdnNameHeaders.count > 0) {
+            [YBCdnParser setBalancerHeaderName:self.cdnNameHeaders andNodeHeader:self.cdnNodeHeader];
         }
         
         [self setTimeout];

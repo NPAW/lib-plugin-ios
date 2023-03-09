@@ -268,6 +268,13 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getParseCdnNameHeader;
 
 /**
+ * Returns the Cdn name header list. This value is later passed
+ * to the cdn parsers BalancerHeaderName
+ * @return the cdn name header list.
+ */
+- (NSArray<NSString *> *) getParseCdnNameHeaderList;
+
+/**
  * Returns the Cdn node header. This value is later passed to
  * the cdn parsers BalancerHeaderName
  * @return the cdn node header.
