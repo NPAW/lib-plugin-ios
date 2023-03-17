@@ -1,4 +1,4 @@
-## [6.7.4] - 2023-??-??
+## [6.7.4] - 2023-03-17
 ### Added
 - `parseCdnNameHeaderList` option to be able to fetch the CDN code from a custom header names list
 
