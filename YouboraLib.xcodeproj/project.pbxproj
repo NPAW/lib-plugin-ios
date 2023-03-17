@@ -1256,7 +1256,6 @@
 				4E5E11B51E7841C00097FA21 /* Sources */,
 				4E5E11B61E7841C00097FA21 /* Frameworks */,
 				4E5E11B71E7841C00097FA21 /* Resources */,
-				4E8A63711EA8A44E008C6759 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1294,7 +1293,6 @@
 				4E7D07F91E9E0EFE0079F187 /* Sources */,
 				4E7D07FA1E9E0EFE0079F187 /* Frameworks */,
 				4E7D07FB1E9E0EFE0079F187 /* Resources */,
-				4E8A63721EA8A4EF008C6759 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1332,7 +1330,6 @@
 				CD523761228DA2C20013BA16 /* Sources */,
 				CD523762228DA2C20013BA16 /* Frameworks */,
 				CD523763228DA2C20013BA16 /* Resources */,
-				CDBA731D23337B9D008716B5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1500,51 +1497,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		4E8A63711EA8A44E008C6759 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/OCHamcrest.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/OCMockito.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-		4E8A63721EA8A4EF008C6759 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/tvOS/OCHamcrest.framework",
-				"$(SRCROOT)/Carthage/Build/tvOS/OCMockito.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-		CDBA731D23337B9D008716B5 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/Mac/OCHamcrest.framework",
-				"$(SRCROOT)/Carthage/Build/Mac/OCMockito.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

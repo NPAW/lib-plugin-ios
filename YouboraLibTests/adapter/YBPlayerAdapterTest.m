@@ -10,6 +10,7 @@
 
 #import "YBTestablePlayerAdapter.h"
 #import "YBPlayheadMonitor.h"
+#import "YBOptions.h"
 #import "YBPlugin.h"
 
 #import "YouboraLib/YouboraLib-Swift.h"
@@ -193,8 +194,11 @@
     XCTAssertFalse(flags.paused);
     
     // Stop
+    YBOptions * options = [YBOptions new];
+    adapter.plugin = [[YBPlugin new] initWithOptions:options];
     [adapter fireStop];
-    
+    adapter.plugin = nil;
+
     XCTAssertFalse(flags.preloading);
     XCTAssertFalse(flags.started);
     XCTAssertFalse(flags.joined);
@@ -215,8 +219,10 @@
     
     // Start then fatal error
     [adapter fireStart];
+    adapter.plugin = [[YBPlugin new] initWithOptions:options];
     [adapter fireFatalErrorWithMessage:nil code:nil andMetadata:nil];
-    
+    adapter.plugin = nil;
+
     XCTAssertFalse(flags.preloading);
     XCTAssertFalse(flags.started);
     XCTAssertFalse(flags.joined);
@@ -259,6 +265,8 @@
     [adapter fireEventWithName:@"name" dimensions:@{} values:@{} topLevelDimensions:@{}];
     [verify(mockDelegate) youboraAdapterEventVideoEvent:anything() fromAdapter:adapter];
     
+    YBOptions * options = [YBOptions new];
+    adapter.plugin = [[YBPlugin new] initWithOptions:options];
     [adapter fireStop];
     [verify(mockDelegate) youboraAdapterEventStop:anything() fromAdapter:adapter];
     
@@ -321,6 +329,8 @@
     [adapter addYouboraAdapterDelegate:mockDelegate];
     
     [adapter fireStart];
+    YBOptions * options = [YBOptions new];
+    adapter.plugin = [[YBPlugin new] initWithOptions:options];
     [adapter fireStop];
     
     // Should have been called only once
@@ -396,6 +406,8 @@
     [adapter addYouboraAdapterDelegate:mockDelegate];
     
     [adapter fireStart];
+    YBOptions * options = [YBOptions new];
+    adapter.plugin = [[YBPlugin new] initWithOptions:options];
     [adapter fireSkip];
     
     HCArgumentCaptor * captor = [HCArgumentCaptor new];
@@ -412,6 +424,8 @@
     [adapter addYouboraAdapterDelegate:mockDelegate];
     
     [adapter fireStart];
+    YBOptions * options = [YBOptions new];
+    adapter.plugin = [[YBPlugin new] initWithOptions:options];
     [adapter fireCast];
     
     HCArgumentCaptor * captor = [HCArgumentCaptor new];

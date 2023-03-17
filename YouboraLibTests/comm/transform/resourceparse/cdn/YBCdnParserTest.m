@@ -232,7 +232,7 @@
 }
 
 - (void)testCdnNameFromBalancer {
-    [YBCdnParser setBalancerHeaderName:@"cdn-name" andNodeHeader:@""];
+    [YBCdnParser setBalancerHeaderName:@[@"cdn-name"] andNodeHeader:@""];
     
     NSString * cdnName = @"cdn-name-from-balancer";
     
@@ -246,7 +246,7 @@
 }
 
 - (void)testCdnNameAndHostFromBalancer {
-    [YBCdnParser setBalancerHeaderName:@"cdn-name" andNodeHeader:@"cdn-host"];
+    [YBCdnParser setBalancerHeaderName:@[@"cdn-name"] andNodeHeader:@"cdn-host"];
     
     NSString * cdnName = @"cdn-name-from-balancer";
     NSString * cdnNodeHost = @"cdn-host-from-balancer";
