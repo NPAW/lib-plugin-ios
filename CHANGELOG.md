@@ -1,3 +1,7 @@
+## [6.7.4] - 2023-??-??
+### Added
+- `parseCdnNameHeaderList` option to be able to fetch the CDN code from a custom header names list
+
 ## [6.7.3] - 2023-03-07
 ### Added
 - Support for new streaming protocols: DVB-C, DVB-T, DVB-T2, MULTICAST

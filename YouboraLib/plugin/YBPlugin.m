@@ -512,6 +512,10 @@
     return self.options.parseCdnNameHeader;
 }
 
+- (NSArray<NSString *> *)getParseCdnNameHeaderList {
+    return self.options.parseCdnNameHeaderList;
+}
+
 - (NSString *)getParseCdnNodeHeader {
     return self.options.parseCdnNodeHeader;
 }

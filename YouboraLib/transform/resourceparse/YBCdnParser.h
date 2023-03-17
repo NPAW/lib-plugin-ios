@@ -152,7 +152,7 @@ FOUNDATION_EXPORT NSString * const YouboraCDNNameNosOtt;
  * @param cdnNameHeader the header response name where to get the CDN name from.
  * @param cdnNodeHeader the header response name where to get the host name from.
  */
-+ (void) setBalancerHeaderName:(NSString *) cdnNameHeader andNodeHeader:(NSString *) cdnNodeHeader;
++ (void) setBalancerHeaderName:(NSArray<NSString *> *) cdnNameHeader andNodeHeader:(NSString *) cdnNodeHeader;
 
 /**
  * Create one of the pre-defined CDN definitions.

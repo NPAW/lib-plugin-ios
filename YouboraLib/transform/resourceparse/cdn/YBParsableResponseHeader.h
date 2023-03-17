@@ -61,6 +61,12 @@ typedef NS_ENUM(NSUInteger, YBCdnHeaderElement) {
 @property(nonatomic, strong, nullable) NSString * headerName;
 
 /**
+ * The name list of the headers where the information can be found in the CDN response
+ */
+@property(nonatomic, strong, nullable) NSArray<NSString *> * headerNames;
+
+
+/**
  * Pattern to extract the information. This works in conjunction with <element>.
  *
  * If only one element is expected, Host, Type or Name, the pattern should contain one capturing group.

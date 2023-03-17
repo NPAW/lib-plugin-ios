@@ -272,6 +272,13 @@ typedef NS_ENUM(NSUInteger, YBRequestMethod) {
 @property(nonatomic, strong) NSString * _Nullable parseCdnNameHeader;
 
 /**
+ * If defined, resource parse will try to fetch the CDN code from the custom headers defined
+ * by this property, e.g. "@[@"x-cdn-forward"]"
+ */
+@property(nonatomic, strong) NSMutableArray<NSString *> * _Nullable parseCdnNameHeaderList;
+
+
+/**
  * If defined, resource parse will try to fetch the CDN node from the custom header defined
  * by this property, e.g. "x-node"
  */

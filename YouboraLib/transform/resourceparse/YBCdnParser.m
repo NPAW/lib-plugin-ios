@@ -122,8 +122,16 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
 - (void) parseResponse:(NSDictionary<NSString *, NSString *> *) response {
     for (YBParsableResponseHeader * parser in self.cdnConfig.parsers) {
         for (NSString * responseHeaderKey in response) {
-            if ([parser.headerName caseInsensitiveCompare:responseHeaderKey] == NSOrderedSame) {
-                [self executeParser:parser withResponseHeaderValue:response[responseHeaderKey]];
+            if (parser.headerNames != nil && parser.headerNames.count > 0) {
+                for (NSString * headerName in parser.headerNames) {
+                    if ([headerName caseInsensitiveCompare:responseHeaderKey] == NSOrderedSame) {
+                        [self executeParser:parser withResponseHeaderValue:response[responseHeaderKey]];
+                    }
+                }
+            } else if (parser.headerName != nil && [parser.headerName length] > 0) {
+                if ([parser.headerName caseInsensitiveCompare:responseHeaderKey] == NSOrderedSame) {
+                    [self executeParser:parser withResponseHeaderValue:response[responseHeaderKey]];
+                }
             }
         }
     }
@@ -222,9 +230,9 @@ static NSMutableDictionary<NSString *, YBCdnConfig *> * cdnDefinitions;
     return cdnDefinitions;
 }
 
-+ (void)setBalancerHeaderName:(NSString *)cdnNameHeader andNodeHeader:(NSString *) cdnNodeHeader {
++ (void)setBalancerHeaderName:(NSArray<NSString *> *)cdnNameHeader andNodeHeader:(NSString *) cdnNodeHeader {
     [YBCdnParser createDefinitions];
-    cdnDefinitions[YouboraCDNNameBalancer].parsers[1].headerName = cdnNameHeader;
+    cdnDefinitions[YouboraCDNNameBalancer].parsers[1].headerNames = cdnNameHeader;
     cdnDefinitions[YouboraCDNNameBalancer].parsers[0].headerName = cdnNodeHeader;
 }
 
