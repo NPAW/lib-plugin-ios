@@ -216,7 +216,7 @@
 
 // Override
 - (void)parse:(YBRequest *)request {
-    if ([YBConstantsYouboraService.start isEqualToString:request.service]) {
+    if (request && request.service && [YBConstantsYouboraService.start isEqualToString:request.service]) {
         NSMutableDictionary * lastSent = self.plugin.requestBuilder.lastSent;
         
         //No need to replace now

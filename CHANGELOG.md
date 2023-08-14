@@ -1,3 +1,8 @@
+## [6.7.5] - 2023-08-14
+### Updated
+- On the `transform` method, a copy of the NSArray is created to avoid app crashing errors.
+- Various null checkers throughout the code to avoid app crashing errors.
+
 ## [6.7.4] - 2023-03-17
 ### Added
 - `parseCdnNameHeaderList` option to be able to fetch the CDN code from a custom header names list

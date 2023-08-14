@@ -154,13 +154,15 @@
 }
 
 - (YBTransformState) transform: (YBRequest *) request {
-    for(YBTransform * transform in self.transforms){
-        if([transform isBlocking:request]){
+    NSArray *copyOfTransforms = [self.transforms copy];
+    
+    for (YBTransform * transform in copyOfTransforms) {
+        if ([transform isBlocking:request]) {
             return YBStateBlocked;
         } else {
             [transform parse:request];
         }
-        if([transform getState] == YBStateOffline){
+        if ([transform getState] == YBStateOffline) {
             return YBStateOffline;
         }
     }

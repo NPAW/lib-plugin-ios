@@ -456,7 +456,11 @@
             [YBLog debug:@"Offline events deleted"];
         }];
     };
-    [self sendWithCallbacks:nil service: YBConstantsYouboraService.offline andParams:nil andMethod:YouboraHTTPMethodPost andBody:events withSuccessListener:successListener andSuccessListenerParams:listenerParams];
+    @try {
+      [self sendWithCallbacks:nil service: YBConstantsYouboraService.offline andParams:nil andMethod:YouboraHTTPMethodPost andBody:events withSuccessListener:successListener andSuccessListenerParams:listenerParams];
+    } @catch (NSException *exception) {
+      [YBLog logException: exception];
+    }
     /*NSMutableDictionary<NSString*, NSString*> *params = [[NSMutableDictionary alloc] init];
      params[@"events"] = events;
      params[@"offlineId"] = [offlineId stringValue];
