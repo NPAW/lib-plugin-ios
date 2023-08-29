@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 /// This class provides p2p and cdn network traffic information for
 /// NPAW solution.
 @objcMembers open class YBCDNBalancerInfo: NSObject {
@@ -20,7 +19,6 @@ import Foundation
     public func getCdnTraffic() -> NSNumber? {
         guard let totalDownloadedBytes = balancerStats?.cdnStats?.totalDownloadedBytes else { return nil }
         return NSNumber(value: totalDownloadedBytes)
-
     }
     
     /// Returns CDN traffic when using multiple cdns, available only for NPAW solution. Otherwise nil.
@@ -83,7 +81,6 @@ import Foundation
 //            cdnInfo["is_active"] = cdn.active // TODO: Add `active` variable
             
             let prevCdn = lastBalancerStats?.cdnStats?.cdns?[index]
-
             let bytes = (cdn.bytes ?? 0) - (prevCdn?.bytes ?? 0)
             if bytes > 0 {
                 cdnInfo["downloaded_bytes"] = bytes
@@ -102,6 +99,7 @@ import Foundation
             }
             if let cdnName = cdn.name {
                 dict[cdnName] = cdnInfo
+                dict[cdnName] = updateCDNInfoFor(cdn, atIndex: index)
             }
         }
         
@@ -170,6 +168,31 @@ import Foundation
         
     }
     
+    private func updateCDNInfoFor(_ cdn: YBCDNCompressed, atIndex index: Int) -> [String: Any] {
+        var cdnInfo = [String: Any]()
+        cdnInfo["provider"] = cdn.name
+//        cdnInfo["is_active"] = cdn.active // TODO: Add `active` variable
+        
+        let prevCdn = lastBalancerStats?.cdnStats?.cdns?[index]
+        let bytes = (cdn.bytes ?? 0) - (prevCdn?.bytes ?? 0)
+        if bytes > 0 {
+            cdnInfo["downloaded_bytes"] = bytes
+        }
+        let chunks = (cdn.chunks ?? 0) - (prevCdn?.chunks ?? 0)
+        if chunks > 0 {
+            cdnInfo["downloaded_chunks"] = chunks
+        }
+        let failures = cdn.failures - (prevCdn?.failures ?? 0)
+        if failures > 0 {
+            cdnInfo["errors"] = failures
+        }
+        let downloadMillis = (cdn.downloadMillis ?? 0) - (prevCdn?.downloadMillis ?? 0)
+        if downloadMillis > 0 {
+            cdnInfo["time"] = downloadMillis
+        }
+        return cdnInfo
+    }
+    
     /// Returns segment duration using NPAW balancer API. Otherwise nil.
     /// - Returns: Segment duration or nil.
     public func getSegmentDuration() -> NSNumber? {
@@ -188,7 +211,6 @@ import Foundation
     public func getP2PTraffic() -> NSNumber? {
         guard let downloadedBytes = balancerStats?.p2pStats?.downloadedBytes else { return nil }
         return NSNumber(value: downloadedBytes)
-
     }
     
     /// Returns P2P traffic sent in bytes, using NPAW balancer. Otherwise nil.
