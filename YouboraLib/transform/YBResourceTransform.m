@@ -44,9 +44,13 @@
 
 @property(nonatomic, strong) NSString *transportFormat;
 
+@property (nonatomic, assign) NSTimeInterval parseStartTime;
+
 @end
 
 @implementation YBResourceTransform
+
+static const NSTimeInterval MAX_PARSE_TIMEOUT_TIME = 3.0;
 
 #pragma mark - Init
 
@@ -149,6 +153,24 @@
     }
 }
 
+-(bool)hasParseTimerExpired {
+    
+    if (!self.parseStartTime || self.parseStartTime == 0) {
+        self.parseStartTime = [[NSDate date] timeIntervalSince1970];
+        return NO;
+    }
+
+    NSTimeInterval elapsed = [[NSDate date] timeIntervalSince1970] - self.parseStartTime;
+
+    if (elapsed > MAX_PARSE_TIMEOUT_TIME) {
+        self.parseStartTime = 0;
+        [self done];
+        return YES;
+    }
+    
+    return NO;
+}
+
 -(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
     //No more parsers available try to parse cdn then
     if (!parser) {
@@ -161,6 +183,9 @@
 }
 
 -(void)requestAndParse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat {
+    
+    if ([self hasParseTimerExpired]) return;
+    
     YBRequest *request;
     
     if (self.plugin && [self.plugin getParseResourceAuth]) {
