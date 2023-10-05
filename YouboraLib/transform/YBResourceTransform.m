@@ -154,9 +154,8 @@ static const NSTimeInterval MAX_PARSE_TIMEOUT_TIME = 3.0;
 }
 
 -(bool)hasParseTimerExpired {
-    if (false /* options.showParseExpire */) return NO;
     
-    if (self.parseStartTime || self.parseStartTime == 0) {
+    if (!self.parseStartTime || self.parseStartTime == 0) {
         self.parseStartTime = [[NSDate date] timeIntervalSince1970];
         return NO;
     }
@@ -165,10 +164,11 @@ static const NSTimeInterval MAX_PARSE_TIMEOUT_TIME = 3.0;
 
     if (elapsed > MAX_PARSE_TIMEOUT_TIME) {
         self.parseStartTime = 0;
-        return YES;  // Timer has expired
+        [self done];
+        return YES;
     }
     
-    return NO; // Timer has not expired
+    return NO;
 }
 
 -(void)parse:(id<YBResourceParser> _Nullable)parser currentResource:(NSString*)resource userDefinedTransportFormat:(NSString* _Nullable)definedTransportFormat{
