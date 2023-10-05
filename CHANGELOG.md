@@ -1,3 +1,7 @@
+## [6.7.6] - 2023-10-05
+### Updated
+- Add timeout to the parseRequest cycle to make sure to not get into an infinite loop.
+
 ## [6.7.5] - 2023-08-14
 ### Updated
 - On the `transform` method, a copy of the NSArray is created to avoid app crashing errors.
