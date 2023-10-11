@@ -78,30 +78,8 @@ import Foundation
         var dict = [String : Any]()
         
         for (index, cdn) in cdns.enumerated() {
-            var cdnInfo = [String : Any]()
-            cdnInfo["provider"] = cdn.name
-//            cdnInfo["is_active"] = cdn.active // TODO: Add `active` variable
-            
-            let prevCdn = lastBalancerStats?.cdnStats?.cdns?[index]
-
-            let bytes = (cdn.bytes ?? 0) - (prevCdn?.bytes ?? 0)
-            if bytes > 0 {
-                cdnInfo["downloaded_bytes"] = bytes
-            }
-            let chunks = (cdn.chunks ?? 0) - (prevCdn?.chunks ?? 0)
-            if chunks > 0 {
-                cdnInfo["downloaded_chunks"] = chunks
-            }
-            let failures = cdn.failures - (prevCdn?.failures ?? 0)
-            if failures > 0 {
-                cdnInfo["errors"] = failures
-            }
-            let downloadMillis = (cdn.downloadMillis ?? 0) - (prevCdn?.downloadMillis ?? 0)
-            if downloadMillis > 0 {
-                cdnInfo["time"] = downloadMillis
-            }
             if let cdnName = cdn.name {
-                dict[cdnName] = cdnInfo
+                dict[cdnName] = updateCDNInfoFor(cdn, atIndex: index)
             }
         }
         
@@ -168,6 +146,32 @@ import Foundation
         
         return dict
         
+    }
+    
+    private func updateCDNInfoFor(_ cdn: YBCDNCompressed, atIndex index: Int) -> [String: Any] {
+        var cdnInfo = [String: Any]()
+        cdnInfo["provider"] = cdn.name
+//        cdnInfo["is_active"] = cdn.active // TODO: Add `active` variable
+        
+        let prevCdn = lastBalancerStats?.cdnStats?.cdns?[index]
+
+        let bytes = (cdn.bytes ?? 0) - (prevCdn?.bytes ?? 0)
+        if bytes > 0 {
+            cdnInfo["downloaded_bytes"] = bytes
+        }
+        let chunks = (cdn.chunks ?? 0) - (prevCdn?.chunks ?? 0)
+        if chunks > 0 {
+            cdnInfo["downloaded_chunks"] = chunks
+        }
+        let failures = cdn.failures - (prevCdn?.failures ?? 0)
+        if failures > 0 {
+            cdnInfo["errors"] = failures
+        }
+        let downloadMillis = (cdn.downloadMillis ?? 0) - (prevCdn?.downloadMillis ?? 0)
+        if downloadMillis > 0 {
+            cdnInfo["time"] = downloadMillis
+        }
+        return cdnInfo
     }
     
     /// Returns segment duration using NPAW balancer API. Otherwise nil.
