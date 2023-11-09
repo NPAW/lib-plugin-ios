@@ -1,3 +1,7 @@
+## [6.7.7] - 2023-11-09
+### Updated
+- Add support for 2023 iPhone models (iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max)
+
 ## [6.7.6] - 2023-10-05
 ### Updated
 - Add timeout to the parseRequest cycle to make sure to not get into an infinite loop.
@@ -23,7 +27,7 @@
 ## [6.7.1] - 2022-12-19
 ### Added
 - Missing content custom dimensions on ping event
-
+f
 ## [6.7.0] - 2022-12-14
 ### Added
 - Support for NPAW's CDN balancer, active switching and P2P client analytics reporting: `cdnBalancerResponseUUID`, `segmentDuration`, global CDN and P2P data, and specific CDN use stats
