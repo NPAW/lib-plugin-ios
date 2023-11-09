@@ -291,7 +291,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.7.6"
+    static public var youboraLibVersion = "6.7.7"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"
@@ -348,6 +348,10 @@ import Foundation
             "iPhone14,8": "iPhone 14 Plus",
             "iPhone15,2": "iPhone 14 Pro",
             "iPhone15,3": "iPhone 14 Pro Max",
+            "iPhone15,4": "iPhone 15",
+            "iPhone15,5": "iPhone 15 Plus",
+            "iPhone16,1": "iPhone 15 Pro",
+            "iPhone16,2": "iPhone 15 Pro Max",
             "iPad4,1": "iPad Air",          // 5th Generation iPad (iPad Air) - Wifi
             "iPad4,2": "iPad Air",          // 5th Generation iPad (iPad Air) - Cellular
             "iPad4,4": "iPad Mini",         // (2nd Generation iPad Mini - Wifi)
