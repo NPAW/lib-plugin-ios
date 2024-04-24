@@ -303,6 +303,12 @@
 		4EF293871E7A92E7008B0A99 /* YBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF293851E7A92E7008B0A99 /* YBLog.m */; };
 		4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF2938C1E7AB559008B0A99 /* YBRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EF2938F1E7AB559008B0A99 /* YBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2938D1E7AB559008B0A99 /* YBRequest.m */; };
+		7265526F2B74F16200EB027E /* YBProductAnalyticsSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 729F48E12B5688CE00F2280C /* YBProductAnalyticsSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		726552702B74F16500EB027E /* YBProductAnalyticsUserState.h in Headers */ = {isa = PBXBuildFile; fileRef = 729F48E42B56D0FC00F2280C /* YBProductAnalyticsUserState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		729B41E92B4C3DC4009B83C9 /* YBProductAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 729B41E52B4C3DC4009B83C9 /* YBProductAnalytics.m */; };
+		729B41EB2B4C3DC4009B83C9 /* YBProductAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 729B41E72B4C3DC4009B83C9 /* YBProductAnalytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		729F48E02B5688B400F2280C /* YBProductAnalyticsSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 729F48DF2B5688B400F2280C /* YBProductAnalyticsSettings.m */; };
+		729F48E32B56D0EC00F2280C /* YBProductAnalyticsUserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 729F48E22B56D0EC00F2280C /* YBProductAnalyticsUserState.m */; };
 		7A3BBBCD29376C580077B64C /* YBBalancerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BBBCC29376C580077B64C /* YBBalancerStats.swift */; };
 		7A3BBBCE29376C580077B64C /* YBBalancerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BBBCC29376C580077B64C /* YBBalancerStats.swift */; };
 		7A3BBBCF29376C580077B64C /* YBBalancerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BBBCC29376C580077B64C /* YBBalancerStats.swift */; };
@@ -600,6 +606,12 @@
 		4EF293851E7A92E7008B0A99 /* YBLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBLog.m; sourceTree = "<group>"; };
 		4EF2938C1E7AB559008B0A99 /* YBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBRequest.h; path = comm/YBRequest.h; sourceTree = "<group>"; };
 		4EF2938D1E7AB559008B0A99 /* YBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBRequest.m; path = comm/YBRequest.m; sourceTree = "<group>"; };
+		729B41E52B4C3DC4009B83C9 /* YBProductAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBProductAnalytics.m; sourceTree = "<group>"; };
+		729B41E72B4C3DC4009B83C9 /* YBProductAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBProductAnalytics.h; sourceTree = "<group>"; };
+		729F48DF2B5688B400F2280C /* YBProductAnalyticsSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBProductAnalyticsSettings.m; sourceTree = "<group>"; };
+		729F48E12B5688CE00F2280C /* YBProductAnalyticsSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBProductAnalyticsSettings.h; sourceTree = "<group>"; };
+		729F48E22B56D0EC00F2280C /* YBProductAnalyticsUserState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBProductAnalyticsUserState.m; sourceTree = "<group>"; };
+		729F48E42B56D0FC00F2280C /* YBProductAnalyticsUserState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBProductAnalyticsUserState.h; sourceTree = "<group>"; };
 		7A3BBBCC29376C580077B64C /* YBBalancerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBBalancerStats.swift; sourceTree = "<group>"; };
 		7A3BBBD4293771170077B64C /* YBCDNBalancerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBCDNBalancerInfo.swift; sourceTree = "<group>"; };
 		7A3BBBDB29433E290077B64C /* YBCDNStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBCDNStats.swift; sourceTree = "<group>"; };
@@ -759,6 +771,7 @@
 		4E5E11B21E7841C00097FA21 /* YouboraLib */ = {
 			isa = PBXGroup;
 			children = (
+				729B41DB2B4C3CA6009B83C9 /* product-analytics */,
 				F22BBA3A27A408AD00623E91 /* YBSwift.h */,
 				CDFEAF1720FF862D00C59B67 /* infinity */,
 				4E5E11B31E7841C00097FA21 /* YouboraLib.h */,
@@ -1002,6 +1015,19 @@
 			name = comm;
 			sourceTree = "<group>";
 		};
+		729B41DB2B4C3CA6009B83C9 /* product-analytics */ = {
+			isa = PBXGroup;
+			children = (
+				729B41E72B4C3DC4009B83C9 /* YBProductAnalytics.h */,
+				729B41E52B4C3DC4009B83C9 /* YBProductAnalytics.m */,
+				729F48DF2B5688B400F2280C /* YBProductAnalyticsSettings.m */,
+				729F48E12B5688CE00F2280C /* YBProductAnalyticsSettings.h */,
+				729F48E22B56D0EC00F2280C /* YBProductAnalyticsUserState.m */,
+				729F48E42B56D0FC00F2280C /* YBProductAnalyticsUserState.h */,
+			);
+			path = "product-analytics";
+			sourceTree = "<group>";
+		};
 		7A3BBBC329376BA90077B64C /* balancer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1151,7 +1177,10 @@
 				CDFEAF0C20FF5A2F00C59B67 /* YBTimestampLastSentTransform.h in Headers */,
 				CD9373842104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				4E7CBCBF1E82D78800FF7D7A /* YBFastDataConfig.h in Headers */,
+				729B41EB2B4C3DC4009B83C9 /* YBProductAnalytics.h in Headers */,
 				4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */,
+				726552702B74F16500EB027E /* YBProductAnalyticsUserState.h in Headers */,
+				7265526F2B74F16200EB027E /* YBProductAnalyticsSettings.h in Headers */,
 				4E2817121E85121A00F450C1 /* YBRequestBuilder.h in Headers */,
 				0627CD0A23D88F0900E5D937 /* YBTimer.h in Headers */,
 			);
@@ -1515,6 +1544,7 @@
 				4E5E539D1E81316400966C7B /* YBPlayheadMonitor.m in Sources */,
 				06A0DB6C24052661002B689B /* YBResourceParser.swift in Sources */,
 				06783BCB245DABEB00EC0855 /* YBAppDatabase.swift in Sources */,
+				729F48E02B5688B400F2280C /* YBProductAnalyticsSettings.m in Sources */,
 				4E5E537B1E7FECEC00966C7B /* YBFlowTransform.m in Sources */,
 				4E5E53601E7C4C3C00966C7B /* YBOptions.m in Sources */,
 				4E7CBCB31E826C6F00FF7D7A /* YBPlugin.m in Sources */,
@@ -1544,6 +1574,8 @@
 				0601DCF723D701CA00128F32 /* YBYouboraUtils.swift in Sources */,
 				4E5E536E1E7FD5ED00966C7B /* YBTransform.m in Sources */,
 				4E28171C1E85373F00F450C1 /* YBResourceTransform.m in Sources */,
+				729F48E32B56D0EC00F2280C /* YBProductAnalyticsUserState.m in Sources */,
+				729B41E92B4C3DC4009B83C9 /* YBProductAnalytics.m in Sources */,
 				4E9C7BC11E8E6D8B00E10631 /* YBCdnParser.m in Sources */,
 				7A3BBBE329433E690077B64C /* YBP2PStats.swift in Sources */,
 				CD9373862104ECBC00C75E3A /* YBInfinityFlags.m in Sources */,
@@ -1966,7 +1998,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.7.7;
+				YOUBORALIB_VERSION_SETTING = 6.7.8;
 			};
 			name = Debug;
 		};
@@ -2021,7 +2053,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.7.7;
+				YOUBORALIB_VERSION_SETTING = 6.7.8;
 			};
 			name = Release;
 		};
@@ -2042,7 +2074,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 6.7.7;
+				MARKETING_VERSION = 6.7.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;
@@ -2068,7 +2100,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 6.7.7;
+				MARKETING_VERSION = 6.7.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;
