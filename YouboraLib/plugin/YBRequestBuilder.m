@@ -298,7 +298,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraInfinity.sessionNav: @[YBConstantsRequest.username, YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.sessionBeat: @[YBConstantsRequest.sessionMetrics],
                        YBConstantsYouboraInfinity.sessionEvent: @[YBConstantsRequest.navContext],
-                       YBConstantsYouboraInfinity.videoEvent: @[]
+                       YBConstantsYouboraInfinity.videoEvent: @[YBConstantsRequest.playhead]
             };
             
             youboraRequestParamsDifferent = @{YBConstantsYouboraService.join:     @[YBConstantsRequest.title, YBConstantsRequest.title2, YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource],

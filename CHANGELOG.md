@@ -1,3 +1,10 @@
+## [6.7.8] - 2024-05-02
+### Added
+- Initial release of Product Analytics suite.
+- `PrivacyInfo.xcprivacy` file requested by Apple.
+### Updated
+- Custom player events report play head.
+
 ## [6.7.7] - 2023-11-09
 ### Updated
 - Add support for 2023 iPhone models (iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max)

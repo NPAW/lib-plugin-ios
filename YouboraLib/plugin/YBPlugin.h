@@ -10,6 +10,7 @@
 #import "YBTransform.h"
 #import "YBPlayerAdapter.h"
 #import "YBInfinity.h"
+#import "YBProductAnalytics.h"
 
 @class YBRequestBuilder, YBOptions, YBResourceTransform, YBViewTransform, YBTimer, YBPlayerAdapter, YBCommunication, YBCdnSwitchParser, YBFastDataConfig;
 
@@ -128,6 +129,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
  * the application
  */
 - (YBInfinity *) getInfinity;
+
+/**
+ * Returns the product analytics instance object as singleton, since we need to use the same for all
+ * the application
+ */
+- (YBProductAnalytics *) getProductAnalytics;
 
 /**
  * Disable request sending.

@@ -25,6 +25,7 @@
 
 #import "YBInfinity.h"
 #import "YBInfinityFlags.h"
+#import "YBProductAnalytics.h"
 #import "YBTimestampLastSentTransform.h"
 #import "YBConstants.h"
 #import "YBSwift.h"
@@ -105,6 +106,9 @@
 
 //Infinity
 @property(nonatomic, strong) YBInfinity * infinity;
+
+// Product Analytics
+@property(nonatomic, strong) YBProductAnalytics * productAnalytics;
 
 // Property that gonna prevent the same error to be sent in less than x seconds
 @property(nonatomic, strong) YBErrorHandler *errorHandler;
@@ -199,6 +203,7 @@
         adapter.plugin = self;
         [adapter addYouboraAdapterDelegate:self];
         [self registerToBackgroundNotifications];
+        [[self getProductAnalytics] adapterAfterSet: adapter];
     }else{
         [YBLog error:@"Adapter is null in setAdapter"];
     }
@@ -210,6 +215,7 @@
 
 - (void) removeAdapter: (BOOL)shouldStopPings {
     if (self.adapter != nil) {
+        [[self getProductAnalytics] adapterBeforeRemove];
         [self.adapter dispose];
         
         self.adapter.plugin = nil;
@@ -269,6 +275,14 @@
     }
     
     return self.infinity;
+}
+
+- (YBProductAnalytics *) getProductAnalytics {
+    if (!self.productAnalytics) {
+        self.productAnalytics = [[YBProductAnalytics alloc] init:self.options infinity:[self getInfinity]];
+    }
+    
+    return self.productAnalytics;
 }
 
 - (void) disable {

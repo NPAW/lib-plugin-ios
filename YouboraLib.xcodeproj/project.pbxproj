@@ -303,6 +303,15 @@
 		4EF293871E7A92E7008B0A99 /* YBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF293851E7A92E7008B0A99 /* YBLog.m */; };
 		4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF2938C1E7AB559008B0A99 /* YBRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EF2938F1E7AB559008B0A99 /* YBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2938D1E7AB559008B0A99 /* YBRequest.m */; };
+		650FD99D1BAFD8426E9EF647 /* Pods_YouboraLib_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD0C90A5A8002851D931807 /* Pods_YouboraLib_tvOS.framework */; };
+		6529077C6CB19291835DC2C4 /* Pods_YouboraLibTests_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B57F3B8ADCD29DF5873B059 /* Pods_YouboraLibTests_iOS.framework */; };
+		665B99D2B65718D8E577A4D2 /* Pods_YouboraLibTests_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE4E9352332E896969DAE84 /* Pods_YouboraLibTests_tvOS.framework */; };
+		7265526F2B74F16200EB027E /* YBProductAnalyticsSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 729F48E12B5688CE00F2280C /* YBProductAnalyticsSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		726552702B74F16500EB027E /* YBProductAnalyticsUserState.h in Headers */ = {isa = PBXBuildFile; fileRef = 729F48E42B56D0FC00F2280C /* YBProductAnalyticsUserState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		729B41E92B4C3DC4009B83C9 /* YBProductAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 729B41E52B4C3DC4009B83C9 /* YBProductAnalytics.m */; };
+		729B41EB2B4C3DC4009B83C9 /* YBProductAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 729B41E72B4C3DC4009B83C9 /* YBProductAnalytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		729F48E02B5688B400F2280C /* YBProductAnalyticsSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 729F48DF2B5688B400F2280C /* YBProductAnalyticsSettings.m */; };
+		729F48E32B56D0EC00F2280C /* YBProductAnalyticsUserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 729F48E22B56D0EC00F2280C /* YBProductAnalyticsUserState.m */; };
 		7A3BBBCD29376C580077B64C /* YBBalancerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BBBCC29376C580077B64C /* YBBalancerStats.swift */; };
 		7A3BBBCE29376C580077B64C /* YBBalancerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BBBCC29376C580077B64C /* YBBalancerStats.swift */; };
 		7A3BBBCF29376C580077B64C /* YBBalancerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3BBBCC29376C580077B64C /* YBBalancerStats.swift */; };
@@ -448,9 +457,13 @@
 		CDFEAF1D2100E0C600C59B67 /* YBInfinity.h in Headers */ = {isa = PBXBuildFile; fileRef = CDFEAF1A2100E0C600C59B67 /* YBInfinity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFEAF1E2100E0C600C59B67 /* YBInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF1B2100E0C600C59B67 /* YBInfinity.m */; };
 		CDFEAF1F2100E0C600C59B67 /* YBInfinity.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFEAF1B2100E0C600C59B67 /* YBInfinity.m */; };
+		EF63C5883AA2FEFC758A8C17 /* Pods_YouboraLib_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2F20A99632C6CD01A7FD6F /* Pods_YouboraLib_iOS.framework */; };
 		F22BBA3B27A408AD00623E91 /* YBSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = F22BBA3A27A408AD00623E91 /* YBSwift.h */; };
 		F22BBA3C27A408AD00623E91 /* YBSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = F22BBA3A27A408AD00623E91 /* YBSwift.h */; };
 		F22BBA3D27A408AD00623E91 /* YBSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = F22BBA3A27A408AD00623E91 /* YBSwift.h */; };
+		F883D09C2BE3D65F00AA658A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F883D09B2BE3D65F00AA658A /* PrivacyInfo.xcprivacy */; };
+		F883D09D2BE3D65F00AA658A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F883D09B2BE3D65F00AA658A /* PrivacyInfo.xcprivacy */; };
+		F883D09E2BE3D65F00AA658A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F883D09B2BE3D65F00AA658A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -516,6 +529,10 @@
 		06CF6161238D4048000B4FAE /* dashCallbackResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = dashCallbackResponse.xml; path = comm/transform/resourceparse/dashCallbackResponse.xml; sourceTree = "<group>"; };
 		06DE985D24E442C600238F85 /* YBTestableCdnSwitchParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBTestableCdnSwitchParser.h; sourceTree = "<group>"; };
 		06DE985E24E442C600238F85 /* YBTestableCdnSwitchParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBTestableCdnSwitchParser.m; sourceTree = "<group>"; };
+		155E0B61E6E4E8B50E0EA68C /* Pods-YouboraLibTests iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLibTests iOS.debug.xcconfig"; path = "Target Support Files/Pods-YouboraLibTests iOS/Pods-YouboraLibTests iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		181D7616281362E583FAE59D /* Pods-YouboraLibTests tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLibTests tvOS.release.xcconfig"; path = "Target Support Files/Pods-YouboraLibTests tvOS/Pods-YouboraLibTests tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		41663ECD1F90D48E9E584064 /* Pods-YouboraLibTests tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLibTests tvOS.debug.xcconfig"; path = "Target Support Files/Pods-YouboraLibTests tvOS/Pods-YouboraLibTests tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4B57F3B8ADCD29DF5873B059 /* Pods_YouboraLibTests_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouboraLibTests_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E2817101E85121A00F450C1 /* YBRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBRequestBuilder.h; path = plugin/YBRequestBuilder.h; sourceTree = "<group>"; };
 		4E2817111E85121A00F450C1 /* YBRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBRequestBuilder.m; path = plugin/YBRequestBuilder.m; sourceTree = "<group>"; };
 		4E2817141E85205500F450C1 /* YBViewTransformTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBViewTransformTest.m; path = comm/transform/YBViewTransformTest.m; sourceTree = "<group>"; };
@@ -600,12 +617,26 @@
 		4EF293851E7A92E7008B0A99 /* YBLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBLog.m; sourceTree = "<group>"; };
 		4EF2938C1E7AB559008B0A99 /* YBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YBRequest.h; path = comm/YBRequest.h; sourceTree = "<group>"; };
 		4EF2938D1E7AB559008B0A99 /* YBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YBRequest.m; path = comm/YBRequest.m; sourceTree = "<group>"; };
+		5717D495EBA0DC30491A438D /* Pods-YouboraLib iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLib iOS.release.xcconfig"; path = "Target Support Files/Pods-YouboraLib iOS/Pods-YouboraLib iOS.release.xcconfig"; sourceTree = "<group>"; };
+		729B41E52B4C3DC4009B83C9 /* YBProductAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBProductAnalytics.m; sourceTree = "<group>"; };
+		729B41E72B4C3DC4009B83C9 /* YBProductAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBProductAnalytics.h; sourceTree = "<group>"; };
+		729F48DF2B5688B400F2280C /* YBProductAnalyticsSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBProductAnalyticsSettings.m; sourceTree = "<group>"; };
+		729F48E12B5688CE00F2280C /* YBProductAnalyticsSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBProductAnalyticsSettings.h; sourceTree = "<group>"; };
+		729F48E22B56D0EC00F2280C /* YBProductAnalyticsUserState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBProductAnalyticsUserState.m; sourceTree = "<group>"; };
+		729F48E42B56D0FC00F2280C /* YBProductAnalyticsUserState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBProductAnalyticsUserState.h; sourceTree = "<group>"; };
 		7A3BBBCC29376C580077B64C /* YBBalancerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBBalancerStats.swift; sourceTree = "<group>"; };
 		7A3BBBD4293771170077B64C /* YBCDNBalancerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBCDNBalancerInfo.swift; sourceTree = "<group>"; };
 		7A3BBBDB29433E290077B64C /* YBCDNStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBCDNStats.swift; sourceTree = "<group>"; };
 		7A3BBBE229433E690077B64C /* YBP2PStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBP2PStats.swift; sourceTree = "<group>"; };
 		7A3BBBE929433EA70077B64C /* YBP2PFailedRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBP2PFailedRequests.swift; sourceTree = "<group>"; };
 		7A3BBBF029433EE00077B64C /* YBCDNCompressed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YBCDNCompressed.swift; sourceTree = "<group>"; };
+		7FD0C90A5A8002851D931807 /* Pods_YouboraLib_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouboraLib_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		80B229B212DC7F9C86EC21E7 /* Pods-YouboraLib tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLib tvOS.release.xcconfig"; path = "Target Support Files/Pods-YouboraLib tvOS/Pods-YouboraLib tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		9DE4E9352332E896969DAE84 /* Pods_YouboraLibTests_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouboraLibTests_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F2F20A99632C6CD01A7FD6F /* Pods_YouboraLib_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouboraLib_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B721DEEDBAE454E5503A2962 /* Pods-YouboraLib tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLib tvOS.debug.xcconfig"; path = "Target Support Files/Pods-YouboraLib tvOS/Pods-YouboraLib tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C7C42E1EDB7A4D2D2FFB50C3 /* Pods-YouboraLib iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLib iOS.debug.xcconfig"; path = "Target Support Files/Pods-YouboraLib iOS/Pods-YouboraLib iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		CB19B5C877495665041D6F9F /* Pods-YouboraLibTests iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouboraLibTests iOS.release.xcconfig"; path = "Target Support Files/Pods-YouboraLibTests iOS/Pods-YouboraLibTests iOS.release.xcconfig"; sourceTree = "<group>"; };
 		CD52375D228DA2C20013BA16 /* YouboraLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YouboraLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD52375F228DA2C20013BA16 /* YouboraLib_OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YouboraLib_OSX.h; sourceTree = "<group>"; };
 		CD523760228DA2C20013BA16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -634,6 +665,7 @@
 		CDFEAF1A2100E0C600C59B67 /* YBInfinity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YBInfinity.h; sourceTree = "<group>"; };
 		CDFEAF1B2100E0C600C59B67 /* YBInfinity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YBInfinity.m; sourceTree = "<group>"; };
 		F22BBA3A27A408AD00623E91 /* YBSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBSwift.h; sourceTree = "<group>"; };
+		F883D09B2BE3D65F00AA658A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -641,6 +673,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF63C5883AA2FEFC758A8C17 /* Pods_YouboraLib_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +684,7 @@
 				4E5E11BA1E7841C00097FA21 /* YouboraLib.framework in Frameworks */,
 				4E8A636B1EA8A31B008C6759 /* OCHamcrest.framework in Frameworks */,
 				4E8A636C1EA8A31B008C6759 /* OCMockito.framework in Frameworks */,
+				6529077C6CB19291835DC2C4 /* Pods_YouboraLibTests_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +692,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650FD99D1BAFD8426E9EF647 /* Pods_YouboraLib_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +703,7 @@
 				4E7D07FE1E9E0EFE0079F187 /* YouboraLib.framework in Frameworks */,
 				4E8A636F1EA8A326008C6759 /* OCHamcrest.framework in Frameworks */,
 				4E8A63701EA8A326008C6759 /* OCMockito.framework in Frameworks */,
+				665B99D2B65718D8E577A4D2 /* Pods_YouboraLibTests_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,6 +795,8 @@
 		4E5E11B21E7841C00097FA21 /* YouboraLib */ = {
 			isa = PBXGroup;
 			children = (
+				F883D09B2BE3D65F00AA658A /* PrivacyInfo.xcprivacy */,
+				729B41DB2B4C3CA6009B83C9 /* product-analytics */,
 				F22BBA3A27A408AD00623E91 /* YBSwift.h */,
 				CDFEAF1720FF862D00C59B67 /* infinity */,
 				4E5E11B31E7841C00097FA21 /* YouboraLib.h */,
@@ -945,6 +983,10 @@
 				4E8A636E1EA8A326008C6759 /* OCMockito.framework */,
 				4E8A63691EA8A31B008C6759 /* OCHamcrest.framework */,
 				4E8A636A1EA8A31B008C6759 /* OCMockito.framework */,
+				9F2F20A99632C6CD01A7FD6F /* Pods_YouboraLib_iOS.framework */,
+				7FD0C90A5A8002851D931807 /* Pods_YouboraLib_tvOS.framework */,
+				4B57F3B8ADCD29DF5873B059 /* Pods_YouboraLibTests_iOS.framework */,
+				9DE4E9352332E896969DAE84 /* Pods_YouboraLibTests_tvOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1002,6 +1044,19 @@
 			name = comm;
 			sourceTree = "<group>";
 		};
+		729B41DB2B4C3CA6009B83C9 /* product-analytics */ = {
+			isa = PBXGroup;
+			children = (
+				729B41E72B4C3DC4009B83C9 /* YBProductAnalytics.h */,
+				729B41E52B4C3DC4009B83C9 /* YBProductAnalytics.m */,
+				729F48DF2B5688B400F2280C /* YBProductAnalyticsSettings.m */,
+				729F48E12B5688CE00F2280C /* YBProductAnalyticsSettings.h */,
+				729F48E22B56D0EC00F2280C /* YBProductAnalyticsUserState.m */,
+				729F48E42B56D0FC00F2280C /* YBProductAnalyticsUserState.h */,
+			);
+			path = "product-analytics";
+			sourceTree = "<group>";
+		};
 		7A3BBBC329376BA90077B64C /* balancer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1034,6 +1089,14 @@
 		8F30DFC827590F6B95E7C22D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				C7C42E1EDB7A4D2D2FFB50C3 /* Pods-YouboraLib iOS.debug.xcconfig */,
+				5717D495EBA0DC30491A438D /* Pods-YouboraLib iOS.release.xcconfig */,
+				B721DEEDBAE454E5503A2962 /* Pods-YouboraLib tvOS.debug.xcconfig */,
+				80B229B212DC7F9C86EC21E7 /* Pods-YouboraLib tvOS.release.xcconfig */,
+				155E0B61E6E4E8B50E0EA68C /* Pods-YouboraLibTests iOS.debug.xcconfig */,
+				CB19B5C877495665041D6F9F /* Pods-YouboraLibTests iOS.release.xcconfig */,
+				41663ECD1F90D48E9E584064 /* Pods-YouboraLibTests tvOS.debug.xcconfig */,
+				181D7616281362E583FAE59D /* Pods-YouboraLibTests tvOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1151,7 +1214,10 @@
 				CDFEAF0C20FF5A2F00C59B67 /* YBTimestampLastSentTransform.h in Headers */,
 				CD9373842104ECBC00C75E3A /* YBInfinityFlags.h in Headers */,
 				4E7CBCBF1E82D78800FF7D7A /* YBFastDataConfig.h in Headers */,
+				729B41EB2B4C3DC4009B83C9 /* YBProductAnalytics.h in Headers */,
 				4EF2938E1E7AB559008B0A99 /* YBRequest.h in Headers */,
+				726552702B74F16500EB027E /* YBProductAnalyticsUserState.h in Headers */,
+				7265526F2B74F16200EB027E /* YBProductAnalyticsSettings.h in Headers */,
 				4E2817121E85121A00F450C1 /* YBRequestBuilder.h in Headers */,
 				0627CD0A23D88F0900E5D937 /* YBTimer.h in Headers */,
 			);
@@ -1234,6 +1300,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E5E11C41E7841C00097FA21 /* Build configuration list for PBXNativeTarget "YouboraLib iOS" */;
 			buildPhases = (
+				245699B70C3B0B3CA35341CA /* [CP] Check Pods Manifest.lock */,
 				4E5E11AB1E7841BF0097FA21 /* Sources */,
 				4E5E11AC1E7841BF0097FA21 /* Frameworks */,
 				4E5E11AD1E7841BF0097FA21 /* Headers */,
@@ -1253,9 +1320,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E5E11C71E7841C00097FA21 /* Build configuration list for PBXNativeTarget "YouboraLibTests iOS" */;
 			buildPhases = (
+				9601D2571D0670BE495CA083 /* [CP] Check Pods Manifest.lock */,
 				4E5E11B51E7841C00097FA21 /* Sources */,
 				4E5E11B61E7841C00097FA21 /* Frameworks */,
 				4E5E11B71E7841C00097FA21 /* Resources */,
+				6B8FDAA47E4855DC5436F6C4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1271,6 +1340,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E7D08061E9E0EFE0079F187 /* Build configuration list for PBXNativeTarget "YouboraLib tvOS" */;
 			buildPhases = (
+				FC8B387987395B79D6469CED /* [CP] Check Pods Manifest.lock */,
 				4E7D07F01E9E0EFE0079F187 /* Sources */,
 				4E7D07F11E9E0EFE0079F187 /* Frameworks */,
 				4E7D07F21E9E0EFE0079F187 /* Headers */,
@@ -1290,9 +1360,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E7D08091E9E0EFE0079F187 /* Build configuration list for PBXNativeTarget "YouboraLibTests tvOS" */;
 			buildPhases = (
+				6767A9A939C357A1F411B491 /* [CP] Check Pods Manifest.lock */,
 				4E7D07F91E9E0EFE0079F187 /* Sources */,
 				4E7D07FA1E9E0EFE0079F187 /* Frameworks */,
 				4E7D07FB1E9E0EFE0079F187 /* Resources */,
+				8662C261B710CEC323ACA7E8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1412,6 +1484,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F883D09C2BE3D65F00AA658A /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1428,6 +1501,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F883D09D2BE3D65F00AA658A /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1444,6 +1518,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F883D09E2BE3D65F00AA658A /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1498,6 +1573,134 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		245699B70C3B0B3CA35341CA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YouboraLib iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6767A9A939C357A1F411B491 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YouboraLibTests tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B8FDAA47E4855DC5436F6C4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YouboraLibTests iOS/Pods-YouboraLibTests iOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/OCHamcrest-iOS/OCHamcrest.framework",
+				"${BUILT_PRODUCTS_DIR}/OCMockito-iOS/OCMockito.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OCHamcrest.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OCMockito.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YouboraLibTests iOS/Pods-YouboraLibTests iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8662C261B710CEC323ACA7E8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YouboraLibTests tvOS/Pods-YouboraLibTests tvOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/OCHamcrest-tvOS/OCHamcrest.framework",
+				"${BUILT_PRODUCTS_DIR}/OCMockito-tvOS/OCMockito.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OCHamcrest.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OCMockito.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YouboraLibTests tvOS/Pods-YouboraLibTests tvOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9601D2571D0670BE495CA083 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YouboraLibTests iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC8B387987395B79D6469CED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YouboraLib tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1515,6 +1718,7 @@
 				4E5E539D1E81316400966C7B /* YBPlayheadMonitor.m in Sources */,
 				06A0DB6C24052661002B689B /* YBResourceParser.swift in Sources */,
 				06783BCB245DABEB00EC0855 /* YBAppDatabase.swift in Sources */,
+				729F48E02B5688B400F2280C /* YBProductAnalyticsSettings.m in Sources */,
 				4E5E537B1E7FECEC00966C7B /* YBFlowTransform.m in Sources */,
 				4E5E53601E7C4C3C00966C7B /* YBOptions.m in Sources */,
 				4E7CBCB31E826C6F00FF7D7A /* YBPlugin.m in Sources */,
@@ -1544,6 +1748,8 @@
 				0601DCF723D701CA00128F32 /* YBYouboraUtils.swift in Sources */,
 				4E5E536E1E7FD5ED00966C7B /* YBTransform.m in Sources */,
 				4E28171C1E85373F00F450C1 /* YBResourceTransform.m in Sources */,
+				729F48E32B56D0EC00F2280C /* YBProductAnalyticsUserState.m in Sources */,
+				729B41E92B4C3DC4009B83C9 /* YBProductAnalytics.m in Sources */,
 				4E9C7BC11E8E6D8B00E10631 /* YBCdnParser.m in Sources */,
 				7A3BBBE329433E690077B64C /* YBP2PStats.swift in Sources */,
 				CD9373862104ECBC00C75E3A /* YBInfinityFlags.m in Sources */,
@@ -1966,7 +2172,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.7.7;
+				YOUBORALIB_VERSION_SETTING = 6.7.8;
 			};
 			name = Debug;
 		};
@@ -2021,12 +2227,13 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.7.7;
+				YOUBORALIB_VERSION_SETTING = 6.7.8;
 			};
 			name = Release;
 		};
 		4E5E11C51E7841C00097FA21 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7C42E1EDB7A4D2D2FFB50C3 /* Pods-YouboraLib iOS.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -2042,7 +2249,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 6.7.7;
+				MARKETING_VERSION = 6.7.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;
@@ -2053,6 +2260,7 @@
 		};
 		4E5E11C61E7841C00097FA21 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5717D495EBA0DC30491A438D /* Pods-YouboraLib iOS.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -2068,7 +2276,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 6.7.7;
+				MARKETING_VERSION = 6.7.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;
@@ -2078,6 +2286,7 @@
 		};
 		4E5E11C81E7841C00097FA21 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 155E0B61E6E4E8B50E0EA68C /* Pods-YouboraLibTests iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
@@ -2099,6 +2308,7 @@
 		};
 		4E5E11C91E7841C00097FA21 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB19B5C877495665041D6F9F /* Pods-YouboraLibTests iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
@@ -2119,6 +2329,7 @@
 		};
 		4E7D08071E9E0EFE0079F187 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B721DEEDBAE454E5503A2962 /* Pods-YouboraLib tvOS.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -2144,6 +2355,7 @@
 		};
 		4E7D08081E9E0EFE0079F187 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80B229B212DC7F9C86EC21E7 /* Pods-YouboraLib tvOS.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -2169,6 +2381,7 @@
 		};
 		4E7D080A1E9E0EFE0079F187 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41663ECD1F90D48E9E584064 /* Pods-YouboraLibTests tvOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
@@ -2194,6 +2407,7 @@
 		};
 		4E7D080B1E9E0EFE0079F187 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 181D7616281362E583FAE59D /* Pods-YouboraLibTests tvOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
