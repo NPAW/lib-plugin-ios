@@ -1,6 +1,7 @@
-## [6.7.8] - 2024-04-24
+## [6.7.8] - 2024-05-02
 ### Added
 - Initial release of Product Analytics suite.
+- `PrivacyInfo.xcprivacy` file requested by Apple.
 ### Updated
 - Custom player events report play head.
 
