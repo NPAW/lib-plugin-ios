@@ -404,6 +404,25 @@
 /**
   * Tracks navigation
   * @param screenName The unique name to identify a page of the application.
+  */
+
+- (void) trackNavigation: (nonnull NSString *) screenName{
+
+    [self trackNavigation:screenName dimensions:nil metrics:nil];
+}
+/**
+  * Tracks navigation
+  * @param screenName The unique name to identify a page of the application.
+  * @param  dimensions Dimensions to track
+  */
+
+- (void) trackNavigation: (nonnull NSString *) screenName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackNavigation:screenName dimensions:dimensions metrics:nil];
+}
+
+/**
+  * Tracks navigation
+  * @param screenName The unique name to identify a page of the application.
   * @param  dimensions Dimensions to track
   * @param metrics Metrics to track
   */
@@ -442,6 +461,33 @@
 // ------------------------------------------------------------------------------------------------------
 // ATTRIBUTION
 // ------------------------------------------------------------------------------------------------------
+
+/**
+  * Tracks attribution
+  * @param utmSource The UTM Source parameter. It is commonly used to identify a search engine, newsletter, or other source (i.e., Google, Facebook, etc.).
+  * @param utmMedium The UTM Medium parameter. It is commonly used to identify a medium such as email or cost-per-click (cpc).
+  * @param utmCampaign The UTM Campaign parameter. It is commonly used for campaign analysis to identify a specific product promotion or strategic campaign (i.e., spring sale).
+  * @param utmTerm The UTM Term parameter. It is commonly used with paid search to supply the keywords for ads (i.e., Customer, NonBuyer, etc.).
+  * @param utmContent The UTM Content parameter. It is commonly used for A/B testing and content-targeted ads to differentiate ads or links that point to the same URL (i.e., Banner1, Banner2, etc.)
+  */
+
+- (void) trackAttribution: (nonnull NSString *) utmSource utmMedium: (nullable NSString *) utmMedium utmCampaign: (nullable NSString *) utmCampaign utmTerm: (nullable NSString *) utmTerm utmContent: (nullable NSString *) utmContent{
+    [self trackAttribution:utmSource utmMedium:utmMedium utmCampaign:utmCampaign utmTerm:utmTerm utmContent:utmContent dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks attribution
+  * @param utmSource The UTM Source parameter. It is commonly used to identify a search engine, newsletter, or other source (i.e., Google, Facebook, etc.).
+  * @param utmMedium The UTM Medium parameter. It is commonly used to identify a medium such as email or cost-per-click (cpc).
+  * @param utmCampaign The UTM Campaign parameter. It is commonly used for campaign analysis to identify a specific product promotion or strategic campaign (i.e., spring sale).
+  * @param utmTerm The UTM Term parameter. It is commonly used with paid search to supply the keywords for ads (i.e., Customer, NonBuyer, etc.).
+  * @param utmContent The UTM Content parameter. It is commonly used for A/B testing and content-targeted ads to differentiate ads or links that point to the same URL (i.e., Banner1, Banner2, etc.)
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackAttribution: (nonnull NSString *) utmSource utmMedium: (nullable NSString *) utmMedium utmCampaign: (nullable NSString *) utmCampaign utmTerm: (nullable NSString *) utmTerm utmContent: (nullable NSString *) utmContent dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
+    [self trackAttribution:utmSource utmMedium:utmMedium utmCampaign:utmCampaign utmTerm:utmTerm utmContent:utmContent dimensions:dimensions metrics:nil];
+}
 
 /**
   * Tracks attribution
@@ -492,6 +538,25 @@
 /**
   * Section goes into viewport.
   * @param section The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
+  */
+
+- (void) trackSectionIn: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder{
+    [self trackSectionIn:section sectionOrder:sectionOrder dimensions:nil metrics:nil];
+}
+
+/**
+  * Section goes into viewport.
+  * @param section The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackSectionIn: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackSectionIn:section sectionOrder:sectionOrder dimensions:dimensions metrics:nil];
+}
+
+/**
+  * Section goes into viewport.
+  * @param section The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
   * @param dimensions Dimensions to track
   * @param metrics Metrics to track
   */
@@ -516,6 +581,25 @@
          dimensionsUser: dimensions
                 metrics: metrics];
     }
+}
+
+/**
+  * Section goes out of viewport.
+  * @param section The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
+  */
+
+- (void) trackSectionOut: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder{
+    [self trackSectionOut:section sectionOrder:sectionOrder dimensions:nil metrics:nil];
+}
+
+/**
+  * Section goes out of viewport.
+  * @param section The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackSectionOut: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackSectionOut:section sectionOrder:sectionOrder dimensions:dimensions metrics:nil];
 }
 
 /**
@@ -551,6 +635,31 @@
 // ------------------------------------------------------------------------------------------------------
 // CONTENT
 // ------------------------------------------------------------------------------------------------------
+
+/**
+  * Sends a content highlight event if content is focused during, at least, highlightContentAfter ms.
+  * @param section The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
+  * @param column Used to indicate the column number where content is placed in a grid layout The first column is number 1.
+  * @param row Used to indicate the row number where content is placed in a grid layout. The first row is number 1. In the case of a horizontal list instead of a grid, the row parameter should be set to 1.
+  * @param contentId The unique content identifier of the content linked.
+  */
+
+- (void) contentFocusIn: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId{
+    [self contentFocusIn:section sectionOrder:sectionOrder column:column row:row contentId:contentId dimensions:nil metrics:nil];
+}
+
+/**
+  * Sends a content highlight event if content is focused during, at least, highlightContentAfter ms.
+  * @param section The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
+  * @param column Used to indicate the column number where content is placed in a grid layout The first column is number 1.
+  * @param row Used to indicate the row number where content is placed in a grid layout. The first row is number 1. In the case of a horizontal list instead of a grid, the row parameter should be set to 1.
+  * @param contentId The unique content identifier of the content linked.
+  * @param dimensions Dimensions to track
+  */
+
+- (void) contentFocusIn: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self contentFocusIn:section sectionOrder:sectionOrder column:column row:row contentId:contentId dimensions:dimensions metrics:nil];
+}
 
 /**
   * Sends a content highlight event if content is focused during, at least, highlightContentAfter ms.
@@ -648,6 +757,31 @@
   * @param column Used to indicate the column number where content is placed in a grid layout The first column is number 1.
   * @param row Used to indicate the row number where content is placed in a grid layout. The first row is number 1. In the case of a horizontal list instead of a grid, the row parameter should be set to 1.
   * @param contentId The unique content identifier of the content linked.
+  */
+
+- (void) trackContentClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId{
+    [self trackContentClick:section sectionOrder:sectionOrder column:column row:row contentId:contentId dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks the location of user clicks.
+  * @paramsection The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
+  * @param column Used to indicate the column number where content is placed in a grid layout The first column is number 1.
+  * @param row Used to indicate the row number where content is placed in a grid layout. The first row is number 1. In the case of a horizontal list instead of a grid, the row parameter should be set to 1.
+  * @param contentId The unique content identifier of the content linked.
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackContentClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackContentClick:section sectionOrder:sectionOrder column:column row:row contentId:contentId dimensions:dimensions metrics:nil];
+}
+
+/**
+  * Tracks the location of user clicks.
+  * @paramsection The section title. It is commonly used to indicate the section title presented over a grid layout (e.g. Recommended Movies, Continue Watching, etc).
+  * @param column Used to indicate the column number where content is placed in a grid layout The first column is number 1.
+  * @param row Used to indicate the row number where content is placed in a grid layout. The first row is number 1. In the case of a horizontal list instead of a grid, the row parameter should be set to 1.
+  * @param contentId The unique content identifier of the content linked.
   * @param dimensions Dimensions to track
   * @param metrics Metrics to track
   */
@@ -691,6 +825,25 @@
 /**
   * Tracks when a content starts playing be it automatically or through a user interaction.
   * @param contentId The unique content identifier of the content being played.
+  */
+
+- (void) trackPlay: (nonnull NSString *) contentId{
+    [self trackPlay:contentId dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks when a content starts playing be it automatically or through a user interaction.
+  * @param contentId The unique content identifier of the content being played.
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackPlay: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackPlay:contentId dimensions:dimensions metrics:nil];
+}
+
+/**
+  * Tracks when a content starts playing be it automatically or through a user interaction.
+  * @param contentId The unique content identifier of the content being played.
   * @param dimensions Dimensions to track
   * @param metrics Metrics to track
   */
@@ -717,6 +870,26 @@
             [self._userState setActive: @"Play" playerStarted: false];
         }
     }
+}
+
+/**
+  * Tracks content watching events.
+  * TODO: add (2nd) argument to tell whether user state must be updated or not
+  * @param eventName The name of the interaction (i.e., Pause, Seek, Skip Intro, Skip Ads, Switch Language, etc.).
+  */
+
+- (void) trackPlayerInteraction: (nonnull NSString *) eventName{
+    [self trackPlayerInteraction:eventName dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks content watching events.
+  * TODO: add (2nd) argument to tell whether user state must be updated or not
+  * @param eventName The name of the interaction (i.e., Pause, Seek, Skip Intro, Skip Ads, Switch Language, etc.).
+  */
+
+- (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackPlayerInteraction:eventName dimensions:dimensions metrics:nil];
 }
 
 /**
@@ -776,6 +949,25 @@
 /**
   * Tracks search query events.
   * @param searchQuery The search term entered by the user.
+  */
+
+- (void) trackSearchQuery: (nonnull NSString *) searchQuery{
+    [self trackSearchQuery:searchQuery dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks search query events.
+  * @param searchQuery The search term entered by the user.
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackSearchQuery: (nonnull NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackSearchQuery:searchQuery dimensions:dimensions metrics:nil];
+}
+
+/**
+  * Tracks search query events.
+  * @param searchQuery The search term entered by the user.
   * @param dimensions Dimensions to track
   * @param metrics Metrics to track
   */
@@ -800,6 +992,27 @@
          dimensionsUser: dimensions
                 metrics: metrics];
     }
+}
+
+/**
+  * Tracks search result events.
+  * @param resultCount The number of search results returned by a search query.
+  * @param searchQuery The search term entered by the user.
+  */
+
+- (void) trackSearchResult: (NSInteger) resultCount searchQuery: (nullable NSString *) searchQuery{
+    [self trackSearchResult:resultCount searchQuery:searchQuery dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks search result events.
+  * @param resultCount The number of search results returned by a search query.
+  * @param searchQuery The search term entered by the user.
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackSearchResult: (NSInteger) resultCount searchQuery: (nullable NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackSearchResult:resultCount searchQuery:searchQuery dimensions:dimensions metrics:nil];
 }
 
 /**
@@ -832,6 +1045,31 @@
                 metrics: metrics];
 
     }
+}
+
+/**
+  * Tracks user interactions with search results.
+  * @param column The content placement column. It is commonly used to indicate the column number where content is placed in a grid layout (i.e.1, 2, etc..).
+  * @param row The content placement row. It is commonly used to indicate the row number where content is placed in a grid layout (i.e.1, 2, etc..).
+  * @param contentId The content identifier. It is used for internal content unequivocally identification (i.e., AAA000111222).
+  * @param searchQuery The search term entered by the user.
+  */
+
+- (void) trackSearchClick: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery{
+    [self trackSearchClick:column row:row contentId:contentId searchQuery:searchQuery dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks user interactions with search results.
+  * @param column The content placement column. It is commonly used to indicate the column number where content is placed in a grid layout (i.e.1, 2, etc..).
+  * @param row The content placement row. It is commonly used to indicate the row number where content is placed in a grid layout (i.e.1, 2, etc..).
+  * @param contentId The content identifier. It is used for internal content unequivocally identification (i.e., AAA000111222).
+  * @param searchQuery The search term entered by the user.
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackSearchClick: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackSearchClick:column row:row contentId:contentId searchQuery:searchQuery dimensions:dimensions metrics:nil];
 }
 
 /**
@@ -881,6 +1119,25 @@
 /**
   * Tracks external app start events.
   * @param appName The name of the application being used to deliver the content to the end-user (i.e., Netflix).
+  */
+
+- (void) trackExternalAppLaunch: (nonnull NSString *) appName{
+    [self trackExternalAppLaunch:appName dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks external app start events.
+  * @param appName The name of the application being used to deliver the content to the end-user (i.e., Netflix).
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackExternalAppLaunch: (nonnull NSString *) appName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackExternalAppLaunch:appName dimensions:dimensions metrics:nil];
+}
+
+/**
+  * Tracks external app start events.
+  * @param appName The name of the application being used to deliver the content to the end-user (i.e., Netflix).
   * @param dimensions Dimensions to track
   * @param metrics Metrics to track
   */
@@ -903,6 +1160,25 @@
          dimensionsUser: dimensions
                 metrics: metrics];
     }
+}
+
+/**
+  * Tracks external app stop events.
+  * @param appName The name of the application being used to deliver the content to the end-user (i.e., Netflix).
+  */
+
+- (void) trackExternalAppExit: (nonnull NSString *) appName{
+    [self trackExternalAppExit:appName dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks external app stop events.
+  * @param appName The name of the application being used to deliver the content to the end-user (i.e., Netflix).
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackExternalAppExit: (nonnull NSString *) appName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackExternalAppExit:appName dimensions:dimensions metrics:nil];
 }
 
 /**
@@ -940,6 +1216,27 @@
   * Tracks engagement events.
   * @param eventName The name of the engagement event (i.e., Share, Save, Rate, etc.).
   * @param contentId The unique content identifier of the content the user is engaging with.
+  */
+
+- (void) trackEngagementEvent: (nonnull NSString *) eventName contentId: (nonnull NSString *) contentId{
+    [self trackEngagementEvent:eventName contentId:contentId dimensions:nil metrics:nil];
+}
+
+/**
+  * Tracks engagement events.
+  * @param eventName The name of the engagement event (i.e., Share, Save, Rate, etc.).
+  * @param contentId The unique content identifier of the content the user is engaging with.
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackEngagementEvent: (nonnull NSString *) eventName contentId: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackEngagementEvent:eventName contentId:contentId dimensions:dimensions metrics:nil];
+}
+
+/**
+  * Tracks engagement events.
+  * @param eventName The name of the engagement event (i.e., Share, Save, Rate, etc.).
+  * @param contentId The unique content identifier of the content the user is engaging with.
   * @param dimensions Dimensions to track
   * @param metrics Metrics to track
   */
@@ -969,6 +1266,25 @@
 // ------------------------------------------------------------------------------------------------------
 // CUSTOM EVENT
 // ------------------------------------------------------------------------------------------------------
+
+/**
+  * Track custom event
+  * @param eventName Name of the event to track
+  */
+
+- (void) trackEvent: (nonnull NSString *) eventName{
+    [self trackEvent:eventName dimensions:nil metrics:nil];
+}
+
+/**
+  * Track custom event
+  * @param eventName Name of the event to track
+  * @param dimensions Dimensions to track
+  */
+
+- (void) trackEvent: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackEvent:eventName dimensions:dimensions metrics:nil];
+}
 
 /**
   * Track custom event
