@@ -20,9 +20,9 @@ Pod::Spec.new do |s|
   s.author       = { 'Nice People at Work' => 'support@nicepeopleatwork.com' }
 
   # Platforms
-  s.ios.deployment_target = '9.0'
-  s.tvos.deployment_target = '9.0'
-  s.osx.deployment_target = '10.10'
+  s.ios.deployment_target = '12.0'
+  s.tvos.deployment_target = '12.0'
+  s.osx.deployment_target = '10.14'
 
   # Swift version
   s.swift_version = '4.0', '4.1', '4.2', '4.3', '5.0', '5.1'

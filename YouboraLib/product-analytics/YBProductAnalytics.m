@@ -180,7 +180,7 @@
 
 @property(nonatomic, strong) YBProductAnalyticsPlayerAdapterEventDelegate * playerAdapterEventDelegate;
 
-- (void) trackContentHighlight;
+- (void) trackContentHighlight:(NSTimer *)timer;
 
 - (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics playerStarted: (Boolean) playerStarted;
 
