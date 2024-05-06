@@ -1,3 +1,7 @@
+## [6.7.9] - 2024-05-06
+### Fixed
+- Fix deployment issues.
+
 ## [6.7.8] - 2024-05-02
 ### Added
 - Initial release of Product Analytics suite.
