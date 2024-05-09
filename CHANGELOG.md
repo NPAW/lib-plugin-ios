@@ -1,3 +1,9 @@
+## [6.7.10] - 2024-05-09
+### Added
+- [PROD-899] Product Analytics: add setUserProfile method to allow collecting profile identifiers.
+### Fixed
+- Product Analytics: fix build issues on tvOS and osX platforms. 
+
 ## [6.7.9] - 2024-05-06
 ### Fixed
 - Fix deployment issues.

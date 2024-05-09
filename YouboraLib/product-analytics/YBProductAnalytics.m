@@ -397,6 +397,74 @@
     return executed;
 }
 
+/**
+  * Set user profile
+  * @param profileId Profile unique identifer
+  */
+
+- (void) setUserProfile: (nonnull NSString *) profileId{
+    [self setUserProfile:profileId profileType:nil dimensions:nil metrics:nil];
+}
+
+/**
+  * Set user profile
+  * @param profileId Profile unique identifer
+  * @param profileType Type of the profile being set (i.e: kid, adult...)
+  */
+
+- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType{
+    [self setUserProfile:profileId profileType:profileType dimensions:nil metrics:nil];
+}
+
+/**
+  * Set user profile
+  * @param profileId Profile unique identifer
+  * @param profileType Type of the profile being set (i.e: kid, adult...)
+  * @param  dimensions Dimensions to track
+  */
+
+- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self setUserProfile:profileId profileType:profileType dimensions:dimensions metrics:nil];
+}
+
+/**
+  * Set user profile
+  * @param profileId Profile unique identifer
+  * @param profileType Type of the profile being set (i.e: kid, adult...)
+  * @param  dimensions Dimensions to track
+  * @param metrics Metrics to track
+  */
+
+- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+
+    if ( !self._initialized ) {
+        [YBLog warn: @"Cannot set user profile since Product Analytics is uninitialized."];
+    } else if ( !self._infinity ){
+        [YBLog warn: @"Cannot set user profile since infinity is unavailable."];
+    } else if (profileId.length == 0 ) {
+        [YBLog warn: @"Cannot set user profile since profileId is unset."];
+    } else {
+
+        NSMutableDictionary<NSString *, NSString *> * dimensionsInternal;
+
+        [self endSession];
+        [self newSession];
+
+        dimensionsInternal = [NSMutableDictionary dictionary];
+        dimensionsInternal[@"eventType"] = @"UserSwitch";
+        dimensionsInternal[@"profileId"] = profileId;
+
+        if (profileType != nil) {
+            dimensionsInternal[@"profileType"] = profileType;
+        }
+
+        [self fireEvent: @"USER PROFILE SELECTION"
+     dimensionsInternal: dimensionsInternal
+         dimensionsUser: dimensions
+                metrics: metrics];
+    }
+}
+
 // ------------------------------------------------------------------------------------------------------
 // NAVIGATION
 // ------------------------------------------------------------------------------------------------------
@@ -1410,9 +1478,9 @@
     
     // List of Top Level Dimensions
     
-    topKeys = @[@"contentid", @"contentId", @"contentID", @"utmSource", @"utmMedium", @"utmCampaign", @"utmTerm", @"utmContent"];
-    topKeysDelete = @[@"contentid", @"contentId", @"contentID"];
-    
+    topKeys = @[@"contentid", @"contentId", @"contentID", @"utmSource", @"utmMedium", @"utmCampaign", @"utmTerm", @"utmContent", @"profileId", @"profile_id"];
+    topKeysDelete = @[@"contentid", @"contentId", @"contentID", @"profileId", @"profile_id"];
+
     // Create object with top level dimensions
     
     dimensionsTopLevel = [NSMutableDictionary dictionary];

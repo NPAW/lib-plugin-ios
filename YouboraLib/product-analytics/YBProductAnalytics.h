@@ -15,9 +15,9 @@
 
 @interface YBProductAnalytics : NSObject
 
-@property(nonatomic, assign) YBOptions * _Nullable _options;
-@property(nonatomic, assign) YBInfinity * _Nullable _infinity;
-@property(nonatomic, assign) YBPlayerAdapter * _Nullable _adapter;
+@property(nonatomic, weak) YBOptions * _Nullable _options;
+@property(nonatomic, weak) YBInfinity * _Nullable _infinity;
+@property(nonatomic, weak) YBPlayerAdapter * _Nullable _adapter;
 
 @property(nonatomic, strong) YBProductAnalyticsSettings * _Nonnull _productAnalyticsSettings;
 @property(nonatomic, strong) NSString * _Nonnull _screenName;
@@ -34,6 +34,11 @@
 
 - (Boolean) newSession;
 - (Boolean) endSession;
+
+- (void) setUserProfile: (nonnull NSString *) profileId;
+- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType;
+- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions;
+- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
 
 - (void) trackNavigation: (nonnull NSString *) screenName;
 - (void) trackNavigation: (nonnull NSString *) screenName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions;
