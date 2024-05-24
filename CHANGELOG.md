@@ -1,3 +1,8 @@
+## [6.7.11] - 2024-05-24
+### Fixed
+- `PrivacyInfo.xcprivacy` file with Apple's feedback.
+
+
 ## [6.7.10] - 2024-05-09
 ### Added
 - [PROD-899] Product Analytics: add setUserProfile method to allow collecting profile identifiers.
