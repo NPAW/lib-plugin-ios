@@ -2608,8 +2608,7 @@
 }
 
 - (YBCommunication *) createCommunication {
-    YBCommunication * comm = [YBCommunication new];
-    comm = [comm initWithPlugin:self];
+    YBCommunication * comm = [[YBCommunication alloc] initWithPlugin:self];
     return comm;
 }
 

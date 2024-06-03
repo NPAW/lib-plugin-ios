@@ -244,13 +244,6 @@ static const NSTimeInterval MAX_PARSE_TIMEOUT_TIME = 3.0;
     if (request && request.service && [YBConstantsYouboraService.start isEqualToString:request.service]) {
         NSMutableDictionary * lastSent = self.plugin.requestBuilder.lastSent;
         
-        //No need to replace now
-        /*NSString * resource = [self getResource];
-         
-         
-         [request setParam:resource forKey:YBConstantsRequest.mediaResource];
-         lastSent[YBConstantsRequest.mediaResource] = resource;*/
-        
         if (self.plugin.isParseResource && request.params[@"parsedResource"] == nil) {
             [request setParam:[self getResource] forKey:YBConstantsRequest.parsedResource];
             lastSent[YBConstantsRequest.parsedResource] = [self getResource];
