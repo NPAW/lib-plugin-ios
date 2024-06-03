@@ -236,7 +236,7 @@
 }
 
 // ------------------------------------------------------------------------------------------------------
-// INITIALIZE
+// INITIALIZE / DESTROY
 // ------------------------------------------------------------------------------------------------------
 
 /**
@@ -276,6 +276,26 @@
     self._initialized = true;
 }
 
+/**
+  * Destroy product analytics
+  */
+- (void) destroy{
+    self._options = nil;
+    self._infinity = nil;
+    self._adapter = nil;
+
+    self._productAnalyticsSettings = nil;
+    self._screenName = @"";
+
+    self._searchQuery = nil;
+    self.playerAdapterEventDelegate = nil;
+
+    [self adapterBeforeRemove];
+    [self contentFocusOut];
+
+    self._initialized = false;
+}
+
 // ------------------------------------------------------------------------------------------------------
 // ADAPTER
 // ------------------------------------------------------------------------------------------------------
@@ -303,7 +323,8 @@
 
                 self._userState = [[YBProductAnalyticsUserState alloc] initWithActiveStateDimension: self._productAnalyticsSettings.activeStateDimension
                                                                                  activeStateTimeout: self._productAnalyticsSettings.activeStateTimeout
-                                                                                   fireEventAdapter: ^(NSString *eventName, NSMutableDictionary *dimensionsInternal, NSMutableDictionary *dimensionsUser, NSMutableDictionary *metrics) {
+                                                                                   fireEventAdapter:^(NSString *eventName, NSMutableDictionary *dimensionsInternal,
+                                                                                                       NSMutableDictionary *dimensionsUser, NSMutableDictionary *metrics) {
                                                                                                             [self fireAdapterEvent: eventName
                                                                                                                 dimensionsInternal: dimensionsInternal
                                                                                                                     dimensionsUser: dimensionsUser

@@ -3705,6 +3705,12 @@
 
 - (void) youboraInfinityEventSessionStop: (NSDictionary<NSString *, NSString *> *) params {
     [self sendSessionStop:params];
+
+    if ( self.productAnalytics != nil ){
+        [self.productAnalytics destroy];
+        self.productAnalytics = nil;
+    }
+   
     self.infinity = nil;
 }
 

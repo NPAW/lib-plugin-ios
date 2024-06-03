@@ -18,18 +18,14 @@ typedef enum {
 
 typedef void(^FireEvent)(NSString *eventName, NSMutableDictionary *dimensionsInternal, NSMutableDictionary *dimensionsUser, NSMutableDictionary *metrics);
 
-@property (nonatomic, assign) NSInteger activeStateDimension;
-@property (nonatomic, assign) NSInteger activeStateTimeout;
 @property (nonatomic, copy) FireEvent fireEventAdapter;
-@property (nonatomic, strong) YBOptions * options;
+@property (nonatomic, weak) YBOptions * options;
 
 @property (nonatomic, assign) Boolean started;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) long timerInterval;
 @property (nonatomic, strong) NSString *dimension;
 @property (nonatomic, assign) States state;
-
-
 
 - (instancetype)initWithActiveStateDimension:(NSInteger)activeStateDimension
                         activeStateTimeout:(NSInteger)activeStateTimeout
