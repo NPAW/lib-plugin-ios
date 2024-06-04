@@ -38,8 +38,6 @@
 - (instancetype)initWithActiveStateDimension:(NSInteger)activeStateDimension activeStateTimeout:(NSInteger)activeStateTimeout fireEventAdapter:(FireEvent)fireEventAdapter options:(YBOptions *)options {
     self = [super init];
     if (self) {
-        _activeStateDimension = activeStateDimension;
-        _activeStateTimeout = activeStateTimeout;
         _fireEventAdapter = fireEventAdapter;
         _options = options;
         _started = false;
@@ -53,8 +51,14 @@
 }
 
 -(void)dispose{
+    self.fireEventAdapter  = nil;
+    self.options           = nil;
+    self.started           = false;
+    self.timerInterval     = 0;
+    self.dimension         = nil;
+    self.state             = StatesActive;
+
     [self timerStop];
-    self.started = false;
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------
@@ -128,7 +132,11 @@
     self.state = state;
     
     @try {
-        [self.options setValue:[self getStateName: self.state] forKey:self.dimension];
+        if ( self.options == nil ){
+            [YBLog warn: @"Cannot track User State since options are unavailable."];
+        } else {
+            [self.options setValue:[self getStateName: self.state] forKey:self.dimension];
+        }
     }
     @catch (NSException *exception) {
         [YBLog warn: [NSString stringWithFormat:@"Invalid attribute name: %@", self.dimension]];

@@ -1,7 +1,10 @@
+## [6.7.12] - 2024-06-04
+### Fixed
+- Various memory leak issues.
+
 ## [6.7.11] - 2024-05-24
 ### Fixed
 - `PrivacyInfo.xcprivacy` file with Apple's feedback.
-
 
 ## [6.7.10] - 2024-05-09
 ### Added

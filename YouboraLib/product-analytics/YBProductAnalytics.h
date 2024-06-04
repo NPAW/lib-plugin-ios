@@ -28,6 +28,7 @@
 
 - (id _Nonnull )init: (YBOptions * _Nonnull) options infinity: (YBInfinity * _Nonnull) infinity;
 - (void) initialize: (NSString * _Nonnull) screenName productAnalyticsSettings: (YBProductAnalyticsSettings * _Nonnull) productAnalyticsSettings;
+- (void) destroy;
 
 - (void) adapterAfterSet: (YBPlayerAdapter * _Nullable) adapter;
 - (void) adapterBeforeRemove;
