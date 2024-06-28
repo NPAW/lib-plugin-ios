@@ -1,3 +1,7 @@
+## [6.7.13] - 2024-06-24
+### Fixed
+- `PrivacyInfo.xcprivacy` file.
+
 ## [6.7.12] - 2024-06-04
 ### Fixed
 - Various memory leak issues.
