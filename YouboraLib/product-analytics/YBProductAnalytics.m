@@ -495,9 +495,9 @@
   * @param screenName The unique name to identify a page of the application.
   */
 
-- (void) trackNavigation: (nonnull NSString *) screenName{
+- (void) trackNavByName: (nonnull NSString *) screenName{
 
-    [self trackNavigation:screenName dimensions:nil metrics:nil];
+    [self trackNavByName:screenName dimensions:nil metrics:nil];
 }
 /**
   * Tracks navigation
@@ -505,8 +505,8 @@
   * @param  dimensions Dimensions to track
   */
 
-- (void) trackNavigation: (nonnull NSString *) screenName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
-    [self trackNavigation:screenName dimensions:dimensions metrics:nil];
+- (void) trackNavByName: (nonnull NSString *) screenName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackNavByName:screenName dimensions:dimensions metrics:nil];
 }
 
 /**
@@ -516,7 +516,7 @@
   * @param metrics Metrics to track
   */
 
-- (void) trackNavigation: (nonnull NSString *) screenName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+- (void) trackNavByName: (nonnull NSString *) screenName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
     if ( !self._initialized ){
         [YBLog warn: @"Cannot track navigation since Product Analytics is uninitialized."];
