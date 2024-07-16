@@ -1,3 +1,9 @@
+## [6.7.14] - 2024-07-16
+### Modified
+- [PROD-922] Product Analytics: rename `trackNavigation` as `trackNavByName`.
+- [PROD-930] Product Analytics: add `section` and `sectionOrder` arguments to `trackSearchClick`.
+- [PROD-936] Product Analytics: user state is `passive` on video start.
+
 ## [6.7.13] - 2024-06-24
 ### Fixed
 - `PrivacyInfo.xcprivacy` file.
