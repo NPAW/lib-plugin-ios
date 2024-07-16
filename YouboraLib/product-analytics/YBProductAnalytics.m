@@ -8,6 +8,7 @@
 
 #import "YBProductAnalytics.h"
 #import "YBLog.h"
+#import "YouboraLib/YouboraLib-Swift.h"
 
 // ---------------------------------------------------------------------------------------------
 // YBProductAnalyticsPlayerAdapterEventDelegate
@@ -170,6 +171,49 @@
 @end
 
 // ---------------------------------------------------------------------------------------------
+// YBPendingVideoEvent
+// ---------------------------------------------------------------------------------------------
+
+
+@interface YBPendingVideoEvent : NSObject
+
+@property (nonatomic, weak) NSString * eventName;
+@property (nonatomic, weak) NSString * contentId;
+@property (nonatomic, weak) NSDictionary<NSString *, NSString *> * dimensions;
+@property (nonatomic, weak) NSDictionary<NSString *, NSNumber *> * metrics;
+@property (nonatomic, assign) BOOL startEvent;
+
+@end
+
+@implementation YBPendingVideoEvent
+
+- (instancetype)initWithEventName: (NSString *)eventName
+                        contentId: (NSString *)contentId
+                       dimensions: (NSDictionary<NSString *, NSString *> *)dimensions
+                          metrics: (NSDictionary<NSString *, NSNumber *> *)metrics
+                       startEvent: (BOOL)startEvent{
+    self = [super init];
+    if (self) {
+        _eventName  = eventName;
+        _contentId  = contentId;
+        _dimensions = dimensions;
+        _metrics    = metrics;
+        _startEvent = startEvent;
+    }
+    return self;
+}
+
+- (void)destroy {
+    _eventName  = nil;
+    _contentId  = nil;
+    _dimensions = nil;
+    _metrics    = nil;
+    _startEvent = false;
+}
+
+@end
+
+// ---------------------------------------------------------------------------------------------
 // YBProductAnalytics
 // ---------------------------------------------------------------------------------------------
 
@@ -180,9 +224,17 @@
 
 @property(nonatomic, strong) YBProductAnalyticsPlayerAdapterEventDelegate * playerAdapterEventDelegate;
 
+@property (nonatomic, strong) NSMutableArray<YBPendingVideoEvent*> * pendingVideoEvents;
+
 - (void) trackContentHighlight:(NSTimer *)timer;
 
-- (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics playerStarted: (Boolean) playerStarted;
+- (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics startEvent: (Boolean) startEvent;
+
+- (void) trackPlayerEventsPending;
+
+- (void) trackPlayerEvent: (nonnull NSString *) eventName contentId: (nullable NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics startEvent: (Boolean) startEvent;
+
+- (void) releasePlayerEventsPending;
 
 - (Boolean) fireEvent: (nonnull NSString *) screenName dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
 
@@ -220,9 +272,11 @@
 
         self.playerAdapterEventDelegate = [[YBProductAnalyticsPlayerAdapterEventDelegate alloc] initWithAdapterStartCallback: ^{
             if (self._initialized){
-                [self trackPlayerInteraction: @"start" dimensions: @{} metrics: @{} playerStarted: true];
+                [self trackPlayerInteraction: @"start" dimensions: @{} metrics: @{} startEvent: true];
             }
         }];
+
+        self.pendingVideoEvents = [NSMutableArray array];
 
         if ( self._options == nil ){
             [YBLog warn: @"Options reference unset"];
@@ -246,7 +300,7 @@
   */
 - (void) initialize: (NSString *) screenName productAnalyticsSettings: (YBProductAnalyticsSettings *) productAnalyticsSettings{
 
-    YBProductAnalyticsSettings * defaultSettings = [YBProductAnalyticsSettings new ];
+    YBProductAnalyticsSettings * defaultSettings = [YBProductAnalyticsSettings new];
     
     self._screenName = screenName;
 
@@ -284,7 +338,7 @@
     self._infinity = nil;
     self._adapter = nil;
 
-    self._productAnalyticsSettings = nil;
+    self._productAnalyticsSettings = [YBProductAnalyticsSettings new];
     self._screenName = @"";
 
     self._searchQuery = nil;
@@ -332,8 +386,11 @@
                                                                                                         }
                                                                                             options: self._options];
             }
-        } else {
+        } else if ( self._userState != nil ){
+
+            [self._userState destroy];
             self._userState = nil;
+
         }
         
         // Track player interaction
@@ -363,12 +420,12 @@
         }
 
         if ( self._userState != nil ){
-            [self._userState dispose];
+            [self._userState destroy];
             self._userState = nil;
         }
-        
-        self._adapter = nil;
 
+        self._adapter = nil;
+        [self releasePlayerEventsPending];
     }
 }
 
@@ -950,26 +1007,28 @@
   */
 
 - (void) trackPlay: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+    NSString * eventName = @"Play";
+    Boolean startEvent = false;
+    YBPendingVideoEvent * event;
 
     if ( !self._initialized ){
         [YBLog warn:@"Cannot track play since Product Analytics is uninitialized."];
     } else if ( contentId.length == 0 ){
         [YBLog warn:@"Cannot track play since no contentId has been supplied."];
+    } else if ( self._adapter != nil && !self._adapter.flags.started ) {
+        event = [[YBPendingVideoEvent alloc] initWithEventName: eventName
+                                                     contentId: contentId
+                                                    dimensions: dimensions
+                                                       metrics: metrics
+                                                    startEvent: startEvent];
+        [self.pendingVideoEvents addObject: event];
     } else {
-
-        [YBLog notice: @"[PLAYER] Play"];
-
-        [self fireAdapterEvent: @"[PLAYER] Play"
-            dimensionsInternal: @{
-                                   @"eventType": @"ContentPlayback",
-                                   @"contentId": contentId
-                                 }
-                dimensionsUser: dimensions
-                       metrics: metrics];
-        
-        if ( self._userState != nil ){
-            [self._userState setActive: @"Play" playerStarted: false];
-        }
+        [self trackPlayerEventsPending];
+        [self trackPlayerEvent: eventName
+                     contentId: contentId
+                    dimensions: dimensions
+                       metrics: metrics
+                    startEvent: startEvent];
     }
 }
 
@@ -1009,7 +1068,7 @@
         [self trackPlayerInteraction: eventName
                           dimensions: dimensions
                              metrics: metrics
-                       playerStarted: false];
+                          startEvent: false];
     }
 }
 
@@ -1018,28 +1077,91 @@
   * @param eventName The name of the interaction (i.e., Pause, Seek, Skip Intro, Skip Ads, Switch Language, etc.).
   * @param dimensions Dimensions to track
   * @param metrics Metrics to track
-  * @param playerStarted Internal param informing that current interaction is responsible of first player start
+  * @param startEvent Internal param informing that current interaction is responsible of first player start
   */
 
-- (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics playerStarted: (Boolean) playerStarted{
+- (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics startEvent: (Boolean) startEvent{
+    NSString * contentId = nil;
+    YBPendingVideoEvent * event;
 
     if ( !self._initialized ){
         [YBLog warn:@"Cannot track player interaction since Product Analytics is uninitialized."];
     } else if ( eventName.length == 0 ){
         [YBLog warn:@"Cannot track player interaction since no interaction name has been supplied."];
+    } else if ( self._adapter != nil && !self._adapter.flags.started ) {
+        event = [[YBPendingVideoEvent alloc] initWithEventName: eventName
+                                                     contentId: contentId
+                                                    dimensions: dimensions
+                                                       metrics: metrics
+                                                    startEvent: startEvent];
+        [self.pendingVideoEvents addObject: event];
     } else {
-        [YBLog notice: @"[PLAYER] %@", eventName];
+        [self trackPlayerEventsPending];
+        [self trackPlayerEvent: eventName
+                     contentId: contentId
+                    dimensions: dimensions
+                       metrics: metrics
+                    startEvent: startEvent];
+    }
+}
 
-        [self fireAdapterEvent: [@"[PLAYER] " stringByAppendingString:eventName]
-            dimensionsInternal: @{
-                                   @"eventType": @"ContentPlayback"
-                                 }
-                dimensionsUser: dimensions
-                       metrics: metrics];
-        
-        if ( self._userState != nil ){
-            [self._userState setActive: eventName playerStarted: playerStarted];
-        }
+/**
+ * Track player pending events
+ */
+
+-(void) trackPlayerEventsPending{
+
+    for (YBPendingVideoEvent *event in self.pendingVideoEvents) {
+        [self trackPlayerEvent: event.eventName
+                     contentId: event.contentId
+                    dimensions: event.dimensions
+                       metrics: event.metrics
+                    startEvent: event.startEvent];
+    }
+
+    [self releasePlayerEventsPending];
+}
+
+
+/**
+ * Track player pending events
+ */
+
+-(void) releasePlayerEventsPending{
+    while (self.pendingVideoEvents.count > 0){
+        [self.pendingVideoEvents[0] destroy];
+        [self.pendingVideoEvents removeObjectAtIndex:0];
+    }
+}
+
+/**
+ * Track player event
+ * @param eventName The name of the interaction (i.e., Pause, Seek, Skip Intro, Skip Ads, Switch Language, etc.).
+ * @param contentId The unique content identifier of the content being played.
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ * @param startEvent Video start event
+ */
+-(void) trackPlayerEvent: (nonnull NSString *) eventName contentId: (nullable NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics startEvent: (Boolean) startEvent{
+                        
+    NSMutableDictionary<NSString *, NSString *> * dimensionsInternal;
+    
+    dimensionsInternal = [NSMutableDictionary dictionary];
+    [dimensionsInternal setValue:@"ContentPlayback" forKey:@"eventType"];
+
+    if ( contentId != nil ){
+        [dimensionsInternal setValue:contentId forKey:@"contentId"];
+    }
+
+    [YBLog notice: @"[PLAYER] %@", eventName];
+
+    [self fireAdapterEvent: [@"[PLAYER] " stringByAppendingString:eventName]
+        dimensionsInternal: dimensionsInternal
+            dimensionsUser: dimensions
+                   metrics: metrics];
+
+    if ( self._userState != nil && !startEvent ){
+        [self._userState setActive: eventName];
     }
 }
 

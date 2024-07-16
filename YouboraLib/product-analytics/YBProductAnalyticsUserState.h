@@ -21,7 +21,6 @@ typedef void(^FireEvent)(NSString *eventName, NSMutableDictionary *dimensionsInt
 @property (nonatomic, copy) FireEvent fireEventAdapter;
 @property (nonatomic, weak) YBOptions * options;
 
-@property (nonatomic, assign) Boolean started;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) long timerInterval;
 @property (nonatomic, strong) NSString *dimension;
@@ -31,7 +30,7 @@ typedef void(^FireEvent)(NSString *eventName, NSMutableDictionary *dimensionsInt
                         activeStateTimeout:(NSInteger)activeStateTimeout
                            fireEventAdapter:(void (^)(NSString *, NSMutableDictionary *, NSMutableDictionary *, NSMutableDictionary *))fireEventAdapter
                                     options:(YBOptions *)options;
--(void)setActive:(NSString *)eventName playerStarted:(Boolean)playerStarted;
--(void)dispose;
+-(void)setActive:(NSString *)eventName;
+-(void)destroy;
 
 @end	
