@@ -40,23 +40,20 @@
     if (self) {
         _fireEventAdapter = fireEventAdapter;
         _options = options;
-        _started = false;
         _timer = nil;
         _timerInterval = activeStateTimeout;
         _dimension = [NSString stringWithFormat:@"contentCustomDimension%ld", activeStateDimension];
-        _state = StatesActive;
-        [self storeState:_state];
+        [self storeState:StatesPassive];
     }
     return self;
 }
 
--(void)dispose{
+-(void)destroy{
     self.fireEventAdapter  = nil;
     self.options           = nil;
-    self.started           = false;
     self.timerInterval     = 0;
     self.dimension         = nil;
-    self.state             = StatesActive;
+    self.state             = StatesPassive;
 
     [self timerStop];
 }
@@ -68,27 +65,17 @@
  /**
    * Set active state
    * @param eventName Name of the event switching the state to active
-   * @param playerStarted True if the event is starting the player; false otherwise
    */
 
--(void)setActive:(NSString *)eventName playerStarted:(Boolean)playerStarted {
+-(void)setActive:(NSString *)eventName {
     States state = StatesActive;
-    if (self.started) {
-        // Player already started: fire event + store state on change and always reset timer
 
-        if (self.state != state) {
-            [self fireEvent:state eventName:eventName];
-            [self storeState:state];
-        }
-        [self timerStart];
-    } else if (playerStarted) {
-        // Player starting NOW: log event and reset timer
-        
-        self.started = true;
-        [self timerStart];
-    } else {
-        // Player not started yet: discard events
+    if (self.state != state) {
+        [self fireEvent:state eventName:eventName];
+        [self storeState:state];
     }
+
+    [self timerStart];
 }
 
 /**
