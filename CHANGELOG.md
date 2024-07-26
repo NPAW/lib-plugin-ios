@@ -1,3 +1,7 @@
+## [6.7.15] - 2024-07-26
+### Fixed
+- Fix bug on sendStop by resetting `adNumber` and `breakNumber`.
+
 ## [6.7.14] - 2024-07-16
 ### Modified
 - [PROD-922] Product Analytics: rename `trackNavigation` as `trackNavByName`.

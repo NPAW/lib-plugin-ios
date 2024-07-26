@@ -3224,6 +3224,8 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: YBConstantsYouboraService.stop];
     [self sendWithCallbacks:self.willSendStopListeners service:YBConstantsYouboraService.stop andParams:mutParams];
     [YBLog notice:@"%@ at %@", YBConstantsYouboraService.stop, mutParams[YBConstantsRequest.playhead]];
+    self.requestBuilder.lastSent[YBConstantsRequest.adNumber] = nil;
+    self.requestBuilder.lastSent[YBConstantsRequest.breakNumber] = nil;
 }
 
 - (void) sendAdInit:(NSDictionary<NSString *, NSString *> *) params {
