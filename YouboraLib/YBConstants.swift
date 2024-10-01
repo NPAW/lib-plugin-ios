@@ -14,6 +14,7 @@ import Foundation
 @objcMembers open class YBConstantsRequest: NSObject {
     static public let accountCode = "accountCode"
     static public let username = "username"
+    static public let profileId = "profileId"
     static public let rendition = "rendition"
     static public let title = "title"
     static public let title2 = "title2"
@@ -291,7 +292,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.7.15"
+    static public var youboraLibVersion = "6.7.16"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"

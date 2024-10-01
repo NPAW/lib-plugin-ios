@@ -29,6 +29,7 @@ extern NSString * _Nullable const YBOPTIONS_KEY_HOST  __deprecated_msg("Use YBOp
 extern NSString * _Nullable const YBOPTIONS_KEY_ACCOUNT_CODE  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_USERNAME  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_ANONYMOUS_USER  __deprecated_msg("Use YBOptionKeys instead");
+extern NSString * _Nullable const YBOPTIONS_KEY_PROFILE_ID  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_OFFLINE  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_IS_INFINITY  __deprecated_msg("Use YBOptionKeys instead");
 extern NSString * _Nullable const YBOPTIONS_KEY_BACKGROUND  __deprecated_msg("Use YBOptionKeys instead");
@@ -229,6 +230,11 @@ typedef NS_ENUM(NSUInteger, YBRequestMethod) {
  * User email
  */
 @property(nonatomic, strong) NSString * _Nullable userEmail;
+
+/**
+ * Profile ID value inside your system.
+ */
+@property(nonatomic, strong) NSString * _Nullable profileId;
 
 /**
  * If true the plugin will parse hls, cdn and location

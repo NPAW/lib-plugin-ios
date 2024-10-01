@@ -1299,6 +1299,12 @@ typedef void (^YBWillSendRequestBlock) (NSString * serviceName, YBPlugin * plugi
 - (nullable NSString *) getPrivacyProtocol;
 
 /**
+ * Returns the profile identifier
+ * @return the profile identifier
+ */
+- (nullable NSString *) getProfileId;
+
+/**
  * Get CDN node
  * @return the CDN node or nil if unknown
  */

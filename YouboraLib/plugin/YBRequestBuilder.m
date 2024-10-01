@@ -44,6 +44,7 @@ static NSArray<NSString *> * youboraPingEntities;
             NSMutableArray * startParams = [NSMutableArray arrayWithArray:@[
                 YBConstantsRequest.accountCode,
                 YBConstantsRequest.username,
+                YBConstantsRequest.profileId,
                 YBConstantsRequest.rendition,
                 YBConstantsRequest.title,
                 YBConstantsRequest.title2,
@@ -172,6 +173,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                YBConstantsRequest.system,
                                YBConstantsRequest.pluginVersion,
                                YBConstantsRequest.username,
+                               YBConstantsRequest.profileId,
                                YBConstantsRequest.isInfinity
                        ],
                        YBConstantsYouboraService.sInit: initParams,
@@ -283,7 +285,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                                          ],
                        
                        //Infinity
-                       YBConstantsYouboraInfinity.sessionStart: @[YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1,                               YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,
+                       YBConstantsYouboraInfinity.sessionStart: @[YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.profileId, YBConstantsRequest.navContext, YBConstantsRequest.language, YBConstantsRequest.pluginInfo, YBConstantsRequest.appName, YBConstantsRequest.appReleaseVersion, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11,
                                                      YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.dimensions, YBConstantsRequest.deviceUUID, YBConstantsRequest.deviceEDID, YBConstantsRequest.deviceCode,
                                                          YBConstantsRequest.obfuscateIp,
                                                          YBConstantsRequest.privacyProtocol,
@@ -295,7 +297,7 @@ static NSArray<NSString *> * youboraPingEntities;
                                                          YBConstantsRequest.linkedViewId,
                                                          YBConstantsRequest.adBlockerDetected],
                        YBConstantsYouboraInfinity.sessionStop: @[YBConstantsRequest.accountCode, YBConstantsRequest.sessionMetrics],
-                       YBConstantsYouboraInfinity.sessionNav: @[YBConstantsRequest.username, YBConstantsRequest.navContext],
+                       YBConstantsYouboraInfinity.sessionNav: @[YBConstantsRequest.username, YBConstantsRequest.profileId, YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.sessionBeat: @[YBConstantsRequest.sessionMetrics],
                        YBConstantsYouboraInfinity.sessionEvent: @[YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.videoEvent: @[YBConstantsRequest.playhead]
@@ -306,7 +308,7 @@ static NSArray<NSString *> * youboraPingEntities;
             
             youboraPingEntities = @[YBConstantsRequest.rendition, YBConstantsRequest.title, YBConstantsRequest.title2,
                              YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource, YBConstantsRequest.param1, YBConstantsRequest.param2, YBConstantsRequest.param3, YBConstantsRequest.param4, YBConstantsRequest.param5, YBConstantsRequest.param6, YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.param11, YBConstantsRequest.param12, YBConstantsRequest.param13, YBConstantsRequest.param14, YBConstantsRequest.param15, YBConstantsRequest.param16, YBConstantsRequest.param17, YBConstantsRequest.param18, YBConstantsRequest.param19, YBConstantsRequest.param20, YBConstantsRequest.connectionType,
-                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.username, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString,YBConstantsRequest.subtitles,
+                             YBConstantsRequest.deviceCode, YBConstantsRequest.ip, YBConstantsRequest.username, YBConstantsRequest.profileId, YBConstantsRequest.cdn, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType, YBConstantsRequest.nodeTypeString,YBConstantsRequest.subtitles,
                             YBConstantsRequest.contentLanguage];
         });
     }
@@ -603,6 +605,8 @@ static NSArray<NSString *> * youboraPingEntities;
         value = [self.plugin getAccountCode];
     } else if ([param isEqualToString:YBConstantsRequest.username]){
         value = [self.plugin getUsername];
+    } else if ([param isEqualToString:YBConstantsRequest.profileId]){
+        value = [self.plugin getProfileId];
     }else if ([param isEqualToString:YBConstantsRequest.userType]){
         value = [self.plugin getUserType];
     } else if ([param isEqualToString:YBConstantsRequest.preloadDuration]){

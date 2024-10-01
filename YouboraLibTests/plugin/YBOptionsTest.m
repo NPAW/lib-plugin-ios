@@ -85,6 +85,7 @@
     opt.host = @"host";
     opt.accountCode = @"code";
     opt.username = YBConstantsRequest.username;
+    opt.profileId = YBConstantsRequest.profileId;
     opt.parseResource = true;
     opt.parseLocationHeader = true;
     opt.parseHls = true;
@@ -236,6 +237,7 @@
     XCTAssertEqualObjects(opt.host, opt2.host);
     XCTAssertEqualObjects(opt.accountCode, opt2.accountCode);
     XCTAssertEqualObjects(opt.username, opt2.username);
+    XCTAssertEqualObjects(opt.profileId, opt2.profileId);
     XCTAssertEqual(opt.parseResource, opt2.parseResource);
     XCTAssertEqual(opt.parseLocationHeader, opt2.parseLocationHeader);
     XCTAssertEqual(opt.parseHls, opt2.parseHls);

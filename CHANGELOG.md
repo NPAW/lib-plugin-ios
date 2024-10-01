@@ -1,3 +1,14 @@
+## [6.7.16] - 2024-10-01
+### Added
+- [PROD-983] 
+  - Product Analytics: added `loginSuccessful`, `loginError` and `logout` methods. Also added `userProfileCreate`, `userProfileSelect` and `userProfileDelete`.
+  - `profileId` is sent on `infinity/session/start`, `infinity/session/nav`, `/data`, `/init`, `/start` and `/error` events (the same events where `username` is included).
+### Modified
+- Product Analytics: `trackNavByName` no longer starts a session or sends a session/nav event.
+- Product Analytics: `initialize` starts a session.
+- Product Analytics: tracking methods fail when called within a closed session.
+- Product Analytics: product analytics object is no longer destroyed after closing the session.
+
 ## [6.7.15] - 2024-07-26
 ### Fixed
 - Fix bug on sendStop by resetting `adNumber` and `breakNumber`.
