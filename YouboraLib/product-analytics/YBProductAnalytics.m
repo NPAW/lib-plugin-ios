@@ -178,10 +178,10 @@
 
 @interface YBPendingVideoEvent : NSObject
 
-@property (nonatomic, weak) NSString * eventName;
-@property (nonatomic, weak) NSString * contentId;
-@property (nonatomic, weak) NSDictionary<NSString *, NSString *> * dimensions;
-@property (nonatomic, weak) NSDictionary<NSString *, NSNumber *> * metrics;
+@property (nonatomic, copy) NSString * eventName;
+@property (nonatomic, copy) NSString * contentId;
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * dimensions;
+@property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> * metrics;
 @property (nonatomic, assign) BOOL startEvent;
 
 @end
@@ -195,10 +195,10 @@
                        startEvent: (BOOL)startEvent{
     self = [super init];
     if (self) {
-        _eventName  = eventName;
-        _contentId  = contentId;
-        _dimensions = dimensions;
-        _metrics    = metrics;
+        _eventName  = [eventName copy];
+        _contentId  = [contentId copy];
+        _dimensions = [dimensions copy];
+        _metrics    = [metrics copy];
         _startEvent = startEvent;
     }
     return self;
