@@ -495,43 +495,43 @@
 
 /**
  * Login successful
- * @param username User identifier
+ * @param userId User identifier
  */
 
-- (void) loginSuccessful: (nonnull NSString *) username {
-    [self loginSuccessful:username dimensions:nil metrics:nil];
+- (void) loginSuccessful: (nonnull NSString *) userId {
+    [self loginSuccessful:userId dimensions:nil metrics:nil];
 }
 
 /**
  * Login successful
- * @param username User identifier
+ * @param userId User identifier
  * @param dimensions Dimensions to track
  */
 
-- (void) loginSuccessful: (nonnull NSString *) username dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
-    [self loginSuccessful:username dimensions:dimensions metrics:nil];
+- (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
+    [self loginSuccessful:userId dimensions:dimensions metrics:nil];
 }
 
 /**
  * Login successful
- * @param username User identifier
+ * @param userId User identifier
  * @param dimensions Dimensions to track
  * @param metrics Metrics to track
  */
 
-- (void) loginSuccessful: (nonnull NSString *) username dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+- (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
     if ( ![self checkState: @"log in successfully"] ){
         // Product Analytics is not ready for sending events
-    } else if ( username.length == 0 ) {
-        [YBLog warn: @"Cannot log in successfully since username is unset."];
+    } else if ( userId.length == 0 ) {
+        [YBLog warn: @"Cannot log in successfully since userId is unset."];
     } else {
         // Send an event informing that we are closing the session because of a profile change
 
         [self fireEvent: @"[USER] LOGIN SUCCESSFUL"
      dimensionsInternal: @{
                             @"eventType":   @"User",
-                            @"username":    username,
+                            @"username":    userId,
                           }
          dimensionsUser: dimensions
                 metrics: metrics
@@ -539,58 +539,58 @@
 
         // Set the userId option and close + open a new session
 
-        [self._options setValue:username forKey:@"username"];
+        [self._options setValue:userId forKey:@"username"];
         [self newSession];
     }
 }
 
 /**
  * Login successful
- * @param username User identifier
+ * @param userId User identifier
  * @param profileId Profile identifier
  */
 
-- (void) loginSuccessful: (nonnull NSString *) username profileId: (nonnull NSString *) profileId {
-    [self loginSuccessful:username profileId:profileId profileType:nil dimensions:nil metrics:nil];
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId {
+    [self loginSuccessful:userId profileId:profileId profileType:nil dimensions:nil metrics:nil];
 }
 
 /**
  * Login successful
- * @param username User identifier
+ * @param userId User identifier
  * @param profileId Profile identifier
  * @param profileType Profile type
  */
 
-- (void) loginSuccessful: (nonnull NSString *) username profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType{
-    [self loginSuccessful:username profileId:profileId profileType:profileType dimensions:nil metrics:nil];
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType{
+    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:nil metrics:nil];
 }
 
 /**
  * Login successful
- * @param username User identifier
+ * @param userId User identifier
  * @param profileId Profile identifier
  * @param profileType Profile type
  * @param dimensions Dimensions to track
  */
 
-- (void) loginSuccessful: (nonnull NSString *) username profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
-    [self loginSuccessful:username profileId:profileId profileType:profileType dimensions:dimensions metrics:nil];
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:dimensions metrics:nil];
 }
 
 /**
  * Login successful
- * @param username User identifier
+ * @param userId User identifier
  * @param profileId Profile identifier
  * @param profileType Profile type
  * @param dimensions Dimensions to track
  * @param metrics Metrics to track
  */
 
-- (void) loginSuccessful: (nonnull NSString *) username profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
     if ( ![self checkState: @"log in successfully"] ){
         // Product Analytics is not ready for sending events
-    } else if ( username.length == 0 ) {
+    } else if ( userId.length == 0 ) {
         [YBLog warn: @"Cannot log in successfully since username is unset."];
     } else if ( profileId.length == 0 ) {
         [YBLog warn: @"Cannot log in successfully since profile is unset."];
@@ -600,7 +600,7 @@
         [self fireEvent: @"[USER] LOGIN SUCCESSFUL"
      dimensionsInternal: @{
                             @"eventType":   @"User",
-                            @"username":    username
+                            @"username":    userId
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -614,7 +614,7 @@
 
         // Set the userId option and close + open a new session
 
-        [self._options setValue:username forKey:@"username"];
+        [self._options setValue:userId forKey:@"username"];
         [self._options setValue:profileId forKey:@"profileId"];
         [self newSession];
     }
