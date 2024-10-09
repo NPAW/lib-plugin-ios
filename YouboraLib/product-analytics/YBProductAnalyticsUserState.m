@@ -70,12 +70,19 @@
 -(void)setActive:(NSString *)eventName {
     States state = StatesActive;
 
-    if (self.state != state) {
-        [self fireEvent:state eventName:eventName];
-        [self storeState:state];
-    }
+    if ( eventName == nil ) {
 
-    [self timerStart];
+        [YBLog warn: @"Cannot set user state to active because eventName is unset"];
+        
+    } else {
+
+        if (self.state != state) {
+            [self fireEvent:state eventName:eventName];
+            [self storeState:state];
+        }
+
+        [self timerStart];
+    }
 }
 
 /**
@@ -93,7 +100,7 @@
 
     [YBLog notice: [NSString stringWithFormat:@"User changing from state %@ to %@", stateNamePrev, stateNameNext]];
 
-    NSMutableDictionary *dimensions = [NSMutableDictionary dictionary];
+    NSMutableDictionary * dimensions = [NSMutableDictionary dictionary];
     dimensions[@"newState"]     = stateNameNext;
     dimensions[@"triggerEvent"] = eventName;
     dimensions[@"stateFromTo"]  = [NSString stringWithFormat:@"%@ to %@", stateNamePrev, stateNameNext];
