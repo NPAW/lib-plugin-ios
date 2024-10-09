@@ -1,4 +1,4 @@
-## [6.7.16] - 2024-10-08
+## [6.7.16] - 2024-10-09
 ### Added
 - [PROD-983] 
   - Product Analytics: added `loginSuccessful`, `loginUnsuccessful` and `logout` methods. Also added `userProfileCreated`, `userProfileSelected` and `userProfileDeleted`.
