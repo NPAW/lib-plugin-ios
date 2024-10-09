@@ -545,11 +545,9 @@ typedef enum {
 
 - (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
-    if ( ![self checkState: @"log in successfully"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( userId == nil || userId.length == 0 ) {
+    if (userId == nil || userId.length == 0) {
         [YBLog warn: @"Cannot log in successfully since userId is unset."];
-    } else {
+    } else if ([self checkState: @"log in successfully"]) {
         // Send an event informing that we are closing the session because of a profile change
 
         [self loginSuccessfulEvent:userId dimensions:dimensions metrics:metrics];
@@ -605,13 +603,11 @@ typedef enum {
 
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
-    if ( ![self checkState: @"log in successfully"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( userId == nil || userId.length == 0 ) {
+    if (userId == nil || userId.length == 0) {
         [YBLog warn: @"Cannot log in successfully since userId is unset."];
-    } else if ( profileId == nil || profileId.length == 0 ) {
+    } else if (profileId == nil || profileId.length == 0) {
         [YBLog warn: @"Cannot log in successfully since profileId is unset."];
-    } else {
+    } else if ([self checkState: @"log in successfully"]) {
         // Send user login event
 
         [self loginSuccessfulEvent:userId dimensions:dimensions metrics:metrics];
@@ -647,7 +643,7 @@ typedef enum {
 }
 
 /**
- * Login error
+ * Login unsuccessful
  */
 
 - (void) loginUnsuccessful {
@@ -655,7 +651,7 @@ typedef enum {
 }
 
 /**
- * Login error
+ * Login unsuccessful
  * @param dimensions Dimensions to track
  */
 
@@ -664,18 +660,14 @@ typedef enum {
 }
 
 /**
- * Login error
+ * Login unsuccessful
  * @param dimensions Dimensions to track
  * @param metrics Metrics to track
  */
 
 - (void) loginUnsuccessful: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
-    if ( ![self checkState: @"track log in error"] ){
-        // Product Analytics is not ready for sending events
-    } else {
-        // Send an event informing that we are closing the session because of a profile change
-
+    if ([self checkState: @"track log in unsuccessful"]) {
         [self fireEvent: @"User Login Unsuccessful"
               eventType: eventTypeUser
      dimensionsInternal: @{}
@@ -709,9 +701,7 @@ typedef enum {
 
 - (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
-    if ( ![self checkState: @"log out"] ){
-        // Product Analytics is not ready for sending events
-    } else {
+    if ([self checkState: @"log out"]) {
         // Send an event informing that we are closing the session
 
         [self fireEvent: @"User Logout"
@@ -773,11 +763,9 @@ typedef enum {
 
 - (void) userProfileCreated: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
-    if ( ![self checkState: @"create user profile"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( profileId == nil || profileId.length == 0 ) {
+    if (profileId == nil || profileId.length == 0) {
         [YBLog warn: @"Cannot create user profile since profileId is unset."];
-    } else {
+    } else if ([self checkState: @"create user profile"]) {
 
         [self fireEvent: @"User Profile Created"
               eventType: eventTypeUserProfile
@@ -829,11 +817,9 @@ typedef enum {
 
 - (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
-    if ( ![self checkState: @"select user profile"] ){
-        // Product Analytics is not ready for sending events
-    } else if (profileId == nil || profileId.length == 0) {
+    if (profileId == nil || profileId.length == 0) {
         [YBLog warn: @"Cannot select user profile since profileId is unset."];
-    } else {
+    } else if ([self checkState: @"select user profile"]) {
         // Send an event informing that we are closing the session because of a profile change
 
         [self userProfileSelectedEvent:profileId profileType:profileType dimensions:dimensions metrics:metrics];
@@ -891,11 +877,9 @@ typedef enum {
 
 - (void) userProfileDeleted: (nonnull NSString *) profileId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
-    if ( ![self checkState: @"delete user profile" ] ){
-        // Product Analytics is not ready for sending events
-    } else if ( profileId == nil || profileId.length == 0 ) {
+    if (profileId == nil || profileId.length == 0) {
         [YBLog warn: @"Cannot delete user profile since profileId is unset."];
-    } else {
+    } else if ([self checkState: @"delete user profile" ]) {
 
         [self fireEvent: @"User Profile Deleted"
               eventType: eventTypeUserProfile
@@ -960,11 +944,9 @@ typedef enum {
 
 - (void) trackNavByName: (nonnull NSString *) screenName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track navigation"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( screenName == nil || screenName.length == 0 ){
+    if (screenName == nil || screenName.length == 0) {
         [YBLog warn: @"Cannot track navigation since page has not been supplied."];
-    } else {
+    } else if ([self checkState: @"track navigation"]) {
         
         self._screenName = [screenName copy];
         
@@ -1034,11 +1016,9 @@ typedef enum {
     if ( utmTerm     != nil && utmTerm.length     > 0 ) parameters[@"utmTerm"]     = utmTerm;
     if ( utmContent  != nil && utmContent.length  > 0 ) parameters[@"utmContent"]  = utmContent;
 
-    if ( ![self checkState: @"track attribution"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( parameters.count == 0 ){
+    if (parameters.count == 0) {
         [YBLog warn: @"Cannot track attribution since no arguments have been supplied."];
-    } else {
+    } else if ([self checkState: @"track attribution"]) {
 
         parameters[@"url"] = @"";
 
@@ -1086,13 +1066,11 @@ typedef enum {
 
 - (void) trackSectionVisible: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track section visible"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( section == nil || section.length == 0 ){
+    if (section == nil || section.length == 0) {
         [YBLog warn:@"Cannot track section visible since no section has been supplied."];
-    } else if ( sectionOrder < 1 ){
+    } else if (sectionOrder < 1) {
         [YBLog warn:@"Cannot track section visible since sectionOrder is invalid."];
-    } else {
+    } else if ([self checkState: @"track section visible"]) {
         [self fireEvent: @"Section Visible"
               eventType: eventTypeSection
      dimensionsInternal: @{
@@ -1135,13 +1113,11 @@ typedef enum {
 
 - (void) trackSectionHidden: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track section hidden"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( section == nil || section.length == 0 ){
+    if (section == nil || section.length == 0) {
         [YBLog warn:@"Cannot track section hidden since no section has been supplied."];
-    } else if ( sectionOrder < 1 ){
+    } else if (sectionOrder < 1) {
         [YBLog warn:@"Cannot track section hidden since sectionOrder is invalid."];
-    } else {
+    } else if ([self checkState: @"track section hidden"]) {
         [self fireEvent: @"Section Hidden"
               eventType: eventTypeSection
      dimensionsInternal: @{
@@ -1199,19 +1175,17 @@ typedef enum {
     
     [self contentFocusOut];
 
-    if ( ![self checkState: @"track content highlight"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( section == nil || section.length == 0 ){
+    if (section == nil || section.length == 0) {
         [YBLog warn:@"Cannot track content highlight since no section has been supplied."];
-    } else if ( sectionOrder < 1 ){
+    } else if (sectionOrder < 1) {
         [YBLog warn:@"Cannot track content highlight since sectionOrder is invalid."];
-    } else if ( column < 1 ) {
+    } else if (column < 1) {
         [YBLog warn:@"Cannot track content highlight since column is invalid"];
-    } else if ( row < 1 ) {
+    } else if (row < 1) {
         [YBLog warn:@"Cannot track content highlight since row is invalid"];
-    } else if ( contentId == nil || contentId.length == 0 ){
+    } else if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track content click since no contentId has been supplied."];
-    } else {
+    } else if ([self checkState: @"track content highlight"]) {
 
         float interval = self._productAnalyticsSettings.highlightContentAfter / 1000.0;
         NSMutableDictionary<NSString *, id> * contentHighlighted = [NSMutableDictionary dictionary];
@@ -1312,19 +1286,17 @@ typedef enum {
 
 - (void) trackContentClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track content click"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( section == nil || section.length == 0 ){
+    if (section == nil || section.length == 0) {
         [YBLog warn:@"Cannot track content click since no section has been supplied."];
-    } else if ( sectionOrder < 1 ){
+    } else if (sectionOrder < 1) {
         [YBLog warn:@"Cannot track content click since no sectionOrder is invalid."];
-    } else if ( column < 1 ) {
+    } else if (column < 1) {
         [YBLog warn:@"Cannot track content click since column is invalid."];
-    } else if ( row < 1 ) {
+    } else if (row < 1) {
         [YBLog warn:@"Cannot track content click since row is invalid."];
-    } else if ( contentId == nil || contentId.length == 0 ){
+    } else if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track content click since no contentId has been supplied."];
-    } else {
+    } else if ([self checkState: @"track content click"]) {
         [self fireEvent: @"Section Content Click"
               eventType: eventTypeSection
      dimensionsInternal: @{
@@ -1374,33 +1346,39 @@ typedef enum {
     Boolean startEvent = false;
     YBPendingVideoEvent * event;
 
-    if ( ![self checkState: @"track play"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( contentId == nil || contentId.length == 0 ){
+    if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track play since no contentId has been supplied."];
-    } else if ( self._adapter == nil ) {
+    } else if (self._adapter == nil) {
         [YBLog warn:@"Cannot track play since adapter is unset."];
-    } else if ( !self._adapter.flags.started ) {
-        // Event cannot be sent since START has not been processed yet: add event to the pending queue
+    } else if ([self checkState: @"track play"]) {
 
-        event = [[YBPendingVideoEvent alloc] initWithEventName: eventName
-                                                     contentId: contentId
-                                                    dimensions: dimensions
-                                                       metrics: metrics
-                                                    startEvent: startEvent];
-        [self.pendingVideoEvents addObject: event];
-    } else {
-        // Send pending events
+        if (self._adapter.flags.started) {
+            // Start event already sent...
 
-        [self trackPlayerEventsPending];
+            // ... send pending events
 
-        // Send current event
+            [self trackPlayerEventsPending];
 
-        [self trackPlayerEvent: eventName
-                     contentId: contentId
-                    dimensions: dimensions
-                       metrics: metrics
-                    startEvent: startEvent];
+            // ... send current event
+
+            [self trackPlayerEvent: eventName
+                         contentId: contentId
+                        dimensions: dimensions
+                           metrics: metrics
+                        startEvent: startEvent];
+        } else {
+            // Start event not sent yet...
+            
+            // ... add event to the pending queue
+
+            event = [[YBPendingVideoEvent alloc] initWithEventName: eventName
+                                                         contentId: contentId
+                                                        dimensions: dimensions
+                                                           metrics: metrics
+                                                        startEvent: startEvent];
+            [self.pendingVideoEvents addObject: event];
+        }
+
     }
 }
 
@@ -1449,17 +1427,33 @@ typedef enum {
     NSString * contentId = nil;
     YBPendingVideoEvent * event;
 
-    if ( ![self checkState: @"track player interaction"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( eventName == nil || eventName.length == 0 ){
+    if (eventName == nil || eventName.length == 0) {
         [YBLog warn:@"Cannot track player interaction since no interaction name has been supplied."];
-    } else if ( self._adapter == nil ){
+    } else if (self._adapter == nil) {
         [YBLog warn:@"Cannot track player interaction since adapter is unset."];
-    } else {
+    } else if ([self checkState: @"track player interaction"]) {
+        
         eventNameFull = [@"Content Play " stringByAppendingString:eventName];
         
-        if ( !self._adapter.flags.started ) {
-            // Event cannot be sent since START has not been processed yet: add event to the pending queue
+        if (self._adapter.flags.started) {
+            // Start event already sent...
+
+            // ... send pending events
+            
+            [self trackPlayerEventsPending];
+
+            // ... send current event
+
+            [self trackPlayerEvent: eventNameFull
+                         contentId: contentId
+                        dimensions: dimensions
+                           metrics: metrics
+                        startEvent: startEvent];
+
+        } else {
+            // Start event not sent yet...
+            
+            // ... add event to the pending queue
 
             event = [[YBPendingVideoEvent alloc] initWithEventName: eventNameFull
                                                          contentId: contentId
@@ -1467,18 +1461,6 @@ typedef enum {
                                                            metrics: metrics
                                                         startEvent: startEvent];
             [self.pendingVideoEvents addObject: event];
-        } else {
-            // Send pending events
-            
-            [self trackPlayerEventsPending];
-
-            // Send current event
-
-            [self trackPlayerEvent: eventNameFull
-                         contentId: contentId
-                        dimensions: dimensions
-                           metrics: metrics
-                        startEvent: startEvent];
         }
     }
 }
@@ -1572,11 +1554,9 @@ typedef enum {
 
 - (void) trackSearchQuery: (nonnull NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track search query"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( searchQuery == nil || searchQuery.length == 0 ){
+    if (searchQuery == nil || searchQuery.length == 0) {
         [YBLog warn:@"Cannot track search query since no searchQuery has been supplied."];
-    } else {
+    } else if ([self checkState: @"track search query"]) {
         self._searchQuery = searchQuery;
 
         [self fireEvent: @"Search Query"
@@ -1620,11 +1600,9 @@ typedef enum {
 
 - (void) trackSearchResult: (NSInteger) resultCount searchQuery: (nullable NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track search result"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( resultCount < 0 ){
+    if (resultCount < 0) {
         [YBLog warn:@"Cannot track search result since resultCount is invalid."];
-    } else {
+    } else if ([self checkState: @"track search result"]) {
 
         NSString * query = ( searchQuery != nil && searchQuery.length > 0 ? searchQuery : self._searchQuery );
 
@@ -1683,15 +1661,13 @@ typedef enum {
 
 - (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track search click"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( column < 1 ) {
+    if (column < 1) {
         [YBLog warn:@"Cannot track search click since column is invalid."];
-    } else if ( row < 1 ) {
+    } else if (row < 1) {
         [YBLog warn:@"Cannot track search click since row is invalid."];
-    } else if ( contentId == nil || contentId.length == 0 ){
+    } else if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track search click since no contentId has been supplied."];
-    } else {
+    } else if ([self checkState: @"track search click"]) {
         NSString * query;
         
         query = ( searchQuery != nil && searchQuery.length > 0 ? searchQuery : self._searchQuery );
@@ -1751,11 +1727,9 @@ typedef enum {
 
 - (void) trackExternalAppLaunch: (nonnull NSString *) appName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track external application launch"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( appName == nil || appName.length == 0 ){
+    if (appName == nil || appName.length == 0) {
         [YBLog warn:@"Cannot track external application launch since no appName has been supplied."];
-    } else {
+    } else if ([self checkState: @"track external application launch"]) {
         [self fireEvent: @"External Application Launch"
               eventType: eventTypeExternalApplication
      dimensionsInternal: @{
@@ -1794,11 +1768,9 @@ typedef enum {
 
 - (void) trackExternalAppExit: (nonnull NSString *) appName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track external application exit"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( appName == nil || appName.length == 0 ){
+    if (appName == nil || appName.length == 0) {
         [YBLog warn:@"Cannot track external application exit since no appName has been supplied."];
-    } else {
+    } else if ([self checkState: @"track external application exit"]) {
         [self fireEvent: @"External Application Exit"
               eventType: eventTypeExternalApplication
      dimensionsInternal: @{
@@ -1844,13 +1816,11 @@ typedef enum {
 
 - (void) trackEngagementEvent: (nonnull NSString *) eventName contentId: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
     
-    if ( ![self checkState: @"track engagement event"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( eventName == nil || eventName.length == 0 ){
+    if (eventName == nil || eventName.length == 0) {
         [YBLog warn:@"Cannot track engagement event since no eventName has been supplied."];
-    } else if ( contentId == nil || contentId.length == 0 ){
+    } else if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track engagement event since no contentId has been supplied."];
-    } else {
+    } else if ([self checkState: @"track engagement event"]) {
         [self fireEvent: [@"Engagement " stringByAppendingString:eventName]
               eventType: eventTypeEngagement
      dimensionsInternal: @{
@@ -1893,11 +1863,9 @@ typedef enum {
 
 - (void) trackEvent: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions  metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( ![self checkState: @"track custom event"] ){
-        // Product Analytics is not ready for sending events
-    } else if ( eventName == nil || eventName.length == 0 ){
+    if (eventName == nil || eventName.length == 0) {
         [YBLog warn:@"Cannot track custom event since no eventName has been supplied."];
-    } else {
+    } else if ([self checkState: @"track custom event"]) {
         [self fireEvent: [@"Custom " stringByAppendingString: eventName]
               eventType: eventTypeCustom
      dimensionsInternal: @{}
