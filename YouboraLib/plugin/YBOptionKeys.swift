@@ -32,6 +32,7 @@ public struct YBOptionUtilsKeys {
         YBOptionKeys.username: (.string, "username"),
         YBOptionKeys.userType: (.string, "userType"),
         YBOptionKeys.userEmail: (.string, "userEmail"),
+        YBOptionKeys.profileId: (.string, "profileId"),
         YBOptionKeys.parseResource: (.bool, "parseResource"),
         YBOptionKeys.parseResourceAuth: (.bool, "parseResourceAuth"),
         YBOptionKeys.parseHls: (.depretacted, "parseHls"),
@@ -182,6 +183,7 @@ public struct YBOptionUtilsKeys {
     public static let forceInit = "forceInit"
     public static let userType = "user.type"
     public static let userEmail = "user.email"
+    public static let profileId = "profileId"
     public static let experimentIds = "experiments"
     public static let ssConfigCode = "smartswitch.configCode"
     public static let ssGroupCode = "smartswitch.groupCode"

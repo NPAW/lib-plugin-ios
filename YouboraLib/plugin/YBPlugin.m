@@ -1785,6 +1785,10 @@
     return nil;
 }
 
+- (NSString *) getProfileId {
+    return self.options.profileId;
+}
+
 - (NSString *) getNodeHost {
     NSString * nodeHost = self.options.contentCdnNode;
     if (nodeHost == nil || [nodeHost length] == 0) {
@@ -3707,12 +3711,12 @@
 - (void) youboraInfinityEventSessionStop: (NSDictionary<NSString *, NSString *> *) params {
     [self sendSessionStop:params];
 
-    if ( self.productAnalytics != nil ){
-        [self.productAnalytics destroy];
-        self.productAnalytics = nil;
-    }
-   
     self.infinity = nil;
+
+    if ( self.productAnalytics != nil ){
+        [self.productAnalytics setInfinity:[self getInfinity]];
+    }
+    
 }
 
 - (void) youboraInfinityEventNavWithScreenName: (NSString *) screenName {

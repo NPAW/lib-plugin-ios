@@ -8,6 +8,7 @@
 
 #import "YBProductAnalytics.h"
 #import "YBLog.h"
+#import "YBInfinityFlags.h"
 #import "YouboraLib/YouboraLib-Swift.h"
 
 // ---------------------------------------------------------------------------------------------
@@ -177,10 +178,10 @@
 
 @interface YBPendingVideoEvent : NSObject
 
-@property (nonatomic, weak) NSString * eventName;
-@property (nonatomic, weak) NSString * contentId;
-@property (nonatomic, weak) NSDictionary<NSString *, NSString *> * dimensions;
-@property (nonatomic, weak) NSDictionary<NSString *, NSNumber *> * metrics;
+@property (nonatomic, copy) NSString * eventName;
+@property (nonatomic, copy) NSString * contentId;
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * dimensions;
+@property (nonatomic, copy) NSDictionary<NSString *, NSNumber *> * metrics;
 @property (nonatomic, assign) BOOL startEvent;
 
 @end
@@ -194,10 +195,10 @@
                        startEvent: (BOOL)startEvent{
     self = [super init];
     if (self) {
-        _eventName  = eventName;
-        _contentId  = contentId;
-        _dimensions = dimensions;
-        _metrics    = metrics;
+        _eventName  = [eventName copy];
+        _contentId  = [contentId copy];
+        _dimensions = [dimensions copy];
+        _metrics    = [metrics copy];
         _startEvent = startEvent;
     }
     return self;
@@ -222,9 +223,26 @@
 
 @interface YBProductAnalytics ()
 
+typedef enum {
+  eventTypeUserProfile,
+  eventTypeUser,
+  eventTypeNavigation,
+  eventTypeAttribution,
+  eventTypeSection,
+  eventTypeContentPlayback,
+  eventTypeSearch,
+  eventTypeExternalApplication,
+  eventTypeEngagement,
+  eventTypeCustom
+} EventTypes;
+
 @property(nonatomic, strong) YBProductAnalyticsPlayerAdapterEventDelegate * playerAdapterEventDelegate;
 
 @property (nonatomic, strong) NSMutableArray<YBPendingVideoEvent*> * pendingVideoEvents;
+
+- (void) loginSuccessfulEvent: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
+
+- (void) userProfileSelectedEvent: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
 
 - (void) trackContentHighlight:(NSTimer *)timer;
 
@@ -236,11 +254,14 @@
 
 - (void) releasePlayerEventsPending;
 
-- (Boolean) fireEvent: (nonnull NSString *) screenName dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
+- (Boolean) fireEvent: (nonnull NSString *) eventName eventType: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
 
 - (Boolean)fireAdapterEvent:(nonnull NSString *)eventName dimensionsInternal: (nullable NSDictionary<NSString *,NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *,NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *,NSNumber *> *) metrics;
 
-- (NSDictionary <NSString *, NSDictionary <NSString *, NSString *> *> * _Nonnull)buildDimensions:(nullable NSDictionary<NSString *,NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *,NSString *> *) dimensionsUser;
+- (NSDictionary <NSString *, NSDictionary <NSString *, NSString *> *> * _Nonnull)buildDimensions: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *,NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *,NSString *> *) dimensionsUser;
+
+- (void) setUserId: (NSString *) userId;
+- (void) setProfileId: (NSString *) profileId;
 
 @end
 
@@ -328,6 +349,22 @@
     }
     
     self._initialized = true;
+
+    // Start session
+    
+    [self newSession];
+}
+
+/**
+  * Update infinity reference
+  */
+
+-(void) setInfinity: (YBInfinity *) infinity{
+    self._infinity = infinity;
+    
+    if ( self._infinity == nil ){
+        [YBLog warn: @"Infinity reference unset"];
+    }
 }
 
 /**
@@ -443,7 +480,7 @@
 
     if ( !self._initialized ){
         [YBLog warn: @"Cannot start a new session since Product Analytics is uninitialized."];
-    } else if ( !self._infinity ){
+    } else if ( self._infinity == nil ){
         [YBLog warn: @"Cannot start a new session since infinity is unavailable."];
     } else {
         [self._infinity end];
@@ -465,7 +502,7 @@
 
     if ( !self._initialized ){
         [YBLog warn: @"Cannot end session since Product Analytics is uninitialized."];
-    } else if ( !self._infinity ){
+    } else if ( self._infinity == nil ){
         [YBLog warn: @"Cannot end session since infinity is unavailable."];
     } else {
         [self._infinity end];
@@ -475,72 +512,404 @@
     return executed;
 }
 
-/**
-  * Set user profile
-  * @param profileId Profile unique identifer
-  */
 
-- (void) setUserProfile: (nonnull NSString *) profileId{
-    [self setUserProfile:profileId profileType:nil dimensions:nil metrics:nil];
+// ---------------------------------------------------------------------------------------------
+// LOGIN / LOGOUT
+// ---------------------------------------------------------------------------------------------
+
+/**
+ * Login successful
+ * @param userId User identifier
+ */
+
+- (void) loginSuccessful: (nonnull NSString *) userId {
+    [self loginSuccessful:userId dimensions:nil metrics:nil];
 }
 
 /**
-  * Set user profile
-  * @param profileId Profile unique identifer
-  * @param profileType Type of the profile being set (i.e: kid, adult...)
-  */
+ * Login successful
+ * @param userId User identifier
+ * @param dimensions Dimensions to track
+ */
 
-- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType{
-    [self setUserProfile:profileId profileType:profileType dimensions:nil metrics:nil];
+- (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
+    [self loginSuccessful:userId dimensions:dimensions metrics:nil];
 }
 
 /**
-  * Set user profile
-  * @param profileId Profile unique identifer
-  * @param profileType Type of the profile being set (i.e: kid, adult...)
-  * @param  dimensions Dimensions to track
-  */
+ * Login successful
+ * @param userId User identifier
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
 
-- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
-    [self setUserProfile:profileId profileType:profileType dimensions:dimensions metrics:nil];
-}
+- (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
 
-/**
-  * Set user profile
-  * @param profileId Profile unique identifer
-  * @param profileType Type of the profile being set (i.e: kid, adult...)
-  * @param  dimensions Dimensions to track
-  * @param metrics Metrics to track
-  */
+    if (userId == nil || userId.length == 0) {
+        [YBLog warn: @"Cannot log in successfully since userId is unset."];
+    } else if ([self checkState: @"log in successfully"]) {
+        // Send an event informing that we are closing the session because of a profile change
 
-- (void) setUserProfile: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+        [self loginSuccessfulEvent:userId dimensions:dimensions metrics:metrics];
 
-    if ( !self._initialized ) {
-        [YBLog warn: @"Cannot set user profile since Product Analytics is uninitialized."];
-    } else if ( !self._infinity ){
-        [YBLog warn: @"Cannot set user profile since infinity is unavailable."];
-    } else if (profileId.length == 0 ) {
-        [YBLog warn: @"Cannot set user profile since profileId is unset."];
-    } else {
+        // Set the userId option and close + open a new session
 
-        NSMutableDictionary<NSString *, NSString *> * dimensionsInternal;
-
-        [self endSession];
+        [self setUserId:userId];
         [self newSession];
+    }
+}
 
-        dimensionsInternal = [NSMutableDictionary dictionary];
-        dimensionsInternal[@"eventType"] = @"UserSwitch";
-        dimensionsInternal[@"profileId"] = profileId;
+/**
+ * Login successful
+ * @param userId User identifier
+ * @param profileId Profile identifier
+ */
 
-        if (profileType != nil) {
-            dimensionsInternal[@"profileType"] = profileType;
-        }
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId {
+    [self loginSuccessful:userId profileId:profileId profileType:nil dimensions:nil metrics:nil];
+}
 
-        [self fireEvent: @"USER PROFILE SELECTION"
-     dimensionsInternal: dimensionsInternal
+/**
+ * Login successful
+ * @param userId User identifier
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ */
+
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType{
+    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:nil metrics:nil];
+}
+
+/**
+ * Login successful
+ * @param userId User identifier
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ */
+
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:dimensions metrics:nil];
+}
+
+/**
+ * Login successful
+ * @param userId User identifier
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
+
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+
+    if (userId == nil || userId.length == 0) {
+        [YBLog warn: @"Cannot log in successfully since userId is unset."];
+    } else if (profileId == nil || profileId.length == 0) {
+        [YBLog warn: @"Cannot log in successfully since profileId is unset."];
+    } else if ([self checkState: @"log in successfully"]) {
+        // Send user login event
+
+        [self loginSuccessfulEvent:userId dimensions:dimensions metrics:metrics];
+
+        // Send profile selection event
+
+        [self userProfileSelectedEvent:profileId profileType:profileType dimensions:dimensions metrics:metrics];
+
+        // Set the userId option and close + open a new session
+
+        [self setUserId:userId];
+        [self setProfileId:profileId];
+        [self newSession];
+    }
+}
+
+/**
+ * Send login successful event
+ * @param userId User identifier
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
+
+- (void) loginSuccessfulEvent: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+    
+    [self fireEvent: @"User Login Successful"
+          eventType: eventTypeUser
+ dimensionsInternal: @{
+                        @"username": userId
+                      }
+     dimensionsUser: dimensions
+            metrics: metrics];
+}
+
+/**
+ * Login unsuccessful
+ */
+
+- (void) loginUnsuccessful {
+    [self loginUnsuccessful:nil metrics:nil];
+}
+
+/**
+ * Login unsuccessful
+ * @param dimensions Dimensions to track
+ */
+
+- (void) loginUnsuccessful: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self loginUnsuccessful:dimensions metrics:nil];
+}
+
+/**
+ * Login unsuccessful
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
+
+- (void) loginUnsuccessful: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+
+    if ([self checkState: @"track log in unsuccessful"]) {
+        [self fireEvent: @"User Login Unsuccessful"
+              eventType: eventTypeUser
+     dimensionsInternal: @{}
          dimensionsUser: dimensions
                 metrics: metrics];
     }
+}
+
+/**
+ * Logout
+ */
+
+- (void) logout {
+    [self logout:nil metrics:nil];
+}
+
+/**
+ * Logout
+ * @param dimensions Dimensions to track
+ */
+
+- (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
+    [self logout:dimensions metrics:nil];
+}
+
+/**
+ * Logout
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
+
+- (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+
+    if ([self checkState: @"log out"]) {
+        // Send an event informing that we are closing the session
+
+        [self fireEvent: @"User Logout"
+              eventType: eventTypeUser
+     dimensionsInternal: @{}
+         dimensionsUser: dimensions
+                metrics: metrics];
+
+
+        // Set the userId option and close + open a new session
+
+        [self setUserId:nil];
+        [self setProfileId:nil];
+        [self newSession];
+    }
+}
+
+// ---------------------------------------------------------------------------------------------
+// PROFILE
+// ---------------------------------------------------------------------------------------------
+
+/**
+ * Create user profile
+ * @param profileId Profile identifier
+ */
+
+- (void) userProfileCreated: (nonnull NSString *) profileId {
+    [self userProfileCreated:profileId profileType:nil dimensions:nil metrics:nil];
+}
+
+/**
+ * Create user profile
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ */
+
+- (void) userProfileCreated: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType {
+    [self userProfileCreated:profileId profileType:profileType dimensions:nil metrics:nil];
+}
+
+/**
+ * Create user profile
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ */
+
+- (void) userProfileCreated: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
+    [self userProfileCreated:profileId profileType:profileType dimensions:dimensions metrics:nil];
+}
+
+/**
+ * Create user profile
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
+
+- (void) userProfileCreated: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+
+    if (profileId == nil || profileId.length == 0) {
+        [YBLog warn: @"Cannot create user profile since profileId is unset."];
+    } else if ([self checkState: @"create user profile"]) {
+
+        [self fireEvent: @"User Profile Created"
+              eventType: eventTypeUserProfile
+     dimensionsInternal: [self getUserProfileDimensions:profileId profileType:profileType]
+         dimensionsUser: dimensions
+                metrics: metrics];
+    }
+}
+
+/**
+ * Select user profile
+ * @param profileId Profile identifier
+ */
+
+- (void) userProfileSelected: (nonnull NSString *) profileId {
+    [self userProfileSelected:profileId profileType:nil dimensions:nil metrics:nil];
+}
+
+
+/**
+ * Select user profile
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ */
+
+- (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType {
+    [self userProfileSelected:profileId profileType:profileType dimensions:nil metrics:nil];
+}
+
+
+/**
+ * Select user profile
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ */
+
+- (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
+    [self userProfileSelected:profileId profileType:profileType dimensions:dimensions metrics:nil];
+}
+
+/**
+ * Select user profile
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
+
+- (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+
+    if (profileId == nil || profileId.length == 0) {
+        [YBLog warn: @"Cannot select user profile since profileId is unset."];
+    } else if ([self checkState: @"select user profile"]) {
+        // Send an event informing that we are closing the session because of a profile change
+
+        [self userProfileSelectedEvent:profileId profileType:profileType dimensions:dimensions metrics:metrics];
+
+        // Set the profileId option and close + open a new session
+
+        [self setProfileId:profileId];
+        [self newSession];
+    }
+}
+
+/**
+ * Send user profile selected event
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
+
+- (void) userProfileSelectedEvent: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+
+        [self fireEvent: @"User Profile Selected"
+              eventType: eventTypeUserProfile
+     dimensionsInternal: [self getUserProfileDimensions:profileId profileType:profileType]
+         dimensionsUser: dimensions
+                metrics: metrics];
+}
+
+
+/**
+ * Delete user profile
+ * @param profileId Profile identifier
+ */
+
+- (void) userProfileDeleted: (nonnull NSString *) profileId {
+    [self userProfileDeleted:profileId dimensions:nil metrics:nil];
+}
+
+/**
+ * Delete user profile
+ * @param profileId Profile identifier
+ * @param dimensions Dimensions to track
+ */
+
+- (void) userProfileDeleted: (nonnull NSString *) profileId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
+    [self userProfileDeleted:profileId dimensions:dimensions metrics:nil];
+}
+
+/**
+ * Delete user profile
+ * @param profileId Profile identifier
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ */
+
+- (void) userProfileDeleted: (nonnull NSString *) profileId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+
+    if (profileId == nil || profileId.length == 0) {
+        [YBLog warn: @"Cannot delete user profile since profileId is unset."];
+    } else if ([self checkState: @"delete user profile" ]) {
+
+        [self fireEvent: @"User Profile Deleted"
+              eventType: eventTypeUserProfile
+     dimensionsInternal: [self getUserProfileDimensions:profileId profileType:nil]
+         dimensionsUser: dimensions
+                metrics: metrics];
+
+    }
+}
+
+/**
+ * Get user profile dimensions
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @returns
+ * @private
+ */
+
+- (NSDictionary<NSString *, NSString *> *) getUserProfileDimensions: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType {
+
+    NSMutableDictionary<NSString *, NSString *> * dimensions;
+
+    dimensions = [NSMutableDictionary dictionary];
+    dimensions[@"profileId"] = profileId;
+    
+    if ( profileType != nil ) {
+        dimensions[@"profileType"] = profileType;
+    }
+
+    return dimensions;
 }
 
 // ------------------------------------------------------------------------------------------------------
@@ -575,26 +944,15 @@
 
 - (void) trackNavByName: (nonnull NSString *) screenName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn: @"Cannot track navigation since Product Analytics is uninitialized."];
-    } else if ( screenName.length == 0 ){
+    if (screenName == nil || screenName.length == 0) {
         [YBLog warn: @"Cannot track navigation since page has not been supplied."];
-    } else if ( !self._infinity ){
-        [YBLog warn: @"Cannot track navigation since Infinity is unavailable."];
-    } else {
+    } else if ([self checkState: @"track navigation"]) {
         
         self._screenName = [screenName copy];
         
-        [self._infinity beginWithScreenName:screenName andDimensions:@{
-            @"route": @"",
-            @"page": screenName
-        }];
-
-        [YBLog notice: @"[NAV] %@", self._screenName];
-        
-        [self fireEvent: [@"[NAV] " stringByAppendingString: self._screenName]
+        [self fireEvent: [@"Navigation " stringByAppendingString: self._screenName]
+              eventType: eventTypeNavigation
      dimensionsInternal: @{
-                            @"eventType":   @"Navigation",
                             @"route":       @"",
                             @"routeDomain": @"",
                             @"fullRoute":   @""
@@ -652,24 +1010,20 @@
     
     parameters = [NSMutableDictionary dictionary];
     
-    if ( utmSource.length > 0 ) parameters[@"utmSource"] = utmSource;
+    if ( utmSource   != nil && utmSource.length   > 0 ) parameters[@"utmSource"]   = utmSource;
     if ( utmMedium   != nil && utmMedium.length   > 0 ) parameters[@"utmMedium"]   = utmMedium;
     if ( utmCampaign != nil && utmCampaign.length > 0 ) parameters[@"utmCampaign"] = utmCampaign;
     if ( utmTerm     != nil && utmTerm.length     > 0 ) parameters[@"utmTerm"]     = utmTerm;
     if ( utmContent  != nil && utmContent.length  > 0 ) parameters[@"utmContent"]  = utmContent;
 
-    if ( !self._initialized ){
-        [YBLog warn: @"Cannot track attribution since Product Analytics is uninitialized."];
-    } else if ( parameters.count == 0 ){
+    if (parameters.count == 0) {
         [YBLog warn: @"Cannot track attribution since no arguments have been supplied."];
-    } else {
+    } else if ([self checkState: @"track attribution"]) {
 
-        parameters[@"eventType"] = @"Attribution";
-        parameters[@"url"]       = @"";
+        parameters[@"url"] = @"";
 
-        [YBLog notice: @"ATTRIBUTION"];
-
-        [self fireEvent: @"ATTRIBUTION"
+        [self fireEvent: @"Attribution"
+              eventType: eventTypeAttribution
      dimensionsInternal: parameters
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -687,8 +1041,8 @@
   * @param sectionOrder The section order within the page.
   */
 
-- (void) trackSectionIn: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder{
-    [self trackSectionIn:section sectionOrder:sectionOrder dimensions:nil metrics:nil];
+- (void) trackSectionVisible: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder{
+    [self trackSectionVisible:section sectionOrder:sectionOrder dimensions:nil metrics:nil];
 }
 
 /**
@@ -698,8 +1052,8 @@
   * @param dimensions Dimensions to track
   */
 
-- (void) trackSectionIn: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
-    [self trackSectionIn:section sectionOrder:sectionOrder dimensions:dimensions metrics:nil];
+- (void) trackSectionVisible: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackSectionVisible:section sectionOrder:sectionOrder dimensions:dimensions metrics:nil];
 }
 
 /**
@@ -710,20 +1064,16 @@
   * @param metrics Metrics to track
   */
 
-- (void) trackSectionIn: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+- (void) trackSectionVisible: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track section-in since Product Analytics is uninitialized."];
-    } else if ( section.length == 0 ){
-        [YBLog warn:@"Cannot track section-in since no section has been supplied."];
-    } else if ( sectionOrder < 1 ){
-        [YBLog warn:@"Cannot track section-in since sectionOrder is invalid."];
-    } else {
-        [YBLog notice: @"[SECTION] In"];
-
-        [self fireEvent: @"SECTION IN"
+    if (section == nil || section.length == 0) {
+        [YBLog warn:@"Cannot track section visible since no section has been supplied."];
+    } else if (sectionOrder < 1) {
+        [YBLog warn:@"Cannot track section visible since sectionOrder is invalid."];
+    } else if ([self checkState: @"track section visible"]) {
+        [self fireEvent: @"Section Visible"
+              eventType: eventTypeSection
      dimensionsInternal: @{
-                               @"eventType": @"SectionVisibility",
                                  @"section": section,
                             @"sectionOrder": [NSString stringWithFormat:@"%@", @(sectionOrder)]
                           }
@@ -738,8 +1088,8 @@
   * @param sectionOrder The section order within the page.
   */
 
-- (void) trackSectionOut: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder{
-    [self trackSectionOut:section sectionOrder:sectionOrder dimensions:nil metrics:nil];
+- (void) trackSectionHidden: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder{
+    [self trackSectionHidden:section sectionOrder:sectionOrder dimensions:nil metrics:nil];
 }
 
 /**
@@ -749,8 +1099,8 @@
   * @param dimensions Dimensions to track
   */
 
-- (void) trackSectionOut: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
-    [self trackSectionOut:section sectionOrder:sectionOrder dimensions:dimensions metrics:nil];
+- (void) trackSectionHidden: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+    [self trackSectionHidden:section sectionOrder:sectionOrder dimensions:dimensions metrics:nil];
 }
 
 /**
@@ -761,21 +1111,16 @@
   * @param metrics Metrics to track
   */
 
-- (void) trackSectionOut: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+- (void) trackSectionHidden: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track section-out since Product Analytics is uninitialized."];
-    } else if ( section.length == 0 ){
-        [YBLog warn:@"Cannot track section-out since no section has been supplied."];
-    } else if ( sectionOrder < 1 ){
-        [YBLog warn:@"Cannot track section-out since sectionOrder is invalid."];
-    } else {
-
-        [YBLog notice: @"[SECTION] Out"];
-
-        [self fireEvent: @"SECTION OUT"
+    if (section == nil || section.length == 0) {
+        [YBLog warn:@"Cannot track section hidden since no section has been supplied."];
+    } else if (sectionOrder < 1) {
+        [YBLog warn:@"Cannot track section hidden since sectionOrder is invalid."];
+    } else if ([self checkState: @"track section hidden"]) {
+        [self fireEvent: @"Section Hidden"
+              eventType: eventTypeSection
      dimensionsInternal: @{
-                               @"eventType": @"SectionVisibility",
                                  @"section":   section,
                             @"sectionOrder": [NSString stringWithFormat:@"%@", @(sectionOrder)]
                           }
@@ -830,19 +1175,17 @@
     
     [self contentFocusOut];
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track content highlight since Product Analytics is uninitialized."];
-    } else if ( section.length == 0 ){
+    if (section == nil || section.length == 0) {
         [YBLog warn:@"Cannot track content highlight since no section has been supplied."];
-    } else if ( sectionOrder < 1 ){
+    } else if (sectionOrder < 1) {
         [YBLog warn:@"Cannot track content highlight since sectionOrder is invalid."];
-    } else if ( column < 1 ) {
+    } else if (column < 1) {
         [YBLog warn:@"Cannot track content highlight since column is invalid"];
-    } else if ( row < 1 ) {
+    } else if (row < 1) {
         [YBLog warn:@"Cannot track content highlight since row is invalid"];
-    } else if ( contentId.length == 0 ){
+    } else if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track content click since no contentId has been supplied."];
-    } else {
+    } else if ([self checkState: @"track content highlight"]) {
 
         float interval = self._productAnalyticsSettings.highlightContentAfter / 1000.0;
         NSMutableDictionary<NSString *, id> * contentHighlighted = [NSMutableDictionary dictionary];
@@ -888,12 +1231,9 @@
     if ( contentHighlighted == nil ){
         [YBLog warn:@"Cannot track content highlight since no content is selected."];
     } else {
-
-        [YBLog notice: @"CONTENT HIGHLIGHT"];
-
-        [self fireEvent: @"CONTENT HIGHLIGHT"
+        [self fireEvent: @"Section Content Highlight"
+              eventType: eventTypeSection
      dimensionsInternal: @{
-                               @"eventType": @"ContentHighlight",
                                  @"section": contentHighlighted[@"section"],
                             @"sectionOrder": contentHighlighted[@"sectionOrder"],
                                   @"column": contentHighlighted[@"column"],
@@ -946,25 +1286,20 @@
 
 - (void) trackContentClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track content click since Product Analytics is uninitialized."];
-    } else if ( section.length == 0 ){
+    if (section == nil || section.length == 0) {
         [YBLog warn:@"Cannot track content click since no section has been supplied."];
-    } else if ( sectionOrder < 1 ){
+    } else if (sectionOrder < 1) {
         [YBLog warn:@"Cannot track content click since no sectionOrder is invalid."];
-    } else if ( column < 1 ) {
+    } else if (column < 1) {
         [YBLog warn:@"Cannot track content click since column is invalid."];
-    } else if ( row < 1 ) {
+    } else if (row < 1) {
         [YBLog warn:@"Cannot track content click since row is invalid."];
-    } else if ( contentId.length == 0 ){
+    } else if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track content click since no contentId has been supplied."];
-    } else {
-
-        [YBLog notice: @"CONTENT CLICK"];
-
-        [self fireEvent: @"CONTENT CLICK"
+    } else if ([self checkState: @"track content click"]) {
+        [self fireEvent: @"Section Content Click"
+              eventType: eventTypeSection
      dimensionsInternal: @{
-                               @"eventType": @"ContentClick",
                                  @"section": section,
                             @"sectionOrder": [NSString stringWithFormat:@"%@", @(sectionOrder)],
                                   @"column": [NSString stringWithFormat:@"%@", @(column)],
@@ -1007,28 +1342,43 @@
   */
 
 - (void) trackPlay: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
-    NSString * eventName = @"Play";
+    NSString * eventName = @"Content Play";
     Boolean startEvent = false;
     YBPendingVideoEvent * event;
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track play since Product Analytics is uninitialized."];
-    } else if ( contentId.length == 0 ){
+    if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track play since no contentId has been supplied."];
-    } else if ( self._adapter != nil && !self._adapter.flags.started ) {
-        event = [[YBPendingVideoEvent alloc] initWithEventName: eventName
-                                                     contentId: contentId
-                                                    dimensions: dimensions
-                                                       metrics: metrics
-                                                    startEvent: startEvent];
-        [self.pendingVideoEvents addObject: event];
-    } else {
-        [self trackPlayerEventsPending];
-        [self trackPlayerEvent: eventName
-                     contentId: contentId
-                    dimensions: dimensions
-                       metrics: metrics
-                    startEvent: startEvent];
+    } else if (self._adapter == nil) {
+        [YBLog warn:@"Cannot track play since adapter is unset."];
+    } else if ([self checkState: @"track play"]) {
+
+        if (self._adapter.flags.started) {
+            // Start event already sent...
+
+            // ... send pending events
+
+            [self trackPlayerEventsPending];
+
+            // ... send current event
+
+            [self trackPlayerEvent: eventName
+                         contentId: contentId
+                        dimensions: dimensions
+                           metrics: metrics
+                        startEvent: startEvent];
+        } else {
+            // Start event not sent yet...
+            
+            // ... add event to the pending queue
+
+            event = [[YBPendingVideoEvent alloc] initWithEventName: eventName
+                                                         contentId: contentId
+                                                        dimensions: dimensions
+                                                           metrics: metrics
+                                                        startEvent: startEvent];
+            [self.pendingVideoEvents addObject: event];
+        }
+
     }
 }
 
@@ -1061,15 +1411,7 @@
   */
 
 - (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
-    
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track player interaction since Product Analytics is uninitialized."];
-    } else {
-        [self trackPlayerInteraction: eventName
-                          dimensions: dimensions
-                             metrics: metrics
-                          startEvent: false];
-    }
+    [self trackPlayerInteraction:eventName dimensions:dimensions metrics:metrics startEvent:false];
 }
 
 /**
@@ -1081,27 +1423,45 @@
   */
 
 - (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics startEvent: (Boolean) startEvent{
+    NSString * eventNameFull;
     NSString * contentId = nil;
     YBPendingVideoEvent * event;
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track player interaction since Product Analytics is uninitialized."];
-    } else if ( eventName.length == 0 ){
+    if (eventName == nil || eventName.length == 0) {
         [YBLog warn:@"Cannot track player interaction since no interaction name has been supplied."];
-    } else if ( self._adapter != nil && !self._adapter.flags.started ) {
-        event = [[YBPendingVideoEvent alloc] initWithEventName: eventName
-                                                     contentId: contentId
-                                                    dimensions: dimensions
-                                                       metrics: metrics
-                                                    startEvent: startEvent];
-        [self.pendingVideoEvents addObject: event];
-    } else {
-        [self trackPlayerEventsPending];
-        [self trackPlayerEvent: eventName
-                     contentId: contentId
-                    dimensions: dimensions
-                       metrics: metrics
-                    startEvent: startEvent];
+    } else if (self._adapter == nil) {
+        [YBLog warn:@"Cannot track player interaction since adapter is unset."];
+    } else if ([self checkState: @"track player interaction"]) {
+        
+        eventNameFull = [@"Content Play " stringByAppendingString:eventName];
+        
+        if (self._adapter.flags.started) {
+            // Start event already sent...
+
+            // ... send pending events
+            
+            [self trackPlayerEventsPending];
+
+            // ... send current event
+
+            [self trackPlayerEvent: eventNameFull
+                         contentId: contentId
+                        dimensions: dimensions
+                           metrics: metrics
+                        startEvent: startEvent];
+
+        } else {
+            // Start event not sent yet...
+            
+            // ... add event to the pending queue
+
+            event = [[YBPendingVideoEvent alloc] initWithEventName: eventNameFull
+                                                         contentId: contentId
+                                                        dimensions: dimensions
+                                                           metrics: metrics
+                                                        startEvent: startEvent];
+            [self.pendingVideoEvents addObject: event];
+        }
     }
 }
 
@@ -1147,15 +1507,12 @@
     NSMutableDictionary<NSString *, NSString *> * dimensionsInternal;
     
     dimensionsInternal = [NSMutableDictionary dictionary];
-    [dimensionsInternal setValue:@"ContentPlayback" forKey:@"eventType"];
 
     if ( contentId != nil ){
         [dimensionsInternal setValue:contentId forKey:@"contentId"];
     }
 
-    [YBLog notice: @"[PLAYER] %@", eventName];
-
-    [self fireAdapterEvent: [@"[PLAYER] " stringByAppendingString:eventName]
+    [self fireAdapterEvent: eventName
         dimensionsInternal: dimensionsInternal
             dimensionsUser: dimensions
                    metrics: metrics];
@@ -1197,20 +1554,15 @@
 
 - (void) trackSearchQuery: (nonnull NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track search query since Product Analytics is uninitialized."];
-    } else if ( searchQuery.length == 0 ){
+    if (searchQuery == nil || searchQuery.length == 0) {
         [YBLog warn:@"Cannot track search query since no searchQuery has been supplied."];
-    } else {
-
-        [YBLog notice: @"[SEARCH] Query %@", searchQuery];
-
+    } else if ([self checkState: @"track search query"]) {
         self._searchQuery = searchQuery;
 
-        [self fireEvent: @"[SEARCH] Query"
+        [self fireEvent: @"Search Query"
+              eventType: eventTypeSearch
      dimensionsInternal: @{
-                            @"eventType": @"ContentSearch",
-                            @"query":     self._searchQuery
+                            @"query": self._searchQuery
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -1248,21 +1600,17 @@
 
 - (void) trackSearchResult: (NSInteger) resultCount searchQuery: (nullable NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track search result since Product Analytics is uninitialized."];
-    } else if ( resultCount < 0 ){
+    if (resultCount < 0) {
         [YBLog warn:@"Cannot track search result since resultCount is invalid."];
-    } else {
+    } else if ([self checkState: @"track search result"]) {
 
         NSString * query = ( searchQuery != nil && searchQuery.length > 0 ? searchQuery : self._searchQuery );
 
-        [YBLog notice: @"[SEARCH] Results %ld", resultCount];
-
-        [self fireEvent: @"[SEARCH] Results"
+        [self fireEvent: @"Search Results"
+              eventType: eventTypeSearch
      dimensionsInternal: @{
-                            @"eventType":    @"ContentSearch",
-                            @"query":        query,
-                            @"resultCount":  [NSString stringWithFormat:@"%ld", resultCount]
+                            @"query":       query,
+                            @"resultCount": [NSString stringWithFormat:@"%ld", resultCount]
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -1313,15 +1661,13 @@
 
 - (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track search click since Product Analytics is uninitialized."];
-    } else if ( column < 1 ) {
+    if (column < 1) {
         [YBLog warn:@"Cannot track search click since column is invalid."];
-    } else if ( row < 1 ) {
+    } else if (row < 1) {
         [YBLog warn:@"Cannot track search click since row is invalid."];
-    } else if ( contentId.length == 0 ){
+    } else if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track search click since no contentId has been supplied."];
-    } else {
+    } else if ([self checkState: @"track search click"]) {
         NSString * query;
         
         query = ( searchQuery != nil && searchQuery.length > 0 ? searchQuery : self._searchQuery );
@@ -1334,17 +1680,15 @@
             sectionOrder = 1;
         }
 
-        [YBLog notice:@"[SEARCH] Result Click"];
-
-        [self fireEvent: @"[SEARCH] Result Click"
+        [self fireEvent: @"Search Result Click"
+              eventType: eventTypeSearch
      dimensionsInternal: @{
-                            @"eventType":       @"ContentSearch",
-                            @"query":           query,
-                            @"section":         section,
-                            @"sectionOrder":    [NSString stringWithFormat:@"%@", @(sectionOrder)],
-                            @"column":          [NSString stringWithFormat:@"%ld", column],
-                            @"row":             [NSString stringWithFormat:@"%ld", row],
-                            @"contentId":       contentId
+                            @"query":        query,
+                            @"section":      section,
+                            @"sectionOrder": [NSString stringWithFormat:@"%@", @(sectionOrder)],
+                            @"column":       [NSString stringWithFormat:@"%ld", column],
+                            @"row":          [NSString stringWithFormat:@"%ld", row],
+                            @"contentId":    contentId
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -1383,18 +1727,13 @@
 
 - (void) trackExternalAppLaunch: (nonnull NSString *) appName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track external application launch since Product Analytics is uninitialized."];
-    } else if ( appName.length == 0 ){
+    if (appName == nil || appName.length == 0) {
         [YBLog warn:@"Cannot track external application launch since no appName has been supplied."];
-    } else {
-
-        [YBLog notice: @"APP LAUNCH %@", appName];
-
-        [self fireEvent: @"APP LAUNCH"
+    } else if ([self checkState: @"track external application launch"]) {
+        [self fireEvent: @"External Application Launch"
+              eventType: eventTypeExternalApplication
      dimensionsInternal: @{
-                            @"eventType": @"ExternalApplications",
-                            @"appName":   appName
+                            @"appName": appName
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -1429,18 +1768,13 @@
 
 - (void) trackExternalAppExit: (nonnull NSString *) appName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track external application exit since Product Analytics is uninitialized."];
-    } else if ( appName.length == 0 ){
+    if (appName == nil || appName.length == 0) {
         [YBLog warn:@"Cannot track external application exit since no appName has been supplied."];
-    } else {
-
-        [YBLog notice: @"APP EXIT %@", appName];
-
-        [self fireEvent: @"APP EXIT"
+    } else if ([self checkState: @"track external application exit"]) {
+        [self fireEvent: @"External Application Exit"
+              eventType: eventTypeExternalApplication
      dimensionsInternal: @{
-                            @"eventType": @"ExternalApplications",
-                            @"appName":   appName
+                            @"appName": appName
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -1482,19 +1816,14 @@
 
 - (void) trackEngagementEvent: (nonnull NSString *) eventName contentId: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
     
-    if ( !self._initialized ){
-        [YBLog warn:@"Cannot track engagement event since Product Analytics is uninitialized."];
-    } else if ( eventName.length == 0 ){
+    if (eventName == nil || eventName.length == 0) {
         [YBLog warn:@"Cannot track engagement event since no eventName has been supplied."];
-    } else if ( contentId.length == 0 ){
+    } else if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track engagement event since no contentId has been supplied."];
-    } else {
-
-        [YBLog notice:eventName];
-
-        [self fireEvent: eventName
+    } else if ([self checkState: @"track engagement event"]) {
+        [self fireEvent: [@"Engagement " stringByAppendingString:eventName]
+              eventType: eventTypeEngagement
      dimensionsInternal: @{
-                            @"eventType": @"Engagement",
                             @"contentId": contentId
                           }
          dimensionsUser: dimensions
@@ -1534,18 +1863,12 @@
 
 - (void) trackEvent: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions  metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
-    if ( !self._initialized ){
-        [YBLog warn:@"Event cannot be tracked since Product Analytics is uninitialized."];
-    } else if ( eventName.length == 0 ){
-        [YBLog warn:@"Event cannot be tracked since no eventName has been supplied."];
-    } else {
-
-        [YBLog notice:eventName];
-
-        [self fireEvent: eventName
-     dimensionsInternal: @{
-                            @"eventType": @"CustomEvent"
-                          }
+    if (eventName == nil || eventName.length == 0) {
+        [YBLog warn:@"Cannot track custom event since no eventName has been supplied."];
+    } else if ([self checkState: @"track custom event"]) {
+        [self fireEvent: [@"Custom " stringByAppendingString: eventName]
+              eventType: eventTypeCustom
+     dimensionsInternal: @{}
          dimensionsUser: dimensions
                 metrics: metrics];
     }
@@ -1564,15 +1887,23 @@
   * @private
   */
 
-- (Boolean) fireEvent: (nonnull NSString *) eventName dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+- (Boolean) fireEvent: (nonnull NSString *) eventName eventType: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
     
     NSDictionary <NSString *, NSDictionary <NSString *, NSString *> *> * dimensions;
-    Boolean fired = false;
+    Boolean fired;
 
-    dimensions = [self buildDimensions: dimensionsInternal
-                        dimensionsUser: dimensionsUser];
-    
-    if ( self._infinity ){
+    [YBLog notice: eventName];
+
+    if ( self._infinity == nil ){
+
+        [YBLog warn:@"Cannot fire %@ since infinity is unavailable.", eventName];
+        fired = false;
+
+    } else {
+
+        dimensions = [self buildDimensions: eventType
+                        dimensionsInternal: dimensionsInternal
+                            dimensionsUser: dimensionsUser];
 
         [self._infinity fireEvent: eventName
                        dimensions: dimensions[@"custom"]
@@ -1580,9 +1911,6 @@
                topLevelDimensions: dimensions[@"top"]];
 
         fired = true;
-
-    } else {
-        [YBLog warn:@"Cannot fire %@ since infinity is unavailable.", eventName];
     }
     
     return fired;
@@ -1600,11 +1928,19 @@
 - (Boolean)fireAdapterEvent:(nonnull NSString *)eventName dimensionsInternal: (nullable NSDictionary<NSString *,NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *,NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *,NSNumber *> *) metrics{
 
     NSDictionary <NSString *, NSDictionary <NSString *, NSString *> *> * dimensions;
-    Boolean fired = false;
+    Boolean fired;
     
-    if ( self._adapter ){
+    [YBLog notice: eventName];
+    
+    if ( self._adapter == nil ){
 
-        dimensions = [self buildDimensions: dimensionsInternal
+        [YBLog warn:@"Cannot fire %@ since adapter is unavailable.", eventName];
+        fired = false;
+        
+    } else {
+
+        dimensions = [self buildDimensions: eventTypeContentPlayback
+                        dimensionsInternal: dimensionsInternal
                             dimensionsUser: dimensionsUser];
 
         [self._adapter fireEventWithName: eventName
@@ -1613,8 +1949,6 @@
                       topLevelDimensions: dimensions[@"top"]];
 
         fired = true;
-    } else {
-        [YBLog warn:@"Cannot fire %@ since adapter is unavailable.", eventName];
     }
 
     return fired;
@@ -1627,10 +1961,11 @@
   * @private
   */
 
-- (NSDictionary <NSString *, NSDictionary <NSString *, NSString *> *> *)buildDimensions:(nullable NSDictionary<NSString *,NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *,NSString *> *) dimensionsUser{
+- (NSDictionary <NSString *, NSDictionary <NSString *, NSString *> *> *)buildDimensions: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *,NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *,NSString *> *) dimensionsUser{
     
     NSMutableDictionary <NSString *, NSString *> * dimensionsTopLevel;
     NSMutableDictionary <NSString *, NSString *> * dimensionsCustom;
+    NSString * eventTypeString;
     NSArray * topKeysDelete;
     NSArray * topKeys;
     
@@ -1645,12 +1980,50 @@
         [dimensionsCustom addEntriesFromDictionary: dimensionsUser];
     }
 
+    switch (eventType)
+    {
+        case eventTypeUserProfile:
+            eventTypeString = @"User Profile";
+            break;
+        case eventTypeUser:
+            eventTypeString = @"User";
+            break;
+        case eventTypeNavigation:
+            eventTypeString = @"Navigation";
+            break;
+        case eventTypeAttribution:
+            eventTypeString = @"Attribution";
+            break;
+        case eventTypeSection:
+            eventTypeString = @"Section";
+            break;
+        case eventTypeContentPlayback:
+            eventTypeString = @"Content Playback";
+            break;
+        case eventTypeSearch:
+            eventTypeString = @"Search";
+            break;
+        case eventTypeExternalApplication:
+            eventTypeString = @"External Application";
+            break;
+        case eventTypeEngagement:
+            eventTypeString = @"Engagement";
+            break;
+        case eventTypeCustom:
+            eventTypeString = @"Custom Event";
+            break;
+        default:
+            eventTypeString = @"Unknown";
+            break;
+    }
+    
     dimensionsCustom[@"eventSource"] = @"Product Analytics";
+    dimensionsCustom[@"eventType"] = [eventTypeString copy];
     
     // List of Top Level Dimensions
     
-    topKeys = @[@"contentid", @"contentId", @"contentID", @"utmSource", @"utmMedium", @"utmCampaign", @"utmTerm", @"utmContent", @"profileId", @"profile_id"];
-    topKeysDelete = @[@"contentid", @"contentId", @"contentID", @"profileId", @"profile_id"];
+    topKeys = @[@"contentid", @"contentId", @"contentID", @"utmSource", @"utmMedium", @"utmCampaign", @"utmTerm", @"utmContent", @"profileId", @"profile_id", @"username"];
+    topKeysDelete = @[@"contentid", @"contentId", @"contentID", @"profileId", @"profile_id", @"username"];
 
     // Create object with top level dimensions
     
@@ -1669,6 +2042,53 @@
     }
     
     return @{@"custom": dimensionsCustom, @"top": dimensionsTopLevel};
+}
+
+/**
+ * Check state before sending an event
+ */
+
+- (Boolean) checkState: (nonnull NSString *) message{
+    Boolean valid;
+
+    if ( !self._initialized ) {
+        valid = false;
+        [YBLog warn: [NSString stringWithFormat: @"Cannot %@ since Product Analytics is uninitialized.", message]];
+    } else if ( self._infinity == nil ){
+        valid = false;
+        [YBLog warn: [NSString stringWithFormat: @"Cannot %@ since infinity is unavailable.", message]];
+    } else if ( !self._infinity.flags.started ){
+        valid = false;
+        [YBLog warn: [NSString stringWithFormat: @"Cannot %@ since session is closed.", message]];
+    } else {
+        valid = true;
+    }
+
+    return valid;
+}
+
+/**
+ * Set userId
+ */
+
+- (void) setUserId: (NSString *) userId{
+    if ( self._options == nil ){
+        [YBLog warn: @"Cannot set userId since options are unavailable."];
+    } else {
+        [self._options setValue:userId forKey:@"username"];
+    }
+}
+
+/**
+ * Set profileId
+ */
+
+- (void) setProfileId: (NSString *) profileId{
+    if ( self._options == nil ){
+        [YBLog warn: @"Cannot set profileId since options are unavailable."];
+    } else {
+        [self._options setValue:profileId forKey:@"profileId"];
+    }
 }
 
 @end

@@ -1024,6 +1024,12 @@
     XCTAssertEqualObjects(YBConstantsRequest.username, [self.p getUsername]);
 }
 
+- (void)testProfileId {
+    XCTAssertNil([self.p getProfileId]);
+    stubProperty(self.mockOptions, profileId, YBConstantsRequest.profileId);
+    XCTAssertEqualObjects(YBConstantsRequest.profileId, [self.p getProfileId]);
+}
+
 - (void)testNodeHost {
     XCTAssertNil([self.p getIp]);
     [given([self.p.mockResourceTransform getNodeHost]) willReturn:YBConstantsRequest.nodeHost];

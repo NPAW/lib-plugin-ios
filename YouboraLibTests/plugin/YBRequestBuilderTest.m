@@ -37,7 +37,7 @@ static NSArray * ALL_PARAMS;
                        YBConstantsRequest.param7, YBConstantsRequest.param8, YBConstantsRequest.param9, YBConstantsRequest.param10, YBConstantsRequest.position, YBConstantsRequest.adPlayhead, YBConstantsRequest.adDuration,
                        YBConstantsRequest.adBitrate, YBConstantsRequest.adTitle, YBConstantsRequest.adResource, YBConstantsRequest.adPlayerVersion, YBConstantsRequest.adProperties,
                        YBConstantsRequest.adAdapterVersion, YBConstantsRequest.pluginInfo, YBConstantsRequest.isp, YBConstantsRequest.connectionType, YBConstantsRequest.ip, YBConstantsRequest.deviceCode,
-                       YBConstantsRequest.system, YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.preloadDuration, YBConstantsRequest.joinDuration,
+                       YBConstantsRequest.system, YBConstantsRequest.accountCode, YBConstantsRequest.username, YBConstantsRequest.profileId, YBConstantsRequest.preloadDuration, YBConstantsRequest.joinDuration,
                        YBConstantsRequest.bufferDuration, YBConstantsRequest.seekDuration, YBConstantsRequest.pauseDuration, YBConstantsRequest.adJoinDuration,
                        YBConstantsRequest.adBufferDuration, YBConstantsRequest.adPauseDuration, YBConstantsRequest.adTotalDuration, YBConstantsRequest.nodeHost, YBConstantsRequest.nodeType,
                        YBConstantsRequest.nodeTypeString, YBConstantsRequest.metrics, YBConstantsRequest.sessionMetrics, YBConstantsRequest.adCreativeId, YBConstantsRequest.adProvider, YBConstantsRequest.parentId, YBConstantsRequest.totalBytes, YBConstantsRequest.linkedViewId];
@@ -91,6 +91,7 @@ static NSArray * ALL_PARAMS;
     [given([self.mockPlugin getDeviceCode]) willReturn:@"af"];
     [given([self.mockPlugin getAccountCode]) willReturn:@"agah"];
     [given([self.mockPlugin getUsername]) willReturn:@"ai"];
+    [given([self.mockPlugin getProfileId]) willReturn:@"pid"];
     [given([self.mockPlugin getPreloadDuration]) willReturn:@11];
     [given([self.mockPlugin getJoinDuration]) willReturn:@12];
     [given([self.mockPlugin getBufferDuration]) willReturn:@13];
@@ -166,6 +167,7 @@ static NSArray * ALL_PARAMS;
     XCTAssertEqualObjects(@"agah", params[YBConstantsRequest.system]);
     XCTAssertEqualObjects(@"agah", params[YBConstantsRequest.accountCode]);
     XCTAssertEqualObjects(@"ai", params[YBConstantsRequest.username]);
+    XCTAssertEqualObjects(@"pid", params[YBConstantsRequest.profileId]);
     XCTAssertEqualObjects(@"11", params[YBConstantsRequest.preloadDuration]);
     XCTAssertEqualObjects(@"12", params[YBConstantsRequest.joinDuration]);
     XCTAssertEqualObjects(@"13", params[YBConstantsRequest.bufferDuration]);

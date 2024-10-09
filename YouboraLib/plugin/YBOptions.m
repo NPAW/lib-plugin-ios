@@ -26,6 +26,7 @@ NSString * const YBOPTIONS_KEY_HOST = @"host";
 NSString * const YBOPTIONS_KEY_ACCOUNT_CODE = @"config.accountCode";
 NSString * const YBOPTIONS_KEY_USERNAME = @"username";
 NSString * const YBOPTIONS_KEY_ANONYMOUS_USER = @"anonymousUser";
+NSString * const YBOPTIONS_KEY_PROFILE_ID = @"profileId";
 NSString * const YBOPTIONS_KEY_OFFLINE = @"offline";
 NSString * const YBOPTIONS_KEY_IS_INFINITY = @"isInfinity";
 NSString * const YBOPTIONS_KEY_BACKGROUND = @"autoDetectBackground";
@@ -179,6 +180,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
         self.username = [decoder decodeObjectForKey:YBOptionKeys.username];
         self.userType = [decoder decodeObjectForKey:YBOptionKeys.userType];
         self.userEmail = [decoder decodeObjectForKey:YBOptionKeys.userEmail];
+        self.profileId = [decoder decodeObjectForKey:YBOptionKeys.profileId];
         self.parseResource = [decoder decodeBoolForKey:YBOptionKeys.parseResource];
         self.parseResourceAuth = [decoder decodeObjectForKey:YBOptionKeys.parseResourceAuth];
 
@@ -331,6 +333,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [coder encodeObject:self.username forKey:YBOptionKeys.username];
     [coder encodeObject:self.userType forKey:YBOptionKeys.userType];
     [coder encodeObject:self.userEmail forKey:YBOptionKeys.userEmail];
+    [coder encodeObject:self.profileId forKey:YBOptionKeys.profileId];
     
     [coder encodeBool:self.parseResource forKey:YBOptionKeys.parseResource];
     [coder encodeObject:self.parseResourceAuth forKey:YBOptionKeys.parseResourceAuth];
@@ -479,6 +482,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     self.userEmail = nil;
     self.anonymousUser = nil;
     self.privacyProtocol = nil;
+    self.profileId = nil;
     
     self.parseResource = false;
     self.parseResourceAuth = nil;
@@ -642,6 +646,7 @@ NSString * const YBOPTIONS_AD_POSITION_POST = @"post";
     [dict setValue:self.username forKey:YBOptionKeys.username];
     [dict setValue:self.userType forKey:YBOptionKeys.userType];
     [dict setValue:self.userEmail forKey:YBOptionKeys.userEmail];
+    [dict setValue:self.profileId forKey:YBOptionKeys.profileId];
     
     [dict setValue:@(self.parseResource) forKey:YBOptionKeys.parseResource];
     [dict setValue:self.parseResourceAuth forKey:YBOptionKeys.parseResourceAuth];
