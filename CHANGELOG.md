@@ -1,3 +1,7 @@
+## [6.7.17] - 2024-10-14
+### Fixed
+- Product Analytics: fix bug on `trackPlayerEventsPending` by modifying `pendingVideoEvents` initialization and strenghtening checkings.
+
 ## [6.7.16] - 2024-10-09
 ### Added
 - [PROD-983] 

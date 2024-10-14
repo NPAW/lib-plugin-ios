@@ -297,7 +297,7 @@ typedef enum {
             }
         }];
 
-        self.pendingVideoEvents = [NSMutableArray array];
+        self.pendingVideoEvents = [[NSMutableArray alloc] init];
 
         if ( self._options == nil ){
             [YBLog warn: @"Options reference unset"];
@@ -1471,17 +1471,39 @@ typedef enum {
 
 -(void) trackPlayerEventsPending{
 
-    for (YBPendingVideoEvent *event in self.pendingVideoEvents) {
-        [self trackPlayerEvent: event.eventName
-                     contentId: event.contentId
-                    dimensions: event.dimensions
-                       metrics: event.metrics
-                    startEvent: event.startEvent];
+    NSMutableArray<YBPendingVideoEvent*> * eventList;
+    YBPendingVideoEvent * event;
+
+    if (self.pendingVideoEvents != nil && self.pendingVideoEvents.count > 0) {
+        // Create a copy of the pending event queue to avoid concurrency issues
+        
+        eventList = [[NSMutableArray alloc] initWithArray:self.pendingVideoEvents];;
+
+        while (eventList.count > 0){
+
+            event = eventList[0];
+
+            if ( event != nil ){
+
+                [self trackPlayerEvent: event.eventName
+                             contentId: event.contentId
+                            dimensions: event.dimensions
+                               metrics: event.metrics
+                            startEvent: event.startEvent];
+
+                [event destroy];
+            }
+
+            [eventList removeObjectAtIndex:0];
+        }
+        
+        eventList = nil;
+
+        // Release the original queue
+
+        [self releasePlayerEventsPending];
     }
-
-    [self releasePlayerEventsPending];
 }
-
 
 /**
  * Track player pending events
@@ -1489,7 +1511,9 @@ typedef enum {
 
 -(void) releasePlayerEventsPending{
     while (self.pendingVideoEvents.count > 0){
-        [self.pendingVideoEvents[0] destroy];
+        if ( self.pendingVideoEvents[0] != nil ){
+            [self.pendingVideoEvents[0] destroy];
+        }
         [self.pendingVideoEvents removeObjectAtIndex:0];
     }
 }
