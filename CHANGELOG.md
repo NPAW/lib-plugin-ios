@@ -1,3 +1,7 @@
+## [6.7.18] - 2024-11-14
+### Fixed
+- Json parsing in offline events to work on iOS 17 and 18.
+
 ## [6.7.17] - 2024-10-14
 ### Fixed
 - Product Analytics: fix bug on `trackPlayerEventsPending` by modifying `pendingVideoEvents` initialization and strenghtening checkings.

@@ -767,7 +767,6 @@
 				CD523769228DA2C30013BA16 /* YouboraLib OSXTests */,
 				4E5E11B11E7841C00097FA21 /* Products */,
 				4E8A63681EA8A31B008C6759 /* Frameworks */,
-				8F30DFC827590F6B95E7C22D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1072,13 +1071,6 @@
 				7A3BBBD4293771170077B64C /* YBCDNBalancerInfo.swift */,
 			);
 			name = monitor;
-			sourceTree = "<group>";
-		};
-		8F30DFC827590F6B95E7C22D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		CD414478200E2AD100783B65 /* queries */ = {
@@ -2030,7 +2022,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.7.17;
+				YOUBORALIB_VERSION_SETTING = 6.7.18;
 			};
 			name = Debug;
 		};
@@ -2085,7 +2077,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				YOUBORALIB_VERSION_SETTING = 6.7.17;
+				YOUBORALIB_VERSION_SETTING = 6.7.18;
 			};
 			name = Release;
 		};
@@ -2106,7 +2098,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 6.7.17;
+				MARKETING_VERSION = 6.7.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;
@@ -2132,7 +2124,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 6.7.17;
+				MARKETING_VERSION = 6.7.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.npaw.youbora.YouboraLib;
 				PRODUCT_NAME = YouboraLib;
 				SKIP_INSTALL = YES;

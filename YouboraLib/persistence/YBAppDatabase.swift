@@ -79,7 +79,7 @@ import SQLite3
             
             // preparing a query compiles the query so it can be re-used.
             if let createQuery = self.toUtf8(string: YBEventQueries.create),
-                let jsonEvents = self.toUtf8(string: jsonEvents) {
+                let jsonEvents = (jsonEvents as NSString).utf8String {
                 sqlite3_prepare_v2(database, createQuery, -1, &statement, nil)
                 
                 let SQLITE_STATIC = unsafeBitCast(0, to: sqlite3_destructor_type.self)
