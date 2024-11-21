@@ -307,8 +307,6 @@ import Foundation
             "iPhone4,1": "iPhone 4S",         //
             "iPhone5,1": "iPhone 5",          // (model A1428, AT&T/Canada)
             "iPhone5,2": "iPhone 5",          // (model A1429, everything else)
-            "iPad3,4": "iPad",              // (4th Generation)
-            "iPad2,5": "iPad Mini",         // (Original)
             "iPhone5,3": "iPhone 5c",         // (model A1456, A1532 | GSM)
             "iPhone5,4": "iPhone 5c",         // (model A1507, A1516, A1526 (China), A1529 | Global)
             "iPhone6,1": "iPhone 5s",         // (model A1433, A1533 | GSM)
@@ -353,6 +351,13 @@ import Foundation
             "iPhone15,5": "iPhone 15 Plus",
             "iPhone16,1": "iPhone 15 Pro",
             "iPhone16,2": "iPhone 15 Pro Max",
+            "iPhone17,1": "iPhone 16 Pro",
+            "iPhone17,2": "iPhone 16 Pro Max",
+            "iPhone17,3": "iPhone 16",
+            "iPhone17,4": "iPhone 16 Plus",
+            
+            "iPad2,5": "iPad Mini",         // (Original)
+            "iPad3,4": "iPad",              // (4th Generation)
             "iPad4,1": "iPad Air",          // 5th Generation iPad (iPad Air) - Wifi
             "iPad4,2": "iPad Air",          // 5th Generation iPad (iPad Air) - Cellular
             "iPad4,4": "iPad Mini",         // (2nd Generation iPad Mini - Wifi)
@@ -404,14 +409,25 @@ import Foundation
             "iPad13,11": "iPad Pro (12.9\") 5th Gen", // iPad Pro 12.9 inches - Cellular
             "iPad13,16": "iPad Air 5th Gen", // 5th Generation iPad Air - Wifi
             "iPad13,17": "iPad Air 5th Gen", // 5th Generation iPad Air - Cellular
-            "iPad13,18": "iPad 10th Gen", // 9th Generation iPad - Wifi
-            "iPad13,19": "iPad 10th Gen", // 9th Generation iPad - Cellular
+            "iPad13,18": "iPad 10th Gen", // 10th Generation iPad - Wifi
+            "iPad13,19": "iPad 10th Gen", // 10th Generation iPad - Cellular
             "iPad14,1": "iPad Mini 6th Gen", // 6th Generation iPad Mini - Wifi
             "iPad14,2": "iPad Mini 6th Gen", // 6th Generation iPad Mini - Cellular
             "iPad14,3": "iPad Pro (11\") 4th Gen", // 4th Generation iPad Pro 11 inches - Wifi
             "iPad14,4": "iPad Pro (11\") 4th Gen", // 4th Generation iPad Pro 11 inches - Cellular
             "iPad14,5": "iPad Pro (12.9\") 6th Gen", // 6th Generation iPad Pro 12.9 inches - Wifi
             "iPad14,6": "iPad Pro (12.9\") 6th Gen", // 6th Generation iPad Pro 12.9 inches - Cellular
+            "iPad14,8": "iPad Air 6th Gen",
+            "iPad14,9": "iPad Air 6th Gen",
+            "iPad14,10": "iPad Air 7th Gen",
+            "iPad14,11": "iPad Air 7th Gen",
+            "iPad16,1": "iPad Mini 7th Gen",
+            "iPad16,2": "iPad Mini 7th Gen",
+            "iPad16,3": "iPad Pro (11\") 5th Gen",
+            "iPad16,4": "iPad Pro (11\") 5th Gen",
+            "iPad16,5": "iPad Pro (12.9\") 7th Gen",
+            "iPad16,6": "iPad Pro (12.9\") 7th Gen",
+            
             "AppleTV1,1": "Apple TV", // AppleTV
             "AppleTV2,1": "Apple TV 2G", // 2nd Generation AppleTV
             "AppleTV3,1": "Apple TV 3G", // 3rd Generation AppleTV
