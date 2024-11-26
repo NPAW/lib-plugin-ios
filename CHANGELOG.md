@@ -1,3 +1,7 @@
+## [6.7.19] - 2024-11-21
+### Added
+- New iPhone and iPad device models
+
 ## [6.7.18] - 2024-11-14
 ### Fixed
 - Json parsing in offline events to work on iOS 17 and 18.
