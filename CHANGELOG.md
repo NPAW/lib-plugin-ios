@@ -1,6 +1,9 @@
-## [6.7.19] - 2024-11-21
+## [6.7.19] - 2024-11-26
 ### Added
 - New iPhone and iPad device models
+### Fixed
+- [PROD-1050] Product Analytics: fix concurrency issues on `pendingVideoEvents` by accessing the array only within synchronized blocks.
+- Product Analytics: fix bug on `contentFocusIn` metrics check. 
 
 ## [6.7.18] - 2024-11-14
 ### Fixed
