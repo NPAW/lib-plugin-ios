@@ -176,7 +176,7 @@
 // ---------------------------------------------------------------------------------------------
 
 
-@interface YBPendingVideoEvent : NSObject
+@interface YBPendingVideoEvent : NSObject<NSCopying>
 
 @property (nonatomic, copy) NSString * eventName;
 @property (nonatomic, copy) NSString * contentId;
@@ -210,6 +210,20 @@
     _dimensions = nil;
     _metrics    = nil;
     _startEvent = false;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    YBPendingVideoEvent *copy = [[[self class] allocWithZone:zone] init];
+
+    if (copy) {
+        copy.eventName = [self.eventName copy];
+        copy.contentId = [self.contentId copy];
+        copy.dimensions = [self.dimensions copy];
+        copy.metrics = [self.metrics copy];
+        copy.startEvent = self.startEvent;
+    }
+    
+    return copy;
 }
 
 @end
@@ -251,6 +265,8 @@ typedef enum {
 - (void) trackPlayerEventsPending;
 
 - (void) trackPlayerEvent: (nonnull NSString *) eventName contentId: (nullable NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics startEvent: (Boolean) startEvent;
+
+- (void) addPlayerEventPending: (nonnull NSString *) eventName contentId: (nullable NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics startEvent: (Boolean) startEvent;
 
 - (void) releasePlayerEventsPending;
 
@@ -1199,7 +1215,7 @@ typedef enum {
             [contentHighlighted setObject: dimensions forKey: @"dimensions"];
         }
 
-        if ( dimensions != nil ){
+        if ( metrics != nil ){
             [contentHighlighted setObject: metrics forKey: @"metrics"];
         }
 
@@ -1344,7 +1360,6 @@ typedef enum {
 - (void) trackPlay: (nonnull NSString *) contentId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
     NSString * eventName = @"Content Play";
     Boolean startEvent = false;
-    YBPendingVideoEvent * event;
 
     if (contentId == nil || contentId.length == 0) {
         [YBLog warn:@"Cannot track play since no contentId has been supplied."];
@@ -1367,16 +1382,9 @@ typedef enum {
                            metrics: metrics
                         startEvent: startEvent];
         } else {
-            // Start event not sent yet...
+            // Start event not sent yet: add event to the pending queue
             
-            // ... add event to the pending queue
-
-            event = [[YBPendingVideoEvent alloc] initWithEventName: eventName
-                                                         contentId: contentId
-                                                        dimensions: dimensions
-                                                           metrics: metrics
-                                                        startEvent: startEvent];
-            [self.pendingVideoEvents addObject: event];
+            [self addPlayerEventPending:eventName contentId:contentId dimensions:dimensions metrics:metrics startEvent:startEvent];
         }
 
     }
@@ -1425,7 +1433,6 @@ typedef enum {
 - (void) trackPlayerInteraction: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics startEvent: (Boolean) startEvent{
     NSString * eventNameFull;
     NSString * contentId = nil;
-    YBPendingVideoEvent * event;
 
     if (eventName == nil || eventName.length == 0) {
         [YBLog warn:@"Cannot track player interaction since no interaction name has been supplied."];
@@ -1451,17 +1458,29 @@ typedef enum {
                         startEvent: startEvent];
 
         } else {
-            // Start event not sent yet...
+            // Start event not sent yet: add event to the pending queue
             
-            // ... add event to the pending queue
-
-            event = [[YBPendingVideoEvent alloc] initWithEventName: eventNameFull
-                                                         contentId: contentId
-                                                        dimensions: dimensions
-                                                           metrics: metrics
-                                                        startEvent: startEvent];
-            [self.pendingVideoEvents addObject: event];
+            [self addPlayerEventPending:eventNameFull contentId:contentId dimensions:dimensions metrics:metrics startEvent:startEvent];
         }
+    }
+}
+
+/**
+ * Add event to the pending event list
+ */
+
+- (void)addPlayerEventPending:(nonnull NSString *)eventName
+                    contentId:(nullable NSString *)contentId
+                   dimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions
+                      metrics:(nullable NSDictionary<NSString *, NSNumber *> *)metrics
+                   startEvent:(Boolean)startEvent {
+    @synchronized (self.pendingVideoEvents) {
+        YBPendingVideoEvent *event = [[YBPendingVideoEvent alloc] initWithEventName:eventName
+                                                                          contentId:contentId
+                                                                         dimensions:dimensions
+                                                                            metrics:metrics
+                                                                         startEvent:startEvent];
+        [self.pendingVideoEvents addObject:event];
     }
 }
 
@@ -1469,39 +1488,41 @@ typedef enum {
  * Track player pending events
  */
 
--(void) trackPlayerEventsPending{
+-(void) trackPlayerEventsPending {
+    NSMutableArray<YBPendingVideoEvent *> *eventList = [[NSMutableArray alloc] init];
 
-    NSMutableArray<YBPendingVideoEvent*> * eventList;
-    YBPendingVideoEvent * event;
+    // Synchronize and create a local copy of the event queue
 
-    if (self.pendingVideoEvents != nil && self.pendingVideoEvents.count > 0) {
-        // Create a copy of the pending event queue to avoid concurrency issues
-        
-        eventList = [[NSMutableArray alloc] initWithArray:self.pendingVideoEvents];;
+    @synchronized (self.pendingVideoEvents) {
 
-        while (eventList.count > 0){
+        if (self.pendingVideoEvents != nil && self.pendingVideoEvents.count > 0) {
 
-            event = eventList[0];
-
-            if ( event != nil ){
-
-                [self trackPlayerEvent: event.eventName
-                             contentId: event.contentId
-                            dimensions: event.dimensions
-                               metrics: event.metrics
-                            startEvent: event.startEvent];
-
-                [event destroy];
+            // Create a local copy of the event list to prevent concurrency issues
+            
+            for (YBPendingVideoEvent *event in self.pendingVideoEvents) {
+                YBPendingVideoEvent *eventCopy = [event copy];
+                [eventList addObject:eventCopy];
             }
 
-            [eventList removeObjectAtIndex:0];
+            // Release the source event list
+            
+            [self releasePlayerEventsPending];
         }
-        
-        eventList = nil;
+    }
 
-        // Release the original queue
+    // Process the local copy safely
 
-        [self releasePlayerEventsPending];
+    for (YBPendingVideoEvent *event in eventList) {
+        if (event && event.eventName ) {
+            [self trackPlayerEvent:event.eventName
+                         contentId:event.contentId
+                        dimensions:event.dimensions
+                           metrics:event.metrics
+                        startEvent:event.startEvent];
+        } else {
+            [YBLog warn:@"Skipping invalid or incomplete event."];
+        }
+        [event destroy];
     }
 }
 
@@ -1510,11 +1531,11 @@ typedef enum {
  */
 
 -(void) releasePlayerEventsPending{
-    while (self.pendingVideoEvents.count > 0){
-        if ( self.pendingVideoEvents[0] != nil ){
-            [self.pendingVideoEvents[0] destroy];
+    @synchronized (self.pendingVideoEvents) {
+        for (YBPendingVideoEvent *event in self.pendingVideoEvents) {
+            [event destroy];
         }
-        [self.pendingVideoEvents removeObjectAtIndex:0];
+        [self.pendingVideoEvents removeAllObjects];
     }
 }
 

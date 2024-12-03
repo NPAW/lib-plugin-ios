@@ -1,73 +1,85 @@
-## [6.7.19] - 2024-11-21
+## [6.7.19] - 2024-12-03
 ### Added
-- New iPhone and iPad device models
+- New iPhone and iPad device models.
+
+### Fixed
+- Product Analytics:
+    - Resolved concurrency issues with `pendingVideoEvents` by ensuring array access occurs only within synchronized blocks.
+    - Fixed `contentFocusIn` metrics check.
 
 ## [6.7.18] - 2024-11-14
 ### Fixed
-- Json parsing in offline events to work on iOS 17 and 18.
+- Adjusted JSON parsing for offline events to function properly on iOS 17 and 18.
 
 ## [6.7.17] - 2024-10-14
 ### Fixed
-- Product Analytics: fix bug on `trackPlayerEventsPending` by modifying `pendingVideoEvents` initialization and strenghtening checkings.
+- Product Analytics:
+    - Fixed a bug in `trackPlayerEventsPending` by updating `pendingVideoEvents` initialization and implementing more robust validations.
 
 ## [6.7.16] - 2024-10-09
 ### Added
-- [PROD-983] 
-  - Product Analytics: added `loginSuccessful`, `loginUnsuccessful` and `logout` methods. Also added `userProfileCreated`, `userProfileSelected` and `userProfileDeleted`.
-  - `profileId` is sent on `infinity/session/start`, `infinity/session/nav`, `/data`, `/init`, `/start` and `/error` events (the same events where `username` is included).
+- Product Analytics:
+    - Added `loginSuccessful`, `loginUnsuccessful` and `logout` methods. Also added `userProfileCreated`, `userProfileSelected` and `userProfileDeleted`.
+    - `profileId` is sent on `infinity/session/start`, `infinity/session/nav`, `/data`, `/init`, `/start` and `/error` events (the same events where `username` is included).
 
 ### Modified
-- Product Analytics: `trackNavByName` no longer starts a session or sends a `session/nav` event.
-- Product Analytics: `initialize` starts a session.
-- Product Analytics: tracking methods fail when called within a closed session.
-- Plugin: product analytics object is no longer destroyed after closing the session.
+- Product Analytics:
+    - `trackNavByName` no longer starts a session or sends a `session/nav` event.
+    - `initialize` method starts a session.
+    - Tracking methods fail when invoked within a closed session.
+- Analytics object is no longer destroyed after closing the session.
 
 ## [6.7.15] - 2024-07-26
 ### Fixed
-- Fix bug on sendStop by resetting `adNumber` and `breakNumber`.
+- Resolved issues in `sendStop` by resetting `adNumber` and `breakNumber`.
 
 ## [6.7.14] - 2024-07-16
 ### Modified
-- [PROD-922] Product Analytics: rename `trackNavigation` as `trackNavByName`.
-- [PROD-930] Product Analytics: add `section` and `sectionOrder` arguments to `trackSearchClick`.
-- [PROD-936] Product Analytics: user state is `passive` on video start.
+- Product Analytics:
+    - Renamed `trackNavigation` to `trackNavByName`.
+    - Added `section` and `sectionOrder` arguments to `trackSearchClick`.
+    - User state to `passive` on video start.
 
 ## [6.7.13] - 2024-06-24
 ### Fixed
-- `PrivacyInfo.xcprivacy` file.
+- Addressed issues in `PrivacyInfo.xcprivacy` file.
 
 ## [6.7.12] - 2024-06-04
 ### Fixed
-- Various memory leak issues.
+- Fixed various memory leaks.
 
 ## [6.7.11] - 2024-05-24
 ### Fixed
-- `PrivacyInfo.xcprivacy` file with Apple's feedback.
+- Adjustments to `PrivacyInfo.xcprivacy` file based on Apple's feedback.
 
 ## [6.7.10] - 2024-05-09
 ### Added
-- [PROD-899] Product Analytics: add setUserProfile method to allow collecting profile identifiers.
+- Product Analytics:
+    - Introduced `setUserProfile` method for collecting profile identifiers.
+
 ### Fixed
-- Product Analytics: fix build issues on tvOS and osX platforms. 
+- Product Analytics:
+    - Resolved build issues on tvOS and macOS platforms.
 
 ## [6.7.9] - 2024-05-06
 ### Fixed
-- Fix deployment issues.
+- Fixed deployment issues.
 
 ## [6.7.8] - 2024-05-02
 ### Added
 - Initial release of Product Analytics suite.
-- `PrivacyInfo.xcprivacy` file requested by Apple.
+- Included `PrivacyInfo.xcprivacy` file as required by Apple.
+
 ### Updated
-- Custom player events report play head.
+- Custom player events report playhead.
 
 ## [6.7.7] - 2023-11-09
 ### Updated
-- Add support for 2023 iPhone models (iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max)
+- Added support for 2023 iPhone models, including iPhone 15, 15 Plus, 15 Pro, and 15 Pro Max.
 
 ## [6.7.6] - 2023-10-05
 ### Updated
-- Add timeout to the parseRequest cycle to make sure to not get into an infinite loop.
+- Introduced timeout to the `parseRequest` cycle to avoid infinite loops.
 
 ## [6.7.5] - 2023-08-14
 ### Updated
@@ -90,7 +102,7 @@
 ## [6.7.1] - 2022-12-19
 ### Added
 - Missing content custom dimensions on ping event
-f
+
 ## [6.7.0] - 2022-12-14
 ### Added
 - Support for NPAW's CDN balancer, active switching and P2P client analytics reporting: `cdnBalancerResponseUUID`, `segmentDuration`, global CDN and P2P data, and specific CDN use stats
