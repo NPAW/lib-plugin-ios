@@ -212,12 +212,17 @@
     _startEvent = false;
 }
 
-- (nonnull id)copyWithZone:(nullable NSZone *)zone {
-    YBPendingVideoEvent *copy = [[YBPendingVideoEvent allocWithZone:zone] initWithEventName:self.eventName
-                                                                                 contentId:self.contentId
-                                                                                dimensions:self.dimensions
-                                                                                   metrics:self.metrics
-                                                                                startEvent:self.startEvent];
+- (id)copyWithZone:(NSZone *)zone {
+    YBPendingVideoEvent *copy = [[[self class] allocWithZone:zone] init];
+
+    if (copy) {
+        copy.eventName = [self.eventName copy];
+        copy.contentId = [self.contentId copy];
+        copy.dimensions = [self.dimensions copy];
+        copy.metrics = [self.metrics copy];
+        copy.startEvent = self.startEvent;
+    }
+    
     return copy;
 }
 
