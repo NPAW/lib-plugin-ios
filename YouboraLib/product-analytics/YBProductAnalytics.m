@@ -966,12 +966,13 @@ typedef enum {
         
         self._screenName = [screenName copy];
         
-        [self fireEvent: [@"Navigation " stringByAppendingString: self._screenName]
+        [self fireEvent: @"Navigation"
               eventType: eventTypeNavigation
      dimensionsInternal: @{
-                            @"route":       @"",
-                            @"routeDomain": @"",
-                            @"fullRoute":   @""
+                            @"paRoute":       @"",
+                            @"paRouteDomain": @"",
+                            @"paFullRoute":   @"",
+                            @"paReferrer":    @""
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -1036,7 +1037,7 @@ typedef enum {
         [YBLog warn: @"Cannot track attribution since no arguments have been supplied."];
     } else if ([self checkState: @"track attribution"]) {
 
-        parameters[@"url"] = @"";
+        parameters[@"utmUrl"] = @"";
 
         [self fireEvent: @"Attribution"
               eventType: eventTypeAttribution
@@ -1778,7 +1779,7 @@ typedef enum {
         [self fireEvent: @"External Application Launch"
               eventType: eventTypeExternalApplication
      dimensionsInternal: @{
-                            @"appName": appName
+                            @"paExtAppName": appName
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -1819,7 +1820,7 @@ typedef enum {
         [self fireEvent: @"External Application Exit"
               eventType: eventTypeExternalApplication
      dimensionsInternal: @{
-                            @"appName": appName
+                            @"paExtAppName": appName
                           }
          dimensionsUser: dimensions
                 metrics: metrics];
@@ -2011,11 +2012,10 @@ typedef enum {
     NSMutableDictionary <NSString *, NSString *> * dimensionsTopLevel;
     NSMutableDictionary <NSString *, NSString *> * dimensionsCustom;
     NSString * eventTypeString;
-    NSArray * topKeysDelete;
-    NSArray * topKeys;
-    
+    NSArray * dimensionsTopLevelKeys;
+
     dimensionsCustom = [NSMutableDictionary dictionary];
-    dimensionsCustom[@"page"] = self._screenName;
+    dimensionsCustom[@"paPage"] = self._screenName;
     
     if ( dimensionsInternal != nil ){
         [dimensionsCustom addEntriesFromDictionary: dimensionsInternal];
@@ -2067,22 +2067,21 @@ typedef enum {
     
     // List of Top Level Dimensions
     
-    topKeys = @[@"contentid", @"contentId", @"contentID", @"utmSource", @"utmMedium", @"utmCampaign", @"utmTerm", @"utmContent", @"profileId", @"profile_id", @"username"];
-    topKeysDelete = @[@"contentid", @"contentId", @"contentID", @"profileId", @"profile_id", @"username"];
+    dimensionsTopLevelKeys = @[@"contentid", @"contentId", @"contentID", @"utmSource", @"utmMedium", @"utmCampaign", @"utmTerm", @"utmContent", @"profileId", @"profile_id", @"username"];
 
     // Create object with top level dimensions
     
     dimensionsTopLevel = [NSMutableDictionary dictionary];
     
     for (NSString * key in dimensionsCustom){
-        if ( [topKeys containsObject: key] ){
+        if ( [dimensionsTopLevelKeys containsObject: key] ){
             dimensionsTopLevel[key] = dimensionsCustom[key];
         }
     }
     
     // Remove top level dimensions from custom dimensions list
     
-    for (NSString * key in topKeysDelete){
+    for (NSString * key in dimensionsTopLevelKeys){
         [dimensionsCustom removeObjectForKey: key];
     }
     

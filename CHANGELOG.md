@@ -1,3 +1,16 @@
+## [6.7.20] - 2025-03-11
+### Added
+- Product Analytics:
+  - Add `paReferrer` dimension to navigation events.
+### Modified
+- Product Analytics:
+  - Rename `page` dimension as `paPage`.
+  - Event name `Navigation {pageName}` is renamed as `Navigation`.
+  - Navigation dimensions `route`, `routeDomain` and `fullRoute` are renamed as `paRoute`, `paRouteDomain` and `paFullRoute`.
+  - Attribution dimension `url` is renamed as `utmUrl`.
+  - Attribution UTM dimensions are sent only as TLD.
+  - External application dimension `appName` is renamed as `paExtAppName`.
+
 ## [6.7.19] - 2024-12-03
 ### Added
 - New iPhone and iPad device models.
