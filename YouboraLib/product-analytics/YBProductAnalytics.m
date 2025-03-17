@@ -966,7 +966,7 @@ typedef enum {
         
         self._screenName = [screenName copy];
         
-        [self fireEvent: @"Navigation"
+        [self fireEvent: @"paNavigation"
               eventType: eventTypeNavigation
      dimensionsInternal: @{
                             @"paRoute":       @"",

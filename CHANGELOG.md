@@ -1,3 +1,8 @@
+## [6.7.21] - 2025-03-17
+### Modified
+- Product Analytics:
+  - Event name `Navigation` is renamed as `paNavigation`.
+
 ## [6.7.20] - 2025-03-11
 ### Added
 - Product Analytics:
