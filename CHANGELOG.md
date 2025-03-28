@@ -1,3 +1,7 @@
+## [6.7.22] - 2025-28-03
+### Fixed
+- Tracking of offline plays by using microsecond precision for `viewCode` timestamps to prevent duplication.
+
 ## [6.7.21] - 2025-03-17
 ### Modified
 - Product Analytics:
