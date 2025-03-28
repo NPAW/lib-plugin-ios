@@ -103,8 +103,24 @@
     }
     
     if (!isInfinityRequest && params[@"code"] == nil) {
-        if([self compareRequestService: request.service andService: YBConstantsYouboraService.offline]) {
+        if ([self compareRequestService: request.service andService: YBConstantsYouboraService.offline]) {
             [self nextView];
+            NSArray<NSString *> *parts = [self.viewCode componentsSeparatedByString:@"_"];
+            if (parts.count > 0) {
+                NSString *lastChunk = [parts lastObject];
+                
+                // Get new timestamp
+                lastChunk = [self getOfflineViewCodeTimeStamp];
+                
+                // Replace the final element
+                NSMutableArray *rebuild = [parts mutableCopy];
+                NSString *bumped = [NSString stringWithFormat:@"%@", lastChunk];
+                [rebuild removeLastObject];
+                [rebuild addObject:bumped];
+                
+                // Reassemble
+                self.viewCode = [rebuild componentsJoinedByString:@"_"];
+            }
         }
         params[@"code"] = self.viewCode;
     }
@@ -261,6 +277,10 @@
 
 - (NSString *) getViewCodeTimeStamp {
     return [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils unixTimeNow]];
+}
+
+- (NSString *) getOfflineViewCodeTimeStamp {
+    return [NSString stringWithFormat:@"%.0lf",[YBYouboraUtils microsTimeNow]];
 }
 
 - (YBRequest *) createRequestWithHost:(NSString *) host andService:(NSString *) service {
