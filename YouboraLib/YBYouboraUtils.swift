@@ -204,6 +204,17 @@ import Foundation
 
         return round(nowEpochSeconds * 1000)
     }
+    
+    /**
+     * Returns current timestamp in microseconds
+     * @return long timestamp
+     */
+    static public func microsTimeNow() -> Double {
+        let now = Date()
+        let nowEpochSeconds = now.timeIntervalSince1970
+
+        return round(nowEpochSeconds * 1000000)
+    }
 
     /**
      * Returns display application name
