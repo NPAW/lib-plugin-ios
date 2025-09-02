@@ -272,6 +272,8 @@ typedef enum {
 
 - (Boolean) fireEvent: (nonnull NSString *) eventName eventType: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
 
+- (Boolean) fireEvent: (nonnull NSString *) eventName eventType: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics hasEndDatetime: (Boolean) hasEndDatetime;
+
 - (Boolean)fireAdapterEvent:(nonnull NSString *)eventName dimensionsInternal: (nullable NSDictionary<NSString *,NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *,NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *,NSNumber *> *) metrics;
 
 - (NSDictionary <NSString *, NSDictionary <NSString *, NSString *> *> * _Nonnull)buildDimensions: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *,NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *,NSString *> *) dimensionsUser;
@@ -975,7 +977,8 @@ typedef enum {
                             @"paReferrer":    @""
                           }
          dimensionsUser: dimensions
-                metrics: metrics];
+                metrics: metrics
+         hasEndDatetime: true];
     }
 }
 
@@ -1908,6 +1911,18 @@ typedef enum {
   */
 
 - (void) trackEvent: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions  metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+    [self trackEvent:eventName dimensions:dimensions metrics:metrics hasEndDatetime: false];
+}
+
+/**
+  * Track custom event
+  * @param eventName Name of the event to track
+  * @param dimensions Dimensions to track
+  * @param metrics Metrics to track
+  * @param hasEndDatetime Flag telling whether the `hasEndDatetime` parameter must be added to the request or not.
+  */
+
+- (void) trackEvent: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions  metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics hasEndDatetime: (Boolean) hasEndDatetime{
 
     if (eventName == nil || eventName.length == 0) {
         [YBLog warn:@"Cannot track custom event since no eventName has been supplied."];
@@ -1916,7 +1931,8 @@ typedef enum {
               eventType: eventTypeCustom
      dimensionsInternal: @{}
          dimensionsUser: dimensions
-                metrics: metrics];
+                metrics: metrics
+         hasEndDatetime: hasEndDatetime];
     }
 }
 
@@ -1934,7 +1950,25 @@ typedef enum {
   */
 
 - (Boolean) fireEvent: (nonnull NSString *) eventName eventType: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
-    
+    return [self fireEvent: eventName
+                 eventType: eventType
+        dimensionsInternal: dimensionsInternal
+            dimensionsUser: dimensionsUser
+                   metrics: metrics
+            hasEndDatetime: false];
+}
+
+
+/**
+  * Fires an event
+  * @param eventName Name of the event to be fired
+  * @param dimensionsInternal Dimensions supplied by user
+  * @param dimensionsUser Specific event dimensions
+  * @param metrics Metrics to track
+  * @private
+  */
+
+- (Boolean) fireEvent: (nonnull NSString *) eventName eventType: (EventTypes) eventType dimensionsInternal: (nullable NSDictionary<NSString *, NSString *> *) dimensionsInternal dimensionsUser: (nullable NSDictionary<NSString *, NSString *> *) dimensionsUser metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics hasEndDatetime: (Boolean) hasEndDatetime{
     NSDictionary <NSString *, NSDictionary <NSString *, NSString *> *> * dimensions;
     Boolean fired;
 
@@ -1954,7 +1988,8 @@ typedef enum {
         [self._infinity fireEvent: eventName
                        dimensions: dimensions[@"custom"]
                            values: metrics
-               topLevelDimensions: dimensions[@"top"]];
+               topLevelDimensions: dimensions[@"top"]
+                   hasEndDatetime: hasEndDatetime];
 
         fired = true;
     }

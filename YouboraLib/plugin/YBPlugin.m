@@ -3728,13 +3728,17 @@
     [self sendSessionNav:params];
 }
 
-- (void)youboraInfinityEventEventWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values andEventName:(NSString *)eventName andTopLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions {
+- (void)youboraInfinityEventEventWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values andEventName:(NSString *)eventName andTopLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions andHasEndDatetime:(Boolean)hasEndDatetime {
     
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params addEntriesFromDictionary:topLevelDimensions];
     params[@"dimensions"] = [YBYouboraUtils stringifyDictionary:dimensions];
     params[@"values"] = [YBYouboraUtils stringifyDictionary:values];
     params[@"name"] = eventName;
+
+    if (hasEndDatetime) {
+        params[@"hasEndDatetime"] = @"true";
+    }
     
     [self sendSessionEvent:params];
 }

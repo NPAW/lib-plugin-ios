@@ -32,6 +32,8 @@
 
 - (void) fireEvent: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions values: (nullable NSDictionary<NSString *, NSNumber *> *) values topLevelDimensions:(nullable NSDictionary<NSString *,NSString *> *)topLevelDimensions;
 
+- (void) fireEvent: (nonnull NSString *) eventName dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions values: (nullable NSDictionary<NSString *, NSNumber *> *) values topLevelDimensions:(nullable NSDictionary<NSString *,NSString *> *)topLevelDimensions hasEndDatetime:(Boolean) hasEndDatetime;
+
 - (void) end;
 
 - (void) end:(nullable NSDictionary<NSString *, NSString *> *)params;
@@ -53,7 +55,7 @@
 
 - (void) youboraInfinityEventNavWithScreenName:(nullable NSString *)screenName;
 
-- (void) youboraInfinityEventEventWithDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *)values andEventName:(nullable NSString *)eventName andTopLevelDimensions:(nullable NSDictionary<NSString *, NSString *> *)topLevelDimensions;
+- (void) youboraInfinityEventEventWithDimensions:(nullable NSDictionary<NSString *, NSString *> *)dimensions values:(nullable NSDictionary<NSString *, NSNumber *> *)values andEventName:(nullable NSString *)eventName andTopLevelDimensions:(nullable NSDictionary<NSString *, NSString *> *)topLevelDimensions andHasEndDatetime:(Boolean) hasEndDatetime;
 
 - (void) youboraInfinityEventSessionStop:(nullable NSDictionary<NSString *, NSString *> *)params;
 
