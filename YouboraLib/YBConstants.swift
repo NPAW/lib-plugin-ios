@@ -273,6 +273,8 @@ import Foundation
     static public let sessionBeat = "/infinity/session/beat"
     /** /infinity/video/event service **/
     static public let videoEvent = "/infinity/video/event"
+    /** /infinity/video/event/stop service **/
+    static public let videoEventEnd = "/infinity/video/event/stop"
 }
 
 // Infinity service YBConstants

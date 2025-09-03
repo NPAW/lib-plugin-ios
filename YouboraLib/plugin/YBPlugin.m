@@ -76,6 +76,7 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendPingListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendCdnPingListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendVideoEventListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendVideoEventEndListeners;
 
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdInitListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendAdStartListeners;
@@ -2270,6 +2271,12 @@
     [self.willSendVideoEventListeners addObject:listener];
 }
 
+- (void) addWillSendVideoEventEndListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendVideoEventEndListeners == nil)
+        self.willSendVideoEventEndListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendVideoEventEndListeners addObject:listener];
+}
+
 /**
  * Adds a ad error listener
  * @param listener to add
@@ -2515,6 +2522,11 @@
 - (void) removeWillSendVideoEventListener:(YBWillSendRequestBlock) listener {
     if (self.willSendVideoEventListeners != nil)
         [self.willSendVideoEventListeners removeObject:listener];
+}
+
+- (void) removeWillSendVideoEventEndListener:(YBWillSendRequestBlock) listener {
+    if (self.willSendVideoEventEndListeners != nil)
+        [self.willSendVideoEventEndListeners removeObject:listener];
 }
 
 - (void) removeOnWillSendSessionStart:(YBWillSendRequestBlock) listener {
@@ -2960,6 +2972,19 @@
     [self sendVideoEvent:params2];
 }
 
+- (void) videoEventEndListener:(NSDictionary<NSString *, NSString*> *) params {
+    NSMutableDictionary<NSString *, NSString *> *params2 = [params mutableCopy];
+    if (params2[@"dimensions"] != nil && [params2[@"dimensions"] isKindOfClass:[NSDictionary class]]) {
+        params2[@"dimensions"] = [YBYouboraUtils stringifyDictionary:(NSDictionary *)params2[@"dimensions"]];
+    }
+    if (params2[@"values"] && [params2[@"values"] isKindOfClass:[NSDictionary class]]) {
+        params2[@"values"] = [YBYouboraUtils stringifyDictionary:(NSDictionary *)params2[@"values"]];
+    }
+    
+    
+    [self sendVideoEventEnd:params2];
+}
+
 - (void) stopListener:(NSDictionary<NSString *, NSString *> *) params {
     if (self.adsAdapter != nil && self.adsAdapter.flags.adBreakStarted) {
         [self.adsAdapter fireStop];
@@ -3234,6 +3259,12 @@
     NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraInfinity.videoEvent];
     [self sendWithCallbacks:self.willSendVideoEventListeners service:YBConstantsYouboraInfinity.videoEvent andParams:mutParams];
     [YBLog notice:@"%@", YBConstantsYouboraInfinity.videoEvent];
+}
+
+- (void) sendVideoEventEnd:(NSDictionary<NSString *, NSString*> *) params {
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService:YBConstantsYouboraInfinity.videoEventEnd];
+    [self sendWithCallbacks:self.willSendVideoEventEndListeners service:YBConstantsYouboraInfinity.videoEventEnd andParams:mutParams];
+    [YBLog notice:@"%@", YBConstantsYouboraInfinity.videoEventEnd];
 }
 
 - (void) sendStop:(NSDictionary<NSString *, NSString *> *) params {
@@ -3603,6 +3634,10 @@
 
 - (void) youboraAdapterEventVideoEvent:(nullable NSDictionary *)params fromAdapter:(YBPlayerAdapter *) adapter {
     [self videoEventListener: params];
+}
+
+- (void) youboraAdapterEventVideoEventEnd:(nullable NSDictionary *)params fromAdapter:(YBPlayerAdapter *) adapter {
+    [self videoEventEndListener: params];
 }
 
 - (void) youboraAdapterEventStop:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter {

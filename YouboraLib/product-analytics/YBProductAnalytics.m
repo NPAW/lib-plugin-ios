@@ -125,6 +125,13 @@
 - (void) youboraAdapterEventVideoEvent:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter{}
 
 /**
+ * Adapter detected video event end
+ * @param params params to add to the request
+ * @param adapter the adapter that is firing the event
+ */
+- (void) youboraAdapterEventVideoEventEnd:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter{}
+
+/**
  * Adapter detected ad click
  * @param params params to add to the request
  * @param adapter the adapter that is firing the event

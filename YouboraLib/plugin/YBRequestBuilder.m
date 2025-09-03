@@ -301,7 +301,8 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraInfinity.sessionBeat: @[YBConstantsRequest.sessionMetrics],
                        YBConstantsYouboraInfinity.sessionEvent: @[YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.sessionEventEnd: @[YBConstantsRequest.navContext],
-                       YBConstantsYouboraInfinity.videoEvent: @[YBConstantsRequest.playhead]
+                       YBConstantsYouboraInfinity.videoEvent: @[YBConstantsRequest.playhead],
+                       YBConstantsYouboraInfinity.videoEventEnd: @[YBConstantsRequest.playhead]
             };
             
             youboraRequestParamsDifferent = @{YBConstantsYouboraService.join:     @[YBConstantsRequest.title, YBConstantsRequest.title2, YBConstantsRequest.live, YBConstantsRequest.mediaDuration, YBConstantsRequest.mediaResource],
