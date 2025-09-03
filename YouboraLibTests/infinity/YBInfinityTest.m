@@ -159,4 +159,29 @@
     XCTAssertTrue([valuesCaptor.value count] == 0);
 }
 
+- (void)testFireEventEndMethod {
+    YBPlugin *plugin = [[YBPlugin alloc] initWithOptions:nil];
+    id<YBInfinityDelegate> mockDelegate = mockProtocol(@protocol(YBInfinityDelegate));
+    
+    [plugin getInfinity].delegate = mockDelegate;
+    
+    [[plugin getInfinity] beginWithScreenName:@"Unknown"];
+    
+    XCTAssertTrue([plugin getInfinity].flags.started);
+    
+    HCArgumentCaptor * topLevelDimensionsCaptor = [HCArgumentCaptor new];
+    HCArgumentCaptor * dimensionsCaptor = [HCArgumentCaptor new];
+    HCArgumentCaptor * valuesCaptor = [HCArgumentCaptor new];
+    HCArgumentCaptor * eventNameCaptor = [HCArgumentCaptor new];
+    HCArgumentCaptor * hasEndDatetimeCaptor = [HCArgumentCaptor new];
+    
+    [[plugin getInfinity] fireEventEnd:@"Unknown" dimensions:nil values:nil topLevelDimensions:nil];
+    
+    [verifyCount(mockDelegate, times(1)) youboraInfinityEventEventWithDimensions:(id)dimensionsCaptor values:(id)valuesCaptor andEventName:(id)eventNameCaptor andTopLevelDimensions:(id)topLevelDimensionsCaptor andHasEndDatetime:(id)hasEndDatetimeCaptor];
+    
+    XCTAssertTrue([topLevelDimensionsCaptor.value count] == 0);
+    XCTAssertTrue([dimensionsCaptor.value count] == 0);
+    XCTAssertTrue([valuesCaptor.value count] == 0);
+}
+
 @end

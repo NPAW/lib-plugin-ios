@@ -300,6 +300,7 @@ static NSArray<NSString *> * youboraPingEntities;
                        YBConstantsYouboraInfinity.sessionNav: @[YBConstantsRequest.username, YBConstantsRequest.profileId, YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.sessionBeat: @[YBConstantsRequest.sessionMetrics],
                        YBConstantsYouboraInfinity.sessionEvent: @[YBConstantsRequest.navContext],
+                       YBConstantsYouboraInfinity.sessionEventEnd: @[YBConstantsRequest.navContext],
                        YBConstantsYouboraInfinity.videoEvent: @[YBConstantsRequest.playhead]
             };
             

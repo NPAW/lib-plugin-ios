@@ -267,6 +267,8 @@ import Foundation
     static public let sessionNav = "/infinity/session/nav"
     /** /infinity/session/event service **/
     static public let sessionEvent = "/infinity/session/event"
+    /** /infinity/session/event/stop service **/
+    static public let sessionEventEnd = "/infinity/session/event/stop"
     /** /infinity/session/beat service **/
     static public let sessionBeat = "/infinity/session/beat"
     /** /infinity/video/event service **/

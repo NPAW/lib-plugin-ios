@@ -95,6 +95,7 @@
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionStopListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionNavListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionEventListeners;
+@property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionEventEndListeners;
 @property(nonatomic, strong) NSMutableArray<YBWillSendRequestBlock> * willSendSessionBeatListeners;
 
 // Ad error variables
@@ -2321,6 +2322,12 @@
     [self.willSendSessionEventListeners addObject:listener];
 }
 
+- (void) addOnWillSendSessionEventEndListener:(YBWillSendRequestBlock) listener{
+    if(self.willSendSessionEventEndListeners == nil)
+        self.willSendSessionEventEndListeners = [NSMutableArray arrayWithCapacity:1];
+    [self.willSendSessionEventEndListeners addObject:listener];
+}
+
 - (void) addOnWillSendSessionNavListener:(YBWillSendRequestBlock) listener{
     if(self.willSendSessionNavListeners == nil)
         self.willSendSessionNavListeners = [NSMutableArray arrayWithCapacity:1];
@@ -2528,6 +2535,11 @@
 - (void) removeOnWillSendSessionEvent:(YBWillSendRequestBlock) listener {
     if (self.willSendSessionEventListeners != nil)
         [self.willSendSessionEventListeners removeObject:listener];
+}
+
+- (void) removeOnWillSendSessionEventEnd:(YBWillSendRequestBlock) listener {
+    if (self.willSendSessionEventEndListeners != nil)
+        [self.willSendSessionEventEndListeners removeObject:listener];
 }
 
 - (void) removeOnWillSendSessionBeat:(YBWillSendRequestBlock) listener {
@@ -3386,6 +3398,12 @@
     [YBLog notice:YBConstantsYouboraInfinity.sessionEvent];
 }
 
+- (void) sendSessionEventEnd:(NSDictionary<NSString *, NSString *> *) params{
+    NSMutableDictionary * mutParams = [self.requestBuilder buildParams:params forService: YBConstantsYouboraInfinity.sessionEventEnd ];
+    [self sendWithCallbacks:self.willSendSessionEventEndListeners service:YBConstantsYouboraInfinity.sessionEventEnd andParams:mutParams];
+    [YBLog notice:YBConstantsYouboraInfinity.sessionEventEnd];
+}
+
 - (bool) isLiveOrNotNullDuration {
     return [[self getIsLive] isEqualToValue:@YES]
     || ([[self getIsLive] isEqualToValue:@NO] && ![[self getDuration] isEqualToNumber:@(0)]);
@@ -3741,6 +3759,17 @@
     }
     
     [self sendSessionEvent:params];
+}
+
+- (void)youboraInfinityEventEventEndWithDimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values andEventName:(NSString *)eventName andTopLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions {
+    
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params addEntriesFromDictionary:topLevelDimensions];
+    params[@"dimensions"] = [YBYouboraUtils stringifyDictionary:dimensions];
+    params[@"values"] = [YBYouboraUtils stringifyDictionary:values];
+    params[@"name"] = eventName;
+    
+    [self sendSessionEventEnd:params];
 }
 
 - (BOOL) isExtraMetadataReady {
