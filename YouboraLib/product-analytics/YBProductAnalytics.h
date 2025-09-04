@@ -28,6 +28,7 @@
 
 - (id _Nonnull )init: (YBOptions * _Nonnull) options infinity: (YBInfinity * _Nonnull) infinity;
 - (void) initialize: (NSString * _Nonnull) screenName productAnalyticsSettings: (YBProductAnalyticsSettings * _Nonnull) productAnalyticsSettings;
+- (void) initialize: (NSString * _Nonnull) screenName productAnalyticsSettings: (YBProductAnalyticsSettings * _Nonnull) productAnalyticsSettings sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions;
 - (void) setInfinity: (YBInfinity * _Nonnull) infinity;
 - (void) destroy;
 
@@ -35,16 +36,20 @@
 - (void) adapterBeforeRemove;
 
 - (Boolean) newSession;
+- (Boolean) newSession: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions;
 - (Boolean) endSession;
+- (Boolean) endSession: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions;
 
 - (void) loginSuccessful: (nonnull NSString *) userId;
 - (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions;
 - (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
+- (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions;
 
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId;
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType;
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions;
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions;
 
 - (void) loginUnsuccessful;
 - (void) loginUnsuccessful: (nullable NSDictionary<NSString *, NSString *> *) dimensions;
@@ -52,7 +57,8 @@
 
 - (void) logout;
 - (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions;
-- (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metric;
+- (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
+- (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions;
 
 - (void) userProfileCreated: (nonnull NSString *) profileId;
 - (void) userProfileCreated: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType;
@@ -63,6 +69,7 @@
 - (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType;
 - (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions;
 - (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics;
+- (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions;
 
 - (void) userProfileDeleted: (nonnull NSString *) profileId;
 - (void) userProfileDeleted: (nonnull NSString *) profileId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions;
