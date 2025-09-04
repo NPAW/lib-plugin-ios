@@ -1,3 +1,16 @@
+## [6.7.23] - 2025-09-04
+### Added
+- [PROD-1331]
+  - App Analytics: add `hasEndDatetime` parameter to `fireEvent` method.
+  - App Analytics: ad `fireEventEnd` method.
+  - Video Analytics: add `hasEndDatetime` parameter to `fireEvent` method.
+  - Video Analytics: add `fireEventEnd` method.
+  - Product Analytics: add `hasEndDatetime` parameter to `trackEvent` method.
+  - Product Analytics: `trackNavByName` method now sets `hasEndDatetime = true`.
+- [PROD-1375]
+  - Product Analytics: `sessionDimensions` parameter to `initialize`, `newSession`, `loginSuccessful`, `logout` and `userProfileSelected` methods to be included in `session/start` events.
+  - Product Analytics: `sessionDimensions` parameter to `endSession` method to be included in `session/stop` events.
+  
 ## [6.7.22] - 2025-28-03
 ### Fixed
 - Tracking of offline plays by using microsecond precision for `viewCode` timestamps to prevent duplication.
