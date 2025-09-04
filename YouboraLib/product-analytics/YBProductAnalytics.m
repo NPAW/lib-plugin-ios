@@ -1674,7 +1674,7 @@ typedef enum {
   * @param searchQuery The search term entered by the user.
   */
 
-- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery{
+- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (nullable NSString *) searchQuery{
     [self trackSearchClick:section sectionOrder:sectionOrder column:column row:row contentId:contentId searchQuery:searchQuery dimensions:nil metrics:nil];
 }
 
@@ -1689,7 +1689,7 @@ typedef enum {
   * @param dimensions Dimensions to track
   */
 
-- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (nullable NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
     [self trackSearchClick:section sectionOrder:sectionOrder column:column row:row contentId:contentId searchQuery:searchQuery dimensions:dimensions metrics:nil];
 }
 
@@ -1705,7 +1705,7 @@ typedef enum {
   * @param metrics Metrics to track
   */
 
-- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (nullable NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
     if (column < 1) {
         [YBLog warn:@"Cannot track search click since column is invalid."];
