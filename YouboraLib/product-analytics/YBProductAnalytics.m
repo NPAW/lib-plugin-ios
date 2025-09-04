@@ -41,7 +41,7 @@
 /**
  * Adapter detected an adInit event
  * @param params params to add to the request
- * @param adapter the adapter taht is firing the event
+ * @param adapter the adapter that is firing the event
  */
 - (void) youboraAdapterEventAdInit:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter{}
 
@@ -144,7 +144,7 @@
  */
 - (void) youboraAdapterEventAdQuartile:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter{}
 
-/** Adapter deteccted a successful ad manifest request
+/** Adapter detected a successful ad manifest request
  * @param params params to add to the request
  * @param adapter the adapter that is firing the event
  */
@@ -1201,7 +1201,7 @@ typedef enum {
     } else if (row < 1) {
         [YBLog warn:@"Cannot track content highlight since row is invalid"];
     } else if (contentId == nil || contentId.length == 0) {
-        [YBLog warn:@"Cannot track content click since no contentId has been supplied."];
+        [YBLog warn:@"Cannot track content highlight since no contentId has been supplied."];
     } else if ([self checkState: @"track content highlight"]) {
 
         float interval = self._productAnalyticsSettings.highlightContentAfter / 1000.0;
@@ -1306,7 +1306,7 @@ typedef enum {
     if (section == nil || section.length == 0) {
         [YBLog warn:@"Cannot track content click since no section has been supplied."];
     } else if (sectionOrder < 1) {
-        [YBLog warn:@"Cannot track content click since no sectionOrder is invalid."];
+        [YBLog warn:@"Cannot track content click since sectionOrder is invalid."];
     } else if (column < 1) {
         [YBLog warn:@"Cannot track content click since column is invalid."];
     } else if (row < 1) {
