@@ -41,7 +41,7 @@
 /**
  * Adapter detected an adInit event
  * @param params params to add to the request
- * @param adapter the adapter taht is firing the event
+ * @param adapter the adapter that is firing the event
  */
 - (void) youboraAdapterEventAdInit:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter{}
 
@@ -151,7 +151,7 @@
  */
 - (void) youboraAdapterEventAdQuartile:(nullable NSDictionary *) params fromAdapter:(YBPlayerAdapter *) adapter{}
 
-/** Adapter deteccted a successful ad manifest request
+/** Adapter detected a successful ad manifest request
  * @param params params to add to the request
  * @param adapter the adapter that is firing the event
  */
@@ -345,6 +345,16 @@ typedef enum {
   * @param productAnalyticsSettings Configuration settings
   */
 - (void) initialize: (NSString *) screenName productAnalyticsSettings: (YBProductAnalyticsSettings *) productAnalyticsSettings{
+    [self initialize: screenName productAnalyticsSettings: productAnalyticsSettings sessionDimensions: nil];
+}
+
+/**
+  * Initializes product analytics
+  * @param screenName Name of the current screen
+  * @param productAnalyticsSettings Configuration settings
+  * @param sessionDimensions Dimensions to track in the session
+  */
+- (void) initialize: (NSString *) screenName productAnalyticsSettings: (YBProductAnalyticsSettings *) productAnalyticsSettings sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions{
 
     YBProductAnalyticsSettings * defaultSettings = [YBProductAnalyticsSettings new];
     
@@ -377,7 +387,7 @@ typedef enum {
 
     // Start session
     
-    [self newSession];
+    [self newSession: sessionDimensions];
 }
 
 /**
@@ -501,6 +511,16 @@ typedef enum {
   */
 
 - (Boolean) newSession {
+    return [self newSession: nil];
+}
+
+/**
+  * New user session
+  * @param sessionDimensions Dimensions to track in the session
+  * @return True if session start has been executed; false otherwise.
+  */
+
+- (Boolean) newSession: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions {
     Boolean executed = false;
 
     if ( !self._initialized ){
@@ -510,7 +530,7 @@ typedef enum {
     } else {
         [self._infinity end];
         // TODO: do we have to pass screenName as an argument or use its current value?
-        [self._infinity beginWithScreenName: self._screenName];
+        [self._infinity beginWithScreenName: self._screenName andDimensions: sessionDimensions];
         executed = true;
     }
     
@@ -523,6 +543,16 @@ typedef enum {
   */
 
 - (Boolean) endSession {
+    return [self endSession: nil];
+}
+
+/**
+  * Ends user session
+  * @param sessionDimensions Dimensions to track in the session
+  * @return True if session end has been executed; false otherwise.
+  */
+
+- (Boolean) endSession: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions {
     Boolean executed = false;
 
     if ( !self._initialized ){
@@ -530,7 +560,13 @@ typedef enum {
     } else if ( self._infinity == nil ){
         [YBLog warn: @"Cannot end session since infinity is unavailable."];
     } else {
-        [self._infinity end];
+        NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+
+        if (sessionDimensions != nil){
+            params[@"dimensions"] = [YBYouboraUtils stringifyDictionary:sessionDimensions];
+        }
+
+        [self._infinity end: params];
         executed = true;
     }
 
@@ -548,7 +584,7 @@ typedef enum {
  */
 
 - (void) loginSuccessful: (nonnull NSString *) userId {
-    [self loginSuccessful:userId dimensions:nil metrics:nil];
+    [self loginSuccessful:userId dimensions:nil metrics:nil sessionDimensions:nil];
 }
 
 /**
@@ -558,7 +594,7 @@ typedef enum {
  */
 
 - (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
-    [self loginSuccessful:userId dimensions:dimensions metrics:nil];
+    [self loginSuccessful:userId dimensions:dimensions metrics:nil sessionDimensions:nil];
 }
 
 /**
@@ -569,7 +605,18 @@ typedef enum {
  */
 
 - (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+    [self loginSuccessful:userId dimensions:dimensions metrics:metrics sessionDimensions:nil];
+}
 
+/**
+ * Login successful
+ * @param userId User identifier
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ * @param sessionDimensions Dimensions to track in the session
+ */
+
+- (void) loginSuccessful: (nonnull NSString *) userId dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions {
     if (userId == nil || userId.length == 0) {
         [YBLog warn: @"Cannot log in successfully since userId is unset."];
     } else if ([self checkState: @"log in successfully"]) {
@@ -580,7 +627,7 @@ typedef enum {
         // Set the userId option and close + open a new session
 
         [self setUserId:userId];
-        [self newSession];
+        [self newSession:sessionDimensions];
     }
 }
 
@@ -591,7 +638,7 @@ typedef enum {
  */
 
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId {
-    [self loginSuccessful:userId profileId:profileId profileType:nil dimensions:nil metrics:nil];
+    [self loginSuccessful:userId profileId:profileId profileType:nil dimensions:nil metrics:nil sessionDimensions:nil];
 }
 
 /**
@@ -602,7 +649,7 @@ typedef enum {
  */
 
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType{
-    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:nil metrics:nil];
+    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:nil metrics:nil sessionDimensions:nil];
 }
 
 /**
@@ -614,7 +661,7 @@ typedef enum {
  */
 
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
-    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:dimensions metrics:nil];
+    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:dimensions metrics:nil sessionDimensions:nil];
 }
 
 /**
@@ -627,6 +674,20 @@ typedef enum {
  */
 
 - (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+    [self loginSuccessful:userId profileId:profileId profileType:profileType dimensions:dimensions metrics:metrics sessionDimensions:nil];
+}
+
+/**
+ * Login successful
+ * @param userId User identifier
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ * @param sessionDimensions Dimensions to track in the session
+ */
+
+- (void) loginSuccessful: (nonnull NSString *) userId profileId: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions {
 
     if (userId == nil || userId.length == 0) {
         [YBLog warn: @"Cannot log in successfully since userId is unset."];
@@ -645,7 +706,7 @@ typedef enum {
 
         [self setUserId:userId];
         [self setProfileId:profileId];
-        [self newSession];
+        [self newSession:sessionDimensions];
     }
 }
 
@@ -706,7 +767,7 @@ typedef enum {
  */
 
 - (void) logout {
-    [self logout:nil metrics:nil];
+    [self logout:nil metrics:nil sessionDimensions:nil];
 }
 
 /**
@@ -715,7 +776,7 @@ typedef enum {
  */
 
 - (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
-    [self logout:dimensions metrics:nil];
+    [self logout:dimensions metrics:nil sessionDimensions:nil];
 }
 
 /**
@@ -725,6 +786,17 @@ typedef enum {
  */
 
 - (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+    [self logout:dimensions metrics:metrics sessionDimensions:nil];
+}
+
+/**
+ * Logout
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ * @param sessionDimensions Dimensions to track in the session
+ */
+
+- (void) logout: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions {
 
     if ([self checkState: @"log out"]) {
         // Send an event informing that we are closing the session
@@ -740,7 +812,7 @@ typedef enum {
 
         [self setUserId:nil];
         [self setProfileId:nil];
-        [self newSession];
+        [self newSession:sessionDimensions];
     }
 }
 
@@ -806,7 +878,7 @@ typedef enum {
  */
 
 - (void) userProfileSelected: (nonnull NSString *) profileId {
-    [self userProfileSelected:profileId profileType:nil dimensions:nil metrics:nil];
+    [self userProfileSelected:profileId profileType:nil dimensions:nil metrics:nil sessionDimensions:nil];
 }
 
 
@@ -817,7 +889,7 @@ typedef enum {
  */
 
 - (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType {
-    [self userProfileSelected:profileId profileType:profileType dimensions:nil metrics:nil];
+    [self userProfileSelected:profileId profileType:profileType dimensions:nil metrics:nil sessionDimensions:nil];
 }
 
 
@@ -829,7 +901,7 @@ typedef enum {
  */
 
 - (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions {
-    [self userProfileSelected:profileId profileType:profileType dimensions:dimensions metrics:nil];
+    [self userProfileSelected:profileId profileType:profileType dimensions:dimensions metrics:nil sessionDimensions:nil];
 }
 
 /**
@@ -841,6 +913,19 @@ typedef enum {
  */
 
 - (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics {
+    [self userProfileSelected:profileId profileType:profileType dimensions:dimensions metrics:metrics sessionDimensions:nil];
+}
+
+/**
+ * Select user profile
+ * @param profileId Profile identifier
+ * @param profileType Profile type
+ * @param dimensions Dimensions to track
+ * @param metrics Metrics to track
+ * @param sessionDimensions Dimensions to track in the session 
+ */
+
+- (void) userProfileSelected: (nonnull NSString *) profileId profileType: (nullable NSString *) profileType dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics sessionDimensions: (nullable NSDictionary<NSString *, NSString *> *) sessionDimensions  {
 
     if (profileId == nil || profileId.length == 0) {
         [YBLog warn: @"Cannot select user profile since profileId is unset."];
@@ -852,7 +937,7 @@ typedef enum {
         // Set the profileId option and close + open a new session
 
         [self setProfileId:profileId];
-        [self newSession];
+        [self newSession:sessionDimensions];
     }
 }
 
@@ -1211,7 +1296,7 @@ typedef enum {
     } else if (row < 1) {
         [YBLog warn:@"Cannot track content highlight since row is invalid"];
     } else if (contentId == nil || contentId.length == 0) {
-        [YBLog warn:@"Cannot track content click since no contentId has been supplied."];
+        [YBLog warn:@"Cannot track content highlight since no contentId has been supplied."];
     } else if ([self checkState: @"track content highlight"]) {
 
         float interval = self._productAnalyticsSettings.highlightContentAfter / 1000.0;
@@ -1316,7 +1401,7 @@ typedef enum {
     if (section == nil || section.length == 0) {
         [YBLog warn:@"Cannot track content click since no section has been supplied."];
     } else if (sectionOrder < 1) {
-        [YBLog warn:@"Cannot track content click since no sectionOrder is invalid."];
+        [YBLog warn:@"Cannot track content click since sectionOrder is invalid."];
     } else if (column < 1) {
         [YBLog warn:@"Cannot track content click since column is invalid."];
     } else if (row < 1) {
@@ -1684,7 +1769,7 @@ typedef enum {
   * @param searchQuery The search term entered by the user.
   */
 
-- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery{
+- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (nullable NSString *) searchQuery{
     [self trackSearchClick:section sectionOrder:sectionOrder column:column row:row contentId:contentId searchQuery:searchQuery dimensions:nil metrics:nil];
 }
 
@@ -1699,7 +1784,7 @@ typedef enum {
   * @param dimensions Dimensions to track
   */
 
-- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
+- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (nullable NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions{
     [self trackSearchClick:section sectionOrder:sectionOrder column:column row:row contentId:contentId searchQuery:searchQuery dimensions:dimensions metrics:nil];
 }
 
@@ -1715,7 +1800,7 @@ typedef enum {
   * @param metrics Metrics to track
   */
 
-- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
+- (void) trackSearchClick: (nonnull NSString *) section sectionOrder: (NSInteger) sectionOrder column: (NSInteger) column row: (NSInteger) row contentId: (nonnull NSString *) contentId searchQuery: (nullable NSString *) searchQuery dimensions: (nullable NSDictionary<NSString *, NSString *> *) dimensions metrics: (nullable NSDictionary<NSString *, NSNumber *> *) metrics{
 
     if (column < 1) {
         [YBLog warn:@"Cannot track search click since column is invalid."];
