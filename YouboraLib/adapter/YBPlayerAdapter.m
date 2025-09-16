@@ -520,6 +520,33 @@
 }
 
 - (void)fireEventWithName:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values topLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions {
+    [self fireEventWithName:eventName dimensions:dimensions values:values topLevelDimensions:topLevelDimensions hasEndDatetime: false];
+}
+
+- (void)fireEventWithName:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values topLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions hasEndDatetime:(Boolean)hasEndDatetime {
+    if (self.flags.started) {
+        eventName = eventName == nil || [eventName isEqualToString:@""] ? @"" : eventName; //Empty string, will get ignored by the backend
+        dimensions = dimensions == nil ? @{} : dimensions;
+        values = values == nil ? @{} : values;
+        topLevelDimensions = topLevelDimensions == nil ? @{} : topLevelDimensions;
+        
+        NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+        [params addEntriesFromDictionary:topLevelDimensions];
+        params[@"dimensions"] = dimensions;
+        params[@"values"] = values;
+        params[@"name"] = eventName;
+
+        if (hasEndDatetime){
+            params[@"hasEndDatetime"] = @"true";
+        }
+        
+        for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
+            [delegate youboraAdapterEventVideoEvent:params fromAdapter:self];
+        }
+    }
+}
+
+- (void)fireEventEndWithName:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values topLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions {
     if (self.flags.started) {
         eventName = eventName == nil || [eventName isEqualToString:@""] ? @"" : eventName; //Empty string, will get ignored by the backend
         dimensions = dimensions == nil ? @{} : dimensions;
@@ -533,7 +560,7 @@
         params[@"name"] = eventName;
         
         for (id<YBPlayerAdapterEventDelegate> delegate in self.eventDelegates) {
-            [delegate youboraAdapterEventVideoEvent:params fromAdapter:self];
+            [delegate youboraAdapterEventVideoEventEnd:params fromAdapter:self];
         }
     }
 }

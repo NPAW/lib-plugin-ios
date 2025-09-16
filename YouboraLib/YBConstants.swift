@@ -267,10 +267,14 @@ import Foundation
     static public let sessionNav = "/infinity/session/nav"
     /** /infinity/session/event service **/
     static public let sessionEvent = "/infinity/session/event"
+    /** /infinity/session/event/stop service **/
+    static public let sessionEventEnd = "/infinity/session/event/stop"
     /** /infinity/session/beat service **/
     static public let sessionBeat = "/infinity/session/beat"
     /** /infinity/video/event service **/
     static public let videoEvent = "/infinity/video/event"
+    /** /infinity/video/event/stop service **/
+    static public let videoEventEnd = "/infinity/video/event/stop"
 }
 
 // Infinity service YBConstants
@@ -292,7 +296,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.7.22"
+    static public var youboraLibVersion = "6.7.23"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"

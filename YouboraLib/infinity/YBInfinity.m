@@ -63,6 +63,10 @@
 }
 
 - (void)fireEvent:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values topLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions {
+    [self fireEvent:eventName dimensions:dimensions values:values topLevelDimensions:topLevelDimensions hasEndDatetime: false];
+}
+
+- (void)fireEvent:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values topLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions hasEndDatetime:(Boolean) hasEndDatetime {
     if (dimensions == nil) {
         dimensions = @{};
     }
@@ -80,7 +84,29 @@
     }
     
     if (self.delegate) {
-        [self.delegate youboraInfinityEventEventWithDimensions:dimensions values:values andEventName:eventName andTopLevelDimensions:topLevelDimensions];
+        [self.delegate youboraInfinityEventEventWithDimensions:dimensions values:values andEventName:eventName andTopLevelDimensions:topLevelDimensions andHasEndDatetime: hasEndDatetime];
+    }
+}
+
+- (void)fireEventEnd:(NSString *)eventName dimensions:(NSDictionary<NSString *,NSString *> *)dimensions values:(NSDictionary<NSString *,NSNumber *> *)values topLevelDimensions:(NSDictionary<NSString *,NSString *> *)topLevelDimensions {
+    if (dimensions == nil) {
+        dimensions = @{};
+    }
+    
+    if (values == nil) {
+        values = @{};
+    }
+    
+    if (eventName == nil || eventName.length == 0) {
+        eventName = @"Unknown";
+    }
+    
+    if (topLevelDimensions == nil) {
+        topLevelDimensions = @{};
+    }
+    
+    if (self.delegate) {
+        [self.delegate youboraInfinityEventEventEndWithDimensions:dimensions values:values andEventName:eventName andTopLevelDimensions:topLevelDimensions];
     }
 }
 
