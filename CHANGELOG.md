@@ -1,3 +1,7 @@
+## [6.7.24] - 2025-10-17
+### Updated
+- Added support for 2025 iPhone models, including iPhone 17, 17 Pro, 17 Pro Max, and iPhone Air.
+
 ## [6.7.23] - 2025-09-04
 ### Added
 - [PROD-1331]

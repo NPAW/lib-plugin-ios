@@ -296,7 +296,7 @@ import Foundation
     static public let jsInjectionSessionRootNotification = "jsInjectionSessionRootNotification"
     
     // Lib version
-    static public var youboraLibVersion = "6.7.23"
+    static public var youboraLibVersion = "6.7.24"
     
     static public let preferencesSessionIdKey = "session_id"
     static public let preferencesContextKey = "context_id"
@@ -359,6 +359,10 @@ import Foundation
             "iPhone17,2": "iPhone 16 Pro Max",
             "iPhone17,3": "iPhone 16",
             "iPhone17,4": "iPhone 16 Plus",
+            "iPhone18,1": "iPhone 17 Pro",
+            "iPhone18,2": "iPhone 17 Pro Max",
+            "iPhone18,3": "iPhone 17",
+            "iPhone18,4": "iPhone Air",
             
             "iPad2,5": "iPad Mini",         // (Original)
             "iPad3,4": "iPad",              // (4th Generation)
